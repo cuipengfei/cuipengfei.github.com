@@ -1,0 +1,9 @@
+---
+layout: post
+title: "测试"
+date: 2013-03-04 20:27
+comments: true
+categories: 
+---
+
+测试发布文章
