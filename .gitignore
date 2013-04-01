@@ -11,3 +11,7 @@ source/_stash
 source/stylesheets/screen.css
 vendor
 node_modules
+
+.idea/libraries/sass_stdlib.xml
+
+.idea/workspace.xml
