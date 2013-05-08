@@ -6,7 +6,7 @@ comments: true
 categories: 
 ---
 
-Scala可以编译为Java ByteCode和CIL，从而在JVM和CLI之上运行。Scala有很多不同于Java和C#的语言特性，本文将分析这些语言特性都是如何实现的。
+Scala可以编译为Java ByteCode和CIL，从而在JVM和CLI之上运行。Scala有很多在Java和C#的世界中显得陌生的语言特性，本文将分析这些语言特性都是如何实现的。
 
 ##object
 
@@ -20,7 +20,7 @@ object HowIsObjectImplementedInScala {
 }
 ```
 然后在代码的其他地方随意调用printSomething，一个object究竟是什么东西呢？
-我们将这段Scala编译为Java ByteCode，然后反编译为Java，会发现HowIsObjectImplementedInScala这个object会产生两个类：
+我们将这段Scala编译为Java ByteCode，然后反编译为Java，会发现编译器为HowIsObjectImplementedInScala这个object生成了两个类：
 
 ```java
 public final class HowIsObjectImplementedInScala
@@ -86,3 +86,96 @@ public sealed class HowIsObjectImplementedInScala$ : ScalaObject
 ```
 
 和Java代码大同小异，除了静态构造和某几个关键字外，基本一样。
+小结：一个object就是一个Scala编译器帮我们实现的singleton。
+
+##var和val
+
+var：可变。val：不可变。关于这两个关键字何时该使用哪一个，这里不做讨论，我们只是观察这二者在编译后是如何被表示的。
+
+这段Scala代码：
+```scala
+class HowAreVarAndValImplementedInScala {
+  var v1 = 123
+  val v2 = 456
+
+  def method1() = {
+    var v3 = 123
+    val v4 = 456
+    println(v3 + v4)
+  }
+}
+```
+
+定义了两个字段一个var，一个val，方法中定义了两个局部变量，一个var，一个val。
+
+编译为Java ByteCode并反编译之后：
+
+```java
+public class HowAreVarAndValImplementedInScala
+{
+  private int v1 = 123;
+  private final int v2 = 456;
+
+  public int v1()
+  {
+    return this.v1; 
+  }
+
+  public void v1_$eq(int x$1) { this.v1 = x$1; } 
+  
+  public int v2() { return this.v2; }
+
+  public void method1() {
+    int v3 = 123;
+    int v4 = 456;
+    Predef..MODULE$.println(BoxesRunTime.boxToInteger(v3 + v4));
+  }
+}
+```
+
+声明为字段的v1和v2，一个是普通字段，另一个则被标记为final。编译器为v1生成了getter和setter，为v2则只有getter，因为v2作为immutable的字段是不可以被重新赋值的。
+
+有趣的是方法中的局部变量都是普通的变量，没有被final修饰。
+
+再来看这段Scala编译为CIL再反编译为C#之后的样子：
+
+```c#
+public class HowAreVarAndValImplementedInScala : ScalaObject
+{
+  private int v1;
+  private int v2;
+
+  public override int v1()
+  {
+    return this.v1;
+  }
+
+  public override void v1_$eq(int x$1)
+  {
+    this.v1 = x$1;
+  }
+
+  public override int v2()
+  {
+    return this.v2;
+  }
+
+  public override void method1()
+  {
+    int v3 = 123;
+    int v4 = 456;
+    Predef$.MODULE$.println(v3 + v4);
+  }
+
+  public HowAreVarAndValImplementedInScala()
+  {
+    this.v1 = 123;
+    this.v2 = 456;
+  }
+}
+```
+
+有一个明显的问题，v2没有标为readonly（C#世界中用于声明变量不可以重新赋值的关键字），这是compiler的bug吗？
+
+除此之外，和Java代码一致。但是有趣的是代码中的所有public方法（包括上一段演示object的代码）都被标为了override，原因不明。
+
