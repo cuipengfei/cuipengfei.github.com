@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "Scala中的语言特性是如何实现的"
+title: "Scala中的语言特性是如何实现的(1)"
 date: 2013-05-05 22:02
 comments: true
 categories: 
 ---
 
-Scala可以编译为Java ByteCode和CIL，从而在JVM和CLI之上运行。Scala有很多在Java和C#的世界中显得陌生的语言特性，本文将分析这些语言特性都是如何实现的。
+Scala可以编译为Java bytecode和CIL，从而在JVM和CLI之上运行。Scala有很多在Java和C#的世界中显得陌生的语言特性，本文将分析这些语言特性是如何实现的。
 
 ##object
 
@@ -19,8 +19,8 @@ object HowIsObjectImplementedInScala {
   }
 }
 ```
-然后在代码的其他地方随意调用printSomething，一个object究竟是什么东西呢？
-我们将这段Scala编译为Java ByteCode，然后反编译为Java，会发现编译器为HowIsObjectImplementedInScala这个object生成了两个类：
+然后在代码的其他地方调用printSomething，一个object究竟是什么东西呢？
+我们将这段Scala编译为Java bytecode，然后反编译为Java，会发现编译器为HowIsObjectImplementedInScala这个object生成了两个类：
 
 ```java
 public final class HowIsObjectImplementedInScala
@@ -85,8 +85,7 @@ public sealed class HowIsObjectImplementedInScala$ : ScalaObject
 }
 ```
 
-和Java代码大同小异，除了静态构造和某几个关键字外，基本一样。
-小结：一个object就是一个Scala编译器帮我们实现的singleton。
+和Java代码大同小异，除了静态构造和某几个关键字外，基本一样。一个object就是一个Scala编译器帮我们实现的singleton。
 
 ##var和val
 
@@ -108,7 +107,7 @@ class HowAreVarAndValImplementedInScala {
 
 定义了两个字段一个var，一个val，方法中定义了两个局部变量，一个var，一个val。
 
-编译为Java ByteCode并反编译之后：
+编译为Java bytecode并反编译之后：
 
 ```java
 public class HowAreVarAndValImplementedInScala
@@ -179,3 +178,14 @@ public class HowAreVarAndValImplementedInScala : ScalaObject
 
 除此之外，和Java代码一致。但是有趣的是代码中的所有public方法（包括上一段演示object的代码）都被标为了override，原因不明。
 
+##小结
+
+本来以为研究这么简单的两个语言特性不会有啥收获，仅仅是反编译一下，看看compiler都做了啥，满足下好奇心罢了。
+
+结果还是有意外收获，我在反编译后的代码中发现了三个有趣的问题：
+
+* 在Scala中被声明为val的v4为什么在反编译的Java中不是final的呢？
+* 在Scala中被声明为val的v2为什么在反编译的C#中不是readonly的呢？
+* 为什么反编译出来的C#代码中的实例级公开方法都是标有override的呢？
+
+为什么呢？为什么呢？为什么呢？答案下期揭晓。
