@@ -4,7 +4,7 @@
 
 url: http://cuipengfei.github.com
 title: 崔鹏飞的Octopress Blog
-subtitle: A blogging framework for suckers.
+subtitle:
 author: 崔鹏飞
 simple_search: http://google.com/search
 description:
@@ -93,7 +93,7 @@ disqus_short_name: cuipengfeioctopressblog
 disqus_show_comment_count: true
 
 # Google Analytics
-google_analytics_tracking_id:
+google_analytics_tracking_id: UA-46270419-1
 
 # Facebook Like
 facebook_like: true
