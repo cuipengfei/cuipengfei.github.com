@@ -3,8 +3,14 @@
   <component name="CompassSettings">
     <option name="compassExecutableFilePath" value="/usr/local/rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/bin/compass" />
     <option name="compassSupportEnabled" value="true" />
+    <option name="importPaths">
+      <list>
+        <option value="/usr/local/rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/blueprint/stylesheets" />
+        <option value="/usr/local/rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets" />
+      </list>
+    </option>
   </component>
-  <component name="NewModuleRootManager">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -35,6 +41,7 @@
     <orderEntry type="library" scope="PROVIDED" name="syntax (v1.0.0, ruby-1.9.3-p194) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tilt (v1.3.3, ruby-1.9.3-p194) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="yajl-ruby (v1.1.0, ruby-1.9.3-p194) [gem]" level="application" />
+    <orderEntry type="library" name="compass-library" level="project" />
   </component>
 </module>
 
