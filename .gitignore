@@ -18,3 +18,7 @@ node_modules
 
 source/_posts/New Text Document.cs
 
+.idea/compiler.xml
+.idea/copyright/
+.idea/libraries/
+source/_layouts/.idea/
