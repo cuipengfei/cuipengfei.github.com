@@ -1,1 +1,2116 @@
-My Octopress Page is coming soon &hellip;
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>崔鹏飞的Octopress Blog</title>
+  <meta name="author" content="崔鹏飞">
+
+  
+  <meta name="description" content="Scala里的for关键字是个很有趣的东西。可以用来把多层嵌套for循环写成一层。比如这样： 1
+for(i&lt;-1 to 10;j&lt;-1 to 10;k&lt;-1 to 10) yield(s&quot;$i $j $k&quot;) 这行代码执行的结果是这样的： 1
+2
+3
+4
+5 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://cuipengfei.github.com/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="崔鹏飞的Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-46270419-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">崔鹏飞的Octopress Blog</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:cuipengfei.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/08/30/options-for/">Desugar Scala(17) &#8211; Option和for</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-30T11:36:00+08:00" pubdate data-updated="true">Aug 30<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/08/30/options-for/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Scala里的for关键字是个很有趣的东西。可以用来把多层嵌套for循环写成一层。比如这样：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">for</span><span class="o">(</span><span class="n">i</span><span class="k">&lt;-</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span><span class="o">;</span><span class="n">j</span><span class="k">&lt;-</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span><span class="o">;</span><span class="n">k</span><span class="k">&lt;-</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span><span class="o">)</span> <span class="k">yield</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;$i $j $k&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这行代码执行的结果是这样的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">3</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">4</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">5</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">6</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">7</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">8</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">9</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">10</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">4</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">5</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">6</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">7</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">8</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">9</span>
+</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">10</span>
+</span><span class='line'><span class="o">......</span>
+</span><span class='line'><span class="o">......</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样，就可以用一行代码写出三层循环的效果。代码看起来非常紧凑，噪音很少。</p>
+
+<p>但是今天主要要说的不是这种for，而是它和Option结合的写法。</p>
+
+<p>Option本身是一个抽象类，代表一个可能存在，也可能不存在的值（那谁谁的喵？）。它有两个实现类，分别是Some和None。顾名思义，Some代表有值，None代表没有。</p>
+
+<p>实际上，上面的说法不够准确，Some是一个实现类，而None实际是一个单例，不过这点对后面的内容没影响。</p>
+
+<p>现在设想一个很简单的场景，需要用单价和数量来算总价，而单价和数量未必拿得到，那代码大概会是这样的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">def</span> <span class="n">calculateTotal</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">price</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">getPrice</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">amount</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">getAmount</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">price</span><span class="o">.</span><span class="n">isEmpty</span> <span class="o">||</span> <span class="n">amount</span><span class="o">.</span><span class="n">isEmpty</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="nc">None</span>
+</span><span class='line'>    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span><span class='line'>      <span class="nc">Some</span><span class="o">(</span><span class="n">price</span><span class="o">.</span><span class="n">get</span> <span class="o">*</span> <span class="n">amount</span><span class="o">.</span><span class="n">get</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>getPrice和getAmount都返回一个Option[Int]，就类似Java中Integer可以为null一样。计算出来的总价也是一个Option[Int]，说不定会有，也说不定没有。</p>
+
+<p>在这段代码中先检查单价和数量是否存在，如果二者中任意一个不存在，那就返回None，代表无法求得总价。如果二者都存在，那就将二者的乘积用Some包起来返回。</p>
+
+<p>这代码看起来还ok，很常规的写法，但是稍显啰嗦。如果用上for的话，可以大大简化这段代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">def</span> <span class="n">calculateTotalWithFor</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">for</span> <span class="o">(</span><span class="n">price</span> <span class="k">&lt;-</span> <span class="n">getPrice</span><span class="o">;</span> <span class="n">amount</span> <span class="k">&lt;-</span> <span class="n">getAmount</span><span class="o">)</span> <span class="k">yield</span> <span class="n">price</span> <span class="o">*</span> <span class="n">amount</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个方法体只有一行了，而它实现出来的行为和上面那段代码是完全一致的。</p>
+
+<p>这感觉好神奇啊，不用判断价格和数量是否存在，也不需要根据判断结果决定到底返回None还是Some。它是怎么搞的呢？</p>
+
+<p>看一下反编译的结果吧：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="n">Option</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="nf">calculateTotalWithFor</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">getPrice</span><span class="o">().</span><span class="na">flatMap</span><span class="o">(</span><span class="k">new</span> <span class="n">AbstractFunction1</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kd">public</span> <span class="kd">final</span> <span class="n">Option</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="nf">apply</span><span class="o">(</span><span class="kd">final</span> <span class="kt">int</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="n">OptionAndFor</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">account</span><span class="n">$of$OptionAndFor$$getAmount</span><span class="o">().</span><span class="na">map</span><span class="o">(</span><span class="k">new</span> <span class="n">AbstractFunction1</span><span class="o">.</span><span class="na">mcII</span><span class="o">.</span><span class="na">sp</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>                <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">price$1</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">apply</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                    <span class="k">return</span> <span class="n">apply$mcII$sp</span><span class="o">(</span><span class="n">amount</span><span class="o">);</span>
+</span><span class='line'>                <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="kd">public</span> <span class="kt">int</span> <span class="n">apply$mcII$sp</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                    <span class="k">return</span> <span class="n">price</span> <span class="o">*</span> <span class="n">amount</span><span class="o">;</span>
+</span><span class='line'>                <span class="o">}</span>
+</span><span class='line'>            <span class="o">});</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">});</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个反编译的结果很不好读，不过还是可以看出个大概。它先是对getPrice的返回值调用了flatMap，给其传入一个匿名函数（AbstractFunction1），在这个匿名函数里面又对getAmount的返回值调用了map，也给其传入了一个匿名函数，再在这第二层匿名函数里做了乘法运算。</p>
+
+<p>如果用Scala把它表达出来，是这样的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">def</span> <span class="n">calculateTotalWithFlatMapAndMap</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">getPrice</span><span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">price</span> <span class="k">=&gt;</span> <span class="n">getAmount</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">amount</span> <span class="k">=&gt;</span> <span class="n">amount</span> <span class="o">*</span> <span class="n">price</span><span class="o">))</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>由此可见，上面使用for的代码的神奇之处在于它利用了Option的flatMap和map方法。</p>
+
+<p>这两个方法具有一个共同特征：如果被调用flatMap或者map的当前Option实例为None的话，则忽略传入的匿名函数，直接返回None。</p>
+
+<p>这很容易理解，要参与运算的成员之一已经是None了，那就不用管剩下的成员到底是啥了，它随便是啥，最终的计算结果都会是None。这和最初写出的用 || 运算符的代码的逻辑是一致的。</p>
+
+<p>到此为止，我们给Option和for的结合使用脱光了衣服，它就是利用Option的flatMap和map来实现紧凑的代码的。</p>
+
+<h3>神奇之处不仅在于更短的代码，还在于它提高了信噪比，给我们提供了更加简化的思考模型</h3>
+
+<p>最初那段用if else的代码，在写它或者读它的时候，我们的脑子里面发生了什么呢？</p>
+
+<pre><code>1. 要获取价格和数量
+2. 要判断价格是否为空，要判断数量是否为空        （与业务关联较小，属于技术范畴）
+3. 如果任意一个为空，结果是空                 （与业务关联较小，属于技术范畴）
+4. 如果两个都不是空，再做乘法运算
+</code></pre>
+
+<p>而在写或者读用for的那段代码的时候，脑子里又是怎么想的呢？</p>
+
+<pre><code>1. 获取价格和数量
+2. 做乘法运算
+</code></pre>
+
+<p>我们写这段代码的目的是要表述业务逻辑，是要给未来读代码的人传递和业务相关的信息。</p>
+
+<p>而空值判断是偏技术的，把这种代码消掉，我们传递给其他程序员的信息里就含有更少的与业务无关的噪音。而且我们自己写起来的时候，脑子里也不需要考虑那么多的东西。</p>
+
+<p>对自己，对他人都有利。这实在是一个美妙的语言特性。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/08/10/da-li/">大理</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-10T20:38:00+08:00" pubdate data-updated="true">Aug 10<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/08/10/da-li/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>昆明机场，等待去大理的飞机</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1ej7t5jg23zj20hs0nu0wt.jpg" width="800" alt="：）" /></p>
+
+<p>下了飞机，出租车上，窗外有云，和蓝天</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7t5lh0jvj21w02io1ky.jpg" width="800" alt="：）" /></p>
+
+<p>第二天早上，帮校长画墙</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7t6vgeh4j20f20qowfs.jpg" width="800" alt="：）" /></p>
+
+<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7t6umefgj20qo0f23zj.jpg" width="800" alt="：）" /></p>
+
+<p>王鹏和顺子也在画</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7t5ohwv6j21w02ioe82.jpg" width="800" alt="：）" /></p>
+
+<p>去环绕洱海</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1ej7t5rds9nj22io1w0x6p.jpg" width="1200" alt="：）" /></p>
+
+<p>视野开阔，水面如镜</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7t5tphlyj22io1w0kjl.jpg" width="1200" alt="：）" /></p>
+
+<p>云，与水，与山</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7t5vwmxkj22io1w0kjl.jpg" width="1200" alt="：）" /></p>
+
+<p>云诡</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7t5yjz3ij22io1w0kjl.jpg" width="1200" alt="：）" /></p>
+
+<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7t677ddmj22io1w0u0x.jpg" width="1200" alt="：）" /></p>
+
+<p>无尽的路</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7t6cjok0j21w02io7wi.jpg" width="1200" alt="：）" /></p>
+
+<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7t6ouqxcj22io1w04qq.jpg" width="1200" alt="：）" /></p>
+
+<p>你是一株什么植物？</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7t6ilxm1j22io1w0b2a.jpg" width="1200" alt="：）" /></p>
+
+<p>你又是一簇什么花？</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7t6lishyj22io1w0x6p.jpg" width="1200" alt="：）" /></p>
+
+<p>晚上回来，墙画好了</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7twb68w8j20np0hsdh6.jpg" width="1200" alt="：）" /></p>
+
+<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7twfj2qfj20np0hs76x.jpg" width="1200" alt="：）" /></p>
+
+<p>大门口也颇有点样子了</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7twdzj0gj20np0hs76v.jpg" width="1200" alt="：）" /></p>
+
+<p>晒出一条麒麟臂</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7t6tr10gj20qo0zkgya.jpg" width="1200" alt="：）" /></p>
+
+<p>你是谁家的狗？</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7t6xx53lj21w02iou0x.jpg" width="1200" alt="：）" /></p>
+
+<p>为什么一到饭点就来？</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7t70jalbj22io1w0npd.jpg" width="1200" alt="：）" /></p>
+
+<p>扎染的布，不需要买一匹</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7t740ay1j22io1w0kjm.jpg" width="1200" alt="：）" /></p>
+
+<p>走，去喝酒</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7tb6qowij20qo0f0dgu.jpg" width="1200" alt="：）" /></p>
+
+<p>尼玛，为什么这么悲壮？</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1ej7tb7fs00j20qo0f0ta4.jpg" width="1200" alt="：）" /></p>
+
+<p>洱海门下听歌</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7tb8ywj6j20qo0f00u6.jpg" width="1200" alt="：）" /></p>
+
+<p>被雨困住走不了</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7tb9y5zbj20qo0f0abc.jpg" width="1200" alt="：）" /></p>
+
+<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7tbb7rv4j20qo0k076g.jpg" width="1200" alt="：）" /></p>
+
+<p>时间的轨迹变得模糊，不记得这是哪天晚上，大家在画墙</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1ej7t74us92j20hs0nujup.jpg" width="800" alt="：）" /></p>
+
+<p>燕子来了，走，我们再去一次洱海</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7tbhdshdj20hs0d9dgm.jpg" width="800" alt="：）" /></p>
+
+<p>Kratos ！ ！ ！</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7tbi2kq4j20hs0d9mxy.jpg" width="800" alt="：）" /></p>
+
+<p>大家都骑的自行车，是的</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7tbc1njnj20hs0dc0to.jpg" width="800" alt="：）" /></p>
+
+<p>停车拍照</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1ej7tbjyfjgj20hs0npmyw.jpg" width="800" alt="：）" /></p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/8b1ece2agw1ej7tbj3z0mj20hs0dc0tz.jpg" width="800" alt="：）" /></p>
+
+<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1ej7t7xldcyj22io1w0x6p.jpg" width="800" alt="：）" /></p>
+
+<p>又是波谲云诡
+<a href="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7t99kua8j28c01ss4qv.jpg" target="_blank">点击看大图</a></p>
+
+<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7t99kua8j28c01ss4qv.jpg" width="4000" alt="：）" /></p>
+
+<p>又是无尽的路</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7t9nv70uj22io1w0u0x.jpg" width="1200" alt="：）" /></p>
+
+<p>无尽的路全景
+<a href="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7taa5gkrj28c01ssx6v.jpg" target="_blank">点击看大图</a></p>
+
+<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7taa5gkrj28c01ssx6v.jpg" width="4000" alt="：）" /></p>
+
+<p>左手山，右手水
+<a href="http://ww2.sinaimg.cn/large/8b1ece2agw1ej7tatvzpgj28c01ssb2g.jpg" target="_blank">点击看大图</a></p>
+
+<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1ej7tatvzpgj28c01ssb2g.jpg" width="4000" alt="：）" /></p>
+
+<p>这是我们当天的队伍</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7tb640cfj20hs0d9js4.jpg" width="800" alt="：）" /></p>
+
+<p>下午累了，吃蛋炒饭。我的索马里海盗造型。</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7tb496o3j20hs0nuafg.jpg" width="800" alt="：）" /></p>
+
+<p>脚蹬子掉了，海盗修车</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1ej7tb55t2mj20hs0dgab4.jpg" width="800" alt="：）" /></p>
+
+<p>这是哪天的饭？</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7tbglwrxj20k00qodjf.jpg" width="800" alt="：）" /></p>
+
+<p>翻墙</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7tcodq6nj20qo0f275v.jpg" width="800" alt="：）" /></p>
+
+<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1ej7tcmilqjj20qo0f2jsp.jpg" width="800" alt="：）" /></p>
+
+<p>降魔杵</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7vgwbjczj20k00qodj2.jpg" width="800" alt="：）" /></p>
+
+<p>寺外全景
+<a href="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7tc6hvxsj28c01ssu12.jpg" target="_blank">点击看大图</a></p>
+
+<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7tc6hvxsj28c01ssu12.jpg" width="800" alt="：）" /></p>
+
+<p><a href="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7tbxyah7j28c01ssqvc.jpg" target="_blank">点击看大图</a></p>
+
+<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7tbxyah7j28c01ssqvc.jpg" width="800" alt="：）" /></p>
+
+<p>此为何物？</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7vgyuar9j20k00qo0ww.jpg" width="800" alt="：）" /></p>
+
+<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7vgxhsk3j20qo0k00u8.jpg" width="800" alt="：）" /></p>
+
+<p>我要撤了，大家包饺子</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw690/8b1ece2agw1ej7tcgqk6lj20dc09zaac.jpg" width="600" alt="：）" /></p>
+
+<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7tchgeihj209y0dcmxl.jpg" width="400" alt="：）" /></p>
+
+<p><img src="http://ww1.sinaimg.cn/mw690/8b1ece2agw1ej7tciado3j209y0dcmxd.jpg" width="400" alt="：）" /></p>
+
+<p><img src="http://ww4.sinaimg.cn/mw690/8b1ece2agw1ej7tcjbj5cj20hs0nsdgw.jpg" width="600" alt="：）" /></p>
+
+<p>合影</p>
+
+<p><img src="http://ww1.sinaimg.cn/mw690/8b1ece2agw1ej7tcbixf4j20f00qowgu.jpg" width="600" alt="：）" /></p>
+
+<p>再见！</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7tceiarqj22io1w0x6p.jpg" width="1000" alt="：）" /></p>
+
+<p>我走之后棚子搭好了</p>
+
+<p><img src="http://ww1.sinaimg.cn/mw690/8b1ece2agw1ej7vgv5561j20qo0k0adm.jpg" width="600" alt="：）" /></p>
+
+<p><img src="http://ww1.sinaimg.cn/mw690/8b1ece2agw1ej7vgt5k59j20qo0k0di4.jpg" width="600" alt="：）" /></p>
+
+<p>大家还在一起吃饭</p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/8b1ece2agw1ej7tckandsj20qo0f00ua.jpg" width="600" alt="：）" /></p>
+
+<p><img src="http://ww4.sinaimg.cn/mw690/8b1ece2agw1ej7tcl911qj20qo0f0763.jpg" width="600" alt="：）" /></p>
+
+<p>故事还在继续</p>
+
+<pre><code>THE END
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/07/18/play-evolutions-to-liquibase/">在使用play framework的evolutions？需要支持SQL Server？用Liquibase吧</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-18T15:11:00+08:00" pubdate data-updated="true">Jul 18<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/07/18/play-evolutions-to-liquibase/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>我所在的项目在用Scala + Play framework做一个web app。</p>
+
+<p>Play自带的evolutions是一个DB Migration工具，从一开始我们就在用它来做所有阶段的数据迁移工作。</p>
+
+<p>运行自动化测试时它可以帮每个测试用例在H2中创建数据（H2是Play默认的内存数据库）。
+在下一个测试用例运行时evolutions则会创建一份和上次完全相同的新数据，这样我们的测试可以获得独立性而不用担心之前的测试遗留的副作用。也不用担心会给下一个测试遗留下什么脏数据。</p>
+
+<p>在测试或者部署环境中运行时它也可以针对Postgres做数据迁移。</p>
+
+<p>这一切看起来都挺好，我们就差喊evolutions是我们忠实的好伙伴了。</p>
+
+<p>但是，快到给终端客户部署时，某一家客户提出他们一定要使用SQL Server，我们最初提出的使用Postgres他们不接受了。这时我们才发现evolutions的设计初衷就是在开发和测试阶段提供便利性，它根本就没想成为一个production ready的东西。</p>
+
+<p>这样看来我们必须得寻找一个正经的DB Migration的工具了。而且这个DB Migration工具一定要满足以下几点：</p>
+
+<ol>
+<li>能够在运行自动化测试时和H2结合使用（因为我们已经有很多测试在依赖于H2跑了，要换掉成本较高）</li>
+<li>能支持多种数据库（今天有人要SQL Server的支持，明天说不定还会有人要其他的）</li>
+<li>在支持多种数据库时不需要我们写不同风格的SQL脚本（要写出让各个DB都不挑剔的SQL实在是太费劲了）</li>
+</ol>
+
+
+<p>我最先想到的就是Flyway，之前用过，而且TW的tech radar也提到过它。</p>
+
+<p>但是它并没有入选，原因在于上面的第三点。Flyway要求使用者自己提供执行所需的SQL脚本。
+这就意味着我们写SQL时需要同时兼顾H2，Postgres，SQL Server的异同。而且还无法预知未来的其他数据库会对我们现在写出的SQL脚本产生什么样的影响。</p>
+
+<p>最后我们选择了Liquibase，我们可以通过JSON，YAML，或者XML来定义数据。Liquibase自己负责把我们定义的数据翻译给各种不同的数据库。</p>
+
+<p>这样，通过一层中间语言。我们就隔离了数据库的差异对我们开发工作可能会造成的影响。</p>
+
+<p>Ok，要用Liquibase这个大方向就确定了。但是具体怎么把它跑起来呢？在什么时机跑它呢？</p>
+
+<p>用脚本跑？</p>
+
+<p>Liquibase确实提供了Standalone，我们可以用脚本来调用它。</p>
+
+<p>但是这怎么和build结合起来呀？在测试时调用它？在app启动时调用它？</p>
+
+<p>那H2运行的端口每次都未必是一样的，这怎么办啊？</p>
+
+<p>这个方案想想就费劲。</p>
+
+<p>把它做成sbt的一个task？</p>
+
+<p>这样确实比直接用脚本要稍微距离我们的build近一点，但是还是会有类似的问题。我们需要显式地去调用它，还要选择合适的时机去调用它。实现起来也会很麻烦。</p>
+
+<p>而实际上，Play自己是支持plug in的。我们想要控制执行时机，而有谁比Play自己更了解它的运行时机呢？</p>
+
+<p>而且已经有人做了liquibase play plug in。我把它fork了一份，更新了liquibase和play的版本，提高了log的level。并且部署到了sonatype去。</p>
+
+<p>由于是Play自己的plug in，不是我们试图插入的生硬的脚本或者sbt task。Play自己知道该在什么合适的时机去执行它。</p>
+
+<p>下面说一下如何应用它吧。</p>
+
+<ul>
+<li>在所有的conf文件中删掉所有和evolutions有关的配置</li>
+</ul>
+
+
+<p>这两个东西不能一起用，要不然我们需要同时维护两种DB Migration的脚本。</p>
+
+<ul>
+<li>在dependencies中加入这一项：</li>
+</ul>
+
+
+<p>&#8220;com.github.cuipengfei&#8221; % &#8220;play-liquibase_2.11&#8221; % &#8220;1.1&#8221;</p>
+
+<p>很明显，这是用来引入这个plugin的。</p>
+
+<ul>
+<li>在conf目录下创建一个名为play.plugins的文件，在其中写入：</li>
+</ul>
+
+
+<p>400:com.github.cuipengfei.LiquibasePlugin</p>
+
+<p>冒号前的400用来定义plugin的执行优先级，Play会由此决定何时执行该plugin。</p>
+
+<p>冒号后是plugin的完全限定名。</p>
+
+<ul>
+<li>在你需要的conf文件中加入两行：</li>
+</ul>
+
+
+<p>liquibaseplugin=enabled</p>
+
+<p>applyLiquibase.default=true</p>
+
+<p>这样用来启用该plugin。</p>
+
+<ul>
+<li>在conf/liquibase/default/下创建一个modules.xml。</li>
+</ul>
+
+
+<p>在其中写入你的数据定义。（具体如何写，liquibase的官网有详细的介绍）</p>
+
+<p>如果你用的数据库名字不是default，相应的替换就ok了。</p>
+
+<p>这样，就大功告成了。</p>
+
+<p>当你用sbt运行自动化测试时，liquibase会帮你创建数据。</p>
+
+<p>当你在本地调试运行时，liquibase会帮你set up数据库。</p>
+
+<p>当应用被部署到生产环境下去的时候，liquibase也可以帮你在第一次运行时进行数据的初创。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/28/scala-java-interop-trait-with-impl/">论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-28T12:55:00+08:00" pubdate data-updated="true">Jun 28<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/06/28/scala-java-interop-trait-with-impl/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>最近还是在看郑大翻译的《Scala程序设计》，其中第十一章还有一句话：</p>
+
+<blockquote><p>如果trait有方法实现，那么Java类就不能实现这个trait</p></blockquote>
+
+<p>口说还是无凭，还是拍照为证：</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ehtqjokutnj21kw23u7wh.jpg" alt="" /></p>
+
+<p>我感觉这句话是错的，下面寻根究底地探索一下。</p>
+
+<p>trait这个语言特性<a href="http://cuipengfei.me/blog/2013/10/13/scala-trait/">前面的博文</a>讲过。</p>
+
+<p>一个含有方法实现的trait会被编译成一个interface，还有一个含有实现的静态方法。</p>
+
+<p>所有extends或者是with这个trait的Scala类，实际上都是implements了这个interface，在具体实现中调用了静态方法。</p>
+
+<p>快速的简单回忆一下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">trait</span> <span class="nc">HappyThoughts</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">whatAreYouThinking</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="s">&quot; food :D &quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>定义一个含有方法实现的trait。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Animal</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Dog</span> <span class="k">extends</span> <span class="nc">Animal</span> <span class="k">with</span> <span class="nc">HappyThoughts</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后让Dog去with这个trait。</p>
+
+<p>之后就可以这样调用：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">new</span> <span class="nc">Dog</span><span class="o">().</span><span class="n">whatAreYouThinking</span><span class="o">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样就能打印出food :D了。虽然Dog本身是空的，但是因为with了一个trait，它也拥有了一些行为。</p>
+
+<p>再来看看反编译出的代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HappyThoughts</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">whatAreYouThinking</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">HappyThoughts</span><span class="n">$class</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">whatAreYouThinking</span><span class="o">(</span><span class="n">HappyThoughts</span> <span class="n">$this</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; food :D &quot;</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">$init$</span><span class="o">(</span><span class="n">HappyThoughts</span> <span class="n">$this</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>HappyThoughts就是上面这样的，一个interface，还有一个含有实现的静态方法。</p>
+
+<p>Dog则是这样的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="n">Animal</span> <span class="kd">implements</span> <span class="n">HappyThoughts</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">whatAreYouThinking</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="n">HappyThoughts</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">whatAreYouThinking</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="nf">Dog</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>      <span class="n">HappyThoughts</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="n">$init$</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>它implements了HappyThoughts，其实现则依赖于上面提到的静态方法。</p>
+
+<p>Ok，足够清晰了。</p>
+
+<p>这么一个trait，当真在Java中不可以利用吗？</p>
+
+<p>写点代码试试看：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DogJ</span> <span class="kd">implements</span> <span class="n">HappyThoughts</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nd">@Override</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">whatAreYouThinking</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">HappyThoughts$class</span><span class="o">.</span><span class="na">whatAreYouThinking</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>基本照抄上面反编译的代码。这段Java代码是可以编译的，而且也可以运行，运行结果也是打印出了food :D。</p>
+
+<p>这次，我就不去探寻旧版本的Scala是如何处理trait的了。我们只要知道当前版本（比如我用的2.10.4）的Scala中定义的含有方法实现的trait，拿到Java中依然是可用的就行了。虽说用起来有一点蹩脚，但终归是可用的。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/27/scala-java-interop-closure/">论“如果Scala类有方法接收闭包，这些方法在Java里就不可用，因为Java目前尚不支持闭包。”这句话是错的</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-27T20:54:00+08:00" pubdate data-updated="true">Jun 27<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/06/27/scala-java-interop-closure/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>最近在看郑大翻译的《Scala程序设计》，其中第十一章有一句话：</p>
+
+<blockquote><p>如果Scala类有方法接收闭包，这些方法在Java里就不可用，因为Java目前尚不支持闭包。</p></blockquote>
+
+<p>口说无凭，拍照为证：</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1ehszbfbsj1j20xc18g17s.jpg" alt="" /></p>
+
+<p>当时看到这句话就感觉不对。因为JVM本身没有对函数式编程提供任何支持，所以无论是Java中常用的Guava，还是Scala，其对闭包的支持都是通过用类来包裹函数实现的。</p>
+
+<p>如果说Java目前（其时Java 8还没面世）尚不支持闭包，那倒是还说得过去，因为毕竟是要用类包裹一层，不算真正的函数传递。</p>
+
+<p>但是说如果Scala类有方法接收闭包，这些方法在Java里就不可用，那就不对了，包一层匿名内部类，我不还是能用吗？虽说不太好看，也不能说不能用啊。</p>
+
+<p>为了验证一下，写点代码来试试吧。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">OnePluser</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">plusOne</span><span class="o">(</span><span class="n">func</span><span class="k">:</span> <span class="o">()</span> <span class="o">=&gt;</span> <span class="nc">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">func</span><span class="o">()</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>先定义一个Scala类，OnePluser，它有一个plusOne方法，接收一个函数，给函数的返回值加1，然后返回。非常简单。</p>
+
+<p>在Scala里可以这么调用它：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">OnePluserCaller</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">callIt</span><span class="o">()</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">new</span> <span class="nc">OnePluser</span><span class="o">().</span><span class="n">plusOne</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="mi">5</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>一样的简单，一个匿名函数传给它，这个匿名函数返回一个写死的5。这样最后的返回值会是6。</p>
+
+<p>这段代码如果反编译成Java，会是这样的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OnePluserCaller</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">callIt</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">new</span> <span class="nf">OnePluser</span><span class="o">().</span><span class="na">plusOne</span><span class="o">(</span><span class="k">new</span> <span class="n">AbstractFunction0</span><span class="o">.</span><span class="na">mcI</span><span class="o">.</span><span class="na">sp</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>      <span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">apply</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">apply$mcI$sp</span><span class="o">();</span> <span class="o">}</span>
+</span><span class='line'>      <span class="kd">public</span> <span class="kt">int</span> <span class="n">apply$mcI$sp</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="mi">5</span><span class="o">;</span> <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">});</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>毫不出奇，调用plusOne的地方需要提供一个不接收参数，返回一个Int的函数，这个函数在Scala里是() => 5，编译出来就是一个AbstractFunction0的实例，其中的apply方法返回一个写死的5。可以想见，在plusOne中就会调用这个apply方法（已验证，非臆测）。</p>
+
+<p>既然Scala的编译器可以用这种方式来实现函数的传递，那在Java代码中难道就不可以吗？</p>
+
+<p>我们写点代码来验证一下吧：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">scala.runtime.AbstractFunction0</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OnePluserCallerJ</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">callIt</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">new</span> <span class="nf">OnePluser</span><span class="o">().</span><span class="na">plusOne</span><span class="o">(</span><span class="k">new</span> <span class="n">AbstractFunction0</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;()</span> <span class="o">{</span>
+</span><span class='line'>            <span class="nd">@Override</span>
+</span><span class='line'>            <span class="kd">public</span> <span class="n">Integer</span> <span class="nf">apply</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>                <span class="k">return</span> <span class="mi">5</span><span class="o">;</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>        <span class="o">});</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这段代码基本就是照上面的反编译结果照抄的，AbstractFunction0的定义在scala.runtime.AbstractFunction0里，在scala-library-xxx.jar里。xxx是版本号。</p>
+
+<p>上面的代码可以编译，可以运行，而且也可以得到6这个返回值。</p>
+
+<p>由此可以证明在当前的Scala版本下（我现在用的是2.10.4）作者的这段话是不成立的。</p>
+
+<p>但是，当时呢？</p>
+
+<p>我查了一下，这本书的出版日期是09年，然后查了一下Scala的版本，08年的版本是2.7.7。于是我下载了scala-library-2.7.7.jar。发现其中确实没有AbstractFunction0的定义，但是现在版本的AbstractFunction0是实现了Function0的，而Function0的定义在2.7.7中是有的。而当时如果在Java中写一个实现了Function0的匿名内部类，不也是可行的吗？</p>
+
+<p>Ok，不关注那么老的事儿了，可以确定的一点是，在当前版本下，在Java中是可以调用Scala中定义的接收闭包的函数的。</p>
+
+<p>THE END</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/">Scala + Play + Sbt + Protractor = One Build</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-22T17:00:00+08:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2014</time>
+        
+         | <a href="/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>我所在的项目的技术栈选用的是Play framework做后端API，前端用Angular JS。</p>
+
+<p>因为用了Scala和Play，构建工具很自然用的就是sbt。</p>
+
+<p>而由于前端用了Angular，所以functional test就选用了和Angular结合较好的protractor。</p>
+
+<p>这一切看起来似乎很美好，一个无状态的后端，一个数据和UI双向绑定的前端。What could possibly go wrong？</p>
+
+<p>一开始也确实如此，没什么问题。我们为了让functional test在CI上跑起来，写了一个脚本来把play dist打出的包部署到CI所在机器上，然后运行protractor。</p>
+
+<p>这个脚本运行还算ok，偶尔有点小问题，修一修也就好了。</p>
+
+<p>不过，这也就是说有两个因素可能会使得我们的CI挂掉，一个是用sbt跑的specs2的测试，一个是protractor的测试。而protractor的测试是基于我们自己所写的脚本的，与sbt没啥关系。</p>
+
+<h3>麻烦来了</h3>
+
+<p>上周五的show case，我们一个小时后就要给客户演示现有产品的示例，但是CI挂掉了，新的代码没法走到QA和UAT的环境，bug fix也过不去。</p>
+
+<p>最后我们不得不修改jenkins的配置，把sbt test和protractor的test都暂时禁掉，才让最新的代码到了UAT上去。而这一切，是在show case之前一分钟才解决掉的。</p>
+
+<p>事情总是这样的，出一两次小问题，修修改改就好，我们不会注意到其危害，不会想到其风险。直到琐碎的积累导致了严重的后果，我们才会正视问题的存在。而这个时候问题或许已经复杂和严重到不可修复或者是要花很大成本修复的地步了。保持一个健康的CI是如此。写代码的每一个细节也是如此。</p>
+
+<p>还好，很幸运，我们的问题还没有那么严重，还来得及修。</p>
+
+<p>在决定要修之后，先</p>
+
+<h3>定义一下问题是啥</h3>
+
+<p>往简单里说，就是CI不稳定，动不动就随便挂。</p>
+
+<p>说的再细一些，就是我们手写脚本去做部署和测试这件事算是重新发明了轮子。而这个轮子不如已有的经过打磨的轮子那么精巧细致，那么稳定好用。以至于我们的CI偶尔就要出格一次。</p>
+
+<p>Ok，问题定义清楚了，那么想想解决方案吧。</p>
+
+<p>但是，在提出具体的方案之前，先想想，如果把这个现时还未存在的解决方案作用在现有问题之上，会收获一个什么样的结果呢？</p>
+
+<h3>验证标准</h3>
+
+<p>基于以上所述，我想解决这个问题的方案要满足以下3点：</p>
+
+<ol>
+<li>能让CI重回稳定</li>
+<li>一条命令行执行整个build</li>
+<li>不要再自己造轮子了</li>
+</ol>
+
+
+<p>第1，2点毋庸赘言，这就是我们问题的核心。关于第3点，是因为我们没有时间精力，也实在没有必要造这个轮子，如果能找到现有的轮子能够解决问题，而且还比我们自己的木头胶皮轮子好用，那岂不妙哉？</p>
+
+<p>于是，我要开始寻找一个能让CI重归稳定的神圣轮子了！让探险的旅途就此展开吧！</p>
+
+<p><img src="http://static.comicvine.com/uploads/original/7/75497/2189954-aragorn247_screen.jpg" height="300" width="400" alt="图" /></p>
+
+<h3>开始寻找轮子</h3>
+
+<p>我最初的想法是用play的test framework，其中已经集成了selenium，用来做functional test很是合适。但是由于我们基于protractor的测试数量已经不少了，全部重写成本较高，所以这个轮子就放弃了。</p>
+
+<h3>残念，再看下一个轮子</h3>
+
+<p>再然后我想到的是自定义一个sbt的task，这个task依赖于sbt已有的run。</p>
+
+<p>这样就能在我的task启动之前把play跑起来，而task本身运行protractor的测试，再之后则杀掉正在运行的play app。</p>
+
+<p>看起来不错，但是有问题：</p>
+
+<p>第一，sbt run跑起来后是不会自己退出的，它会维持play一直在待命的状态，这也就是说我自己的task根本就没机会执行。</p>
+
+<p>第二，即便能找到方法让我自己定义的task和run同时跑起来，protractor运行完毕后还要关掉run，免得占用端口。这又是一件麻烦事儿。</p>
+
+<p>于是，这第二个轮子也被我自己给枪毙掉了。</p>
+
+<h3>再次残念，还有轮子吗？</h3>
+
+<p>会有的，总会有的，只要肯去找，还是会有的。</p>
+
+<p>这次我想到，写sbt的task不成，那就写代码。我写个specs2测试，在case里用代码启动sbt run，然后再启动protractor，最后关闭sbt，总行了吧？</p>
+
+<p>这样，确实是可以work的，而实际上我也把它做出来验证了可以work了，但是缺点很大。</p>
+
+<p>第一，由于我们的specs2测试都是用sbt跑的，而在其中再启动sbt，相当于要开两个jvm，消耗很大。在我本地机器上可以压榨的只剩两位数的内存。</p>
+
+<p>第二，在sbt已经编译好了产品代码和测试代码测试之后，再开始跑另一个sbt run，会导致sbt把代码重新编译一遍。而Scala的代码编译是很慢的。我试了一下，这两次启动sbt，两次编译所消耗的时间是四分钟左右。时间成本太高。CI的速度会被拉下来，受不了。</p>
+
+<p>基于以上两点原因，我的第三个轮子也被我自己枪毙了。</p>
+
+<h3>命途多舛啊，三次尝试都失败，以你为我要放弃了吗？哼~~~</h3>
+
+<p>最后，我结合第一次的尝试和第三次的尝试找到了一个满意的答案。</p>
+
+<p>来看代码吧：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">ProtractorSpec</span> <span class="k">extends</span> <span class="nc">Specification</span> <span class="k">with</span> <span class="nc">NoTimeConversions</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="s">&quot;my application&quot;</span> <span class="n">should</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="s">&quot;pass the protractor tests&quot;</span> <span class="n">in</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">running</span><span class="o">(</span><span class="nc">TestServer</span><span class="o">(</span><span class="mi">9000</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">val</span> <span class="n">resp</span> <span class="k">=</span> <span class="nc">Await</span><span class="o">.</span><span class="n">result</span><span class="o">(</span><span class="nc">WS</span><span class="o">.</span><span class="n">url</span><span class="o">(</span><span class="s">&quot;http://localhost:9000&quot;</span><span class="o">).</span><span class="n">get</span><span class="o">(),</span> <span class="mi">2</span> <span class="n">seconds</span><span class="o">)</span>
+</span><span class='line'>        <span class="n">resp</span><span class="o">.</span><span class="n">status</span> <span class="o">===</span> <span class="mi">200</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">runProtractorTests</span> <span class="o">===</span> <span class="mi">0</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">private</span> <span class="k">def</span> <span class="n">runProtractorTests</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="s">&quot;protractor functional-test/config/ft.conf.js&quot;</span>
+</span><span class='line'>      <span class="o">.</span><span class="n">run</span><span class="o">(</span><span class="n">getProcessIO</span><span class="o">)</span>
+</span><span class='line'>      <span class="o">.</span><span class="n">exitValue</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">private</span> <span class="k">def</span> <span class="n">getProcessIO</span><span class="k">:</span> <span class="kt">ProcessIO</span> <span class="o">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">new</span> <span class="nc">ProcessIO</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="o">(),</span>
+</span><span class='line'>      <span class="n">stdout</span> <span class="k">=&gt;</span> <span class="n">fromInputStream</span><span class="o">(</span><span class="n">stdout</span><span class="o">).</span><span class="n">getLines</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">),</span>
+</span><span class='line'>      <span class="k">_</span> <span class="k">=&gt;</span> <span class="o">())</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>就只有这么一点点代码。</p>
+
+<p>running和TestServer都是play的test framework所提供的API。顾名思义，其作用就是把play的app跑起来。</p>
+
+<p>然后发一个get请求，assert它的response的status是200，以此来确保play真的是把server运行起来了的。</p>
+
+<p>再然后运行shell脚本，把protractor跑起来。这里Scala会做implicit conversion，把字符串转换成ProcessBuilder，从而可以调用其run方法。</p>
+
+<p>最后assert，protractor的shell脚本是返回了0的，意味着functional test跑成功了。如果protractor测试挂掉，返回了1，那么specs2的这个测试也会挂掉，从而挂掉整个build。而这，正是我想要的。</p>
+
+<h3>这个解决方案合规吗？</h3>
+
+<p>检验一下吧。</p>
+
+<p>由于server的启动和关闭都是有play的test framework的API负责的，比自己手写得脚本要稳定，所以符合了重归稳定性这一点。</p>
+
+<p>由于用了specs2的测试，它可以跑在sbt里，所以符合一条命令跑build这一点。</p>
+
+<p>整个解决方案只用了specs2和play的test framework，没有重新发明轮子，所以这一点也符合了。</p>
+
+<p>除了符合最初定下的三条标准之外，还有额外的好处：functional test所跑到的代码会被纳入到测试覆盖率里面去。因为和其他specs2的测试一样，protractor的测试也在sbt jacoco:cover的监视下跑的，所以自然就纳入了coverage的范围。</p>
+
+<h3>Takeaway</h3>
+
+<p>在解决这个问题之后，我想我会有三点takeaway：</p>
+
+<ol>
+<li><p>多尝试几种方案，不要随便放弃。即便想，也不要。</p></li>
+<li><p>不要屈就于working solution，要相信一定存在你现在还没想到的更好的方式。</p></li>
+<li><p>重复发明轮子总是会显得很诱人，因为它看起来可以非常直接而且准确的解决我们的问题。而实际上它常常是直接而且准确的解决我们的问题的现象。如果能找到现象产生的原因，干死这个原因，问题的解决或许会更彻底。</p></li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/21/desugar-scala-lower-bound/">Desugar Scala(16) &#8211; Lower Bound</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-21T11:32:00+08:00" pubdate data-updated="true">Jun 21<span>st</span>, 2014</time>
+        
+         | <a href="/blog/2014/06/21/desugar-scala-lower-bound/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Lower bound，不知道这个词的确切中文翻译是怎样的。我们直接看例子吧。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Pair</span><span class="o">[</span><span class="kt">T</span><span class="o">](</span><span class="k">val</span> <span class="n">first</span><span class="k">:</span> <span class="kt">T</span><span class="o">,</span> <span class="k">val</span> <span class="n">second</span><span class="k">:</span> <span class="kt">T</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">replaceFirst</span><span class="o">[</span><span class="kt">R</span> <span class="k">&gt;:</span> <span class="kt">T</span><span class="o">](</span><span class="n">newFirst</span><span class="k">:</span> <span class="kt">R</span><span class="o">)</span><span class="k">:</span> <span class="kt">Pair</span><span class="o">[</span><span class="kt">R</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Pair</span><span class="o">[</span><span class="kt">R</span><span class="o">](</span><span class="n">newFirst</span><span class="o">,</span> <span class="n">second</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们定义一个叫做Pair的类，其中可以包含两个元素，元素类型为泛型的T。</p>
+
+<p>Pair类中有一个replaceFirst方法，用来把第二个元素和一个新的元素结合起来组成一个新的Pair。新的元素的类型是泛型的R。新组成的Pair的类型是Pair[R]。</p>
+
+<p>到这里我们就要想了，一个T和一个R，它们俩怎么组成新的Pair呢？新的Pair的类型怎么能是Pair[R]呢？</p>
+
+<p>replaceFirst的签名给我们说明了这一点。[R >: T]。这种标记的含义是说R是T的基类。那么一个T和一个R自然可以组合成一个R的Pair了。</p>
+
+<p>单是这样干说，有点不好理解，我们看一个例子：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Vehicle</span> <span class="o">{}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Car</span> <span class="k">extends</span> <span class="nc">Vehicle</span> <span class="o">{}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Tank</span> <span class="k">extends</span> <span class="nc">Vehicle</span> <span class="o">{}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>汽车和坦克都是机动车。</p>
+
+<p>然后我们可以这样使用它们：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">val</span> <span class="n">twoCars</span><span class="k">:</span> <span class="kt">Pair</span><span class="o">[</span><span class="kt">Car</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Pair</span><span class="o">(</span><span class="k">new</span> <span class="nc">Car</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">Car</span><span class="o">())</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">tankAndCar</span><span class="k">:</span> <span class="kt">Pair</span><span class="o">[</span><span class="kt">Vehicle</span><span class="o">]</span> <span class="k">=</span> <span class="n">twoCars</span><span class="o">.</span><span class="n">replaceFirst</span><span class="o">(</span><span class="k">new</span> <span class="nc">Tank</span><span class="o">())</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>首先我们用两辆汽车组成一个Pair，其类型为Pair[Car]。</p>
+
+<p>然后我们用一辆坦克替代原来的Pair中的第一个元素，让坦克和第二辆车组成一个新的Pair。新的Pari的类型是Pair[Vehicle]。</p>
+
+<p>这里有一点tricky。我们调用replaceFirst的时候传递的参数的类型是Tank，这是否意味着在这里R就是Tank呢？</p>
+
+<p>不是的，因为很明显Tank不是Car的基类，然而Tank是一个（is a）Vehicle，Vehicle同时也是Car的基类。于是此处的R就是Vehicle。得到的新的Pair自然就是Pair[Vehicle]。</p>
+
+<p>也就是说R会被什么具体类型替换呢？这取决于T和newFirst的类型。</p>
+
+<p>如果newFirst的类型刚好是T的基类，那太好了，R就直接是newFirst的类型。如果newFirst的类型不是T的基类，那R就会是T和newFirst的类型的共同基类。</p>
+
+<h3>这个东西挺麻烦的，它有啥用呢？</h3>
+
+<p>保证类型安全，Java没有提供给我们的类型安全。</p>
+
+<p>还是刚才的那段代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">val</span> <span class="n">twoCars</span><span class="k">:</span> <span class="kt">Pair</span><span class="o">[</span><span class="kt">Car</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Pair</span><span class="o">(</span><span class="k">new</span> <span class="nc">Car</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">Car</span><span class="o">())</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">tankAndCar</span><span class="k">:</span> <span class="kt">Pair</span><span class="o">[</span><span class="kt">Vehicle</span><span class="o">]</span> <span class="k">=</span> <span class="n">twoCars</span><span class="o">.</span><span class="n">replaceFirst</span><span class="o">(</span><span class="k">new</span> <span class="nc">Tank</span><span class="o">())</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其中的第二行，Scala可以很聪明的推断出replaceFirst的返回值类型是Pair[Vehicle]。实际上，如果我们试图把tankAndCar声明为Pair[Tank]的话，会看到编译时错误。</p>
+
+<p>而类似的代码在Java里则没有这么幸运了：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PairJ</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">T</span> <span class="n">first</span><span class="o">;</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">T</span> <span class="n">second</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">PairJ</span><span class="o">(</span><span class="n">T</span> <span class="n">first</span><span class="o">,</span> <span class="n">T</span> <span class="n">second</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">first</span> <span class="o">=</span> <span class="n">first</span><span class="o">;</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">second</span> <span class="o">=</span> <span class="n">second</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">T</span> <span class="nf">first</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">first</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">T</span> <span class="nf">second</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">second</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="n">Pair</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="n">replaceFirst</span><span class="o">(</span><span class="n">R</span> <span class="n">newFirst</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">new</span> <span class="nf">Pair</span><span class="o">(</span><span class="n">newFirst</span><span class="o">,</span> <span class="n">second</span><span class="o">());</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>为了标明区别，我们这次称之为PairJ。到这里忍不住要小小的黑Java一下，21行代码，和Scala的3行是等价的：）</p>
+
+<p>我们重点看一下replaceFirst在这里的声明，其中声明了一个泛型参数R，但是R和T是没有任何关系的。实际上，在Java中，我们无法表达方法的泛型参数和类型的泛型参数之间的关系。（其原因请参看<a href="http://www.angelikalanger.com/GenericsFAQ/FAQSections/TypeParameters.html#FAQ107">这里</a>）</p>
+
+<p>我们写出如下的代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>    <span class="n">PairJ</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;</span> <span class="n">twoCars</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PairJ</span><span class="o">(</span><span class="k">new</span> <span class="n">Car</span><span class="o">(),</span> <span class="k">new</span> <span class="n">Car</span><span class="o">());</span>
+</span><span class='line'>    <span class="n">Tank</span> <span class="n">actuallyACar</span> <span class="o">=</span> <span class="n">twoCars</span><span class="o">.</span><span class="na">replaceFirst</span><span class="o">(</span><span class="k">new</span> <span class="n">Tank</span><span class="o">()).</span><span class="na">second</span><span class="o">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>先创建两辆车的Pair，然后把第一辆车替换成坦克。再把新组成的Pair里面的第二个元素（其类型是车）取出来，赋值给一个类型为坦克的变量。</p>
+
+<p>如果我们编译这段代码，Java编译器会允许其通过。但是运行起来就会跑出类型转换异常。原因很明显，Car不能转换成Tank。</p>
+
+<p>这个，就是刚才所说的类型安全性上的差异。</p>
+
+<h3>等等，脱衣服的部分呢？</h3>
+
+<p>之前的每一篇博客都会把Scala代码编译出的bytecode反编译成Java，来探索其语言特性是如何实现的。</p>
+
+<p>而这一次颇为不同。之前的语言特性虽说Scala写起来比Java会简便一些，但是还没有超出Java的能力范围。多费点劲，用Java还是能做到。</p>
+
+<p>而这一次，这种编译时类型安全检验的严格性，实在是在Java中无法表达的。这全靠了Scala编译器的功劳。</p>
+
+<p>这就意味着，上面所定义的Pair这个类，如果你在Java中使用它，就会失去这种类型安全性。</p>
+
+<p>Scala，这次算你牛，没扒掉你。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/14/scala-unapply-method/">Desugar Scala(15) &#8211; unapply和unapplySeq方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-14T14:46:00+08:00" pubdate data-updated="true">Jun 14<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/06/14/scala-unapply-method/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>实在想不到什么动词可以当做脱衣服来讲了，所以从现在开始这系列博文就叫做Desugar Scala了。除非哪天才思泉涌，又想到了新词：）</p>
+
+<p>开始正文。</p>
+
+<p>名字叫做unapply和unapplySeq的方法在Scala里也是有特殊含义的。</p>
+
+<p>我们前面说过case class在做pattern match时很好用，而除case class之外，有unapply或unapplySeq方法的对象在pattern match时也有很好的应用场景。</p>
+
+<p>比如这段代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Square</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">unapply</span><span class="o">(</span><span class="n">z</span><span class="k">:</span> <span class="kt">Double</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Double</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="o">(</span><span class="n">z</span><span class="o">))</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们定义了一个unapply方法，用来计算平方根。
+我们可以像调用普通方法一样的调用它：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">number</span><span class="k">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mf">36.0</span>
+</span><span class='line'><span class="nc">Square</span><span class="o">.</span><span class="n">unapply</span><span class="o">(</span><span class="n">number</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样会得到36的平方根:6。实际上返回值是Some(6)。</p>
+
+<p>上面的方式是对unapply的浪费，unapply真正的好处是这样的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">number</span><span class="k">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mf">36.0</span>
+</span><span class='line'><span class="n">number</span> <span class="k">match</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">case</span> <span class="nc">Square</span><span class="o">(</span><span class="n">n</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;square root of $number is $n&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;nothing matched&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样我们无需显式调用unapply方法，而把是它用在pattern match中，让编译器替我们调用它。</p>
+
+<p>当我们写下这段pattern match的代码时，编译器其实替我们做了好几件事：</p>
+
+<ol>
+<li>调用unapply，传入number</li>
+<li>接收返回值并判断返回值是None，还是Some</li>
+<li>如果是Some，则将其解开，并将其中的值赋值给n（就是case Square(n)中的n）</li>
+</ol>
+
+
+<p>这段代码反编译出来是这个样子的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>  <span class="kt">double</span> <span class="n">number</span> <span class="o">=</span> <span class="mf">36.0</span><span class="n">D</span><span class="o">;</span>
+</span><span class='line'>  <span class="kt">double</span> <span class="n">d1</span> <span class="o">=</span> <span class="n">number</span><span class="o">;</span>
+</span><span class='line'>  <span class="n">Option</span> <span class="n">localOption</span> <span class="o">=</span> <span class="n">Square</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">unapply</span><span class="o">(</span><span class="n">d1</span><span class="o">);</span>
+</span><span class='line'>  <span class="c1">//调用unapply，传入number</span>
+</span><span class='line'>  <span class="n">BoxedUnit</span> <span class="n">localBoxedUnit</span><span class="o">;</span>
+</span><span class='line'>  <span class="k">if</span> <span class="o">(</span><span class="n">localOption</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span><span class="c1">//判断返回值是None</span>
+</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;nothing matched&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="n">localBoxedUnit</span> <span class="o">=</span> <span class="n">BoxedUnit</span><span class="o">.</span><span class="na">UNIT</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>  <span class="k">else</span> <span class="o">{</span><span class="c1">//判断返回值是Some</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">n</span> <span class="o">=</span> <span class="n">BoxesRunTime</span><span class="o">.</span><span class="na">unboxToDouble</span><span class="o">(</span><span class="n">localOption</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
+</span><span class='line'>    <span class="c1">//将Some解开，并将其中的值赋值给n</span>
+</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="n">StringContext</span><span class="o">(</span><span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">wrapRefArray</span><span class="o">((</span><span class="n">Object</span><span class="o">[])</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]</span> <span class="o">{</span>
+</span><span class='line'>      <span class="s">&quot;square root of &quot;</span><span class="o">,</span> <span class="s">&quot; is &quot;</span><span class="o">,</span> <span class="s">&quot;&quot;</span>
+</span><span class='line'>    <span class="o">})</span> <span class="o">).</span><span class="na">s</span><span class="o">(</span><span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">genericWrapArray</span><span class="o">(</span><span class="k">new</span> <span class="n">Object</span><span class="o">[]</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">BoxesRunTime</span><span class="o">.</span><span class="na">boxToDouble</span><span class="o">(</span><span class="n">number</span><span class="o">),</span> <span class="n">BoxesRunTime</span><span class="o">.</span><span class="na">boxToDouble</span><span class="o">(</span><span class="n">n</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">})));</span>
+</span><span class='line'>    <span class="n">localBoxedUnit</span> <span class="o">=</span> <span class="n">BoxedUnit</span><span class="o">.</span><span class="na">UNIT</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果没有unapply方法和pattern match语法之间的这种结合，我们自己写代码要写成什么样子呢？</p>
+
+<p>或许会比上面反编译的代码简单一些，但是显式地调用开平方的方法，用if else来判断Option，以及将真正的返回值从Option里面解出来这三件事是免不掉的。</p>
+
+<p>unapplySeq和unapply的作用很是类似，例如这样：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Names</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">unapplySeq</span><span class="o">(</span><span class="n">str</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">String</span><span class="o">]]</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="o">(</span><span class="s">&quot;,&quot;</span><span class="o">))</span> <span class="nc">Some</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="o">(</span><span class="s">&quot;,&quot;</span><span class="o">))</span>
+</span><span class='line'>    <span class="k">else</span> <span class="nc">None</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们定义一个unapplySeq方法，用逗号作为分隔符来把字符串拆开。</p>
+
+<p>然后我们可以这样应用它：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">namesString</span> <span class="k">=</span> <span class="s">&quot;xiao ming,xiao hong,tom&quot;</span>
+</span><span class='line'><span class="n">namesString</span> <span class="k">match</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">case</span> <span class="nc">Names</span><span class="o">(</span><span class="n">first</span><span class="o">,</span> <span class="n">second</span><span class="o">,</span> <span class="n">third</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="s">&quot;the string contains three people&#39;s names&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;$first $second $third&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>  <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;nothing matched&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>与上面的例子很是类似，不过编译器在这里替我们做的事情更多了：</p>
+
+<ol>
+<li>调用unapplySeq，传入namesString</li>
+<li>接收返回值并判断返回值是None，还是Some</li>
+<li>如果是Some，则将其解开</li>
+<li>判断解开之后得到的sequence中的元素的个数是否是三个</li>
+<li>如果是三个，则把三个元素分别取出，赋值给first，second和third</li>
+</ol>
+
+
+<p>如果没有unapplySeq方法和pattern match语法之间的这种结合，我们自己写代码来做这五件事会显得很是繁琐。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/12/scala-update-method/">抹掉Scala的糖衣(14) &#8211; Update Method</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-12T18:42:00+08:00" pubdate data-updated="true">Jun 12<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/06/12/scala-update-method/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在Scala中，名字叫做update的方法是有特殊作用的。</p>
+
+<p>比如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">scores</span> <span class="k">=</span> <span class="k">new</span> <span class="n">scala</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">mutable</span><span class="o">.</span><span class="nc">HashMap</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">]</span>
+</span><span class='line'><span class="n">scores</span><span class="o">(</span><span class="s">&quot;Bob&quot;</span><span class="o">)</span> <span class="k">=</span> <span class="mi">100</span>
+</span><span class='line'><span class="k">val</span> <span class="n">bobsScore</span> <span class="k">=</span> <span class="n">scores</span><span class="o">(</span><span class="s">&quot;Bob&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以上三行代码，我们创建了一个可变的map来存储得分情况，然后我们记录了Bob的得分是100分，最后我们又把Bob的分数取出来了。</p>
+
+<p>这三行代码看似平淡无奇，实则暗藏了一点点玄机。</p>
+
+<p>第二行实际是调用了HashMap的update方法。</p>
+
+<p>第三行实际是调用了HashMap的apply方法。</p>
+
+<p>我们可以把上面的代码改写成下面的等价形式：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">scores</span> <span class="k">=</span> <span class="k">new</span> <span class="n">scala</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">mutable</span><span class="o">.</span><span class="nc">HashMap</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">]</span>
+</span><span class='line'><span class="n">scores</span><span class="o">.</span><span class="n">update</span><span class="o">(</span><span class="s">&quot;Bob&quot;</span><span class="o">,</span> <span class="mi">100</span><span class="o">)</span>
+</span><span class='line'><span class="k">val</span> <span class="n">bobsScore</span> <span class="k">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">apply</span><span class="o">(</span><span class="err">&quot;</span><span class="nc">Bob</span><span class="err">”</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>虽然等价，但是可读性却降低了一些。</p>
+
+<p>apply方法我们之前讲过，就不再赘述。</p>
+
+<p>update方法也不太复杂，它的规则就是：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">x</span><span class="o">(</span><span class="n">y</span><span class="o">)</span> <span class="k">=</span> <span class="n">z</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样的代码会被编译为：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">x</span><span class="o">.</span><span class="n">update</span><span class="o">(</span><span class="n">y</span><span class="o">,</span> <span class="n">z</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这次博文名字虽然以抹掉糖衣开头，实则有点名不符实，因为这个语言特性过于简单，糖衣很薄，一抹就透。</p>
+
+<p>这次的目的主要是介绍一个update方法的适用场景。</p>
+
+<p>我们来看用来修改某个人地址的一段代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">AddressChanger</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">update</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">age</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">newAddress</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;changing address of $name, whose age is $age to $newAddress&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="c1">//actually change the address</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们可以这样来调用它：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">changer</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">AddressChanger</span><span class="o">()</span>
+</span><span class='line'><span class="n">changer</span><span class="o">.</span><span class="n">update</span><span class="o">(</span><span class="s">&quot;xiao ming&quot;</span><span class="o">,</span> <span class="mi">23</span><span class="o">,</span> <span class="s">&quot;beijing&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>或者，我们也可以这样来调用它：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">addressOf</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">AddressChanger</span><span class="o">()</span>
+</span><span class='line'><span class="n">addressOf</span><span class="o">(</span><span class="n">name</span> <span class="k">=</span> <span class="s">&quot;xiao ming&quot;</span><span class="o">,</span> <span class="n">age</span> <span class="k">=</span> <span class="mi">23</span><span class="o">)</span> <span class="k">=</span> <span class="s">&quot;beijing&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这两段代码是等价的。</p>
+
+<p>比较一下，前一种用法显得中规中矩，没什么特别好的，也没啥特大的毛病。</p>
+
+<p>可是后一种用法就不同了，读起来很通顺，有读英语语句的感觉：把名字叫做小明，年龄23岁的人的地址改为北京。</p>
+
+<p>如果再给AddressChanger加上一个apply方法，我们还可以写这样的代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">currentAddress</span> <span class="k">=</span> <span class="n">addressOf</span><span class="o">(</span><span class="n">name</span> <span class="k">=</span> <span class="s">&quot;xiao ming&quot;</span><span class="o">,</span> <span class="n">age</span> <span class="k">=</span> <span class="mi">23</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样，读取和更新的代码都看起来非常自然。</p>
+
+<p>如果我们把这两段代码连起来看：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">currentAddress</span> <span class="k">=</span> <span class="n">addressOf</span><span class="o">(</span><span class="n">name</span> <span class="k">=</span> <span class="s">&quot;xiao ming&quot;</span><span class="o">,</span> <span class="n">age</span> <span class="k">=</span> <span class="mi">23</span><span class="o">)</span>
+</span><span class='line'><span class="n">addressOf</span><span class="o">(</span><span class="n">name</span> <span class="k">=</span> <span class="s">&quot;xiao ming&quot;</span><span class="o">,</span> <span class="n">age</span> <span class="k">=</span> <span class="mi">23</span><span class="o">)</span> <span class="k">=</span> <span class="s">&quot;beijing&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>感觉甚好。</p>
+
+<p>addressOf(name = &#8220;xiao ming&#8221;, age = 23)可以看做一个整体，它就如同一个可读可写的属性。</p>
+
+<p>我们把它放到赋值语句的右侧，就能取到小明的当前住址。</p>
+
+<p>我们把它放到赋值语句的左侧，就能修改小明的住址。</p>
+
+<p>apply和update都是蛮简单的语言特性，但是加以合适的应用，却能得到可读性极强的代码。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/09/desugar-scala-default-parameter-value/">除去Scala的糖衣(13) &#8211; Default Parameter Value</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-09T21:34:00+08:00" pubdate data-updated="true">Jun 9<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/06/09/desugar-scala-default-parameter-value/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>好久没有写博客了，上一次更新竟然是一月份。</p>
+
+<p>说工作忙都是借口，咋有空看美剧呢。</p>
+
+<p>这半年荒废掉博客说到底就是懒，惯性的懒惰。写博客这事儿，一丢掉就很久捡不起来。</p>
+
+<p>闲话到此为止，下面进入正题。</p>
+
+<p>Default parameter value，默认参数值。
+这个很容易理解，给参数一个默认值，如果调用者不显式指明参数值，则使用默认值。如果显式指明了，那就用显式指明的值。</p>
+
+<p>举个例子：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">def</span> <span class="n">hello</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">&quot;world&quot;</span><span class="o">)</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;hello &quot;</span> <span class="o">+</span> <span class="n">name</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个函数，如果我们不给它传参数，它就会打印hello world。就像这样：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">hello</span><span class="o">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果给了参数：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">hello</span><span class="o">(</span><span class="s">&quot;everybody&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>则打印hello everybody。</p>
+
+<p>这个语言特性都有哪些应用场景呢？</p>
+
+<p>它经常用来避免过多的重载。一个很常见很典型的例子就是构造函数重载。</p>
+
+<p>在Java中，为了让调用者能够比较容易的创建某个类的实例，我们通常会提供几个参数列表比较短的构造函数。而这些构造函数存在的唯一意义就是为了写死某几个参数值。而在Scala中，有了这个语言特性，我们就无需那么麻烦了。</p>
+
+<p>那这个语言特性是如何实现的呢？实际上简单的一塌糊涂。</p>
+
+<p>这样一段代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Greeter</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">hello</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">&quot;world&quot;</span><span class="o">)</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;hello &quot;</span> <span class="o">+</span> <span class="n">name</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">AnotherClass</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">new</span> <span class="nc">Greeter</span><span class="o">().</span><span class="n">hello</span><span class="o">()</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们的Greeter类含有前面提到过的hello方法。在AnotherClass里调用了hello，并且没有显式指明参数值。</p>
+
+<p>上面的Scala代码生成的bytecode反编译成Java是这样的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Greeter</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">hello</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="n">StringBuilder</span><span class="o">().</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;hello &quot;</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">name</span><span class="o">).</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">String</span> <span class="n">hello$default$1</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;world&quot;</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AnotherClass</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">AnotherClass</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">Greeter</span> <span class="n">qual$1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Greeter</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">String</span> <span class="n">x$1</span> <span class="o">=</span> <span class="n">qual$1</span><span class="o">.</span><span class="na">hello</span><span class="n">$default$1</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">qual$1</span><span class="o">.</span><span class="na">hello</span><span class="o">(</span><span class="n">x$1</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到，我们所定义的hello方法反编译出来看起来很普通，就是个接受一个参数的方法。</p>
+
+<p>而在Greeter类中，编译器为我们加入了另一个方法hello$default$1，这个方法就是返回一个写死的字符串，其值为world。</p>
+
+<p>在AnotherClass中调用hello时，写死的字符串被取到，然后传进了hello里。</p>
+
+<p>这样，被调用者提供了参数的默认值，调用者在调用时取得该值，然后传入方法。</p>
+
+<h3>题外话</h3>
+
+<p>到这里我不禁联想起C#中的默认参数值的实现方式。</p>
+
+<p>在C#中，默认参数的值会被编译成调用者的一个常量，而不是像Scala一样的由被调用者提供。</p>
+
+<p>这样看起来貌似没啥区别，不就是写死的值换个地方吗？</p>
+
+<p>其实不然，如果被调用者在A程序集内，调用者在B程序集内，那么A更新时，B就必须重新编译才能得到最新的默认值。也就是说，如果当前部署环境中同时存在A和B，而后我们拿一个新版的A来替换老的，这时B仍然在传递老的默认参数值给A。这样就会造成一些看似很诡异的行为偏差。</p>
+
+<p>如果对C#的默认参数值的实现有兴趣，请看<a href="http://www.cnblogs.com/cuipengfei/archive/2011/04/13/2014325.html">我很久很久之前写的博客</a></p>
+
+<p>现在想来，C#这一语言特性的设计者为什么要把它设计成如此容易出错的样子呢？</p>
+
+<p>思而不得其解。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/08/30/options-for/">Desugar Scala(17) &#8211; Option和for</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/08/10/da-li/">大理</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/18/play-evolutions-to-liquibase/">在使用play framework的evolutions？需要支持SQL Server？用Liquibase吧</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/28/scala-java-interop-trait-with-impl/">论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/27/scala-java-interop-closure/">论“如果Scala类有方法接收闭包，这些方法在Java里就不可用，因为Java目前尚不支持闭包。”这句话是错的</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/cuipengfei">@cuipengfei</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'cuipengfei',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("cuipf", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/cuipf" class="twitter-follow-button" data-show-count="false">Follow @cuipf</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - 崔鹏飞 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'cuipengfeioctopressblog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

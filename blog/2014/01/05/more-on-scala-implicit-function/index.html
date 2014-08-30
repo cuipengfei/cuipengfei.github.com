@@ -1,0 +1,389 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>褪去Scala的糖衣(12) -- implicit function（补） - 崔鹏飞的Octopress Blog</title>
+  <meta name="author" content="崔鹏飞">
+
+  
+  <meta name="description" content="上次博客谈到了implicit function，但是漏掉了一些东西，今天补上。 由于上次已经讲过implicit function的实现细节，这次就不再重复了。今天只补充上次漏掉了的implicit function的一种很好的实践。 先看一段specs2的测试代码： 1
+2
+3
+4
+5
+6
+7 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://cuipengfei.github.com/blog/2014/01/05/more-on-scala-implicit-function/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="崔鹏飞的Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-46270419-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">崔鹏飞的Octopress Blog</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:cuipengfei.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">褪去Scala的糖衣(12) -- Implicit Function（补）</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-05T00:42:00+08:00" pubdate data-updated="true">Jan 5<span>th</span>, 2014</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>上次<a href="http://cuipengfei.me/blog/2014/01/01/desugar-scala-10/">博客谈到了implicit function</a>，但是漏掉了一些东西，今天补上。</p>
+
+<p>由于上次已经讲过implicit function的实现细节，这次就不再重复了。今天只补充上次漏掉了的implicit function的一种很好的实践。</p>
+
+<p>先看一段specs2的测试代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">org.specs2.mutable._</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">HelloWorldSpec</span> <span class="k">extends</span> <span class="nc">Specification</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="s">&quot;The &#39;Hello world&#39; string&quot;</span> <span class="n">should</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="s">&quot;contain 11 characters&quot;</span> <span class="n">in</span> <span class="o">{</span>
+</span><span class='line'>      <span class="s">&quot;Hello world&quot;</span> <span class="n">must</span> <span class="n">have</span> <span class="n">size</span> <span class="mi">11</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们试着理解这个测试代码在做什么的时候，无须多少思考，因为它和人类语言一样的亲近和自然。但是如果我们想知道specs2如何做到这一点时，就有点费解了。</p>
+
+<p>我们知道xObject yMethod zParameter的写法是一个语法糖，它和xObject.yMethod(zParameter)是一样的。也就是说should和in都是方法名。于是，问题来了，should和in前面是个String啊，String上哪有这两个方法的定义？</p>
+
+<p>想必答案你已经猜到了，specs2定义了一些implicit functions来把String转换成能够调用should和in的对象。至于是哪些对象，因为涉及到了specs2的细节，我们暂不讨论。我们试着模仿specs2来写出一段类似人类语言的代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Person</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">eat</span><span class="o">(</span><span class="n">food</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;I just ate &quot;</span> <span class="o">+</span> <span class="n">food</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>定义一个Person类，Person有一个名字，只会做一件事：吃。</p>
+
+<p>然后我们可以这样调用它：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">&quot;Xiao ming&quot;</span><span class="o">).</span><span class="n">eat</span><span class="o">(</span><span class="s">&quot;steamed dumplings&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们让小明吃点蒸饺。或者也可以这样：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">&quot;Xiao ming&quot;</span><span class="o">)</span> <span class="n">eat</span> <span class="s">&quot;boiled dumplings&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再煮点饺子让小明吃。这就是我们前面提到过的xObject yMethod zParameter的写法了。让小明吃点东西还得new一个Person出来，这太麻烦了，我们定义一个implicit function：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">implicit</span> <span class="k">def</span> <span class="n">stringToPerson</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="n">name</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样就可以把String转换成Person了。然后就可以像这样写：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="s">&quot;Xiao ming&quot;</span> <span class="n">eat</span> <span class="s">&quot;more dumplings&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>虽然我们写的是“Xiao ming”，但是编译器会把stringToPerson的调用加上去，然后才调用eat方法。</p>
+
+<p>这行代码看起来已经很接近人类语言了。</p>
+
+<p>连吃三顿饺子，明哥，您饱了吧？</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">崔鹏飞</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-05T00:42:00+08:00" pubdate data-updated="true">Jan 5<span>th</span>, 2014</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cuipengfei.github.com/blog/2014/01/05/more-on-scala-implicit-function/" data-via="cuipf" data-counturl="http://cuipengfei.github.com/blog/2014/01/05/more-on-scala-implicit-function/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/01/02/desugar-scala-11/" title="Previous Post: 剥掉Scala的糖衣(11) -- structural types">&laquo; 剥掉Scala的糖衣(11) -- structural types</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/06/09/desugar-scala-default-parameter-value/" title="Next Post: 除去Scala的糖衣(13) -- default parameter value">除去Scala的糖衣(13) -- default parameter value &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/08/30/options-for/">Desugar Scala(17) -- Option和for</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/08/10/da-li/">大理</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/18/play-evolutions-to-liquibase/">在使用play framework的evolutions？需要支持SQL Server？用Liquibase吧</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/28/scala-java-interop-trait-with-impl/">论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/27/scala-java-interop-closure/">论“如果Scala类有方法接收闭包，这些方法在Java里就不可用，因为Java目前尚不支持闭包。”这句话是错的</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/cuipengfei">@cuipengfei</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'cuipengfei',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("cuipf", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/cuipf" class="twitter-follow-button" data-show-count="false">Follow @cuipf</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - 崔鹏飞 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'cuipengfeioctopressblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://cuipengfei.github.com/blog/2014/01/05/more-on-scala-implicit-function/';
+        var disqus_url = 'http://cuipengfei.github.com/blog/2014/01/05/more-on-scala-implicit-function/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

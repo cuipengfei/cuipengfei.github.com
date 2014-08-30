@@ -1,0 +1,590 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>为什么必须是final的呢？ - 崔鹏飞的Octopress Blog</title>
+  <meta name="author" content="崔鹏飞">
+
+  
+  <meta name="description" content="一个谜团 如果你用过类似guava这种“伪函数式编程”风格的library的话，那下面这种风格的代码对你来说应该不陌生： 1
+2
+3
+4
+5
+6
+7
+8
+9
+public void tryUsingGuava() { final int expectedLength = 4; Iterables. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://cuipengfei.github.com/blog/2013/06/22/why-does-it-have-to-be-final/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="崔鹏飞的Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-46270419-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">崔鹏飞的Octopress Blog</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:cuipengfei.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">为什么必须是final的呢？</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-22T14:54:00+08:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>一个谜团</h2>
+
+<p>如果你用过类似guava这种“伪函数式编程”风格的library的话，那下面这种风格的代码对你来说应该不陌生：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">tryUsingGuava</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">final</span> <span class="kt">int</span> <span class="n">expectedLength</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+</span><span class='line'>    <span class="n">Iterables</span><span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">(</span><span class="s">&quot;123&quot;</span><span class="o">,</span> <span class="s">&quot;1234&quot;</span><span class="o">),</span> <span class="k">new</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="nd">@Override</span>
+</span><span class='line'>        <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">apply</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">==</span> <span class="n">expectedLength</span><span class="o">;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">});</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这段代码对一个字符串的list进行过滤，从中找出长度为4的字符串。看起来很是平常，没什么特别的。</p>
+
+<p>但是，声明expectedLength时用的那个final看起来有点扎眼，把它去掉试试：</p>
+
+<blockquote><p>error: local variable expectedLength is accessed from within inner class; needs to be declared final</p></blockquote>
+
+<p>结果Java编译器给出了如上的错误，看起来匿名内部类只能够访问final的局部变量。但是，<strong>为什么呢？其他的语言也有类似的规定吗？</strong></p>
+
+<p>在开始用其他语言做实验之前我们先把问题简化一下，不要再带着guava了，我们去除掉噪音，把问题归结为：</p>
+
+<p><strong>为什么Java中的匿名内部类只可以访问final的局部变量呢？其他语言中的匿名函数也有类似的限制吗？</strong></p>
+
+<h2>Scala中有类似的规定吗？</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">def</span> <span class="n">tryAccessingLocalVariable</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">var</span> <span class="n">number</span> <span class="k">=</span> <span class="mi">123</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">number</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">var</span> <span class="n">lambda</span> <span class="k">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">number</span> <span class="k">=</span> <span class="mi">456</span>
+</span><span class='line'>      <span class="n">println</span><span class="o">(</span><span class="n">number</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">lambda</span><span class="o">.</span><span class="n">apply</span><span class="o">()</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">number</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面的Scala代码是合法的，number变量是声明为var的，不是val（类似于Java中的final）。而且在匿名函数中可以修改number的值。</p>
+
+<p>看来<strong>Scala中没有类似的规定</strong>。</p>
+
+<h2>C#中有类似的规定吗？</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">public</span> <span class="k">void</span> <span class="nf">tryUsingLambda</span> <span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">number</span> <span class="p">=</span> <span class="m">123</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">number</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">Action</span> <span class="n">action</span> <span class="p">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">number</span> <span class="p">=</span> <span class="m">456</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">number</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">action</span> <span class="p">();</span>
+</span><span class='line'>  <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">number</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这段C#代码也是合法的，number这个局部变量在lambda表达式内外都可以访问和赋值。</p>
+
+<p>看来<strong>C#中也没有类似的规定</strong>。</p>
+
+<h2>分析谜团</h2>
+
+<p>三门语言中只有Java有这种限制，那我们分析一下吧。先来看一下Java中的匿名内部类是如何实现的：</p>
+
+<p>先定义一个接口：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyInterface</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后创建这个接口的匿名子类：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TryUsingAnonymousClass</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">useMyInterface</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kd">final</span> <span class="n">Integer</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">123</span><span class="o">;</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">MyInterface</span> <span class="n">myInterface</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyInterface</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>            <span class="nd">@Override</span>
+</span><span class='line'>            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>        <span class="o">};</span>
+</span><span class='line'>        <span class="n">myInterface</span><span class="o">.</span><span class="na">doSomething</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个匿名子类会被编译成一个单独的类，反编译的结果是这样的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">class</span> <span class="nc">TryUsingAnonymousClass</span><span class="n">$1</span>
+</span><span class='line'>        <span class="kd">implements</span> <span class="n">MyInterface</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kd">final</span> <span class="n">TryUsingAnonymousClass</span> <span class="k">this</span><span class="n">$0</span><span class="o">;</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Integer</span> <span class="n">paramInteger</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">TryUsingAnonymousClass$1</span><span class="o">(</span><span class="n">TryUsingAnonymousClass</span> <span class="k">this</span><span class="n">$0</span><span class="o">,</span> <span class="n">Integer</span> <span class="n">paramInteger</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">this</span><span class="n">$0</span> <span class="o">=</span> <span class="k">this</span><span class="n">$0</span><span class="o">;</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">paramInteger</span> <span class="o">=</span> <span class="n">paramInteger</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">paramInteger</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到名为number的局部变量是作为构造方法的参数传入匿名内部类的（以上代码经过了手动修改，真实的反编译结果中有一些不可读的命名）。</p>
+
+<p>如果Java允许匿名内部类访问非final的局部变量的话，那我们就可以在TryUsingAnonymousClass$1中修改paramInteger，但是这不会对number的值有影响，因为它们是不同的reference。</p>
+
+<p>这就会造成数据不同步的问题。</p>
+
+<p>所以，<strong>谜团解开了：Java为了避免数据不同步的问题，做出了匿名内部类只可以访问final的局部变量的限制。</strong></p>
+
+<p>但是，新的谜团又出现了：</p>
+
+<h2>Scala和C#为什么没有类似的限制呢？它们是如何处理数据同步问题的呢？</h2>
+
+<p>上面出现过的那段Scala代码中的lambda表达式会编译成这样：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">TryUsingAnonymousClassInScala</span><span class="n">$$anonfun$1</span> <span class="kd">extends</span> <span class="n">AbstractFunction0</span><span class="o">.</span><span class="na">mcV</span><span class="o">.</span><span class="na">sp</span>
+</span><span class='line'>        <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">0L</span><span class="o">;</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kd">final</span> <span class="n">IntRef</span> <span class="n">number$2</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">apply</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">apply$mcV$sp</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="n">apply$mcV$sp</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">number</span><span class="n">$2</span><span class="o">.</span><span class="na">elem</span> <span class="o">=</span> <span class="mi">456</span><span class="o">;</span>
+</span><span class='line'>        <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">BoxesRunTime</span><span class="o">.</span><span class="na">boxToInteger</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">number</span><span class="n">$2</span><span class="o">.</span><span class="na">elem</span><span class="o">));</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">TryUsingAnonymousClassInScala$$anonfun$1</span><span class="o">(</span><span class="n">TryUsingAnonymousClassInScala</span> <span class="n">$outer</span><span class="o">,</span> <span class="n">IntRef</span> <span class="n">number$2</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">number</span><span class="n">$2</span> <span class="o">=</span> <span class="n">number$2</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到number也是通过构造方法的参数传入的，但是与Java的不同是这里的number不是直接传入的，是被IntRef包装了一层然后才传入的。对number的值修改也是通过包装类进行的：this.number$2.elem = 456;</p>
+
+<p>这样就保证了lambda表达式内外访问到的是同一个对象。</p>
+
+<p>再来看看C#的处理方式，反编译一下，发现C#编译器生成了如下的一个类：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">private</span> <span class="k">sealed</span> <span class="k">class</span> <span class="err">&lt;</span><span class="nc">tryUsingLambda</span><span class="p">&gt;</span><span class="n">c__AnonStorey0</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">internal</span> <span class="kt">int</span> <span class="n">number</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">internal</span> <span class="k">void</span> <span class="p">&lt;&gt;</span><span class="n">m__0</span> <span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="n">number</span> <span class="p">=</span> <span class="m">456</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">number</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>把number包装在这个类内，这样就保证了lambda表达式内外使用的都是同一个number，即便重新赋值也可以保证内外部的数据是同步的。</p>
+
+<h2>小结</h2>
+
+<p>Scala和C#的编译器通过把局部变量包装在另一个对象中，来实现lambda表达式内外的数据同步。</p>
+
+<p>而Java的编译器由于未知的原因（怀疑是为了图省事儿？）没有做包装局部变量这件事儿，于是就只好强制用户把局部变量声明为final才能在匿名内部类中使用来避免数据不同步的问题。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">崔鹏飞</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-22T14:54:00+08:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cuipengfei.github.com/blog/2013/06/22/why-does-it-have-to-be-final/" data-via="cuipf" data-counturl="http://cuipengfei.github.com/blog/2013/06/22/why-does-it-have-to-be-final/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/05/11/scala-language-features-2/" title="Previous Post: Scala中的语言特性是如何实现的(2)">&laquo; Scala中的语言特性是如何实现的(2)</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/10/13/scala-trait/" title="Next Post: Scala中的语言特性是如何实现的(3) -- trait">Scala中的语言特性是如何实现的(3) -- trait &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/08/30/options-for/">Desugar Scala(17) -- Option和for</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/08/10/da-li/">大理</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/18/play-evolutions-to-liquibase/">在使用play framework的evolutions？需要支持SQL Server？用Liquibase吧</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/28/scala-java-interop-trait-with-impl/">论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/27/scala-java-interop-closure/">论“如果Scala类有方法接收闭包，这些方法在Java里就不可用，因为Java目前尚不支持闭包。”这句话是错的</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/cuipengfei">@cuipengfei</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'cuipengfei',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("cuipf", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/cuipf" class="twitter-follow-button" data-show-count="false">Follow @cuipf</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - 崔鹏飞 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'cuipengfeioctopressblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://cuipengfei.github.com/blog/2013/06/22/why-does-it-have-to-be-final/';
+        var disqus_url = 'http://cuipengfei.github.com/blog/2013/06/22/why-does-it-have-to-be-final/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

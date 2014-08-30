@@ -1,0 +1,549 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>去掉Scala的糖衣(4) -- type aliase - 崔鹏飞的Octopress Blog</title>
+  <meta name="author" content="崔鹏飞">
+
+  
+  <meta name="description" content="Scala中有一个type关键字，用来给类型或者是操作起别名，用起来很是方便。 比如这样： 1
+type People = List[Person] 这样就是给List[Person]（方括号是Scala的类型参数的写法）声明了一个别名，叫做People。 接下来就可以这样使用它： 1
+2
+3 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://cuipengfei.github.com/blog/2013/12/23/desugar-scala-4/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="崔鹏飞的Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-46270419-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">崔鹏飞的Octopress Blog</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:cuipengfei.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">去掉Scala的糖衣(4) -- Type Aliase</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-23T15:48:00+08:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Scala中有一个type关键字，用来给类型或者是操作起别名，用起来很是方便。</p>
+
+<p>比如这样：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">type</span> <span class="kt">People</span> <span class="o">=</span> <span class="nc">List</span><span class="o">[</span><span class="kt">Person</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样就是给List[Person]（方括号是Scala的类型参数的写法）声明了一个别名，叫做People。</p>
+
+<p>接下来就可以这样使用它：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">def</span> <span class="n">teenagers</span><span class="o">(</span><span class="n">people</span><span class="k">:</span> <span class="kt">People</span><span class="o">)</span><span class="k">:</span> <span class="kt">People</span> <span class="o">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">people</span><span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="n">person</span> <span class="k">=&gt;</span> <span class="n">person</span><span class="o">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个代码编译之后没有什么神奇的，仅仅是把所有出现People这个字眼的地方都用List of Person替代了。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>  <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="nf">teenagers</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">people</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="o">(</span><span class="n">List</span><span class="o">)</span><span class="n">people</span><span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="k">new</span> <span class="n">AbstractFunction1</span><span class="o">()</span> <span class="o">{</span> <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">0L</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="kd">public</span> <span class="kd">final</span> <span class="kt">boolean</span> <span class="nf">apply</span><span class="o">(</span><span class="n">Person</span> <span class="n">person</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="n">person</span><span class="o">.</span><span class="na">age</span><span class="o">()</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="o">;</span> <span class="o">}</span>
+</span><span class='line'>    <span class="o">});</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这种给类型一个别名的特性只是一个小糖豆，不太甜，真正有趣的是给一类操作命名（联想C#中定义delegate）。</p>
+
+<p>比如这样：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">type</span> <span class="kt">PersonPredicate</span> <span class="o">=</span> <span class="nc">Person</span> <span class="k">=&gt;</span> <span class="nc">Boolean</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接受一个Person，返回一个Boolean，我们把这一类用来判断一个人是否符合某个条件的操作统称为PersonPredicate。</p>
+
+<p>然后我们可以定义以下predicate：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">teenagerPred</span><span class="k">:</span> <span class="kt">PersonPredicate</span> <span class="o">=</span> <span class="n">person</span> <span class="k">=&gt;</span> <span class="n">person</span><span class="o">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">20</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后前面写过的teenagers方法就可以这样重新定义：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">def</span> <span class="n">teenagers</span><span class="o">(</span><span class="n">people</span><span class="k">:</span> <span class="kt">People</span><span class="o">)</span><span class="k">:</span> <span class="kt">People</span> <span class="o">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">people</span><span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="n">teenagerPred</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>按照这个思路下去，我们就可以开始composite functions了。比如说，我们跟人收税，就可以这么做：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">type</span> <span class="kt">Tax</span> <span class="o">=</span> <span class="nc">Person</span> <span class="k">=&gt;</span> <span class="nc">Double</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">val</span> <span class="n">incomeTax</span><span class="k">:</span> <span class="kt">Tax</span> <span class="o">=</span> <span class="n">person</span> <span class="k">=&gt;</span> <span class="n">person</span><span class="o">.</span><span class="n">income</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">/</span> <span class="mi">100</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">val</span> <span class="n">kejuanzaTax</span><span class="k">:</span> <span class="kt">Tax</span> <span class="o">=</span> <span class="n">person</span> <span class="k">=&gt;</span> <span class="n">person</span><span class="o">.</span><span class="n">income</span> <span class="o">*</span> <span class="mi">20</span> <span class="o">/</span> <span class="mi">100</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">giveMeYourMoney</span><span class="o">(</span><span class="n">p</span><span class="k">:</span> <span class="kt">Person</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">calculateTax</span><span class="o">(</span><span class="n">p</span><span class="o">,</span> <span class="nc">List</span><span class="o">(</span><span class="n">incomeTax</span><span class="o">,</span> <span class="n">kejuanzaTax</span><span class="o">))</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">calculateTax</span><span class="o">(</span><span class="n">person</span><span class="k">:</span> <span class="kt">Person</span><span class="o">,</span> <span class="n">taxes</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Tax</span><span class="o">])</span><span class="k">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">taxes</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="mi">0</span><span class="n">d</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="n">curTax</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">acc</span> <span class="o">+</span> <span class="n">curTax</span><span class="o">(</span><span class="n">person</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>从一个人那里拿到钱，这种操作，我们称之为Tax。然后定义个税和苛捐杂税，或者也可以有任意多的税种。</p>
+
+<p>然后就可以把任意的几个税种放在一个List里面，和calculateTax去composite了。</p>
+
+<p>当然，没有type这个关键字，我们也可以composite functions。只不过就得写成这样：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">teenagerPred</span><span class="k">:</span> <span class="o">(</span><span class="kt">Person</span><span class="o">)</span> <span class="o">=&gt;</span> <span class="nc">Boolean</span> <span class="k">=</span> <span class="n">person</span> <span class="k">=&gt;</span> <span class="n">person</span><span class="o">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">20</span>
+</span><span class='line'><span class="k">def</span> <span class="n">incomeTax</span><span class="k">:</span> <span class="o">(</span><span class="kt">Person</span><span class="o">)</span> <span class="o">=&gt;</span> <span class="nc">Double</span> <span class="k">=</span> <span class="n">person</span> <span class="k">=&gt;</span> <span class="n">person</span><span class="o">.</span><span class="n">income</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">/</span> <span class="mi">100</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>看着稍微有点眼花。</p>
+
+<p>这种用type关键字给一种操作命名的代码反编译之后是这样的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>  <span class="kd">public</span> <span class="n">Function1</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">teenagerPred</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">new</span> <span class="nf">AbstractFunction1</span><span class="o">()</span> <span class="o">{</span> <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">0L</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="kd">public</span> <span class="kd">final</span> <span class="kt">boolean</span> <span class="nf">apply</span><span class="o">(</span><span class="n">Person</span> <span class="n">person</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="n">person</span><span class="o">.</span><span class="na">age</span><span class="o">()</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="o">;</span> <span class="o">}</span>  <span class="o">}</span> <span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">Function1</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">incomeTax</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">new</span> <span class="nf">AbstractFunction1</span><span class="o">()</span> <span class="o">{</span> <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">0L</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="kd">public</span> <span class="kd">final</span> <span class="kt">double</span> <span class="nf">apply</span><span class="o">(</span><span class="n">Person</span> <span class="n">person</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="n">person</span><span class="o">.</span><span class="na">income</span><span class="o">()</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">/</span> <span class="mi">100</span><span class="o">;</span> <span class="o">}</span>  <span class="o">}</span> <span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">Function1</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">kejuanzaTax</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">new</span> <span class="nf">AbstractFunction1</span><span class="o">()</span> <span class="o">{</span> <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">0L</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">double</span> <span class="nf">apply</span><span class="o">(</span><span class="n">Person</span> <span class="n">person</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="n">person</span><span class="o">.</span><span class="na">income</span><span class="o">()</span> <span class="o">*</span> <span class="mi">20</span> <span class="o">/</span> <span class="mi">100</span><span class="o">;</span> <span class="o">}</span> <span class="o">}</span> <span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到所有这种接受一个参数，返回一个值的操作都是Function1&lt;Person, Object>。</p>
+
+<p>推测一下，接受两个参数，返回一个值的是不是该叫做Function2呢？</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">type</span> <span class="kt">TwoToOne</span> <span class="o">=</span> <span class="o">(</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Int</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Double</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="n">twoToOneImpl</span><span class="k">:</span> <span class="kt">TwoToOne</span> <span class="o">=</span> <span class="o">(</span><span class="n">str</span><span class="o">,</span> <span class="n">i</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="mi">1</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>反编译之后，果不其然：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="n">Function2</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">twoToOneImpl</span><span class="o">()</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="k">new</span> <span class="n">Hello</span><span class="o">..</span><span class="na">anonfun</span><span class="o">.</span><span class="na">twoToOneImpl</span><span class="o">.</span><span class="mi">1</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>那不接收参数，只有返回值的呢？</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">type</span> <span class="kt">NoInJustOut</span> <span class="o">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="nc">String</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">noInJustOutImpl</span><span class="k">:</span> <span class="kt">NoInJustOut</span> <span class="o">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="s">&quot;hello world&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>反编译之后，其实是变成了Function0 of String:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>  <span class="kd">public</span> <span class="n">Function0</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">noInJustOutImpl</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">new</span> <span class="n">Hello</span><span class="o">..</span><span class="na">anonfun</span><span class="o">.</span><span class="na">noInJustOutImpl</span><span class="o">.</span><span class="mi">1</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>到这里，我们可以总结一下type alia这个糖衣：</p>
+
+<p>一个类型的type alias，类似于这样的：type t = x。编译器将在所有使用到t的地方把t替换为x。</p>
+
+<p>对于一种操作的type alias，编译器将会根据参数列表和返回值类型的不同将其替换为对应的Function0,Function1,Function2 &#8230;&#8230; 一直到Function22。</p>
+
+<p>如果我们真的定义一个超过二十二个参数的操作会如何呢？</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">type</span> <span class="kt">twentyThree</span> <span class="o">=</span> <span class="o">(</span>
+</span><span class='line'>      <span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">,</span>
+</span><span class='line'>      <span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">,</span>
+</span><span class='line'>      <span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">,</span>
+</span><span class='line'>      <span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">,</span>
+</span><span class='line'>      <span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">,</span>
+</span><span class='line'>      <span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">,</span> <span class="nc">String</span>
+</span><span class='line'>    <span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">String</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Scala编译器会直接告诉我们：
+type Function23 is not a member of package scala</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">崔鹏飞</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-23T15:48:00+08:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cuipengfei.github.com/blog/2013/12/23/desugar-scala-4/" data-via="cuipf" data-counturl="http://cuipengfei.github.com/blog/2013/12/23/desugar-scala-4/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/10/13/scala-trait/" title="Previous Post: Scala中的语言特性是如何实现的(3) -- trait">&laquo; Scala中的语言特性是如何实现的(3) -- trait</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/12/24/desugar-scala-5/" title="Next Post: 剥开Scala的糖衣(5) -- lazy">剥开Scala的糖衣(5) -- lazy &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/08/30/options-for/">Desugar Scala(17) -- Option和for</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/08/10/da-li/">大理</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/18/play-evolutions-to-liquibase/">在使用play framework的evolutions？需要支持SQL Server？用Liquibase吧</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/28/scala-java-interop-trait-with-impl/">论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/27/scala-java-interop-closure/">论“如果Scala类有方法接收闭包，这些方法在Java里就不可用，因为Java目前尚不支持闭包。”这句话是错的</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/cuipengfei">@cuipengfei</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'cuipengfei',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("cuipf", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/cuipf" class="twitter-follow-button" data-show-count="false">Follow @cuipf</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - 崔鹏飞 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'cuipengfeioctopressblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://cuipengfei.github.com/blog/2013/12/23/desugar-scala-4/';
+        var disqus_url = 'http://cuipengfei.github.com/blog/2013/12/23/desugar-scala-4/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

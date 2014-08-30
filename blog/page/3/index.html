@@ -1,0 +1,2049 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>崔鹏飞的Octopress Blog</title>
+  <meta name="author" content="崔鹏飞">
+
+  
+  <meta name="description" content="我在Coursera上跟了一门叫做Functional Programming Principles in Scala的课程，是由Scala的作者Martin Odersky讲授的。其中第三周的作业中使用到了Scala的trait这个语言特性。 我以前熟知的语言都没有类似的特性（ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://cuipengfei.github.com/blog/page/3/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="崔鹏飞的Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-46270419-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">崔鹏飞的Octopress Blog</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:cuipengfei.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/13/scala-trait/">Scala中的语言特性是如何实现的(3) &#8211; Trait</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-13T17:41:00+08:00" pubdate data-updated="true">Oct 13<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/10/13/scala-trait/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>我在Coursera上跟了一门叫做<a href="https://www.coursera.org/course/progfun">Functional Programming Principles in Scala</a>的课程，是由Scala的作者Martin Odersky讲授的。其中第三周的作业中使用到了Scala的trait这个语言特性。</p>
+
+<p>我以前熟知的语言都没有类似的特性（Ruby的mixin和Scala的trait很像，但是Ruby我不熟），所以这周的博客就分析一下这个语言特性是如何实现的。</p>
+
+<h3>trait</h3>
+
+<p>在讲trait的实现机制之前，先看一个使用trait的例子。
+假设我们有以下几个类：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">abstract</span> <span class="k">class</span> <span class="nc">Plant</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">photosynthesis</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Oh, the sunlight!&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Rose</span> <span class="k">extends</span> <span class="nc">Plant</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">smell</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Good!&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">makePeopleHappy</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;People like me&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Ruderal</span> <span class="k">extends</span> <span class="nc">Plant</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">grow</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;I take up all the space!&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">abstract</span> <span class="k">class</span> <span class="nc">Animal</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">move</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;I can move!&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Dog</span> <span class="k">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">bark</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Woof!&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">makePeopleHappy</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;People like me&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Snake</span> <span class="k">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">bite</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;I am poisonous!&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>植物家族有玫瑰和杂草。</p>
+
+<p>动物家族有狗和毒蛇。</p>
+
+<p>仔细观察可以发现，玫瑰和狗有一个共同的行为，它们都可以取悦人类，这个行为是用完全一样的代码实现的。</p>
+
+<p>如何把Rose和Dog中的重复代码消除掉呢？有一种潜在的解决方案：
+把makePeopleHappy提取到一个类中去，让植物和动物都继承自它。</p>
+
+<p>这么做虽然消除了重复代码但有两个明显的缺点：</p>
+
+<ol>
+<li>植物和动物继承自同一个类，不太合理</li>
+<li>杂草和毒蛇也具有了取悦于人的能力，也不太合理</li>
+</ol>
+
+
+<p>这时我们就可以使用trait，它没有上面提到的两个缺点。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">trait</span> <span class="nc">PeoplePleaser</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">makePeopleHappy</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;People like me&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Rose</span> <span class="k">extends</span> <span class="nc">Plant</span> <span class="k">with</span> <span class="nc">PeoplePleaser</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">smell</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Good!&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Dog</span> <span class="k">extends</span> <span class="nc">Animal</span> <span class="k">with</span> <span class="nc">PeoplePleaser</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">bark</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Woof!&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们定义一个trait，把makePeopleHappy置于其中，让Rose和Dog都with这个trait。然后就可以写这样的代码来调用它们了：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">new</span> <span class="nc">Rose</span><span class="o">().</span><span class="n">makePeopleHappy</span>
+</span><span class='line'>  <span class="k">new</span> <span class="nc">Dog</span><span class="o">().</span><span class="n">makePeopleHappy</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样我们就解决了重复代码的问题，而且没有触及已存在的继承关系。</p>
+
+<p>现在看看trait的实现机制吧，我们开始反编译！</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">interface</span> <span class="nc">PeoplePleaser</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">makePeopleHappy</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">PeoplePleaser</span><span class="n">$class</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">makePeopleHappy</span><span class="o">(</span><span class="n">PeoplePleaser</span> <span class="n">$this</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;People like me&quot;</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">$init$</span><span class="o">(</span><span class="n">PeoplePleaser</span> <span class="n">$this</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Rose</span> <span class="kd">extends</span> <span class="n">Plant</span>
+</span><span class='line'>  <span class="kd">implements</span> <span class="n">PeoplePleaser</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">makePeopleHappy</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="n">PeoplePleaser$class</span><span class="o">.</span><span class="na">makePeopleHappy</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">smell</span><span class="o">()</span> <span class="o">{</span> <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Good!&quot;</span><span class="o">);</span> <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="nf">Rose</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="n">PeoplePleaser</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="n">$init$</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="n">Animal</span>
+</span><span class='line'>  <span class="kd">implements</span> <span class="n">PeoplePleaser</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">makePeopleHappy</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="n">PeoplePleaser$class</span><span class="o">.</span><span class="na">makePeopleHappy</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">bark</span><span class="o">()</span> <span class="o">{</span> <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Woof!&quot;</span><span class="o">);</span> <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="nf">Dog</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="n">PeoplePleaser</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="n">$init$</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>真相大白了，PeoplePleaser被编译成了一个接口加一个抽象类。Rose和Dog实现这个接口，并通过调用抽象类中的静态方法来实现了makePeopleHappy。</p>
+
+<p>很有趣的一点是Rose和Dog在调用静态方法时都把this传了进去，为什么呢？我们把原来的代码改成这样来看：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">trait</span> <span class="nc">PeoplePleaser</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">moreMessage</span> <span class="k">=</span> <span class="s">&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">makePeopleHappy</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;People like me. &quot;</span> <span class="o">+</span> <span class="n">moreMessage</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Rose</span> <span class="k">extends</span> <span class="nc">Plant</span> <span class="k">with</span> <span class="nc">PeoplePleaser</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">override</span> <span class="k">val</span> <span class="n">moreMessage</span> <span class="k">=</span> <span class="s">&quot;Because I smell nice.&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">smell</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Good!&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Dog</span> <span class="k">extends</span> <span class="nc">Animal</span> <span class="k">with</span> <span class="nc">PeoplePleaser</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">override</span> <span class="k">val</span> <span class="n">moreMessage</span> <span class="k">=</span> <span class="s">&quot;Because I fetch balls.&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">bark</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Woof!&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们给makePeopleHappy加上一段额外的信息。
+现在再次反编译。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">interface</span> <span class="nc">PeoplePleaser</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="n">objsets$PeoplePleaser$_setter_$moreMessage_$eq</span><span class="o">(</span><span class="n">String</span> <span class="n">paramString</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">String</span> <span class="nf">moreMessage</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">makePeopleHappy</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">PeoplePleaser</span><span class="n">$class</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">makePeopleHappy</span><span class="o">(</span><span class="n">PeoplePleaser</span> <span class="n">$this</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="n">StringBuilder</span><span class="o">()</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;People like me. &quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">$this</span><span class="o">.</span><span class="na">moreMessage</span><span class="o">()).</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">$init$</span><span class="o">(</span><span class="n">PeoplePleaser</span> <span class="n">$this</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="n">$this</span><span class="o">.</span><span class="na">objsets</span><span class="n">$PeoplePleaser$_setter_$moreMessage_$eq</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Rose</span> <span class="kd">extends</span> <span class="n">Plant</span>
+</span><span class='line'>  <span class="kd">implements</span> <span class="n">PeoplePleaser</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>  <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">moreMessage</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="n">objsets$PeoplePleaser$_setter_$moreMessage_$eq</span><span class="o">(</span><span class="n">String</span> <span class="n">x$1</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">makePeopleHappy</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="n">PeoplePleaser$class</span><span class="o">.</span><span class="na">makePeopleHappy</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">String</span> <span class="nf">moreMessage</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">moreMessage</span><span class="o">;</span> <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">smell</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Good!&quot;</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="nf">Rose</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="n">PeoplePleaser</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="n">$init$</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>    <span class="k">this</span><span class="o">.</span><span class="na">moreMessage</span> <span class="o">=</span> <span class="s">&quot;Because I smell nice.&quot;</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="n">Animal</span>
+</span><span class='line'>  <span class="kd">implements</span> <span class="n">PeoplePleaser</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>  <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">moreMessage</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="n">objsets$PeoplePleaser$_setter_$moreMessage_$eq</span><span class="o">(</span><span class="n">String</span> <span class="n">x$1</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">makePeopleHappy</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="n">PeoplePleaser$class</span><span class="o">.</span><span class="na">makePeopleHappy</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">String</span> <span class="nf">moreMessage</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">moreMessage</span><span class="o">;</span> <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">bark</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Woof!&quot;</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="nf">Dog</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="n">PeoplePleaser</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="n">$init$</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>    <span class="k">this</span><span class="o">.</span><span class="na">moreMessage</span> <span class="o">=</span> <span class="s">&quot;Because I fetch balls.&quot;</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>现在就清楚了，抽象类中的静态方法可能会依赖于各个实例不同的状态，所以需要把this传递进去。
+这样我们才能够给makePeopleHappy加上一段额外的信息。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/22/why-does-it-have-to-be-final/">为什么必须是final的呢？</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-22T14:54:00+08:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2013</time>
+        
+         | <a href="/blog/2013/06/22/why-does-it-have-to-be-final/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>一个谜团</h2>
+
+<p>如果你用过类似guava这种“伪函数式编程”风格的library的话，那下面这种风格的代码对你来说应该不陌生：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">tryUsingGuava</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">final</span> <span class="kt">int</span> <span class="n">expectedLength</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+</span><span class='line'>    <span class="n">Iterables</span><span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">(</span><span class="s">&quot;123&quot;</span><span class="o">,</span> <span class="s">&quot;1234&quot;</span><span class="o">),</span> <span class="k">new</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="nd">@Override</span>
+</span><span class='line'>        <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">apply</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">==</span> <span class="n">expectedLength</span><span class="o">;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">});</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这段代码对一个字符串的list进行过滤，从中找出长度为4的字符串。看起来很是平常，没什么特别的。</p>
+
+<p>但是，声明expectedLength时用的那个final看起来有点扎眼，把它去掉试试：</p>
+
+<blockquote><p>error: local variable expectedLength is accessed from within inner class; needs to be declared final</p></blockquote>
+
+<p>结果Java编译器给出了如上的错误，看起来匿名内部类只能够访问final的局部变量。但是，<strong>为什么呢？其他的语言也有类似的规定吗？</strong></p>
+
+<p>在开始用其他语言做实验之前我们先把问题简化一下，不要再带着guava了，我们去除掉噪音，把问题归结为：</p>
+
+<p><strong>为什么Java中的匿名内部类只可以访问final的局部变量呢？其他语言中的匿名函数也有类似的限制吗？</strong></p>
+
+<h2>Scala中有类似的规定吗？</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">def</span> <span class="n">tryAccessingLocalVariable</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">var</span> <span class="n">number</span> <span class="k">=</span> <span class="mi">123</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">number</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">var</span> <span class="n">lambda</span> <span class="k">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">number</span> <span class="k">=</span> <span class="mi">456</span>
+</span><span class='line'>      <span class="n">println</span><span class="o">(</span><span class="n">number</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">lambda</span><span class="o">.</span><span class="n">apply</span><span class="o">()</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">number</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面的Scala代码是合法的，number变量是声明为var的，不是val（类似于Java中的final）。而且在匿名函数中可以修改number的值。</p>
+
+<p>看来<strong>Scala中没有类似的规定</strong>。</p>
+
+<h2>C#中有类似的规定吗？</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">public</span> <span class="k">void</span> <span class="nf">tryUsingLambda</span> <span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">number</span> <span class="p">=</span> <span class="m">123</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">number</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">Action</span> <span class="n">action</span> <span class="p">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">number</span> <span class="p">=</span> <span class="m">456</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">number</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">action</span> <span class="p">();</span>
+</span><span class='line'>  <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">number</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这段C#代码也是合法的，number这个局部变量在lambda表达式内外都可以访问和赋值。</p>
+
+<p>看来<strong>C#中也没有类似的规定</strong>。</p>
+
+<h2>分析谜团</h2>
+
+<p>三门语言中只有Java有这种限制，那我们分析一下吧。先来看一下Java中的匿名内部类是如何实现的：</p>
+
+<p>先定义一个接口：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyInterface</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后创建这个接口的匿名子类：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TryUsingAnonymousClass</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">useMyInterface</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kd">final</span> <span class="n">Integer</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">123</span><span class="o">;</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">MyInterface</span> <span class="n">myInterface</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyInterface</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>            <span class="nd">@Override</span>
+</span><span class='line'>            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>        <span class="o">};</span>
+</span><span class='line'>        <span class="n">myInterface</span><span class="o">.</span><span class="na">doSomething</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个匿名子类会被编译成一个单独的类，反编译的结果是这样的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">class</span> <span class="nc">TryUsingAnonymousClass</span><span class="n">$1</span>
+</span><span class='line'>        <span class="kd">implements</span> <span class="n">MyInterface</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kd">final</span> <span class="n">TryUsingAnonymousClass</span> <span class="k">this</span><span class="n">$0</span><span class="o">;</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Integer</span> <span class="n">paramInteger</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">TryUsingAnonymousClass$1</span><span class="o">(</span><span class="n">TryUsingAnonymousClass</span> <span class="k">this</span><span class="n">$0</span><span class="o">,</span> <span class="n">Integer</span> <span class="n">paramInteger</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">this</span><span class="n">$0</span> <span class="o">=</span> <span class="k">this</span><span class="n">$0</span><span class="o">;</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">paramInteger</span> <span class="o">=</span> <span class="n">paramInteger</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">paramInteger</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到名为number的局部变量是作为构造方法的参数传入匿名内部类的（以上代码经过了手动修改，真实的反编译结果中有一些不可读的命名）。</p>
+
+<p>如果Java允许匿名内部类访问非final的局部变量的话，那我们就可以在TryUsingAnonymousClass$1中修改paramInteger，但是这不会对number的值有影响，因为它们是不同的reference。</p>
+
+<p>这就会造成数据不同步的问题。</p>
+
+<p>所以，<strong>谜团解开了：Java为了避免数据不同步的问题，做出了匿名内部类只可以访问final的局部变量的限制。</strong></p>
+
+<p>但是，新的谜团又出现了：</p>
+
+<h2>Scala和C#为什么没有类似的限制呢？它们是如何处理数据同步问题的呢？</h2>
+
+<p>上面出现过的那段Scala代码中的lambda表达式会编译成这样：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">TryUsingAnonymousClassInScala</span><span class="n">$$anonfun$1</span> <span class="kd">extends</span> <span class="n">AbstractFunction0</span><span class="o">.</span><span class="na">mcV</span><span class="o">.</span><span class="na">sp</span>
+</span><span class='line'>        <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">0L</span><span class="o">;</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kd">final</span> <span class="n">IntRef</span> <span class="n">number$2</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">apply</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">apply$mcV$sp</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="n">apply$mcV$sp</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">number</span><span class="n">$2</span><span class="o">.</span><span class="na">elem</span> <span class="o">=</span> <span class="mi">456</span><span class="o">;</span>
+</span><span class='line'>        <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">BoxesRunTime</span><span class="o">.</span><span class="na">boxToInteger</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">number</span><span class="n">$2</span><span class="o">.</span><span class="na">elem</span><span class="o">));</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">TryUsingAnonymousClassInScala$$anonfun$1</span><span class="o">(</span><span class="n">TryUsingAnonymousClassInScala</span> <span class="n">$outer</span><span class="o">,</span> <span class="n">IntRef</span> <span class="n">number$2</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">number</span><span class="n">$2</span> <span class="o">=</span> <span class="n">number$2</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到number也是通过构造方法的参数传入的，但是与Java的不同是这里的number不是直接传入的，是被IntRef包装了一层然后才传入的。对number的值修改也是通过包装类进行的：this.number$2.elem = 456;</p>
+
+<p>这样就保证了lambda表达式内外访问到的是同一个对象。</p>
+
+<p>再来看看C#的处理方式，反编译一下，发现C#编译器生成了如下的一个类：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">private</span> <span class="k">sealed</span> <span class="k">class</span> <span class="err">&lt;</span><span class="nc">tryUsingLambda</span><span class="p">&gt;</span><span class="n">c__AnonStorey0</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">internal</span> <span class="kt">int</span> <span class="n">number</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">internal</span> <span class="k">void</span> <span class="p">&lt;&gt;</span><span class="n">m__0</span> <span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="n">number</span> <span class="p">=</span> <span class="m">456</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">number</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>把number包装在这个类内，这样就保证了lambda表达式内外使用的都是同一个number，即便重新赋值也可以保证内外部的数据是同步的。</p>
+
+<h2>小结</h2>
+
+<p>Scala和C#的编译器通过把局部变量包装在另一个对象中，来实现lambda表达式内外的数据同步。</p>
+
+<p>而Java的编译器由于未知的原因（怀疑是为了图省事儿？）没有做包装局部变量这件事儿，于是就只好强制用户把局部变量声明为final才能在匿名内部类中使用来避免数据不同步的问题。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/11/scala-language-features-2/">Scala中的语言特性是如何实现的(2)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-11T23:37:00+08:00" pubdate data-updated="true">May 11<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/05/11/scala-language-features-2/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://cuipengfei.me/blog/2013/05/05/how-are-scala-language-features-implemented/">上篇博文</a>的末尾留了三个问题，现在自问自答一下。</p>
+
+<h3>在Scala中被声明为val的v4为什么在反编译的Java中不是final的呢？</h3>
+
+<p>在方法中声明局部变量时，如果用Scala的val关键字（或者是Java中的final）来修饰变量，则代表着此变量在赋过初始值之后不可以再被重新赋值。这个val或者final只是给编译器用的，编译器如果发现你给此变量重新赋值会抛出错误。</p>
+
+<p>而bytecode不具备表达一个局部变量是immutable的能力，也就是说对于JVM来说，不存在不可变的局部变量这个概念。所以v4在反编译之后，就和普通的局部变量无异了。</p>
+
+<h3>在Scala中被声明为val的v2为什么在反编译的C#中不是readonly的呢？</h3>
+
+<p>这是个挺tricky的问题，我试着解释一下。Scala .NET是基于IKVM实现的，IKVM可以把Java bytecode翻译为CIL。
+所以Scala编译为CIL的过程实际是这样的：</p>
+
+<p>Scala &#8212;&#8211;Scala编译器&#8212;&#8211;> bytecode &#8212;&#8211;IKVM&#8212;&#8211;> CIL</p>
+
+<p>Scala编译器编译出的bytecode实际是用final修饰了v2的，但是bytecode中的final和CIL中的initonly（对应C#的readonly）是不一样的。</p>
+
+<p>Java中，final实例变量定义的时候，可以先声明，而不给初值，然后我们可以在任何一个方法中给它赋初值。这提供了更大的灵活性，一个Java类中的final成员可以依对象而不同，却保持其immutable的特征。</p>
+
+<p>而CIL的initonly则要严格一点，CLI标准（ECMA-334）这样描述：</p>
+
+<blockquote><p>initonly marks fields which are constant after they are initialized. These fields shall only be mutated inside a constructor. If the field is a static field, then it shall be mutated only inside the type initializer of the type in which it was declared. If it is an instance field, then it shall be mutated only in one of the instance constructors of the type in which it was defined. It shall not be mutated in any other method or in any other constructor, including constructors of derived classes.</p></blockquote>
+
+<p>可见，一个initonly的成员，不是随便在哪儿都可以赋初值的。由于这点不同IKVM就没有直接把final翻译成initonly。如果想让v2在C#代码中变成readonly的，可以给IKVM加上strictfinalfieldsemantics这个参数。</p>
+
+<h3>为什么反编译出来的C#代码中的实例级公开方法都是标有override的呢？</h3>
+
+<p>这个问题还没搞明白。</p>
+
+<p>但是有个有趣的现象，如果用Scala .NET来编译Scala源码，编译出的实例级方法都是标有override的；而如果先把Scala代码编译为.class然后再用IKVM把.class文件转换为CIL的话，方法则是标有virtual的。我猜这可能和Java中的方法默认是可以被overirde的有关。</p>
+
+<p>下面开始正文，前面填坑用了不少篇幅，所以这次只分析一个语言特性：Scala中的constructor。</p>
+
+<h2>Constructor</h2>
+
+<p>Scala中可以在声明class的同时声明一个constructor，比如这样：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">ScalaConstructorExample</span><span class="o">(</span><span class="k">val</span> <span class="n">x</span><span class="k">:</span> <span class="kt">Double</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="o">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>构造函数接收两个参数x和y，然后把x和y拼在一起打印出来。反编译为Java：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ScalaConstructorExample</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>  <span class="kd">private</span> <span class="kd">final</span> <span class="kt">double</span> <span class="n">x</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">double</span> <span class="nf">x</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">x</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="nf">ScalaConstructorExample</span><span class="o">(</span><span class="kt">double</span> <span class="n">x</span><span class="o">,</span> <span class="n">String</span> <span class="n">y</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="n">StringBuilder</span><span class="o">().</span><span class="na">append</span><span class="o">(</span><span class="n">x</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">y</span><span class="o">).</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以发现编译器给标为val的x生成了一个getter，很方便的语法糖。而直接写在类内的打印语句则被放到了构造函数内。下面是反编译为C#的代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">ScalaConstructorExample</span> <span class="p">:</span> <span class="n">ScalaObject</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">private</span> <span class="kt">double</span> <span class="n">x</span> <span class="p">=</span> <span class="n">x</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">public</span> <span class="k">override</span> <span class="kt">double</span> <span class="nf">x</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">public</span> <span class="nf">ScalaConstructorExample</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">string</span> <span class="n">y</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">Predef</span><span class="err">$</span><span class="p">.</span><span class="n">MODULE</span><span class="err">$</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="k">new</span> <span class="n">StringBuilder</span><span class="p">().</span><span class="n">Append</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="n">Append</span><span class="p">(</span><span class="n">y</span><span class="p">).</span><span class="n">ToString</span><span class="p">());</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>和Java代码基本无异。比较一下，Scala用3行代码表达的含义，Java和C#要用14行才行。</p>
+
+<p>现在加一个重载的构造函数：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">ScalaConstructorExample</span><span class="o">(</span><span class="k">val</span> <span class="n">x</span><span class="k">:</span> <span class="kt">Double</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="o">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="k">this</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Double</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">this</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="s">&quot;hello&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个构造函数给了y一个默认值“hello”。反编译为Java：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ScalaConstructorExample</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>  <span class="kd">private</span> <span class="kd">final</span> <span class="kt">double</span> <span class="n">x</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">double</span> <span class="nf">x</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">x</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="nf">ScalaConstructorExample</span><span class="o">(</span><span class="kt">double</span> <span class="n">x</span><span class="o">,</span> <span class="n">String</span> <span class="n">y</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>      <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="n">StringBuilder</span><span class="o">().</span><span class="na">append</span><span class="o">(</span><span class="n">x</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">y</span><span class="o">).</span><span class="na">toString</span><span class="o">());</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="nf">ScalaConstructorExample</span><span class="o">(</span><span class="kt">double</span> <span class="n">x</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="k">this</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="s">&quot;hello&quot;</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>对应的C#代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">ScalaConstructorExample</span> <span class="p">:</span> <span class="n">ScalaObject</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">private</span> <span class="kt">double</span> <span class="n">x</span> <span class="p">=</span> <span class="n">x</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">public</span> <span class="k">override</span> <span class="kt">double</span> <span class="nf">x</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">public</span> <span class="nf">ScalaConstructorExample</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">string</span> <span class="n">y</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">Predef</span><span class="err">$</span><span class="p">.</span><span class="n">MODULE</span><span class="err">$</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="k">new</span> <span class="n">StringBuilder</span><span class="p">().</span><span class="n">Append</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="n">Append</span><span class="p">(</span><span class="n">y</span><span class="p">).</span><span class="n">ToString</span><span class="p">());</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">public</span> <span class="nf">ScalaConstructorExample</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">)</span> <span class="p">:</span> <span class="k">this</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&quot;hello&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>构造函数重载这个特性就显得平淡无奇了，不过还是比较一下行数。定义两个构造函数，打印出构造函数的参数，声明一个getter，这三件事Scala只用7行代码就完成了，Java和C#都需要将近20行。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/05/how-are-scala-language-features-implemented/">Scala中的语言特性是如何实现的(1)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-05T22:02:00+08:00" pubdate data-updated="true">May 5<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/05/05/how-are-scala-language-features-implemented/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Scala可以编译为Java bytecode和CIL，从而在JVM和CLI之上运行。Scala有很多在Java和C#的世界中显得陌生的语言特性，本文将分析这些语言特性是如何实现的。</p>
+
+<h2>object</h2>
+
+<p>Scala中可以像这样创建object：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">HowIsObjectImplementedInScala</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">printSomething</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="s">&quot;printSomething&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后在代码的其他地方调用printSomething，一个object究竟是什么东西呢？
+我们将这段Scala编译为Java bytecode，然后反编译为Java，会发现编译器为HowIsObjectImplementedInScala这个object生成了两个类：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">HowIsObjectImplementedInScala</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">printSomething</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="n">HowIsObjectImplementedInScala</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">printSomething</span><span class="o">();</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">HowIsObjectImplementedInScala</span><span class="n">$</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span>  <span class="n">MODULE$</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">static</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="k">new</span> <span class="o">();</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printSomething</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;printSomething&quot;</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">private</span> <span class="n">HowIsObjectImplementedInScala$</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="n">MODULE$</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>第一个类只包含一个静态方法，其实现依赖于第二个叫做HowIsObjectImplementedInScala$的类。</p>
+
+<p>HowIsObjectImplementedInScala$是一个单例，其静态块实例化自己并把this赋值给MODULE$这个public static的成员，从而可以被外界访问。</p>
+
+<p>同样，我们可以把这段代码编译为CIL，然后反编译为C#:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">public</span> <span class="k">sealed</span> <span class="k">class</span> <span class="nc">HowIsObjectImplementedInScala</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">printSomething</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="n">HowIsObjectImplementedInScala</span><span class="err">$</span><span class="p">.</span><span class="n">MODULE</span><span class="err">$</span><span class="p">.</span><span class="n">printSomething</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="k">sealed</span> <span class="k">class</span> <span class="nc">HowIsObjectImplementedInScala</span><span class="err">$</span> <span class="p">:</span> <span class="n">ScalaObject</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">public</span> <span class="k">static</span> <span class="n">HowIsObjectImplementedInScala</span><span class="err">$</span> <span class="n">MODULE</span><span class="err">$</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">printSomething</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="n">Predef</span><span class="err">$</span><span class="p">.</span><span class="n">MODULE</span><span class="err">$</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;printSomething&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">private</span> <span class="n">HowIsObjectImplementedInScala</span><span class="err">$</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="n">HowIsObjectImplementedInScala</span><span class="err">$</span><span class="p">.</span><span class="n">MODULE</span><span class="err">$</span> <span class="p">=</span> <span class="k">this</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">static</span> <span class="n">HowIsObjectImplementedInScala</span><span class="err">$</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">new</span> <span class="n">HowIsObjectImplementedInScala</span><span class="err">$</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>和Java代码大同小异，除了静态构造和某几个关键字外，基本一样。一个object就是一个Scala编译器帮我们实现的singleton。</p>
+
+<h2>var和val</h2>
+
+<p>var：可变。val：不可变。关于这两个关键字何时该使用哪一个，这里不做讨论，我们只是观察这二者在编译后是如何被表示的。</p>
+
+<p>这段Scala代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">HowAreVarAndValImplementedInScala</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">var</span> <span class="n">v1</span> <span class="k">=</span> <span class="mi">123</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">v2</span> <span class="k">=</span> <span class="mi">456</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">method1</span><span class="o">()</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">var</span> <span class="n">v3</span> <span class="k">=</span> <span class="mi">123</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">v4</span> <span class="k">=</span> <span class="mi">456</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">v3</span> <span class="o">+</span> <span class="n">v4</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>定义了两个字段一个var，一个val，方法中定义了两个局部变量，一个var，一个val。</p>
+
+<p>编译为Java bytecode并反编译之后：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HowAreVarAndValImplementedInScala</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>  <span class="kd">private</span> <span class="kt">int</span> <span class="n">v1</span> <span class="o">=</span> <span class="mi">123</span><span class="o">;</span>
+</span><span class='line'>  <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">v2</span> <span class="o">=</span> <span class="mi">456</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">v1</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">v1</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="n">v1_$eq</span><span class="o">(</span><span class="kt">int</span> <span class="n">x$1</span><span class="o">)</span> <span class="o">{</span> <span class="k">this</span><span class="o">.</span><span class="na">v1</span> <span class="o">=</span> <span class="n">x$1</span><span class="o">;</span> <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">v2</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">v2</span><span class="o">;</span> <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">method1</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">v3</span> <span class="o">=</span> <span class="mi">123</span><span class="o">;</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">v4</span> <span class="o">=</span> <span class="mi">456</span><span class="o">;</span>
+</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">BoxesRunTime</span><span class="o">.</span><span class="na">boxToInteger</span><span class="o">(</span><span class="n">v3</span> <span class="o">+</span> <span class="n">v4</span><span class="o">));</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>声明为字段的v1和v2，一个是普通字段，另一个则被标记为final。编译器为v1生成了getter和setter，为v2则只有getter，因为v2作为immutable的字段是不可以被重新赋值的。</p>
+
+<p>有趣的是方法中的局部变量都是普通的变量，没有被final修饰。</p>
+
+<p>再来看这段Scala编译为CIL再反编译为C#之后的样子：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">HowAreVarAndValImplementedInScala</span> <span class="p">:</span> <span class="n">ScalaObject</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">private</span> <span class="kt">int</span> <span class="n">v1</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">private</span> <span class="kt">int</span> <span class="n">v2</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">public</span> <span class="k">override</span> <span class="kt">int</span> <span class="nf">v1</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="n">v1</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="n">v1_</span><span class="err">$</span><span class="n">eq</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="err">$</span><span class="m">1</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="n">v1</span> <span class="p">=</span> <span class="n">x</span><span class="err">$</span><span class="m">1</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">public</span> <span class="k">override</span> <span class="kt">int</span> <span class="nf">v2</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="n">v2</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">method1</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">v3</span> <span class="p">=</span> <span class="m">123</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">v4</span> <span class="p">=</span> <span class="m">456</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Predef</span><span class="err">$</span><span class="p">.</span><span class="n">MODULE</span><span class="err">$</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">v3</span> <span class="p">+</span> <span class="n">v4</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">public</span> <span class="nf">HowAreVarAndValImplementedInScala</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="n">v1</span> <span class="p">=</span> <span class="m">123</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="n">v2</span> <span class="p">=</span> <span class="m">456</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>有一个明显的问题，v2没有标为readonly（C#世界中用于声明变量不可以重新赋值的关键字），这是compiler的bug吗？</p>
+
+<p>除此之外，和Java代码一致。但是有趣的是代码中的所有public方法（包括上一段演示object的代码）都被标为了override，原因不明。</p>
+
+<h2>小结</h2>
+
+<p>本来以为研究这么简单的两个语言特性不会有啥收获，仅仅是反编译一下，看看compiler都做了啥，满足下好奇心罢了。</p>
+
+<p>结果还是有意外收获，我在反编译后的代码中发现了三个有趣的问题：</p>
+
+<ul>
+<li>在Scala中被声明为val的v4为什么在反编译的Java中不是final的呢？</li>
+<li>在Scala中被声明为val的v2为什么在反编译的C#中不是readonly的呢？</li>
+<li>为什么反编译出来的C#代码中的实例级公开方法都是标有override的呢？</li>
+</ul>
+
+
+<p>为什么呢？为什么呢？为什么呢？答案下期揭晓。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/09/make-y/">如何一步一步推导出Y Combinator</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-09T22:40:00+08:00" pubdate data-updated="true">Apr 9<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/04/09/make-y/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>本文讲什么？</h2>
+
+<p>本文用Scheme（Racket）代码为例，一步一步的推出Y Combinator的实现。</p>
+
+<h2>本文不讲什么？</h2>
+
+<p>Y Combinator是什么，干什么用的，它为什么能够work，它的数学含义以及实际应用场景，这些话题由于篇幅所限（咳咳，楼主的无知）不在本文论述范围之内。</p>
+
+<p>如果有兴趣，请参考维基： <a href="http://en.wikipedia.org/wiki/Fixed-point_combinator#Y_combinator">http://en.wikipedia.org/wiki/Fixed-point_combinator#Y_combinator</a></p>
+
+<h2>鸣谢</h2>
+
+<p>感谢Jojo同学的
+<a href="https://github.com/zhewuzhou/js-y-combinator/blob/master/y-combinator.js">这段JavaScript代码</a>的启发，我写了<a href="https://github.com/cuipengfei/lambda-calculus-impl/blob/master/racket/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E6%8E%A8%E5%87%BAY.rkt">对应的Scheme实现</a>。然后才有了本文。</p>
+
+<h2>正文开始</h2>
+
+<p>我们知道Y Combinator可以帮匿名函数实现递归。那就从一个广为人知的递归函数-阶乘开始吧。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">fac1</span> <span class="nv">n</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>      <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">fac1</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">)))))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果n小于2，则返回1，否则开始递归，简单明了。如果像这样调用它一下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="nf">fac1</span> <span class="mi">5</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>会返回120，结果无误。</p>
+
+<p>上面是阶乘的递归实现，它有一个名字叫做fac1，但是如果用匿名函数实现阶乘呢？</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>        <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">))))))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个匿名函数“梦想着”其调用者会把该函数自己的实现作为参数传递进去。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(((</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>          <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">))))))</span>
+</span><span class='line'>  <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>          <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">)))))))</span> <span class="mi">1</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们把匿名函数重复写一遍，就可以计算1或者是0的阶乘，但是要计算3的阶乘呢？那就得这么写：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(((</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>          <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">))))))</span>
+</span><span class='line'>  <span class="p">((</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>     <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span>
+</span><span class='line'>       <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>           <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">))))))</span>
+</span><span class='line'>   <span class="p">((</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>            <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">))))))</span>
+</span><span class='line'>    <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>            <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">)))))))))</span> <span class="mi">3</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>想要计算一个大于2的n的阶乘，就得把这个匿名函数重复写n+1次。这么多的重复代码，这么多的括号。。。</p>
+
+<p>所以我们需要一个神奇的函数，Y，它可以接受一个匿名的伪递归函数作为参数，产出一个真递归的函数。
+这个神奇的Y作用在上面的匿名函数上之后产出的结果就可以用来计算任何n的阶乘。下面的代码会输出120（如果Y已经实现了的话）。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">((</span><span class="nf">Y</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>       <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span>
+</span><span class='line'>         <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>             <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">)))))))</span> <span class="mi">5</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下面就开始一步步的构造这个神奇的Y吧。</p>
+
+<p>为了便于推导，暂时给这个匿名函数一个名字，叫做fake_fac。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">fake_fac</span>
+</span><span class='line'>  <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>          <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">)))))))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>有了这个名字之后，再要计算3的阶乘就容易了一些。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">((</span><span class="nf">fake_fac</span> <span class="p">(</span><span class="nf">fake_fac</span> <span class="p">(</span><span class="nf">fake_fac</span> <span class="nv">fake_fac</span><span class="p">)))</span> <span class="mi">3</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>观察上面的代码，我们把fake_fac传递给它自己，得到一个返回值，把这个返回的值再次传递给fake_fac，再得到一个新的返回值，又把新的返回值传递给fake_fac，得到最终的返回值，最后把3传递给这个返回值。</p>
+
+<p>可以看到，我们在不停的把fake_rec传给它自己，所以定义一个helper吧：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">callself</span> <span class="nv">f</span><span class="p">)</span> <span class="p">(</span><span class="nf">f</span> <span class="nv">f</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个helper一会儿会派上用场。</p>
+
+<p>现在看看fake_fac中的f是什么呢？对于((fake_fac (fake_fac (fake_fac fake_fac))) 3)这行代码中的最右侧的fake_fac来说，f没有用，因为这个fake_fac自己都没有被调到，它只是起个占位符的作用，实际上这行代码((fake_fac (fake_fac (fake_fac 1))) 3)和上面的那行是等价的。</p>
+
+<p>对于右侧第二个fake_fac来说，f就是fake_fac。对于左侧第二个fake_fac来说，f是(fake_fac fake_fac)的返回值。</p>
+
+<p>对于左侧第一个fake_fac来说，f是(fake_fac (fake_fac fake_fac))的返回值。</p>
+
+<p>由此可见，f是fake_fac对自己反复调用的返回值。而且从fake_fac的定义可见，我们总是给f传递一个数字n，这样的话，我们再写一个helper：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span> <span class="p">((</span><span class="nf">f</span> <span class="nv">f</span><span class="p">)</span> <span class="nv">n</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再把这个helper传递给fake_fac。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="nf">fake_fac</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span> <span class="p">((</span><span class="nf">f</span> <span class="nv">f</span><span class="p">)</span> <span class="nv">n</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但是上面这两段代码是有问题的，因为f的值无法确定。</p>
+
+<p>有句话说的好：
+if you don&#8217;t know exactly what you want to put somewhere in a piece of code, just abstract it out and make it a parameter of a function.
+所以我们就把f抽成参数吧。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">callselfWithN</span> <span class="nv">f</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">fake_fac</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span> <span class="p">((</span><span class="nf">f</span> <span class="nv">f</span><span class="p">)</span> <span class="nv">n</span><span class="p">))))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们希望这个helper可以帮fake_fac无限次的调用自己。</p>
+
+<p>现在，我们该怎么调用callselfWithN呢？不能把fake_fac传给它，因为那样的话(f f)就只是fake_fac对自己的调用，它只能计算0或者1的阶乘。所以要把callselfWithN这个我们希望可以帮fake_fac实现无限次自调用的函数传给callselfWithN它自己。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">((</span><span class="nf">callselfWithN</span> <span class="nv">callselfWithN</span><span class="p">)</span> <span class="mi">5</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这行代码可以返回120，结果正确了！</p>
+
+<p>记得前面定义的第一个helper吗？现在用的上了：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">((</span><span class="nf">callself</span> <span class="nv">callselfWithN</span><span class="p">)</span> <span class="mi">5</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>现在把callselfWithN带入：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">((</span><span class="nf">callself</span>  <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">fake_fac</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span> <span class="p">((</span><span class="nf">f</span> <span class="nv">f</span><span class="p">)</span> <span class="nv">n</span><span class="p">)))))</span> <span class="mi">5</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看出，这段代码和fake_fac是紧耦合的，把它抽到参数上去：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">Y3</span> <span class="nv">fake_recur</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">callself</span>  <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>               <span class="p">(</span><span class="nf">fake_recur</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span> <span class="p">((</span><span class="nf">f</span> <span class="nv">f</span><span class="p">)</span> <span class="nv">n</span><span class="p">))))))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后再把callself也带入：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">Y</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">fake_recur</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">((</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span> <span class="p">(</span><span class="nf">f</span> <span class="nv">f</span><span class="p">))</span>
+</span><span class='line'>             <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>               <span class="p">(</span><span class="nf">fake_recur</span>
+</span><span class='line'>                <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span> <span class="p">((</span><span class="nf">f</span> <span class="nv">f</span><span class="p">)</span> <span class="nv">n</span><span class="p">)))))))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>现在Y不依赖于任何其他函数了，测试一下Y，把前面的计算阶乘的匿名函数传给它：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">((</span><span class="nf">Y</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>            <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">)))))))</span> <span class="mi">5</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>能够返回120，正确！Y Combinator构造完成！</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/01/doubanebookprice/">用豆瓣读书Chrome插件，简单购买电子书</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-01T16:09:00+08:00" pubdate data-updated="true">Apr 1<span>st</span>, 2013</time>
+        
+         | <a href="/blog/2013/04/01/doubanebookprice/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>为什么要做这款插件？</h2>
+
+<p>在豆瓣上查看一本书的时候，页面的右侧会显示哪些网站可以购买该书以及各自的价格。
+比如这本《乡关何处》，页面右侧显示了亚马逊，京东，当当等网站的购买链接。</p>
+
+<p><img src="http://farm9.staticflickr.com/8264/8609485540_026e013035_b.jpg" alt="乡关何处" /></p>
+
+<p>但是豆瓣只会提供纸质书的购买链接，不提供电子书的。除非该书豆瓣自己有售。
+所以我写了个Chrome的插件来解决这个问题。</p>
+
+<h2>这款插件怎么用？</h2>
+
+<p>这款插件会在每个图书页面上添加正版电子书的购买链接及其价格。您只需点击链接去购买就好了。</p>
+
+<p>在Chrome中加载这个插件之后，再访问豆瓣的《乡关何处》的页面，右侧会多出三个链接：</p>
+
+<p><img src="http://farm9.staticflickr.com/8532/8609505800_fbd41bdc60_b.jpg" alt="乡关何处" /></p>
+
+<p>淘宝，多看和亚马逊中文站都卖这本书的电子版。
+看，纸质书要卖19.2，豆瓣电子书要卖11，多看只要6块钱，噢耶！节省纸张又省钱。</p>
+
+<p>很多英文原版书在国内卖得很贵，所以这款插件也支持一些国外网站。
+比如这本《The Pragmatic Programmer》：</p>
+
+<p><img src="http://farm9.staticflickr.com/8247/8608418739_e4fe0b1ebb_b.jpg" alt="The Pragmatic Programmer" /></p>
+
+<p>原版纸质书亚马逊要卖351，澜瑞外文要卖487，吃人啊！亚马逊英文站的纸质版的售价折合成人民币也要180多，再加运费&#8230;&#8230;</p>
+
+<p>而电子版则要便宜很多，看截图上的红圈，最便宜的折合人民币只要130左右，嗯，还是有点贵，不过如果想读原版的话，这个kindle版是最好的选择了。</p>
+
+<p>这款插件现在支持以下的电子书销售商：</p>
+
+<ul>
+<li>多看</li>
+<li>唐茶</li>
+<li>亚马逊kindle中文站</li>
+<li>淘宝</li>
+<li>京东</li>
+<li>亚马逊kindle美国站</li>
+<li>kobo</li>
+<li>nook</li>
+</ul>
+
+
+<h2>如何实现的？</h2>
+
+<p>是用JavaScript写的。</p>
+
+<p>基本实现思路是这样的：</p>
+
+<ul>
+<li>获取当前图书的ISBN号码</li>
+<li>根据ISBN去上面罗列的几家网站上搜索是否有这本书</li>
+<li>如果有的话，显示在右侧</li>
+</ul>
+
+
+<p>例外情况：</p>
+
+<ul>
+<li>有些网站不支持ISBN搜索，对于这些网站直接用书名和作者名搜索的，所以结果有时不太准。</li>
+<li>有时一本书的纸质版的ISBN和电子版的ISBN不同，所以实现中用到了google books的API来获取电子版的ISBN，然后再搜索。</li>
+</ul>
+
+
+<p>主要技术：
+knockoutjs和jQuery。</p>
+
+<h2>插件下载和源码</h2>
+
+<p>插件下载地址：<a href="https://chrome.google.com/webstore/detail/ebook-price-for-douban/ppbnlfplpcjhdphaejdfhbojmjifdjgd?hl=zh-CN">chrome store</a></p>
+
+<p>源码：<a href="https://github.com/cuipengfei/JavaScript-Practice-Code/tree/master/EBookPriceForDouBan">github</a></p>
+
+<h2>Disclaimer</h2>
+
+<p>插件的实现中违反了豆瓣API的协议（豆瓣不允许其API的使用者利用豆瓣的数据产生其他网站的购买信息）。如果您对这点很敏感，请慎用。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/03/04/ce-shi/">测试</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-04T20:27:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/03/04/ce-shi/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>测试发布文章
+测试修改
+再次修改
+好久没用了，还能更新吗？test</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/2/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/08/30/options-for/">Desugar Scala(17) &#8211; Option和for</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/08/10/da-li/">大理</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/18/play-evolutions-to-liquibase/">在使用play framework的evolutions？需要支持SQL Server？用Liquibase吧</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/28/scala-java-interop-trait-with-impl/">论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/27/scala-java-interop-closure/">论“如果Scala类有方法接收闭包，这些方法在Java里就不可用，因为Java目前尚不支持闭包。”这句话是错的</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/cuipengfei">@cuipengfei</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'cuipengfei',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("cuipf", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/cuipf" class="twitter-follow-button" data-show-count="false">Follow @cuipf</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - 崔鹏飞 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'cuipengfeioctopressblog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
