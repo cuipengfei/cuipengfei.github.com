@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Desugar Scala(17) -- Option和for"
+title: "Desugar Scala(17) -- Option和for，以及脑子里发生的事情"
 date: 2014-08-30 11:36
 comments: true
 categories: 
