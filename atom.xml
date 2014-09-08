@@ -4,7 +4,7 @@
   <title><![CDATA[崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2014-09-07T11:06:11+08:00</updated>
+  <updated>2014-09-08T10:20:20+08:00</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -14,11 +14,11 @@
 
   
   <entry>
-    <title type="html"><![CDATA[solving regular problems in scala with a simpler mindset]]></title>
+    <title type="html"><![CDATA[solving regular problems in scala]]></title>
     <link href="http://cuipengfei.github.com/blog/2014/09/06/solving-regular-problems-in-scala/"/>
     <updated>2014-09-06T20:28:00+08:00</updated>
     <id>http://cuipengfei.github.com/blog/2014/09/06/solving-regular-problems-in-scala</id>
-    <content type="html"><![CDATA[<iframe src="http://cuipengfei.github.com//slides.com/pengfeicui/solving-regular-problems-in-scala-with-a-simpler-mindset/embed" width="800" height="600" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    <content type="html"><![CDATA[<iframe src="http://cuipengfei.github.com//slides.com/pengfeicui/solving-regular-problems-in-scala/embed" width="800" height="600" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
 ]]></content>
   </entry>
