@@ -3,6 +3,7 @@ layout: post
 title: "solving regular problems in scala"
 date: 2014-09-06 20:28
 comments: true
+keywords: scala, 常规问题
 categories: 
 ---
 
