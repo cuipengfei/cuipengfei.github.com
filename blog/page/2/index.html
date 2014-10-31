@@ -9,12 +9,7 @@
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content="在Scala中，名字叫做update的方法是有特殊作用的。 比如： 1
-2
-3
-val scores = new scala.collection.mutable.HashMap[String, Int]
-scores(&quot;Bob&quot;) = 100
-val bobsScore = &hellip;">
+  <meta name="description" content="实在想不到什么动词可以当做脱衣服来讲了，所以从现在开始这系列博文就叫做Desugar Scala了。除非哪天才思泉涌，又想到了新词：） 开始正文。 名字叫做unapply和unapplySeq的方法在Scala里也是有特殊含义的。 我们前面说过case class在做pattern &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +74,199 @@ val bobsScore = &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/14/scala-unapply-method/">Desugar Scala(15) &#8211; unapply和unapplySeq方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-14T14:46:00+08:00" pubdate data-updated="true">Jun 14<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/06/14/scala-unapply-method/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>实在想不到什么动词可以当做脱衣服来讲了，所以从现在开始这系列博文就叫做Desugar Scala了。除非哪天才思泉涌，又想到了新词：）</p>
+
+<p>开始正文。</p>
+
+<p>名字叫做unapply和unapplySeq的方法在Scala里也是有特殊含义的。</p>
+
+<p>我们前面说过case class在做pattern match时很好用，而除case class之外，有unapply或unapplySeq方法的对象在pattern match时也有很好的应用场景。</p>
+
+<p>比如这段代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Square</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">unapply</span><span class="o">(</span><span class="n">z</span><span class="k">:</span> <span class="kt">Double</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Double</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="o">(</span><span class="n">z</span><span class="o">))</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们定义了一个unapply方法，用来计算平方根。
+我们可以像调用普通方法一样的调用它：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">number</span><span class="k">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mf">36.0</span>
+</span><span class='line'><span class="nc">Square</span><span class="o">.</span><span class="n">unapply</span><span class="o">(</span><span class="n">number</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样会得到36的平方根:6。实际上返回值是Some(6)。</p>
+
+<p>上面的方式是对unapply的浪费，unapply真正的好处是这样的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">number</span><span class="k">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mf">36.0</span>
+</span><span class='line'><span class="n">number</span> <span class="k">match</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">case</span> <span class="nc">Square</span><span class="o">(</span><span class="n">n</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;square root of $number is $n&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;nothing matched&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样我们无需显式调用unapply方法，而把是它用在pattern match中，让编译器替我们调用它。</p>
+
+<p>当我们写下这段pattern match的代码时，编译器其实替我们做了好几件事：</p>
+
+<ol>
+<li>调用unapply，传入number</li>
+<li>接收返回值并判断返回值是None，还是Some</li>
+<li>如果是Some，则将其解开，并将其中的值赋值给n（就是case Square(n)中的n）</li>
+</ol>
+
+
+<p>这段代码反编译出来是这个样子的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>  <span class="kt">double</span> <span class="n">number</span> <span class="o">=</span> <span class="mf">36.0</span><span class="n">D</span><span class="o">;</span>
+</span><span class='line'>  <span class="kt">double</span> <span class="n">d1</span> <span class="o">=</span> <span class="n">number</span><span class="o">;</span>
+</span><span class='line'>  <span class="n">Option</span> <span class="n">localOption</span> <span class="o">=</span> <span class="n">Square</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">unapply</span><span class="o">(</span><span class="n">d1</span><span class="o">);</span>
+</span><span class='line'>  <span class="c1">//调用unapply，传入number</span>
+</span><span class='line'>  <span class="n">BoxedUnit</span> <span class="n">localBoxedUnit</span><span class="o">;</span>
+</span><span class='line'>  <span class="k">if</span> <span class="o">(</span><span class="n">localOption</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span><span class="c1">//判断返回值是None</span>
+</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;nothing matched&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="n">localBoxedUnit</span> <span class="o">=</span> <span class="n">BoxedUnit</span><span class="o">.</span><span class="na">UNIT</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>  <span class="k">else</span> <span class="o">{</span><span class="c1">//判断返回值是Some</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">n</span> <span class="o">=</span> <span class="n">BoxesRunTime</span><span class="o">.</span><span class="na">unboxToDouble</span><span class="o">(</span><span class="n">localOption</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
+</span><span class='line'>    <span class="c1">//将Some解开，并将其中的值赋值给n</span>
+</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="n">StringContext</span><span class="o">(</span><span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">wrapRefArray</span><span class="o">((</span><span class="n">Object</span><span class="o">[])</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]</span> <span class="o">{</span>
+</span><span class='line'>      <span class="s">&quot;square root of &quot;</span><span class="o">,</span> <span class="s">&quot; is &quot;</span><span class="o">,</span> <span class="s">&quot;&quot;</span>
+</span><span class='line'>    <span class="o">})</span> <span class="o">).</span><span class="na">s</span><span class="o">(</span><span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">genericWrapArray</span><span class="o">(</span><span class="k">new</span> <span class="n">Object</span><span class="o">[]</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">BoxesRunTime</span><span class="o">.</span><span class="na">boxToDouble</span><span class="o">(</span><span class="n">number</span><span class="o">),</span> <span class="n">BoxesRunTime</span><span class="o">.</span><span class="na">boxToDouble</span><span class="o">(</span><span class="n">n</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">})));</span>
+</span><span class='line'>    <span class="n">localBoxedUnit</span> <span class="o">=</span> <span class="n">BoxedUnit</span><span class="o">.</span><span class="na">UNIT</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果没有unapply方法和pattern match语法之间的这种结合，我们自己写代码要写成什么样子呢？</p>
+
+<p>或许会比上面反编译的代码简单一些，但是显式地调用开平方的方法，用if else来判断Option，以及将真正的返回值从Option里面解出来这三件事是免不掉的。</p>
+
+<p>unapplySeq和unapply的作用很是类似，例如这样：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Names</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">unapplySeq</span><span class="o">(</span><span class="n">str</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">String</span><span class="o">]]</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="o">(</span><span class="s">&quot;,&quot;</span><span class="o">))</span> <span class="nc">Some</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="o">(</span><span class="s">&quot;,&quot;</span><span class="o">))</span>
+</span><span class='line'>    <span class="k">else</span> <span class="nc">None</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们定义一个unapplySeq方法，用逗号作为分隔符来把字符串拆开。</p>
+
+<p>然后我们可以这样应用它：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">namesString</span> <span class="k">=</span> <span class="s">&quot;xiao ming,xiao hong,tom&quot;</span>
+</span><span class='line'><span class="n">namesString</span> <span class="k">match</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">case</span> <span class="nc">Names</span><span class="o">(</span><span class="n">first</span><span class="o">,</span> <span class="n">second</span><span class="o">,</span> <span class="n">third</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="s">&quot;the string contains three people&#39;s names&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;$first $second $third&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>  <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;nothing matched&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>与上面的例子很是类似，不过编译器在这里替我们做的事情更多了：</p>
+
+<ol>
+<li>调用unapplySeq，传入namesString</li>
+<li>接收返回值并判断返回值是None，还是Some</li>
+<li>如果是Some，则将其解开</li>
+<li>判断解开之后得到的sequence中的元素的个数是否是三个</li>
+<li>如果是三个，则把三个元素分别取出，赋值给first，second和third</li>
+</ol>
+
+
+<p>如果没有unapplySeq方法和pattern match语法之间的这种结合，我们自己写代码来做这五件事会显得很是繁琐。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1600,193 +1788,6 @@ val bobsScore = &hellip;">
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/25/desugar-scala-6/">褪去Scala的糖衣(6) &#8211; Partial Application</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-25T14:40:00+08:00" pubdate data-updated="true">Dec 25<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/12/25/desugar-scala-6/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>这篇博客介绍一下Scala中的partial application，局部应用，或者叫做柯里化。</p>
-
-<p>所谓柯里化就是指把一个接受多个参数的函数的一部分参数写死，剩下的一部分由调用者提供。</p>
-
-<p>用Java代码来表述，大概可以写成这样：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">greet</span><span class="o">(</span><span class="n">String</span> <span class="n">greeting</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">greeting</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">name</span><span class="o">;</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="nf">greet</span><span class="o">(</span><span class="s">&quot;Hello&quot;</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">greetXiaoMing</span><span class="o">(</span><span class="n">String</span> <span class="n">greeting</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="nf">greet</span><span class="o">(</span><span class="n">greeting</span><span class="o">,</span> <span class="s">&quot;Xiao Ming&quot;</span><span class="o">);</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>greet用来给某个不确定的人打个不确定的招呼。</p>
-
-<p>sayHello用来给某个不确定的人说一句固定的Hello。</p>
-
-<p>greetXiaoMing用来给一个固定的人小明打一个不确定的招呼。</p>
-
-<p>如果用Scala来表达同样的含义的话，可以这样写：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">def</span> <span class="n">greet</span><span class="o">(</span><span class="n">greeting</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=</span> <span class="n">greeting</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">name</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">sayHello</span> <span class="k">=</span> <span class="n">greet</span><span class="o">(</span><span class="s">&quot;hello&quot;</span><span class="o">,</span> <span class="k">_:</span> <span class="kt">String</span><span class="o">)</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">greetXiaoMing</span> <span class="k">=</span> <span class="n">greet</span><span class="o">(</span><span class="k">_:</span> <span class="kt">String</span><span class="o">,</span> <span class="s">&quot;Xiao Ming&quot;</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>其实比Java代码也简单不了多少。只是把暂时不确定的参数用下划线指代出来。</p>
-
-<p>然后我们就可以在稍后需要调用它们的时候再把参数传入：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="n">sayHello</span><span class="o">(</span><span class="s">&quot;world&quot;</span><span class="o">)</span>
-</span><span class='line'>  <span class="n">greetXiaoMing</span><span class="o">(</span><span class="s">&quot;Ni Hao&quot;</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然后我们看一下这个语言特性是怎么实现的呢？</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">greet</span><span class="o">(</span><span class="n">String</span> <span class="n">greeting</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="k">new</span> <span class="nf">StringBuilder</span><span class="o">().</span><span class="na">append</span><span class="o">(</span><span class="n">greeting</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot; &quot;</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">name</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="n">Function1</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">sayHello</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="k">new</span> <span class="nf">AbstractFunction1</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">0L</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="nf">apply</span><span class="o">(</span><span class="n">String</span> <span class="n">x$1</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="k">return</span> <span class="n">Hello</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">greet</span><span class="o">(</span><span class="s">&quot;hello&quot;</span><span class="o">,</span> <span class="n">x$1</span><span class="o">);</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">};</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="n">Function1</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">greetXiaoMing</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="k">new</span> <span class="nf">AbstractFunction1</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">0L</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="nf">apply</span><span class="o">(</span><span class="n">String</span> <span class="n">x$2</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="k">return</span> <span class="n">Hello</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">greet</span><span class="o">(</span><span class="n">x$2</span><span class="o">,</span> <span class="s">&quot;Xiao Ming&quot;</span><span class="o">);</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">};</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可以看到sayHello和greetXiaoMing并不是返回String的，它们返回的是Function1 of String, String。也就是说直接调用它们俩是得不到我们想要的结果的，必须把这个Function1上的apply再调一下才行。实际上正是如此，这段代码：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="n">sayHello</span><span class="o">(</span><span class="s">&quot;world&quot;</span><span class="o">)</span>
-</span><span class='line'>  <span class="n">greetXiaoMing</span><span class="o">(</span><span class="s">&quot;Ni Hao&quot;</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>会被编译成：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">sayHello</span><span class="o">().</span><span class="na">apply</span><span class="o">(</span><span class="s">&quot;world&quot;</span><span class="o">);</span>
-</span><span class='line'><span class="n">greetXiaoMing</span><span class="o">().</span><span class="na">apply</span><span class="o">(</span><span class="s">&quot;Ni Hao&quot;</span><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>除此之外，partial application还可以有另一种稍微另类一些的写法：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">def</span> <span class="n">greet</span><span class="o">(</span><span class="n">greeting</span><span class="k">:</span> <span class="kt">String</span><span class="o">)(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=</span> <span class="n">greeting</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">name</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">sayHello</span> <span class="k">=</span> <span class="n">greet</span><span class="o">(</span><span class="s">&quot;hello&quot;</span><span class="o">)(</span><span class="k">_</span><span class="o">)</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">greetXiaoMing</span> <span class="k">=</span> <span class="n">greet</span><span class="o">(</span><span class="k">_:</span> <span class="kt">String</span><span class="o">)(</span><span class="s">&quot;Xiao Ming&quot;</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>反编译的结果和上面的代码是完全一致的。</p>
-
-<p>我不太清楚这种写法存在的意义是不是仅仅起一个向外界宣称“我这个函数之所以出现就是给你局部应用的，不要一下子把两个参数都给我”的作用。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1804,6 +1805,10 @@ val bobsScore = &hellip;">
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/">Spark RDD的fold和aggregate为什么是两个API？为什么不是一个foldLeft？</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/">Scala中Stream的应用场景及其实现原理</a>
       </li>
     
@@ -1817,10 +1822,6 @@ val bobsScore = &hellip;">
     
       <li class="post">
         <a href="/blog/2014/08/10/da-li/">大理</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/18/play-evolutions-to-liquibase/">在使用play framework的evolutions？需要支持SQL Server？用Liquibase吧</a>
       </li>
     
   </ul>
