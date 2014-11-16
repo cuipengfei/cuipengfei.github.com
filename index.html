@@ -9,10 +9,7 @@
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content="大家都知道Scala标准库的List有一个用来做聚合操作的foldLeft方法。 比如我定义一个公司类： 1
-case class Company(name:String, children:Seq[Company]=Nil) 它有名字和子公司。
-然后定义几个公司： 1
-val companies &hellip;">
+  <meta name="description" content=" ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +74,45 @@ val companies &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/11/16/zdyx2015wuhansecondclass/">2015武汉郑大晔校第二次课</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-16T16:45:00+08:00" pubdate data-updated="true">Nov 16<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/11/16/zdyx2015wuhansecondclass/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><iframe src="//slides.com/pengfeicui/285849/embed" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -2063,192 +2099,6 @@ val companies &hellip;">
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/06/21/desugar-scala-lower-bound/">Desugar Scala(16) &#8211; Lower Bound</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-21T11:32:00+08:00" pubdate data-updated="true">Jun 21<span>st</span>, 2014</time>
-        
-         | <a href="/blog/2014/06/21/desugar-scala-lower-bound/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Lower bound，不知道这个词的确切中文翻译是怎样的。我们直接看例子吧。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Pair</span><span class="o">[</span><span class="kt">T</span><span class="o">](</span><span class="k">val</span> <span class="n">first</span><span class="k">:</span> <span class="kt">T</span><span class="o">,</span> <span class="k">val</span> <span class="n">second</span><span class="k">:</span> <span class="kt">T</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">replaceFirst</span><span class="o">[</span><span class="kt">R</span> <span class="k">&gt;:</span> <span class="kt">T</span><span class="o">](</span><span class="n">newFirst</span><span class="k">:</span> <span class="kt">R</span><span class="o">)</span><span class="k">:</span> <span class="kt">Pair</span><span class="o">[</span><span class="kt">R</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Pair</span><span class="o">[</span><span class="kt">R</span><span class="o">](</span><span class="n">newFirst</span><span class="o">,</span> <span class="n">second</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我们定义一个叫做Pair的类，其中可以包含两个元素，元素类型为泛型的T。</p>
-
-<p>Pair类中有一个replaceFirst方法，用来把第二个元素和一个新的元素结合起来组成一个新的Pair。新的元素的类型是泛型的R。新组成的Pair的类型是Pair[R]。</p>
-
-<p>到这里我们就要想了，一个T和一个R，它们俩怎么组成新的Pair呢？新的Pair的类型怎么能是Pair[R]呢？</p>
-
-<p>replaceFirst的签名给我们说明了这一点。[R >: T]。这种标记的含义是说R是T的基类。那么一个T和一个R自然可以组合成一个R的Pair了。</p>
-
-<p>单是这样干说，有点不好理解，我们看一个例子：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Vehicle</span> <span class="o">{}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">Car</span> <span class="k">extends</span> <span class="nc">Vehicle</span> <span class="o">{}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">Tank</span> <span class="k">extends</span> <span class="nc">Vehicle</span> <span class="o">{}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>汽车和坦克都是机动车。</p>
-
-<p>然后我们可以这样使用它们：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">val</span> <span class="n">twoCars</span><span class="k">:</span> <span class="kt">Pair</span><span class="o">[</span><span class="kt">Car</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Pair</span><span class="o">(</span><span class="k">new</span> <span class="nc">Car</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">Car</span><span class="o">())</span>
-</span><span class='line'>  <span class="k">val</span> <span class="n">tankAndCar</span><span class="k">:</span> <span class="kt">Pair</span><span class="o">[</span><span class="kt">Vehicle</span><span class="o">]</span> <span class="k">=</span> <span class="n">twoCars</span><span class="o">.</span><span class="n">replaceFirst</span><span class="o">(</span><span class="k">new</span> <span class="nc">Tank</span><span class="o">())</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>首先我们用两辆汽车组成一个Pair，其类型为Pair[Car]。</p>
-
-<p>然后我们用一辆坦克替代原来的Pair中的第一个元素，让坦克和第二辆车组成一个新的Pair。新的Pari的类型是Pair[Vehicle]。</p>
-
-<p>这里有一点tricky。我们调用replaceFirst的时候传递的参数的类型是Tank，这是否意味着在这里R就是Tank呢？</p>
-
-<p>不是的，因为很明显Tank不是Car的基类，然而Tank是一个（is a）Vehicle，Vehicle同时也是Car的基类。于是此处的R就是Vehicle。得到的新的Pair自然就是Pair[Vehicle]。</p>
-
-<p>也就是说R会被什么具体类型替换呢？这取决于T和newFirst的类型。</p>
-
-<p>如果newFirst的类型刚好是T的基类，那太好了，R就直接是newFirst的类型。如果newFirst的类型不是T的基类，那R就会是T和newFirst的类型的共同基类。</p>
-
-<h3>这个东西挺麻烦的，它有啥用呢？</h3>
-
-<p>保证类型安全，Java没有提供给我们的类型安全。</p>
-
-<p>还是刚才的那段代码：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">val</span> <span class="n">twoCars</span><span class="k">:</span> <span class="kt">Pair</span><span class="o">[</span><span class="kt">Car</span><span class="o">]</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Pair</span><span class="o">(</span><span class="k">new</span> <span class="nc">Car</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">Car</span><span class="o">())</span>
-</span><span class='line'>  <span class="k">val</span> <span class="n">tankAndCar</span><span class="k">:</span> <span class="kt">Pair</span><span class="o">[</span><span class="kt">Vehicle</span><span class="o">]</span> <span class="k">=</span> <span class="n">twoCars</span><span class="o">.</span><span class="n">replaceFirst</span><span class="o">(</span><span class="k">new</span> <span class="nc">Tank</span><span class="o">())</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>其中的第二行，Scala可以很聪明的推断出replaceFirst的返回值类型是Pair[Vehicle]。实际上，如果我们试图把tankAndCar声明为Pair[Tank]的话，会看到编译时错误。</p>
-
-<p>而类似的代码在Java里则没有这么幸运了：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PairJ</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="n">T</span> <span class="n">first</span><span class="o">;</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="n">T</span> <span class="n">second</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="nf">PairJ</span><span class="o">(</span><span class="n">T</span> <span class="n">first</span><span class="o">,</span> <span class="n">T</span> <span class="n">second</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">first</span> <span class="o">=</span> <span class="n">first</span><span class="o">;</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">second</span> <span class="o">=</span> <span class="n">second</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="n">T</span> <span class="nf">first</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">first</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="n">T</span> <span class="nf">second</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">second</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="n">Pair</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="n">replaceFirst</span><span class="o">(</span><span class="n">R</span> <span class="n">newFirst</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="k">new</span> <span class="nf">Pair</span><span class="o">(</span><span class="n">newFirst</span><span class="o">,</span> <span class="n">second</span><span class="o">());</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>为了标明区别，我们这次称之为PairJ。到这里忍不住要小小的黑Java一下，21行代码，和Scala的3行是等价的：）</p>
-
-<p>我们重点看一下replaceFirst在这里的声明，其中声明了一个泛型参数R，但是R和T是没有任何关系的。实际上，在Java中，我们无法表达方法的泛型参数和类型的泛型参数之间的关系。（其原因请参看<a href="http://www.angelikalanger.com/GenericsFAQ/FAQSections/TypeParameters.html#FAQ107">这里</a>）</p>
-
-<p>我们写出如下的代码：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'>    <span class="n">PairJ</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;</span> <span class="n">twoCars</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PairJ</span><span class="o">(</span><span class="k">new</span> <span class="n">Car</span><span class="o">(),</span> <span class="k">new</span> <span class="n">Car</span><span class="o">());</span>
-</span><span class='line'>    <span class="n">Tank</span> <span class="n">actuallyACar</span> <span class="o">=</span> <span class="n">twoCars</span><span class="o">.</span><span class="na">replaceFirst</span><span class="o">(</span><span class="k">new</span> <span class="n">Tank</span><span class="o">()).</span><span class="na">second</span><span class="o">();</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>先创建两辆车的Pair，然后把第一辆车替换成坦克。再把新组成的Pair里面的第二个元素（其类型是车）取出来，赋值给一个类型为坦克的变量。</p>
-
-<p>如果我们编译这段代码，Java编译器会允许其通过。但是运行起来就会跑出类型转换异常。原因很明显，Car不能转换成Tank。</p>
-
-<p>这个，就是刚才所说的类型安全性上的差异。</p>
-
-<h3>等等，脱衣服的部分呢？</h3>
-
-<p>之前的每一篇博客都会把Scala代码编译出的bytecode反编译成Java，来探索其语言特性是如何实现的。</p>
-
-<p>而这一次颇为不同。之前的语言特性虽说Scala写起来比Java会简便一些，但是还没有超出Java的能力范围。多费点劲，用Java还是能做到。</p>
-
-<p>而这一次，这种编译时类型安全检验的严格性，实在是在Java中无法表达的。这全靠了Scala编译器的功劳。</p>
-
-<p>这就意味着，上面所定义的Pair这个类，如果你在Java中使用它，就会失去这种类型安全性。</p>
-
-<p>Scala，这次算你牛，没扒掉你。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -2264,6 +2114,10 @@ val companies &hellip;">
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/11/16/zdyx2015wuhansecondclass/">2015武汉郑大晔校第二次课</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/">Spark RDD的fold和aggregate为什么是两个API？为什么不是一个foldLeft？</a>
       </li>
     
@@ -2277,10 +2131,6 @@ val companies &hellip;">
     
       <li class="post">
         <a href="/blog/2014/08/30/options-for/">Desugar Scala(17) &#8211; Option和for，以及脑子里发生的事情</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/08/10/da-li/">大理</a>
       </li>
     
   </ul>
