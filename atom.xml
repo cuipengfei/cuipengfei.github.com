@@ -4,7 +4,7 @@
   <title><![CDATA[崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2014-11-16T17:09:52+08:00</updated>
+  <updated>2014-12-27T18:42:30+08:00</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -12,6 +12,94 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[2014年总结]]></title>
+    <link href="http://cuipengfei.github.com/blog/2014/12/27/2014/"/>
+    <updated>2014-12-27T17:01:00+08:00</updated>
+    <id>http://cuipengfei.github.com/blog/2014/12/27/2014</id>
+    <content type="html"><![CDATA[<p>2014年即将结束，需要做一些总结。</p>
+
+<p>既然总结是写在博客上的，第一项就先说博客吧。</p>
+
+<h1>博客</h1>
+
+<p>2014年写了18篇博客，其中15篇和Scala有关，自认为都是有且仅有干货的。</p>
+
+<p>对此，我比较<em><strong>满意</strong></em>。</p>
+
+<p>不过这个数字存在欺骗性，15篇Scala的博客，其中4篇写于1月份，6篇写于6月份，其余的零散的写就与其他月份。</p>
+
+<p>66.66&#8230;%集中地爆发于两个月里，其余十个月只贡献了总体的33.33&#8230;%</p>
+
+<p>可见写博客这件事于我而言并没有形成持久的习惯，只是随激情而来的自我娱乐。</p>
+
+<p>明年可以<em><strong>改进</strong></em>的是不要嫌话题小，不要嫌话题不够深。
+有了有价值的想法就记下来，形成惯性。</p>
+
+<h1>读书</h1>
+
+<p><img src="http://i3.tietuku.com/363db6f06852244e.png" alt="alt text" /></p>
+
+<p>38本，加上马上快读完的一本Ruby的书，算是39本。</p>
+
+<p>对这个数字，我比较<em><strong>满意</strong></em>。</p>
+
+<p>但是其中直接或间接与技术相关的只有8本，只占20%。</p>
+
+<p>所以，和上面一节类似，单独观察总体数字本身是极具欺骗性的。</p>
+
+<p>另一个我不满意的是读书的结果。把这39本书的封面罗列出来放到面前，我都能记得我看过这本书，但是有很多我都记不起其主要观点是什么。</p>
+
+<p>所以明年的一个<em><strong>改进</strong></em>点是做笔记和书评，有利于记忆和吸收。</p>
+
+<p>另外一个<em><strong>改进</strong></em>点是领域，我明年需要看一些轻量级的经济、哲学和社会心理学的书。口说无凭，于此立字为据。</p>
+
+<h1>MOOC</h1>
+
+<p><img src="http://i2.tietuku.com/98b280b6a1ac2512.png" alt="" /></p>
+
+<p>上图来自MOOC学院，data visualization做的很漂亮，不过没有分年统计。</p>
+
+<p>2014年实际只上完了4门课。</p>
+
+<p>对这些课程的质量，从中的收获我都比较<em><strong>满意</strong></em>。</p>
+
+<p>不太满意的是数字，明年<em><strong>改进</strong></em>的目标定在6。</p>
+
+<p>与读书不同，上课需要的时间比较长。有的课会持续两个月。一年能上完的课不会太多，领域不宜太广。</p>
+
+<p>暂定技术相关的至少3门，其他三门如果有特别好的非技术课就上一下，没有的话就还是上技术课。给自己留一些随性自由发挥的空间：）</p>
+
+<h1>Well-being</h1>
+
+<p>今年体重从72.5公斤降到了61.1公斤。</p>
+
+<p>最近三个月的数据统计</p>
+
+<p><img src="http://i3.tietuku.com/f020ea0a6adc01a6.png" style="width: 500px;"/></p>
+
+<p>上张一个月前的裸照：）</p>
+
+<p><img src="http://i3.tietuku.com/df10eb25abd486c8.png" style="width: 200px;"/></p>
+
+<p>明年没有太多改进的目标，维持就ok了。</p>
+
+<h1>其他</h1>
+
+<p>脾气还是不好，察言观色并据此反应的能力还是差。</p>
+
+<p>今年试过的手段有降低分贝，减慢语速，少用激进词汇，延长反应时间，多听少说。</p>
+
+<p>有效果，但不是很明显。执行不够有效，自我监控不够严格。</p>
+
+<p>对此，我<em><strong>不满意</strong></em>。</p>
+
+<p>像这种与天性作斗争的行为，其过程一定是困难，漫长，且鲜有正面自我回馈的。</p>
+
+<p>明年需要<em><strong>改进</strong></em>的是，持续以上改进手段的执行，增加自控强度。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[2015武汉郑大晔校第二次课]]></title>
@@ -2955,233 +3043,6 @@
 <p>由于反编译工具的原因，这个反编译的结果并不是合法的Java代码，我们凑合着看一下。</p>
 
 <p>我们看到，sayHi和sayBye都是被包到了Functoin1里面，调一下第一个Function1的andThen方法，把第二个Function1传进去，会返回一个新的Function1。这个返回的新的Function1就是我们想要的链式操作了。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[揭开Scala的糖衣(8) -- pattern matching]]></title>
-    <link href="http://cuipengfei.github.com/blog/2013/12/29/desugar-scala-8/"/>
-    <updated>2013-12-29T23:20:00+08:00</updated>
-    <id>http://cuipengfei.github.com/blog/2013/12/29/desugar-scala-8</id>
-    <content type="html"><![CDATA[<p>Pattern matching是Scala中很好用的一个语言特性。先举一个最简单的例子：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">number</span> <span class="k">=</span> <span class="mi">1</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">number</span> <span class="k">match</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">case</span> <span class="mi">1</span> <span class="k">=&gt;</span> <span class="n">doSomething</span><span class="o">()</span>
-</span><span class='line'>  <span class="k">case</span> <span class="mi">2</span> <span class="k">=&gt;</span> <span class="n">doSomethingElse</span><span class="o">()</span>
-</span><span class='line'>  <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="n">doDefault</span><span class="o">()</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这个代码和我们熟悉的switch case看起来很像，其实，这段代码反编译之后和Java的switch case确实就是一样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">number</span><span class="o">;</span> <span class="k">switch</span> <span class="o">(</span><span class="n">i</span><span class="o">)</span>
-</span><span class='line'><span class="o">{</span>
-</span><span class='line'><span class="k">default</span><span class="o">:</span>
-</span><span class='line'>  <span class="n">doDefault</span><span class="o">();</span> <span class="k">break</span><span class="o">;</span>
-</span><span class='line'><span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
-</span><span class='line'>  <span class="n">doSomethingElse</span><span class="o">();</span> <span class="k">break</span><span class="o">;</span>
-</span><span class='line'><span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
-</span><span class='line'>  <span class="n">doSomething</span><span class="o">();</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>但是和Java的switch case不一样的是，Scala的pattern matching作为一个expression是可以evaluate一个值出来的，我们把上面的代码改一下，让doSomething,doSomethingElse和doDefault都返回点东西：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">number</span> <span class="k">=</span> <span class="mi">1</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">val</span> <span class="n">result</span> <span class="k">=</span> <span class="n">number</span> <span class="k">match</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">case</span> <span class="mi">1</span> <span class="k">=&gt;</span> <span class="n">doSomething</span><span class="o">()</span>
-</span><span class='line'>  <span class="k">case</span> <span class="mi">2</span> <span class="k">=&gt;</span> <span class="n">doSomethingElse</span><span class="o">()</span>
-</span><span class='line'>  <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="n">doDefault</span><span class="o">()</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样，result就承接了能够match上的那个case的返回值。而无需像普通的swtich case一样在每个case中给result赋值。</p>
-
-<p>单是这样看，pattern matching的魅力还不算怎么大，我们再看一下下面这个例子：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">abstract</span> <span class="k">class</span> <span class="nc">Animal</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Cat</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Animal</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Dog</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Animal</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>首先声明几个case classes。这些case classes会被编译成一些比较复杂的classes，我们暂时不去关心。</p>
-
-<p>然后看一下如何match类型及其属性：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">animal</span> <span class="k">=</span> <span class="n">createAnimal</span>
-</span><span class='line'><span class="n">animal</span> <span class="k">match</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">case</span> <span class="nc">Dog</span><span class="o">(</span><span class="n">anyName</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">&quot;this is a dog&quot;</span>
-</span><span class='line'>  <span class="k">case</span> <span class="nc">Cat</span><span class="o">(</span><span class="s">&quot;kitty&quot;</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">&quot;this is a cat named kitty&quot;</span>
-</span><span class='line'>  <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="s">&quot;other animal&quot;</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这段代码很容易懂，如果创建出来的animal是狗的话，无论它的名字叫什么，我们都返回this is a dog，如果是一只名叫kitty的猫，则返回this is a cat named kitty。如果都不是的话，则返回other animal。</p>
-
-<p>很简单的几行代码，就做出了类型判断而且还有属性判断。</p>
-
-<p>如果没有pattern matching，那么就要写if去判断类型，如果类型符合还要做类型转换，然后把转换后的变量中的属性取出来，再然后才能对属性的值做判断，最后才能返回点东西&#8230;&#8230;</p>
-
-<p>类型判断，类型转换，取属性，属性值判断，返回值。这么五件事我们用这样一行代码就都解决了：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">case</span> <span class="nc">Cat</span><span class="o">(</span><span class="s">&quot;kitty&quot;</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">&quot;this is a cat named kitty&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样的Scala代码会被编译成什么样呢？其实就是我们上面描述的很复杂的样子：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'>    <span class="n">Animal</span> <span class="n">animal</span><span class="o">;</span>
-</span><span class='line'>    <span class="n">String</span> <span class="n">string</span><span class="o">;</span>
-</span><span class='line'>    <span class="n">Animal</span> <span class="n">animal2</span> <span class="o">=</span> <span class="o">(</span><span class="n">animal</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">createAnimal</span><span class="o">());</span>
-</span><span class='line'>    <span class="k">if</span> <span class="o">((</span><span class="n">animal2</span> <span class="k">instanceof</span> <span class="n">Dog</span><span class="o">))</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;this is a dog&quot;</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(!((</span><span class="n">animal2</span> <span class="k">instanceof</span> <span class="n">Cat</span><span class="o">)))</span> <span class="k">return</span> <span class="s">&quot;other animal&quot;</span><span class="o">;</span>
-</span><span class='line'>    <span class="n">Cat</span> <span class="n">cat</span> <span class="o">=</span> <span class="o">(</span><span class="n">Cat</span><span class="o">)(</span><span class="n">animal2</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">String</span> <span class="n">string2</span> <span class="o">=</span> <span class="o">(</span><span class="n">string</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="na">name</span><span class="o">());</span>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="s">&quot;kitty&quot;</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">string2</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span> <span class="s">&quot;this is a cat named kitty&quot;</span><span class="o">;</span>
-</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;other animal&quot;</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">if</span> <span class="o">(!(</span><span class="s">&quot;kitty&quot;</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">string2</span><span class="o">)))</span> <span class="k">return</span> <span class="s">&quot;other animal&quot;</span><span class="o">;</span>
-</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;this is a cat named kitty&quot;</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这段反编译出来的代码不很可读。我们就凑合着粗看一下。里面和我们前面说的一样，都是if else，类型判断，转型，判等&#8230;&#8230;</p>
-
-<p>当然，用反编译工具给出的Java代码和上面的Scala代码作比较并不公平。我们自己把它写一遍：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'>    <span class="n">Animal</span> <span class="n">animal</span> <span class="o">=</span> <span class="n">createAnimal</span><span class="o">();</span>
-</span><span class='line'>    <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="s">&quot;other animal&quot;</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">animal</span> <span class="k">instanceof</span> <span class="n">Dog</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">result</span> <span class="o">=</span> <span class="s">&quot;this is a dog&quot;</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">animal</span> <span class="k">instanceof</span> <span class="n">Cat</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">Cat</span> <span class="n">cat</span> <span class="o">=</span> <span class="o">(</span><span class="n">Cat</span><span class="o">)</span> <span class="n">animal</span><span class="o">;</span>
-</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">cat</span><span class="o">.</span><span class="na">name</span><span class="o">()</span> <span class="o">==</span> <span class="s">&quot;kitty&quot;</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">result</span> <span class="o">=</span> <span class="s">&quot;this is a cat named kitty&quot;</span><span class="o">;</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这个样子再和上面的Scala代码比较，可以看到Scala编译器帮我们省掉了局部变量，类型判断和判等这些噪音。</p>
-
-<p>Pattern matching还有很多其他用法，比如用来match tuple：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">hostPort</span> <span class="k">=</span> <span class="o">(</span><span class="s">&quot;localhost&quot;</span><span class="o">,</span> <span class="mi">80</span><span class="o">)</span>
-</span><span class='line'><span class="n">hostPort</span> <span class="k">match</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">case</span> <span class="o">(</span><span class="s">&quot;localhost&quot;</span><span class="o">,</span> <span class="n">port</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">&quot;this is localhost address&quot;</span>
-</span><span class='line'>  <span class="k">case</span> <span class="o">(</span><span class="n">host</span><span class="o">,</span> <span class="n">port</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">&quot;some other address&quot;</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>或者是用来match option：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">map</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">(</span><span class="mi">1</span> <span class="o">-&gt;</span> <span class="s">&quot;one&quot;</span><span class="o">,</span> <span class="mi">2</span> <span class="o">-&gt;</span> <span class="s">&quot;two&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="n">map</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">str</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">&quot;get something from map: &quot;</span> <span class="o">+</span> <span class="n">str</span>
-</span><span class='line'>  <span class="k">case</span> <span class="nc">None</span> <span class="k">=&gt;</span> <span class="s">&quot;no result&quot;</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Scala标准库中的Map的get方法的返回类型是Option，如果能够get到东西则返回Some，其中包着get到的值。如果get不到东西，则返回一个None。</p>
-
-<p>由于Tuple和Option本身也是case class，所以上面的两段代码反编译出来和上面的Java代码是大同小异的。就不再赘述了。</p>
 ]]></content>
   </entry>
   
