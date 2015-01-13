@@ -9,7 +9,7 @@
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content="2014年即将结束，需要做一些总结。 既然总结是写在博客上的，第一项就先说博客吧。 博客 2014年写了18篇博客，其中15篇和Scala有关，自认为都是有且仅有干货的。 对此，我比较满意。 不过这个数字存在欺骗性，15篇Scala的博客，其中4篇写于1月份，6篇写于6月份， &hellip;">
+  <meta name="description" content=" ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,45 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/01/13/tech-radar-wuhan/">Tech Radar 武汉 Microservice Envy</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-13T23:18:00+08:00" pubdate data-updated="true">Jan 13<span>th</span>, 2015</time>
+        
+         | <a href="/blog/2015/01/13/tech-radar-wuhan/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><iframe src="//slides.com/pengfeicui/microservice-envy/embed" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1835,164 +1874,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/06/27/scala-java-interop-closure/">论“如果Scala类有方法接收闭包，这些方法在Java里就不可用，因为Java目前尚不支持闭包。”这句话是错的</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-27T20:54:00+08:00" pubdate data-updated="true">Jun 27<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/06/27/scala-java-interop-closure/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>最近在看郑大翻译的《Scala程序设计》，其中第十一章有一句话：</p>
-
-<blockquote><p>如果Scala类有方法接收闭包，这些方法在Java里就不可用，因为Java目前尚不支持闭包。</p></blockquote>
-
-<p>口说无凭，拍照为证：</p>
-
-<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1ehszbfbsj1j20xc18g17s.jpg" alt="" /></p>
-
-<p>当时看到这句话就感觉不对。因为JVM本身没有对函数式编程提供任何支持，所以无论是Java中常用的Guava，还是Scala，其对闭包的支持都是通过用类来包裹函数实现的。</p>
-
-<p>如果说Java目前（其时Java 8还没面世）尚不支持闭包，那倒是还说得过去，因为毕竟是要用类包裹一层，不算真正的函数传递。</p>
-
-<p>但是说如果Scala类有方法接收闭包，这些方法在Java里就不可用，那就不对了，包一层匿名内部类，我不还是能用吗？虽说不太好看，也不能说不能用啊。</p>
-
-<p>为了验证一下，写点代码来试试吧。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">OnePluser</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">plusOne</span><span class="o">(</span><span class="n">func</span><span class="k">:</span> <span class="o">()</span> <span class="o">=&gt;</span> <span class="nc">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">func</span><span class="o">()</span> <span class="o">+</span> <span class="mi">1</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>先定义一个Scala类，OnePluser，它有一个plusOne方法，接收一个函数，给函数的返回值加1，然后返回。非常简单。</p>
-
-<p>在Scala里可以这么调用它：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">OnePluserCaller</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">callIt</span><span class="o">()</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">new</span> <span class="nc">OnePluser</span><span class="o">().</span><span class="n">plusOne</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="mi">5</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>一样的简单，一个匿名函数传给它，这个匿名函数返回一个写死的5。这样最后的返回值会是6。</p>
-
-<p>这段代码如果反编译成Java，会是这样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OnePluserCaller</span>
-</span><span class='line'><span class="o">{</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">callIt</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="k">new</span> <span class="nf">OnePluser</span><span class="o">().</span><span class="na">plusOne</span><span class="o">(</span><span class="k">new</span> <span class="n">AbstractFunction0</span><span class="o">.</span><span class="na">mcI</span><span class="o">.</span><span class="na">sp</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>      <span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">apply</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">apply$mcI$sp</span><span class="o">();</span> <span class="o">}</span>
-</span><span class='line'>      <span class="kd">public</span> <span class="kt">int</span> <span class="n">apply$mcI$sp</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="mi">5</span><span class="o">;</span> <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="o">});</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>毫不出奇，调用plusOne的地方需要提供一个不接收参数，返回一个Int的函数，这个函数在Scala里是() => 5，编译出来就是一个AbstractFunction0的实例，其中的apply方法返回一个写死的5。可以想见，在plusOne中就会调用这个apply方法（已验证，非臆测）。</p>
-
-<p>既然Scala的编译器可以用这种方式来实现函数的传递，那在Java代码中难道就不可以吗？</p>
-
-<p>我们写点代码来验证一下吧：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">scala.runtime.AbstractFunction0</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OnePluserCallerJ</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">callIt</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="k">new</span> <span class="nf">OnePluser</span><span class="o">().</span><span class="na">plusOne</span><span class="o">(</span><span class="k">new</span> <span class="n">AbstractFunction0</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;()</span> <span class="o">{</span>
-</span><span class='line'>            <span class="nd">@Override</span>
-</span><span class='line'>            <span class="kd">public</span> <span class="n">Integer</span> <span class="nf">apply</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>                <span class="k">return</span> <span class="mi">5</span><span class="o">;</span>
-</span><span class='line'>            <span class="o">}</span>
-</span><span class='line'>        <span class="o">});</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这段代码基本就是照上面的反编译结果照抄的，AbstractFunction0的定义在scala.runtime.AbstractFunction0里，在scala-library-xxx.jar里。xxx是版本号。</p>
-
-<p>上面的代码可以编译，可以运行，而且也可以得到6这个返回值。</p>
-
-<p>由此可以证明在当前的Scala版本下（我现在用的是2.10.4）作者的这段话是不成立的。</p>
-
-<p>但是，当时呢？</p>
-
-<p>我查了一下，这本书的出版日期是09年，然后查了一下Scala的版本，08年的版本是2.7.7。于是我下载了scala-library-2.7.7.jar。发现其中确实没有AbstractFunction0的定义，但是现在版本的AbstractFunction0是实现了Function0的，而Function0的定义在2.7.7中是有的。而当时如果在Java中写一个实现了Function0的匿名内部类，不也是可行的吗？</p>
-
-<p>Ok，不关注那么老的事儿了，可以确定的一点是，在当前版本下，在Java中是可以调用Scala中定义的接收闭包的函数的。</p>
-
-<p>THE END</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -2008,6 +1889,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/01/13/tech-radar-wuhan/">Tech radar 武汉 microservice envy</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/12/27/2014/">2014年总结</a>
       </li>
     
@@ -2021,10 +1906,6 @@
     
       <li class="post">
         <a href="/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/">Scala中Stream的应用场景及其实现原理</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/06/solving-regular-problems-in-scala/">solving regular problems in scala</a>
       </li>
     
   </ul>
@@ -2086,7 +1967,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - 崔鹏飞 -
+  Copyright &copy; 2015 - 崔鹏飞 -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
