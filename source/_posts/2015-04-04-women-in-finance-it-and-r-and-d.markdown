@@ -87,7 +87,7 @@ categories:
 （为什么只有三个？不为什么，多了嫌累）
 
 #金融
-搜索良久，实在是找不到国内的资料，只好拿些英文的资料作为旁证了。
+搜寻良久，实在是找不到国内的资料，只好拿些英文的资料作为旁证了。
 
 以下是来自美国的**公平就业机会委员会（Equal Employment Opportunity Commission,缩写为EEOC）**2006年发布的一份报告中关于**女性金融从业者比例**的图表：
 
@@ -172,22 +172,29 @@ NCWIT的wiki页面：<a target="_blank" href="http://en.wikipedia.org/wiki/Natio
 
 其他八个国家大致是落在26%到33%这个区间。
 
+
 第二份报告发布于2012年，其中有一张**男女收入差距**的图表：
 
 ![](http://ww3.sinaimg.cn/large/8b1ece2agw1eqtgj4s92yj20ty0t6wl8.jpg)
 
 该图表数据统计于2002年和2006年，从中不难看出，女性在科研行业的各个分支中收入比男性低20%到40%。
 
+第一份报告出处：<a href="https://ec.europa.eu/research/swafs/pdf/pub_gender_equality/wir_final.pdf" target="_blank">https://ec.europa.eu/research/swafs/pdf/pub_gender_equality/wir_final.pdf</a>
+
+第二份报告出处：<a href="http://ec.europa.eu/research/science-society/document_library/pdf_06/meta-analysis-of-gender-and-science-research-synthesis-report.pdf" target="_blank">http://ec.europa.eu/research/science-society/document_library/pdf_06/meta-analysis-of-gender-and-science-research-synthesis-report.pdf</a>
+
+发布报告的欧盟网站：<a href="http://ec.europa.eu/index_en.htm" target="_blank">http://ec.europa.eu/index_en.htm</a>
+
 **由此可见，在欧洲，科研行业作为一个高薪行业，其中女性从业人员较少。
 即便进入这个行业的女性，其收入也要较男性低。**
 
 #小结
-**以上观察了三个薪水最高的行业：，金融，IT和科研，这三个行业中都呈现出了女性从业人员少于男性，且收入低于男性的态势。**
+**以上观察了三个薪水最高的行业：金融，IT和科研，这三个行业中都呈现出了女性从业人员少于男性，且收入低于男性的态势。**
 
 #然后呢？
-以上仅仅是通过交叉引证来描述了职业女性的状况。是属于实证性的表述（positive statement）。
+以上仅仅是通过交叉引证来描述了职业女性的状况。是属于**实证性的表述（positive statement）。**
 
-而关于职业女性应该处于何种状况，那是属于规范性的表述（normative statement），本文就不涉及了。
+而关于职业女性应该处于何种状况，那是属于**规范性的表述（normative statement）**，本文就不涉及了。
 
 女性在这些高薪行业中人数少于男性，这是好事吗？这是坏事吗？
 
@@ -197,8 +204,8 @@ NCWIT的wiki页面：<a target="_blank" href="http://en.wikipedia.org/wiki/Natio
 
 女性的收入低于男性，那有可能是她们干活不给力啊，那收入低就是应该的吧？
 
-所有这些问题，都属于价值判断。通过上面引用的数据，以及常识的积累，我对这些问题会有确定性的判断。
-想来你也能猜到我的判断是什么。但是我不把它说出来，留待读者自己得出结论。
+所有这些问题，都属于**价值判断**。通过上面引用的数据，以及常识的积累，我对这些问题会有确定性的判断。
+想来你也能猜到我的判断是什么。但是我不把它说出来，**留待读者自己得出结论**。
 
 #最后
 如果您觉得这篇博客写的还可以，请用手机支付宝扫描下面的二维码：
