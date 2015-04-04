@@ -28,7 +28,7 @@ categories:
 
 于是，你也可以猜到的，这中间某X就说了IT行业对于女性从业者存在歧视，收入不平等之类的话。
 
-这让我颇为感慨：武汉也无非是这样。武大的樱花烂熳的时节，群中却有这样的讨论。其实，又何止武汉呢？
+这让我颇为感慨：武汉也无非是这样。武大的樱花烂熳的时节，群中却有这样标致极了的讨论。其实，又何止武汉呢？
 
 正当某X与某Y酣战之时，有另外一位群友问声称存在收入歧视的某X是否有数据支持其观点。
 
@@ -192,6 +192,40 @@ NCWIT的wiki页面：<a target="_blank" href="http://en.wikipedia.org/wiki/Natio
 
 #小结
 **以上观察了三个薪水最高的行业：金融，IT和科研，这三个行业中都呈现出了女性从业人员少于男性，且收入低于男性的态势。**
+
+如果这条结论和以上干巴巴的数据无法让您获得感性的认知的话，那我们再结合其他数据做个分析。
+
+以下是来源于非营利组织**National Association of Colleges and Employers (NACE)**的一份报告中关于**平均年工资涨幅**的数据：
+
+![](http://ww1.sinaimg.cn/large/8b1ece2agw1eqtzeznwmwj21020eqwgt.jpg)
+
+可以从最后一行看出，平均工资涨幅是每年7.5%。
+
+这意味着什么呢？
+
+```ruby
+[1] pry(main)> Math.log(1.55,1.075)
+=> 6.059885534213904
+[2] pry(main)> Math.log(1.12,1.075)
+=> 1.5670305391527257
+[3] pry(main)> Math.log(1.20,1.075)
+=> 2.5210161634544224
+[4] pry(main)> Math.log(1.40,1.075)
+=> 4.652504958776575
+```
+
+如果您不是IT行业的看不懂上面的代码没关系，我来解释一下。
+
+这意味着，如果您是一名金融行业的女性从业者，您旁边座位上是一名和您同时进公司的男同事。
+而您又恰巧看到了他的工资单，经过分析自己历年的工资涨幅，您会发现如果您想要和他赚到一样多的钱的话，您要再工作**六年**才行。
+
+而这个数字在IT行业是**一年半**。
+
+在科研行业是**两年半**到**四年半**。
+
+以上引用报告出处：<a href="https://www.naceweb.org/uploadedFiles/Content/static-assets/downloads/executive-summary/2014-september-salary-survey-executive-summary.pdf" target="_blank">https://www.naceweb.org/uploadedFiles/Content/static-assets/downloads/executive-summary/2014-september-salary-survey-executive-summary.pdf</a>
+
+NACE的wiki页面：<a href="http://en.wikipedia.org/wiki/National_Association_of_Colleges_and_Employers" target="_blank">http://en.wikipedia.org/wiki/National_Association_of_Colleges_and_Employers</a>
 
 #然后呢？
 以上仅仅是通过交叉引证来描述了职业女性的状况。是属于**实证性的表述（positive statement）。**
