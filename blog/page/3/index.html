@@ -9,8 +9,19 @@
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content="干了什么 上半年： 看了十几本书； 写了几篇博客； 在github上做了一个豆瓣读书的插件； 肇始了一个十万个为什么的活动，自始至终只有我一个人参与，然后就挂掉了； 做了三章的SICP，然后卡住做不动了； 乏善可陈。 上面列的最后两项的价值最大，但都没做完。究其原因： 坚持不够
-attention &hellip;">
+  <meta name="description" content="Implicit function，中文或许应该叫做隐式函数吧。主要用来作隐式类型转换。例子： 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+class Duck { def makeDuckNoise() = &quot;gua gua&quot;
+} class Chicken { def &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +86,147 @@ attention &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/01/desugar-scala-10/">褪去Scala的糖衣(10) &#8211; Implicit Function</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-01T22:56:00+08:00" pubdate data-updated="true">Jan 1<span>st</span>, 2014</time>
+        
+         | <a href="/blog/2014/01/01/desugar-scala-10/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Implicit function，中文或许应该叫做隐式函数吧。主要用来作隐式类型转换。例子：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Duck</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">makeDuckNoise</span><span class="o">()</span> <span class="k">=</span> <span class="s">&quot;gua gua&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Chicken</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">makeChickenNoise</span><span class="o">()</span> <span class="k">=</span> <span class="s">&quot;ge ge&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Ducken</span><span class="o">(</span><span class="n">chicken</span><span class="k">:</span> <span class="kt">Chicken</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Duck</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">override</span> <span class="k">def</span> <span class="n">makeDuckNoise</span><span class="o">()</span> <span class="k">=</span> <span class="n">chicken</span><span class="o">.</span><span class="n">makeChickenNoise</span><span class="o">()</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>三个类，鸭子，鸡，还有伪装成鸭子的鸡。如果有这么一个函数：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">def</span> <span class="n">giveMeADuck</span><span class="o">(</span><span class="n">duck</span><span class="k">:</span> <span class="kt">Duck</span><span class="o">)</span> <span class="k">=</span> <span class="n">duck</span><span class="o">.</span><span class="n">makeDuckNoise</span><span class="o">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>该函数要求我们给它提供一只鸭子，我们可以这么调用它：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">giveMeADuck</span><span class="o">(</span><span class="k">new</span> <span class="nc">Duck</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>要鸭子就给鸭子，没问题。或者是也可以这样：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">giveMeADuck</span><span class="o">(</span><span class="k">new</span> <span class="nc">Ducken</span><span class="o">(</span><span class="k">new</span> <span class="nc">Chicken</span><span class="o">))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>把一只鸡伪装成鸭子给它，也没问题。但是如果直接把鸡给它就不行了：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">giveMeADuck</span><span class="o">(</span><span class="k">new</span> <span class="nc">Chicken</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>编译器会给出type mismatch的错误。</p>
+
+<p>我们已经有一个Ducken类可以用来把鸡化装成鸭子了，那有没有一种方法可以让我们鬼鬼祟祟的就把化妆这件事儿做了？那就不用每次都明火执仗的了。</p>
+
+<p>答案就是用implicit function：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">implicit</span> <span class="k">def</span> <span class="n">chickenToDuck</span><span class="o">(</span><span class="n">chicken</span><span class="k">:</span> <span class="kt">Chicken</span><span class="o">)</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Ducken</span><span class="o">(</span><span class="n">chicken</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>它的用法很简单，给函数加上implicit这个修饰符，函数的参数是鸡，返回类型是鸭子 （或者是任何鸭子的子类都行）。</p>
+
+<p>然后这行代码就可以编译了：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">giveMeADuck</span><span class="o">(</span><span class="k">new</span> <span class="nc">Chicken</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>来看一下反编译的结果：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">giveMeADuck</span><span class="o">(</span><span class="n">Duck</span> <span class="n">duck</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">duck</span><span class="o">.</span><span class="na">makeDuckNoise</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="n">Ducken</span> <span class="nf">chickenToDuck</span><span class="o">(</span><span class="n">Chicken</span> <span class="n">chicken</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">new</span> <span class="nf">Ducken</span><span class="o">(</span><span class="n">chicken</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>giveMeADuck和chickenToDuck都被编译成了中规中矩的方法。giveMeADuck(new Chicken)则被编译成了这个样子：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">giveMeADuck</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">chickenToDuck</span><span class="o">(</span><span class="k">new</span> <span class="n">Chicken</span><span class="o">()));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>一点意外都没有，implicit在反编译后无影无踪，它就是很纯的一点点糖。</p>
+
+<p>我意淫一下：编译器在发现我们给它的chicken和想要的duck之间存在type mismatch的时候先不着急给出错误，看看有没有标为implicit的函数可以把chicken变成duck或者其子类，如果有则调用该方法，没有再给出错误。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -2123,261 +2275,6 @@ type Function23 is not a member of package scala</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/11/scala-language-features-2/">Scala中的语言特性是如何实现的(2)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-11T23:37:00+08:00" pubdate data-updated="true">May 11<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/11/scala-language-features-2/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://cuipengfei.me/blog/2013/05/05/how-are-scala-language-features-implemented/">上篇博文</a>的末尾留了三个问题，现在自问自答一下。</p>
-
-<h3>在Scala中被声明为val的v4为什么在反编译的Java中不是final的呢？</h3>
-
-<p>在方法中声明局部变量时，如果用Scala的val关键字（或者是Java中的final）来修饰变量，则代表着此变量在赋过初始值之后不可以再被重新赋值。这个val或者final只是给编译器用的，编译器如果发现你给此变量重新赋值会抛出错误。</p>
-
-<p>而bytecode不具备表达一个局部变量是immutable的能力，也就是说对于JVM来说，不存在不可变的局部变量这个概念。所以v4在反编译之后，就和普通的局部变量无异了。</p>
-
-<h3>在Scala中被声明为val的v2为什么在反编译的C#中不是readonly的呢？</h3>
-
-<p>这是个挺tricky的问题，我试着解释一下。Scala .NET是基于IKVM实现的，IKVM可以把Java bytecode翻译为CIL。
-所以Scala编译为CIL的过程实际是这样的：</p>
-
-<p>Scala &#8212;&#8211;Scala编译器&#8212;&#8211;> bytecode &#8212;&#8211;IKVM&#8212;&#8211;> CIL</p>
-
-<p>Scala编译器编译出的bytecode实际是用final修饰了v2的，但是bytecode中的final和CIL中的initonly（对应C#的readonly）是不一样的。</p>
-
-<p>Java中，final实例变量定义的时候，可以先声明，而不给初值，然后我们可以在任何一个方法中给它赋初值。这提供了更大的灵活性，一个Java类中的final成员可以依对象而不同，却保持其immutable的特征。</p>
-
-<p>而CIL的initonly则要严格一点，CLI标准（ECMA-334）这样描述：</p>
-
-<blockquote><p>initonly marks fields which are constant after they are initialized. These fields shall only be mutated inside a constructor. If the field is a static field, then it shall be mutated only inside the type initializer of the type in which it was declared. If it is an instance field, then it shall be mutated only in one of the instance constructors of the type in which it was defined. It shall not be mutated in any other method or in any other constructor, including constructors of derived classes.</p></blockquote>
-
-<p>可见，一个initonly的成员，不是随便在哪儿都可以赋初值的。由于这点不同IKVM就没有直接把final翻译成initonly。如果想让v2在C#代码中变成readonly的，可以给IKVM加上strictfinalfieldsemantics这个参数。</p>
-
-<h3>为什么反编译出来的C#代码中的实例级公开方法都是标有override的呢？</h3>
-
-<p>这个问题还没搞明白。</p>
-
-<p>但是有个有趣的现象，如果用Scala .NET来编译Scala源码，编译出的实例级方法都是标有override的；而如果先把Scala代码编译为.class然后再用IKVM把.class文件转换为CIL的话，方法则是标有virtual的。我猜这可能和Java中的方法默认是可以被overirde的有关。</p>
-
-<p>下面开始正文，前面填坑用了不少篇幅，所以这次只分析一个语言特性：Scala中的constructor。</p>
-
-<h2>Constructor</h2>
-
-<p>Scala中可以在声明class的同时声明一个constructor，比如这样：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">ScalaConstructorExample</span><span class="o">(</span><span class="k">val</span> <span class="n">x</span><span class="k">:</span> <span class="kt">Double</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">println</span><span class="o">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>构造函数接收两个参数x和y，然后把x和y拼在一起打印出来。反编译为Java：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ScalaConstructorExample</span>
-</span><span class='line'><span class="o">{</span>
-</span><span class='line'>  <span class="kd">private</span> <span class="kd">final</span> <span class="kt">double</span> <span class="n">x</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">double</span> <span class="nf">x</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">x</span><span class="o">;</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="nf">ScalaConstructorExample</span><span class="o">(</span><span class="kt">double</span> <span class="n">x</span><span class="o">,</span> <span class="n">String</span> <span class="n">y</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="n">StringBuilder</span><span class="o">().</span><span class="na">append</span><span class="o">(</span><span class="n">x</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">y</span><span class="o">).</span><span class="na">toString</span><span class="o">());</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可以发现编译器给标为val的x生成了一个getter，很方便的语法糖。而直接写在类内的打印语句则被放到了构造函数内。下面是反编译为C#的代码：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">ScalaConstructorExample</span> <span class="p">:</span> <span class="n">ScalaObject</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">private</span> <span class="kt">double</span> <span class="n">x</span> <span class="p">=</span> <span class="n">x</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">public</span> <span class="k">override</span> <span class="kt">double</span> <span class="nf">x</span><span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  
-</span><span class='line'>  <span class="k">public</span> <span class="nf">ScalaConstructorExample</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">string</span> <span class="n">y</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">Predef</span><span class="err">$</span><span class="p">.</span><span class="n">MODULE</span><span class="err">$</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="k">new</span> <span class="n">StringBuilder</span><span class="p">().</span><span class="n">Append</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="n">Append</span><span class="p">(</span><span class="n">y</span><span class="p">).</span><span class="n">ToString</span><span class="p">());</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>和Java代码基本无异。比较一下，Scala用3行代码表达的含义，Java和C#要用14行才行。</p>
-
-<p>现在加一个重载的构造函数：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">ScalaConstructorExample</span><span class="o">(</span><span class="k">val</span> <span class="n">x</span><span class="k">:</span> <span class="kt">Double</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>  <span class="n">println</span><span class="o">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">)</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="k">this</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Double</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="s">&quot;hello&quot;</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这个构造函数给了y一个默认值“hello”。反编译为Java：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ScalaConstructorExample</span>
-</span><span class='line'><span class="o">{</span>
-</span><span class='line'>  <span class="kd">private</span> <span class="kd">final</span> <span class="kt">double</span> <span class="n">x</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">double</span> <span class="nf">x</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">x</span><span class="o">;</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="nf">ScalaConstructorExample</span><span class="o">(</span><span class="kt">double</span> <span class="n">x</span><span class="o">,</span> <span class="n">String</span> <span class="n">y</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>      <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="n">StringBuilder</span><span class="o">().</span><span class="na">append</span><span class="o">(</span><span class="n">x</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">y</span><span class="o">).</span><span class="na">toString</span><span class="o">());</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="nf">ScalaConstructorExample</span><span class="o">(</span><span class="kt">double</span> <span class="n">x</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="k">this</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="s">&quot;hello&quot;</span><span class="o">);</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>对应的C#代码：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">ScalaConstructorExample</span> <span class="p">:</span> <span class="n">ScalaObject</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">private</span> <span class="kt">double</span> <span class="n">x</span> <span class="p">=</span> <span class="n">x</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">public</span> <span class="k">override</span> <span class="kt">double</span> <span class="nf">x</span><span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">public</span> <span class="nf">ScalaConstructorExample</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">string</span> <span class="n">y</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">Predef</span><span class="err">$</span><span class="p">.</span><span class="n">MODULE</span><span class="err">$</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="k">new</span> <span class="n">StringBuilder</span><span class="p">().</span><span class="n">Append</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="n">Append</span><span class="p">(</span><span class="n">y</span><span class="p">).</span><span class="n">ToString</span><span class="p">());</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  
-</span><span class='line'>  <span class="k">public</span> <span class="nf">ScalaConstructorExample</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">)</span> <span class="p">:</span> <span class="k">this</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&quot;hello&quot;</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>构造函数重载这个特性就显得平淡无奇了，不过还是比较一下行数。定义两个构造函数，打印出构造函数的参数，声明一个getter，这三件事Scala只用7行代码就完成了，Java和C#都需要将近20行。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -2395,6 +2292,10 @@ type Function23 is not a member of package scala</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/04/04/women-in-finance-it-and-r-and-d/">职业女性确实处于劣势吗？记一次不甚严谨的考据 &#8211; 向胡适之先生的遥远致敬</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/03/29/2015-first-season/">2015第一季度</a>
       </li>
     
@@ -2408,10 +2309,6 @@ type Function23 is not a member of package scala</p>
     
       <li class="post">
         <a href="/blog/2014/11/16/zdyx2015wuhansecondclass/">2015武汉郑大晔校第二次课</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/">Spark RDD的fold和aggregate为什么是两个API？为什么不是一个foldLeft？</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content="最近还是在看郑大翻译的《Scala程序设计》，其中第十一章还有一句话： 如果trait有方法实现，那么Java类就不能实现这个trait 口说还是无凭，还是拍照为证： 我感觉这句话是错的，下面寻根究底地探索一下。 trait这个语言特性前面的博文讲过。 &hellip;">
+  <meta name="description" content="我所在的项目在用Scala + Play framework做一个web app。 Play自带的evolutions是一个DB Migration工具，从一开始我们就在用它来做所有阶段的数据迁移工作。 运行自动化测试时它可以帮每个测试用例在H2中创建数据（H2是Play默认的内存数据库）。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,152 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/07/18/play-evolutions-to-liquibase/">在使用play framework的evolutions？需要支持SQL Server？用Liquibase吧</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-18T15:11:00+08:00" pubdate data-updated="true">Jul 18<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/07/18/play-evolutions-to-liquibase/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>我所在的项目在用Scala + Play framework做一个web app。</p>
+
+<p>Play自带的evolutions是一个DB Migration工具，从一开始我们就在用它来做所有阶段的数据迁移工作。</p>
+
+<p>运行自动化测试时它可以帮每个测试用例在H2中创建数据（H2是Play默认的内存数据库）。
+在下一个测试用例运行时evolutions则会创建一份和上次完全相同的新数据，这样我们的测试可以获得独立性而不用担心之前的测试遗留的副作用。也不用担心会给下一个测试遗留下什么脏数据。</p>
+
+<p>在测试或者部署环境中运行时它也可以针对Postgres做数据迁移。</p>
+
+<p>这一切看起来都挺好，我们就差喊evolutions是我们忠实的好伙伴了。</p>
+
+<p>但是，快到给终端客户部署时，某一家客户提出他们一定要使用SQL Server，我们最初提出的使用Postgres他们不接受了。这时我们才发现evolutions的设计初衷就是在开发和测试阶段提供便利性，它根本就没想成为一个production ready的东西。</p>
+
+<p>这样看来我们必须得寻找一个正经的DB Migration的工具了。而且这个DB Migration工具一定要满足以下几点：</p>
+
+<ol>
+<li>能够在运行自动化测试时和H2结合使用（因为我们已经有很多测试在依赖于H2跑了，要换掉成本较高）</li>
+<li>能支持多种数据库（今天有人要SQL Server的支持，明天说不定还会有人要其他的）</li>
+<li>在支持多种数据库时不需要我们写不同风格的SQL脚本（要写出让各个DB都不挑剔的SQL实在是太费劲了）</li>
+</ol>
+
+
+<p>我最先想到的就是Flyway，之前用过，而且TW的tech radar也提到过它。</p>
+
+<p>但是它并没有入选，原因在于上面的第三点。Flyway要求使用者自己提供执行所需的SQL脚本。
+这就意味着我们写SQL时需要同时兼顾H2，Postgres，SQL Server的异同。而且还无法预知未来的其他数据库会对我们现在写出的SQL脚本产生什么样的影响。</p>
+
+<p>最后我们选择了Liquibase，我们可以通过JSON，YAML，或者XML来定义数据。Liquibase自己负责把我们定义的数据翻译给各种不同的数据库。</p>
+
+<p>这样，通过一层中间语言。我们就隔离了数据库的差异对我们开发工作可能会造成的影响。</p>
+
+<p>Ok，要用Liquibase这个大方向就确定了。但是具体怎么把它跑起来呢？在什么时机跑它呢？</p>
+
+<p>用脚本跑？</p>
+
+<p>Liquibase确实提供了Standalone，我们可以用脚本来调用它。</p>
+
+<p>但是这怎么和build结合起来呀？在测试时调用它？在app启动时调用它？</p>
+
+<p>那H2运行的端口每次都未必是一样的，这怎么办啊？</p>
+
+<p>这个方案想想就费劲。</p>
+
+<p>把它做成sbt的一个task？</p>
+
+<p>这样确实比直接用脚本要稍微距离我们的build近一点，但是还是会有类似的问题。我们需要显式地去调用它，还要选择合适的时机去调用它。实现起来也会很麻烦。</p>
+
+<p>而实际上，Play自己是支持plug in的。我们想要控制执行时机，而有谁比Play自己更了解它的运行时机呢？</p>
+
+<p>而且已经有人做了liquibase play plug in。我把它fork了一份，更新了liquibase和play的版本，提高了log的level。并且部署到了sonatype去。</p>
+
+<p>由于是Play自己的plug in，不是我们试图插入的生硬的脚本或者sbt task。Play自己知道该在什么合适的时机去执行它。</p>
+
+<p>下面说一下如何应用它吧。</p>
+
+<ul>
+<li>在所有的conf文件中删掉所有和evolutions有关的配置</li>
+</ul>
+
+
+<p>这两个东西不能一起用，要不然我们需要同时维护两种DB Migration的脚本。</p>
+
+<ul>
+<li>在dependencies中加入这一项：</li>
+</ul>
+
+
+<p>&#8220;com.github.cuipengfei&#8221; % &#8220;play-liquibase_2.11&#8221; % &#8220;1.1&#8221;</p>
+
+<p>很明显，这是用来引入这个plugin的。</p>
+
+<ul>
+<li>在conf目录下创建一个名为play.plugins的文件，在其中写入：</li>
+</ul>
+
+
+<p>400:com.github.cuipengfei.LiquibasePlugin</p>
+
+<p>冒号前的400用来定义plugin的执行优先级，Play会由此决定何时执行该plugin。</p>
+
+<p>冒号后是plugin的完全限定名。</p>
+
+<ul>
+<li>在你需要的conf文件中加入两行：</li>
+</ul>
+
+
+<p>liquibaseplugin=enabled</p>
+
+<p>applyLiquibase.default=true</p>
+
+<p>这样用来启用该plugin。</p>
+
+<ul>
+<li>在conf/liquibase/default/下创建一个modules.xml。</li>
+</ul>
+
+
+<p>在其中写入你的数据定义。（具体如何写，liquibase的官网有详细的介绍）</p>
+
+<p>如果你用的数据库名字不是default，相应的替换就ok了。</p>
+
+<p>这样，就大功告成了。</p>
+
+<p>当你用sbt运行自动化测试时，liquibase会帮你创建数据。</p>
+
+<p>当你在本地调试运行时，liquibase会帮你set up数据库。</p>
+
+<p>当应用被部署到生产环境下去的时候，liquibase也可以帮你在第一次运行时进行数据的初创。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1747,147 +1893,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/01/desugar-scala-10/">褪去Scala的糖衣(10) &#8211; Implicit Function</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-01T22:56:00+08:00" pubdate data-updated="true">Jan 1<span>st</span>, 2014</time>
-        
-         | <a href="/blog/2014/01/01/desugar-scala-10/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Implicit function，中文或许应该叫做隐式函数吧。主要用来作隐式类型转换。例子：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Duck</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">makeDuckNoise</span><span class="o">()</span> <span class="k">=</span> <span class="s">&quot;gua gua&quot;</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">Chicken</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">makeChickenNoise</span><span class="o">()</span> <span class="k">=</span> <span class="s">&quot;ge ge&quot;</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">Ducken</span><span class="o">(</span><span class="n">chicken</span><span class="k">:</span> <span class="kt">Chicken</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Duck</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">override</span> <span class="k">def</span> <span class="n">makeDuckNoise</span><span class="o">()</span> <span class="k">=</span> <span class="n">chicken</span><span class="o">.</span><span class="n">makeChickenNoise</span><span class="o">()</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>三个类，鸭子，鸡，还有伪装成鸭子的鸡。如果有这么一个函数：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">def</span> <span class="n">giveMeADuck</span><span class="o">(</span><span class="n">duck</span><span class="k">:</span> <span class="kt">Duck</span><span class="o">)</span> <span class="k">=</span> <span class="n">duck</span><span class="o">.</span><span class="n">makeDuckNoise</span><span class="o">()</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>该函数要求我们给它提供一只鸭子，我们可以这么调用它：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">giveMeADuck</span><span class="o">(</span><span class="k">new</span> <span class="nc">Duck</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>要鸭子就给鸭子，没问题。或者是也可以这样：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">giveMeADuck</span><span class="o">(</span><span class="k">new</span> <span class="nc">Ducken</span><span class="o">(</span><span class="k">new</span> <span class="nc">Chicken</span><span class="o">))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>把一只鸡伪装成鸭子给它，也没问题。但是如果直接把鸡给它就不行了：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">giveMeADuck</span><span class="o">(</span><span class="k">new</span> <span class="nc">Chicken</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>编译器会给出type mismatch的错误。</p>
-
-<p>我们已经有一个Ducken类可以用来把鸡化装成鸭子了，那有没有一种方法可以让我们鬼鬼祟祟的就把化妆这件事儿做了？那就不用每次都明火执仗的了。</p>
-
-<p>答案就是用implicit function：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">implicit</span> <span class="k">def</span> <span class="n">chickenToDuck</span><span class="o">(</span><span class="n">chicken</span><span class="k">:</span> <span class="kt">Chicken</span><span class="o">)</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Ducken</span><span class="o">(</span><span class="n">chicken</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>它的用法很简单，给函数加上implicit这个修饰符，函数的参数是鸡，返回类型是鸭子 （或者是任何鸭子的子类都行）。</p>
-
-<p>然后这行代码就可以编译了：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">giveMeADuck</span><span class="o">(</span><span class="k">new</span> <span class="nc">Chicken</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>来看一下反编译的结果：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">giveMeADuck</span><span class="o">(</span><span class="n">Duck</span> <span class="n">duck</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">duck</span><span class="o">.</span><span class="na">makeDuckNoise</span><span class="o">();</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="n">Ducken</span> <span class="nf">chickenToDuck</span><span class="o">(</span><span class="n">Chicken</span> <span class="n">chicken</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="k">new</span> <span class="nf">Ducken</span><span class="o">(</span><span class="n">chicken</span><span class="o">);</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>giveMeADuck和chickenToDuck都被编译成了中规中矩的方法。giveMeADuck(new Chicken)则被编译成了这个样子：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">giveMeADuck</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">chickenToDuck</span><span class="o">(</span><span class="k">new</span> <span class="n">Chicken</span><span class="o">()));</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>一点意外都没有，implicit在反编译后无影无踪，它就是很纯的一点点糖。</p>
-
-<p>我意淫一下：编译器在发现我们给它的chicken和想要的duck之间存在type mismatch的时候先不着急给出错误，看看有没有标为implicit的函数可以把chicken变成duck或者其子类，如果有则调用该方法，没有再给出错误。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1905,6 +1910,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/04/04/women-in-finance-it-and-r-and-d/">职业女性确实处于劣势吗？记一次不甚严谨的考据 &#8211; 向胡适之先生的遥远致敬</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/03/29/2015-first-season/">2015第一季度</a>
       </li>
     
@@ -1918,10 +1927,6 @@
     
       <li class="post">
         <a href="/blog/2014/11/16/zdyx2015wuhansecondclass/">2015武汉郑大晔校第二次课</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/">Spark RDD的fold和aggregate为什么是两个API？为什么不是一个foldLeft？</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <title><![CDATA[崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2015-03-29T20:53:13+08:00</updated>
+  <updated>2015-04-04T15:27:43+08:00</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -12,6 +12,252 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[职业女性确实处于劣势吗？记一次不甚严谨的考据 -- 向胡适之先生的遥远致敬]]></title>
+    <link href="http://cuipengfei.github.com/blog/2015/04/04/women-in-finance-it-and-r-and-d/"/>
+    <updated>2015-04-04T01:09:00+08:00</updated>
+    <id>http://cuipengfei.github.com/blog/2015/04/04/women-in-finance-it-and-r-and-d</id>
+    <content type="html"><![CDATA[<h1>源起</h1>
+
+<p>前天，向来不惧于（或者说不敢不）站在舆论风口浪尖的熊叔在武汉技术社区微信群里因为某位群友发的图片与人发生了还算是比较激烈的争吵。</p>
+
+<p>（咦？对于这件事我为什么一点都不感觉到意外呢？）</p>
+
+<p>先来看看图片吧，这是某个IT公司的招聘宣传，为程序员提供的鼓励师：</p>
+
+<p>（由于图片出现在愚人节期间，不确定该公司是否确实有这样的人员配备，此处暂且存疑）</p>
+
+<p><img src="http://ww4.sinaimg.cn/mw690/8b1ece2agw1eqsw4fbiytj20fe0a6q8i.jpg" alt="" /></p>
+
+<p><img src="http://ww1.sinaimg.cn/mw690/8b1ece2agw1eqsw4dzf8ej20fe09v0z9.jpg" alt="" /></p>
+
+<p>（咦？为什么看完图片之后我的讶异之感愈加的少了呢？）</p>
+
+<p>于是熊叔就说这种事情就是混蛋呀，怎么女人就得给男人端茶倒水擦汗啊。</p>
+
+<p>别人就说没有啊，这就是开个玩笑啊。</p>
+
+<p>熊叔就说！@#￥%……&amp;*</p>
+
+<p>别人就说*&amp;……%￥#@！</p>
+
+<p>于是，你也可以猜到的，这中间就说到了IT行业对于女性从业者存在歧视。</p>
+
+<p>这时有另外一位群友问熊叔有没有数据支持。</p>
+
+<p>恰巧我这周正在看《胡适文选》。胡适之先生反复提醒读者<strong>要有怀疑精神，凡事要讲求证据，要用科学的手段得出科学的结论。</strong></p>
+
+<p><strong>胡适之先生之言于我心有戚戚焉，于是我便想要搜罗数据，深入了解一下这个话题，算作是对胡适之先生的遥远致敬。</strong></p>
+
+<p>以上，为源起。</p>
+
+<h1>定题</h1>
+
+<p>近来我正尝试着自我疏远本性中近似于周作人先生的那一部分。</p>
+
+<p>便不太愿用“歧视”这个颇为尖刻的词汇，因而本文的标题中用了“劣势”这一稍为中性的说法。</p>
+
+<p>既然要考据，就不妨把话题放大些，不独观察IT行业的女性，莫若把视角扩宽到整个职业女性上去。</p>
+
+<p>再加上我不是专业的考据家，搜索资料并写这篇博客不过只花了几个小时而已，交叉引证也不够详备，那就不能怕会过谦，也在标题上加上“不甚严谨”这几个字。</p>
+
+<p>于是便有了这个颇显啰嗦的标题：<strong>《职业女性确实处于劣势吗？记一次不甚严谨的考据 &#8211; 向胡适之先生的遥远致敬》。</strong></p>
+
+<p>是为题目由来。</p>
+
+<h1>开整</h1>
+
+<p>我是一个颇为庸俗的人，也偶会被称为理性的人。</p>
+
+<p><strong>于是，别人看待职业女性的眼光、上司是否会给小鞋穿、同事是否会区别对待等等这些无法量化，难以考量的因素均不采用。</strong></p>
+
+<p><strong>我就只认准了：</strong></p>
+
+<p><strong>在一个行业中具有某种特征的人群占多数就可以被称作是有优势的</strong></p>
+
+<p><strong>某种特征的人群挣钱多的，购买力强就可以被称作是有优势的</strong></p>
+
+<p><strong>这两条考校标准。</strong></p>
+
+<p>所以接下来通篇都在绕着<strong>人数多寡和挣钱多少</strong>转。</p>
+
+<h1>什么行业挣钱多？</h1>
+
+<p><strong>中华人民共和国国家统计局，中国统计年鉴（2014）</strong>中有一个条目：<strong>按行业分城镇单位就业人员平均工资</strong>，以Excel格式提供：</p>
+
+<p>（这一行Excel实在是太长了，我把它分开截了两张图）</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1eqsy6hday7j21wc090q76.jpg" alt="" /></p>
+
+<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1eqsy4ojncwj21dq09a0wn.jpg" alt="" /></p>
+
+<p>我把其中收入最高的三个行业标记为了红色，分别为金融，IT和科研。</p>
+
+<p>原数据可以在这里找到：
+<a href="http://www.stats.gov.cn/tjsj/ndsj/2014/indexch.htm" target="_blank">http://www.stats.gov.cn/tjsj/ndsj/2014/indexch.htm</a></p>
+
+<p>点击左侧的“四、就业和工资”然后点击第“4-15”项，里面可以下载Excel。</p>
+
+<p>或者也可以直接通过这个链接下载Excel：
+<a href="http://www.stats.gov.cn/tjsj/ndsj/2014/zk/html/Z0415C.xls">http://www.stats.gov.cn/tjsj/ndsj/2014/zk/html/Z0415C.xls</a></p>
+
+<p>那接下来就顺藤摸瓜，考量这三个行业中女性的状况。</p>
+
+<p>（为什么只有三个？不为什么，多了嫌累）</p>
+
+<h1>金融</h1>
+
+<p>搜寻良久，实在是找不到国内的资料，只好拿些英文的资料作为旁证了。</p>
+
+<p>以下是来自美国的<strong>公平就业机会委员会（Equal Employment Opportunity Commission,缩写为EEOC）</strong>2006年发布的一份报告中关于<strong>女性金融从业者比例</strong>的图表：</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1eqtfg16y00j210q0gg7ez.jpg" alt="" /></p>
+
+<p>从最后一行的汇总信息可以看出，经理级别的职位，女性占18%左右。</p>
+
+<p>专业从业者中，女性约为26%。</p>
+
+<p>技术与销售类的职位则只有个位数的百分点。</p>
+
+<p>但到了书记员，抄写员（Clerical）这一类的职位，却有43%是女性。</p>
+
+<p><strong>由此不难观察到，在美国，金融这个高薪行业中女性在做着勤务工作，升到经理职位的则较少。</strong></p>
+
+<p>这份报告的出处：
+<a href="http://www.eeoc.gov/eeoc/statistics/reports/finance/finance.pdf" target="_blank">http://www.eeoc.gov/eeoc/statistics/reports/finance/finance.pdf</a></p>
+
+<p>公平就业机会委员会的wiki页面：<a href="http://zh.wikipedia.org/wiki/公平就业机会委员会" target="_blank">http://zh.wikipedia.org/wiki/公平就业机会委员会</a></p>
+
+<p>而另外一份来自于英国<strong>平等与人权委员会（Equality and Human Rights Commission，EHRC）</strong>2009年春季发布的报告则有些不同：</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1eqtfj8tpjsj214010ahcb.jpg" alt="" /></p>
+
+<p>从这张<strong>男女性别比例</strong>的图表可以看出，英国的金融行业男女从业人数基本一比一，差距不大。
+从最后一行的汇总数据来看，女性还比男性多一个百分点。</p>
+
+<p>而下面这张出自同一报告的关于<strong>收入差距</strong>的图表，则显露了另外的信息：</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1eqtfg31dloj218c14qe6v.jpg" alt="" /></p>
+
+<p>英国金融行业中，全职工作的男性年收入比全职工作的女性多55%。</p>
+
+<p>而在全社会所有行业中，这个数字也有28%。</p>
+
+<p><strong>可见在英国女性虽然以同等的人数参与进了金融行业，但是却没有拿到哪怕是接近同等的薪水。</strong></p>
+
+<p>这份报告的出处：
+<a href="http://www.equalityhumanrights.com/sites/default/files/documents/download__finance_gender_analyis_research.pdf" target="_blank">http://www.equalityhumanrights.com/sites/default/files/documents/download__finance_gender_analyis_research.pdf</a></p>
+
+<p>平等与人权委员会的wiki页面：<a href="http://en.wikipedia.org/wiki/Equality_and_Human_Rights_Commission" target="_blank">http://en.wikipedia.org/wiki/Equality_and_Human_Rights_Commission</a></p>
+
+<h1>IT</h1>
+
+<p>接下来开始看三大高收入行业中的第二名：IT行业中女性的状况。</p>
+
+<p>我找到了一份来自美国的非营利机构：<strong>National Center for Women &amp; Information Technology (NCWIT)</strong>在2009年发布的报告。</p>
+
+<p>（没找到这个机构确切的中文翻译，就保留原文吧）</p>
+
+<p>报告中有一张<strong>女性IT从业人员比例随年份变化的趋势图</strong>：</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1eqszx7ctf5j20vc0jujte.jpg" alt="" /></p>
+
+<p>容易看出，从八十年代中期到九十年代初期，女性IT从业者比例在攀升，从30%增长到37%左右。</p>
+
+<p>而之后则一路下降，到08年已经减少到了25%左右。</p>
+
+<p>出自同一报告的还有另外一张<strong>男女收入差距随工作经验变化的趋势图</strong>：</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1eqszx63er1j20vk0h8jto.jpg" alt="" /></p>
+
+<p>可以看出，入行初期男女收入没太大区别，但从第三年开始，逐渐拉开差距，由3%增加到12%。</p>
+
+<p>好了，又是一个高薪行业。<strong>女性只占其中的四分之一，而且收入还比男性少。</strong></p>
+
+<p>报告出处：<a href="http://www.ncwit.org/sites/default/files/legacy/pdf/NCWIT_TheFacts_rev2010.pdf" target="_blank">http://www.ncwit.org/sites/default/files/legacy/pdf/NCWIT_TheFacts_rev2010.pdf</a></p>
+
+<p>NCWIT的wiki页面：<a target="_blank" href="http://en.wikipedia.org/wiki/National_Center_for_Women_%26_Information_Technology">http://en.wikipedia.org/wiki/National_Center_for_Women_%26_Information_Technology</a></p>
+
+<h1>科研</h1>
+
+<p>高薪行业之三，科研。</p>
+
+<p>找到了两份来自欧盟的报告。</p>
+
+<p>第一份报告中有一张<strong>科研行业中女性从业者比例</strong>的图表，数据采集自1999年：</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1eqtgj4x3wdj20w80pcwhe.jpg" alt="" /></p>
+
+<p>不难看出，其中希腊和葡萄牙的女性科研工作人员较多，占有41%和43%。</p>
+
+<p>德国和匈牙利则很低，女性只有14%到19%。</p>
+
+<p>其他八个国家大致是落在26%到33%这个区间。</p>
+
+<p>第二份报告发布于2012年，其中有一张<strong>男女收入差距</strong>的图表：</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1eqtgj4s92yj20ty0t6wl8.jpg" alt="" /></p>
+
+<p>该图表数据统计于2002年和2006年，从中不难看出，女性在科研行业的各个分支中收入比男性低20%到40%。</p>
+
+<p>第一份报告出处：<a href="https://ec.europa.eu/research/swafs/pdf/pub_gender_equality/wir_final.pdf" target="_blank">https://ec.europa.eu/research/swafs/pdf/pub_gender_equality/wir_final.pdf</a></p>
+
+<p>第二份报告出处：<a href="http://ec.europa.eu/research/science-society/document_library/pdf_06/meta-analysis-of-gender-and-science-research-synthesis-report.pdf" target="_blank">http://ec.europa.eu/research/science-society/document_library/pdf_06/meta-analysis-of-gender-and-science-research-synthesis-report.pdf</a></p>
+
+<p>发布报告的欧盟网站：<a href="http://ec.europa.eu/index_en.htm" target="_blank">http://ec.europa.eu/index_en.htm</a></p>
+
+<p><strong>由此可见，在欧洲，科研行业作为一个高薪行业，其中女性从业人员较少。
+即便进入这个行业的女性，其收入也要较男性低。</strong></p>
+
+<h1>小结</h1>
+
+<p><strong>以上观察了三个薪水最高的行业：金融，IT和科研，这三个行业中都呈现出了女性从业人员少于男性，且收入低于男性的态势。</strong></p>
+
+<h1>然后呢？</h1>
+
+<p>以上仅仅是通过交叉引证来描述了职业女性的状况。是属于<strong>实证性的表述（positive statement）。</strong></p>
+
+<p>而关于职业女性应该处于何种状况，那是属于<strong>规范性的表述（normative statement）</strong>，本文就不涉及了。</p>
+
+<p>女性在这些高薪行业中人数少于男性，这是好事吗？这是坏事吗？</p>
+
+<p>女性在这些高薪行业中收入低于男性，如何评价这件事呢？</p>
+
+<p>金融，IT和科研，听起来都是理工宅男的专长啊，女的少不是属于正常现象吗？</p>
+
+<p>女性的收入低于男性，那有可能是她们干活不给力啊，那收入低就是应该的吧？</p>
+
+<p>所有这些问题，都属于<strong>价值判断</strong>。通过上面引用的数据，以及常识的积累，我对这些问题会有确定性的判断。
+想来你也能猜到我的判断是什么。但是我不把它说出来，<strong>留待读者自己得出结论</strong>。</p>
+
+<h1>最后</h1>
+
+<p>如果您觉得这篇博客写的还可以，请用手机支付宝扫描下面的二维码：</p>
+
+<p><img src="https://tfsimg.alipay.com/images/mobilecodec/T1J3FfXbpsXXXXXXXX" alt="" /></p>
+
+<p>我会把收到的巨款用来置装，美容，健身。</p>
+
+<p>然后穿的花枝招展，抹的五彩绚烂，露出两条人鱼线。</p>
+
+<p>站在女程序员们旁边，给她们端茶倒水擦汗。</p>
+
+<h1>最后的后面</h1>
+
+<p>最后的后面怎么还有呢？乐意</p>
+
+<p>说是不严谨的考据，但是还是用了十几个番茄钟，五六次git commit，三四次审校。</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1eqtkcps0zaj21g60zejya.jpg" alt="" /></p>
+
+<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1eqtkec0012j21fq0ku7a1.jpg" alt="" /></p>
+
+<p>所以，你懂的，扫码吧。</p>
+
+<p>别跑，说的就是你，别骗我，我知道你余额宝收益好几十块钱一天呢。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[2015第一季度]]></title>
@@ -2852,118 +3098,6 @@
 <p><a href="http://ericlippert.com/2014/01/02/what-is-duck-typing/">Eric Lippert的博客</a></p>
 
 <p>以上链接，建议别点  :)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[褪去Scala的糖衣(10) -- implicit function]]></title>
-    <link href="http://cuipengfei.github.com/blog/2014/01/01/desugar-scala-10/"/>
-    <updated>2014-01-01T22:56:00+08:00</updated>
-    <id>http://cuipengfei.github.com/blog/2014/01/01/desugar-scala-10</id>
-    <content type="html"><![CDATA[<p>Implicit function，中文或许应该叫做隐式函数吧。主要用来作隐式类型转换。例子：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Duck</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">makeDuckNoise</span><span class="o">()</span> <span class="k">=</span> <span class="s">&quot;gua gua&quot;</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">Chicken</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">makeChickenNoise</span><span class="o">()</span> <span class="k">=</span> <span class="s">&quot;ge ge&quot;</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">Ducken</span><span class="o">(</span><span class="n">chicken</span><span class="k">:</span> <span class="kt">Chicken</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Duck</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">override</span> <span class="k">def</span> <span class="n">makeDuckNoise</span><span class="o">()</span> <span class="k">=</span> <span class="n">chicken</span><span class="o">.</span><span class="n">makeChickenNoise</span><span class="o">()</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>三个类，鸭子，鸡，还有伪装成鸭子的鸡。如果有这么一个函数：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">def</span> <span class="n">giveMeADuck</span><span class="o">(</span><span class="n">duck</span><span class="k">:</span> <span class="kt">Duck</span><span class="o">)</span> <span class="k">=</span> <span class="n">duck</span><span class="o">.</span><span class="n">makeDuckNoise</span><span class="o">()</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>该函数要求我们给它提供一只鸭子，我们可以这么调用它：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">giveMeADuck</span><span class="o">(</span><span class="k">new</span> <span class="nc">Duck</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>要鸭子就给鸭子，没问题。或者是也可以这样：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">giveMeADuck</span><span class="o">(</span><span class="k">new</span> <span class="nc">Ducken</span><span class="o">(</span><span class="k">new</span> <span class="nc">Chicken</span><span class="o">))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>把一只鸡伪装成鸭子给它，也没问题。但是如果直接把鸡给它就不行了：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">giveMeADuck</span><span class="o">(</span><span class="k">new</span> <span class="nc">Chicken</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>编译器会给出type mismatch的错误。</p>
-
-<p>我们已经有一个Ducken类可以用来把鸡化装成鸭子了，那有没有一种方法可以让我们鬼鬼祟祟的就把化妆这件事儿做了？那就不用每次都明火执仗的了。</p>
-
-<p>答案就是用implicit function：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">implicit</span> <span class="k">def</span> <span class="n">chickenToDuck</span><span class="o">(</span><span class="n">chicken</span><span class="k">:</span> <span class="kt">Chicken</span><span class="o">)</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Ducken</span><span class="o">(</span><span class="n">chicken</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>它的用法很简单，给函数加上implicit这个修饰符，函数的参数是鸡，返回类型是鸭子 （或者是任何鸭子的子类都行）。</p>
-
-<p>然后这行代码就可以编译了：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">giveMeADuck</span><span class="o">(</span><span class="k">new</span> <span class="nc">Chicken</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>来看一下反编译的结果：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">giveMeADuck</span><span class="o">(</span><span class="n">Duck</span> <span class="n">duck</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">duck</span><span class="o">.</span><span class="na">makeDuckNoise</span><span class="o">();</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="n">Ducken</span> <span class="nf">chickenToDuck</span><span class="o">(</span><span class="n">Chicken</span> <span class="n">chicken</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="k">new</span> <span class="nf">Ducken</span><span class="o">(</span><span class="n">chicken</span><span class="o">);</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>giveMeADuck和chickenToDuck都被编译成了中规中矩的方法。giveMeADuck(new Chicken)则被编译成了这个样子：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">giveMeADuck</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">chickenToDuck</span><span class="o">(</span><span class="k">new</span> <span class="n">Chicken</span><span class="o">()));</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>一点意外都没有，implicit在反编译后无影无踪，它就是很纯的一点点糖。</p>
-
-<p>我意淫一下：编译器在发现我们给它的chicken和想要的duck之间存在type mismatch的时候先不着急给出错误，看看有没有标为implicit的函数可以把chicken变成duck或者其子类，如果有则调用该方法，没有再给出错误。</p>
 ]]></content>
   </entry>
   
