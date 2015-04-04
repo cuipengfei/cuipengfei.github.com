@@ -228,6 +228,10 @@ NCWIT的wiki页面：<a target="_blank" href="http://en.wikipedia.org/wiki/Natio
 
 说是不严谨的考据，但是还是用了十几个番茄钟，五六次git commit，三四次审校。
 
+![](http://ww2.sinaimg.cn/large/8b1ece2agw1eqtkcps0zaj21g60zejya.jpg)
+
+![](http://ww4.sinaimg.cn/large/8b1ece2agw1eqtkec0012j21fq0ku7a1.jpg)
+
 所以，你懂的，扫码吧。
 
 别跑，说的就是你，别骗我，我知道你余额宝收益好几十块钱一天呢。
