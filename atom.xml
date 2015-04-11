@@ -4,7 +4,7 @@
   <title><![CDATA[崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2015-04-05T00:53:25+08:00</updated>
+  <updated>2015-04-11T14:30:09+08:00</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -12,6 +12,16 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[English workshop Wuhan 2015.04.14]]></title>
+    <link href="http://cuipengfei.github.com/blog/2015/04/11/wuhan-english-workshop/"/>
+    <updated>2015-04-11T14:28:00+08:00</updated>
+    <id>http://cuipengfei.github.com/blog/2015/04/11/wuhan-english-workshop</id>
+    <content type="html"><![CDATA[<iframe src="http://cuipengfei.github.com//slides.com/pengfeicui/deck/embed" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[职业女性确实处于劣势吗？记一次不甚严谨的考据 -- 向胡适之先生的遥远致敬]]></title>
@@ -2897,262 +2907,6 @@
 <p>这行代码看起来已经很接近人类语言了。</p>
 
 <p>连吃三顿饺子，明哥，您饱了吧？</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[剥掉Scala的糖衣(11) -- structural types]]></title>
-    <link href="http://cuipengfei.github.com/blog/2014/01/02/desugar-scala-11/"/>
-    <updated>2014-01-02T22:13:00+08:00</updated>
-    <id>http://cuipengfei.github.com/blog/2014/01/02/desugar-scala-11</id>
-    <content type="html"><![CDATA[<p>Structural types，中文怎么翻译不确定。我们可以用它来实现类似于鸭子类型的效果。为什么说是“类似”鸭子类型呢？稍后会说到它和鸭子类型的区别。</p>
-
-<p>举一个例子，看看它都可以做什么：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">def</span> <span class="n">makeNoise</span><span class="o">(</span><span class="n">quacker</span><span class="k">:</span> <span class="o">{</span><span class="kt">def</span> <span class="kt">quack</span><span class="o">()</span><span class="kt">:</span> <span class="kt">String</span><span class="o">})</span> <span class="k">=</span> <span class="n">quacker</span><span class="o">.</span><span class="n">quack</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>声明一个方法，叫做makeNoise，接受什么类型的参数呢？不做严格限制，我们只声明说参数必须有一个叫做quack的方法，该quack方法返回值类型为String。然后在makeNoise方法内调用quack方法。请注意我们并没有声明一个含有quack方法签名的接口或者类，我们仅仅是在声明参数的同时声明我们期待参数含有什么样的成员。</p>
-
-<p>然后我们声明一个Duck类：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Duck</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">quack</span><span class="o">()</span> <span class="k">=</span> <span class="s">&quot;real quack&quot;</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样就可以调用makeNoise方法了：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">makeNoise</span><span class="o">(</span><span class="k">new</span> <span class="nc">Duck</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>或者再声明一个NotADuck类：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">NotADuck</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">quack</span><span class="o">()</span> <span class="k">=</span> <span class="s">&quot;fake quack&quot;</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>也可以把它传给makeNoise方法：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">makeNoise</span><span class="o">(</span><span class="k">new</span> <span class="nc">NotADuck</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>甚至是匿名对象也可以：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="n">makeNoise</span><span class="o">(</span><span class="k">new</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">def</span> <span class="n">quack</span><span class="o">()</span> <span class="k">=</span> <span class="s">&quot;anonymous quack&quot;</span>
-</span><span class='line'>  <span class="o">})</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>如果我们把Duck的quack方法改个名字：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Duck</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">quackRenamed</span><span class="o">()</span> <span class="k">=</span> <span class="s">&quot;real quack&quot;</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>那么编译器就会对下面这行代码给出错误：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">makeNoise</span><span class="o">(</span><span class="k">new</span> <span class="nc">Duck</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>type mismatch, found : hello.Duck, required: AnyRef{def quack(): String}</p>
-
-<p>是做了编译时类型检查的。</p>
-
-<p>然后我们反编译代码，看看它是如何实现的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kd">static</span> <span class="n">Class</span><span class="o">[]</span> <span class="n">reflParams$Cache1</span><span class="o">;</span>
-</span><span class='line'><span class="kd">private</span> <span class="kd">static</span> <span class="kd">volatile</span> <span class="n">SoftReference</span> <span class="n">reflPoly$Cache1</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">static</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">Hello</span><span class="o">.</span><span class="na">reflParams</span><span class="n">$Cache1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Class</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
-</span><span class='line'>    <span class="n">Hello</span><span class="o">.</span><span class="na">reflPoly</span><span class="n">$Cache1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SoftReference</span><span class="o">((</span><span class="n">T</span><span class="o">)</span><span class="k">new</span> <span class="n">EmptyMethodCache</span><span class="o">());</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">static</span> <span class="n">Method</span> <span class="n">reflMethod$Method1</span><span class="o">(</span><span class="kd">final</span> <span class="n">Class</span> <span class="n">x$1</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">MethodCache</span> <span class="n">methodCache1</span> <span class="o">=</span> <span class="n">Hello</span><span class="o">.</span><span class="na">reflPoly</span><span class="n">$Cache1</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">methodCache1</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">methodCache1</span> <span class="o">=</span> <span class="o">(</span><span class="n">MethodCache</span><span class="o">)</span><span class="k">new</span> <span class="n">EmptyMethodCache</span><span class="o">();</span>
-</span><span class='line'>        <span class="n">Hello</span><span class="o">.</span><span class="na">reflPoly</span><span class="n">$Cache1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SoftReference</span><span class="o">((</span><span class="n">T</span><span class="o">)</span><span class="n">methodCache1</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>    <span class="n">Method</span> <span class="n">method1</span> <span class="o">=</span> <span class="n">methodCache1</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="n">x$1</span><span class="o">);</span>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">method1</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">method1</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>    <span class="n">method1</span> <span class="o">=</span> <span class="n">ScalaRunTime$</span><span class="o">.</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">ensureAccessible</span><span class="o">(</span><span class="n">x$1</span><span class="o">.</span><span class="na">getMethod</span><span class="o">(</span><span class="s">&quot;quack&quot;</span><span class="o">,</span> <span class="n">Hello</span><span class="o">.</span><span class="na">reflParams</span><span class="n">$Cache1</span><span class="o">));</span>
-</span><span class='line'>    <span class="n">Hello</span><span class="o">.</span><span class="na">reflPoly</span><span class="n">$Cache1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SoftReference</span><span class="o">((</span><span class="n">T</span><span class="o">)</span><span class="n">methodCache1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">x$1</span><span class="o">,</span> <span class="n">method1</span><span class="o">));</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">method1</span><span class="o">;</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">makeNoise</span><span class="o">(</span><span class="kd">final</span> <span class="n">Object</span> <span class="n">quacker</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">final</span> <span class="n">Object</span> <span class="n">invoke</span><span class="o">;</span>
-</span><span class='line'>    <span class="k">try</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">invoke</span> <span class="o">=</span> <span class="n">reflMethod$Method1</span><span class="o">(</span><span class="n">quacker</span><span class="o">.</span><span class="na">getClass</span><span class="o">()).</span><span class="na">invoke</span><span class="o">(</span><span class="n">quacker</span><span class="o">,</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>    <span class="k">catch</span> <span class="o">(</span><span class="n">InvocationTargetException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">throw</span> <span class="n">ex</span><span class="o">.</span><span class="na">getCause</span><span class="o">();</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>    <span class="k">return</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span><span class="n">invoke</span><span class="o">;</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我们可以看到，makeNoise方法的参数类型被编译成了Object。方法内部通过反射去调用quack方法。</p>
-
-<p>再仔细看一下，方法内做了个catch，如果找不到quack方法就把异常抛出来。我们刚才不是看到有编译时类型检查吗？怎么会找不到quack方法呢？</p>
-
-<p>其实找不到quack方法的情况还是会存在的。假如我们把以上代码打成jar包供别人调用，那别人看到的你这个方法要的是Object啊，随便传一个什么东西进来都可以。如果传入的参数没有quack方法，那自然就会有异常了。这也是一个很好的信号，告诉我们说这个语言特性不适合用在public API中。</p>
-
-<p>刚开始时提到过，这个语言特性不能叫做鸭子类型，为什么呢？我们看两个真正鸭子类型的例子：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">makeNoise</span><span class="p">(</span><span class="nx">quacker</span><span class="p">){</span>
-</span><span class='line'>  <span class="k">return</span> <span class="nx">quacker</span><span class="p">.</span><span class="nx">quack</span><span class="p">()</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">makeNoise</span><span class="p">({</span><span class="nx">quack</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span><span class="k">return</span> <span class="s2">&quot;quack quack&quot;</span><span class="p">}})</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>上面的是JavaScript的，下面的是C#的。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">class</span> <span class="nc">Duck</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">public</span> <span class="n">String</span> <span class="nf">Quack</span> <span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="k">return</span> <span class="s">&quot;quack quack&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">Hello</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">public</span> <span class="n">String</span> <span class="nf">MakeNoise</span> <span class="p">(</span><span class="kt">dynamic</span> <span class="n">quacker</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="k">return</span> <span class="n">quacker</span><span class="p">.</span><span class="n">Quack</span> <span class="p">();</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">MainClass</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">Console</span><span class="p">.</span><span class="n">Out</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="k">new</span> <span class="n">Hello</span> <span class="p">().</span><span class="n">MakeNoise</span> <span class="p">(</span><span class="k">new</span> <span class="n">Duck</span> <span class="p">()));</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>在上面两段代码中，如果我们把quack或者Quack改个名字的话，都会导致运行失败。而且在声明参数的时候也没有指明我们期待有一个quack或者Quack成员的存在。所以说Scala的这个语言特性不能称之为鸭子类型的原因在于两点：</p>
-
-<ul>
-<li>Scala做了编译时类型安全检查</li>
-<li>声明参数时显式的指明了期待的成员</li>
-</ul>
-
-
-<p>存疑：虽然上面的C#例子看起来是鸭子类型，但是C#的wiki页面上的typing discipline一项里并没有列出duck typing。原因不明。</p>
-
-<p>=======================================</p>
-
-<p>后记：C#的wiki页面没有把duck typing列为其typing discipline的一项。但是，duck typing的wiki页面上又用C#举了例子。互相矛盾啊，于是我在stackoverflow上问了个问题，引来了C#编译器的程序员之一Eric Lippert，他回答问题之后还写了篇博客来表示对duck typing这个名词的困惑。看完之后我表示更晕了。</p>
-
-<p>所以请不要把上面我说的关于duck typing的东西当真，随便瞄一眼就好了。duck typing是一个没有清晰定义的名词，在我们能够共同认同它的某一种特定的definition之前去讨论它是无谓的。</p>
-
-<p>下面把链接列出：</p>
-
-<p><a href="http://en.wikipedia.org/wiki/C_Sharp_programming_language">C#的wiki</a>  （typing discipline在页面右侧的那个表里）</p>
-
-<p><a href="http://en.wikipedia.org/wiki/Duck_typing">Duck typing的wiki</a></p>
-
-<p><a href="http://ericlippert.com/2014/01/02/what-is-duck-typing/">Eric Lippert的博客</a></p>
-
-<p>以上链接，建议别点  :)</p>
 ]]></content>
   </entry>
   
