@@ -1,0 +1,488 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Principles of Reactive Programming Week One作业导学 - 崔鹏飞的Octopress Blog</title>
+  <meta name="author" content="崔鹏飞">
+
+  
+  <meta name="description" content="前尘 Principles of Reactive Programming在4月13号又开课了。
+https://www.coursera.org/course/reactive 上次开课是在2013年的11月，当时我刚第一次上完Functional programming principles &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://cuipengfei.github.com/blog/2015/04/19/principles-of-reactive-programming-week-one/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="崔鹏飞的Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-46270419-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">崔鹏飞的Octopress Blog</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:cuipengfei.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Principles of Reactive Programming Week One作业导学</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-04-19T13:59:00+08:00" pubdate data-updated="true">Apr 19<span>th</span>, 2015</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>前尘</h1>
+
+<p>Principles of Reactive Programming在4月13号又开课了。
+<a href="https://www.coursera.org/course/reactive">https://www.coursera.org/course/reactive</a></p>
+
+<p>上次开课是在2013年的11月，当时我刚第一次上完Functional programming principles in Scala，热情很高于是就报名参加了这门课。
+还群发了一个邮件找人一起上课。</p>
+
+<p>但是上了几周发现有点难，于是就放弃了。现在去bitbucket看，最后一次push停留在了2013-11-18。</p>
+
+<p>后来还在上海被8x鄙视于无形之中。</p>
+
+<h1>后世</h1>
+
+<p>14年做了几个月的Scala开发，后来Functional programming principles in Scala再次开课又上了一遍，拿了个认证证书。</p>
+
+<p>感觉似乎可以再挑战一次。</p>
+
+<h1>今生</h1>
+
+<p>上课习得的知识放在脑子里是不牢靠的。大脑有遗忘周期。</p>
+
+<p>需要有成文或者成代码的产出，作为日后回忆和做spaced repetition的资料。</p>
+
+<p>于是就有了这个即将成为系列的博文中的第一篇《Principles of Reactive Programming Week One作业导学》。</p>
+
+<p>这系列博文的目标读者仅限于报名参加了这门课并且看完了视频，看完了作业的instruction之后仍有困难的同学。</p>
+
+<p>这系列博文不会公布作业的答案，那是违反Coursera的code of honor的。</p>
+
+<p>我只会试着解释作业中已有的代码，以及应该如何入手。</p>
+
+<p>其实，写这个系列博文对我的帮助比对读者的帮助要大。</p>
+
+<h1>正文</h1>
+
+<h2>Heap.scala</h2>
+
+<p>第一周的代码下载下来之后，先来看一下Heap.scala这个文件。</p>
+
+<p>这个文件里定义了很多个trait。现在只需要关注其中一个Heap。</p>
+
+<p>这个就是所有其他trait都会去extend的基类（这个说法合适吗？）。
+它定义了所有Heap的实现者都需要实现的方法。</p>
+
+<p>然后BinomialHeap完整实现了Heap定义的所有东西。</p>
+
+<p>Bogus1BinomialHeap到Bogus5BinomialHeap都是继承自BinomialHeap，其中各自覆盖了BinomialHeap的不同方法，以不同的方式引入了bug。
+第一周作业的目的就是用ScalaCheck把其中的bug找出来。</p>
+
+<p>这个文件里还有一个IntHeap，这个稍后再说。</p>
+
+<p>实现代码其实就只有这一个文件，接下来看测试代码。</p>
+
+<h2>QuickCheckSuite.scala</h2>
+
+<p>这个文件里主要定义了QuickCheckSuite这个测试类。</p>
+
+<p>这个测试类继承自FunSuite，这是ScalaTest的测试基类。同时mix in了Checkers，这是ScalaTest为了与ScalaCheck集成而提供的trait。</p>
+
+<p>接下来看测试的case：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">def</span> <span class="n">checkBogus</span><span class="o">(</span><span class="n">p</span><span class="k">:</span> <span class="kt">Prop</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">var</span> <span class="n">foundBug</span> <span class="k">=</span> <span class="kc">false</span>
+</span><span class='line'>  <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">check</span><span class="o">(</span><span class="n">p</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span> <span class="k">catch</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">case</span> <span class="n">e</span><span class="k">:</span> <span class="kt">TestFailedException</span> <span class="o">=&gt;</span>
+</span><span class='line'>      <span class="n">foundBug</span> <span class="k">=</span> <span class="kc">true</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>  <span class="n">assert</span><span class="o">(</span><span class="n">foundBug</span><span class="o">,</span> <span class="s">&quot;A bogus heap should NOT satisfy all properties. Try to find the bug!&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">test</span><span class="o">(</span><span class="s">&quot;Binomial heap satisfies properties.&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">check</span><span class="o">(</span><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">BinomialHeap</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">test</span><span class="o">(</span><span class="s">&quot;Bogus (1) binomial heap does not satisfy properties.&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">checkBogus</span><span class="o">(</span><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">Bogus1BinomialHeap</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">test</span><span class="o">(</span><span class="s">&quot;Bogus (2) binomial heap does not satisfy properties.&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">checkBogus</span><span class="o">(</span><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">Bogus2BinomialHeap</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到，每个case都调用了check这个方法，或者是check的变体-checkBogus。</p>
+
+<p>checkBogus里面则调用了check，并且assert说一定要出现TestFailedException异常了，测试才算成功。也就是说checkBogus的目的就是要在某些Heap的实现中找到bug。</p>
+
+<p>现在来看check这个方法本身。它接受一个类型为Prop的参数，这些参数从哪儿来呢？这些参数就是：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">BinomialHeap</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">Bogus1BinomialHeap</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这些代码。</p>
+
+<p>这就意味着QuickCheckHeap一定要是一个Prop，是不是这样呢？</p>
+
+<h2>QuickCheckHeap.scala</h2>
+
+<p>那就到QuickCheckHeap.scala这个文件中来看一下。</p>
+
+<p>可以看到QuickCheckHeap这个抽象类确实是extends了Properties，而properties又extends了Prop。那么，没问题，这个类型是匹配的。</p>
+
+<p>QuickCheckHeap里可以定义任意多个property，这些property将会检查Heap的实现正确与否。</p>
+
+<p>而且它还mix in了IntHeap，就是前面略过的那个trait。它的目的是锁定Heap这个trait里所定义的A这个元素的类型到Int。</p>
+
+<h2>全部连起来</h2>
+
+<p>第一周作业的已有代码很少，有用的就是这三个文件。</p>
+
+<p>Heap.scala定义了很多个Heap的不同实现。有些是正确的，有些是有bug的。</p>
+
+<p>QuickCheckSuite.scala则是测试的入口点，它由JunitRunner拽着跑起来。
+其中的test case使用ScalaCheck去检查对于Heap这种数据结构恒定为true的properties是不是hold住的。</p>
+
+<p>对于Heap这种数据结构恒定为true的properties从哪儿来呢？就来自于QuickCheckHeap.scala。
+QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有了牛逼的trait，就可以用这种代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">BinomialHeap</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">Bogus1BinomialHeap</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>创建出实例，进行测试了。</p>
+
+<p>最后，我们的任务就是在QuickCheckHeap.scala添加更多的properties，把所有实现有误的Heap都揪出来。</p>
+
+<h1>题外话</h1>
+
+<p>有没有发现QuickCheckHeap.scala里面有些奇怪的代码？</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">property</span><span class="o">(</span><span class="s">&quot;min1&quot;</span><span class="o">)</span> <span class="k">=</span> <span class="n">forAll</span> <span class="o">{</span> <span class="o">(</span><span class="n">heap</span><span class="k">:</span> <span class="kt">H</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span> <span class="k">=&gt;</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">min</span> <span class="k">=</span> <span class="k">if</span> <span class="o">(</span><span class="n">isEmpty</span><span class="o">(</span><span class="n">heap</span><span class="o">))</span> <span class="n">a</span> <span class="k">else</span> <span class="n">findMin</span><span class="o">(</span><span class="n">heap</span><span class="o">)</span>
+</span><span class='line'>  <span class="n">findMin</span><span class="o">(</span><span class="n">insert</span><span class="o">(</span><span class="n">min</span><span class="o">,</span> <span class="n">heap</span><span class="o">))</span> <span class="o">==</span> <span class="n">min</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>property(&#8220;min should be min&#8221;)，这看起来像是一个方法调用啊。</p>
+
+<p>尼玛，方法调用后面怎么跟着一个等号啊？等号后面还有一个有返回值的表达式啊？</p>
+
+<p>这是啥啊？</p>
+
+<p>这是个乍一看很自然，但是仔细一想很费解的Scala语言特性-update方法。</p>
+
+<p>详情请见我之前的一篇博客：<a href="http://cuipengfei.me/blog/2014/06/12/scala-update-method/">http://cuipengfei.me/blog/2014/06/12/scala-update-method/</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">崔鹏飞</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-04-19T13:59:00+08:00" pubdate data-updated="true">Apr 19<span>th</span>, 2015</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cuipengfei.github.com/blog/2015/04/19/principles-of-reactive-programming-week-one/" data-via="cuipf" data-counturl="http://cuipengfei.github.com/blog/2015/04/19/principles-of-reactive-programming-week-one/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/04/11/wuhan-english-workshop/" title="Previous Post: English workshop Wuhan 2015.04.14">&laquo; English workshop Wuhan 2015.04.14</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/04/19/principles-of-reactive-programming-week-one/">Principles of Reactive Programming Week One作业导学</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/11/wuhan-english-workshop/">English workshop Wuhan 2015.04.14</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/04/women-in-finance-it-and-r-and-d/">职业女性确实处于劣势吗？记一次不甚严谨的考据 -- 向胡适之先生的遥远致敬</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/03/29/2015-first-season/">2015第一季度</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/13/tech-radar-wuhan/">Tech radar 武汉 microservice envy</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/cuipengfei">@cuipengfei</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'cuipengfei',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("cuipf", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/cuipf" class="twitter-follow-button" data-show-count="false">Follow @cuipf</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - 崔鹏飞 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'cuipengfeioctopressblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://cuipengfei.github.com/blog/2015/04/19/principles-of-reactive-programming-week-one/';
+        var disqus_url = 'http://cuipengfei.github.com/blog/2015/04/19/principles-of-reactive-programming-week-one/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

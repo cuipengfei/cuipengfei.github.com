@@ -4,7 +4,7 @@
   <title><![CDATA[崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2015-04-11T14:30:09+08:00</updated>
+  <updated>2015-04-19T15:36:42+08:00</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -12,6 +12,201 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Principles of Reactive Programming Week One作业导学]]></title>
+    <link href="http://cuipengfei.github.com/blog/2015/04/19/principles-of-reactive-programming-week-one/"/>
+    <updated>2015-04-19T13:59:00+08:00</updated>
+    <id>http://cuipengfei.github.com/blog/2015/04/19/principles-of-reactive-programming-week-one</id>
+    <content type="html"><![CDATA[<h1>前尘</h1>
+
+<p>Principles of Reactive Programming在4月13号又开课了。
+<a href="https://www.coursera.org/course/reactive">https://www.coursera.org/course/reactive</a></p>
+
+<p>上次开课是在2013年的11月，当时我刚第一次上完Functional programming principles in Scala，热情很高于是就报名参加了这门课。
+还群发了一个邮件找人一起上课。</p>
+
+<p>但是上了几周发现有点难，于是就放弃了。现在去bitbucket看，最后一次push停留在了2013-11-18。</p>
+
+<p>后来还在上海被8x鄙视于无形之中。</p>
+
+<h1>后世</h1>
+
+<p>14年做了几个月的Scala开发，后来Functional programming principles in Scala再次开课又上了一遍，拿了个认证证书。</p>
+
+<p>感觉似乎可以再挑战一次。</p>
+
+<h1>今生</h1>
+
+<p>上课习得的知识放在脑子里是不牢靠的。大脑有遗忘周期。</p>
+
+<p>需要有成文或者成代码的产出，作为日后回忆和做spaced repetition的资料。</p>
+
+<p>于是就有了这个即将成为系列的博文中的第一篇《Principles of Reactive Programming Week One作业导学》。</p>
+
+<p>这系列博文的目标读者仅限于报名参加了这门课并且看完了视频，看完了作业的instruction之后仍有困难的同学。</p>
+
+<p>这系列博文不会公布作业的答案，那是违反Coursera的code of honor的。</p>
+
+<p>我只会试着解释作业中已有的代码，以及应该如何入手。</p>
+
+<p>其实，写这个系列博文对我的帮助比对读者的帮助要大。</p>
+
+<h1>正文</h1>
+
+<h2>Heap.scala</h2>
+
+<p>第一周的代码下载下来之后，先来看一下Heap.scala这个文件。</p>
+
+<p>这个文件里定义了很多个trait。现在只需要关注其中一个Heap。</p>
+
+<p>这个就是所有其他trait都会去extend的基类（这个说法合适吗？）。
+它定义了所有Heap的实现者都需要实现的方法。</p>
+
+<p>然后BinomialHeap完整实现了Heap定义的所有东西。</p>
+
+<p>Bogus1BinomialHeap到Bogus5BinomialHeap都是继承自BinomialHeap，其中各自覆盖了BinomialHeap的不同方法，以不同的方式引入了bug。
+第一周作业的目的就是用ScalaCheck把其中的bug找出来。</p>
+
+<p>这个文件里还有一个IntHeap，这个稍后再说。</p>
+
+<p>实现代码其实就只有这一个文件，接下来看测试代码。</p>
+
+<h2>QuickCheckSuite.scala</h2>
+
+<p>这个文件里主要定义了QuickCheckSuite这个测试类。</p>
+
+<p>这个测试类继承自FunSuite，这是ScalaTest的测试基类。同时mix in了Checkers，这是ScalaTest为了与ScalaCheck集成而提供的trait。</p>
+
+<p>接下来看测试的case：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">def</span> <span class="n">checkBogus</span><span class="o">(</span><span class="n">p</span><span class="k">:</span> <span class="kt">Prop</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">var</span> <span class="n">foundBug</span> <span class="k">=</span> <span class="kc">false</span>
+</span><span class='line'>  <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">check</span><span class="o">(</span><span class="n">p</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span> <span class="k">catch</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">case</span> <span class="n">e</span><span class="k">:</span> <span class="kt">TestFailedException</span> <span class="o">=&gt;</span>
+</span><span class='line'>      <span class="n">foundBug</span> <span class="k">=</span> <span class="kc">true</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>  <span class="n">assert</span><span class="o">(</span><span class="n">foundBug</span><span class="o">,</span> <span class="s">&quot;A bogus heap should NOT satisfy all properties. Try to find the bug!&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">test</span><span class="o">(</span><span class="s">&quot;Binomial heap satisfies properties.&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">check</span><span class="o">(</span><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">BinomialHeap</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">test</span><span class="o">(</span><span class="s">&quot;Bogus (1) binomial heap does not satisfy properties.&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">checkBogus</span><span class="o">(</span><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">Bogus1BinomialHeap</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">test</span><span class="o">(</span><span class="s">&quot;Bogus (2) binomial heap does not satisfy properties.&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">checkBogus</span><span class="o">(</span><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">Bogus2BinomialHeap</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到，每个case都调用了check这个方法，或者是check的变体-checkBogus。</p>
+
+<p>checkBogus里面则调用了check，并且assert说一定要出现TestFailedException异常了，测试才算成功。也就是说checkBogus的目的就是要在某些Heap的实现中找到bug。</p>
+
+<p>现在来看check这个方法本身。它接受一个类型为Prop的参数，这些参数从哪儿来呢？这些参数就是：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">BinomialHeap</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">Bogus1BinomialHeap</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这些代码。</p>
+
+<p>这就意味着QuickCheckHeap一定要是一个Prop，是不是这样呢？</p>
+
+<h2>QuickCheckHeap.scala</h2>
+
+<p>那就到QuickCheckHeap.scala这个文件中来看一下。</p>
+
+<p>可以看到QuickCheckHeap这个抽象类确实是extends了Properties，而properties又extends了Prop。那么，没问题，这个类型是匹配的。</p>
+
+<p>QuickCheckHeap里可以定义任意多个property，这些property将会检查Heap的实现正确与否。</p>
+
+<p>而且它还mix in了IntHeap，就是前面略过的那个trait。它的目的是锁定Heap这个trait里所定义的A这个元素的类型到Int。</p>
+
+<h2>全部连起来</h2>
+
+<p>第一周作业的已有代码很少，有用的就是这三个文件。</p>
+
+<p>Heap.scala定义了很多个Heap的不同实现。有些是正确的，有些是有bug的。</p>
+
+<p>QuickCheckSuite.scala则是测试的入口点，它由JunitRunner拽着跑起来。
+其中的test case使用ScalaCheck去检查对于Heap这种数据结构恒定为true的properties是不是hold住的。</p>
+
+<p>对于Heap这种数据结构恒定为true的properties从哪儿来呢？就来自于QuickCheckHeap.scala。
+QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有了牛逼的trait，就可以用这种代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">BinomialHeap</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">Bogus1BinomialHeap</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>创建出实例，进行测试了。</p>
+
+<p>最后，我们的任务就是在QuickCheckHeap.scala添加更多的properties，把所有实现有误的Heap都揪出来。</p>
+
+<h1>题外话</h1>
+
+<p>有没有发现QuickCheckHeap.scala里面有些奇怪的代码？</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">property</span><span class="o">(</span><span class="s">&quot;min1&quot;</span><span class="o">)</span> <span class="k">=</span> <span class="n">forAll</span> <span class="o">{</span> <span class="o">(</span><span class="n">heap</span><span class="k">:</span> <span class="kt">H</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span> <span class="k">=&gt;</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">min</span> <span class="k">=</span> <span class="k">if</span> <span class="o">(</span><span class="n">isEmpty</span><span class="o">(</span><span class="n">heap</span><span class="o">))</span> <span class="n">a</span> <span class="k">else</span> <span class="n">findMin</span><span class="o">(</span><span class="n">heap</span><span class="o">)</span>
+</span><span class='line'>  <span class="n">findMin</span><span class="o">(</span><span class="n">insert</span><span class="o">(</span><span class="n">min</span><span class="o">,</span> <span class="n">heap</span><span class="o">))</span> <span class="o">==</span> <span class="n">min</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>property(&#8220;min should be min&#8221;)，这看起来像是一个方法调用啊。</p>
+
+<p>尼玛，方法调用后面怎么跟着一个等号啊？等号后面还有一个有返回值的表达式啊？</p>
+
+<p>这是啥啊？</p>
+
+<p>这是个乍一看很自然，但是仔细一想很费解的Scala语言特性-update方法。</p>
+
+<p>详情请见我之前的一篇博客：<a href="http://cuipengfei.me/blog/2014/06/12/scala-update-method/">http://cuipengfei.me/blog/2014/06/12/scala-update-method/</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[English workshop Wuhan 2015.04.14]]></title>
@@ -2818,95 +3013,6 @@
 <p>现在想来，C#这一语言特性的设计者为什么要把它设计成如此容易出错的样子呢？</p>
 
 <p>思而不得其解。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[褪去Scala的糖衣(12) -- implicit function（补）]]></title>
-    <link href="http://cuipengfei.github.com/blog/2014/01/05/more-on-scala-implicit-function/"/>
-    <updated>2014-01-05T00:42:00+08:00</updated>
-    <id>http://cuipengfei.github.com/blog/2014/01/05/more-on-scala-implicit-function</id>
-    <content type="html"><![CDATA[<p>上次<a href="http://cuipengfei.me/blog/2014/01/01/desugar-scala-10/">博客谈到了implicit function</a>，但是漏掉了一些东西，今天补上。</p>
-
-<p>由于上次已经讲过implicit function的实现细节，这次就不再重复了。今天只补充上次漏掉了的implicit function的一种很好的实践。</p>
-
-<p>先看一段specs2的测试代码：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">org.specs2.mutable._</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">HelloWorldSpec</span> <span class="k">extends</span> <span class="nc">Specification</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="s">&quot;The &#39;Hello world&#39; string&quot;</span> <span class="n">should</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="s">&quot;contain 11 characters&quot;</span> <span class="n">in</span> <span class="o">{</span>
-</span><span class='line'>      <span class="s">&quot;Hello world&quot;</span> <span class="n">must</span> <span class="n">have</span> <span class="n">size</span> <span class="mi">11</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我们试着理解这个测试代码在做什么的时候，无须多少思考，因为它和人类语言一样的亲近和自然。但是如果我们想知道specs2如何做到这一点时，就有点费解了。</p>
-
-<p>我们知道xObject yMethod zParameter的写法是一个语法糖，它和xObject.yMethod(zParameter)是一样的。也就是说should和in都是方法名。于是，问题来了，should和in前面是个String啊，String上哪有这两个方法的定义？</p>
-
-<p>想必答案你已经猜到了，specs2定义了一些implicit functions来把String转换成能够调用should和in的对象。至于是哪些对象，因为涉及到了specs2的细节，我们暂不讨论。我们试着模仿specs2来写出一段类似人类语言的代码：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Person</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">eat</span><span class="o">(</span><span class="n">food</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;I just ate &quot;</span> <span class="o">+</span> <span class="n">food</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>定义一个Person类，Person有一个名字，只会做一件事：吃。</p>
-
-<p>然后我们可以这样调用它：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">&quot;Xiao ming&quot;</span><span class="o">).</span><span class="n">eat</span><span class="o">(</span><span class="s">&quot;steamed dumplings&quot;</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我们让小明吃点蒸饺。或者也可以这样：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">&quot;Xiao ming&quot;</span><span class="o">)</span> <span class="n">eat</span> <span class="s">&quot;boiled dumplings&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>再煮点饺子让小明吃。这就是我们前面提到过的xObject yMethod zParameter的写法了。让小明吃点东西还得new一个Person出来，这太麻烦了，我们定义一个implicit function：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">implicit</span> <span class="k">def</span> <span class="n">stringToPerson</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="n">name</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样就可以把String转换成Person了。然后就可以像这样写：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="s">&quot;Xiao ming&quot;</span> <span class="n">eat</span> <span class="s">&quot;more dumplings&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>虽然我们写的是“Xiao ming”，但是编译器会把stringToPerson的调用加上去，然后才调用eat方法。</p>
-
-<p>这行代码看起来已经很接近人类语言了。</p>
-
-<p>连吃三顿饺子，明哥，您饱了吧？</p>
 ]]></content>
   </entry>
   

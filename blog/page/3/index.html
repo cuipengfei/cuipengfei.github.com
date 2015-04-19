@@ -9,8 +9,13 @@
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content="Structural types，中文怎么翻译不确定。我们可以用它来实现类似于鸭子类型的效果。为什么说是“类似”鸭子类型呢？稍后会说到它和鸭子类型的区别。 举一个例子，看看它都可以做什么： 1
-def makeNoise(quacker: {def quack(): String}) = &hellip;">
+  <meta name="description" content="上次博客谈到了implicit function，但是漏掉了一些东西，今天补上。 由于上次已经讲过implicit function的实现细节，这次就不再重复了。今天只补充上次漏掉了的implicit function的一种很好的实践。 先看一段specs2的测试代码： 1
+2
+3
+4
+5
+6
+7 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +80,124 @@ def makeNoise(quacker: {def quack(): String}) = &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/05/more-on-scala-implicit-function/">褪去Scala的糖衣(12) &#8211; Implicit Function（补）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-05T00:42:00+08:00" pubdate data-updated="true">Jan 5<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/01/05/more-on-scala-implicit-function/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>上次<a href="http://cuipengfei.me/blog/2014/01/01/desugar-scala-10/">博客谈到了implicit function</a>，但是漏掉了一些东西，今天补上。</p>
+
+<p>由于上次已经讲过implicit function的实现细节，这次就不再重复了。今天只补充上次漏掉了的implicit function的一种很好的实践。</p>
+
+<p>先看一段specs2的测试代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">org.specs2.mutable._</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">HelloWorldSpec</span> <span class="k">extends</span> <span class="nc">Specification</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="s">&quot;The &#39;Hello world&#39; string&quot;</span> <span class="n">should</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="s">&quot;contain 11 characters&quot;</span> <span class="n">in</span> <span class="o">{</span>
+</span><span class='line'>      <span class="s">&quot;Hello world&quot;</span> <span class="n">must</span> <span class="n">have</span> <span class="n">size</span> <span class="mi">11</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们试着理解这个测试代码在做什么的时候，无须多少思考，因为它和人类语言一样的亲近和自然。但是如果我们想知道specs2如何做到这一点时，就有点费解了。</p>
+
+<p>我们知道xObject yMethod zParameter的写法是一个语法糖，它和xObject.yMethod(zParameter)是一样的。也就是说should和in都是方法名。于是，问题来了，should和in前面是个String啊，String上哪有这两个方法的定义？</p>
+
+<p>想必答案你已经猜到了，specs2定义了一些implicit functions来把String转换成能够调用should和in的对象。至于是哪些对象，因为涉及到了specs2的细节，我们暂不讨论。我们试着模仿specs2来写出一段类似人类语言的代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Person</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">eat</span><span class="o">(</span><span class="n">food</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;I just ate &quot;</span> <span class="o">+</span> <span class="n">food</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>定义一个Person类，Person有一个名字，只会做一件事：吃。</p>
+
+<p>然后我们可以这样调用它：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">&quot;Xiao ming&quot;</span><span class="o">).</span><span class="n">eat</span><span class="o">(</span><span class="s">&quot;steamed dumplings&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们让小明吃点蒸饺。或者也可以这样：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">&quot;Xiao ming&quot;</span><span class="o">)</span> <span class="n">eat</span> <span class="s">&quot;boiled dumplings&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再煮点饺子让小明吃。这就是我们前面提到过的xObject yMethod zParameter的写法了。让小明吃点东西还得new一个Person出来，这太麻烦了，我们定义一个implicit function：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">implicit</span> <span class="k">def</span> <span class="n">stringToPerson</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="n">name</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样就可以把String转换成Person了。然后就可以像这样写：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="s">&quot;Xiao ming&quot;</span> <span class="n">eat</span> <span class="s">&quot;more dumplings&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>虽然我们写的是“Xiao ming”，但是编译器会把stringToPerson的调用加上去，然后才调用eat方法。</p>
+
+<p>这行代码看起来已经很接近人类语言了。</p>
+
+<p>连吃三顿饺子，明哥，您饱了吧？</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1771,468 +1894,6 @@ type Function23 is not a member of package scala</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/13/scala-trait/">Scala中的语言特性是如何实现的(3) &#8211; Trait</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-13T17:41:00+08:00" pubdate data-updated="true">Oct 13<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/10/13/scala-trait/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>我在Coursera上跟了一门叫做<a href="https://www.coursera.org/course/progfun">Functional Programming Principles in Scala</a>的课程，是由Scala的作者Martin Odersky讲授的。其中第三周的作业中使用到了Scala的trait这个语言特性。</p>
-
-<p>我以前熟知的语言都没有类似的特性（Ruby的mixin和Scala的trait很像，但是Ruby我不熟），所以这周的博客就分析一下这个语言特性是如何实现的。</p>
-
-<h3>trait</h3>
-
-<p>在讲trait的实现机制之前，先看一个使用trait的例子。
-假设我们有以下几个类：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">abstract</span> <span class="k">class</span> <span class="nc">Plant</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">photosynthesis</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Oh, the sunlight!&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">Rose</span> <span class="k">extends</span> <span class="nc">Plant</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">smell</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Good!&quot;</span><span class="o">)</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">makePeopleHappy</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;People like me&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">Ruderal</span> <span class="k">extends</span> <span class="nc">Plant</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">grow</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;I take up all the space!&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">abstract</span> <span class="k">class</span> <span class="nc">Animal</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">move</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;I can move!&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">Dog</span> <span class="k">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">bark</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Woof!&quot;</span><span class="o">)</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">makePeopleHappy</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;People like me&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">Snake</span> <span class="k">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">bite</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;I am poisonous!&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>植物家族有玫瑰和杂草。</p>
-
-<p>动物家族有狗和毒蛇。</p>
-
-<p>仔细观察可以发现，玫瑰和狗有一个共同的行为，它们都可以取悦人类，这个行为是用完全一样的代码实现的。</p>
-
-<p>如何把Rose和Dog中的重复代码消除掉呢？有一种潜在的解决方案：
-把makePeopleHappy提取到一个类中去，让植物和动物都继承自它。</p>
-
-<p>这么做虽然消除了重复代码但有两个明显的缺点：</p>
-
-<ol>
-<li>植物和动物继承自同一个类，不太合理</li>
-<li>杂草和毒蛇也具有了取悦于人的能力，也不太合理</li>
-</ol>
-
-
-<p>这时我们就可以使用trait，它没有上面提到的两个缺点。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">trait</span> <span class="nc">PeoplePleaser</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">makePeopleHappy</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;People like me&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">Rose</span> <span class="k">extends</span> <span class="nc">Plant</span> <span class="k">with</span> <span class="nc">PeoplePleaser</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">smell</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Good!&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">Dog</span> <span class="k">extends</span> <span class="nc">Animal</span> <span class="k">with</span> <span class="nc">PeoplePleaser</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">bark</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Woof!&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我们定义一个trait，把makePeopleHappy置于其中，让Rose和Dog都with这个trait。然后就可以写这样的代码来调用它们了：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">new</span> <span class="nc">Rose</span><span class="o">().</span><span class="n">makePeopleHappy</span>
-</span><span class='line'>  <span class="k">new</span> <span class="nc">Dog</span><span class="o">().</span><span class="n">makePeopleHappy</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样我们就解决了重复代码的问题，而且没有触及已存在的继承关系。</p>
-
-<p>现在看看trait的实现机制吧，我们开始反编译！</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">interface</span> <span class="nc">PeoplePleaser</span>
-</span><span class='line'><span class="o">{</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">makePeopleHappy</span><span class="o">();</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">PeoplePleaser</span><span class="n">$class</span>
-</span><span class='line'><span class="o">{</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">makePeopleHappy</span><span class="o">(</span><span class="n">PeoplePleaser</span> <span class="n">$this</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;People like me&quot;</span><span class="o">);</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">$init$</span><span class="o">(</span><span class="n">PeoplePleaser</span> <span class="n">$this</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Rose</span> <span class="kd">extends</span> <span class="n">Plant</span>
-</span><span class='line'>  <span class="kd">implements</span> <span class="n">PeoplePleaser</span>
-</span><span class='line'><span class="o">{</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">makePeopleHappy</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="n">PeoplePleaser$class</span><span class="o">.</span><span class="na">makePeopleHappy</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">smell</span><span class="o">()</span> <span class="o">{</span> <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Good!&quot;</span><span class="o">);</span> <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="nf">Rose</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="n">PeoplePleaser</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="n">$init$</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="n">Animal</span>
-</span><span class='line'>  <span class="kd">implements</span> <span class="n">PeoplePleaser</span>
-</span><span class='line'><span class="o">{</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">makePeopleHappy</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="n">PeoplePleaser$class</span><span class="o">.</span><span class="na">makePeopleHappy</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">bark</span><span class="o">()</span> <span class="o">{</span> <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Woof!&quot;</span><span class="o">);</span> <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="nf">Dog</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="n">PeoplePleaser</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="n">$init$</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>真相大白了，PeoplePleaser被编译成了一个接口加一个抽象类。Rose和Dog实现这个接口，并通过调用抽象类中的静态方法来实现了makePeopleHappy。</p>
-
-<p>很有趣的一点是Rose和Dog在调用静态方法时都把this传了进去，为什么呢？我们把原来的代码改成这样来看：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">trait</span> <span class="nc">PeoplePleaser</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">val</span> <span class="n">moreMessage</span> <span class="k">=</span> <span class="s">&quot;&quot;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">makePeopleHappy</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;People like me. &quot;</span> <span class="o">+</span> <span class="n">moreMessage</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">Rose</span> <span class="k">extends</span> <span class="nc">Plant</span> <span class="k">with</span> <span class="nc">PeoplePleaser</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">override</span> <span class="k">val</span> <span class="n">moreMessage</span> <span class="k">=</span> <span class="s">&quot;Because I smell nice.&quot;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">smell</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Good!&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">Dog</span> <span class="k">extends</span> <span class="nc">Animal</span> <span class="k">with</span> <span class="nc">PeoplePleaser</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">override</span> <span class="k">val</span> <span class="n">moreMessage</span> <span class="k">=</span> <span class="s">&quot;Because I fetch balls.&quot;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">bark</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Woof!&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我们给makePeopleHappy加上一段额外的信息。
-现在再次反编译。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">interface</span> <span class="nc">PeoplePleaser</span>
-</span><span class='line'><span class="o">{</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="n">objsets$PeoplePleaser$_setter_$moreMessage_$eq</span><span class="o">(</span><span class="n">String</span> <span class="n">paramString</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">String</span> <span class="nf">moreMessage</span><span class="o">();</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">makePeopleHappy</span><span class="o">();</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">PeoplePleaser</span><span class="n">$class</span>
-</span><span class='line'><span class="o">{</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">makePeopleHappy</span><span class="o">(</span><span class="n">PeoplePleaser</span> <span class="n">$this</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="n">StringBuilder</span><span class="o">()</span>
-</span><span class='line'>    <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;People like me. &quot;</span><span class="o">)</span>
-</span><span class='line'>    <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">$this</span><span class="o">.</span><span class="na">moreMessage</span><span class="o">()).</span><span class="na">toString</span><span class="o">());</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">$init$</span><span class="o">(</span><span class="n">PeoplePleaser</span> <span class="n">$this</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="n">$this</span><span class="o">.</span><span class="na">objsets</span><span class="n">$PeoplePleaser$_setter_$moreMessage_$eq</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">);</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Rose</span> <span class="kd">extends</span> <span class="n">Plant</span>
-</span><span class='line'>  <span class="kd">implements</span> <span class="n">PeoplePleaser</span>
-</span><span class='line'><span class="o">{</span>
-</span><span class='line'>  <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">moreMessage</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="n">objsets$PeoplePleaser$_setter_$moreMessage_$eq</span><span class="o">(</span><span class="n">String</span> <span class="n">x$1</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">makePeopleHappy</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="n">PeoplePleaser$class</span><span class="o">.</span><span class="na">makePeopleHappy</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="n">String</span> <span class="nf">moreMessage</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">moreMessage</span><span class="o">;</span> <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">smell</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Good!&quot;</span><span class="o">);</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="nf">Rose</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="n">PeoplePleaser</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="n">$init$</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-</span><span class='line'>    <span class="k">this</span><span class="o">.</span><span class="na">moreMessage</span> <span class="o">=</span> <span class="s">&quot;Because I smell nice.&quot;</span><span class="o">;</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="n">Animal</span>
-</span><span class='line'>  <span class="kd">implements</span> <span class="n">PeoplePleaser</span>
-</span><span class='line'><span class="o">{</span>
-</span><span class='line'>  <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">moreMessage</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="n">objsets$PeoplePleaser$_setter_$moreMessage_$eq</span><span class="o">(</span><span class="n">String</span> <span class="n">x$1</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">makePeopleHappy</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="n">PeoplePleaser$class</span><span class="o">.</span><span class="na">makePeopleHappy</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="n">String</span> <span class="nf">moreMessage</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">moreMessage</span><span class="o">;</span> <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">bark</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Woof!&quot;</span><span class="o">);</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="nf">Dog</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="n">PeoplePleaser</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="n">$init$</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-</span><span class='line'>    <span class="k">this</span><span class="o">.</span><span class="na">moreMessage</span> <span class="o">=</span> <span class="s">&quot;Because I fetch balls.&quot;</span><span class="o">;</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>现在就清楚了，抽象类中的静态方法可能会依赖于各个实例不同的状态，所以需要把this传递进去。
-这样我们才能够给makePeopleHappy加上一段额外的信息。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -2250,6 +1911,10 @@ type Function23 is not a member of package scala</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/04/19/principles-of-reactive-programming-week-one/">Principles of Reactive Programming Week One作业导学</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/04/11/wuhan-english-workshop/">English workshop Wuhan 2015.04.14</a>
       </li>
     
@@ -2263,10 +1928,6 @@ type Function23 is not a member of package scala</p>
     
       <li class="post">
         <a href="/blog/2015/01/13/tech-radar-wuhan/">Tech radar 武汉 microservice envy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/12/27/2014/">2014年总结</a>
       </li>
     
   </ul>
