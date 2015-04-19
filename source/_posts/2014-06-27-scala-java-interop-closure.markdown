@@ -3,7 +3,8 @@ layout: post
 title: "论“如果Scala类有方法接收闭包，这些方法在Java里就不可用，因为Java目前尚不支持闭包。”这句话是错的"
 date: 2014-06-27 20:54
 comments: true
-categories: 
+keywords: scala, java, interop
+categories:
 ---
 最近在看郑大翻译的《Scala程序设计》，其中第十一章有一句话：
 
@@ -50,8 +51,8 @@ public class OnePluserCaller
 {
   public int callIt()
   {
-    return new OnePluser().plusOne(new AbstractFunction0.mcI.sp() { 
-      public final int apply() { return apply$mcI$sp(); } 
+    return new OnePluser().plusOne(new AbstractFunction0.mcI.sp() {
+      public final int apply() { return apply$mcI$sp(); }
       public int apply$mcI$sp() { return 5; }
 
     });

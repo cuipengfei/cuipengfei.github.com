@@ -3,7 +3,8 @@ layout: post
 title: "Scala中Stream的应用场景及其实现原理"
 date: 2014-10-23 17:21
 comments: true
-categories: 
+keywords: scala, stream
+categories:
 ---
 
 #假设一个场景
@@ -117,7 +118,7 @@ randomList.filter(isDivisibleBy3).take(2)
 ```scala
   def first2UsingMutable: List[Int] = {
     val result = ListBuffer[Int]()
-    
+
     randomList.foreach(n => {
       if (isDivisibleBy3(n)) result.append(n)
       if (result.size == 2) return result.toList
@@ -217,7 +218,7 @@ MyStream(randomList: _*).filter(isDivisibleBy3).take(2).toList
 
 ```scala
 trait MyStream[+A] {
-	. . . . . . 
+	. . . . . .
 }
 
 case object Empty extends MyStream[Nothing]
@@ -303,7 +304,7 @@ trait MyStream[+A] {
     }
   }
 
-. . . . . . 
+. . . . . .
 
 }
 
@@ -335,7 +336,7 @@ MyStream(randomList: _*).filter(isDivisibleBy3).take(2)
 trait MyStream[+A] {
 
   . . . . . .
-  
+
   def take(n: Int): MyStream[A] = {
     if (n > 0) this match {
       case Cons(h, t) if n == 1 => cons(h(), MyStream.empty)
@@ -344,9 +345,9 @@ trait MyStream[+A] {
     }
     else MyStream()
   }
-  
+
   . . . . . .
-  
+
 }
 
 ```
@@ -361,7 +362,7 @@ trait MyStream[+A] {
 trait MyStream[+A] {
 
   . . . . . .
-  
+
   def toList: List[A] = {
     this match {
       case Cons(h, t) => h() :: t().toList

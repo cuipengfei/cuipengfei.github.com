@@ -3,6 +3,7 @@ layout: post
 title: "Principles of Reactive Programming Week One作业导学"
 date: 2015-04-19 13:59
 comments: true
+keywords: scala, reactive, coursera
 categories:
 ---
 

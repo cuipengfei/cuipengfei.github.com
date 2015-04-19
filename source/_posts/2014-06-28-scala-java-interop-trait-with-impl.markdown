@@ -3,7 +3,8 @@ layout: post
 title: "论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的"
 date: 2014-06-28 12:55
 comments: true
-categories: 
+keywords: scala, java, interop
+categories:
 ---
 最近还是在看郑大翻译的《Scala程序设计》，其中第十一章还有一句话：
 
@@ -79,12 +80,12 @@ public class Dog extends Animal implements HappyThoughts
 {
   public void whatAreYouThinking()
   {
-    HappyThoughts.class.whatAreYouThinking(this); 
-  } 
-  
-  public Dog() 
-  { 
-  	HappyThoughts.class.$init$(this); 
+    HappyThoughts.class.whatAreYouThinking(this);
+  }
+
+  public Dog()
+  {
+  	HappyThoughts.class.$init$(this);
   }
 }
 ```

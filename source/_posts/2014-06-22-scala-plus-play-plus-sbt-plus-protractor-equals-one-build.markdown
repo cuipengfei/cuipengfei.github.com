@@ -3,7 +3,8 @@ layout: post
 title: "Scala + Play + sbt + Protractor = one build"
 date: 2014-06-22 17:00
 comments: true
-categories: 
+keywords: scala, play, sbt, protractor, build, CI
+categories:
 ---
 
 我所在的项目的技术栈选用的是Play framework做后端API，前端用Angular JS。
@@ -100,7 +101,7 @@ class ProtractorSpec extends Specification with NoTimeConversions {
   "my application" should {
 
     "pass the protractor tests" in {
-    
+
       running(TestServer(9000)) {
 
         val resp = Await.result(WS.url("http://localhost:9000").get(), 2 seconds)

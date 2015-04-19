@@ -3,7 +3,8 @@ layout: post
 title: "大理"
 date: 2014-08-10 20:38
 comments: true
-categories: 
+keywords: 大理
+categories:
 ---
 昆明机场，等待去大理的飞机
 

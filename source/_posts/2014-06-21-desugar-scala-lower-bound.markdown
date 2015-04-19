@@ -3,7 +3,8 @@ layout: post
 title: "Desugar Scala(16) -- lower bound"
 date: 2014-06-21 11:32
 comments: true
-categories: 
+keywords: scala, lower bound
+categories:
 ---
 Lower bound，不知道这个词的确切中文翻译是怎样的。我们直接看例子吧。
 
