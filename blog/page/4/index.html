@@ -9,10 +9,15 @@
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content="Scala中有一个type关键字，用来给类型或者是操作起别名，用起来很是方便。 比如这样： 1
-type People = List[Person] 这样就是给List[Person]（方括号是Scala的类型参数的写法）声明了一个别名，叫做People。 接下来就可以这样使用它： 1
+  <meta name="description" content="Scala中的lazy关键字是实现延迟加载的好帮手。 在Java中想要做到延迟加载，常规的做法是大抵是这样的： 1
 2
-3 &hellip;">
+3
+4
+5
+6
+7
+8
+private String str = null; public String getStr() { if (str == null) { str = &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +88,156 @@ type People = List[Person] 这样就是给List[Person]（方括号是Scala的类
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2013/12/24/desugar-scala-5/">剥开Scala的糖衣(5) &#8211; Lazy</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-24T17:48:00+05:30" pubdate data-updated="true">Dec 24<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/12/24/desugar-scala-5/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Scala中的lazy关键字是实现延迟加载的好帮手。</p>
+
+<p>在Java中想要做到延迟加载，常规的做法是大抵是这样的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">getStr</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">str</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">str</span> <span class="o">=</span> <span class="n">getStrFromWebService</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">str</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以这种方式来保证web service不会被无谓的重复请求。</p>
+
+<p>C#中则可以使用Lazy of T来实现类似的事:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">private</span> <span class="n">Lazy</span><span class="p">&lt;</span><span class="n">String</span><span class="p">&gt;</span> <span class="n">str</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Lazy</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="p">(()</span> <span class="p">=&gt;</span> <span class="n">GetStrFromWebService</span> <span class="p">());</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="n">String</span> <span class="n">Str</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">get</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">str</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>                    
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Lazy of T保证传入其中的Func只执行一次。</p>
+
+<p>（其实，Java也可以使用Guava中的memoize来实现类似的事情）</p>
+
+<p>要么自己写代码，要么通过库来实现。</p>
+
+<p>而Scala则在语言级别给出了解决方案：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">lazy</span> <span class="k">val</span> <span class="n">str</span> <span class="k">=</span> <span class="n">getStrFromWebService</span><span class="o">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>仅此一行。</p>
+
+<p>只要用lazy关键字修饰一下str，延迟执行的事就搞定了。</p>
+
+<p>其实Scala编译器做的事情和我们手动做的区别不大：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>  <span class="kd">private</span> <span class="n">String</span> <span class="n">str</span><span class="o">;</span>
+</span><span class='line'>  <span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">bitmap$0</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">private</span> <span class="n">String</span> <span class="n">str$lzycompute</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">if</span> <span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="na">bitmap</span><span class="n">$0</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>          <span class="k">this</span><span class="o">.</span><span class="na">str</span> <span class="o">=</span> <span class="n">getStrFromWebService</span><span class="o">();</span>
+</span><span class='line'>          <span class="k">this</span><span class="o">.</span><span class="na">bitmap</span><span class="n">$0</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">str</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">String</span> <span class="nf">str</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">bitmap</span><span class="n">$0</span> <span class="o">?</span> <span class="k">this</span><span class="o">.</span><span class="na">str</span> <span class="o">:</span> <span class="n">str$lzycompute</span><span class="o">();</span>
+</span><span class='line'>  <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>你看编译器多热心，还加了锁哦。</p>
+
+<p>小小总结一下：</p>
+
+<p>对于这样一个表达式：
+lazy val t:T = expr
+无论expr是什么东西，字面量也好，方法调用也好。Scala的编译器都会把这个expr包在一个方法中，并且生成一个flag来决定只在t第一次被访问时才调用该方法。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2013/12/23/desugar-scala-4/">去掉Scala的糖衣(4) &#8211; Type Aliase</a></h1>
     
     
@@ -99,7 +254,7 @@ type People = List[Person] 这样就是给List[Person]（方括号是Scala的类
   
 
 
-<time datetime="2013-12-23T15:48:00+08:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2013</time>
+<time datetime="2013-12-23T15:48:00+05:30" pubdate data-updated="true">Dec 23<span>rd</span>, 2013</time>
         
          | <a href="/blog/2013/12/23/desugar-scala-4/#disqus_thread">Comments</a>
         
@@ -380,7 +535,7 @@ type Function23 is not a member of package scala</p>
   
 
 
-<time datetime="2013-10-13T17:41:00+08:00" pubdate data-updated="true">Oct 13<span>th</span>, 2013</time>
+<time datetime="2013-10-13T17:41:00+05:30" pubdate data-updated="true">Oct 13<span>th</span>, 2013</time>
         
          | <a href="/blog/2013/10/13/scala-trait/#disqus_thread">Comments</a>
         
@@ -842,7 +997,7 @@ type Function23 is not a member of package scala</p>
   
 
 
-<time datetime="2013-06-22T14:54:00+08:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2013</time>
+<time datetime="2013-06-22T14:54:00+05:30" pubdate data-updated="true">Jun 22<span>nd</span>, 2013</time>
         
          | <a href="/blog/2013/06/22/why-does-it-have-to-be-final/#disqus_thread">Comments</a>
         
@@ -1158,7 +1313,7 @@ type Function23 is not a member of package scala</p>
   
 
 
-<time datetime="2013-05-11T23:37:00+08:00" pubdate data-updated="true">May 11<span>th</span>, 2013</time>
+<time datetime="2013-05-11T23:37:00+05:30" pubdate data-updated="true">May 11<span>th</span>, 2013</time>
         
          | <a href="/blog/2013/05/11/scala-language-features-2/#disqus_thread">Comments</a>
         
@@ -1413,7 +1568,7 @@ type Function23 is not a member of package scala</p>
   
 
 
-<time datetime="2013-05-05T22:02:00+08:00" pubdate data-updated="true">May 5<span>th</span>, 2013</time>
+<time datetime="2013-05-05T22:02:00+05:30" pubdate data-updated="true">May 5<span>th</span>, 2013</time>
         
          | <a href="/blog/2013/05/05/how-are-scala-language-features-implemented/#disqus_thread">Comments</a>
         
@@ -1757,7 +1912,7 @@ type Function23 is not a member of package scala</p>
   
 
 
-<time datetime="2013-04-09T22:40:00+08:00" pubdate data-updated="true">Apr 9<span>th</span>, 2013</time>
+<time datetime="2013-04-09T22:40:00+05:30" pubdate data-updated="true">Apr 9<span>th</span>, 2013</time>
         
          | <a href="/blog/2013/04/09/make-y/#disqus_thread">Comments</a>
         
@@ -2053,7 +2208,7 @@ if you don&#8217;t know exactly what you want to put somewhere in a piece of cod
   
 
 
-<time datetime="2013-04-01T16:09:00+08:00" pubdate data-updated="true">Apr 1<span>st</span>, 2013</time>
+<time datetime="2013-04-01T16:09:00+05:30" pubdate data-updated="true">Apr 1<span>st</span>, 2013</time>
         
          | <a href="/blog/2013/04/01/doubanebookprice/#disqus_thread">Comments</a>
         
@@ -2167,7 +2322,7 @@ knockoutjs和jQuery。</p>
   
 
 
-<time datetime="2013-03-04T20:27:00+08:00" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
+<time datetime="2013-03-04T20:27:00+05:30" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
         
          | <a href="/blog/2013/03/04/ce-shi/#disqus_thread">Comments</a>
         
@@ -2200,6 +2355,10 @@ knockoutjs和jQuery。</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/04/26/principles-of-reactive-programming-week-2/">Principles of Reactive Programming Week Two作业导学</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/04/22/twu-pecha-kucha/">twu pecha kucha</a>
@@ -2235,10 +2394,6 @@ knockoutjs和jQuery。</p>
     
       <li class="post">
         <a href="/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/">Spark RDD的fold和aggregate为什么是两个API？为什么不是一个foldLeft？</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/">Scala中Stream的应用场景及其实现原理</a>
       </li>
     
   </ul>

@@ -1,0 +1,467 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Principles of Reactive Programming Week Two作业导学 - 崔鹏飞的Octopress Blog</title>
+  <meta name="author" content="崔鹏飞">
+
+  
+  <meta name="description" content="声明 这系列博文的目标读者仅限于报名参加了这门课并且看完了视频，看完了作业的instruction之后仍有困难的同学。 这系列博文不会公布作业的答案，那是违反Coursera的code of honor的。 我只会试着解释作业中已有的代码，以及应该如何入手。 其实， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://cuipengfei.github.com/blog/2015/04/26/principles-of-reactive-programming-week-2/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="崔鹏飞的Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-46270419-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">崔鹏飞的Octopress Blog</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:cuipengfei.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Principles of Reactive Programming Week Two作业导学</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-04-26T17:56:00+05:30" pubdate data-updated="true">Apr 26<span>th</span>, 2015</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>声明</h1>
+
+<p>这系列博文的目标读者仅限于报名参加了这门课并且看完了视频，看完了作业的instruction之后仍有困难的同学。</p>
+
+<p>这系列博文不会公布作业的答案，那是违反Coursera的code of honor的。</p>
+
+<p>我只会试着解释作业中已有的代码，以及应该如何入手。</p>
+
+<p>其实，写这个系列博文对我的帮助比对读者的帮助要大。</p>
+
+<p>这周的作业不太难，主要就是一个观察者模式。</p>
+
+<h1>Signal是怎么work的？</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">a</span> <span class="k">=</span> <span class="nc">Var</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+</span><span class='line'><span class="n">a</span><span class="k">:</span> <span class="kt">calculator.Var</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">calculator</span><span class="o">.</span><span class="nc">Var</span><span class="k">@</span><span class="mi">7</span><span class="n">ca6f5b9</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">b</span> <span class="k">=</span> <span class="nc">Var</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+</span><span class='line'><span class="n">b</span><span class="k">:</span> <span class="kt">calculator.Var</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">calculator</span><span class="o">.</span><span class="nc">Var</span><span class="k">@</span><span class="mi">2286</span><span class="n">d26</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">c</span> <span class="k">=</span> <span class="nc">Signal</span><span class="o">(</span><span class="n">a</span><span class="o">()</span> <span class="o">+</span> <span class="n">b</span><span class="o">())</span>
+</span><span class='line'><span class="n">c</span><span class="k">:</span> <span class="kt">calculator.Signal</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">calculator</span><span class="o">.</span><span class="nc">Signal</span><span class="k">@</span><span class="mi">5</span><span class="n">c60548d</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">c</span><span class="o">()</span>
+</span><span class='line'><span class="n">res8</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">3</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">a</span><span class="o">()</span><span class="k">=</span><span class="mi">10</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">c</span><span class="o">()</span>
+</span><span class='line'><span class="n">res10</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">12</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">b</span><span class="o">()</span><span class="k">=</span><span class="mi">20</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">c</span><span class="o">()</span>
+</span><span class='line'><span class="n">res12</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">30</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果能搞懂上面的代码是如何work的，作业题中需要用到Signal的地方就不会有太大问题了。</p>
+
+<p>a=1，b=2，c=a+b，所以c就是3。</p>
+
+<p>a变成10之后c就变成了12（10+2）。</p>
+
+<p>b再变成20之后，c就变成了30（10+29）。</p>
+
+<p>这个级联的变化是如何发生的呢？</p>
+
+<p>有两个关键点：</p>
+
+<ul>
+<li>Signal的constructor</li>
+<li>Signal的update方法</li>
+</ul>
+
+
+<p>先看Signal的constructor。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Signal</span><span class="o">[</span><span class="kt">T</span><span class="o">](</span><span class="n">expr</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="n">T</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="c1">//......</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以上是它的签名，关键在于expr的类型签名，expr的类型不是T，而是=>T。</p>
+
+<p>这就意味着expr可以是任何类型为T的表达式，可以是一个字面量，也可以是任意复杂的代码块。</p>
+
+<p>比如Signal(123)是可以的，Signal(complicatedMethodCall())也可以。</p>
+
+<p>最上面那块代码中的val c = Signal(a() + b())就属于后一种。</p>
+
+<p>a() + b()不会被立即求值成3然后传入Signal的constructor，而是整体作为一个可以被反复求值的表达式被记录在Signal的实例中。</p>
+
+<p>constructor的入口参数可以被反复求值是级联变化的基础，那是什么触发了真正的变化呢？</p>
+
+<p>那就是关键点之二：update方法。</p>
+
+<p>update方法的妙处在于，如果一个类A有update方法，那么：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="k">new</span> <span class="n">A</span><span class="o">()</span>
+</span><span class='line'><span class="n">x</span><span class="o">(</span><span class="n">y</span><span class="o">)</span><span class="k">=</span><span class="n">z</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在编译之后会变成这样：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="k">new</span> <span class="n">A</span><span class="o">()</span>
+</span><span class='line'><span class="n">x</span><span class="o">.</span><span class="n">update</span><span class="o">(</span><span class="n">y</span><span class="o">,</span><span class="n">z</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>详情请见我之前的一篇博客：<a href="http://cuipengfei.me/blog/2014/06/12/scala-update-method/">http://cuipengfei.me/blog/2014/06/12/scala-update-method/</a></p>
+
+<p>Signal的update方法是protected的，不可访问，所以它只可以从变，不可自变。</p>
+
+<p>而Var把update方法public出来了，这样，在下面这样的代码执行时：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">a</span><span class="o">()</span><span class="k">=</span><span class="mi">10</span>
+</span><span class='line'><span class="c1">//a.update(10)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>a就会通知它的observers去重新求值。
+这样就实现了a或者b这样的Var变化的时候，c这样的Signal跟着变化的效果。</p>
+
+<p>搞懂了上面的内容就足以去做作业了。</p>
+
+<h1>怎么和html页面结合起来的？</h1>
+
+<p>执行instruction里提到的webUI/fastOptJS这个task就会把Scala作业代码编译成js。</p>
+
+<p>这个task是scalajs这个dependency带进来的（在webui.sbt里）。</p>
+
+<p>webui这个项目里有一个CalculatorUI.scala文件，也会被编译成js。其中的代码就把作业代码和html的UI结合起来了。</p>
+
+<p>就是这样了，这周的作业不难懂也不太难做。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">崔鹏飞</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-04-26T17:56:00+05:30" pubdate data-updated="true">Apr 26<span>th</span>, 2015</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cuipengfei.github.com/blog/2015/04/26/principles-of-reactive-programming-week-2/" data-via="cuipf" data-counturl="http://cuipengfei.github.com/blog/2015/04/26/principles-of-reactive-programming-week-2/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/04/22/twu-pecha-kucha/" title="Previous Post: twu pecha kucha">&laquo; twu pecha kucha</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/04/26/principles-of-reactive-programming-week-2/">Principles of Reactive Programming Week Two作业导学</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/22/twu-pecha-kucha/">twu pecha kucha</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/19/principles-of-reactive-programming-week-one/">Principles of Reactive Programming Week One作业导学</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/11/wuhan-english-workshop/">English workshop Wuhan 2015.04.14</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/04/women-in-finance-it-and-r-and-d/">职业女性确实处于劣势吗？记一次不甚严谨的考据 -- 向胡适之先生的遥远致敬</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/03/29/2015-first-season/">2015第一季度</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/13/tech-radar-wuhan/">Tech radar 武汉 microservice envy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/27/2014/">2014年总结</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/11/16/zdyx2015wuhansecondclass/">2015武汉郑大晔校第二次课</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/">Spark RDD的fold和aggregate为什么是两个API？为什么不是一个foldLeft？</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/cuipengfei">@cuipengfei</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'cuipengfei',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("cuipf", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/cuipf" class="twitter-follow-button" data-show-count="false">Follow @cuipf</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - 崔鹏飞 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'cuipengfeioctopressblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://cuipengfei.github.com/blog/2015/04/26/principles-of-reactive-programming-week-2/';
+        var disqus_url = 'http://cuipengfei.github.com/blog/2015/04/26/principles-of-reactive-programming-week-2/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

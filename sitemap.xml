@@ -2,180 +2,186 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://cuipengfei.github.com/blog/2013/03/04/ce-shi/</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2013/04/01/doubanebookprice/</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2013/04/09/make-y/</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>
             http://cuipengfei.github.com/blog/2013/05/05/how-are-scala-language-features-implemented/
         </loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2013/05/11/scala-language-features-2/</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2013/06/22/why-does-it-have-to-be-final/</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2013/10/13/scala-trait/</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2013/12/23/desugar-scala-4/</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2013/12/24/desugar-scala-5/</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2013/12/25/desugar-scala-6/</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2013/12/29/desugar-scala-7/</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2013/12/29/desugar-scala-8/</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2013/12/30/desugar-scala-9/</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2014/01/01/my-2013/</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2014/01/01/desugar-scala-10/</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2014/01/02/desugar-scala-11/</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2014/01/05/more-on-scala-implicit-function/</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>
             http://cuipengfei.github.com/blog/2014/06/09/desugar-scala-default-parameter-value/
         </loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2014/06/12/scala-update-method/</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2014/06/14/scala-unapply-method/</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2014/06/21/desugar-scala-lower-bound/</loc>
-        <lastmod>2015-04-20T01:35:14+08:00</lastmod>
+        <lastmod>2015-04-19T23:05:14+05:30</lastmod>
     </url>
     <url>
         <loc>
             http://cuipengfei.github.com/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/
         </loc>
-        <lastmod>2015-04-20T01:34:53+08:00</lastmod>
+        <lastmod>2015-04-19T23:04:53+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2014/06/27/scala-java-interop-closure/</loc>
-        <lastmod>2015-04-20T01:34:29+08:00</lastmod>
+        <lastmod>2015-04-19T23:04:29+05:30</lastmod>
     </url>
     <url>
         <loc>
             http://cuipengfei.github.com/blog/2014/06/28/scala-java-interop-trait-with-impl/
         </loc>
-        <lastmod>2015-04-20T01:34:00+08:00</lastmod>
+        <lastmod>2015-04-19T23:04:00+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2014/07/18/play-evolutions-to-liquibase/</loc>
-        <lastmod>2015-04-20T01:33:45+08:00</lastmod>
+        <lastmod>2015-04-19T23:03:45+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2014/08/10/da-li/</loc>
-        <lastmod>2015-04-20T01:33:14+08:00</lastmod>
+        <lastmod>2015-04-19T23:03:14+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2014/08/30/options-for/</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2014/09/06/solving-regular-problems-in-scala/</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
     <url>
         <loc>
             http://cuipengfei.github.com/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/
         </loc>
-        <lastmod>2015-04-20T01:33:01+08:00</lastmod>
+        <lastmod>2015-04-19T23:03:01+05:30</lastmod>
     </url>
     <url>
         <loc>
             http://cuipengfei.github.com/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/
         </loc>
-        <lastmod>2015-04-20T01:32:50+08:00</lastmod>
+        <lastmod>2015-04-19T23:02:50+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2014/11/16/zdyx2015wuhansecondclass/</loc>
-        <lastmod>2015-04-20T01:32:37+08:00</lastmod>
+        <lastmod>2015-04-19T23:02:37+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2014/12/27/2014/</loc>
-        <lastmod>2014-12-27T18:42:30+08:00</lastmod>
+        <lastmod>2014-12-27T16:12:30+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2015/01/13/tech-radar-wuhan/</loc>
-        <lastmod>2015-04-20T01:32:11+08:00</lastmod>
+        <lastmod>2015-04-19T23:02:11+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2015/03/29/2015-first-season/</loc>
-        <lastmod>2015-03-29T20:53:09+08:00</lastmod>
+        <lastmod>2015-03-29T18:23:09+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2015/04/04/women-in-finance-it-and-r-and-d/</loc>
-        <lastmod>2015-04-20T01:31:44+08:00</lastmod>
+        <lastmod>2015-04-19T23:01:44+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2015/04/11/wuhan-english-workshop/</loc>
-        <lastmod>2015-04-20T01:30:31+08:00</lastmod>
+        <lastmod>2015-04-26T17:57:03+05:30</lastmod>
     </url>
     <url>
         <loc>
             http://cuipengfei.github.com/blog/2015/04/19/principles-of-reactive-programming-week-one/
         </loc>
-        <lastmod>2015-04-20T01:30:18+08:00</lastmod>
+        <lastmod>2015-04-19T23:00:18+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2015/04/22/twu-pecha-kucha/</loc>
-        <lastmod>2015-04-22T14:20:30+08:00</lastmod>
+        <lastmod>2015-04-22T11:50:30+05:30</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://cuipengfei.github.com/blog/2015/04/26/principles-of-reactive-programming-week-2/
+        </loc>
+        <lastmod>2015-04-26T21:47:50+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/archives/</loc>
-        <lastmod>2015-04-22T14:20:30+08:00</lastmod>
+        <lastmod>2015-04-26T21:47:50+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/</loc>
-        <lastmod>2015-04-22T14:20:30+08:00</lastmod>
+        <lastmod>2015-04-26T21:47:50+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/robots.txt</loc>
-        <lastmod>2014-11-16T16:59:16+08:00</lastmod>
+        <lastmod>2014-11-16T14:29:16+05:30</lastmod>
     </url>
 </urlset>

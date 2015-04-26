@@ -9,8 +9,12 @@
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content="好久没有写博客了，上一次更新竟然是一月份。 说工作忙都是借口，咋有空看美剧呢。 这半年荒废掉博客说到底就是懒，惯性的懒惰。写博客这事儿，一丢掉就很久捡不起来。 闲话到此为止，下面进入正题。 Default parameter value，默认参数值。
-这个很容易理解，给参数一个默认值， &hellip;">
+  <meta name="description" content="在Scala中，名字叫做update的方法是有特殊作用的。 比如： 1
+2
+3
+val scores = new scala.collection.mutable.HashMap[String, Int]
+scores(&quot;Bob&quot;) = 100
+val bobsScore = &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +85,169 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/06/12/scala-update-method/">抹掉Scala的糖衣(14) &#8211; Update Method</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-12T18:42:00+05:30" pubdate data-updated="true">Jun 12<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/06/12/scala-update-method/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在Scala中，名字叫做update的方法是有特殊作用的。</p>
+
+<p>比如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">scores</span> <span class="k">=</span> <span class="k">new</span> <span class="n">scala</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">mutable</span><span class="o">.</span><span class="nc">HashMap</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">]</span>
+</span><span class='line'><span class="n">scores</span><span class="o">(</span><span class="s">&quot;Bob&quot;</span><span class="o">)</span> <span class="k">=</span> <span class="mi">100</span>
+</span><span class='line'><span class="k">val</span> <span class="n">bobsScore</span> <span class="k">=</span> <span class="n">scores</span><span class="o">(</span><span class="s">&quot;Bob&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以上三行代码，我们创建了一个可变的map来存储得分情况，然后我们记录了Bob的得分是100分，最后我们又把Bob的分数取出来了。</p>
+
+<p>这三行代码看似平淡无奇，实则暗藏了一点点玄机。</p>
+
+<p>第二行实际是调用了HashMap的update方法。</p>
+
+<p>第三行实际是调用了HashMap的apply方法。</p>
+
+<p>我们可以把上面的代码改写成下面的等价形式：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">scores</span> <span class="k">=</span> <span class="k">new</span> <span class="n">scala</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">mutable</span><span class="o">.</span><span class="nc">HashMap</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">]</span>
+</span><span class='line'><span class="n">scores</span><span class="o">.</span><span class="n">update</span><span class="o">(</span><span class="s">&quot;Bob&quot;</span><span class="o">,</span> <span class="mi">100</span><span class="o">)</span>
+</span><span class='line'><span class="k">val</span> <span class="n">bobsScore</span> <span class="k">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">apply</span><span class="o">(</span><span class="err">&quot;</span><span class="nc">Bob</span><span class="err">”</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>虽然等价，但是可读性却降低了一些。</p>
+
+<p>apply方法我们之前讲过，就不再赘述。</p>
+
+<p>update方法也不太复杂，它的规则就是：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">x</span><span class="o">(</span><span class="n">y</span><span class="o">)</span> <span class="k">=</span> <span class="n">z</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样的代码会被编译为：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">x</span><span class="o">.</span><span class="n">update</span><span class="o">(</span><span class="n">y</span><span class="o">,</span> <span class="n">z</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这次博文名字虽然以抹掉糖衣开头，实则有点名不符实，因为这个语言特性过于简单，糖衣很薄，一抹就透。</p>
+
+<p>这次的目的主要是介绍一个update方法的适用场景。</p>
+
+<p>我们来看用来修改某个人地址的一段代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">AddressChanger</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">update</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">age</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">newAddress</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;changing address of $name, whose age is $age to $newAddress&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="c1">//actually change the address</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们可以这样来调用它：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">changer</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">AddressChanger</span><span class="o">()</span>
+</span><span class='line'><span class="n">changer</span><span class="o">.</span><span class="n">update</span><span class="o">(</span><span class="s">&quot;xiao ming&quot;</span><span class="o">,</span> <span class="mi">23</span><span class="o">,</span> <span class="s">&quot;beijing&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>或者，我们也可以这样来调用它：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">addressOf</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">AddressChanger</span><span class="o">()</span>
+</span><span class='line'><span class="n">addressOf</span><span class="o">(</span><span class="n">name</span> <span class="k">=</span> <span class="s">&quot;xiao ming&quot;</span><span class="o">,</span> <span class="n">age</span> <span class="k">=</span> <span class="mi">23</span><span class="o">)</span> <span class="k">=</span> <span class="s">&quot;beijing&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这两段代码是等价的。</p>
+
+<p>比较一下，前一种用法显得中规中矩，没什么特别好的，也没啥特大的毛病。</p>
+
+<p>可是后一种用法就不同了，读起来很通顺，有读英语语句的感觉：把名字叫做小明，年龄23岁的人的地址改为北京。</p>
+
+<p>如果再给AddressChanger加上一个apply方法，我们还可以写这样的代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">currentAddress</span> <span class="k">=</span> <span class="n">addressOf</span><span class="o">(</span><span class="n">name</span> <span class="k">=</span> <span class="s">&quot;xiao ming&quot;</span><span class="o">,</span> <span class="n">age</span> <span class="k">=</span> <span class="mi">23</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样，读取和更新的代码都看起来非常自然。</p>
+
+<p>如果我们把这两段代码连起来看：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">currentAddress</span> <span class="k">=</span> <span class="n">addressOf</span><span class="o">(</span><span class="n">name</span> <span class="k">=</span> <span class="s">&quot;xiao ming&quot;</span><span class="o">,</span> <span class="n">age</span> <span class="k">=</span> <span class="mi">23</span><span class="o">)</span>
+</span><span class='line'><span class="n">addressOf</span><span class="o">(</span><span class="n">name</span> <span class="k">=</span> <span class="s">&quot;xiao ming&quot;</span><span class="o">,</span> <span class="n">age</span> <span class="k">=</span> <span class="mi">23</span><span class="o">)</span> <span class="k">=</span> <span class="s">&quot;beijing&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>感觉甚好。</p>
+
+<p>addressOf(name = &#8220;xiao ming&#8221;, age = 23)可以看做一个整体，它就如同一个可读可写的属性。</p>
+
+<p>我们把它放到赋值语句的右侧，就能取到小明的当前住址。</p>
+
+<p>我们把它放到赋值语句的左侧，就能修改小明的住址。</p>
+
+<p>apply和update都是蛮简单的语言特性，但是加以合适的应用，却能得到可读性极强的代码。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/06/09/desugar-scala-default-parameter-value/">除去Scala的糖衣(13) &#8211; Default Parameter Value</a></h1>
     
     
@@ -97,7 +264,7 @@
   
 
 
-<time datetime="2014-06-09T21:34:00+08:00" pubdate data-updated="true">Jun 9<span>th</span>, 2014</time>
+<time datetime="2014-06-09T21:34:00+05:30" pubdate data-updated="true">Jun 9<span>th</span>, 2014</time>
         
          | <a href="/blog/2014/06/09/desugar-scala-default-parameter-value/#disqus_thread">Comments</a>
         
@@ -259,7 +426,7 @@
   
 
 
-<time datetime="2014-01-05T00:42:00+08:00" pubdate data-updated="true">Jan 5<span>th</span>, 2014</time>
+<time datetime="2014-01-05T00:42:00+05:30" pubdate data-updated="true">Jan 5<span>th</span>, 2014</time>
         
          | <a href="/blog/2014/01/05/more-on-scala-implicit-function/#disqus_thread">Comments</a>
         
@@ -377,7 +544,7 @@
   
 
 
-<time datetime="2014-01-02T22:13:00+08:00" pubdate data-updated="true">Jan 2<span>nd</span>, 2014</time>
+<time datetime="2014-01-02T22:13:00+05:30" pubdate data-updated="true">Jan 2<span>nd</span>, 2014</time>
         
          | <a href="/blog/2014/01/02/desugar-scala-11/#disqus_thread">Comments</a>
         
@@ -662,7 +829,7 @@
   
 
 
-<time datetime="2014-01-01T22:56:00+08:00" pubdate data-updated="true">Jan 1<span>st</span>, 2014</time>
+<time datetime="2014-01-01T22:56:00+05:30" pubdate data-updated="true">Jan 1<span>st</span>, 2014</time>
         
          | <a href="/blog/2014/01/01/desugar-scala-10/#disqus_thread">Comments</a>
         
@@ -803,7 +970,7 @@
   
 
 
-<time datetime="2014-01-01T13:48:00+08:00" pubdate data-updated="true">Jan 1<span>st</span>, 2014</time>
+<time datetime="2014-01-01T13:48:00+05:30" pubdate data-updated="true">Jan 1<span>st</span>, 2014</time>
         
          | <a href="/blog/2014/01/01/my-2013/#disqus_thread">Comments</a>
         
@@ -899,7 +1066,7 @@
   
 
 
-<time datetime="2013-12-30T22:29:00+08:00" pubdate data-updated="true">Dec 30<span>th</span>, 2013</time>
+<time datetime="2013-12-30T22:29:00+05:30" pubdate data-updated="true">Dec 30<span>th</span>, 2013</time>
         
          | <a href="/blog/2013/12/30/desugar-scala-9/#disqus_thread">Comments</a>
         
@@ -1027,7 +1194,7 @@
   
 
 
-<time datetime="2013-12-29T23:20:00+08:00" pubdate data-updated="true">Dec 29<span>th</span>, 2013</time>
+<time datetime="2013-12-29T23:20:00+05:30" pubdate data-updated="true">Dec 29<span>th</span>, 2013</time>
         
          | <a href="/blog/2013/12/29/desugar-scala-8/#disqus_thread">Comments</a>
         
@@ -1283,7 +1450,7 @@
   
 
 
-<time datetime="2013-12-29T19:20:00+08:00" pubdate data-updated="true">Dec 29<span>th</span>, 2013</time>
+<time datetime="2013-12-29T19:20:00+05:30" pubdate data-updated="true">Dec 29<span>th</span>, 2013</time>
         
          | <a href="/blog/2013/12/29/desugar-scala-7/#disqus_thread">Comments</a>
         
@@ -1454,7 +1621,7 @@
   
 
 
-<time datetime="2013-12-25T14:40:00+08:00" pubdate data-updated="true">Dec 25<span>th</span>, 2013</time>
+<time datetime="2013-12-25T14:40:00+05:30" pubdate data-updated="true">Dec 25<span>th</span>, 2013</time>
         
          | <a href="/blog/2013/12/25/desugar-scala-6/#disqus_thread">Comments</a>
         
@@ -1620,156 +1787,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/24/desugar-scala-5/">剥开Scala的糖衣(5) &#8211; Lazy</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-24T17:48:00+08:00" pubdate data-updated="true">Dec 24<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/12/24/desugar-scala-5/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Scala中的lazy关键字是实现延迟加载的好帮手。</p>
-
-<p>在Java中想要做到延迟加载，常规的做法是大抵是这样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">getStr</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">str</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">str</span> <span class="o">=</span> <span class="n">getStrFromWebService</span><span class="o">();</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">str</span><span class="o">;</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>以这种方式来保证web service不会被无谓的重复请求。</p>
-
-<p>C#中则可以使用Lazy of T来实现类似的事:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">private</span> <span class="n">Lazy</span><span class="p">&lt;</span><span class="n">String</span><span class="p">&gt;</span> <span class="n">str</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Lazy</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="p">(()</span> <span class="p">=&gt;</span> <span class="n">GetStrFromWebService</span> <span class="p">());</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">public</span> <span class="n">String</span> <span class="n">Str</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">get</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="k">return</span> <span class="n">str</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>                    
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Lazy of T保证传入其中的Func只执行一次。</p>
-
-<p>（其实，Java也可以使用Guava中的memoize来实现类似的事情）</p>
-
-<p>要么自己写代码，要么通过库来实现。</p>
-
-<p>而Scala则在语言级别给出了解决方案：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">lazy</span> <span class="k">val</span> <span class="n">str</span> <span class="k">=</span> <span class="n">getStrFromWebService</span><span class="o">()</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>仅此一行。</p>
-
-<p>只要用lazy关键字修饰一下str，延迟执行的事就搞定了。</p>
-
-<p>其实Scala编译器做的事情和我们手动做的区别不大：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'>  <span class="kd">private</span> <span class="n">String</span> <span class="n">str</span><span class="o">;</span>
-</span><span class='line'>  <span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">bitmap$0</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">private</span> <span class="n">String</span> <span class="n">str$lzycompute</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>      <span class="k">if</span> <span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="na">bitmap</span><span class="n">$0</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>          <span class="k">this</span><span class="o">.</span><span class="na">str</span> <span class="o">=</span> <span class="n">getStrFromWebService</span><span class="o">();</span>
-</span><span class='line'>          <span class="k">this</span><span class="o">.</span><span class="na">bitmap</span><span class="n">$0</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-</span><span class='line'>      <span class="o">}</span>
-</span><span class='line'>      
-</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">str</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="n">String</span> <span class="nf">str</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">bitmap</span><span class="n">$0</span> <span class="o">?</span> <span class="k">this</span><span class="o">.</span><span class="na">str</span> <span class="o">:</span> <span class="n">str$lzycompute</span><span class="o">();</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>你看编译器多热心，还加了锁哦。</p>
-
-<p>小小总结一下：</p>
-
-<p>对于这样一个表达式：
-lazy val t:T = expr
-无论expr是什么东西，字面量也好，方法调用也好。Scala的编译器都会把这个expr包在一个方法中，并且生成一个flag来决定只在t第一次被访问时才调用该方法。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -1785,6 +1802,10 @@ lazy val t:T = expr
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/04/26/principles-of-reactive-programming-week-2/">Principles of Reactive Programming Week Two作业导学</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/04/22/twu-pecha-kucha/">twu pecha kucha</a>
@@ -1820,10 +1841,6 @@ lazy val t:T = expr
     
       <li class="post">
         <a href="/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/">Spark RDD的fold和aggregate为什么是两个API？为什么不是一个foldLeft？</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/">Scala中Stream的应用场景及其实现原理</a>
       </li>
     
   </ul>

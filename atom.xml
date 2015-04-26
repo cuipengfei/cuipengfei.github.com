@@ -4,7 +4,7 @@
   <title><![CDATA[崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2015-04-22T14:21:53+08:00</updated>
+  <updated>2015-04-26T21:48:51+05:30</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -14,9 +14,164 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Principles of Reactive Programming Week Two作业导学]]></title>
+    <link href="http://cuipengfei.github.com/blog/2015/04/26/principles-of-reactive-programming-week-2/"/>
+    <updated>2015-04-26T17:56:00+05:30</updated>
+    <id>http://cuipengfei.github.com/blog/2015/04/26/principles-of-reactive-programming-week-2</id>
+    <content type="html"><![CDATA[<h1>声明</h1>
+
+<p>这系列博文的目标读者仅限于报名参加了这门课并且看完了视频，看完了作业的instruction之后仍有困难的同学。</p>
+
+<p>这系列博文不会公布作业的答案，那是违反Coursera的code of honor的。</p>
+
+<p>我只会试着解释作业中已有的代码，以及应该如何入手。</p>
+
+<p>其实，写这个系列博文对我的帮助比对读者的帮助要大。</p>
+
+<p>这周的作业不太难，主要就是一个观察者模式。</p>
+
+<h1>Signal是怎么work的？</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">a</span> <span class="k">=</span> <span class="nc">Var</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+</span><span class='line'><span class="n">a</span><span class="k">:</span> <span class="kt">calculator.Var</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">calculator</span><span class="o">.</span><span class="nc">Var</span><span class="k">@</span><span class="mi">7</span><span class="n">ca6f5b9</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">b</span> <span class="k">=</span> <span class="nc">Var</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+</span><span class='line'><span class="n">b</span><span class="k">:</span> <span class="kt">calculator.Var</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">calculator</span><span class="o">.</span><span class="nc">Var</span><span class="k">@</span><span class="mi">2286</span><span class="n">d26</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">c</span> <span class="k">=</span> <span class="nc">Signal</span><span class="o">(</span><span class="n">a</span><span class="o">()</span> <span class="o">+</span> <span class="n">b</span><span class="o">())</span>
+</span><span class='line'><span class="n">c</span><span class="k">:</span> <span class="kt">calculator.Signal</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">calculator</span><span class="o">.</span><span class="nc">Signal</span><span class="k">@</span><span class="mi">5</span><span class="n">c60548d</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">c</span><span class="o">()</span>
+</span><span class='line'><span class="n">res8</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">3</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">a</span><span class="o">()</span><span class="k">=</span><span class="mi">10</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">c</span><span class="o">()</span>
+</span><span class='line'><span class="n">res10</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">12</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">b</span><span class="o">()</span><span class="k">=</span><span class="mi">20</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">c</span><span class="o">()</span>
+</span><span class='line'><span class="n">res12</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">30</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果能搞懂上面的代码是如何work的，作业题中需要用到Signal的地方就不会有太大问题了。</p>
+
+<p>a=1，b=2，c=a+b，所以c就是3。</p>
+
+<p>a变成10之后c就变成了12（10+2）。</p>
+
+<p>b再变成20之后，c就变成了30（10+29）。</p>
+
+<p>这个级联的变化是如何发生的呢？</p>
+
+<p>有两个关键点：</p>
+
+<ul>
+<li>Signal的constructor</li>
+<li>Signal的update方法</li>
+</ul>
+
+
+<p>先看Signal的constructor。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Signal</span><span class="o">[</span><span class="kt">T</span><span class="o">](</span><span class="n">expr</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="n">T</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="c1">//......</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以上是它的签名，关键在于expr的类型签名，expr的类型不是T，而是=>T。</p>
+
+<p>这就意味着expr可以是任何类型为T的表达式，可以是一个字面量，也可以是任意复杂的代码块。</p>
+
+<p>比如Signal(123)是可以的，Signal(complicatedMethodCall())也可以。</p>
+
+<p>最上面那块代码中的val c = Signal(a() + b())就属于后一种。</p>
+
+<p>a() + b()不会被立即求值成3然后传入Signal的constructor，而是整体作为一个可以被反复求值的表达式被记录在Signal的实例中。</p>
+
+<p>constructor的入口参数可以被反复求值是级联变化的基础，那是什么触发了真正的变化呢？</p>
+
+<p>那就是关键点之二：update方法。</p>
+
+<p>update方法的妙处在于，如果一个类A有update方法，那么：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="k">new</span> <span class="n">A</span><span class="o">()</span>
+</span><span class='line'><span class="n">x</span><span class="o">(</span><span class="n">y</span><span class="o">)</span><span class="k">=</span><span class="n">z</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在编译之后会变成这样：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="k">new</span> <span class="n">A</span><span class="o">()</span>
+</span><span class='line'><span class="n">x</span><span class="o">.</span><span class="n">update</span><span class="o">(</span><span class="n">y</span><span class="o">,</span><span class="n">z</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>详情请见我之前的一篇博客：<a href="http://cuipengfei.me/blog/2014/06/12/scala-update-method/">http://cuipengfei.me/blog/2014/06/12/scala-update-method/</a></p>
+
+<p>Signal的update方法是protected的，不可访问，所以它只可以从变，不可自变。</p>
+
+<p>而Var把update方法public出来了，这样，在下面这样的代码执行时：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">a</span><span class="o">()</span><span class="k">=</span><span class="mi">10</span>
+</span><span class='line'><span class="c1">//a.update(10)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>a就会通知它的observers去重新求值。
+这样就实现了a或者b这样的Var变化的时候，c这样的Signal跟着变化的效果。</p>
+
+<p>搞懂了上面的内容就足以去做作业了。</p>
+
+<h1>怎么和html页面结合起来的？</h1>
+
+<p>执行instruction里提到的webUI/fastOptJS这个task就会把Scala作业代码编译成js。</p>
+
+<p>这个task是scalajs这个dependency带进来的（在webui.sbt里）。</p>
+
+<p>webui这个项目里有一个CalculatorUI.scala文件，也会被编译成js。其中的代码就把作业代码和html的UI结合起来了。</p>
+
+<p>就是这样了，这周的作业不难懂也不太难做。</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[twu pecha kucha]]></title>
     <link href="http://cuipengfei.github.com/blog/2015/04/22/twu-pecha-kucha/"/>
-    <updated>2015-04-22T14:19:00+08:00</updated>
+    <updated>2015-04-22T14:19:00+05:30</updated>
     <id>http://cuipengfei.github.com/blog/2015/04/22/twu-pecha-kucha</id>
     <content type="html"><![CDATA[<iframe src="http://cuipengfei.github.com//slides.com/pengfeicui/deck-4/embed" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
@@ -26,7 +181,7 @@
   <entry>
     <title type="html"><![CDATA[Principles of Reactive Programming Week One作业导学]]></title>
     <link href="http://cuipengfei.github.com/blog/2015/04/19/principles-of-reactive-programming-week-one/"/>
-    <updated>2015-04-19T13:59:00+08:00</updated>
+    <updated>2015-04-19T13:59:00+05:30</updated>
     <id>http://cuipengfei.github.com/blog/2015/04/19/principles-of-reactive-programming-week-one</id>
     <content type="html"><![CDATA[<h1>前尘</h1>
 
@@ -221,7 +376,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   <entry>
     <title type="html"><![CDATA[English workshop Wuhan 2015.04.14]]></title>
     <link href="http://cuipengfei.github.com/blog/2015/04/11/wuhan-english-workshop/"/>
-    <updated>2015-04-11T14:28:00+08:00</updated>
+    <updated>2015-04-11T14:28:00+05:30</updated>
     <id>http://cuipengfei.github.com/blog/2015/04/11/wuhan-english-workshop</id>
     <content type="html"><![CDATA[<iframe src="http://cuipengfei.github.com//slides.com/pengfeicui/deck/embed" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
@@ -231,7 +386,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   <entry>
     <title type="html"><![CDATA[职业女性确实处于劣势吗？记一次不甚严谨的考据 -- 向胡适之先生的遥远致敬]]></title>
     <link href="http://cuipengfei.github.com/blog/2015/04/04/women-in-finance-it-and-r-and-d/"/>
-    <updated>2015-04-04T01:09:00+08:00</updated>
+    <updated>2015-04-04T01:09:00+05:30</updated>
     <id>http://cuipengfei.github.com/blog/2015/04/04/women-in-finance-it-and-r-and-d</id>
     <content type="html"><![CDATA[<h1>源起</h1>
 
@@ -532,7 +687,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   <entry>
     <title type="html"><![CDATA[2015第一季度]]></title>
     <link href="http://cuipengfei.github.com/blog/2015/03/29/2015-first-season/"/>
-    <updated>2015-03-29T17:48:00+08:00</updated>
+    <updated>2015-03-29T17:48:00+05:30</updated>
     <id>http://cuipengfei.github.com/blog/2015/03/29/2015-first-season</id>
     <content type="html"><![CDATA[<p>时间是以何种方式流逝的呢？</p>
 
@@ -609,7 +764,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   <entry>
     <title type="html"><![CDATA[Tech radar 武汉 microservice envy]]></title>
     <link href="http://cuipengfei.github.com/blog/2015/01/13/tech-radar-wuhan/"/>
-    <updated>2015-01-13T23:18:00+08:00</updated>
+    <updated>2015-01-13T23:18:00+05:30</updated>
     <id>http://cuipengfei.github.com/blog/2015/01/13/tech-radar-wuhan</id>
     <content type="html"><![CDATA[<iframe src="http://cuipengfei.github.com//slides.com/pengfeicui/microservice-envy/embed" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
@@ -619,7 +774,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   <entry>
     <title type="html"><![CDATA[2014年总结]]></title>
     <link href="http://cuipengfei.github.com/blog/2014/12/27/2014/"/>
-    <updated>2014-12-27T17:01:00+08:00</updated>
+    <updated>2014-12-27T17:01:00+05:30</updated>
     <id>http://cuipengfei.github.com/blog/2014/12/27/2014</id>
     <content type="html"><![CDATA[<p>2014年即将结束，需要做一些总结。</p>
 
@@ -707,7 +862,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   <entry>
     <title type="html"><![CDATA[2015武汉郑大晔校第二次课]]></title>
     <link href="http://cuipengfei.github.com/blog/2014/11/16/zdyx2015wuhansecondclass/"/>
-    <updated>2014-11-16T16:45:00+08:00</updated>
+    <updated>2014-11-16T16:45:00+05:30</updated>
     <id>http://cuipengfei.github.com/blog/2014/11/16/zdyx2015wuhansecondclass</id>
     <content type="html"><![CDATA[<iframe src="http://cuipengfei.github.com//slides.com/pengfeicui/285849/embed" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
@@ -717,7 +872,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   <entry>
     <title type="html"><![CDATA[Spark RDD的fold和aggregate为什么是两个API？为什么不是一个foldLeft？]]></title>
     <link href="http://cuipengfei.github.com/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/"/>
-    <updated>2014-10-31T15:29:00+08:00</updated>
+    <updated>2014-10-31T15:29:00+05:30</updated>
     <id>http://cuipengfei.github.com/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft</id>
     <content type="html"><![CDATA[<p>大家都知道Scala标准库的List有一个用来做聚合操作的foldLeft方法。</p>
 
@@ -850,7 +1005,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   <entry>
     <title type="html"><![CDATA[Scala中Stream的应用场景及其实现原理]]></title>
     <link href="http://cuipengfei.github.com/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/"/>
-    <updated>2014-10-23T17:21:00+08:00</updated>
+    <updated>2014-10-23T17:21:00+05:30</updated>
     <id>http://cuipengfei.github.com/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented</id>
     <content type="html"><![CDATA[<h1>假设一个场景</h1>
 
@@ -1419,7 +1574,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   <entry>
     <title type="html"><![CDATA[solving regular problems in scala]]></title>
     <link href="http://cuipengfei.github.com/blog/2014/09/06/solving-regular-problems-in-scala/"/>
-    <updated>2014-09-06T20:28:00+08:00</updated>
+    <updated>2014-09-06T20:28:00+05:30</updated>
     <id>http://cuipengfei.github.com/blog/2014/09/06/solving-regular-problems-in-scala</id>
     <content type="html"><![CDATA[<iframe src="http://cuipengfei.github.com//slides.com/pengfeicui/solving-regular-problems-in-scala/embed" width="800" height="600" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
@@ -1429,7 +1584,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   <entry>
     <title type="html"><![CDATA[Desugar Scala(17) -- Option和for，以及脑子里发生的事情]]></title>
     <link href="http://cuipengfei.github.com/blog/2014/08/30/options-for/"/>
-    <updated>2014-08-30T11:36:00+08:00</updated>
+    <updated>2014-08-30T11:36:00+05:30</updated>
     <id>http://cuipengfei.github.com/blog/2014/08/30/options-for</id>
     <content type="html"><![CDATA[<p>Scala里的for关键字是个很有趣的东西。可以用来把多层嵌套for循环写成一层。比如这样：</p>
 
@@ -1626,7 +1781,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   <entry>
     <title type="html"><![CDATA[大理]]></title>
     <link href="http://cuipengfei.github.com/blog/2014/08/10/da-li/"/>
-    <updated>2014-08-10T20:38:00+08:00</updated>
+    <updated>2014-08-10T20:38:00+05:30</updated>
     <id>http://cuipengfei.github.com/blog/2014/08/10/da-li</id>
     <content type="html"><![CDATA[<p>昆明机场，等待去大理的飞机</p>
 
@@ -1846,7 +2001,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   <entry>
     <title type="html"><![CDATA[在使用play framework的evolutions？需要支持SQL Server？用Liquibase吧]]></title>
     <link href="http://cuipengfei.github.com/blog/2014/07/18/play-evolutions-to-liquibase/"/>
-    <updated>2014-07-18T15:11:00+08:00</updated>
+    <updated>2014-07-18T15:11:00+05:30</updated>
     <id>http://cuipengfei.github.com/blog/2014/07/18/play-evolutions-to-liquibase</id>
     <content type="html"><![CDATA[<p>我所在的项目在用Scala + Play framework做一个web app。</p>
 
@@ -1963,7 +2118,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   <entry>
     <title type="html"><![CDATA[论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的]]></title>
     <link href="http://cuipengfei.github.com/blog/2014/06/28/scala-java-interop-trait-with-impl/"/>
-    <updated>2014-06-28T12:55:00+08:00</updated>
+    <updated>2014-06-28T12:55:00+05:30</updated>
     <id>http://cuipengfei.github.com/blog/2014/06/28/scala-java-interop-trait-with-impl</id>
     <content type="html"><![CDATA[<p>最近还是在看郑大翻译的《Scala程序设计》，其中第十一章还有一句话：</p>
 
@@ -2118,7 +2273,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   <entry>
     <title type="html"><![CDATA[论“如果Scala类有方法接收闭包，这些方法在Java里就不可用，因为Java目前尚不支持闭包。”这句话是错的]]></title>
     <link href="http://cuipengfei.github.com/blog/2014/06/27/scala-java-interop-closure/"/>
-    <updated>2014-06-27T20:54:00+08:00</updated>
+    <updated>2014-06-27T20:54:00+05:30</updated>
     <id>http://cuipengfei.github.com/blog/2014/06/27/scala-java-interop-closure</id>
     <content type="html"><![CDATA[<p>最近在看郑大翻译的《Scala程序设计》，其中第十一章有一句话：</p>
 
@@ -2247,7 +2402,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   <entry>
     <title type="html"><![CDATA[Scala + Play + sbt + Protractor = one build]]></title>
     <link href="http://cuipengfei.github.com/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/"/>
-    <updated>2014-06-22T17:00:00+08:00</updated>
+    <updated>2014-06-22T17:00:00+05:30</updated>
     <id>http://cuipengfei.github.com/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build</id>
     <content type="html"><![CDATA[<p>我所在的项目的技术栈选用的是Play framework做后端API，前端用Angular JS。</p>
 
@@ -2441,7 +2596,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   <entry>
     <title type="html"><![CDATA[Desugar Scala(16) -- lower bound]]></title>
     <link href="http://cuipengfei.github.com/blog/2014/06/21/desugar-scala-lower-bound/"/>
-    <updated>2014-06-21T11:32:00+08:00</updated>
+    <updated>2014-06-21T11:32:00+05:30</updated>
     <id>http://cuipengfei.github.com/blog/2014/06/21/desugar-scala-lower-bound</id>
     <content type="html"><![CDATA[<p>Lower bound，不知道这个词的确切中文翻译是怎样的。我们直接看例子吧。</p>
 
@@ -2598,7 +2753,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   <entry>
     <title type="html"><![CDATA[Desugar Scala(15) -- unapply和unapplySeq方法]]></title>
     <link href="http://cuipengfei.github.com/blog/2014/06/14/scala-unapply-method/"/>
-    <updated>2014-06-14T14:46:00+08:00</updated>
+    <updated>2014-06-14T14:46:00+05:30</updated>
     <id>http://cuipengfei.github.com/blog/2014/06/14/scala-unapply-method</id>
     <content type="html"><![CDATA[<p>实在想不到什么动词可以当做脱衣服来讲了，所以从现在开始这系列博文就叫做Desugar Scala了。除非哪天才思泉涌，又想到了新词：）</p>
 
@@ -2756,140 +2911,6 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
 
 
 <p>如果没有unapplySeq方法和pattern match语法之间的这种结合，我们自己写代码来做这五件事会显得很是繁琐。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[抹掉Scala的糖衣(14) -- update method]]></title>
-    <link href="http://cuipengfei.github.com/blog/2014/06/12/scala-update-method/"/>
-    <updated>2014-06-12T18:42:00+08:00</updated>
-    <id>http://cuipengfei.github.com/blog/2014/06/12/scala-update-method</id>
-    <content type="html"><![CDATA[<p>在Scala中，名字叫做update的方法是有特殊作用的。</p>
-
-<p>比如：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">scores</span> <span class="k">=</span> <span class="k">new</span> <span class="n">scala</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">mutable</span><span class="o">.</span><span class="nc">HashMap</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">]</span>
-</span><span class='line'><span class="n">scores</span><span class="o">(</span><span class="s">&quot;Bob&quot;</span><span class="o">)</span> <span class="k">=</span> <span class="mi">100</span>
-</span><span class='line'><span class="k">val</span> <span class="n">bobsScore</span> <span class="k">=</span> <span class="n">scores</span><span class="o">(</span><span class="s">&quot;Bob&quot;</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>以上三行代码，我们创建了一个可变的map来存储得分情况，然后我们记录了Bob的得分是100分，最后我们又把Bob的分数取出来了。</p>
-
-<p>这三行代码看似平淡无奇，实则暗藏了一点点玄机。</p>
-
-<p>第二行实际是调用了HashMap的update方法。</p>
-
-<p>第三行实际是调用了HashMap的apply方法。</p>
-
-<p>我们可以把上面的代码改写成下面的等价形式：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">scores</span> <span class="k">=</span> <span class="k">new</span> <span class="n">scala</span><span class="o">.</span><span class="n">collection</span><span class="o">.</span><span class="n">mutable</span><span class="o">.</span><span class="nc">HashMap</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">]</span>
-</span><span class='line'><span class="n">scores</span><span class="o">.</span><span class="n">update</span><span class="o">(</span><span class="s">&quot;Bob&quot;</span><span class="o">,</span> <span class="mi">100</span><span class="o">)</span>
-</span><span class='line'><span class="k">val</span> <span class="n">bobsScore</span> <span class="k">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">apply</span><span class="o">(</span><span class="err">&quot;</span><span class="nc">Bob</span><span class="err">”</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>虽然等价，但是可读性却降低了一些。</p>
-
-<p>apply方法我们之前讲过，就不再赘述。</p>
-
-<p>update方法也不太复杂，它的规则就是：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">x</span><span class="o">(</span><span class="n">y</span><span class="o">)</span> <span class="k">=</span> <span class="n">z</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样的代码会被编译为：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">x</span><span class="o">.</span><span class="n">update</span><span class="o">(</span><span class="n">y</span><span class="o">,</span> <span class="n">z</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这次博文名字虽然以抹掉糖衣开头，实则有点名不符实，因为这个语言特性过于简单，糖衣很薄，一抹就透。</p>
-
-<p>这次的目的主要是介绍一个update方法的适用场景。</p>
-
-<p>我们来看用来修改某个人地址的一段代码：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">AddressChanger</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">update</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">age</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">newAddress</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;changing address of $name, whose age is $age to $newAddress&quot;</span><span class="o">)</span>
-</span><span class='line'>    <span class="c1">//actually change the address</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我们可以这样来调用它：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">changer</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">AddressChanger</span><span class="o">()</span>
-</span><span class='line'><span class="n">changer</span><span class="o">.</span><span class="n">update</span><span class="o">(</span><span class="s">&quot;xiao ming&quot;</span><span class="o">,</span> <span class="mi">23</span><span class="o">,</span> <span class="s">&quot;beijing&quot;</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>或者，我们也可以这样来调用它：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">addressOf</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">AddressChanger</span><span class="o">()</span>
-</span><span class='line'><span class="n">addressOf</span><span class="o">(</span><span class="n">name</span> <span class="k">=</span> <span class="s">&quot;xiao ming&quot;</span><span class="o">,</span> <span class="n">age</span> <span class="k">=</span> <span class="mi">23</span><span class="o">)</span> <span class="k">=</span> <span class="s">&quot;beijing&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这两段代码是等价的。</p>
-
-<p>比较一下，前一种用法显得中规中矩，没什么特别好的，也没啥特大的毛病。</p>
-
-<p>可是后一种用法就不同了，读起来很通顺，有读英语语句的感觉：把名字叫做小明，年龄23岁的人的地址改为北京。</p>
-
-<p>如果再给AddressChanger加上一个apply方法，我们还可以写这样的代码：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">currentAddress</span> <span class="k">=</span> <span class="n">addressOf</span><span class="o">(</span><span class="n">name</span> <span class="k">=</span> <span class="s">&quot;xiao ming&quot;</span><span class="o">,</span> <span class="n">age</span> <span class="k">=</span> <span class="mi">23</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样，读取和更新的代码都看起来非常自然。</p>
-
-<p>如果我们把这两段代码连起来看：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">currentAddress</span> <span class="k">=</span> <span class="n">addressOf</span><span class="o">(</span><span class="n">name</span> <span class="k">=</span> <span class="s">&quot;xiao ming&quot;</span><span class="o">,</span> <span class="n">age</span> <span class="k">=</span> <span class="mi">23</span><span class="o">)</span>
-</span><span class='line'><span class="n">addressOf</span><span class="o">(</span><span class="n">name</span> <span class="k">=</span> <span class="s">&quot;xiao ming&quot;</span><span class="o">,</span> <span class="n">age</span> <span class="k">=</span> <span class="mi">23</span><span class="o">)</span> <span class="k">=</span> <span class="s">&quot;beijing&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>感觉甚好。</p>
-
-<p>addressOf(name = &#8220;xiao ming&#8221;, age = 23)可以看做一个整体，它就如同一个可读可写的属性。</p>
-
-<p>我们把它放到赋值语句的右侧，就能取到小明的当前住址。</p>
-
-<p>我们把它放到赋值语句的左侧，就能修改小明的住址。</p>
-
-<p>apply和update都是蛮简单的语言特性，但是加以合适的应用，却能得到可读性极强的代码。</p>
 ]]></content>
   </entry>
   

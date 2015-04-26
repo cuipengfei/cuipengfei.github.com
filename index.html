@@ -9,7 +9,7 @@
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content=" ">
+  <meta name="description" content="声明 这系列博文的目标读者仅限于报名参加了这门课并且看完了视频，看完了作业的instruction之后仍有困难的同学。 这系列博文不会公布作业的答案，那是违反Coursera的code of honor的。 我只会试着解释作业中已有的代码，以及应该如何入手。 其实， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +80,190 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2015/04/26/principles-of-reactive-programming-week-2/">Principles of Reactive Programming Week Two作业导学</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-04-26T17:56:00+05:30" pubdate data-updated="true">Apr 26<span>th</span>, 2015</time>
+        
+         | <a href="/blog/2015/04/26/principles-of-reactive-programming-week-2/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>声明</h1>
+
+<p>这系列博文的目标读者仅限于报名参加了这门课并且看完了视频，看完了作业的instruction之后仍有困难的同学。</p>
+
+<p>这系列博文不会公布作业的答案，那是违反Coursera的code of honor的。</p>
+
+<p>我只会试着解释作业中已有的代码，以及应该如何入手。</p>
+
+<p>其实，写这个系列博文对我的帮助比对读者的帮助要大。</p>
+
+<p>这周的作业不太难，主要就是一个观察者模式。</p>
+
+<h1>Signal是怎么work的？</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">a</span> <span class="k">=</span> <span class="nc">Var</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+</span><span class='line'><span class="n">a</span><span class="k">:</span> <span class="kt">calculator.Var</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">calculator</span><span class="o">.</span><span class="nc">Var</span><span class="k">@</span><span class="mi">7</span><span class="n">ca6f5b9</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">b</span> <span class="k">=</span> <span class="nc">Var</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+</span><span class='line'><span class="n">b</span><span class="k">:</span> <span class="kt">calculator.Var</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">calculator</span><span class="o">.</span><span class="nc">Var</span><span class="k">@</span><span class="mi">2286</span><span class="n">d26</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">c</span> <span class="k">=</span> <span class="nc">Signal</span><span class="o">(</span><span class="n">a</span><span class="o">()</span> <span class="o">+</span> <span class="n">b</span><span class="o">())</span>
+</span><span class='line'><span class="n">c</span><span class="k">:</span> <span class="kt">calculator.Signal</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">calculator</span><span class="o">.</span><span class="nc">Signal</span><span class="k">@</span><span class="mi">5</span><span class="n">c60548d</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">c</span><span class="o">()</span>
+</span><span class='line'><span class="n">res8</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">3</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">a</span><span class="o">()</span><span class="k">=</span><span class="mi">10</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">c</span><span class="o">()</span>
+</span><span class='line'><span class="n">res10</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">12</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">b</span><span class="o">()</span><span class="k">=</span><span class="mi">20</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">c</span><span class="o">()</span>
+</span><span class='line'><span class="n">res12</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">30</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果能搞懂上面的代码是如何work的，作业题中需要用到Signal的地方就不会有太大问题了。</p>
+
+<p>a=1，b=2，c=a+b，所以c就是3。</p>
+
+<p>a变成10之后c就变成了12（10+2）。</p>
+
+<p>b再变成20之后，c就变成了30（10+29）。</p>
+
+<p>这个级联的变化是如何发生的呢？</p>
+
+<p>有两个关键点：</p>
+
+<ul>
+<li>Signal的constructor</li>
+<li>Signal的update方法</li>
+</ul>
+
+
+<p>先看Signal的constructor。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Signal</span><span class="o">[</span><span class="kt">T</span><span class="o">](</span><span class="n">expr</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="n">T</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="c1">//......</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以上是它的签名，关键在于expr的类型签名，expr的类型不是T，而是=>T。</p>
+
+<p>这就意味着expr可以是任何类型为T的表达式，可以是一个字面量，也可以是任意复杂的代码块。</p>
+
+<p>比如Signal(123)是可以的，Signal(complicatedMethodCall())也可以。</p>
+
+<p>最上面那块代码中的val c = Signal(a() + b())就属于后一种。</p>
+
+<p>a() + b()不会被立即求值成3然后传入Signal的constructor，而是整体作为一个可以被反复求值的表达式被记录在Signal的实例中。</p>
+
+<p>constructor的入口参数可以被反复求值是级联变化的基础，那是什么触发了真正的变化呢？</p>
+
+<p>那就是关键点之二：update方法。</p>
+
+<p>update方法的妙处在于，如果一个类A有update方法，那么：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="k">new</span> <span class="n">A</span><span class="o">()</span>
+</span><span class='line'><span class="n">x</span><span class="o">(</span><span class="n">y</span><span class="o">)</span><span class="k">=</span><span class="n">z</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在编译之后会变成这样：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">x</span> <span class="k">=</span> <span class="k">new</span> <span class="n">A</span><span class="o">()</span>
+</span><span class='line'><span class="n">x</span><span class="o">.</span><span class="n">update</span><span class="o">(</span><span class="n">y</span><span class="o">,</span><span class="n">z</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>详情请见我之前的一篇博客：<a href="http://cuipengfei.me/blog/2014/06/12/scala-update-method/">http://cuipengfei.me/blog/2014/06/12/scala-update-method/</a></p>
+
+<p>Signal的update方法是protected的，不可访问，所以它只可以从变，不可自变。</p>
+
+<p>而Var把update方法public出来了，这样，在下面这样的代码执行时：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">a</span><span class="o">()</span><span class="k">=</span><span class="mi">10</span>
+</span><span class='line'><span class="c1">//a.update(10)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>a就会通知它的observers去重新求值。
+这样就实现了a或者b这样的Var变化的时候，c这样的Signal跟着变化的效果。</p>
+
+<p>搞懂了上面的内容就足以去做作业了。</p>
+
+<h1>怎么和html页面结合起来的？</h1>
+
+<p>执行instruction里提到的webUI/fastOptJS这个task就会把Scala作业代码编译成js。</p>
+
+<p>这个task是scalajs这个dependency带进来的（在webui.sbt里）。</p>
+
+<p>webui这个项目里有一个CalculatorUI.scala文件，也会被编译成js。其中的代码就把作业代码和html的UI结合起来了。</p>
+
+<p>就是这样了，这周的作业不难懂也不太难做。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2015/04/22/twu-pecha-kucha/">Twu Pecha Kucha</a></h1>
     
     
@@ -96,7 +280,7 @@
   
 
 
-<time datetime="2015-04-22T14:19:00+08:00" pubdate data-updated="true">Apr 22<span>nd</span>, 2015</time>
+<time datetime="2015-04-22T14:19:00+05:30" pubdate data-updated="true">Apr 22<span>nd</span>, 2015</time>
         
          | <a href="/blog/2015/04/22/twu-pecha-kucha/#disqus_thread">Comments</a>
         
@@ -135,7 +319,7 @@
   
 
 
-<time datetime="2015-04-19T13:59:00+08:00" pubdate data-updated="true">Apr 19<span>th</span>, 2015</time>
+<time datetime="2015-04-19T13:59:00+05:30" pubdate data-updated="true">Apr 19<span>th</span>, 2015</time>
         
          | <a href="/blog/2015/04/19/principles-of-reactive-programming-week-one/#disqus_thread">Comments</a>
         
@@ -359,7 +543,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   
 
 
-<time datetime="2015-04-11T14:28:00+08:00" pubdate data-updated="true">Apr 11<span>th</span>, 2015</time>
+<time datetime="2015-04-11T14:28:00+05:30" pubdate data-updated="true">Apr 11<span>th</span>, 2015</time>
         
          | <a href="/blog/2015/04/11/wuhan-english-workshop/#disqus_thread">Comments</a>
         
@@ -398,7 +582,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   
 
 
-<time datetime="2015-04-04T01:09:00+08:00" pubdate data-updated="true">Apr 4<span>th</span>, 2015</time>
+<time datetime="2015-04-04T01:09:00+05:30" pubdate data-updated="true">Apr 4<span>th</span>, 2015</time>
         
          | <a href="/blog/2015/04/04/women-in-finance-it-and-r-and-d/#disqus_thread">Comments</a>
         
@@ -728,7 +912,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   
 
 
-<time datetime="2015-03-29T17:48:00+08:00" pubdate data-updated="true">Mar 29<span>th</span>, 2015</time>
+<time datetime="2015-03-29T17:48:00+05:30" pubdate data-updated="true">Mar 29<span>th</span>, 2015</time>
         
          | <a href="/blog/2015/03/29/2015-first-season/#disqus_thread">Comments</a>
         
@@ -834,7 +1018,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   
 
 
-<time datetime="2015-01-13T23:18:00+08:00" pubdate data-updated="true">Jan 13<span>th</span>, 2015</time>
+<time datetime="2015-01-13T23:18:00+05:30" pubdate data-updated="true">Jan 13<span>th</span>, 2015</time>
         
          | <a href="/blog/2015/01/13/tech-radar-wuhan/#disqus_thread">Comments</a>
         
@@ -873,7 +1057,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   
 
 
-<time datetime="2014-12-27T17:01:00+08:00" pubdate data-updated="true">Dec 27<span>th</span>, 2014</time>
+<time datetime="2014-12-27T17:01:00+05:30" pubdate data-updated="true">Dec 27<span>th</span>, 2014</time>
         
          | <a href="/blog/2014/12/27/2014/#disqus_thread">Comments</a>
         
@@ -990,7 +1174,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   
 
 
-<time datetime="2014-11-16T16:45:00+08:00" pubdate data-updated="true">Nov 16<span>th</span>, 2014</time>
+<time datetime="2014-11-16T16:45:00+05:30" pubdate data-updated="true">Nov 16<span>th</span>, 2014</time>
         
          | <a href="/blog/2014/11/16/zdyx2015wuhansecondclass/#disqus_thread">Comments</a>
         
@@ -1029,7 +1213,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   
 
 
-<time datetime="2014-10-31T15:29:00+08:00" pubdate data-updated="true">Oct 31<span>st</span>, 2014</time>
+<time datetime="2014-10-31T15:29:00+05:30" pubdate data-updated="true">Oct 31<span>st</span>, 2014</time>
         
          | <a href="/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/#disqus_thread">Comments</a>
         
@@ -1170,604 +1354,6 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/">Scala中Stream的应用场景及其实现原理</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-23T17:21:00+08:00" pubdate data-updated="true">Oct 23<span>rd</span>, 2014</time>
-        
-         | <a href="/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>假设一个场景</h1>
-
-<p>需要在50个随机数中找到前两个可以被3整除的数字。</p>
-
-<p>听起来很简单，我们可以这样来写：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">def</span> <span class="n">randomList</span> <span class="k">=</span> <span class="o">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">50</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Random</span><span class="o">.</span><span class="n">nextInt</span><span class="o">(</span><span class="mi">100</span><span class="o">)).</span><span class="n">toList</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="n">isDivisibleBy3</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">val</span> <span class="n">isDivisible</span> <span class="k">=</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span>
-</span><span class='line'>  <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;$n $isDivisible&quot;</span><span class="o">)</span>
-</span><span class='line'>  <span class="n">isDivisible</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">randomList</span><span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="n">isDivisibleBy3</span><span class="o">).</span><span class="n">take</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>一个产生50个随机数的函数；</p>
-
-<p>一个检查某数字是否能被3整除的函数；</p>
-
-<p>最后，对含有50个随机数的List做filter操作，找到其中所有能够被3整除的数字，取其中前两个。</p>
-
-<p>把这段代码在Scala的console里面跑一下，结果是这样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">randomList</span><span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="n">isDivisibleBy3</span><span class="o">).</span><span class="n">take</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
-</span><span class='line'><span class="mi">31</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">71</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">95</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">7</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">38</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">48</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">88</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">52</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">2</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">27</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">90</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">55</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">96</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">91</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">82</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">83</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">8</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">51</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">96</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">27</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">12</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">76</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">17</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">53</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">54</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">70</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">29</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">49</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">12</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">83</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">18</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">6</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">7</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">76</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">51</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">95</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">76</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">85</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">87</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">84</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">44</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">44</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">89</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">84</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">42</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">44</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">0</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">23</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">35</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">55</span> <span class="kc">false</span>
-</span><span class='line'><span class="n">res34</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="mi">48</span><span class="o">,</span> <span class="mi">27</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>其最终结果固然是没有问题，找到了48和27这两个数字。但是非常明显的可以看出，isDivisibleBy3被调用了50次，找到了远多于两个的能被3整除的数字，但是最后我们只关心其中前两个结果。</p>
-
-<p>这似乎有点浪费，做了很多多余的运算。</p>
-
-<p>对于这个例子来说，这还没什么，我们的List很小，判断整除于否也不是什么耗时操作。</p>
-
-<p>但是如果List很大，filter时所做的运算很复杂的话，那这种做法就不可取了。</p>
-
-<h1>现有解法的优缺点</h1>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">randomList</span><span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="n">isDivisibleBy3</span><span class="o">).</span><span class="n">take</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这行代码有一个优点：</p>
-
-<p>用描述性、声明性的语言描述了我们要做的事是什么，而无需描述怎么做。我们只需说先用filter过滤一下，然后拿前两个，整件事就完成了。</p>
-
-<p>但是它同时也有一个缺点：</p>
-
-<p>做了多余的运算，浪费资源，而且这个缺点会随着数据量的增大以及计算复杂度的增加而更为凸显。</p>
-
-<h1>试着解决其缺点</h1>
-
-<p>解决多余运算的思路很简单，不要过滤完整个List之后再取前两个。而是在过滤的过程中如果发现已经找到两个了，那剩下的就忽略掉不管了。</p>
-
-<p>顺着这个思路很容易写出如下很像Java的代码：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">def</span> <span class="n">first2UsingMutable</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">val</span> <span class="n">result</span> <span class="k">=</span> <span class="nc">ListBuffer</span><span class="o">[</span><span class="kt">Int</span><span class="o">]()</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">randomList</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">n</span> <span class="k">=&gt;</span> <span class="o">{</span>
-</span><span class='line'>      <span class="k">if</span> <span class="o">(</span><span class="n">isDivisibleBy3</span><span class="o">(</span><span class="n">n</span><span class="o">))</span> <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="o">(</span><span class="n">n</span><span class="o">)</span>
-</span><span class='line'>      <span class="k">if</span> <span class="o">(</span><span class="n">result</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">2</span><span class="o">)</span> <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">toList</span>
-</span><span class='line'>    <span class="o">})</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">result</span><span class="o">.</span><span class="n">toList</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>创建一个可变的List，开始遍历随机数，找到能被3整除的就把它塞进可变List里面去，找够了两个就返回。</p>
-
-<p>执行的结果如下：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">first2UsingMutable</span>
-</span><span class='line'><span class="mi">31</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">89</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">21</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">29</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">12</span> <span class="kc">true</span>
-</span><span class='line'><span class="n">res35</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="mi">21</span><span class="o">,</span> <span class="mi">12</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可以看到，运算量确实变少了，找够了两个就直接收工了。</p>
-
-<p>但是这实在很糟糕，显式使用了return同时还引入了可变量。</p>
-
-<p>有什么东西像是一个foreach循环而又可以不引入可变量呢？fold</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">def</span> <span class="n">first2UsingFold</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">randomList</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="nc">Nil</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])((</span><span class="n">acc</span><span class="o">,</span> <span class="n">n</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">{</span>
-</span><span class='line'>      <span class="k">if</span> <span class="o">(</span><span class="n">acc</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">2</span><span class="o">)</span> <span class="k">return</span> <span class="n">acc</span>
-</span><span class='line'>      <span class="k">if</span> <span class="o">(</span><span class="n">isDivisibleBy3</span><span class="o">(</span><span class="n">n</span><span class="o">))</span> <span class="n">n</span> <span class="o">::</span> <span class="n">acc</span>
-</span><span class='line'>      <span class="k">else</span> <span class="n">acc</span>
-</span><span class='line'>    <span class="o">})</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>执行：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">first2UsingFold</span>
-</span><span class='line'><span class="mi">98</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">77</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">68</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">93</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">93</span> <span class="kc">true</span>
-</span><span class='line'><span class="n">res36</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="mi">93</span><span class="o">,</span> <span class="mi">93</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>效果和上面一段代码类似，没有多余的运算。但是由于需要early termination，所以还是摆脱不了return。</p>
-
-<p>这两种解法在去除多余运算这个缺点的同时也把原来的优点给丢掉了，我们又退化回了描述如何做而不是做什么的程度了。</p>
-
-<h1>如何保持代码的表意性而又不用做多余运算呢？</h1>
-
-<p>其实类似的问题是有套路化的解决方案的：使用Stream。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">randomList</span><span class="o">.</span><span class="n">toStream</span><span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="n">isDivisibleBy3</span><span class="o">).</span><span class="n">take</span><span class="o">(</span><span class="mi">2</span><span class="o">).</span><span class="n">toList</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这行代码执行的结果：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">randomList</span><span class="o">.</span><span class="n">toStream</span><span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="n">isDivisibleBy3</span><span class="o">).</span><span class="n">take</span><span class="o">(</span><span class="mi">2</span><span class="o">).</span><span class="n">toList</span>
-</span><span class='line'><span class="mi">86</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">15</span> <span class="kc">true</span>
-</span><span class='line'><span class="mi">53</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">20</span> <span class="kc">false</span>
-</span><span class='line'><span class="mi">93</span> <span class="kc">true</span>
-</span><span class='line'><span class="n">res42</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="mi">15</span><span class="o">,</span> <span class="mi">93</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可见没有多余运算了，而且这行代码和最初代码极为相似，都是通过描述先做filter再做take来完成任务的。缺点没有了，优点也保留了下来。</p>
-
-<p>这同样都是filter和take，代码跟代码的差距咋就这么大呢？</p>
-
-<p>答案就是：因为Stream利用了惰性求值（lazy evaluation），或者也可以称之为延迟执行（deferred execution）。</p>
-
-<p>接下来就看一下这两个晦涩的名词是如何帮助Stream完成工作的吧。</p>
-
-<h1>实现原理</h1>
-
-<p>在这里我借用一下Functional programming in Scala这本书里对Stream实现的代码，之所以不用Scala标准库的源码是因为我们只需要实现filter，take和toList这三个方法就可以展示Stream的原理，就不需要动用重型武器了。</p>
-
-<p>先假设我们自己实现了一个MyStream，它的用法和Stream是类似的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="nc">MyStream</span><span class="o">(</span><span class="n">randomList</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">).</span><span class="n">filter</span><span class="o">(</span><span class="n">isDivisibleBy3</span><span class="o">).</span><span class="n">take</span><span class="o">(</span><span class="mi">2</span><span class="o">).</span><span class="n">toList</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>以这一行代码为引子，我们来开始解剖MyStream是如何工作的。</p>
-
-<h1>类型签名</h1>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">trait</span> <span class="nc">MyStream</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="o">{</span>
-</span><span class='line'>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">case</span> <span class="k">object</span> <span class="nc">Empty</span> <span class="k">extends</span> <span class="nc">MyStream</span><span class="o">[</span><span class="kt">Nothing</span><span class="o">]</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Cons</span><span class="o">[</span><span class="kt">+A</span><span class="o">](</span><span class="n">h</span><span class="k">:</span> <span class="o">()</span> <span class="o">=&gt;</span> <span class="n">A</span><span class="o">,</span> <span class="n">t</span><span class="k">:</span> <span class="o">()</span> <span class="o">=&gt;</span> <span class="nc">MyStream</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="k">extends</span> <span class="nc">MyStream</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>一个trait叫做MyStream，其中的内容我们暂时忽略掉。</p>
-
-<p>它有两个子类，一个Cons，一个Empty。Empty当然是代表空Stream了。</p>
-
-<p>而Cons则是头尾结构的，头是Stream中的一个元素，尾是Stream中余下的元素。请注意头和尾这两个参数的类型并不是A，头的类型是一个能够返回A的函数，尾的类型是一个能够返回MyStream[A]的函数。</p>
-
-<h1>初始化</h1>
-
-<p>有了以上的类型定义以及头尾结构，我们就可以把很多个Cons加一个Empty（或者是无限多个Cons，没有Empty）连起来就构成一个Stream了，比如这样：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="nc">Cons</span><span class="o">(()</span><span class="k">=&gt;</span><span class="mi">1</span><span class="o">,()</span><span class="k">=&gt;</span><span class="nc">Cons</span><span class="o">(()</span><span class="k">=&gt;</span><span class="mi">2</span><span class="o">,()</span><span class="k">=&gt;</span><span class="nc">Empty</span><span class="o">))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样就可以构造一个含有1，2的Stream了。</p>
-
-<p>不过，请注意，上面的说法并不严谨，实际上它是一个包含着两个分别会返回1和2的函数的Stream。</p>
-
-<p>也就是说当上面的代码在构造Cons的时候，1和2还没有“出生”，它们被包在一个函数里，等着被释放出来。</p>
-
-<p>如果说我们通常熟知的一些集合包含的是花朵的话，那Stream所包含的就是花苞，它本身不是花，但是有开出花来的能力。</p>
-
-<h1>Smart初始化</h1>
-
-<p>当然，如果直接暴露Cons的构造函数出去给别人用的话，那这API也未免太不友好了，所以Stream需要提供一个易用的初始化的方式：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">MyStream</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">apply</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">elems</span><span class="k">:</span> <span class="kt">A*</span><span class="o">)</span><span class="k">:</span> <span class="kt">MyStream</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">elems</span><span class="o">.</span><span class="n">isEmpty</span><span class="o">)</span> <span class="n">empty</span>
-</span><span class='line'>    <span class="k">else</span> <span class="n">cons</span><span class="o">(</span><span class="n">elems</span><span class="o">.</span><span class="n">head</span><span class="o">,</span> <span class="n">apply</span><span class="o">(</span><span class="n">elems</span><span class="o">.</span><span class="n">tail</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">))</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">cons</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">hd</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="n">A</span><span class="o">,</span> <span class="n">tl</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">MyStream</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">MyStream</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">lazy</span> <span class="k">val</span> <span class="n">head</span> <span class="k">=</span> <span class="n">hd</span>
-</span><span class='line'>    <span class="k">lazy</span> <span class="k">val</span> <span class="n">tail</span> <span class="k">=</span> <span class="n">tl</span>
-</span><span class='line'>    <span class="nc">Cons</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="n">head</span><span class="o">,</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="n">tail</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">empty</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span><span class="k">:</span> <span class="kt">MyStream</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Empty</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这个没有太多好解释的，我们就是用apply和小写的cons这两个方法来把客户代码原本要写的一大堆匿名函数给代劳掉。</p>
-
-<p>需要注意的一点是apply方法看似是递归的，好像是你调用它的时候如果给它n个元素的话，它会自己调用自己n-1次。事实上它确实会调用自己n-1次，但是并不是立即发生的，为什么呢？</p>
-
-<p>因为小写的cons方法所接受的第二个参数不是eager evaluation的，这就会使得apply(elems.tail: _*)这个表达式不会立即被求值。这就意味着，apply缺失会被调用n次，但是这n次并不是一次接一次连续发生的，它只会在我们对一个Cons的尾巴求值时才会发生一次。</p>
-
-<p>如果说普通的集合中包含的是数据的话，那Stream中所包含的就是能够产生数据的算法。</p>
-
-<p>如何？是不是花朵花苞的感觉又回来了？</p>
-
-<p>还记得我们开始剖析的时候那句代码是什么吗？</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="nc">MyStream</span><span class="o">(</span><span class="n">randomList</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">).</span><span class="n">filter</span><span class="o">(</span><span class="n">isDivisibleBy3</span><span class="o">).</span><span class="n">take</span><span class="o">(</span><span class="mi">2</span><span class="o">).</span><span class="n">toList</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>现在我们算是把MyStream(randomList: _*)这一小点说清了。</p>
-
-<p>接下来看MyStream(randomList: _*).filter(isDivisibleBy3)是如何work的。</p>
-
-<h1>filter</h1>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">trait</span> <span class="nc">MyStream</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">filter</span><span class="o">(</span><span class="n">p</span><span class="k">:</span> <span class="kt">A</span> <span class="o">=&gt;</span> <span class="nc">Boolean</span><span class="o">)</span><span class="k">:</span> <span class="kt">MyStream</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">this</span> <span class="k">match</span> <span class="o">{</span>
-</span><span class='line'>      <span class="k">case</span> <span class="nc">Cons</span><span class="o">(</span><span class="n">h</span><span class="o">,</span> <span class="n">t</span><span class="o">)</span> <span class="k">=&gt;</span>
-</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">p</span><span class="o">(</span><span class="n">h</span><span class="o">()))</span> <span class="n">cons</span><span class="o">(</span><span class="n">h</span><span class="o">(),</span> <span class="n">t</span><span class="o">().</span><span class="n">filter</span><span class="o">(</span><span class="n">p</span><span class="o">))</span>
-</span><span class='line'>        <span class="k">else</span> <span class="n">t</span><span class="o">().</span><span class="n">filter</span><span class="o">(</span><span class="n">p</span><span class="o">)</span>
-</span><span class='line'>      <span class="k">case</span> <span class="nc">Empty</span> <span class="k">=&gt;</span> <span class="n">empty</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这个方法定义在基类里，又是一个看似递归的实现。</p>
-
-<p>为什么说是看似呢？因为在</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">if</span> <span class="o">(</span><span class="n">p</span><span class="o">(</span><span class="n">h</span><span class="o">()))</span> <span class="n">cons</span><span class="o">(</span><span class="n">h</span><span class="o">(),</span> <span class="n">t</span><span class="o">().</span><span class="n">filter</span><span class="o">(</span><span class="n">p</span><span class="o">))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这行代码中我们又用到了小写的cons，它所接受的参数不会被立即求值。也就是说filter一旦找到一个合适的元素，它就不再继续跑了，剩下的计算被延迟了。</p>
-
-<p>比较值得提一下的是：这里的h()是什么呢？h是构造Cons时的第一个参数，它是什么类型的？()=>A。它就是之前提到的能够生产数据的算法，就是那个能够开出花朵的花苞。在这里我们说h()，就是在调用这个函数来拿到它所生产的数据，就是让一个花苞开出花朵。</p>
-
-<h1>take</h1>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="nc">MyStream</span><span class="o">(</span><span class="n">randomList</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">).</span><span class="n">filter</span><span class="o">(</span><span class="n">isDivisibleBy3</span><span class="o">).</span><span class="n">take</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>接下来就该说take是如何work的了。在这里我们可以回顾一下，MyStream(randomList: _*)返回一个类型为MyStream[Int]，其中包含很多个可以返回Int的函数的容器。然后我们调用了这个容器的filter方法，filter又返回一个包含很多个可以返回Int的函数的容器。请注意，到这里为止，真正的计算还没有开始，真正的计算被包含到了一个又一个的函数（花苞）中，等待着被调用（绽放）。</p>
-
-<p>那对filter的结果调用take又会怎样呢？</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">trait</span> <span class="nc">MyStream</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">take</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">MyStream</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="k">this</span> <span class="k">match</span> <span class="o">{</span>
-</span><span class='line'>      <span class="k">case</span> <span class="nc">Cons</span><span class="o">(</span><span class="n">h</span><span class="o">,</span> <span class="n">t</span><span class="o">)</span> <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">=&gt;</span> <span class="n">cons</span><span class="o">(</span><span class="n">h</span><span class="o">(),</span> <span class="nc">MyStream</span><span class="o">.</span><span class="n">empty</span><span class="o">)</span>
-</span><span class='line'>      <span class="k">case</span> <span class="nc">Cons</span><span class="o">(</span><span class="n">h</span><span class="o">,</span> <span class="n">t</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">cons</span><span class="o">(</span><span class="n">h</span><span class="o">(),</span> <span class="n">t</span><span class="o">().</span><span class="n">take</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">))</span>
-</span><span class='line'>      <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">MyStream</span><span class="o">.</span><span class="n">empty</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>    <span class="k">else</span> <span class="nc">MyStream</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>看过了前面的apply和filter之后，take就显得顺眼了很多。我们又见到了小写的cons，条件反射一般，我们就可以意识到，只要看见cons，那就意味着作为它的参数的表达式不会被立即求值，那这就意味着计算被放到了函数里，稍后再执行。那稍后到底是什么时候呢？</p>
-
-<p>那就得看下面的toList了。</p>
-
-<h1>toList</h1>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">trait</span> <span class="nc">MyStream</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">toList</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">this</span> <span class="k">match</span> <span class="o">{</span>
-</span><span class='line'>      <span class="k">case</span> <span class="nc">Cons</span><span class="o">(</span><span class="n">h</span><span class="o">,</span> <span class="n">t</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">h</span><span class="o">()</span> <span class="o">::</span> <span class="n">t</span><span class="o">().</span><span class="n">toList</span>
-</span><span class='line'>      <span class="k">case</span> <span class="nc">Empty</span> <span class="k">=&gt;</span> <span class="nc">Nil</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>又是一个递归实现，但是这次可不是看似递归了，这次是实打实的递归：只要还没有遇到空节点，就继续向后遍历。这次没有使用cons，没有任何计算被延迟执行，我们通过不断地对h()求值，来把整个Stream中每一个能够生产数据的函数都调用一遍以此来拿到我们最终想要的数据。</p>
-
-<h1>总结</h1>
-
-<p>要把以上的代码细节全部load进脑子跑一遍确实不太容易，我们人类的大脑栈空间太浅了。</p>
-
-<p>所以我们试着从上面所罗列出的纷繁的事实中抽象出一些适合人脑理解的描述性语句吧：</p>
-
-<ul>
-<li>List(1,2,3)会构造一个容器，容器中包含数据</li>
-<li>List(1,2,3).filter(n=>n>1)会构造出一个新的容器，其中包含2和3，这两块具体的数据</li>
-<li><p>List(1,2,3).filter(n=>n>1).take(1)会把上一步中构造成的容器中的第一块数据取出，放入一个新容器</p></li>
-<li><p>MyStream(1,2,3)也会构造一个容器，但是这个容器中不包含数据，它包含能够生产数据的算法</p></li>
-<li>MyStream(1,2,3).filter(n=>n>1)也会构造出一个新的容器，这个容器中所包含的仍然是算法，是基于上一步构造出的能生产1，2，3的算法之上的判断数字是否大于1的算法</li>
-<li>MyStream(1,2,3).filter(n=>n>1).take(1)会把上一步中构造成的算法容器中的第一个算法取出，放入一个新容器</li>
-<li>MyStream(1,2,3).filter(n=>n>1).take(1).toList终于把上面所有步骤构造出的算法执行了，从而得到了最终想要的结果</li>
-</ul>
-
-
-<p>上面对List和Stream的应用的区别在哪儿呢？</p>
-
-<p>就在于List是先把数据构造出来，然后在一堆数据中挑选我们心仪的数据。</p>
-
-<p>而Stream是先把算法构造出来，挑选心仪的算法，最后只执行一大堆算法中我们需要的那一部分。</p>
-
-<p>这样，自然就不会执行多余的运算了。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1781,6 +1367,10 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/04/26/principles-of-reactive-programming-week-2/">Principles of Reactive Programming Week Two作业导学</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/04/22/twu-pecha-kucha/">twu pecha kucha</a>
@@ -1816,10 +1406,6 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
     
       <li class="post">
         <a href="/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/">Spark RDD的fold和aggregate为什么是两个API？为什么不是一个foldLeft？</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/">Scala中Stream的应用场景及其实现原理</a>
       </li>
     
   </ul>
