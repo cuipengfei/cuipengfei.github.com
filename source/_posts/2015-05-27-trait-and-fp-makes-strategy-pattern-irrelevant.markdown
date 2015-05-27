@@ -1,36 +1,33 @@
 ---
 layout: post
-title: "策略模式：筷子开啤酒"
-date: 2015-05-27 08:55
+title: 策略模式：筷子开啤酒
+date: '2015-05-27 08:55'
 comments: true
-keywords: scala, java, design pattern, strategy pattern, OO, FP, 设计模式
+keywords: 'scala, java, design pattern, strategy pattern, OO, FP, 设计模式'
 ---
 
 # 策略模式
-
 > 策略模式作为一种软件设计模式，指对象有某个行为，但是在不同的场景中，该行为有不同的实现算法。
 
 以上是中文wiki中对策略模式的定义。
 
 > In computer programming, the strategy pattern (also known as the policy pattern) is a software design pattern that enables an algorithm's behavior to be selected at runtime. The strategy pattern:
+  - defines a family of algorithms,
+  - encapsulates each algorithm, and
+  - makes the algorithms interchangeable within that family.
 
-> * defines a family of algorithms,
-> * encapsulates each algorithm, and
-> * makes the algorithms interchangeable within that family.
-
->Strategy lets the algorithm vary independently from clients that use it.
+> Strategy lets the algorithm vary independently from clients that use it.
 
 以上是英文版的。
 
 # 鸭子
-
 这种偏学术性的描述实在太绕嘴，来思考一个实例：
 
 我们需要创建一些鸭子，鸭子有什么行为呢？
 
-* 鸭子会飞
-* 会叫
-* 会游泳
+- 鸭子会飞
+- 会叫
+- 会游泳
 
 不过，是否所有的鸭子都是这样呢？万一是玩具鸭子呢？万一是猎人放在水里的用来勾引公鸭子的木质母鸭子呢？万一是外星来客太空鸭呢？
 
@@ -41,8 +38,7 @@ keywords: scala, java, design pattern, strategy pattern, OO, FP, 设计模式
 以上例子来自著名的《Head first design patterns》。
 
 # Java
-
-以下是它的代码：
+以下是《Head first design patterns》附带的代码：
 
 ```java
 public interface FlyBehavior {
@@ -130,11 +126,120 @@ public class DecoyDuck extends Duck {
 
 很好，很灵活，很强大，对吧？
 
-不过再想一下，我们想要的不过是把两个家族的不同行为塞到鸭子的子类里去。是否有更容易的办法来做到呢？
+## 不过再想一下
+我们想要的不过是把两个家族的不同行为塞到鸭子的子类里去。是否有更容易的办法来做到呢？
 
-### trait
-
+# trait
 一说到把行为塞到某个类里，就会想到mix in，很自然就想到了Scala的trait。
 
-更多关于Scala的trait的详情请参考我的另一篇博客：
-http://cuipengfei.me/blog/2013/10/13/scala-trait/
+更多关于Scala的trait的详情请参考我的另一篇博客： [http://cuipengfei.me/blog/2013/10/13/scala-trait/](http://cuipengfei.me/blog/2013/10/13/scala-trait/)
+
+```scala
+trait Fly {
+  def fly()
+}
+
+trait FlyWithWings extends Fly {
+  def fly() = println("fly with wings")
+}
+
+trait FlyNoWay extends Fly {
+  def fly() = println("can not fly")
+}
+```
+
+飞行家族。
+
+```scala
+trait Quack {
+  def quack()
+}
+
+trait RealQuack {
+  def quack() = println("Quack")
+}
+
+trait MuteQuack {
+  def quack() = println("<<silence>>")
+}
+```
+
+叫的行为的家族。
+
+```scala
+abstract class Duck extends Fly with Quack {
+  def swim = println("all ducks float")
+}
+
+class MallardDuck extends Duck with FlyWithWings with RealQuack
+
+class DecoyDuck extends Duck with FlyNoWay with MuteQuack
+```
+
+最后，鸭子的各种实现。
+
+貌似和Java版的实现差距不大，飞和叫的interface和class变成了trait。
+
+Duck原来是持有Fly和Quack的实例，现在则是变成了混入Fly和Quack这两个trait。
+
+这个代码比Java短一些，紧凑一些，构造函数中的赋值变成了类型声明时的混入。
+
+## 不过再想一下
+我们不过是想要把某种行为塞入到某个类里面去，真的有必要用interface，class，trait来把这些行为包裹起来吗？
+
+行为通常是以哪种形式承载的呢？
+
+# functions
+行为通常是以函数承载的。
+
+也就是说我们想要做的不过是把符合某个签名的函数塞到鸭子的子类里去而已，而却用interface，class，trait来把这些行为包裹起来了。有些臃肿不是吗？
+
+下面是直接把函数塞入鸭子子类的做法：
+
+```scala
+object Duck {
+  type Fly = () => Unit
+  val flyWithWings = () => println("fly with wings")
+  val flyNoWay = () => println("can not fly")
+
+  type Quack = () => Unit
+  val realQuack = () => println("Quack")
+  val muteQuack = () => println("<<silence>>")
+}
+
+abstract class Duck(f: Fly, q: Quack) {
+  def swim() = println("all ducks float")
+
+  def fly() = f()
+
+  def quack() = q()
+}
+
+class MallardDuck extends Duck(flyWithWings, realQuack)
+
+class DecoyDuck extends Duck(flyNoWay, muteQuack)
+```
+
+Fly和Quack不再是interface或者是trait。而是type aliase。
+
+Scala的type aliase就类似于C#delegate，用来声明function signature。
+
+更多关于type aliase的详情请参考我的另一篇博客： [http://cuipengfei.me/blog/2013/12/23/desugar-scala-4/](http://cuipengfei.me/blog/2013/12/23/desugar-scala-4/)
+
+这样，会飞不会飞，会叫不会叫就无需被class或者trait包裹着了，直接就是一个个的函数。
+
+鸭子的子类通过构造函数接收飞和叫的两个函数作为参数，就能够组合不同的行为了。
+
+如果说上面triat的实现方式与Java实现版相比偏重了inheritance而不是composition，这一版的实现则又回到了纯composition的路上了。
+
+紧凑程度，实体数量都比以上两版有改进。这一点从行数上可以窥见：Java版63行，trait版29行，最后一版21行。
+
+# 筷子开啤酒
+
+最后回到标题上去：筷子开啤酒，意即用不合适的工具解决问题。
+
+strategy patten要解决的问题其实就是如何把一族行为的不同实现注入到某个类里去。
+
+该模式提出的时候FP并不如今日盛行，作者选用纯OO的方式解决了问题，并广为传播，实为功德。
+
+不过今天我们有了开瓶器，就无需一定要用筷子了。
