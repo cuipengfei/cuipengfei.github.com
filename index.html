@@ -9,7 +9,7 @@
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content="声明 这系列博文的目标读者仅限于报名参加了这门课并且看完了视频，看完了作业的instruction之后仍有困难的同学。 这系列博文不会公布作业的答案，那是违反Coursera的code of honor的。 我只会试着解释作业中已有的代码，以及应该如何入手。 其实， &hellip;">
+  <meta name="description" content="策略模式 策略模式作为一种软件设计模式，指对象有某个行为，但是在不同的场景中，该行为有不同的实现算法。 以上是中文wiki中对策略模式的定义。 In computer programming, the strategy pattern (also known as the policy &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,508 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/">策略模式：筷子开啤酒</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-05-27T08:55:00+05:30" pubdate data-updated="true">May 27<span>th</span>, 2015</time>
+        
+         | <a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>策略模式</h1>
+
+<blockquote><p>策略模式作为一种软件设计模式，指对象有某个行为，但是在不同的场景中，该行为有不同的实现算法。</p></blockquote>
+
+<p>以上是中文wiki中对策略模式的定义。</p>
+
+<blockquote><p>In computer programming, the strategy pattern (also known as the policy pattern) is a software design pattern that enables an algorithm&#8217;s behavior to be selected at runtime. The strategy pattern:
+  - defines a family of algorithms,
+  - encapsulates each algorithm, and
+  - makes the algorithms interchangeable within that family.</p>
+
+<p>Strategy lets the algorithm vary independently from clients that use it.</p></blockquote>
+
+<p>以上是英文版的。</p>
+
+<h1>鸭子</h1>
+
+<p>这种偏学术性的描述实在太绕嘴，来思考一个实例：</p>
+
+<p>我们需要创建一些鸭子，鸭子有什么行为呢？</p>
+
+<ul>
+<li>鸭子会飞</li>
+<li>会叫</li>
+<li>会游泳</li>
+</ul>
+
+
+<p>不过，是否所有的鸭子都是这样呢？万一是玩具鸭子呢？万一是猎人放在水里的用来勾引公鸭子的木质母鸭子呢？万一是外星来客太空鸭呢？</p>
+
+<p>你已经知道什么意思了。</p>
+
+<p>鸭子的各个子类的飞和叫的行为不尽相同。所以我们想把飞和叫这两种行为独立开来，让它们可以自由组合在鸭子的不同子类中。</p>
+
+<p>以上例子来自著名的《Head first design patterns》。</p>
+
+<h1>Java</h1>
+
+<p>以下是《Head first design patterns》附带的代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">FlyBehavior</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">fly</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FlyWithWings</span> <span class="kd">implements</span> <span class="n">FlyBehavior</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fly</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;fly with wings&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FlyNoWay</span> <span class="kd">implements</span> <span class="n">FlyBehavior</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fly</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;can not fly&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>飞行的接口，以及两个实现：一个真会飞，一个不会飞。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">QuackBehavior</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">quack</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Quack</span> <span class="kd">implements</span> <span class="n">QuackBehavior</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">quack</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Quack&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MuteQuack</span> <span class="kd">implements</span> <span class="n">QuackBehavior</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">quack</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;&lt;&lt;silence&gt;&gt;&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>叫的接口，两个实现，一个真会叫，一个不会叫。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Duck</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">FlyBehavior</span> <span class="n">flyBehavior</span><span class="o">;</span>
+</span><span class='line'>    <span class="n">QuackBehavior</span> <span class="n">quackBehavior</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">Duck</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">performFly</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">flyBehavior</span><span class="o">.</span><span class="na">fly</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">performQuack</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">quackBehavior</span><span class="o">.</span><span class="na">quack</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">swim</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;All ducks float, even decoys!&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MallardDuck</span> <span class="kd">extends</span> <span class="n">Duck</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">MallardDuck</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">quackBehavior</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Quack</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">flyBehavior</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FlyWithWings</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DecoyDuck</span> <span class="kd">extends</span> <span class="n">Duck</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">DecoyDuck</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">setFlyBehavior</span><span class="o">(</span><span class="k">new</span> <span class="n">FlyNoWay</span><span class="o">());</span>
+</span><span class='line'>        <span class="n">setQuackBehavior</span><span class="o">(</span><span class="k">new</span> <span class="n">MuteQuack</span><span class="o">());</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最后，终于到了鸭子。鸭子的顶层抽象类声明两个字段，一个用来飞，一个用来叫。</p>
+
+<p>这样在子类里就可以把这两个字段锁定到某个特定的实现，以实现任意的组合。</p>
+
+<p>可以看到，绿头鸭（mallard）组合了真会飞和真会叫。而诱饵鸭（decoy，猎人用来勾引鸭子上钩的那个）则组合了不会飞和不会叫。</p>
+
+<p>可以想象随着飞和叫这两个家族的扩大，我们可以组合出更多种类的鸭子来。</p>
+
+<p>很好，很灵活，很强大，对吧？</p>
+
+<h2>不过再想一下</h2>
+
+<p>我们想要的不过是把两个家族的不同行为塞到鸭子的子类里去。是否有更容易的办法来做到呢？</p>
+
+<h1>trait</h1>
+
+<p>一说到把行为塞到某个类里，就会想到mix in，很自然就想到了Scala的trait。</p>
+
+<p>更多关于Scala的trait的详情请参考我的另一篇博客： <a href="http://cuipengfei.me/blog/2013/10/13/scala-trait/">http://cuipengfei.me/blog/2013/10/13/scala-trait/</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">trait</span> <span class="nc">Fly</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">fly</span><span class="o">()</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">trait</span> <span class="nc">FlyWithWings</span> <span class="k">extends</span> <span class="nc">Fly</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">fly</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;fly with wings&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">trait</span> <span class="nc">FlyNoWay</span> <span class="k">extends</span> <span class="nc">Fly</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">fly</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;can not fly&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>飞行家族。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">trait</span> <span class="nc">Quack</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">quack</span><span class="o">()</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">trait</span> <span class="nc">RealQuack</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">quack</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Quack&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">trait</span> <span class="nc">MuteQuack</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">quack</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;&lt;&lt;silence&gt;&gt;&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>叫的行为的家族。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">abstract</span> <span class="k">class</span> <span class="nc">Duck</span> <span class="k">extends</span> <span class="nc">Fly</span> <span class="k">with</span> <span class="nc">Quack</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">swim</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;all ducks float&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">MallardDuck</span> <span class="k">extends</span> <span class="nc">Duck</span> <span class="k">with</span> <span class="nc">FlyWithWings</span> <span class="k">with</span> <span class="nc">RealQuack</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">DecoyDuck</span> <span class="k">extends</span> <span class="nc">Duck</span> <span class="k">with</span> <span class="nc">FlyNoWay</span> <span class="k">with</span> <span class="nc">MuteQuack</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最后，鸭子的各种实现。</p>
+
+<p>貌似和Java版的实现差距不大，飞和叫的interface和class变成了trait。</p>
+
+<p>Duck原来是持有Fly和Quack的实例，现在则是变成了混入Fly和Quack这两个trait。</p>
+
+<p>这个代码比Java短一些，紧凑一些，构造函数中的赋值变成了类型声明时的混入。</p>
+
+<h2>不过再想一下</h2>
+
+<p>我们不过是想要把某种行为塞入到某个类里面去，真的有必要用interface，class，trait来把这些行为包裹起来吗？</p>
+
+<p>行为通常是以哪种形式承载的呢？</p>
+
+<h1>functions</h1>
+
+<p>行为通常是以函数承载的。</p>
+
+<p>也就是说我们想要做的不过是把符合某个签名的函数塞到鸭子的子类里去而已，而却用interface，class，trait来把这些行为包裹起来了。有些臃肿不是吗？</p>
+
+<p>下面是直接把函数塞入鸭子子类的做法：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Duck</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">type</span> <span class="kt">Fly</span> <span class="o">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="nc">Unit</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">flyWithWings</span> <span class="k">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;fly with wings&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">flyNoWay</span> <span class="k">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;can not fly&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">type</span> <span class="kt">Quack</span> <span class="o">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="nc">Unit</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">realQuack</span> <span class="k">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Quack&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">muteQuack</span> <span class="k">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;&lt;&lt;silence&gt;&gt;&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">abstract</span> <span class="k">class</span> <span class="nc">Duck</span><span class="o">(</span><span class="n">f</span><span class="k">:</span> <span class="kt">Fly</span><span class="o">,</span> <span class="n">q</span><span class="k">:</span> <span class="kt">Quack</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">swim</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;all ducks float&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">fly</span><span class="o">()</span> <span class="k">=</span> <span class="n">f</span><span class="o">()</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">quack</span><span class="o">()</span> <span class="k">=</span> <span class="n">q</span><span class="o">()</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">MallardDuck</span> <span class="k">extends</span> <span class="nc">Duck</span><span class="o">(</span><span class="n">flyWithWings</span><span class="o">,</span> <span class="n">realQuack</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">DecoyDuck</span> <span class="k">extends</span> <span class="nc">Duck</span><span class="o">(</span><span class="n">flyNoWay</span><span class="o">,</span> <span class="n">muteQuack</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Fly和Quack不再是interface或者是trait。而是type aliase。</p>
+
+<p>Scala的type aliase就类似于C#的delegate，用来声明function signature。</p>
+
+<p>更多关于type aliase的更多详情请参考我的另一篇博客： <a href="http://cuipengfei.me/blog/2013/12/23/desugar-scala-4/">http://cuipengfei.me/blog/2013/12/23/desugar-scala-4/</a></p>
+
+<p>这样，会飞不会飞，会叫不会叫就无需被class或者trait包裹着了，直接就是一个个的函数。</p>
+
+<p>鸭子的子类通过构造函数接收飞和叫的两个函数作为参数，就能够组合不同的行为了。</p>
+
+<p>如果说之前triat的实现方式与Java实现版相比偏重了inheritance而不是composition，这一版的实现则又回到了纯composition的路上了。</p>
+
+<p>紧凑程度，实体数量都比以上两版有改进。这一点从行数上可以窥见：Java版63行，trait版29行，最后一版21行。</p>
+
+<h1>筷子开啤酒</h1>
+
+<p>最后回到标题上去：筷子开啤酒，意即用不合适的工具解决问题。</p>
+
+<p>strategy patten要解决的问题其实就是如何把一族行为的不同实现注入到某个类里去。</p>
+
+<p>这一点，最开头的wiki定义已经说的很明白了：</p>
+
+<blockquote><p>Strategy lets the algorithm vary independently from clients that use it.</p></blockquote>
+
+<p>该模式提出的时候FP并不如今日盛行，其作者选用纯OO的方式解决了问题，并广为传播，实为功德。</p>
+
+<p>不过今天我们有了开瓶器，就无需一定要用筷子了。</p>
+
+<p>最后是一个Java 8的实现：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Fly</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">fly</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Quack</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">quack</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BehaviorsRepo</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Fly</span> <span class="n">flyWithWings</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;fly with wings&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Fly</span> <span class="n">canNotFly</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;can not fly&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Quack</span> <span class="n">realQuack</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Quack&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Quack</span> <span class="n">muteQuack</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;&lt;&lt;silence&gt;&gt;&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Duck</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Fly</span> <span class="n">f</span><span class="o">;</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Quack</span> <span class="n">q</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">Duck</span><span class="o">(</span><span class="n">Fly</span> <span class="n">f</span><span class="o">,</span> <span class="n">Quack</span> <span class="n">q</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">f</span> <span class="o">=</span> <span class="n">f</span><span class="o">;</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">q</span> <span class="o">=</span> <span class="n">q</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fly</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">f</span><span class="o">.</span><span class="na">fly</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">quack</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">q</span><span class="o">.</span><span class="na">quack</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MallardDuck</span> <span class="kd">extends</span> <span class="n">Duck</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">MallardDuck</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kd">super</span><span class="o">(</span><span class="n">flyWithWings</span><span class="o">,</span> <span class="n">realQuack</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DecoyDuck</span> <span class="kd">extends</span> <span class="n">Duck</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">DecoyDuck</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kd">super</span><span class="o">(</span><span class="n">canNotFly</span><span class="o">,</span> <span class="n">muteQuack</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>看起来比最开始的那一版好一些，但是我还是看它不顺眼。</p>
+
+<p>为什么呢？</p>
+
+<p>一定是由于我强烈的偏见而没有其他任何原因，一定是这样的。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1192,168 +1694,6 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/">Spark RDD的fold和aggregate为什么是两个API？为什么不是一个foldLeft？</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-31T15:29:00+05:30" pubdate data-updated="true">Oct 31<span>st</span>, 2014</time>
-        
-         | <a href="/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>大家都知道Scala标准库的List有一个用来做聚合操作的foldLeft方法。</p>
-
-<p>比如我定义一个公司类：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Company</span><span class="o">(</span><span class="n">name</span><span class="k">:</span><span class="kt">String</span><span class="o">,</span> <span class="n">children</span><span class="k">:</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">Company</span><span class="o">]</span><span class="k">=</span><span class="nc">Nil</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>它有名字和子公司。
-然后定义几个公司：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">companies</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="nc">Company</span><span class="o">(</span><span class="s">&quot;B&quot;</span><span class="o">),</span><span class="nc">Company</span><span class="o">(</span><span class="s">&quot;A&quot;</span><span class="o">),</span><span class="nc">Company</span><span class="o">(</span><span class="s">&quot;T&quot;</span><span class="o">))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>三家大公司，然后呢，我假设有一家超牛逼的公司把它们给合并了：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">companies</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="nc">Company</span><span class="o">(</span><span class="s">&quot;King&quot;</span><span class="o">))((</span><span class="n">king</span><span class="o">,</span><span class="n">company</span><span class="o">)</span><span class="k">=&gt;</span><span class="nc">Company</span><span class="o">(</span><span class="n">name</span><span class="k">=</span><span class="n">king</span><span class="o">.</span><span class="n">name</span><span class="o">,</span><span class="n">king</span><span class="o">.</span><span class="n">children</span><span class="o">:+</span><span class="n">company</span><span class="o">))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这个执行的结果是这样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">companies</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="nc">Company</span><span class="o">(</span><span class="s">&quot;King&quot;</span><span class="o">))((</span><span class="n">king</span><span class="o">,</span><span class="n">company</span><span class="o">)</span><span class="k">=&gt;</span><span class="nc">Company</span><span class="o">(</span><span class="n">name</span><span class="k">=</span><span class="n">king</span><span class="o">.</span><span class="n">name</span><span class="o">,</span><span class="n">king</span><span class="o">.</span><span class="n">children</span><span class="o">:+</span><span class="n">company</span><span class="o">))</span>
-</span><span class='line'><span class="n">res6</span><span class="k">:</span> <span class="kt">Company</span> <span class="o">=</span> <span class="nc">Company</span><span class="o">(</span><span class="nc">King</span><span class="o">,</span><span class="nc">List</span><span class="o">(</span><span class="nc">Company</span><span class="o">(</span><span class="n">B</span><span class="o">,</span><span class="nc">List</span><span class="o">()),</span> <span class="nc">Company</span><span class="o">(</span><span class="n">A</span><span class="o">,</span><span class="nc">List</span><span class="o">()),</span> <span class="nc">Company</span><span class="o">(</span><span class="n">T</span><span class="o">,</span><span class="nc">List</span><span class="o">())))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可见foldLeft的结果是一家包含了BAT三大家得新公司。</p>
-
-<p>由List[Company]聚合出一个新的Company，这种属于foldLeft的同构聚合操作。</p>
-
-<p>同时，foldLeft也可以做异构的聚合操作：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">companies</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">)((</span><span class="n">acc</span><span class="o">,</span><span class="n">company</span><span class="o">)</span><span class="k">=&gt;</span><span class="n">acc</span><span class="o">+</span><span class="n">company</span><span class="o">.</span><span class="n">name</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>它的执行结果是这样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">companies</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">)((</span><span class="n">acc</span><span class="o">,</span><span class="n">company</span><span class="o">)</span><span class="k">=&gt;</span><span class="n">acc</span><span class="o">+</span><span class="n">company</span><span class="o">.</span><span class="n">name</span><span class="o">)</span>
-</span><span class='line'><span class="n">res7</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="nc">BAT</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>由List[Company]聚合出一个String。</p>
-
-<p>这样的API感觉很方便，只要是聚合，无论同构异构，都可以用它来做。</p>
-
-<p>最近接触了Spark，其中的RDD是做分布式计算时最常用的一个类。</p>
-
-<p>RDD有一个叫做fold的API，它和foldLeft的签名很像，唯一区别是它只能做同构聚合操作。</p>
-
-<p>也就是说如果你有一个RDD[X]，通过fold，你只能构造出一个X。</p>
-
-<p>如果我想通过一个RDD[X]构造一个Y出来呢？</p>
-
-<p>那就得用aggregate这个API了，aggregate的签名是这样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">aggregate</span><span class="o">[</span><span class="kt">U</span><span class="o">](</span><span class="n">zeroValue</span><span class="k">:</span> <span class="kt">U</span><span class="o">)(</span><span class="n">seqOp</span><span class="k">:</span> <span class="o">(</span><span class="kt">U</span><span class="o">,</span> <span class="kt">T</span><span class="o">)</span> <span class="k">⇒</span> <span class="n">U</span><span class="o">,</span> <span class="n">combOp</span><span class="k">:</span> <span class="o">(</span><span class="kt">U</span><span class="o">,</span> <span class="kt">U</span><span class="o">)</span> <span class="k">⇒</span> <span class="n">U</span><span class="o">)(</span><span class="k">implicit</span> <span class="n">arg0</span><span class="k">:</span> <span class="kt">ClassTag</span><span class="o">[</span><span class="kt">U</span><span class="o">])</span><span class="k">:</span> <span class="kt">U</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>它比fold和foldLeft多需要一个combOp做参数。</p>
-
-<p>这让我很不解，同构和异构的API干嘛非得拆成两个呢？怎么不能学Scala的标准库，把它做成类似foldLeft的样子呢？</p>
-
-<p>后来想明白了，这是由于Spark需要分布运算造成的。</p>
-
-<p>先想一下Scala List的foldLeft是怎么工作的？</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">companies</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="nc">Company</span><span class="o">(</span><span class="s">&quot;King&quot;</span><span class="o">))((</span><span class="n">king</span><span class="o">,</span><span class="n">company</span><span class="o">)</span><span class="k">=&gt;</span><span class="nc">Company</span><span class="o">(</span><span class="n">name</span><span class="k">=</span><span class="n">king</span><span class="o">.</span><span class="n">name</span><span class="o">,</span><span class="n">king</span><span class="o">.</span><span class="n">children</span><span class="o">:+</span><span class="n">company</span><span class="o">))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ol>
-<li>拿到初始值，即名字为king的公司，把它和list中的第一个公司合并，成为一个包含一家子公司的新公司</li>
-<li>把上一步中的新公司拿来和list中的第二个公司合并，成为一个包含两家子公司的新公司</li>
-<li>把上一步中的新公司拿来和list中的第三个公司合并，成为一个包含三家子公司的新公司</li>
-</ol>
-
-
-<p>这是同构的过程。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">companies</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">)((</span><span class="n">acc</span><span class="o">,</span><span class="n">company</span><span class="o">)</span><span class="k">=&gt;</span><span class="n">acc</span><span class="o">+</span><span class="n">company</span><span class="o">.</span><span class="n">name</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ol>
-<li>拿到初始值，即空字符串，把它和list中的第一个公司的名字拼在一起，成为B</li>
-<li>把上一步中的B第二个公司名字拼一起，成为BA</li>
-<li>把上一步中的BA拿来和list中的第三个公司的名字拼一起，成为BAT</li>
-</ol>
-
-
-<p>这是异构的过程。</p>
-
-<p>像多米诺骨牌一样，从左到右依次把list中的元素吸收入结果中。</p>
-
-<p>现在假设RDD[X]中有一个类似foldLeft的API，其签名和foldLeft一致，我现在调用foldLeft，给它一个f:(Y,X)=>Y，接下来该发生什么呢？</p>
-
-<ol>
-<li>因为要分布计算，所以我先要把手里的很多个X分成几份，分发到不同的节点上去</li>
-<li>每个节点把拿到的很多个X计算出一个Y出来</li>
-<li>把所有节点的结果拿来，这时我手里就有了很多个Y</li>
-<li>啊。。。我不知道怎么把很多个Y变成一个Y啊。。。</li>
-</ol>
-
-
-<p>由于Spark的RDD不像Scala的List一样只需要推倒一副多米诺骨牌，而是要推倒很多副，最后再对很多副多米诺骨牌的结果做聚合。</p>
-
-<p>这时如果是同构还好，我只需要再用f:(X,X)=>X做一遍就ok了。</p>
-
-<p>但是如果是异构的，那我就必须得再需要一个f:(Y,Y)=>Y了。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1367,6 +1707,10 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/">策略模式：筷子开啤酒</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/04/26/principles-of-reactive-programming-week-2/">Principles of Reactive Programming Week Two作业导学</a>
@@ -1402,10 +1746,6 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
     
       <li class="post">
         <a href="/blog/2014/11/16/zdyx2015wuhansecondclass/">2015武汉郑大晔校第二次课</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/">Spark RDD的fold和aggregate为什么是两个API？为什么不是一个foldLeft？</a>
       </li>
     
   </ul>

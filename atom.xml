@@ -4,7 +4,7 @@
   <title><![CDATA[崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2015-04-26T21:48:51+05:30</updated>
+  <updated>2015-05-27T11:48:21+05:30</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -12,6 +12,479 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[策略模式：筷子开啤酒]]></title>
+    <link href="http://cuipengfei.github.com/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/"/>
+    <updated>2015-05-27T08:55:00+05:30</updated>
+    <id>http://cuipengfei.github.com/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant</id>
+    <content type="html"><![CDATA[<h1>策略模式</h1>
+
+<blockquote><p>策略模式作为一种软件设计模式，指对象有某个行为，但是在不同的场景中，该行为有不同的实现算法。</p></blockquote>
+
+<p>以上是中文wiki中对策略模式的定义。</p>
+
+<blockquote><p>In computer programming, the strategy pattern (also known as the policy pattern) is a software design pattern that enables an algorithm&#8217;s behavior to be selected at runtime. The strategy pattern:
+  - defines a family of algorithms,
+  - encapsulates each algorithm, and
+  - makes the algorithms interchangeable within that family.</p>
+
+<p>Strategy lets the algorithm vary independently from clients that use it.</p></blockquote>
+
+<p>以上是英文版的。</p>
+
+<h1>鸭子</h1>
+
+<p>这种偏学术性的描述实在太绕嘴，来思考一个实例：</p>
+
+<p>我们需要创建一些鸭子，鸭子有什么行为呢？</p>
+
+<ul>
+<li>鸭子会飞</li>
+<li>会叫</li>
+<li>会游泳</li>
+</ul>
+
+
+<p>不过，是否所有的鸭子都是这样呢？万一是玩具鸭子呢？万一是猎人放在水里的用来勾引公鸭子的木质母鸭子呢？万一是外星来客太空鸭呢？</p>
+
+<p>你已经知道什么意思了。</p>
+
+<p>鸭子的各个子类的飞和叫的行为不尽相同。所以我们想把飞和叫这两种行为独立开来，让它们可以自由组合在鸭子的不同子类中。</p>
+
+<p>以上例子来自著名的《Head first design patterns》。</p>
+
+<h1>Java</h1>
+
+<p>以下是《Head first design patterns》附带的代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">FlyBehavior</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">fly</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FlyWithWings</span> <span class="kd">implements</span> <span class="n">FlyBehavior</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fly</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;fly with wings&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FlyNoWay</span> <span class="kd">implements</span> <span class="n">FlyBehavior</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fly</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;can not fly&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>飞行的接口，以及两个实现：一个真会飞，一个不会飞。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">QuackBehavior</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">quack</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Quack</span> <span class="kd">implements</span> <span class="n">QuackBehavior</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">quack</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Quack&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MuteQuack</span> <span class="kd">implements</span> <span class="n">QuackBehavior</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">quack</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;&lt;&lt;silence&gt;&gt;&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>叫的接口，两个实现，一个真会叫，一个不会叫。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Duck</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">FlyBehavior</span> <span class="n">flyBehavior</span><span class="o">;</span>
+</span><span class='line'>    <span class="n">QuackBehavior</span> <span class="n">quackBehavior</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">Duck</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">performFly</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">flyBehavior</span><span class="o">.</span><span class="na">fly</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">performQuack</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">quackBehavior</span><span class="o">.</span><span class="na">quack</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">swim</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;All ducks float, even decoys!&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MallardDuck</span> <span class="kd">extends</span> <span class="n">Duck</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">MallardDuck</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">quackBehavior</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Quack</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">flyBehavior</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FlyWithWings</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DecoyDuck</span> <span class="kd">extends</span> <span class="n">Duck</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">DecoyDuck</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">setFlyBehavior</span><span class="o">(</span><span class="k">new</span> <span class="n">FlyNoWay</span><span class="o">());</span>
+</span><span class='line'>        <span class="n">setQuackBehavior</span><span class="o">(</span><span class="k">new</span> <span class="n">MuteQuack</span><span class="o">());</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最后，终于到了鸭子。鸭子的顶层抽象类声明两个字段，一个用来飞，一个用来叫。</p>
+
+<p>这样在子类里就可以把这两个字段锁定到某个特定的实现，以实现任意的组合。</p>
+
+<p>可以看到，绿头鸭（mallard）组合了真会飞和真会叫。而诱饵鸭（decoy，猎人用来勾引鸭子上钩的那个）则组合了不会飞和不会叫。</p>
+
+<p>可以想象随着飞和叫这两个家族的扩大，我们可以组合出更多种类的鸭子来。</p>
+
+<p>很好，很灵活，很强大，对吧？</p>
+
+<h2>不过再想一下</h2>
+
+<p>我们想要的不过是把两个家族的不同行为塞到鸭子的子类里去。是否有更容易的办法来做到呢？</p>
+
+<h1>trait</h1>
+
+<p>一说到把行为塞到某个类里，就会想到mix in，很自然就想到了Scala的trait。</p>
+
+<p>更多关于Scala的trait的详情请参考我的另一篇博客： <a href="http://cuipengfei.me/blog/2013/10/13/scala-trait/">http://cuipengfei.me/blog/2013/10/13/scala-trait/</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">trait</span> <span class="nc">Fly</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">fly</span><span class="o">()</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">trait</span> <span class="nc">FlyWithWings</span> <span class="k">extends</span> <span class="nc">Fly</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">fly</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;fly with wings&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">trait</span> <span class="nc">FlyNoWay</span> <span class="k">extends</span> <span class="nc">Fly</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">fly</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;can not fly&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>飞行家族。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">trait</span> <span class="nc">Quack</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">quack</span><span class="o">()</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">trait</span> <span class="nc">RealQuack</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">quack</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Quack&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">trait</span> <span class="nc">MuteQuack</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">quack</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;&lt;&lt;silence&gt;&gt;&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>叫的行为的家族。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">abstract</span> <span class="k">class</span> <span class="nc">Duck</span> <span class="k">extends</span> <span class="nc">Fly</span> <span class="k">with</span> <span class="nc">Quack</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">swim</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;all ducks float&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">MallardDuck</span> <span class="k">extends</span> <span class="nc">Duck</span> <span class="k">with</span> <span class="nc">FlyWithWings</span> <span class="k">with</span> <span class="nc">RealQuack</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">DecoyDuck</span> <span class="k">extends</span> <span class="nc">Duck</span> <span class="k">with</span> <span class="nc">FlyNoWay</span> <span class="k">with</span> <span class="nc">MuteQuack</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最后，鸭子的各种实现。</p>
+
+<p>貌似和Java版的实现差距不大，飞和叫的interface和class变成了trait。</p>
+
+<p>Duck原来是持有Fly和Quack的实例，现在则是变成了混入Fly和Quack这两个trait。</p>
+
+<p>这个代码比Java短一些，紧凑一些，构造函数中的赋值变成了类型声明时的混入。</p>
+
+<h2>不过再想一下</h2>
+
+<p>我们不过是想要把某种行为塞入到某个类里面去，真的有必要用interface，class，trait来把这些行为包裹起来吗？</p>
+
+<p>行为通常是以哪种形式承载的呢？</p>
+
+<h1>functions</h1>
+
+<p>行为通常是以函数承载的。</p>
+
+<p>也就是说我们想要做的不过是把符合某个签名的函数塞到鸭子的子类里去而已，而却用interface，class，trait来把这些行为包裹起来了。有些臃肿不是吗？</p>
+
+<p>下面是直接把函数塞入鸭子子类的做法：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Duck</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">type</span> <span class="kt">Fly</span> <span class="o">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="nc">Unit</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">flyWithWings</span> <span class="k">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;fly with wings&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">flyNoWay</span> <span class="k">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;can not fly&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">type</span> <span class="kt">Quack</span> <span class="o">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="nc">Unit</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">realQuack</span> <span class="k">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Quack&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">muteQuack</span> <span class="k">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;&lt;&lt;silence&gt;&gt;&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">abstract</span> <span class="k">class</span> <span class="nc">Duck</span><span class="o">(</span><span class="n">f</span><span class="k">:</span> <span class="kt">Fly</span><span class="o">,</span> <span class="n">q</span><span class="k">:</span> <span class="kt">Quack</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">swim</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;all ducks float&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">fly</span><span class="o">()</span> <span class="k">=</span> <span class="n">f</span><span class="o">()</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">quack</span><span class="o">()</span> <span class="k">=</span> <span class="n">q</span><span class="o">()</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">MallardDuck</span> <span class="k">extends</span> <span class="nc">Duck</span><span class="o">(</span><span class="n">flyWithWings</span><span class="o">,</span> <span class="n">realQuack</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">DecoyDuck</span> <span class="k">extends</span> <span class="nc">Duck</span><span class="o">(</span><span class="n">flyNoWay</span><span class="o">,</span> <span class="n">muteQuack</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Fly和Quack不再是interface或者是trait。而是type aliase。</p>
+
+<p>Scala的type aliase就类似于C#的delegate，用来声明function signature。</p>
+
+<p>更多关于type aliase的更多详情请参考我的另一篇博客： <a href="http://cuipengfei.me/blog/2013/12/23/desugar-scala-4/">http://cuipengfei.me/blog/2013/12/23/desugar-scala-4/</a></p>
+
+<p>这样，会飞不会飞，会叫不会叫就无需被class或者trait包裹着了，直接就是一个个的函数。</p>
+
+<p>鸭子的子类通过构造函数接收飞和叫的两个函数作为参数，就能够组合不同的行为了。</p>
+
+<p>如果说之前triat的实现方式与Java实现版相比偏重了inheritance而不是composition，这一版的实现则又回到了纯composition的路上了。</p>
+
+<p>紧凑程度，实体数量都比以上两版有改进。这一点从行数上可以窥见：Java版63行，trait版29行，最后一版21行。</p>
+
+<h1>筷子开啤酒</h1>
+
+<p>最后回到标题上去：筷子开啤酒，意即用不合适的工具解决问题。</p>
+
+<p>strategy patten要解决的问题其实就是如何把一族行为的不同实现注入到某个类里去。</p>
+
+<p>这一点，最开头的wiki定义已经说的很明白了：</p>
+
+<blockquote><p>Strategy lets the algorithm vary independently from clients that use it.</p></blockquote>
+
+<p>该模式提出的时候FP并不如今日盛行，其作者选用纯OO的方式解决了问题，并广为传播，实为功德。</p>
+
+<p>不过今天我们有了开瓶器，就无需一定要用筷子了。</p>
+
+<p>最后是一个Java 8的实现：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Fly</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">fly</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Quack</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">quack</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BehaviorsRepo</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Fly</span> <span class="n">flyWithWings</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;fly with wings&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Fly</span> <span class="n">canNotFly</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;can not fly&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Quack</span> <span class="n">realQuack</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Quack&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Quack</span> <span class="n">muteQuack</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;&lt;&lt;silence&gt;&gt;&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Duck</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Fly</span> <span class="n">f</span><span class="o">;</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Quack</span> <span class="n">q</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">Duck</span><span class="o">(</span><span class="n">Fly</span> <span class="n">f</span><span class="o">,</span> <span class="n">Quack</span> <span class="n">q</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">f</span> <span class="o">=</span> <span class="n">f</span><span class="o">;</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">q</span> <span class="o">=</span> <span class="n">q</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fly</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">f</span><span class="o">.</span><span class="na">fly</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">quack</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">q</span><span class="o">.</span><span class="na">quack</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MallardDuck</span> <span class="kd">extends</span> <span class="n">Duck</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">MallardDuck</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kd">super</span><span class="o">(</span><span class="n">flyWithWings</span><span class="o">,</span> <span class="n">realQuack</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DecoyDuck</span> <span class="kd">extends</span> <span class="n">Duck</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">DecoyDuck</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kd">super</span><span class="o">(</span><span class="n">canNotFly</span><span class="o">,</span> <span class="n">muteQuack</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>看起来比最开始的那一版好一些，但是我还是看它不顺眼。</p>
+
+<p>为什么呢？</p>
+
+<p>一定是由于我强烈的偏见而没有其他任何原因，一定是这样的。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Principles of Reactive Programming Week Two作业导学]]></title>
@@ -2747,170 +3220,6 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
 <p>这就意味着，上面所定义的Pair这个类，如果你在Java中使用它，就会失去这种类型安全性。</p>
 
 <p>Scala，这次算你牛，没扒掉你。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Desugar Scala(15) -- unapply和unapplySeq方法]]></title>
-    <link href="http://cuipengfei.github.com/blog/2014/06/14/scala-unapply-method/"/>
-    <updated>2014-06-14T14:46:00+05:30</updated>
-    <id>http://cuipengfei.github.com/blog/2014/06/14/scala-unapply-method</id>
-    <content type="html"><![CDATA[<p>实在想不到什么动词可以当做脱衣服来讲了，所以从现在开始这系列博文就叫做Desugar Scala了。除非哪天才思泉涌，又想到了新词：）</p>
-
-<p>开始正文。</p>
-
-<p>名字叫做unapply和unapplySeq的方法在Scala里也是有特殊含义的。</p>
-
-<p>我们前面说过case class在做pattern match时很好用，而除case class之外，有unapply或unapplySeq方法的对象在pattern match时也有很好的应用场景。</p>
-
-<p>比如这段代码：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Square</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">unapply</span><span class="o">(</span><span class="n">z</span><span class="k">:</span> <span class="kt">Double</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Double</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="o">(</span><span class="n">z</span><span class="o">))</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我们定义了一个unapply方法，用来计算平方根。
-我们可以像调用普通方法一样的调用它：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">number</span><span class="k">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mf">36.0</span>
-</span><span class='line'><span class="nc">Square</span><span class="o">.</span><span class="n">unapply</span><span class="o">(</span><span class="n">number</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样会得到36的平方根:6。实际上返回值是Some(6)。</p>
-
-<p>上面的方式是对unapply的浪费，unapply真正的好处是这样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">number</span><span class="k">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mf">36.0</span>
-</span><span class='line'><span class="n">number</span> <span class="k">match</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">case</span> <span class="nc">Square</span><span class="o">(</span><span class="n">n</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;square root of $number is $n&quot;</span><span class="o">)</span>
-</span><span class='line'>  <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;nothing matched&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样我们无需显式调用unapply方法，而把是它用在pattern match中，让编译器替我们调用它。</p>
-
-<p>当我们写下这段pattern match的代码时，编译器其实替我们做了好几件事：</p>
-
-<ol>
-<li>调用unapply，传入number</li>
-<li>接收返回值并判断返回值是None，还是Some</li>
-<li>如果是Some，则将其解开，并将其中的值赋值给n（就是case Square(n)中的n）</li>
-</ol>
-
-
-<p>这段代码反编译出来是这个样子的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'>  <span class="kt">double</span> <span class="n">number</span> <span class="o">=</span> <span class="mf">36.0</span><span class="n">D</span><span class="o">;</span>
-</span><span class='line'>  <span class="kt">double</span> <span class="n">d1</span> <span class="o">=</span> <span class="n">number</span><span class="o">;</span>
-</span><span class='line'>  <span class="n">Option</span> <span class="n">localOption</span> <span class="o">=</span> <span class="n">Square</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">unapply</span><span class="o">(</span><span class="n">d1</span><span class="o">);</span>
-</span><span class='line'>  <span class="c1">//调用unapply，传入number</span>
-</span><span class='line'>  <span class="n">BoxedUnit</span> <span class="n">localBoxedUnit</span><span class="o">;</span>
-</span><span class='line'>  <span class="k">if</span> <span class="o">(</span><span class="n">localOption</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span><span class="c1">//判断返回值是None</span>
-</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;nothing matched&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">localBoxedUnit</span> <span class="o">=</span> <span class="n">BoxedUnit</span><span class="o">.</span><span class="na">UNIT</span><span class="o">;</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>  <span class="k">else</span> <span class="o">{</span><span class="c1">//判断返回值是Some</span>
-</span><span class='line'>    <span class="kt">double</span> <span class="n">n</span> <span class="o">=</span> <span class="n">BoxesRunTime</span><span class="o">.</span><span class="na">unboxToDouble</span><span class="o">(</span><span class="n">localOption</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
-</span><span class='line'>    <span class="c1">//将Some解开，并将其中的值赋值给n</span>
-</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="n">StringContext</span><span class="o">(</span><span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">wrapRefArray</span><span class="o">((</span><span class="n">Object</span><span class="o">[])</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]</span> <span class="o">{</span>
-</span><span class='line'>      <span class="s">&quot;square root of &quot;</span><span class="o">,</span> <span class="s">&quot; is &quot;</span><span class="o">,</span> <span class="s">&quot;&quot;</span>
-</span><span class='line'>    <span class="o">})</span> <span class="o">).</span><span class="na">s</span><span class="o">(</span><span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">genericWrapArray</span><span class="o">(</span><span class="k">new</span> <span class="n">Object</span><span class="o">[]</span> <span class="o">{</span>
-</span><span class='line'>      <span class="n">BoxesRunTime</span><span class="o">.</span><span class="na">boxToDouble</span><span class="o">(</span><span class="n">number</span><span class="o">),</span> <span class="n">BoxesRunTime</span><span class="o">.</span><span class="na">boxToDouble</span><span class="o">(</span><span class="n">n</span><span class="o">)</span>
-</span><span class='line'>    <span class="o">})));</span>
-</span><span class='line'>    <span class="n">localBoxedUnit</span> <span class="o">=</span> <span class="n">BoxedUnit</span><span class="o">.</span><span class="na">UNIT</span><span class="o">;</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>如果没有unapply方法和pattern match语法之间的这种结合，我们自己写代码要写成什么样子呢？</p>
-
-<p>或许会比上面反编译的代码简单一些，但是显式地调用开平方的方法，用if else来判断Option，以及将真正的返回值从Option里面解出来这三件事是免不掉的。</p>
-
-<p>unapplySeq和unapply的作用很是类似，例如这样：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Names</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">unapplySeq</span><span class="o">(</span><span class="n">str</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">String</span><span class="o">]]</span> <span class="k">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="o">(</span><span class="s">&quot;,&quot;</span><span class="o">))</span> <span class="nc">Some</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="o">(</span><span class="s">&quot;,&quot;</span><span class="o">))</span>
-</span><span class='line'>    <span class="k">else</span> <span class="nc">None</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我们定义一个unapplySeq方法，用逗号作为分隔符来把字符串拆开。</p>
-
-<p>然后我们可以这样应用它：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">namesString</span> <span class="k">=</span> <span class="s">&quot;xiao ming,xiao hong,tom&quot;</span>
-</span><span class='line'><span class="n">namesString</span> <span class="k">match</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">case</span> <span class="nc">Names</span><span class="o">(</span><span class="n">first</span><span class="o">,</span> <span class="n">second</span><span class="o">,</span> <span class="n">third</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="s">&quot;the string contains three people&#39;s names&quot;</span><span class="o">)</span>
-</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;$first $second $third&quot;</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>  <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;nothing matched&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>与上面的例子很是类似，不过编译器在这里替我们做的事情更多了：</p>
-
-<ol>
-<li>调用unapplySeq，传入namesString</li>
-<li>接收返回值并判断返回值是None，还是Some</li>
-<li>如果是Some，则将其解开</li>
-<li>判断解开之后得到的sequence中的元素的个数是否是三个</li>
-<li>如果是三个，则把三个元素分别取出，赋值给first，second和third</li>
-</ol>
-
-
-<p>如果没有unapplySeq方法和pattern match语法之间的这种结合，我们自己写代码来做这五件事会显得很是繁琐。</p>
 ]]></content>
   </entry>
   
