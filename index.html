@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/">策略模式：筷子开啤酒</a></h1>
+      <h1 class="entry-title"><a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/">策略模式的尴尬就像用菜刀开啤酒</a></h1>
     
     
       <p class="meta">
@@ -456,9 +456,9 @@
 
 <p>紧凑程度，实体数量都比以上两版有改进。这一点从行数上可以窥见：Java版63行，trait版29行，最后一版21行。</p>
 
-<h1>筷子开啤酒</h1>
+<h1>菜刀开啤酒</h1>
 
-<p>最后回到标题上去：筷子开啤酒，意即用不合适的工具解决问题。</p>
+<p>最后回到标题上去：菜刀开啤酒，意即用不合适的工具解决问题。</p>
 
 <p>strategy patten要解决的问题其实就是如何把一族行为的不同实现注入到某个类里去。</p>
 
@@ -466,9 +466,11 @@
 
 <blockquote><p>Strategy lets the algorithm vary independently from clients that use it.</p></blockquote>
 
+<p>无论是class，还是function，都是为程序员提供抽象的手段。当我们想要抽象的东西就是一段algorithm（正如wiki所说）的时候，用function来做抽象就是更加轻量且合适的选择。</p>
+
 <p>该模式提出的时候FP并不如今日盛行，其作者选用纯OO的方式解决了问题，并广为传播，实为功德。</p>
 
-<p>不过今天我们有了开瓶器，就无需一定要用筷子了。</p>
+<p>不过今天我们有了开瓶器，就无需一定要用菜刀了。</p>
 
 <p>最后是一个Java 8的实现：</p>
 
@@ -1709,7 +1711,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/">策略模式：筷子开啤酒</a>
+        <a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/">策略模式的尴尬就像用菜刀开啤酒</a>
       </li>
     
       <li class="post">

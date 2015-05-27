@@ -4,7 +4,7 @@
   <title><![CDATA[崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2015-05-27T11:48:21+05:30</updated>
+  <updated>2015-05-27T14:46:19+05:30</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[策略模式：筷子开啤酒]]></title>
+    <title type="html"><![CDATA[策略模式的尴尬就像用菜刀开啤酒]]></title>
     <link href="http://cuipengfei.github.com/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/"/>
     <updated>2015-05-27T08:55:00+05:30</updated>
     <id>http://cuipengfei.github.com/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant</id>
@@ -369,9 +369,9 @@
 
 <p>紧凑程度，实体数量都比以上两版有改进。这一点从行数上可以窥见：Java版63行，trait版29行，最后一版21行。</p>
 
-<h1>筷子开啤酒</h1>
+<h1>菜刀开啤酒</h1>
 
-<p>最后回到标题上去：筷子开啤酒，意即用不合适的工具解决问题。</p>
+<p>最后回到标题上去：菜刀开啤酒，意即用不合适的工具解决问题。</p>
 
 <p>strategy patten要解决的问题其实就是如何把一族行为的不同实现注入到某个类里去。</p>
 
@@ -379,9 +379,11 @@
 
 <blockquote><p>Strategy lets the algorithm vary independently from clients that use it.</p></blockquote>
 
+<p>无论是class，还是function，都是为程序员提供抽象的手段。当我们想要抽象的东西就是一段algorithm（正如wiki所说）的时候，用function来做抽象就是更加轻量且合适的选择。</p>
+
 <p>该模式提出的时候FP并不如今日盛行，其作者选用纯OO的方式解决了问题，并广为传播，实为功德。</p>
 
-<p>不过今天我们有了开瓶器，就无需一定要用筷子了。</p>
+<p>不过今天我们有了开瓶器，就无需一定要用菜刀了。</p>
 
 <p>最后是一个Java 8的实现：</p>
 
