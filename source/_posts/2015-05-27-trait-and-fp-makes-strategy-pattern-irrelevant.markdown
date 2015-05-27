@@ -222,15 +222,15 @@ class DecoyDuck extends Duck(flyNoWay, muteQuack)
 
 Fly和Quack不再是interface或者是trait。而是type aliase。
 
-Scala的type aliase就类似于C#delegate，用来声明function signature。
+Scala的type aliase就类似于C#的delegate，用来声明function signature。
 
-更多关于type aliase的详情请参考我的另一篇博客： [http://cuipengfei.me/blog/2013/12/23/desugar-scala-4/](http://cuipengfei.me/blog/2013/12/23/desugar-scala-4/)
+更多关于type aliase的更多详情请参考我的另一篇博客： [http://cuipengfei.me/blog/2013/12/23/desugar-scala-4/](http://cuipengfei.me/blog/2013/12/23/desugar-scala-4/)
 
 这样，会飞不会飞，会叫不会叫就无需被class或者trait包裹着了，直接就是一个个的函数。
 
 鸭子的子类通过构造函数接收飞和叫的两个函数作为参数，就能够组合不同的行为了。
 
-如果说上面triat的实现方式与Java实现版相比偏重了inheritance而不是composition，这一版的实现则又回到了纯composition的路上了。
+如果说之前triat的实现方式与Java实现版相比偏重了inheritance而不是composition，这一版的实现则又回到了纯composition的路上了。
 
 紧凑程度，实体数量都比以上两版有改进。这一点从行数上可以窥见：Java版63行，trait版29行，最后一版21行。
 
@@ -240,6 +240,9 @@ Scala的type aliase就类似于C#delegate，用来声明function signature。
 
 strategy patten要解决的问题其实就是如何把一族行为的不同实现注入到某个类里去。
 
-该模式提出的时候FP并不如今日盛行，作者选用纯OO的方式解决了问题，并广为传播，实为功德。
+这一点，最开头的wiki定义已经说的很明白了：
+> Strategy lets the algorithm vary independently from clients that use it.
+
+该模式提出的时候FP并不如今日盛行，其作者选用纯OO的方式解决了问题，并广为传播，实为功德。
 
 不过今天我们有了开瓶器，就无需一定要用筷子了。
