@@ -246,3 +246,59 @@ strategy patten要解决的问题其实就是如何把一族行为的不同实�
 该模式提出的时候FP并不如今日盛行，其作者选用纯OO的方式解决了问题，并广为传播，实为功德。
 
 不过今天我们有了开瓶器，就无需一定要用筷子了。
+
+最后是一个Java 8的实现：
+
+```java
+public interface Fly {
+    void fly();
+}
+
+public interface Quack {
+    void quack();
+}
+
+public class BehaviorsRepo {
+    public static Fly flyWithWings = () -> System.out.println("fly with wings");
+    public static Fly canNotFly = () -> System.out.println("can not fly");
+
+    public static Quack realQuack = () -> System.out.println("Quack");
+    public static Quack muteQuack = () -> System.out.println("<<silence>>");
+}
+
+public class Duck {
+    private final Fly f;
+    private final Quack q;
+
+    public Duck(Fly f, Quack q) {
+        this.f = f;
+        this.q = q;
+    }
+
+    public void fly() {
+        f.fly();
+    }
+
+    public void quack() {
+        q.quack();
+    }
+}
+
+public class MallardDuck extends Duck {
+    public MallardDuck() {
+        super(flyWithWings, realQuack);
+    }
+}
+
+public class DecoyDuck extends Duck {
+    public DecoyDuck() {
+        super(canNotFly, muteQuack);
+    }
+}
+```
+
+看起来比最开始的那一版好一些，但是我还是看它不顺眼。
+
+为什么呢？
+
+一定是由于我强烈的偏见而没有其他任何原因，一定是这样的。
