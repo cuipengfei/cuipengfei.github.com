@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 策略模式：筷子开啤酒
+title: 策略模式的尴尬就像用菜刀开啤酒
 date: '2015-05-27 08:55'
 comments: true
 keywords: 'scala, java, design pattern, strategy pattern, OO, FP, 设计模式'
@@ -234,18 +234,20 @@ Scala的type aliase就类似于C#的delegate，用来声明function signature。
 
 紧凑程度，实体数量都比以上两版有改进。这一点从行数上可以窥见：Java版63行，trait版29行，最后一版21行。
 
-# 筷子开啤酒
+# 菜刀开啤酒
 
-最后回到标题上去：筷子开啤酒，意即用不合适的工具解决问题。
+最后回到标题上去：菜刀开啤酒，意即用不合适的工具解决问题。
 
 strategy patten要解决的问题其实就是如何把一族行为的不同实现注入到某个类里去。
 
 这一点，最开头的wiki定义已经说的很明白了：
 > Strategy lets the algorithm vary independently from clients that use it.
 
+无论是class，还是function，都是为程序员提供抽象的手段。当我们想要抽象的东西就是一段algorithm（正如wiki所说）的时候，用function来做抽象就是更加轻量且合适的选择。
+
 该模式提出的时候FP并不如今日盛行，其作者选用纯OO的方式解决了问题，并广为传播，实为功德。
 
-不过今天我们有了开瓶器，就无需一定要用筷子了。
+不过今天我们有了开瓶器，就无需一定要用菜刀了。
 
 最后是一个Java 8的实现：
 
