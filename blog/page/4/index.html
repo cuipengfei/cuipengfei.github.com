@@ -9,18 +9,13 @@
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content="这篇博客介绍一下Scala中的partial application，局部应用，或者叫做柯里化。 所谓柯里化就是指把一个接受多个参数的函数的一部分参数写死，剩下的一部分由调用者提供。 用Java代码来表述，大概可以写成这样： 1
+  <meta name="description" content="apply method是一个很简单的语言特性。如果一个class或者是object有一个主要的方法，那么与其每次显式的调用这个主要的方法，还不如隐式调用。举个例子： 1
 2
 3
 4
 5
 6
-7
-8
-9
-10
-11
-public &hellip;">
+class Kettle { def boil(water: Water) = { water. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +80,177 @@ public &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/29/desugar-scala-7/">剥掉Scala的糖衣(7) &#8211; Apply Method</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-29T19:20:00+05:30" pubdate data-updated="true">Dec 29<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/12/29/desugar-scala-7/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>apply method是一个很简单的语言特性。如果一个class或者是object有一个主要的方法，那么与其每次显式的调用这个主要的方法，还不如隐式调用。举个例子：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Kettle</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">boil</span><span class="o">(</span><span class="n">water</span><span class="k">:</span> <span class="kt">Water</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">water</span><span class="o">.</span><span class="n">isWarm</span> <span class="k">=</span> <span class="kc">true</span>
+</span><span class='line'>    <span class="n">water</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>一个水壶的主要作用就是烧开水，于是我们每次都要调用boil方法来烧开水:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">val</span> <span class="n">kettle</span><span class="k">:</span> <span class="kt">Kettle</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Kettle</span><span class="o">()</span>
+</span><span class='line'>  <span class="n">kettle</span><span class="o">.</span><span class="n">boil</span><span class="o">(</span><span class="k">new</span> <span class="nc">Water</span><span class="o">())</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果要把它改写成apply method的方式，只需要给boil改个名字就好了：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Kettle</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">water</span><span class="k">:</span> <span class="kt">Water</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">water</span><span class="o">.</span><span class="n">isWarm</span> <span class="k">=</span> <span class="kc">true</span>
+</span><span class='line'>    <span class="n">water</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后需要烧开水时，就只需把水倒进壶里就好了：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">kettle</span><span class="k">:</span> <span class="kt">Kettle</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Kettle</span><span class="o">()</span>
+</span><span class='line'><span class="n">kettle</span><span class="o">(</span><span class="k">new</span> <span class="nc">Water</span><span class="o">())</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个语言特性的实现很简单，不用说也可以猜到，无非就是把kettle(water)编译成kettle.apply(water)。反编译一下，Kettle class的定义毫无出奇之处：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Kettle</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">Water</span> <span class="nf">apply</span><span class="o">(</span><span class="n">Water</span> <span class="n">water</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="n">water</span><span class="o">.</span><span class="na">isWarm_</span><span class="n">$eq</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">water</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>烧水的代码被编译成了这样：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Kettle</span> <span class="n">kettle</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Kettle</span><span class="o">();</span>
+</span><span class='line'><span class="n">kettle</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="k">new</span> <span class="n">Water</span><span class="o">());</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们刚开始说过apply method也可以用在object里。下面举个例子，我们把Kettle烧水的能力移到它的companion object里面去：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Kettle</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">water</span><span class="k">:</span> <span class="kt">Water</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">water</span><span class="o">.</span><span class="n">isWarm</span> <span class="k">=</span> <span class="kc">true</span>
+</span><span class='line'>    <span class="n">water</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后烧水的时候就可以这样调用：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="nc">Kettle</span><span class="o">(</span><span class="k">new</span> <span class="nc">Water</span><span class="o">())</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>反编译出来的结果大同小异，就不再赘述了，唯一的区别就是apply变成了静态方法。</p>
+
+<p>上面这个水壶烧水的例子并不是最佳实践的作法。apply method的一个最佳实践是用来做工厂。比如Scala标准库中的List就提供了apply方法来给我们创建List：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+</span><span class='line'><span class="nc">List</span><span class="o">(</span><span class="s">&quot;a&quot;</span><span class="o">,</span> <span class="s">&quot;b&quot;</span><span class="o">,</span> <span class="s">&quot;c&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>或者是Map也有类似的用法：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="nc">Map</span><span class="o">(</span><span class="mi">1</span> <span class="o">-&gt;</span> <span class="s">&quot;a&quot;</span><span class="o">,</span> <span class="mi">2</span> <span class="o">-&gt;</span> <span class="s">&quot;b&quot;</span><span class="o">,</span> <span class="mi">3</span> <span class="o">-&gt;</span> <span class="s">&quot;c&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以上的两段代码并不是在调用List和Map的constructor，而是在调用List和Map的companion objects的apply方法。</p>
+
+<p>Map的创建可以用apply method，而Map最常用的一个方法就是通过key来取得value，这个也有apply method来做：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">map</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">(</span><span class="mi">1</span> <span class="o">-&gt;</span> <span class="s">&quot;a&quot;</span><span class="o">,</span> <span class="mi">2</span> <span class="o">-&gt;</span> <span class="s">&quot;b&quot;</span><span class="o">,</span> <span class="mi">3</span> <span class="o">-&gt;</span> <span class="s">&quot;c&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="n">map</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -2491,48 +2657,9 @@ knockoutjs和jQuery。</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/03/04/ce-shi/">测试</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-04T20:27:00+05:30" pubdate data-updated="true">Mar 4<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/03/04/ce-shi/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>测试发布文章
-测试修改
-再次修改
-好久没用了，还能更新吗？test</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/5/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -2545,6 +2672,10 @@ knockoutjs和jQuery。</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/">职责链模式的别扭就像用门框夹核桃</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/">策略模式的尴尬就像用菜刀开啤酒</a>
@@ -2580,10 +2711,6 @@ knockoutjs和jQuery。</p>
     
       <li class="post">
         <a href="/blog/2014/12/27/2014/">2014年总结</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/11/16/zdyx2015wuhansecondclass/">2015武汉郑大晔校第二次课</a>
       </li>
     
   </ul>
