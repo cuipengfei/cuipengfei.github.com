@@ -1,9 +1,10 @@
 ---
 layout: post
-title: fp implementation of chain of responsibility
+title: 职责链模式的别扭就像用门框夹核桃
 date: '2015-05-30 09:40'
 comments: true
 categories: null
+keywords: 'scala, java, design pattern, Chain Of Responsibility pattern, OO, FP, 设计模式'
 ---
 
 # 职责链模式
@@ -206,3 +207,17 @@ object ChainRunner {
 而链接之后的结果本身也是一个函数，于是我们就可以调用chain并传入Event了。
 
 这份代码和前面Java版的行为是等价的，输出是一致的。
+
+# 门框夹核桃
+
+最后回到标题上去：门框夹核桃，意即用不合适的工具解决问题。
+
+职责链模式想要做到的事情其实就是把多个函数链起来调用。
+
+该模式提出的时候FP并不如今日盛行，其作者选用类来包装需要被链接的多个函数，这无可厚非。
+
+无论是class，还是function，都是为程序员提供抽象的手段。当我们想要链接的东西就是多个function，选择直接用function而非class就会会显得更加自然，也更加轻量且合适。
+
+当年design pattern的作者广为传播各种patterns，实为功德。
+
+不过今天我们有了核桃夹，就无需一定要用门框了。
