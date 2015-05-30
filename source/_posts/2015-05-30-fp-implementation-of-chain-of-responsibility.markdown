@@ -12,13 +12,13 @@ keywords: 'scala, java, design pattern, Chain Of Responsibility pattern, OO, FP,
 
 以上是wiki对职责链模式的定义。
 
-举个例子来说，我们的系统中需要记录日志的功能。而日志有需要根据优先级被发送到不同的地方。
+举个例子来说，我们的系统中需要记录日志的功能。日志需要根据优先级被发送到不同的地方。
 
 低优先级的日志输出到命令行就好了。而高优先级的错误信息则需要通过邮件通知相关人员并且输出到命令行。
 
 这个例子也是来自wiki的。
 
-以下是wiki提供的实现：
+以下是wiki提供的Java实现：
 
 # Java
 
@@ -52,7 +52,7 @@ abstract class Logger {
 }
 ```
 
-首先定义一个Logger抽象类。从其setNext和message这两个方法可以看出，我们后面会把具有不同writeMessage实现的Logger的链到一起，并且依次让它们处理某件需要被记录的事件。
+首先定义一个Logger抽象类。从其setNext和message这两个方法可以看出，我们后面会把多个具有不同writeMessage实现的Logger链到一起，并且依次让它们处理某件需要被记录的事件。
 
 ```java
 class StdoutLogger extends Logger {
@@ -123,7 +123,7 @@ public class ChainOfResponsibilityExample {
 
 一个接收mask的构造函数，其唯一职责就是把接收到的mask传递给父类的构造函数。
 
-然后父类根据mask和所发生事件优先级的大小关系决定到底要不要调用子类实现了的writeMessage方法。
+然后父类根据mask和所发生事件优先级的大小关系决定到底要不要调用子类实现的writeMessage方法。
 
 也就是说，子类完全没有定义自己的实例级状态，其实例级方法的行为也就谈不上随着其状态的变化而变化了。
 
@@ -216,8 +216,11 @@ object ChainRunner {
 
 该模式提出的时候FP并不如今日盛行，其作者选用类来包装需要被链接的多个函数，这无可厚非。
 
-无论是class，还是function，都是为程序员提供抽象的手段。当我们想要链接的东西就是多个function，选择直接用function而非class就会会显得更加自然，也更加轻量且合适。
+无论是class，还是function，都是为程序员提供抽象的手段。当我们想要链接的东西就是多个function，选择直接用function而非class就会显得更加自然，也更加轻量且合适。
 
 当年design pattern的作者广为传播各种patterns，实为功德。
 
 不过今天我们有了核桃夹，就无需一定要用门框了。
+
+最后，依照惯例，羞辱Java一小下下。
+以上wiki提供的实现有77行，偏FP风的实现只有38行，只有一个实体Event。
