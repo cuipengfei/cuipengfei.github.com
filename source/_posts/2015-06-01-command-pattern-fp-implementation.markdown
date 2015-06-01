@@ -270,3 +270,117 @@ public class RemoteLoader {
     }
 }
 ```
+
+```scala
+case class Light(location: String) {
+  def on() = println(s"$location light is on")
+
+  def off() = println(s"$location light is off")
+}
+
+case class TV(location: String) {
+  private var channel: Int = 0
+
+  def on() = println(location + " TV is on")
+
+  def off() = println(location + " TV is off")
+
+  def setInputChannel() = {
+    this.channel = 3
+    println(location + " TV channel is set for DVD")
+  }
+}
+
+case class Stereo(location: String) {
+  def on() = println(s"$location stereo is on")
+
+  def off() = println(s"$location stereo is off")
+}
+
+case class Hottub(var isOn: Boolean = false) {
+  private var temperature: Int = 0
+
+  def on() = isOn = true
+
+  def off() = isOn = false
+
+  def circulate() = if (isOn) println("Hottub is bubbling!")
+
+  def setTemperature(temperature: Int) = {
+    if (temperature > this.temperature) {
+      println("Hottub is heating to a steaming " + temperature + " degrees")
+    }
+    else {
+      println("Hottub is cooling to " + temperature + " degrees")
+    }
+    this.temperature = temperature
+  }
+}
+```
+
+```scala
+object Commands {
+  type Command = () => Unit
+
+  def lightOn(light: Light): Command = () => light.on()
+
+  def lightOff(light: Light): Command = () => light.off()
+
+  def tvOn(tv: TV): Command = () => {
+    tv.on()
+    tv.setInputChannel()
+  }
+
+  def tvOff(tv: TV): Command = () => tv.off()
+
+  def stereoOn(stereo: Stereo): Command = () => stereo.on()
+
+  def stereoOff(stereo: Stereo): Command = () => stereo.off()
+
+  def hottubOn(hottub: Hottub): Command = () => {
+    hottub.on()
+    hottub.setTemperature(104)
+    hottub.circulate()
+  }
+
+  def hottubOff(hottub: Hottub): Command = () => {
+    hottub.setTemperature(98)
+    hottub.off()
+  }
+
+  def macroCommand(commands: Command*): Command = () =>
+    commands.foreach(command => command())
+}
+```
+
+```scala
+case class RemoteControl(onCommands: Seq[Command], offCommands: Seq[Command]) {
+  def pushOnButton(slot: Int) = onCommands(slot)()
+
+  def pushOffButton(slot: Int) = offCommands(slot)()
+}
+
+object RemoteLoader {
+  def main(args: Array[String]) {
+    val light = Light("living room")
+    val tv = TV("living room")
+    val stereo = Stereo("living room")
+    val hottub = Hottub()
+
+    val on = macroCommand(lightOn(light),
+      stereoOn(stereo), tvOn(tv), hottubOn(hottub))
+
+    val off = macroCommand(lightOff(light),
+      stereoOff(stereo), tvOff(tv), hottubOff(hottub))
+
+    val remoteControl = RemoteControl(Seq(on), Seq(off))
+
+    println("--- Pushing Macro On---")
+    remoteControl.pushOnButton(0)
+    println("--- Pushing Macro Off---")
+    remoteControl.pushOffButton(0)
+  }
+}
+```
+
+103 247
