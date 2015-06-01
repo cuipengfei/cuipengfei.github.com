@@ -3,7 +3,7 @@ layout: post
 title: 职责链模式的别扭就像用门框夹核桃
 date: '2015-05-30 09:40'
 comments: true
-categories: null
+categories: scala
 keywords: 'scala, java, design pattern, Chain Of Responsibility pattern, OO, FP, 设计模式'
 ---
 
