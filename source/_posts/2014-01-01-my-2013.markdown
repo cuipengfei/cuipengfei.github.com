@@ -3,7 +3,7 @@ layout: post
 title: "今天是二零一四年的第一天，回忆一下二零一三年都干了些什么，然后再回忆一下没干什么"
 date: 2014-01-01 13:48
 comments: true
-categories: 
+categories: me
 ---
 
 

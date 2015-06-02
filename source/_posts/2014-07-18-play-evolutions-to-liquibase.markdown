@@ -4,7 +4,7 @@ title: "在使用play framework的evolutions？需要支持SQL Server？用Liqui
 date: 2014-07-18 15:11
 comments: true
 keywords: scala, play, play framework, evolution, sql server, liquibase
-categories:
+categories: ScalaInAction Scala
 ---
 
 我所在的项目在用Scala + Play framework做一个web app。

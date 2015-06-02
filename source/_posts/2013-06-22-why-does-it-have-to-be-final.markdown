@@ -3,7 +3,7 @@ layout: post
 title: "为什么必须是final的呢？"
 date: 2013-06-22 14:54
 comments: true
-categories: 
+categories: Java
 ---
 
 ## 一个谜团
@@ -147,16 +147,16 @@ class TryUsingAnonymousClass$1
             implements Serializable {
         public static final long serialVersionUID = 0L;
         private final IntRef number$2;
-    
+
         public final void apply() {
             apply$mcV$sp();
         }
-    
+
         public void apply$mcV$sp() {
             this.number$2.elem = 456;
             Predef..MODULE$.println(BoxesRunTime.boxToInteger(this.number$2.elem));
         }
-    
+
         public TryUsingAnonymousClassInScala$$anonfun$1(TryUsingAnonymousClassInScala $outer, IntRef number$2) {
             this.number$2 = number$2;
         }
