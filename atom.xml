@@ -4,7 +4,7 @@
   <title><![CDATA[崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2015-05-30T11:16:22+05:30</updated>
+  <updated>2015-06-02T20:46:52+05:30</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -12,6 +12,861 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[命令模式的不爽就像用指甲刀刮胡子]]></title>
+    <link href="http://cuipengfei.github.com/blog/2015/06/01/command-pattern-fp-implementation/"/>
+    <updated>2015-06-01T21:51:00+05:30</updated>
+    <id>http://cuipengfei.github.com/blog/2015/06/01/command-pattern-fp-implementation</id>
+    <content type="html"><![CDATA[<h1>命令模式</h1>
+
+<blockquote><p>在面向对象程式设计的范畴中，命令模式是一种设计模式，它尝试以物件来代表实际行动。命令物件可以把行动(action) 及其参数封装起来，于是这些行动可以被：</p>
+
+<ul>
+<li>重复多次</li>
+<li>取消（如果该物件有实作的话）</li>
+<li>取消后又再重做</li>
+</ul>
+</blockquote>
+
+<p>以上是wiki对命令模式的定义（术语像是台湾的）。</p>
+
+<p>下面是来自《Head first design patterns》的一个例子：</p>
+
+<p>假设你有很多家用电器：电灯泡，电视，音响，还有一个水疗浴缸。（就是没有手电筒）</p>
+
+<p>每个家用电器都有自己的开关装置，处于不同的位置。如果你想把它们都开启，需要一个一个地去按按钮。</p>
+
+<p>现在你想要有一个遥控器，一键开启所有电器，一键关闭所有电器。</p>
+
+<p>或者是一键完成任意的电器操作组合。</p>
+
+<p>每个电器的接口都是不同的，但是又需要和同一个遥控器集成，于是呢，肯定要有一个统一的接口了。</p>
+
+<p>于是就有了下面命令模式的实现代码。</p>
+
+<h1>Java</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Light</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">String</span> <span class="n">location</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">Light</span><span class="o">(</span><span class="n">String</span> <span class="n">location</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">location</span> <span class="o">=</span> <span class="n">location</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">on</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Light is on&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">off</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Light is off&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TV</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">String</span> <span class="n">location</span><span class="o">;</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">channel</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">TV</span><span class="o">(</span><span class="n">String</span> <span class="n">location</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">location</span> <span class="o">=</span> <span class="n">location</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">on</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">location</span> <span class="o">+</span> <span class="s">&quot; TV is on&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">off</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">location</span> <span class="o">+</span> <span class="s">&quot; TV is off&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setInputChannel</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">channel</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">location</span> <span class="o">+</span> <span class="s">&quot; TV channel is set for DVD&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Stereo</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">String</span> <span class="n">location</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">Stereo</span><span class="o">(</span><span class="n">String</span> <span class="n">location</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">location</span> <span class="o">=</span> <span class="n">location</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">on</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">location</span> <span class="o">+</span> <span class="s">&quot; stereo is on&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">off</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">location</span> <span class="o">+</span> <span class="s">&quot; stereo is off&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Hottub</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">boolean</span> <span class="n">on</span><span class="o">;</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">temperature</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">Hottub</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">on</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">on</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">off</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">on</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">circulate</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">on</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Hottub is bubbling!&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setTemperature</span><span class="o">(</span><span class="kt">int</span> <span class="n">temperature</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">temperature</span> <span class="o">&gt;</span> <span class="k">this</span><span class="o">.</span><span class="na">temperature</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Hottub is heating to a steaming &quot;</span> <span class="o">+</span> <span class="n">temperature</span> <span class="o">+</span> <span class="s">&quot; degrees&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Hottub is cooling to &quot;</span> <span class="o">+</span> <span class="n">temperature</span> <span class="o">+</span> <span class="s">&quot; degrees&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">temperature</span> <span class="o">=</span> <span class="n">temperature</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>首先是有四大件家用电器。各自之间没有什么关系。</p>
+
+<p>这里面的代码都有点傻，不过没关系，我们就想象这都是些很复杂的硬件通信之类的代码就好了。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Command</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">execute</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后，定义一个Command接口，其中只有一个execute()方法。</p>
+
+<p>之后我们会用它的实现类来操作各种电器。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LightOnCommand</span> <span class="kd">implements</span> <span class="n">Command</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Light</span> <span class="n">light</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">LightOnCommand</span><span class="o">(</span><span class="n">Light</span> <span class="n">light</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">light</span> <span class="o">=</span> <span class="n">light</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">light</span><span class="o">.</span><span class="na">on</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LightOffCommand</span> <span class="kd">implements</span> <span class="n">Command</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Light</span> <span class="n">light</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">LightOffCommand</span><span class="o">(</span><span class="n">Light</span> <span class="n">light</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">light</span> <span class="o">=</span> <span class="n">light</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">light</span><span class="o">.</span><span class="na">off</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TVOnCommand</span> <span class="kd">implements</span> <span class="n">Command</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">TV</span> <span class="n">tv</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">TVOnCommand</span><span class="o">(</span><span class="n">TV</span> <span class="n">tv</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">tv</span> <span class="o">=</span> <span class="n">tv</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">tv</span><span class="o">.</span><span class="na">on</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">tv</span><span class="o">.</span><span class="na">setInputChannel</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TVOffCommand</span> <span class="kd">implements</span> <span class="n">Command</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">TV</span> <span class="n">tv</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">TVOffCommand</span><span class="o">(</span><span class="n">TV</span> <span class="n">tv</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">tv</span> <span class="o">=</span> <span class="n">tv</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">tv</span><span class="o">.</span><span class="na">off</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StereoOnCommand</span> <span class="kd">implements</span> <span class="n">Command</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Stereo</span> <span class="n">stereo</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">StereoOnCommand</span><span class="o">(</span><span class="n">Stereo</span> <span class="n">stereo</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">stereo</span> <span class="o">=</span> <span class="n">stereo</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">stereo</span><span class="o">.</span><span class="na">on</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StereoOffCommand</span> <span class="kd">implements</span> <span class="n">Command</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Stereo</span> <span class="n">stereo</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">StereoOffCommand</span><span class="o">(</span><span class="n">Stereo</span> <span class="n">stereo</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">stereo</span> <span class="o">=</span> <span class="n">stereo</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">stereo</span><span class="o">.</span><span class="na">off</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HottubOnCommand</span> <span class="kd">implements</span> <span class="n">Command</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Hottub</span> <span class="n">hottub</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">HottubOnCommand</span><span class="o">(</span><span class="n">Hottub</span> <span class="n">hottub</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">hottub</span> <span class="o">=</span> <span class="n">hottub</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">hottub</span><span class="o">.</span><span class="na">on</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">hottub</span><span class="o">.</span><span class="na">setTemperature</span><span class="o">(</span><span class="mi">104</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">hottub</span><span class="o">.</span><span class="na">circulate</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HottubOffCommand</span> <span class="kd">implements</span> <span class="n">Command</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Hottub</span> <span class="n">hottub</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">HottubOffCommand</span><span class="o">(</span><span class="n">Hottub</span> <span class="n">hottub</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">hottub</span> <span class="o">=</span> <span class="n">hottub</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">hottub</span><span class="o">.</span><span class="na">setTemperature</span><span class="o">(</span><span class="mi">98</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">hottub</span><span class="o">.</span><span class="na">off</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这一大坨，就是Command的实现了。</p>
+
+<p>四大件电器，于是便有八个Command，分别负责每个电器的开启和关闭。</p>
+
+<p>有些电器的开启和关闭比别的要复杂一些，不过这没有关系，因为它们的细节都被封装在Command的实现类里面了，我们接下来的代码只要和Command这个接口打交道就好了。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MacroCommand</span> <span class="kd">implements</span> <span class="n">Command</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Command</span><span class="o">[]</span> <span class="n">commands</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">MacroCommand</span><span class="o">(</span><span class="n">Command</span><span class="o">[]</span> <span class="n">commands</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">commands</span> <span class="o">=</span> <span class="n">commands</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">commands</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">commands</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">execute</span><span class="o">();</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>还有一个宏命令，用来组合其他命令。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RemoteControl</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Command</span><span class="o">[]</span> <span class="n">onCommands</span><span class="o">;</span>
+</span><span class='line'>    <span class="n">Command</span><span class="o">[]</span> <span class="n">offCommands</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">RemoteControl</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">onCommands</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Command</span><span class="o">[</span><span class="mi">7</span><span class="o">];</span>
+</span><span class='line'>        <span class="n">offCommands</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Command</span><span class="o">[</span><span class="mi">7</span><span class="o">];</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCommand</span><span class="o">(</span><span class="kt">int</span> <span class="n">slot</span><span class="o">,</span> <span class="n">Command</span> <span class="n">onCommand</span><span class="o">,</span> <span class="n">Command</span> <span class="n">offCommand</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">onCommands</span><span class="o">[</span><span class="n">slot</span><span class="o">]</span> <span class="o">=</span> <span class="n">onCommand</span><span class="o">;</span>
+</span><span class='line'>        <span class="n">offCommands</span><span class="o">[</span><span class="n">slot</span><span class="o">]</span> <span class="o">=</span> <span class="n">offCommand</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onButtonWasPushed</span><span class="o">(</span><span class="kt">int</span> <span class="n">slot</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">onCommands</span><span class="o">[</span><span class="n">slot</span><span class="o">].</span><span class="na">execute</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">offButtonWasPushed</span><span class="o">(</span><span class="kt">int</span> <span class="n">slot</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">offCommands</span><span class="o">[</span><span class="n">slot</span><span class="o">].</span><span class="na">execute</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以实现遥控器了。</p>
+
+<p><img src="http://elisabethrobson.com/wp-content/uploads/2014/07/Command.jpg" alt="http://elisabethrobson.com/wp-content/uploads/2014/07/Command.jpg" /></p>
+
+<p>这个遥控器上的按钮都是空白的，我们可以给它置入任意我们想要的命令。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RemoteLoader</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">RemoteControl</span> <span class="n">remoteControl</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RemoteControl</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">Light</span> <span class="n">light</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Light</span><span class="o">(</span><span class="s">&quot;Living Room&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">TV</span> <span class="n">tv</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TV</span><span class="o">(</span><span class="s">&quot;Living Room&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">Stereo</span> <span class="n">stereo</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stereo</span><span class="o">(</span><span class="s">&quot;Living Room&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">Hottub</span> <span class="n">hottub</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hottub</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">Command</span><span class="o">[]</span> <span class="n">partyOn</span> <span class="o">=</span> <span class="o">{</span>
+</span><span class='line'>                <span class="k">new</span> <span class="nf">LightOnCommand</span><span class="o">(</span><span class="n">light</span><span class="o">),</span> <span class="k">new</span> <span class="n">StereoOnCommand</span><span class="o">(</span><span class="n">stereo</span><span class="o">),</span>
+</span><span class='line'>                <span class="k">new</span> <span class="nf">TVOnCommand</span><span class="o">(</span><span class="n">tv</span><span class="o">),</span> <span class="k">new</span> <span class="n">HottubOnCommand</span><span class="o">(</span><span class="n">hottub</span><span class="o">)};</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">Command</span><span class="o">[]</span> <span class="n">partyOff</span> <span class="o">=</span> <span class="o">{</span><span class="k">new</span> <span class="n">LightOffCommand</span><span class="o">(</span><span class="n">light</span><span class="o">),</span> <span class="k">new</span> <span class="n">StereoOffCommand</span><span class="o">(</span><span class="n">stereo</span><span class="o">),</span>
+</span><span class='line'>                <span class="k">new</span> <span class="nf">TVOffCommand</span><span class="o">(</span><span class="n">tv</span><span class="o">),</span> <span class="k">new</span> <span class="n">HottubOffCommand</span><span class="o">(</span><span class="n">hottub</span><span class="o">)};</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">remoteControl</span><span class="o">.</span><span class="na">setCommand</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="k">new</span> <span class="n">MacroCommand</span><span class="o">(</span><span class="n">partyOn</span><span class="o">),</span> <span class="k">new</span> <span class="n">MacroCommand</span><span class="o">(</span><span class="n">partyOff</span><span class="o">));</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;--- Pushing Macro On---&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">remoteControl</span><span class="o">.</span><span class="na">onButtonWasPushed</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;--- Pushing Macro Off---&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">remoteControl</span><span class="o">.</span><span class="na">offButtonWasPushed</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>终于可以写一个main函数了：</p>
+
+<ul>
+<li>把家用电器和其对应的Command联系起来</li>
+<li>把各种Command组合成开启和关闭两个宏命令</li>
+<li>把宏命令置入遥控器</li>
+</ul>
+
+
+<p>然后，只要按一个按钮，就可以开启所有电器，享受资产阶级奢靡的生活了。</p>
+
+<p>享受够了之后只要再按一个按钮就可以把所有电器关闭掉。</p>
+
+<p>如果再有别的电器，只需要实现几个新的Command，把新的Command组合入宏命令，继续使用遥控器就好了。</p>
+
+<p>换句话说，因为遥控器和电器之间通过Command解耦了，增加新的电器和新的Command对于遥控器没有影响，遥控器的代码是稳定的。这也就是所谓的对扩展开放，对修改关闭。</p>
+
+<p>很好，很符合良好的设计原则，看着就舒服对吧？</p>
+
+<h2>不过再想一下</h2>
+
+<p>电灯的开启和关闭这两个命令仅仅是对电灯的两个方法的简单代理。</p>
+
+<p>音响的开启和关闭这两个命令仅仅是对音响的两个方法的简单代理。</p>
+
+<p>电视机的关闭也是简单的代理。</p>
+
+<p>这些命令类是否看起来太单薄了呢？它们的方法异常瘦弱，营养不良。</p>
+
+<p>它们除了持有一个需要操作的电器的实例之外，基本没有什么实例级状态。</p>
+
+<p>（电视开机还好，由于需要选择频道，好歹调用了两个方法。
+水疗浴缸操作比较复杂，需要调节温度，所以也还稍微好一些。）</p>
+
+<p>每次看到这种贫血的类，我就怀疑它们存在的必要性。</p>
+
+<p>如果我们只是想要给家用电器内的方法构造一个统一个的对外接口，是不是可以用函数式来实现呢？</p>
+
+<h1>functions</h1>
+
+<p>来试试用Scala实现：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Light</span><span class="o">(</span><span class="n">location</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">on</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;$location light is on&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">off</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;$location light is off&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">TV</span><span class="o">(</span><span class="n">location</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">private</span> <span class="k">var</span> <span class="n">channel</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">on</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="n">location</span> <span class="o">+</span> <span class="s">&quot; TV is on&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">off</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="n">location</span> <span class="o">+</span> <span class="s">&quot; TV is off&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">setInputChannel</span><span class="o">()</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">this</span><span class="o">.</span><span class="n">channel</span> <span class="k">=</span> <span class="mi">3</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">location</span> <span class="o">+</span> <span class="s">&quot; TV channel is set for DVD&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Stereo</span><span class="o">(</span><span class="n">location</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">on</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;$location stereo is on&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">off</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;$location stereo is off&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Hottub</span><span class="o">(</span><span class="k">var</span> <span class="n">isOn</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">private</span> <span class="k">var</span> <span class="n">temperature</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">on</span><span class="o">()</span> <span class="k">=</span> <span class="n">isOn</span> <span class="k">=</span> <span class="kc">true</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">off</span><span class="o">()</span> <span class="k">=</span> <span class="n">isOn</span> <span class="k">=</span> <span class="kc">false</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">circulate</span><span class="o">()</span> <span class="k">=</span> <span class="k">if</span> <span class="o">(</span><span class="n">isOn</span><span class="o">)</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Hottub is bubbling!&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">setTemperature</span><span class="o">(</span><span class="n">temperature</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">temperature</span> <span class="o">&gt;</span> <span class="k">this</span><span class="o">.</span><span class="n">temperature</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">println</span><span class="o">(</span><span class="s">&quot;Hottub is heating to a steaming &quot;</span> <span class="o">+</span> <span class="n">temperature</span> <span class="o">+</span> <span class="s">&quot; degrees&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>    <span class="k">else</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">println</span><span class="o">(</span><span class="s">&quot;Hottub is cooling to &quot;</span> <span class="o">+</span> <span class="n">temperature</span> <span class="o">+</span> <span class="s">&quot; degrees&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>    <span class="k">this</span><span class="o">.</span><span class="n">temperature</span> <span class="k">=</span> <span class="n">temperature</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>首先是有四大件家用电器，这部分和Java的代码等价。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Commands</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">type</span> <span class="kt">Command</span> <span class="o">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="nc">Unit</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">tvOn</span><span class="o">(</span><span class="n">tv</span><span class="k">:</span> <span class="kt">TV</span><span class="o">)</span><span class="k">:</span> <span class="kt">Command</span> <span class="o">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">tv</span><span class="o">.</span><span class="n">on</span><span class="o">()</span>
+</span><span class='line'>    <span class="n">tv</span><span class="o">.</span><span class="n">setInputChannel</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">hottubOn</span><span class="o">(</span><span class="n">hottub</span><span class="k">:</span> <span class="kt">Hottub</span><span class="o">)</span><span class="k">:</span> <span class="kt">Command</span> <span class="o">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">hottub</span><span class="o">.</span><span class="n">on</span><span class="o">()</span>
+</span><span class='line'>    <span class="n">hottub</span><span class="o">.</span><span class="n">setTemperature</span><span class="o">(</span><span class="mi">104</span><span class="o">)</span>
+</span><span class='line'>    <span class="n">hottub</span><span class="o">.</span><span class="n">circulate</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">hottubOff</span><span class="o">(</span><span class="n">hottub</span><span class="k">:</span> <span class="kt">Hottub</span><span class="o">)</span><span class="k">:</span> <span class="kt">Command</span> <span class="o">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">hottub</span><span class="o">.</span><span class="n">setTemperature</span><span class="o">(</span><span class="mi">98</span><span class="o">)</span>
+</span><span class='line'>    <span class="n">hottub</span><span class="o">.</span><span class="n">off</span><span class="o">()</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">macroCommand</span><span class="o">(</span><span class="n">commands</span><span class="k">:</span> <span class="kt">Command*</span><span class="o">)</span><span class="k">:</span> <span class="kt">Command</span> <span class="o">=</span> <span class="o">()</span> <span class="k">=&gt;</span>
+</span><span class='line'>    <span class="n">commands</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">command</span> <span class="k">=&gt;</span> <span class="n">command</span><span class="o">())</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这一段用来定义各种命令的代码就不同了。</p>
+
+<p>我们对家用电器的各种方法的调用都是只期待其副作用，不期待任何返回值的。所以可以定义一个函数签名Command来涵盖所有这类操作。</p>
+
+<p>和上面的Java代码类似，这里也有一个宏命令，只不过实现简单一些。</p>
+
+<p>电视的开启，水疗浴缸的开和关都有对应的方法来把家用电器的实例封入闭包中。</p>
+
+<p>咦？电灯的开关，音响的开关，以及电视的关闭都跑哪儿去了呢？</p>
+
+<p>由于这几个操作都只涉及到一个方法的调用，它们直接就符合Command的函数签名，所以不用再封入任何闭包了。这一点看下面的代码就明白了。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">RemoteControl</span><span class="o">(</span><span class="n">onCommands</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Command</span><span class="o">],</span> <span class="n">offCommands</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Command</span><span class="o">])</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">pushOnButton</span><span class="o">(</span><span class="n">slot</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="n">onCommands</span><span class="o">(</span><span class="n">slot</span><span class="o">)()</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">pushOffButton</span><span class="o">(</span><span class="n">slot</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="n">offCommands</span><span class="o">(</span><span class="n">slot</span><span class="o">)()</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">object</span> <span class="nc">RemoteLoader</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">main</span><span class="o">(</span><span class="n">args</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">light</span> <span class="k">=</span> <span class="nc">Light</span><span class="o">(</span><span class="s">&quot;living room&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">tv</span> <span class="k">=</span> <span class="nc">TV</span><span class="o">(</span><span class="s">&quot;living room&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">stereo</span> <span class="k">=</span> <span class="nc">Stereo</span><span class="o">(</span><span class="s">&quot;living room&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">hottub</span> <span class="k">=</span> <span class="nc">Hottub</span><span class="o">()</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">val</span> <span class="n">on</span> <span class="k">=</span> <span class="n">macroCommand</span><span class="o">(</span><span class="n">light</span><span class="o">.</span><span class="n">on</span><span class="o">,</span>
+</span><span class='line'>      <span class="n">stereo</span><span class="o">.</span><span class="n">on</span><span class="o">,</span> <span class="n">tvOn</span><span class="o">(</span><span class="n">tv</span><span class="o">),</span> <span class="n">hottubOn</span><span class="o">(</span><span class="n">hottub</span><span class="o">))</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">val</span> <span class="n">off</span> <span class="k">=</span> <span class="n">macroCommand</span><span class="o">(</span><span class="n">light</span><span class="o">.</span><span class="n">off</span><span class="o">,</span>
+</span><span class='line'>      <span class="n">stereo</span><span class="o">.</span><span class="n">off</span><span class="o">,</span> <span class="n">tv</span><span class="o">.</span><span class="n">off</span><span class="o">,</span> <span class="n">hottubOff</span><span class="o">(</span><span class="n">hottub</span><span class="o">))</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">val</span> <span class="n">remoteControl</span> <span class="k">=</span> <span class="nc">RemoteControl</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">on</span><span class="o">),</span> <span class="nc">Seq</span><span class="o">(</span><span class="n">off</span><span class="o">))</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="s">&quot;--- Pushing Macro On---&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="n">remoteControl</span><span class="o">.</span><span class="n">pushOnButton</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="s">&quot;--- Pushing Macro Off---&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="n">remoteControl</span><span class="o">.</span><span class="n">pushOffButton</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们可以定义一个遥控器。其中有开启，和关闭两排按钮。</p>
+
+<p>最后，可以写一个main函数，其中所做的事情和之前Java代码main函数所做的事情是一样的。</p>
+
+<p>只不过，不需要创建各种Command的实例。</p>
+
+<p>而且light.on，stereo.on，light.off，stereo.off，tv.off这几个方法由于符合Command的签名，是可以直接拿来当Command用的。（注意方法名后面没有()，不是调用，而是函数传递）</p>
+
+<p>前后两版代码是等价的。只不过：</p>
+
+<ul>
+<li>247行代码变成了93行代码</li>
+<li>16个实体变成了7个</li>
+</ul>
+
+
+<p>作为一个多按几个按钮都嫌麻烦的好逸恶劳的资产阶级，这个结果是我所乐于见到的。</p>
+
+<p>更少，更紧凑的代码。更少的实体。我终于可以用更小的成本来享受我昂贵的家用电器了。</p>
+
+<h1>指甲刀刮胡子</h1>
+
+<p>最后回到标题上去：指甲刀刮胡子，意即用不合适的工具解决问题。</p>
+
+<p>命令模式想要做到的事情其实就是给各种不同的操作寻找一个统一的接口，从而实现调用者（遥控器）和被调用者（家用电器）之间的解耦。</p>
+
+<p>给不同的操作寻找一个统一的接口这件事可以通过接口来做，但是我们同时要承担写一堆贫血类的代价。</p>
+
+<p>而如果直接用函数来做的话，则可以得到更紧凑简洁的代码（就像object Commands这个实体内的代码一样）。</p>
+
+<p>该模式提出的时候FP并不如今日盛行，其作者选用了可能会导致贫血类泛滥的解决方案，这无可厚非。传播了解耦和开闭等良好设计的原则也实为功德。</p>
+
+<p>不过今天我们有了剃须刀，就无需一定要用指甲刀来刮胡子了。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[职责链模式的别扭就像用门框夹核桃]]></title>
@@ -3214,200 +4069,6 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
 <p>Ok，不关注那么老的事儿了，可以确定的一点是，在当前版本下，在Java中是可以调用Scala中定义的接收闭包的函数的。</p>
 
 <p>THE END</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Scala + Play + sbt + Protractor = one build]]></title>
-    <link href="http://cuipengfei.github.com/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/"/>
-    <updated>2014-06-22T17:00:00+05:30</updated>
-    <id>http://cuipengfei.github.com/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build</id>
-    <content type="html"><![CDATA[<p>我所在的项目的技术栈选用的是Play framework做后端API，前端用Angular JS。</p>
-
-<p>因为用了Scala和Play，构建工具很自然用的就是sbt。</p>
-
-<p>而由于前端用了Angular，所以functional test就选用了和Angular结合较好的protractor。</p>
-
-<p>这一切看起来似乎很美好，一个无状态的后端，一个数据和UI双向绑定的前端。What could possibly go wrong？</p>
-
-<p>一开始也确实如此，没什么问题。我们为了让functional test在CI上跑起来，写了一个脚本来把play dist打出的包部署到CI所在机器上，然后运行protractor。</p>
-
-<p>这个脚本运行还算ok，偶尔有点小问题，修一修也就好了。</p>
-
-<p>不过，这也就是说有两个因素可能会使得我们的CI挂掉，一个是用sbt跑的specs2的测试，一个是protractor的测试。而protractor的测试是基于我们自己所写的脚本的，与sbt没啥关系。</p>
-
-<h3>麻烦来了</h3>
-
-<p>上周五的show case，我们一个小时后就要给客户演示现有产品的示例，但是CI挂掉了，新的代码没法走到QA和UAT的环境，bug fix也过不去。</p>
-
-<p>最后我们不得不修改jenkins的配置，把sbt test和protractor的test都暂时禁掉，才让最新的代码到了UAT上去。而这一切，是在show case之前一分钟才解决掉的。</p>
-
-<p>事情总是这样的，出一两次小问题，修修改改就好，我们不会注意到其危害，不会想到其风险。直到琐碎的积累导致了严重的后果，我们才会正视问题的存在。而这个时候问题或许已经复杂和严重到不可修复或者是要花很大成本修复的地步了。保持一个健康的CI是如此。写代码的每一个细节也是如此。</p>
-
-<p>还好，很幸运，我们的问题还没有那么严重，还来得及修。</p>
-
-<p>在决定要修之后，先</p>
-
-<h3>定义一下问题是啥</h3>
-
-<p>往简单里说，就是CI不稳定，动不动就随便挂。</p>
-
-<p>说的再细一些，就是我们手写脚本去做部署和测试这件事算是重新发明了轮子。而这个轮子不如已有的经过打磨的轮子那么精巧细致，那么稳定好用。以至于我们的CI偶尔就要出格一次。</p>
-
-<p>Ok，问题定义清楚了，那么想想解决方案吧。</p>
-
-<p>但是，在提出具体的方案之前，先想想，如果把这个现时还未存在的解决方案作用在现有问题之上，会收获一个什么样的结果呢？</p>
-
-<h3>验证标准</h3>
-
-<p>基于以上所述，我想解决这个问题的方案要满足以下3点：</p>
-
-<ol>
-<li>能让CI重回稳定</li>
-<li>一条命令行执行整个build</li>
-<li>不要再自己造轮子了</li>
-</ol>
-
-
-<p>第1，2点毋庸赘言，这就是我们问题的核心。关于第3点，是因为我们没有时间精力，也实在没有必要造这个轮子，如果能找到现有的轮子能够解决问题，而且还比我们自己的木头胶皮轮子好用，那岂不妙哉？</p>
-
-<p>于是，我要开始寻找一个能让CI重归稳定的神圣轮子了！让探险的旅途就此展开吧！</p>
-
-<p><img src="http://static.comicvine.com/uploads/original/7/75497/2189954-aragorn247_screen.jpg" height="300" width="400" alt="图" /></p>
-
-<h3>开始寻找轮子</h3>
-
-<p>我最初的想法是用play的test framework，其中已经集成了selenium，用来做functional test很是合适。但是由于我们基于protractor的测试数量已经不少了，全部重写成本较高，所以这个轮子就放弃了。</p>
-
-<h3>残念，再看下一个轮子</h3>
-
-<p>再然后我想到的是自定义一个sbt的task，这个task依赖于sbt已有的run。</p>
-
-<p>这样就能在我的task启动之前把play跑起来，而task本身运行protractor的测试，再之后则杀掉正在运行的play app。</p>
-
-<p>看起来不错，但是有问题：</p>
-
-<p>第一，sbt run跑起来后是不会自己退出的，它会维持play一直在待命的状态，这也就是说我自己的task根本就没机会执行。</p>
-
-<p>第二，即便能找到方法让我自己定义的task和run同时跑起来，protractor运行完毕后还要关掉run，免得占用端口。这又是一件麻烦事儿。</p>
-
-<p>于是，这第二个轮子也被我自己给枪毙掉了。</p>
-
-<h3>再次残念，还有轮子吗？</h3>
-
-<p>会有的，总会有的，只要肯去找，还是会有的。</p>
-
-<p>这次我想到，写sbt的task不成，那就写代码。我写个specs2测试，在case里用代码启动sbt run，然后再启动protractor，最后关闭sbt，总行了吧？</p>
-
-<p>这样，确实是可以work的，而实际上我也把它做出来验证了可以work了，但是缺点很大。</p>
-
-<p>第一，由于我们的specs2测试都是用sbt跑的，而在其中再启动sbt，相当于要开两个jvm，消耗很大。在我本地机器上可以压榨的只剩两位数的内存。</p>
-
-<p>第二，在sbt已经编译好了产品代码和测试代码测试之后，再开始跑另一个sbt run，会导致sbt把代码重新编译一遍。而Scala的代码编译是很慢的。我试了一下，这两次启动sbt，两次编译所消耗的时间是四分钟左右。时间成本太高。CI的速度会被拉下来，受不了。</p>
-
-<p>基于以上两点原因，我的第三个轮子也被我自己枪毙了。</p>
-
-<h3>命途多舛啊，三次尝试都失败，以你为我要放弃了吗？哼~~~</h3>
-
-<p>最后，我结合第一次的尝试和第三次的尝试找到了一个满意的答案。</p>
-
-<p>来看代码吧：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">ProtractorSpec</span> <span class="k">extends</span> <span class="nc">Specification</span> <span class="k">with</span> <span class="nc">NoTimeConversions</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="s">&quot;my application&quot;</span> <span class="n">should</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="s">&quot;pass the protractor tests&quot;</span> <span class="n">in</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="n">running</span><span class="o">(</span><span class="nc">TestServer</span><span class="o">(</span><span class="mi">9000</span><span class="o">))</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">val</span> <span class="n">resp</span> <span class="k">=</span> <span class="nc">Await</span><span class="o">.</span><span class="n">result</span><span class="o">(</span><span class="nc">WS</span><span class="o">.</span><span class="n">url</span><span class="o">(</span><span class="s">&quot;http://localhost:9000&quot;</span><span class="o">).</span><span class="n">get</span><span class="o">(),</span> <span class="mi">2</span> <span class="n">seconds</span><span class="o">)</span>
-</span><span class='line'>        <span class="n">resp</span><span class="o">.</span><span class="n">status</span> <span class="o">===</span> <span class="mi">200</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">runProtractorTests</span> <span class="o">===</span> <span class="mi">0</span>
-</span><span class='line'>      <span class="o">}</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">private</span> <span class="k">def</span> <span class="n">runProtractorTests</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="s">&quot;protractor functional-test/config/ft.conf.js&quot;</span>
-</span><span class='line'>      <span class="o">.</span><span class="n">run</span><span class="o">(</span><span class="n">getProcessIO</span><span class="o">)</span>
-</span><span class='line'>      <span class="o">.</span><span class="n">exitValue</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">private</span> <span class="k">def</span> <span class="n">getProcessIO</span><span class="k">:</span> <span class="kt">ProcessIO</span> <span class="o">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">new</span> <span class="nc">ProcessIO</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="o">(),</span>
-</span><span class='line'>      <span class="n">stdout</span> <span class="k">=&gt;</span> <span class="n">fromInputStream</span><span class="o">(</span><span class="n">stdout</span><span class="o">).</span><span class="n">getLines</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">),</span>
-</span><span class='line'>      <span class="k">_</span> <span class="k">=&gt;</span> <span class="o">())</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>就只有这么一点点代码。</p>
-
-<p>running和TestServer都是play的test framework所提供的API。顾名思义，其作用就是把play的app跑起来。</p>
-
-<p>然后发一个get请求，assert它的response的status是200，以此来确保play真的是把server运行起来了的。</p>
-
-<p>再然后运行shell脚本，把protractor跑起来。这里Scala会做implicit conversion，把字符串转换成ProcessBuilder，从而可以调用其run方法。</p>
-
-<p>最后assert，protractor的shell脚本是返回了0的，意味着functional test跑成功了。如果protractor测试挂掉，返回了1，那么specs2的这个测试也会挂掉，从而挂掉整个build。而这，正是我想要的。</p>
-
-<h3>这个解决方案合规吗？</h3>
-
-<p>检验一下吧。</p>
-
-<p>由于server的启动和关闭都是有play的test framework的API负责的，比自己手写得脚本要稳定，所以符合了重归稳定性这一点。</p>
-
-<p>由于用了specs2的测试，它可以跑在sbt里，所以符合一条命令跑build这一点。</p>
-
-<p>整个解决方案只用了specs2和play的test framework，没有重新发明轮子，所以这一点也符合了。</p>
-
-<p>除了符合最初定下的三条标准之外，还有额外的好处：functional test所跑到的代码会被纳入到测试覆盖率里面去。因为和其他specs2的测试一样，protractor的测试也在sbt jacoco:cover的监视下跑的，所以自然就纳入了coverage的范围。</p>
-
-<h3>Takeaway</h3>
-
-<p>在解决这个问题之后，我想我会有三点takeaway：</p>
-
-<ol>
-<li><p>多尝试几种方案，不要随便放弃。即便想，也不要。</p></li>
-<li><p>不要屈就于working solution，要相信一定存在你现在还没想到的更好的方式。</p></li>
-<li><p>重复发明轮子总是会显得很诱人，因为它看起来可以非常直接而且准确的解决我们的问题。而实际上它常常是直接而且准确的解决我们的问题的现象。如果能找到现象产生的原因，干死这个原因，问题的解决或许会更彻底。</p></li>
-</ol>
-
 ]]></content>
   </entry>
   
