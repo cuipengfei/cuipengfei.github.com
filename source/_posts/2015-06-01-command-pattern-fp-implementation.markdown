@@ -286,9 +286,9 @@ public class RemoteControl {
 
 可以实现遥控器了。
 
-[http://elisabethrobson.com/wp-content/uploads/2014/07/Command.jpg](http://elisabethrobson.com/wp-content/uploads/2014/07/Command.jpg)
+![http://elisabethrobson.com/wp-content/uploads/2014/07/Command.jpg](http://elisabethrobson.com/wp-content/uploads/2014/07/Command.jpg)
 
-这个遥控器上的按钮都是空白的，我们可以给它置入人以我们想要的命令。
+这个遥控器上的按钮都是空白的，我们可以给它置入任意我们想要的命令。
 
 ```java
 public class RemoteLoader {
@@ -318,6 +318,7 @@ public class RemoteLoader {
 ```
 
 终于可以写一个main函数了：
+
 * 把家用电器和其对应的Command联系起来
 * 把各种Command组合成开启和关闭两个宏命令
 * 把宏命令置入遥控器
@@ -377,20 +378,10 @@ case class Hottub(var isOn: Boolean = false) {
 object Commands {
   type Command = () => Unit
 
-  def lightOn(light: Light): Command = () => light.on()
-
-  def lightOff(light: Light): Command = () => light.off()
-
   def tvOn(tv: TV): Command = () => {
     tv.on()
     tv.setInputChannel()
   }
-
-  def tvOff(tv: TV): Command = () => tv.off()
-
-  def stereoOn(stereo: Stereo): Command = () => stereo.on()
-
-  def stereoOff(stereo: Stereo): Command = () => stereo.off()
 
   def hottubOn(hottub: Hottub): Command = () => {
     hottub.on()
@@ -422,11 +413,11 @@ object RemoteLoader {
     val stereo = Stereo("living room")
     val hottub = Hottub()
 
-    val on = macroCommand(lightOn(light),
-      stereoOn(stereo), tvOn(tv), hottubOn(hottub))
+    val on = macroCommand(light.on,
+      stereo.off, tvOn(tv), hottubOn(hottub))
 
-    val off = macroCommand(lightOff(light),
-      stereoOff(stereo), tvOff(tv), hottubOff(hottub))
+    val off = macroCommand(light.off,
+      stereo.off, tv.off, hottubOff(hottub))
 
     val remoteControl = RemoteControl(Seq(on), Seq(off))
 
@@ -437,5 +428,3 @@ object RemoteLoader {
   }
 }
 ```
-
-103 247
