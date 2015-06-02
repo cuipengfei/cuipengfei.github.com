@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Spark | 崔鹏飞的Octopress Blog]]></title>
+  <link href="http://cuipengfei.github.com/blog/categories/spark/atom.xml" rel="self"/>
+  <link href="http://cuipengfei.github.com/"/>
+  <updated>2015-06-02T21:05:24+05:30</updated>
+  <id>http://cuipengfei.github.com/</id>
+  <author>
+    <name><![CDATA[崔鹏飞]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Spark RDD的fold和aggregate为什么是两个API？为什么不是一个foldLeft？]]></title>
+    <link href="http://cuipengfei.github.com/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/"/>
+    <updated>2014-10-31T15:29:00+05:30</updated>
+    <id>http://cuipengfei.github.com/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft</id>
+    <content type="html"><![CDATA[<p>大家都知道Scala标准库的List有一个用来做聚合操作的foldLeft方法。</p>
+
+<p>比如我定义一个公司类：</p>
+
+<p><code>scala
+case class Company(name:String, children:Seq[Company]=Nil)
+</code>
+它有名字和子公司。
+然后定义几个公司：</p>
+
+<p><code>scala
+val companies = List(Company("B"),Company("A"),Company("T"))
+</code></p>
+
+<p>三家大公司，然后呢，我假设有一家超牛逼的公司把它们给合并了：</p>
+
+<p><code>scala
+companies.foldLeft(Company("King"))((king,company)=&gt;Company(name=king.name,king.children:+company))
+</code></p>
+
+<p>这个执行的结果是这样的：</p>
+
+<p><code>scala
+scala&gt; companies.foldLeft(Company("King"))((king,company)=&gt;Company(name=king.name,king.children:+company))
+res6: Company = Company(King,List(Company(B,List()), Company(A,List()), Company(T,List())))
+</code></p>
+
+<p>可见foldLeft的结果是一家包含了BAT三大家得新公司。</p>
+
+<p>由List[Company]聚合出一个新的Company，这种属于foldLeft的同构聚合操作。</p>
+
+<p>同时，foldLeft也可以做异构的聚合操作：</p>
+
+<p><code>scala
+companies.foldLeft("")((acc,company)=&gt;acc+company.name)
+</code></p>
+
+<p>它的执行结果是这样的：</p>
+
+<p><code>scala
+scala&gt; companies.foldLeft("")((acc,company)=&gt;acc+company.name)
+res7: String = BAT
+</code></p>
+
+<p>由List[Company]聚合出一个String。</p>
+
+<p>这样的API感觉很方便，只要是聚合，无论同构异构，都可以用它来做。</p>
+
+<p>最近接触了Spark，其中的RDD是做分布式计算时最常用的一个类。</p>
+
+<p>RDD有一个叫做fold的API，它和foldLeft的签名很像，唯一区别是它只能做同构聚合操作。</p>
+
+<p>也就是说如果你有一个RDD[X]，通过fold，你只能构造出一个X。</p>
+
+<p>如果我想通过一个RDD[X]构造一个Y出来呢？</p>
+
+<p>那就得用aggregate这个API了，aggregate的签名是这样的：</p>
+
+<p><code>scala
+aggregate[U](zeroValue: U)(seqOp: (U, T) ⇒ U, combOp: (U, U) ⇒ U)(implicit arg0: ClassTag[U]): U
+</code></p>
+
+<p>它比fold和foldLeft多需要一个combOp做参数。</p>
+
+<p>这让我很不解，同构和异构的API干嘛非得拆成两个呢？怎么不能学Scala的标准库，把它做成类似foldLeft的样子呢？</p>
+
+<p>后来想明白了，这是由于Spark需要分布运算造成的。</p>
+
+<p>先想一下Scala List的foldLeft是怎么工作的？</p>
+
+<p><code>scala
+companies.foldLeft(Company("King"))((king,company)=&gt;Company(name=king.name,king.children:+company))
+</code></p>
+
+<ol>
+<li>拿到初始值，即名字为king的公司，把它和list中的第一个公司合并，成为一个包含一家子公司的新公司</li>
+<li>把上一步中的新公司拿来和list中的第二个公司合并，成为一个包含两家子公司的新公司</li>
+<li>把上一步中的新公司拿来和list中的第三个公司合并，成为一个包含三家子公司的新公司</li>
+</ol>
+
+
+<p>这是同构的过程。</p>
+
+<p><code>scala
+companies.foldLeft("")((acc,company)=&gt;acc+company.name)
+</code></p>
+
+<ol>
+<li>拿到初始值，即空字符串，把它和list中的第一个公司的名字拼在一起，成为B</li>
+<li>把上一步中的B第二个公司名字拼一起，成为BA</li>
+<li>把上一步中的BA拿来和list中的第三个公司的名字拼一起，成为BAT</li>
+</ol>
+
+
+<p>这是异构的过程。</p>
+
+<p>像多米诺骨牌一样，从左到右依次把list中的元素吸收入结果中。</p>
+
+<p>现在假设RDD[X]中有一个类似foldLeft的API，其签名和foldLeft一致，我现在调用foldLeft，给它一个f:(Y,X)=>Y，接下来该发生什么呢？</p>
+
+<ol>
+<li>因为要分布计算，所以我先要把手里的很多个X分成几份，分发到不同的节点上去</li>
+<li>每个节点把拿到的很多个X计算出一个Y出来</li>
+<li>把所有节点的结果拿来，这时我手里就有了很多个Y</li>
+<li>啊。。。我不知道怎么把很多个Y变成一个Y啊。。。</li>
+</ol>
+
+
+<p>由于Spark的RDD不像Scala的List一样只需要推倒一副多米诺骨牌，而是要推倒很多副，最后再对很多副多米诺骨牌的结果做聚合。</p>
+
+<p>这时如果是同构还好，我只需要再用f:(X,X)=>X做一遍就ok了。</p>
+
+<p>但是如果是异构的，那我就必须得再需要一个f:(Y,Y)=>Y了。</p>
+]]></content>
+  </entry>
+  
+</feed>

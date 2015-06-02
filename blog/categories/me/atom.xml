@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: me | 崔鹏飞的Octopress Blog]]></title>
+  <link href="http://cuipengfei.github.com/blog/categories/me/atom.xml" rel="self"/>
+  <link href="http://cuipengfei.github.com/"/>
+  <updated>2015-06-02T21:05:24+05:30</updated>
+  <id>http://cuipengfei.github.com/</id>
+  <author>
+    <name><![CDATA[崔鹏飞]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[2015第一季度]]></title>
+    <link href="http://cuipengfei.github.com/blog/2015/03/29/2015-first-season/"/>
+    <updated>2015-03-29T17:48:00+05:30</updated>
+    <id>http://cuipengfei.github.com/blog/2015/03/29/2015-first-season</id>
+    <content type="html"><![CDATA[<p>时间是以何种方式流逝的呢？</p>
+
+<p>三个月瞬间就不见了。</p>
+
+<p>对照着去年的总结和当时对未来的期望写一下2015年第一季度吧。</p>
+
+<h1>博客</h1>
+
+<p>惨不忍睹。</p>
+
+<p>除了一个应付任务的tech radar的session写在了博客上，其他啥都没写。</p>
+
+<p>去年博客有产出是因为在刷Scala这个主线任务。</p>
+
+<p>今年做的都是支线任务，这一点那一点，难以形成有效的产出。</p>
+
+<p>要形成有效的产出，需要有plan，有execution，有retro。</p>
+
+<p>兴之所至，就把今年的博客主线任务定为OO与FP的比较和结合应用吧。</p>
+
+<h1>读书</h1>
+
+<p>不错。</p>
+
+<p>第一个季度已经读完10本书。数量达标。</p>
+
+<p>说过要做的笔记也做了。</p>
+
+<p>笔记的作用确实很好，每隔一段时间回顾一次，spaced repetition可以促进和加深记忆。
+不会再有“卧槽，这本书我看过吗？作者都讲了些啥啊？”的尴尬事。</p>
+
+<p>看完了《经济学原理》的微观分册，这是最近几年来读过的最大部头的一本书。鉴于之前一直没有耐心读厚书，这可以算作是一个进步。</p>
+
+<p>开始把待读的书按照内容领域和期待得到的效果分类放到豆列里。这样每次没书看了就去想读的豆列里挑一本。不用每次都700选一了。</p>
+
+<p>读书的领域扩张也在按照之前的计划进行，没有风险。</p>
+
+<p>博客需要有主线任务，读书要配合，可以优先选一些讲paradigm的书来读。</p>
+
+<h1>MOOC</h1>
+
+<p>尴尬。</p>
+
+<p>这三个月一个mooc都没有跟。4月13日，reactive programming课要开，这个一定要跟，而且一定要跟完。</p>
+
+<p>估计完成当时6门课的目标有点悬了。</p>
+
+<p>非常无耻地修改一下mooc的目标吧：配合主线任务，以读书和mooc作为输入，博客作为产出。
+数量和领域都不做具体限定。
+（果然够无耻）</p>
+
+<h1>体重</h1>
+
+<p>稳定。</p>
+
+<p>上次写年终总结的时候是61.1公斤，现在是61.0公斤。</p>
+
+<p>当时写的是：</p>
+
+<blockquote><p>明年没有太多改进的目标，维持就ok了。</p></blockquote>
+
+<p>没有了减重目标，没有了改进方向，效果果然是不会自动出现的啊。
+这是很有意思的一个现象，没有了改进的意愿，或许潜意识里对热量摄入和消耗都没有那么敏感和严格。</p>
+
+<p>还好胸在变大，肱三在变大，腹肌在浮出水面。</p>
+
+<h1>最后</h1>
+
+<p>写个阶段性总结还是有用，发掘出了主线任务。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[2014年总结]]></title>
+    <link href="http://cuipengfei.github.com/blog/2014/12/27/2014/"/>
+    <updated>2014-12-27T17:01:00+05:30</updated>
+    <id>http://cuipengfei.github.com/blog/2014/12/27/2014</id>
+    <content type="html"><![CDATA[<p>2014年即将结束，需要做一些总结。</p>
+
+<p>既然总结是写在博客上的，第一项就先说博客吧。</p>
+
+<h1>博客</h1>
+
+<p>2014年写了18篇博客，其中15篇和Scala有关，自认为都是有且仅有干货的。</p>
+
+<p>对此，我比较<em><strong>满意</strong></em>。</p>
+
+<p>不过这个数字存在欺骗性，15篇Scala的博客，其中4篇写于1月份，6篇写于6月份，其余的零散的写就与其他月份。</p>
+
+<p>66.66...%集中地爆发于两个月里，其余十个月只贡献了总体的33.33...%</p>
+
+<p>可见写博客这件事于我而言并没有形成持久的习惯，只是随激情而来的自我娱乐。</p>
+
+<p>明年可以<em><strong>改进</strong></em>的是不要嫌话题小，不要嫌话题不够深。
+有了有价值的想法就记下来，形成惯性。</p>
+
+<h1>读书</h1>
+
+<p><img src="http://i3.tietuku.com/363db6f06852244e.png" alt="alt text" /></p>
+
+<p>38本，加上马上快读完的一本Ruby的书，算是39本。</p>
+
+<p>对这个数字，我比较<em><strong>满意</strong></em>。</p>
+
+<p>但是其中直接或间接与技术相关的只有8本，只占20%。</p>
+
+<p>所以，和上面一节类似，单独观察总体数字本身是极具欺骗性的。</p>
+
+<p>另一个我不满意的是读书的结果。把这39本书的封面罗列出来放到面前，我都能记得我看过这本书，但是有很多我都记不起其主要观点是什么。</p>
+
+<p>所以明年的一个<em><strong>改进</strong></em>点是做笔记和书评，有利于记忆和吸收。</p>
+
+<p>另外一个<em><strong>改进</strong></em>点是领域，我明年需要看一些轻量级的经济、哲学和社会心理学的书。口说无凭，于此立字为据。</p>
+
+<h1>MOOC</h1>
+
+<p><img src="http://i2.tietuku.com/98b280b6a1ac2512.png" alt="" /></p>
+
+<p>上图来自MOOC学院，data visualization做的很漂亮，不过没有分年统计。</p>
+
+<p>2014年实际只上完了4门课。</p>
+
+<p>对这些课程的质量，从中的收获我都比较<em><strong>满意</strong></em>。</p>
+
+<p>不太满意的是数字，明年<em><strong>改进</strong></em>的目标定在6。</p>
+
+<p>与读书不同，上课需要的时间比较长。有的课会持续两个月。一年能上完的课不会太多，领域不宜太广。</p>
+
+<p>暂定技术相关的至少3门，其他三门如果有特别好的非技术课就上一下，没有的话就还是上技术课。给自己留一些随性自由发挥的空间：）</p>
+
+<h1>Well-being</h1>
+
+<p>今年体重从72.5公斤降到了61.1公斤。</p>
+
+<p>最近三个月的数据统计</p>
+
+<p><img src="http://i3.tietuku.com/f020ea0a6adc01a6.png" style="width: 500px;"/></p>
+
+<p>上张一个月前的裸照：）</p>
+
+<p><img src="http://i3.tietuku.com/df10eb25abd486c8.png" style="width: 200px;"/></p>
+
+<p>明年没有太多改进的目标，维持就ok了。</p>
+
+<h1>其他</h1>
+
+<p>脾气还是不好，察言观色并据此反应的能力还是差。</p>
+
+<p>今年试过的手段有降低分贝，减慢语速，少用激进词汇，延长反应时间，多听少说。</p>
+
+<p>有效果，但不是很明显。执行不够有效，自我监控不够严格。</p>
+
+<p>对此，我<em><strong>不满意</strong></em>。</p>
+
+<p>像这种与天性作斗争的行为，其过程一定是困难，漫长，且鲜有正面自我回馈的。</p>
+
+<p>明年需要<em><strong>改进</strong></em>的是，持续以上改进手段的执行，增加自控强度。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[今天是二零一四年的第一天，回忆一下二零一三年都干了些什么，然后再回忆一下没干什么]]></title>
+    <link href="http://cuipengfei.github.com/blog/2014/01/01/my-2013/"/>
+    <updated>2014-01-01T13:48:00+05:30</updated>
+    <id>http://cuipengfei.github.com/blog/2014/01/01/my-2013</id>
+    <content type="html"><![CDATA[<h2>干了什么</h2>
+
+<p><strong>上半年：</strong></p>
+
+<p>看了十几本书；</p>
+
+<p>写了几篇博客；</p>
+
+<p>在github上做了一个豆瓣读书的插件；</p>
+
+<p>肇始了一个十万个为什么的活动，自始至终只有我一个人参与，然后就挂掉了；</p>
+
+<p>做了三章的SICP，然后卡住做不动了；</p>
+
+<p>乏善可陈。</p>
+
+<p>上面列的最后两项的价值最大，但都没做完。究其原因：</p>
+
+<ul>
+<li>坚持不够</li>
+<li>attention span太短</li>
+</ul>
+
+
+<p>这两项在下半年做的事儿里address到了。</p>
+
+<p><strong>下半年：</strong></p>
+
+<p>又看了十几本书（量与上半年持平）；</p>
+
+<p>又写了几篇博客（量较上半年有增）；</p>
+
+<p>跟完了Coursera上的Functional programming principles in Scala的课，拿到了Statement of Accomplishment with distinction；</p>
+
+<p>键盘速度到了60wpm左右；</p>
+
+<p>找到了坚持和attention span问题的解决方案；</p>
+
+<p>有善可陈。</p>
+
+<p>善在最后一项。解决方案是这样的：</p>
+
+<ul>
+<li>戒掉微博，规避碎片化娱乐化的信息。（还没戒掉的是美剧）</li>
+<li>把番茄钟用到自己的时间中去。track用在“正经事儿”上的时间。</li>
+</ul>
+
+
+<p>不细说了，下面说没干什么。</p>
+
+<h2>没干什么</h2>
+
+<p>我的情商和people skill很低，低的你都猜不到哦亲。</p>
+
+<p>我可以预感到这个东西即将成为我的bottle neck。但是我二零一三年并没有在上面做太多事情。</p>
+
+<p>读了几本我认为会有帮助的书，一些被我认为是不知所云，一些促使我得出了死硬的理性派结论。</p>
+
+<p>二零一四年需要在这个领域积累知识，然后期待量变带来的质变。</p>
+]]></content>
+  </entry>
+  
+</feed>
