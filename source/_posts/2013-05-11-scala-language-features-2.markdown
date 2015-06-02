@@ -3,7 +3,7 @@ layout: post
 title: "Scala中的语言特性是如何实现的(2)"
 date: 2013-05-11 23:37
 comments: true
-categories: 
+categories: Desugar_Scala Scala
 ---
 
 [上篇博文](http://cuipengfei.me/blog/2013/05/05/how-are-scala-language-features-implemented/)的末尾留了三个问题，现在自问自答一下。
@@ -18,7 +18,7 @@ categories:
 
 这是个挺tricky的问题，我试着解释一下。Scala .NET是基于IKVM实现的，IKVM可以把Java bytecode翻译为CIL。
 所以Scala编译为CIL的过程实际是这样的：
-	                
+
 Scala -----Scala编译器-----> bytecode -----IKVM-----> CIL
 
 Scala编译器编译出的bytecode实际是用final修饰了v2的，但是bytecode中的final和CIL中的initonly（对应C#的readonly）是不一样的。
@@ -57,12 +57,12 @@ public class ScalaConstructorExample
 
   public double x()
   {
-    return this.x; 
-  } 
-  
-  public ScalaConstructorExample(double x, String y) 
-  { 
-    Predef..MODULE$.println(new StringBuilder().append(x).append(y).toString()); 
+    return this.x;
+  }
+
+  public ScalaConstructorExample(double x, String y)
+  {
+    Predef..MODULE$.println(new StringBuilder().append(x).append(y).toString());
   }
 }
 ```
@@ -78,7 +78,7 @@ public class ScalaConstructorExample : ScalaObject
 	{
 		return this.x;
 	}
-	
+
 	public ScalaConstructorExample(double x, string y)
 	{
 		Predef$.MODULE$.println(new StringBuilder().Append(x).Append(y).ToString());
@@ -108,15 +108,15 @@ public class ScalaConstructorExample
 
   public double x()
   {
-    return this.x; 
-  } 
-  
-  public ScalaConstructorExample(double x, String y) 
-  { 
-  	Predef..MODULE$.println(new StringBuilder().append(x).append(y).toString()); 
+    return this.x;
   }
 
-  public ScalaConstructorExample(double x) 
+  public ScalaConstructorExample(double x, String y)
+  {
+  	Predef..MODULE$.println(new StringBuilder().append(x).append(y).toString());
+  }
+
+  public ScalaConstructorExample(double x)
   {
     this(x, "hello");
   }
@@ -139,7 +139,7 @@ public class ScalaConstructorExample : ScalaObject
 	{
 		Predef$.MODULE$.println(new StringBuilder().Append(x).Append(y).ToString());
 	}
-	
+
 	public ScalaConstructorExample(double x) : this(x, "hello")
 	{
 	}

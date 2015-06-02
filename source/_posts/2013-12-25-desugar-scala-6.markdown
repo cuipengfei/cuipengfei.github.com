@@ -3,7 +3,7 @@ layout: post
 title: "褪去Scala的糖衣(6) -- partial application"
 date: 2013-12-25 14:40
 comments: true
-categories: 
+categories: Desugar_Scala Scala
 ---
 
 这篇博客介绍一下Scala中的partial application，局部应用，或者叫做柯里化。

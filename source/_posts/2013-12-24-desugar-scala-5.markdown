@@ -3,7 +3,7 @@ layout: post
 title: "剥开Scala的糖衣(5) -- lazy"
 date: 2013-12-24 17:48
 comments: true
-categories: 
+categories: Desugar_Scala Scala
 ---
 
 Scala中的lazy关键字是实现延迟加载的好帮手。
@@ -28,12 +28,12 @@ C#中则可以使用Lazy of T来实现类似的事:
 ```c#
 private Lazy<String> str = new Lazy<string> (() => GetStrFromWebService ());
 
-public String Str 
+public String Str
 {
-	get 
+	get
 	{
 		return str.Value;
-	}					
+	}
 }
 ```
 
@@ -61,16 +61,16 @@ lazy val str = getStrFromWebService()
 
   private String str$lzycompute()
   {
-    synchronized (this) { 
-    	if (!this.bitmap$0) { 
-		    this.str = getStrFromWebService(); 
-		    this.bitmap$0 = true; 
-	    } 
-    	
+    synchronized (this) {
+    	if (!this.bitmap$0) {
+		    this.str = getStrFromWebService();
+		    this.bitmap$0 = true;
+	    }
+
     	return this.str;
     }
   }
-  
+
   public String str() {
     return this.bitmap$0 ? this.str : str$lzycompute();
   }

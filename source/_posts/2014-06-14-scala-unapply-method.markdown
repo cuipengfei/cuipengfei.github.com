@@ -3,7 +3,7 @@ layout: post
 title: "Desugar Scala(15) -- unapply和unapplySeq方法"
 date: 2014-06-14 14:46
 comments: true
-categories: 
+categories: Desugar_Scala Scala
 ---
 实在想不到什么动词可以当做脱衣服来讲了，所以从现在开始这系列博文就叫做Desugar Scala了。除非哪天才思泉涌，又想到了新词：）
 

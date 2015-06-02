@@ -3,14 +3,14 @@ layout: post
 title: "抹掉Scala的糖衣(14) -- update method"
 date: 2014-06-12 18:42
 comments: true
-categories: 
+categories: Desugar_Scala Scala
 ---
 在Scala中，名字叫做update的方法是有特殊作用的。
 
 比如：
 
 ```scala
-val scores = new scala.collection.mutable.HashMap[String, Int] 
+val scores = new scala.collection.mutable.HashMap[String, Int]
 scores("Bob") = 100
 val bobsScore = scores("Bob")
 ```
@@ -26,8 +26,8 @@ val bobsScore = scores("Bob")
 我们可以把上面的代码改写成下面的等价形式：
 
 ```scala
-val scores = new scala.collection.mutable.HashMap[String, Int] 
-scores.update("Bob", 100) 
+val scores = new scala.collection.mutable.HashMap[String, Int]
+scores.update("Bob", 100)
 val bobsScore = scores.apply("Bob”)
 ```
 
@@ -60,7 +60,7 @@ class AddressChanger {
     println(s"changing address of $name, whose age is $age to $newAddress")
     //actually change the address
   }
-  
+
 }
 ```
 

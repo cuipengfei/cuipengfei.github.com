@@ -3,7 +3,7 @@ layout: post
 title: "去掉Scala的糖衣(4) -- type aliase"
 date: 2013-12-23 15:48
 comments: true
-categories: 
+categories: Desugar_Scala Scala
 ---
 
 Scala中有一个type关键字，用来给类型或者是操作起别名，用起来很是方便。
@@ -102,19 +102,19 @@ def incomeTax: (Person) => Double = person => person.income * 5 / 100
 
       public final boolean apply(Person person) { return person.age() < 20; }  } ;
   }
-  
+
   public Function1<Person, Object> incomeTax()
   {
     return new AbstractFunction1() { public static final long serialVersionUID = 0L;
 
       public final double apply(Person person) { return person.income() * 5 / 100; }  } ;
   }
-  
-  public Function1<Person, Object> kejuanzaTax() 
-  { 
+
+  public Function1<Person, Object> kejuanzaTax()
+  {
   	return new AbstractFunction1() { public static final long serialVersionUID = 0L;
 
-    public final double apply(Person person) { return person.income() * 20 / 100; } } ; 
+    public final double apply(Person person) { return person.income() * 20 / 100; } } ;
   }
 ```
 

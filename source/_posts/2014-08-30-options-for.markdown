@@ -4,7 +4,7 @@ title: "Desugar Scala(17) -- Option和for，以及脑子里发生的事情"
 date: 2014-08-30 11:36
 comments: true
 keywords: scala, option, for, 脑
-categories: 
+categories: Desugar_Scala Scala
 ---
 
 Scala里的for关键字是个很有趣的东西。可以用来把多层嵌套for循环写成一层。比如这样：
@@ -127,7 +127,7 @@ getPrice和getAmount都返回一个Option[Int]，就类似Java中Integer可以�
 	2. 要判断价格是否为空，要判断数量是否为空        （与业务关联较小，属于技术范畴）
 	3. 如果任意一个为空，结果是空                 （与业务关联较小，属于技术范畴）
 	4. 如果两个都不是空，再做乘法运算
-	
+
 而在写或者读用for的那段代码的时候，脑子里又是怎么想的呢？
 
 	1. 获取价格和数量

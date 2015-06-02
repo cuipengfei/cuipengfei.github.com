@@ -3,7 +3,7 @@ layout: post
 title: "Scala中的语言特性是如何实现的(1)"
 date: 2013-05-05 22:02
 comments: true
-categories: 
+categories: Desugar_Scala Scala
 ---
 
 Scala可以编译为Java bytecode和CIL，从而在JVM和CLI之上运行。Scala有很多在Java和C#的世界中显得陌生的语言特性，本文将分析这些语言特性是如何实现的。
@@ -117,11 +117,11 @@ public class HowAreVarAndValImplementedInScala
 
   public int v1()
   {
-    return this.v1; 
+    return this.v1;
   }
 
-  public void v1_$eq(int x$1) { this.v1 = x$1; } 
-  
+  public void v1_$eq(int x$1) { this.v1 = x$1; }
+
   public int v2() { return this.v2; }
 
   public void method1() {

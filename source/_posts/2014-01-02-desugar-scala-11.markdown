@@ -3,7 +3,7 @@ layout: post
 title: "剥掉Scala的糖衣(11) -- structural types"
 date: 2014-01-02 22:13
 comments: true
-categories: 
+categories: Desugar_Scala Scala
 ---
 
 Structural types，中文怎么翻译不确定。我们可以用它来实现类似于鸭子类型的效果。为什么说是“类似”鸭子类型呢？稍后会说到它和鸭子类型的区别。
@@ -75,12 +75,12 @@ type mismatch, found : hello.Duck, required: AnyRef{def quack(): String}
 ```java
     private static Class[] reflParams$Cache1;
     private static volatile SoftReference reflPoly$Cache1;
-    
+
     static {
         Hello.reflParams$Cache1 = new Class[0];
         Hello.reflPoly$Cache1 = new SoftReference((T)new EmptyMethodCache());
     }
-    
+
     public static Method reflMethod$Method1(final Class x$1) {
         MethodCache methodCache1 = Hello.reflPoly$Cache1.get();
         if (methodCache1 == null) {
@@ -95,7 +95,7 @@ type mismatch, found : hello.Duck, required: AnyRef{def quack(): String}
         Hello.reflPoly$Cache1 = new SoftReference((T)methodCache1.add(x$1, method1));
         return method1;
     }
-    
+
     public String makeNoise(final Object quacker) {
         final Object invoke;
         try {

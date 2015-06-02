@@ -3,7 +3,7 @@ layout: post
 title: "Scala中的语言特性是如何实现的(3) -- trait"
 date: 2013-10-13 17:41
 comments: true
-categories: 
+categories: Desugar_Scala Scala
 ---
 
 我在Coursera上跟了一门叫做[Functional Programming Principles in Scala](https://www.coursera.org/course/progfun)的课程，是由Scala的作者Martin Odersky讲授的。其中第三周的作业中使用到了Scala的trait这个语言特性。
@@ -108,9 +108,9 @@ public class Rose extends Plant
 {
   public void makePeopleHappy()
   {
-    PeoplePleaser$class.makePeopleHappy(this); 
+    PeoplePleaser$class.makePeopleHappy(this);
   }
-     
+
   public void smell() { Predef..MODULE$.println("Good!"); }
 
   public Rose()
@@ -124,9 +124,9 @@ public class Dog extends Animal
 {
   public void makePeopleHappy()
   {
-    PeoplePleaser$class.makePeopleHappy(this); 
-  } 
-  
+    PeoplePleaser$class.makePeopleHappy(this);
+  }
+
   public void bark() { Predef..MODULE$.println("Woof!"); }
 
   public Dog()
@@ -200,11 +200,11 @@ public class Rose extends Plant
 
   public void makePeopleHappy()
   {
-    PeoplePleaser$class.makePeopleHappy(this); 
+    PeoplePleaser$class.makePeopleHappy(this);
   }
-     
-  public String moreMessage() { return this.moreMessage; } 
-  
+
+  public String moreMessage() { return this.moreMessage; }
+
   public void smell() {
     Predef..MODULE$.println("Good!");
   }
@@ -227,11 +227,11 @@ public class Dog extends Animal
 
   public void makePeopleHappy()
   {
-    PeoplePleaser$class.makePeopleHappy(this); 
+    PeoplePleaser$class.makePeopleHappy(this);
   }
-   
-  public String moreMessage() { return this.moreMessage; } 
-  
+
+  public String moreMessage() { return this.moreMessage; }
+
   public void bark() {
     Predef..MODULE$.println("Woof!");
   }

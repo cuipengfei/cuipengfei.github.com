@@ -4,7 +4,7 @@ title: "Scala中Stream的应用场景及其实现原理"
 date: 2014-10-23 17:21
 comments: true
 keywords: scala, stream
-categories:
+categories: Scala Stream
 ---
 
 #假设一个场景

@@ -3,7 +3,7 @@ layout: post
 title: "掀开Scala的糖衣(9) -- function composition"
 date: 2013-12-30 22:29
 comments: true
-categories: 
+categories: Desugar_Scala Scala
 ---
 
 Function composition，顾名思义，就是函数的组合。直接举例：
@@ -49,19 +49,19 @@ names.map(sayHi _ andThen sayBye)
 这个andThen并不是什么神奇的语言关键字。它其实只是定义在Function1上的一个方法而已。我们来看看反编译的结果就知道了：
 
 ```scala
-        final List names = 
+        final List names =
         List$.MODULE$.apply((Seq)Predef$.MODULE$.wrapRefArray(
         (Object[])new String[] { "world", "tom", "xiao ming" }));
-        
+
         return (List)names.map(((Function1)new Serializable() {
             public static final long serialVersionUID = 0L;
-            
+
             public final String apply(final String name) {
                 return Hello.this.sayHi(name);
             }
         }).andThen((Function1)new Serializable() {
             public static final long serialVersionUID = 0L;
-            
+
             public final String apply(final String str) {
                 return Hello.this.sayBye(str);
             }
