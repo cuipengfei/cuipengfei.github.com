@@ -9,9 +9,7 @@
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content="为什么要做这款插件？ 在豆瓣上查看一本书的时候，页面的右侧会显示哪些网站可以购买该书以及各自的价格。
-比如这本《乡关何处》，页面右侧显示了亚马逊，京东，当当等网站的购买链接。 但是豆瓣只会提供纸质书的购买链接，不提供电子书的。除非该书豆瓣自己有售。
-所以我写了个Chrome的插件来解决这个问题。 &hellip;">
+  <meta name="description" content="本文讲什么？ 本文用Scheme（Racket）代码为例，一步一步的推出Y Combinator的实现。 本文不讲什么？ Y Combinator是什么，干什么用的，它为什么能够work，它的数学含义以及实际应用场景，这些话题由于篇幅所限（咳咳，楼主的无知）不在本文论述范围之内。 如果有兴趣， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +74,302 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/09/make-y/">如何一步一步推导出Y Combinator</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-09T22:40:00+05:30" pubdate data-updated="true">Apr 9<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/04/09/make-y/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>本文讲什么？</h2>
+
+<p>本文用Scheme（Racket）代码为例，一步一步的推出Y Combinator的实现。</p>
+
+<h2>本文不讲什么？</h2>
+
+<p>Y Combinator是什么，干什么用的，它为什么能够work，它的数学含义以及实际应用场景，这些话题由于篇幅所限（咳咳，楼主的无知）不在本文论述范围之内。</p>
+
+<p>如果有兴趣，请参考维基： <a href="http://en.wikipedia.org/wiki/Fixed-point_combinator#Y_combinator">http://en.wikipedia.org/wiki/Fixed-point_combinator#Y_combinator</a></p>
+
+<h2>鸣谢</h2>
+
+<p>感谢Jojo同学的
+<a href="https://github.com/zhewuzhou/js-y-combinator/blob/master/y-combinator.js">这段JavaScript代码</a>的启发，我写了<a href="https://github.com/cuipengfei/lambda-calculus-impl/blob/master/racket/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E6%8E%A8%E5%87%BAY.rkt">对应的Scheme实现</a>。然后才有了本文。</p>
+
+<h2>正文开始</h2>
+
+<p>我们知道Y Combinator可以帮匿名函数实现递归。那就从一个广为人知的递归函数-阶乘开始吧。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">fac1</span> <span class="nv">n</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>      <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">fac1</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">)))))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果n小于2，则返回1，否则开始递归，简单明了。如果像这样调用它一下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="nf">fac1</span> <span class="mi">5</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>会返回120，结果无误。</p>
+
+<p>上面是阶乘的递归实现，它有一个名字叫做fac1，但是如果用匿名函数实现阶乘呢？</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>        <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">))))))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个匿名函数“梦想着”其调用者会把该函数自己的实现作为参数传递进去。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(((</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>          <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">))))))</span>
+</span><span class='line'>  <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>          <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">)))))))</span> <span class="mi">1</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们把匿名函数重复写一遍，就可以计算1或者是0的阶乘，但是要计算3的阶乘呢？那就得这么写：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(((</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>          <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">))))))</span>
+</span><span class='line'>  <span class="p">((</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>     <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span>
+</span><span class='line'>       <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>           <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">))))))</span>
+</span><span class='line'>   <span class="p">((</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>            <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">))))))</span>
+</span><span class='line'>    <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>            <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">)))))))))</span> <span class="mi">3</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>想要计算一个大于2的n的阶乘，就得把这个匿名函数重复写n+1次。这么多的重复代码，这么多的括号。。。</p>
+
+<p>所以我们需要一个神奇的函数，Y，它可以接受一个匿名的伪递归函数作为参数，产出一个真递归的函数。
+这个神奇的Y作用在上面的匿名函数上之后产出的结果就可以用来计算任何n的阶乘。下面的代码会输出120（如果Y已经实现了的话）。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">((</span><span class="nf">Y</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>       <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span>
+</span><span class='line'>         <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>             <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">)))))))</span> <span class="mi">5</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下面就开始一步步的构造这个神奇的Y吧。</p>
+
+<p>为了便于推导，暂时给这个匿名函数一个名字，叫做fake_fac。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">fake_fac</span>
+</span><span class='line'>  <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>          <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">)))))))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>有了这个名字之后，再要计算3的阶乘就容易了一些。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">((</span><span class="nf">fake_fac</span> <span class="p">(</span><span class="nf">fake_fac</span> <span class="p">(</span><span class="nf">fake_fac</span> <span class="nv">fake_fac</span><span class="p">)))</span> <span class="mi">3</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>观察上面的代码，我们把fake_fac传递给它自己，得到一个返回值，把这个返回的值再次传递给fake_fac，再得到一个新的返回值，又把新的返回值传递给fake_fac，得到最终的返回值，最后把3传递给这个返回值。</p>
+
+<p>可以看到，我们在不停的把fake_rec传给它自己，所以定义一个helper吧：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">callself</span> <span class="nv">f</span><span class="p">)</span> <span class="p">(</span><span class="nf">f</span> <span class="nv">f</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个helper一会儿会派上用场。</p>
+
+<p>现在看看fake_fac中的f是什么呢？对于((fake_fac (fake_fac (fake_fac fake_fac))) 3)这行代码中的最右侧的fake_fac来说，f没有用，因为这个fake_fac自己都没有被调到，它只是起个占位符的作用，实际上这行代码((fake_fac (fake_fac (fake_fac 1))) 3)和上面的那行是等价的。</p>
+
+<p>对于右侧第二个fake_fac来说，f就是fake_fac。对于左侧第二个fake_fac来说，f是(fake_fac fake_fac)的返回值。</p>
+
+<p>对于左侧第一个fake_fac来说，f是(fake_fac (fake_fac fake_fac))的返回值。</p>
+
+<p>由此可见，f是fake_fac对自己反复调用的返回值。而且从fake_fac的定义可见，我们总是给f传递一个数字n，这样的话，我们再写一个helper：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span> <span class="p">((</span><span class="nf">f</span> <span class="nv">f</span><span class="p">)</span> <span class="nv">n</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再把这个helper传递给fake_fac。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="nf">fake_fac</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span> <span class="p">((</span><span class="nf">f</span> <span class="nv">f</span><span class="p">)</span> <span class="nv">n</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但是上面这两段代码是有问题的，因为f的值无法确定。</p>
+
+<p>有句话说的好：
+if you don&#8217;t know exactly what you want to put somewhere in a piece of code, just abstract it out and make it a parameter of a function.
+所以我们就把f抽成参数吧。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">callselfWithN</span> <span class="nv">f</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">fake_fac</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span> <span class="p">((</span><span class="nf">f</span> <span class="nv">f</span><span class="p">)</span> <span class="nv">n</span><span class="p">))))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们希望这个helper可以帮fake_fac无限次的调用自己。</p>
+
+<p>现在，我们该怎么调用callselfWithN呢？不能把fake_fac传给它，因为那样的话(f f)就只是fake_fac对自己的调用，它只能计算0或者1的阶乘。所以要把callselfWithN这个我们希望可以帮fake_fac实现无限次自调用的函数传给callselfWithN它自己。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">((</span><span class="nf">callselfWithN</span> <span class="nv">callselfWithN</span><span class="p">)</span> <span class="mi">5</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这行代码可以返回120，结果正确了！</p>
+
+<p>记得前面定义的第一个helper吗？现在用的上了：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">((</span><span class="nf">callself</span> <span class="nv">callselfWithN</span><span class="p">)</span> <span class="mi">5</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>现在把callselfWithN带入：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">((</span><span class="nf">callself</span>  <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">fake_fac</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span> <span class="p">((</span><span class="nf">f</span> <span class="nv">f</span><span class="p">)</span> <span class="nv">n</span><span class="p">)))))</span> <span class="mi">5</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看出，这段代码和fake_fac是紧耦合的，把它抽到参数上去：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">Y3</span> <span class="nv">fake_recur</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">callself</span>  <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>               <span class="p">(</span><span class="nf">fake_recur</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span> <span class="p">((</span><span class="nf">f</span> <span class="nv">f</span><span class="p">)</span> <span class="nv">n</span><span class="p">))))))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后再把callself也带入：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">Y</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">fake_recur</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">((</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span> <span class="p">(</span><span class="nf">f</span> <span class="nv">f</span><span class="p">))</span>
+</span><span class='line'>             <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>               <span class="p">(</span><span class="nf">fake_recur</span>
+</span><span class='line'>                <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span> <span class="p">((</span><span class="nf">f</span> <span class="nv">f</span><span class="p">)</span> <span class="nv">n</span><span class="p">)))))))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>现在Y不依赖于任何其他函数了，测试一下Y，把前面的计算阶乘的匿名函数传给它：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">((</span><span class="nf">Y</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">n</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">n</span> <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span>
+</span><span class='line'>            <span class="p">(</span><span class="nb">* </span><span class="nv">n</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">)))))))</span> <span class="mi">5</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>能够返回120，正确！Y Combinator构造完成！</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -247,6 +541,10 @@ knockoutjs和jQuery。</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/">解释器模式：OOP versus Functional Decomposition</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/06/01/command-pattern-fp-implementation/">命令模式的不爽就像用指甲刀刮胡子</a>
       </li>
     
@@ -280,10 +578,6 @@ knockoutjs和jQuery。</p>
     
       <li class="post">
         <a href="/blog/2015/03/29/2015-first-season/">2015第一季度</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/01/13/tech-radar-wuhan/">Tech radar 武汉 microservice envy</a>
       </li>
     
   </ul>

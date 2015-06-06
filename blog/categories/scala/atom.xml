@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Scala | 崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/blog/categories/scala/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2015-06-02T21:05:24+05:30</updated>
+  <updated>2015-06-06T14:38:45+05:30</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -12,6 +12,250 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[解释器模式：OOP versus Functional Decomposition]]></title>
+    <link href="http://cuipengfei.github.com/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/"/>
+    <updated>2015-06-05T15:34:00+05:30</updated>
+    <id>http://cuipengfei.github.com/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition</id>
+    <content type="html"><![CDATA[<h1>解释器模式</h1>
+
+<blockquote><p>In computer programming, the interpreter pattern is a design pattern that specifies how to evaluate sentences in a language. The basic idea is to have a class for each symbol (terminal or nonterminal) in a specialized computer language. The syntax tree of a sentence in the language is an instance of the composite pattern and is used to evaluate (interpret) the sentence for a client.</p></blockquote>
+
+<p>以上是wiki对解释器模式的描述。</p>
+
+<p>这是一个学术性稍强的模式，不太好找到生活化的比喻。</p>
+
+<p>就直接上代码吧。</p>
+
+<h1>Java</h1>
+
+<p>```java
+interface Expression {</p>
+
+<pre><code>int interpret(Map&lt;String, Expression&gt; variables);
+</code></pre>
+
+<p>}
+```</p>
+
+<p>首先有一个表达式的接口，定义一个求值的方法，该方法接收一个String -> Expression的map。</p>
+
+<p>可以猜到，这个map就是该表达式求值的时候需要用到的context。</p>
+
+<p>```java
+class Plus implements Expression {</p>
+
+<pre><code>Expression leftOperand;
+Expression rightOperand;
+
+public Plus(Expression left, Expression right) {
+    leftOperand = left;
+    rightOperand = right;
+}
+
+public int interpret(Map&lt;String, Expression&gt; variables) {
+    return leftOperand.interpret(variables) + rightOperand.interpret(variables);
+}
+</code></pre>
+
+<p>}</p>
+
+<p>class Minus implements Expression {</p>
+
+<pre><code>Expression leftOperand;
+Expression rightOperand;
+
+public Minus(Expression left, Expression right) {
+    leftOperand = left;
+    rightOperand = right;
+}
+
+public int interpret(Map&lt;String, Expression&gt; variables) {
+    return leftOperand.interpret(variables) - rightOperand.interpret(variables);
+}
+</code></pre>
+
+<p>}</p>
+
+<p>class Number implements Expression {</p>
+
+<pre><code>private int number;
+
+public Number(int number) {
+    this.number = number;
+}
+
+public int interpret(Map&lt;String, Expression&gt; variables) {
+    return number;
+}
+</code></pre>
+
+<p>}</p>
+
+<p>class Variable implements Expression {</p>
+
+<pre><code>private String name;
+
+public Variable(String name) {
+    this.name = name;
+}
+
+public int interpret(Map&lt;String, Expression&gt; variables) {
+    if (null == variables.get(name)) return 0;
+    return variables.get(name).interpret(variables);
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>然后有表达式的四个实现类：加法表达式，减法表达式，数字表达式，还有变量。</p>
+
+<p>数字表达式在求值的时候就直接返回它被创建时拿到的数字就好了，这是最简单的。</p>
+
+<p>加法和减法的interpret方法在求值的时候仅仅是把行为委托给了两个子表达式，再对子表达式的求值结果做加减法。</p>
+
+<p>变量在求值的时候则是去context里面寻找其name对应的表达式（也就是它所指向的表达式），然后对其求值。</p>
+
+<p>下面是对它们的结合使用：</p>
+
+<p>```java
+public class InterpreterExample {</p>
+
+<pre><code>public static void main(String[] args) {
+    Map&lt;String, Expression&gt; context = new HashMap&lt;&gt;();
+    context.put("w", new Number(5));
+    context.put("x", new Number(10));
+    context.put("z", new Number(42));
+
+    Plus expr = new Plus(new Variable("w"),
+            new Minus(new Variable("x"),
+                    new Variable("z")));
+
+    System.out.println(expr.interpret(context));
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>首先构造一个context，里面有w，x，z三个数字。然后计算w+(x-z)的值（看着像不像Lisp？）。</p>
+
+<h1>仔细想一下</h1>
+
+<p>这些代码实际做的是什么事呢？</p>
+
+<p>实际就是把一个以遇到Number为退出条件的递归算法拆碎了。</p>
+
+<p>如果我们不把它拆碎，就写成递归函数会如何呢？</p>
+
+<h1>functions</h1>
+
+<p>用Scala试着实现一下：</p>
+
+<p>```scala
+trait Expr</p>
+
+<p>case class Plus(left: Expr, right: Expr) extends Expr</p>
+
+<p>case class Minus(left: Expr, right: Expr) extends Expr</p>
+
+<p>case class Number(n: Int) extends Expr</p>
+
+<p>case class Var(name: String) extends Expr</p>
+
+<p>object ExprEval {
+  def eval(expr: Expr, context: Map[String, Expr]): Int = {</p>
+
+<pre><code>expr match {
+  case Plus(l, r) =&gt; eval(l, context) + eval(r, context)
+  case Minus(l, r) =&gt; eval(l, context) - eval(r, context)
+  case Var(name) =&gt; eval(context(name), context)
+  case Number(n) =&gt; n
+}
+</code></pre>
+
+<p>  }</p>
+
+<p>  def main(args: Array[String]) {</p>
+
+<pre><code>val context = Map("w" -&gt; Number(5), "x" -&gt; Number(10), "z" -&gt; Number(42))
+val expr = Plus(Var("w"), Minus(Var("x"), Var("z")))
+println(eval(expr, context))
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<p>以上就是全部代码，与Java版等价。
+递归函数很容易看懂，其退出条件也很容易看出来。</p>
+
+<p>69行代码变成了26行。</p>
+
+<p>四个case class代表四种表达式，其中并没有什么方法，只是用来作为数据的承载者。</p>
+
+<p>一个eval函数，用pattern match来对四种表达式进行不同的处理。</p>
+
+<p>不过这次我倒不是要宣扬说解释器模式属于是用不合适的工具解决问题。</p>
+
+<p>而是要介绍两种组织代码的方式：按行组织还是按列组织。</p>
+
+<h1>按行组织代码与按列组织代码</h1>
+
+<p>昨天我在看解释器模式，准备写一个Java实现，再写一个Scala实现，并以此来达到我黑Java的阴暗目的。</p>
+
+<p>但是看了wiki上的示例代码后，马上就想起了去年上过的一门MOOC：<a href="https://www.coursera.org/course/proglang">《Programming languages》</a>。
+（这门课是由华盛顿大学的Dan Grossman教授讲授的，内容极好，强烈推荐。）</p>
+
+<p>这门课里有一节就提到了上面说的两种组织代码的方式：按行组织还是按列组织。
+这节课的视频在这里：<a href="https://www.youtube.com/watch?v=uEHnI3pq_FM">https://www.youtube.com/watch?v=uEHnI3pq_FM）</a></p>
+
+<p>比如我们上面的两版代码，Java代码把对表达式的求值分散在每个不同的表达式类里。</p>
+
+<p>而Scala代码把求值代码集中写在一个函数里，pattern match每种表达式类型并求值。</p>
+
+<p>如果要做成一个表格的话，就是这样的：</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1esug8rpnudj207o0bwt8v.jpg" alt="table" /></p>
+
+<p>其中的问号代表具体的求值实现。</p>
+
+<p>Java代码横向组织，有一个Plus类，里面有interpret方法，有一个Minus类，里面有interpret方法，等等。这是按照行组织。</p>
+
+<p>而Scala代码则纵向组织，有一个eval函数，纵向把四种表达式的求值都包揽了。这是按列行组织。</p>
+
+<p>上面的表格太小，看着不明显，现在假设我们需要打印表达式的功能。那么表格就会变成这样：</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1esugg4y9wij20ba0c43yu.jpg" alt="table2" /></p>
+
+<p>可以想象，Java代码里会在每个表达式类里加一个toString函数的实现。横向扩展，一个类把数据和算法组织在一起。</p>
+
+<p>而在Scala代码里则会写一个toString的递归函数，包揽所有字符串打印的工作。纵向扩展，一个函数去分辨数据类型，并据此选择计算策略。</p>
+
+<h1>OOP versus Functional Decomposition</h1>
+
+<p>那到底哪种组织方式更好呢？</p>
+
+<p>并没有确定的答案，Dan Grossman教授在课程中给出的解释是这样的：</p>
+
+<blockquote><p>FP and OOP often doing the same thing in exact opposite way: organize the program “by rows” or “by columns”.
+Which is “most natural” may depend on what you are doing (e.g., an interpreter vs. a GUI) or personal taste.</p></blockquote>
+
+<p>到底如何组织取决于你想要解决什么样的问题，比如你要做一个GUI库，那么数据与算法放在一起，互相接近是最自然的组织方式。这时选择OOP是最好的设计决策。</p>
+
+<p>而如果你要实现的东西类似于本文中的解释器，那么一个递归的算法来统一处理所有表达式类型则是最自然的。这时选择Functional Decomposition是最好的设计决策。</p>
+
+<h1>结语</h1>
+
+<p>OOP与Functional Decomposition，这二者并不是完全对立的。</p>
+
+<p>熟练掌握多种抽象与代码组织方式，正确识别应用场景，据此选择合适的范式，或者是选择多种范式结合使用，才是这一系列博文的真实用意。</p>
+
+<p>只不过由于传统的OO设计模式过于盛行，FP范式接受度不够，才会有这一系列博文黑Java，捧Scala的表象。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[命令模式的不爽就像用指甲刀刮胡子]]></title>
@@ -1336,171 +1580,6 @@ a()=10
 <p>webui这个项目里有一个CalculatorUI.scala文件，也会被编译成js。其中的代码就把作业代码和html的UI结合起来了。</p>
 
 <p>就是这样了，这周的作业不难懂也不太难做。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Principles of Reactive Programming Week One作业导学]]></title>
-    <link href="http://cuipengfei.github.com/blog/2015/04/19/principles-of-reactive-programming-week-one/"/>
-    <updated>2015-04-19T13:59:00+05:30</updated>
-    <id>http://cuipengfei.github.com/blog/2015/04/19/principles-of-reactive-programming-week-one</id>
-    <content type="html"><![CDATA[<h1>前尘</h1>
-
-<p>Principles of Reactive Programming在4月13号又开课了。
-<a href="https://www.coursera.org/course/reactive">https://www.coursera.org/course/reactive</a></p>
-
-<p>上次开课是在2013年的11月，当时我刚第一次上完Functional programming principles in Scala，热情很高于是就报名参加了这门课。
-还群发了一个邮件找人一起上课。</p>
-
-<p>但是上了几周发现有点难，于是就放弃了。现在去bitbucket看，最后一次push停留在了2013-11-18。</p>
-
-<p>后来还在上海被8x鄙视于无形之中。</p>
-
-<h1>后世</h1>
-
-<p>14年做了几个月的Scala开发，后来Functional programming principles in Scala再次开课又上了一遍，拿了个认证证书。</p>
-
-<p>感觉似乎可以再挑战一次。</p>
-
-<h1>今生</h1>
-
-<p>上课习得的知识放在脑子里是不牢靠的。大脑有遗忘周期。</p>
-
-<p>需要有成文或者成代码的产出，作为日后回忆和做spaced repetition的资料。</p>
-
-<p>于是就有了这个即将成为系列的博文中的第一篇《Principles of Reactive Programming Week One作业导学》。</p>
-
-<p>这系列博文的目标读者仅限于报名参加了这门课并且看完了视频，看完了作业的instruction之后仍有困难的同学。</p>
-
-<p>这系列博文不会公布作业的答案，那是违反Coursera的code of honor的。</p>
-
-<p>我只会试着解释作业中已有的代码，以及应该如何入手。</p>
-
-<p>其实，写这个系列博文对我的帮助比对读者的帮助要大。</p>
-
-<h1>正文</h1>
-
-<h2>Heap.scala</h2>
-
-<p>第一周的代码下载下来之后，先来看一下Heap.scala这个文件。</p>
-
-<p>这个文件里定义了很多个trait。现在只需要关注其中一个Heap。</p>
-
-<p>这个就是所有其他trait都会去extend的基类（这个说法合适吗？）。
-它定义了所有Heap的实现者都需要实现的方法。</p>
-
-<p>然后BinomialHeap完整实现了Heap定义的所有东西。</p>
-
-<p>Bogus1BinomialHeap到Bogus5BinomialHeap都是继承自BinomialHeap，其中各自覆盖了BinomialHeap的不同方法，以不同的方式引入了bug。
-第一周作业的目的就是用ScalaCheck把其中的bug找出来。</p>
-
-<p>这个文件里还有一个IntHeap，这个稍后再说。</p>
-
-<p>实现代码其实就只有这一个文件，接下来看测试代码。</p>
-
-<h2>QuickCheckSuite.scala</h2>
-
-<p>这个文件里主要定义了QuickCheckSuite这个测试类。</p>
-
-<p>这个测试类继承自FunSuite，这是ScalaTest的测试基类。同时mix in了Checkers，这是ScalaTest为了与ScalaCheck集成而提供的trait。</p>
-
-<p>接下来看测试的case：</p>
-
-<p>```scala
-def checkBogus(p: Prop) {
-  var foundBug = false
-  try {</p>
-
-<pre><code>check(p)
-</code></pre>
-
-<p>  } catch {</p>
-
-<pre><code>case e: TestFailedException =&gt;
-  foundBug = true
-</code></pre>
-
-<p>  }
-  assert(foundBug, "A bogus heap should NOT satisfy all properties. Try to find the bug!")
-}</p>
-
-<p>test("Binomial heap satisfies properties.") {
-  check(new QuickCheckHeap with BinomialHeap)
-}</p>
-
-<p>test("Bogus (1) binomial heap does not satisfy properties.") {
-  checkBogus(new QuickCheckHeap with Bogus1BinomialHeap)
-}</p>
-
-<p>test("Bogus (2) binomial heap does not satisfy properties.") {
-  checkBogus(new QuickCheckHeap with Bogus2BinomialHeap)
-}
-```</p>
-
-<p>可以看到，每个case都调用了check这个方法，或者是check的变体-checkBogus。</p>
-
-<p>checkBogus里面则调用了check，并且assert说一定要出现TestFailedException异常了，测试才算成功。也就是说checkBogus的目的就是要在某些Heap的实现中找到bug。</p>
-
-<p>现在来看check这个方法本身。它接受一个类型为Prop的参数，这些参数从哪儿来呢？这些参数就是：
-```scala
-new QuickCheckHeap with BinomialHeap</p>
-
-<p>new QuickCheckHeap with Bogus1BinomialHeap
-```
-这些代码。</p>
-
-<p>这就意味着QuickCheckHeap一定要是一个Prop，是不是这样呢？</p>
-
-<h2>QuickCheckHeap.scala</h2>
-
-<p>那就到QuickCheckHeap.scala这个文件中来看一下。</p>
-
-<p>可以看到QuickCheckHeap这个抽象类确实是extends了Properties，而properties又extends了Prop。那么，没问题，这个类型是匹配的。</p>
-
-<p>QuickCheckHeap里可以定义任意多个property，这些property将会检查Heap的实现正确与否。</p>
-
-<p>而且它还mix in了IntHeap，就是前面略过的那个trait。它的目的是锁定Heap这个trait里所定义的A这个元素的类型到Int。</p>
-
-<h2>全部连起来</h2>
-
-<p>第一周作业的已有代码很少，有用的就是这三个文件。</p>
-
-<p>Heap.scala定义了很多个Heap的不同实现。有些是正确的，有些是有bug的。</p>
-
-<p>QuickCheckSuite.scala则是测试的入口点，它由JunitRunner拽着跑起来。
-其中的test case使用ScalaCheck去检查对于Heap这种数据结构恒定为true的properties是不是hold住的。</p>
-
-<p>对于Heap这种数据结构恒定为true的properties从哪儿来呢？就来自于QuickCheckHeap.scala。
-QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有了牛逼的trait，就可以用这种代码：
-```scala
-new QuickCheckHeap with BinomialHeap</p>
-
-<p>new QuickCheckHeap with Bogus1BinomialHeap
-```
-创建出实例，进行测试了。</p>
-
-<p>最后，我们的任务就是在QuickCheckHeap.scala添加更多的properties，把所有实现有误的Heap都揪出来。</p>
-
-<h1>题外话</h1>
-
-<p>有没有发现QuickCheckHeap.scala里面有些奇怪的代码？</p>
-
-<p><code>scala
-property("min1") = forAll { (heap: H, a: A) =&gt;
-  val min = if (isEmpty(heap)) a else findMin(heap)
-  findMin(insert(min, heap)) == min
-}
-</code></p>
-
-<p>property("min should be min")，这看起来像是一个方法调用啊。</p>
-
-<p>尼玛，方法调用后面怎么跟着一个等号啊？等号后面还有一个有返回值的表达式啊？</p>
-
-<p>这是啥啊？</p>
-
-<p>这是个乍一看很自然，但是仔细一想很费解的Scala语言特性-update方法。</p>
-
-<p>详情请见我之前的一篇博客：<a href="http://cuipengfei.me/blog/2014/06/12/scala-update-method/">http://cuipengfei.me/blog/2014/06/12/scala-update-method/</a></p>
 ]]></content>
   </entry>
   

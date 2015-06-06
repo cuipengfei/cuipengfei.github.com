@@ -9,9 +9,7 @@
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content="命令模式 在面向对象程式设计的范畴中，命令模式是一种设计模式，它尝试以物件来代表实际行动。命令物件可以把行动(action) 及其参数封装起来，于是这些行动可以被： 重复多次
-取消（如果该物件有实作的话）
-取消后又再重做 以上是wiki对命令模式的定义（术语像是台湾的）。 下面是来自《Head &hellip;">
+  <meta name="description" content="解释器模式 In computer programming, the interpreter pattern is a design pattern that specifies how to evaluate sentences in a language. The basic idea is &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +74,350 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/">解释器模式：OOP Versus Functional Decomposition</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-06-05T15:34:00+05:30" pubdate data-updated="true">Jun 5<span>th</span>, 2015</time>
+        
+         | <a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>解释器模式</h1>
+
+<blockquote><p>In computer programming, the interpreter pattern is a design pattern that specifies how to evaluate sentences in a language. The basic idea is to have a class for each symbol (terminal or nonterminal) in a specialized computer language. The syntax tree of a sentence in the language is an instance of the composite pattern and is used to evaluate (interpret) the sentence for a client.</p></blockquote>
+
+<p>以上是wiki对解释器模式的描述。</p>
+
+<p>这是一个学术性稍强的模式，不太好找到生活化的比喻。</p>
+
+<p>就直接上代码吧。</p>
+
+<h1>Java</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">interface</span> <span class="nc">Expression</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="nf">interpret</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Expression</span><span class="o">&gt;</span> <span class="n">variables</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>首先有一个表达式的接口，定义一个求值的方法，该方法接收一个String -> Expression的map。</p>
+
+<p>可以猜到，这个map就是该表达式求值的时候需要用到的context。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">class</span> <span class="nc">Plus</span> <span class="kd">implements</span> <span class="n">Expression</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Expression</span> <span class="n">leftOperand</span><span class="o">;</span>
+</span><span class='line'>    <span class="n">Expression</span> <span class="n">rightOperand</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">Plus</span><span class="o">(</span><span class="n">Expression</span> <span class="n">left</span><span class="o">,</span> <span class="n">Expression</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">leftOperand</span> <span class="o">=</span> <span class="n">left</span><span class="o">;</span>
+</span><span class='line'>        <span class="n">rightOperand</span> <span class="o">=</span> <span class="n">right</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">interpret</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Expression</span><span class="o">&gt;</span> <span class="n">variables</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">leftOperand</span><span class="o">.</span><span class="na">interpret</span><span class="o">(</span><span class="n">variables</span><span class="o">)</span> <span class="o">+</span> <span class="n">rightOperand</span><span class="o">.</span><span class="na">interpret</span><span class="o">(</span><span class="n">variables</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">Minus</span> <span class="kd">implements</span> <span class="n">Expression</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Expression</span> <span class="n">leftOperand</span><span class="o">;</span>
+</span><span class='line'>    <span class="n">Expression</span> <span class="n">rightOperand</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">Minus</span><span class="o">(</span><span class="n">Expression</span> <span class="n">left</span><span class="o">,</span> <span class="n">Expression</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">leftOperand</span> <span class="o">=</span> <span class="n">left</span><span class="o">;</span>
+</span><span class='line'>        <span class="n">rightOperand</span> <span class="o">=</span> <span class="n">right</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">interpret</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Expression</span><span class="o">&gt;</span> <span class="n">variables</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">leftOperand</span><span class="o">.</span><span class="na">interpret</span><span class="o">(</span><span class="n">variables</span><span class="o">)</span> <span class="o">-</span> <span class="n">rightOperand</span><span class="o">.</span><span class="na">interpret</span><span class="o">(</span><span class="n">variables</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">Number</span> <span class="kd">implements</span> <span class="n">Expression</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kt">int</span> <span class="n">number</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">Number</span><span class="o">(</span><span class="kt">int</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">number</span> <span class="o">=</span> <span class="n">number</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">interpret</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Expression</span><span class="o">&gt;</span> <span class="n">variables</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">number</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">Variable</span> <span class="kd">implements</span> <span class="n">Expression</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">Variable</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">interpret</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Expression</span><span class="o">&gt;</span> <span class="n">variables</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">==</span> <span class="n">variables</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">name</span><span class="o">))</span> <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">variables</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">name</span><span class="o">).</span><span class="na">interpret</span><span class="o">(</span><span class="n">variables</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后有表达式的四个实现类：加法表达式，减法表达式，数字表达式，还有变量。</p>
+
+<p>数字表达式在求值的时候就直接返回它被创建时拿到的数字就好了，这是最简单的。</p>
+
+<p>加法和减法的interpret方法在求值的时候仅仅是把行为委托给了两个子表达式，再对子表达式的求值结果做加减法。</p>
+
+<p>变量在求值的时候则是去context里面寻找其name对应的表达式（也就是它所指向的表达式），然后对其求值。</p>
+
+<p>下面是对它们的结合使用：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">InterpreterExample</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Expression</span><span class="o">&gt;</span> <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+</span><span class='line'>        <span class="n">context</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;w&quot;</span><span class="o">,</span> <span class="k">new</span> <span class="n">Number</span><span class="o">(</span><span class="mi">5</span><span class="o">));</span>
+</span><span class='line'>        <span class="n">context</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;x&quot;</span><span class="o">,</span> <span class="k">new</span> <span class="n">Number</span><span class="o">(</span><span class="mi">10</span><span class="o">));</span>
+</span><span class='line'>        <span class="n">context</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;z&quot;</span><span class="o">,</span> <span class="k">new</span> <span class="n">Number</span><span class="o">(</span><span class="mi">42</span><span class="o">));</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">Plus</span> <span class="n">expr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Plus</span><span class="o">(</span><span class="k">new</span> <span class="n">Variable</span><span class="o">(</span><span class="s">&quot;w&quot;</span><span class="o">),</span>
+</span><span class='line'>                <span class="k">new</span> <span class="nf">Minus</span><span class="o">(</span><span class="k">new</span> <span class="n">Variable</span><span class="o">(</span><span class="s">&quot;x&quot;</span><span class="o">),</span>
+</span><span class='line'>                        <span class="k">new</span> <span class="nf">Variable</span><span class="o">(</span><span class="s">&quot;z&quot;</span><span class="o">)));</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">expr</span><span class="o">.</span><span class="na">interpret</span><span class="o">(</span><span class="n">context</span><span class="o">));</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>首先构造一个context，里面有w，x，z三个数字。然后计算w+(x-z)的值（看着像不像Lisp？）。</p>
+
+<h1>仔细想一下</h1>
+
+<p>这些代码实际做的是什么事呢？</p>
+
+<p>实际就是把一个以遇到Number为退出条件的递归算法拆碎了。</p>
+
+<p>如果我们不把它拆碎，就写成递归函数会如何呢？</p>
+
+<h1>functions</h1>
+
+<p>用Scala试着实现一下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">trait</span> <span class="nc">Expr</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Plus</span><span class="o">(</span><span class="n">left</span><span class="k">:</span> <span class="kt">Expr</span><span class="o">,</span> <span class="n">right</span><span class="k">:</span> <span class="kt">Expr</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Expr</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Minus</span><span class="o">(</span><span class="n">left</span><span class="k">:</span> <span class="kt">Expr</span><span class="o">,</span> <span class="n">right</span><span class="k">:</span> <span class="kt">Expr</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Expr</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Number</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Expr</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Var</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Expr</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">object</span> <span class="nc">ExprEval</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">eval</span><span class="o">(</span><span class="n">expr</span><span class="k">:</span> <span class="kt">Expr</span><span class="o">,</span> <span class="n">context</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Expr</span><span class="o">])</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">expr</span> <span class="k">match</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">case</span> <span class="nc">Plus</span><span class="o">(</span><span class="n">l</span><span class="o">,</span> <span class="n">r</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">eval</span><span class="o">(</span><span class="n">l</span><span class="o">,</span> <span class="n">context</span><span class="o">)</span> <span class="o">+</span> <span class="n">eval</span><span class="o">(</span><span class="n">r</span><span class="o">,</span> <span class="n">context</span><span class="o">)</span>
+</span><span class='line'>      <span class="k">case</span> <span class="nc">Minus</span><span class="o">(</span><span class="n">l</span><span class="o">,</span> <span class="n">r</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">eval</span><span class="o">(</span><span class="n">l</span><span class="o">,</span> <span class="n">context</span><span class="o">)</span> <span class="o">-</span> <span class="n">eval</span><span class="o">(</span><span class="n">r</span><span class="o">,</span> <span class="n">context</span><span class="o">)</span>
+</span><span class='line'>      <span class="k">case</span> <span class="nc">Var</span><span class="o">(</span><span class="n">name</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">eval</span><span class="o">(</span><span class="n">context</span><span class="o">(</span><span class="n">name</span><span class="o">),</span> <span class="n">context</span><span class="o">)</span>
+</span><span class='line'>      <span class="k">case</span> <span class="nc">Number</span><span class="o">(</span><span class="n">n</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">n</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">main</span><span class="o">(</span><span class="n">args</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">context</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">(</span><span class="s">&quot;w&quot;</span> <span class="o">-&gt;</span> <span class="nc">Number</span><span class="o">(</span><span class="mi">5</span><span class="o">),</span> <span class="s">&quot;x&quot;</span> <span class="o">-&gt;</span> <span class="nc">Number</span><span class="o">(</span><span class="mi">10</span><span class="o">),</span> <span class="s">&quot;z&quot;</span> <span class="o">-&gt;</span> <span class="nc">Number</span><span class="o">(</span><span class="mi">42</span><span class="o">))</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">expr</span> <span class="k">=</span> <span class="nc">Plus</span><span class="o">(</span><span class="nc">Var</span><span class="o">(</span><span class="s">&quot;w&quot;</span><span class="o">),</span> <span class="nc">Minus</span><span class="o">(</span><span class="nc">Var</span><span class="o">(</span><span class="s">&quot;x&quot;</span><span class="o">),</span> <span class="nc">Var</span><span class="o">(</span><span class="s">&quot;z&quot;</span><span class="o">)))</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">eval</span><span class="o">(</span><span class="n">expr</span><span class="o">,</span> <span class="n">context</span><span class="o">))</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以上就是全部代码，与Java版等价。
+递归函数很容易看懂，其退出条件也很容易看出来。</p>
+
+<p>69行代码变成了26行。</p>
+
+<p>四个case class代表四种表达式，其中并没有什么方法，只是用来作为数据的承载者。</p>
+
+<p>一个eval函数，用pattern match来对四种表达式进行不同的处理。</p>
+
+<p>不过这次我倒不是要宣扬说解释器模式属于是用不合适的工具解决问题。</p>
+
+<p>而是要介绍两种组织代码的方式：按行组织还是按列组织。</p>
+
+<h1>按行组织代码与按列组织代码</h1>
+
+<p>昨天我在看解释器模式，准备写一个Java实现，再写一个Scala实现，并以此来达到我黑Java的阴暗目的。</p>
+
+<p>但是看了wiki上的示例代码后，马上就想起了去年上过的一门MOOC：<a href="https://www.coursera.org/course/proglang">《Programming languages》</a>。
+（这门课是由华盛顿大学的Dan Grossman教授讲授的，内容极好，强烈推荐。）</p>
+
+<p>这门课里有一节就提到了上面说的两种组织代码的方式：按行组织还是按列组织。
+这节课的视频在这里：<a href="https://www.youtube.com/watch?v=uEHnI3pq_FM">https://www.youtube.com/watch?v=uEHnI3pq_FM）</a></p>
+
+<p>比如我们上面的两版代码，Java代码把对表达式的求值分散在每个不同的表达式类里。</p>
+
+<p>而Scala代码把求值代码集中写在一个函数里，pattern match每种表达式类型并求值。</p>
+
+<p>如果要做成一个表格的话，就是这样的：</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1esug8rpnudj207o0bwt8v.jpg" alt="table" /></p>
+
+<p>其中的问号代表具体的求值实现。</p>
+
+<p>Java代码横向组织，有一个Plus类，里面有interpret方法，有一个Minus类，里面有interpret方法，等等。这是按照行组织。</p>
+
+<p>而Scala代码则纵向组织，有一个eval函数，纵向把四种表达式的求值都包揽了。这是按列行组织。</p>
+
+<p>上面的表格太小，看着不明显，现在假设我们需要打印表达式的功能。那么表格就会变成这样：</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1esugg4y9wij20ba0c43yu.jpg" alt="table2" /></p>
+
+<p>可以想象，Java代码里会在每个表达式类里加一个toString函数的实现。横向扩展，一个类把数据和算法组织在一起。</p>
+
+<p>而在Scala代码里则会写一个toString的递归函数，包揽所有字符串打印的工作。纵向扩展，一个函数去分辨数据类型，并据此选择计算策略。</p>
+
+<h1>OOP versus Functional Decomposition</h1>
+
+<p>那到底哪种组织方式更好呢？</p>
+
+<p>并没有确定的答案，Dan Grossman教授在课程中给出的解释是这样的：</p>
+
+<blockquote><p>FP and OOP often doing the same thing in exact opposite way: organize the program “by rows” or “by columns”.
+Which is “most natural” may depend on what you are doing (e.g., an interpreter vs. a GUI) or personal taste.</p></blockquote>
+
+<p>到底如何组织取决于你想要解决什么样的问题，比如你要做一个GUI库，那么数据与算法放在一起，互相接近是最自然的组织方式。这时选择OOP是最好的设计决策。</p>
+
+<p>而如果你要实现的东西类似于本文中的解释器，那么一个递归的算法来统一处理所有表达式类型则是最自然的。这时选择Functional Decomposition是最好的设计决策。</p>
+
+<h1>结语</h1>
+
+<p>OOP与Functional Decomposition，这二者并不是完全对立的。</p>
+
+<p>熟练掌握多种抽象与代码组织方式，正确识别应用场景，据此选择合适的范式，或者是选择多种范式结合使用，才是这一系列博文的真实用意。</p>
+
+<p>只不过由于传统的OO设计模式过于盛行，FP范式接受度不够，才会有这一系列博文黑Java，捧Scala的表象。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -2759,45 +3101,6 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/01/13/tech-radar-wuhan/">Tech Radar 武汉 Microservice Envy</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-01-13T23:18:00+05:30" pubdate data-updated="true">Jan 13<span>th</span>, 2015</time>
-        
-         | <a href="/blog/2015/01/13/tech-radar-wuhan/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><iframe src="//slides.com/pengfeicui/microservice-envy/embed" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -2811,6 +3114,10 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/">解释器模式：OOP versus Functional Decomposition</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/06/01/command-pattern-fp-implementation/">命令模式的不爽就像用指甲刀刮胡子</a>
@@ -2846,10 +3153,6 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
     
       <li class="post">
         <a href="/blog/2015/03/29/2015-first-season/">2015第一季度</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/01/13/tech-radar-wuhan/">Tech radar 武汉 microservice envy</a>
       </li>
     
   </ul>
