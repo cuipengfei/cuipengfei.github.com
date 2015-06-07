@@ -4,7 +4,7 @@
   <title><![CDATA[Category: OODP | 崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/blog/categories/oodp/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2015-06-06T14:38:45+05:30</updated>
+  <updated>2015-06-07T17:17:12+05:30</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -224,7 +224,7 @@ println(eval(expr, context))
 
 <p>Java代码横向组织，有一个Plus类，里面有interpret方法，有一个Minus类，里面有interpret方法，等等。这是按照行组织。</p>
 
-<p>而Scala代码则纵向组织，有一个eval函数，纵向把四种表达式的求值都包揽了。这是按列行组织。</p>
+<p>而Scala代码则纵向组织，有一个eval函数，纵向把四种表达式的求值都包揽了。这是按列组织。</p>
 
 <p>上面的表格太小，看着不明显，现在假设我们需要打印表达式的功能。那么表格就会变成这样：</p>
 
