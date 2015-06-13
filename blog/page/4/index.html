@@ -9,9 +9,8 @@
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content="Function composition，顾名思义，就是函数的组合。直接举例： 1
-2
-3 def sayHi(name: String) = &quot;Hi, &quot; + name def sayBye(str: String) = str + &quot;, bye&quot; &hellip;">
+  <meta name="description" content="干了什么 上半年： 看了十几本书； 写了几篇博客； 在github上做了一个豆瓣读书的插件； 肇始了一个十万个为什么的活动，自始至终只有我一个人参与，然后就挂掉了； 做了三章的SICP，然后卡住做不动了； 乏善可陈。 上面列的最后两项的价值最大，但都没做完。究其原因： 坚持不够
+attention &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +75,102 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/01/my-2013/">今天是二零一四年的第一天，回忆一下二零一三年都干了些什么，然后再回忆一下没干什么</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-01T13:48:00+05:30" pubdate data-updated="true">Jan 1<span>st</span>, 2014</time>
+        
+         | <a href="/blog/2014/01/01/my-2013/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>干了什么</h2>
+
+<p><strong>上半年：</strong></p>
+
+<p>看了十几本书；</p>
+
+<p>写了几篇博客；</p>
+
+<p>在github上做了一个豆瓣读书的插件；</p>
+
+<p>肇始了一个十万个为什么的活动，自始至终只有我一个人参与，然后就挂掉了；</p>
+
+<p>做了三章的SICP，然后卡住做不动了；</p>
+
+<p>乏善可陈。</p>
+
+<p>上面列的最后两项的价值最大，但都没做完。究其原因：</p>
+
+<ul>
+<li>坚持不够</li>
+<li>attention span太短</li>
+</ul>
+
+
+<p>这两项在下半年做的事儿里address到了。</p>
+
+<p><strong>下半年：</strong></p>
+
+<p>又看了十几本书（量与上半年持平）；</p>
+
+<p>又写了几篇博客（量较上半年有增）；</p>
+
+<p>跟完了Coursera上的Functional programming principles in Scala的课，拿到了Statement of Accomplishment with distinction；</p>
+
+<p>键盘速度到了60wpm左右；</p>
+
+<p>找到了坚持和attention span问题的解决方案；</p>
+
+<p>有善可陈。</p>
+
+<p>善在最后一项。解决方案是这样的：</p>
+
+<ul>
+<li>戒掉微博，规避碎片化娱乐化的信息。（还没戒掉的是美剧）</li>
+<li>把番茄钟用到自己的时间中去。track用在“正经事儿”上的时间。</li>
+</ul>
+
+
+<p>不细说了，下面说没干什么。</p>
+
+<h2>没干什么</h2>
+
+<p>我的情商和people skill很低，低的你都猜不到哦亲。</p>
+
+<p>我可以预感到这个东西即将成为我的bottle neck。但是我二零一三年并没有在上面做太多事情。</p>
+
+<p>读了几本我认为会有帮助的书，一些被我认为是不知所云，一些促使我得出了死硬的理性派结论。</p>
+
+<p>二零一四年需要在这个领域积累知识，然后期待量变带来的质变。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -2283,350 +2378,6 @@ type Function23 is not a member of package scala</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/05/how-are-scala-language-features-implemented/">Scala中的语言特性是如何实现的(1)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-05T22:02:00+05:30" pubdate data-updated="true">May 5<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/05/how-are-scala-language-features-implemented/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Scala可以编译为Java bytecode和CIL，从而在JVM和CLI之上运行。Scala有很多在Java和C#的世界中显得陌生的语言特性，本文将分析这些语言特性是如何实现的。</p>
-
-<h2>object</h2>
-
-<p>Scala中可以像这样创建object：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">HowIsObjectImplementedInScala</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">printSomething</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="s">&quot;printSomething&quot;</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然后在代码的其他地方调用printSomething，一个object究竟是什么东西呢？
-我们将这段Scala编译为Java bytecode，然后反编译为Java，会发现编译器为HowIsObjectImplementedInScala这个object生成了两个类：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">HowIsObjectImplementedInScala</span>
-</span><span class='line'><span class="o">{</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">printSomething</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="n">HowIsObjectImplementedInScala</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">printSomething</span><span class="o">();</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">HowIsObjectImplementedInScala</span><span class="n">$</span>
-</span><span class='line'><span class="o">{</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span>  <span class="n">MODULE$</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">static</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="k">new</span> <span class="o">();</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printSomething</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;printSomething&quot;</span><span class="o">);</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">private</span> <span class="n">HowIsObjectImplementedInScala$</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="n">MODULE$</span> <span class="o">=</span> <span class="k">this</span><span class="o">;</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>第一个类只包含一个静态方法，其实现依赖于第二个叫做HowIsObjectImplementedInScala$的类。</p>
-
-<p>HowIsObjectImplementedInScala$是一个单例，其静态块实例化自己并把this赋值给MODULE$这个public static的成员，从而可以被外界访问。</p>
-
-<p>同样，我们可以把这段代码编译为CIL，然后反编译为C#:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">public</span> <span class="k">sealed</span> <span class="k">class</span> <span class="nc">HowIsObjectImplementedInScala</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">printSomething</span><span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>    <span class="n">HowIsObjectImplementedInScala</span><span class="err">$</span><span class="p">.</span><span class="n">MODULE</span><span class="err">$</span><span class="p">.</span><span class="n">printSomething</span><span class="p">();</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">public</span> <span class="k">sealed</span> <span class="k">class</span> <span class="nc">HowIsObjectImplementedInScala</span><span class="err">$</span> <span class="p">:</span> <span class="n">ScalaObject</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">public</span> <span class="k">static</span> <span class="n">HowIsObjectImplementedInScala</span><span class="err">$</span> <span class="n">MODULE</span><span class="err">$</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">printSomething</span><span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>    <span class="n">Predef</span><span class="err">$</span><span class="p">.</span><span class="n">MODULE</span><span class="err">$</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;printSomething&quot;</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="k">private</span> <span class="n">HowIsObjectImplementedInScala</span><span class="err">$</span><span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>    <span class="n">HowIsObjectImplementedInScala</span><span class="err">$</span><span class="p">.</span><span class="n">MODULE</span><span class="err">$</span> <span class="p">=</span> <span class="k">this</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="k">static</span> <span class="n">HowIsObjectImplementedInScala</span><span class="err">$</span><span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>    <span class="k">new</span> <span class="n">HowIsObjectImplementedInScala</span><span class="err">$</span><span class="p">();</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>和Java代码大同小异，除了静态构造和某几个关键字外，基本一样。一个object就是一个Scala编译器帮我们实现的singleton。</p>
-
-<h2>var和val</h2>
-
-<p>var：可变。val：不可变。关于这两个关键字何时该使用哪一个，这里不做讨论，我们只是观察这二者在编译后是如何被表示的。</p>
-
-<p>这段Scala代码：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">HowAreVarAndValImplementedInScala</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">var</span> <span class="n">v1</span> <span class="k">=</span> <span class="mi">123</span>
-</span><span class='line'>  <span class="k">val</span> <span class="n">v2</span> <span class="k">=</span> <span class="mi">456</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">method1</span><span class="o">()</span> <span class="k">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">var</span> <span class="n">v3</span> <span class="k">=</span> <span class="mi">123</span>
-</span><span class='line'>    <span class="k">val</span> <span class="n">v4</span> <span class="k">=</span> <span class="mi">456</span>
-</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">v3</span> <span class="o">+</span> <span class="n">v4</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>定义了两个字段一个var，一个val，方法中定义了两个局部变量，一个var，一个val。</p>
-
-<p>编译为Java bytecode并反编译之后：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HowAreVarAndValImplementedInScala</span>
-</span><span class='line'><span class="o">{</span>
-</span><span class='line'>  <span class="kd">private</span> <span class="kt">int</span> <span class="n">v1</span> <span class="o">=</span> <span class="mi">123</span><span class="o">;</span>
-</span><span class='line'>  <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">v2</span> <span class="o">=</span> <span class="mi">456</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">v1</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">v1</span><span class="o">;</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="n">v1_$eq</span><span class="o">(</span><span class="kt">int</span> <span class="n">x$1</span><span class="o">)</span> <span class="o">{</span> <span class="k">this</span><span class="o">.</span><span class="na">v1</span> <span class="o">=</span> <span class="n">x$1</span><span class="o">;</span> <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">v2</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">v2</span><span class="o">;</span> <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">method1</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">v3</span> <span class="o">=</span> <span class="mi">123</span><span class="o">;</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">v4</span> <span class="o">=</span> <span class="mi">456</span><span class="o">;</span>
-</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">BoxesRunTime</span><span class="o">.</span><span class="na">boxToInteger</span><span class="o">(</span><span class="n">v3</span> <span class="o">+</span> <span class="n">v4</span><span class="o">));</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>声明为字段的v1和v2，一个是普通字段，另一个则被标记为final。编译器为v1生成了getter和setter，为v2则只有getter，因为v2作为immutable的字段是不可以被重新赋值的。</p>
-
-<p>有趣的是方法中的局部变量都是普通的变量，没有被final修饰。</p>
-
-<p>再来看这段Scala编译为CIL再反编译为C#之后的样子：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">HowAreVarAndValImplementedInScala</span> <span class="p">:</span> <span class="n">ScalaObject</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">private</span> <span class="kt">int</span> <span class="n">v1</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">private</span> <span class="kt">int</span> <span class="n">v2</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">public</span> <span class="k">override</span> <span class="kt">int</span> <span class="nf">v1</span><span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="n">v1</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="n">v1_</span><span class="err">$</span><span class="n">eq</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="err">$</span><span class="m">1</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="n">v1</span> <span class="p">=</span> <span class="n">x</span><span class="err">$</span><span class="m">1</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">public</span> <span class="k">override</span> <span class="kt">int</span> <span class="nf">v2</span><span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="n">v2</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">method1</span><span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">v3</span> <span class="p">=</span> <span class="m">123</span><span class="p">;</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">v4</span> <span class="p">=</span> <span class="m">456</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">Predef</span><span class="err">$</span><span class="p">.</span><span class="n">MODULE</span><span class="err">$</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">v3</span> <span class="p">+</span> <span class="n">v4</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">public</span> <span class="nf">HowAreVarAndValImplementedInScala</span><span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="n">v1</span> <span class="p">=</span> <span class="m">123</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="n">v2</span> <span class="p">=</span> <span class="m">456</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>有一个明显的问题，v2没有标为readonly（C#世界中用于声明变量不可以重新赋值的关键字），这是compiler的bug吗？</p>
-
-<p>除此之外，和Java代码一致。但是有趣的是代码中的所有public方法（包括上一段演示object的代码）都被标为了override，原因不明。</p>
-
-<h2>小结</h2>
-
-<p>本来以为研究这么简单的两个语言特性不会有啥收获，仅仅是反编译一下，看看compiler都做了啥，满足下好奇心罢了。</p>
-
-<p>结果还是有意外收获，我在反编译后的代码中发现了三个有趣的问题：</p>
-
-<ul>
-<li>在Scala中被声明为val的v4为什么在反编译的Java中不是final的呢？</li>
-<li>在Scala中被声明为val的v2为什么在反编译的C#中不是readonly的呢？</li>
-<li>为什么反编译出来的C#代码中的实例级公开方法都是标有override的呢？</li>
-</ul>
-
-
-<p>为什么呢？为什么呢？为什么呢？答案下期揭晓。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -2642,6 +2393,10 @@ type Function23 is not a member of package scala</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/06/13/observers-pattern-fp/">观察者模式 in FP：Mutation vs Transformation</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/">解释器模式：OOP versus Functional Decomposition</a>
@@ -2677,10 +2432,6 @@ type Function23 is not a member of package scala</p>
     
       <li class="post">
         <a href="/blog/2015/04/04/women-in-finance-it-and-r-and-d/">职业女性确实处于劣势吗？记一次不甚严谨的考据 &#8211; 向胡适之先生的遥远致敬</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/29/2015-first-season/">2015第一季度</a>
       </li>
     
   </ul>

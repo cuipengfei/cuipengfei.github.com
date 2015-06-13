@@ -4,7 +4,7 @@
   <title><![CDATA[崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2015-06-07T17:17:12+05:30</updated>
+  <updated>2015-06-14T02:01:40+05:30</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -12,6 +12,453 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[观察者模式 in FP：Mutation vs Transformation]]></title>
+    <link href="http://cuipengfei.github.com/blog/2015/06/13/observers-pattern-fp/"/>
+    <updated>2015-06-13T22:49:00+05:30</updated>
+    <id>http://cuipengfei.github.com/blog/2015/06/13/observers-pattern-fp</id>
+    <content type="html"><![CDATA[<h1>观察者模式</h1>
+
+<blockquote><p>观察者模式（有时又被称为发布/订阅模式）是软件设计模式的一种。在此种模式中，一个目标对象管理所有相依于它的观察者对象，并且在它本身的状态改变时主动发出通知。这通常透过呼叫各观察者所提供的方法来实现。此种模式通常被用来实作事件处理系统。</p></blockquote>
+
+<p>以上是wiki对观察者模式的解释。</p>
+
+<p>举一个《Head first design pattern》中的例子：</p>
+
+<p>比如说有一个气象站，每当气象有变化的时候就需要显示当前天气。
+需要显示历史平均气温，最高气温和最低气温。
+还需要根据气压预测晴雨。</p>
+
+<p>这种情况就很适合使用观察者模式，每种需要显示气象的装置作为观察者，气象数据本身作为可以被观察的对象。
+每当气象变化的时候，被观察的对象就会通知观察者来根据新的数据作出新的显示。</p>
+
+<p>以下是书中给出的代码：</p>
+
+<h1>Java</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Observer</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">update</span><span class="o">(</span><span class="kt">float</span> <span class="n">temp</span><span class="o">,</span> <span class="kt">float</span> <span class="n">humidity</span><span class="o">,</span> <span class="kt">float</span> <span class="n">pressure</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Subject</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">registerObserver</span><span class="o">(</span><span class="n">Observer</span> <span class="n">o</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">notifyObservers</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>首先定义两个接口，一个是观察者，接收新的气象数据。一个是被观察者，可以注册观察者以及通知观察者。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WeatherData</span> <span class="kd">implements</span> <span class="n">Subject</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Observer</span><span class="o">&gt;</span> <span class="n">observers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kt">float</span> <span class="n">temperature</span><span class="o">;</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kt">float</span> <span class="n">humidity</span><span class="o">;</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kt">float</span> <span class="n">pressure</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">registerObserver</span><span class="o">(</span><span class="n">Observer</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">observers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">o</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">notifyObservers</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">for</span> <span class="o">(</span><span class="n">Observer</span> <span class="n">observer</span> <span class="o">:</span> <span class="n">observers</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">observer</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">temperature</span><span class="o">,</span> <span class="n">humidity</span><span class="o">,</span> <span class="n">pressure</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setMeasurements</span><span class="o">(</span><span class="kt">float</span> <span class="n">temperature</span><span class="o">,</span> <span class="kt">float</span> <span class="n">humidity</span><span class="o">,</span> <span class="kt">float</span> <span class="n">pressure</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">temperature</span> <span class="o">=</span> <span class="n">temperature</span><span class="o">;</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">humidity</span> <span class="o">=</span> <span class="n">humidity</span><span class="o">;</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">pressure</span> <span class="o">=</span> <span class="n">pressure</span><span class="o">;</span>
+</span><span class='line'>        <span class="n">notifyObservers</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接下来定义气象数据本身。代码很容易理解，把观察者保存在一个list里，每当气象数据变化的时候就通知这些观察者去做出新的处理。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CurrentConditionsDisplay</span> <span class="kd">implements</span> <span class="n">Observer</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">CurrentConditionsDisplay</span><span class="o">(</span><span class="n">Subject</span> <span class="n">weatherData</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">weatherData</span><span class="o">.</span><span class="na">registerObserver</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">update</span><span class="o">(</span><span class="kt">float</span> <span class="n">temperature</span><span class="o">,</span> <span class="kt">float</span> <span class="n">humidity</span><span class="o">,</span> <span class="kt">float</span> <span class="n">pressure</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Current conditions: &quot;</span> <span class="o">+</span> <span class="n">temperature</span>
+</span><span class='line'>                <span class="o">+</span> <span class="s">&quot;F degrees and &quot;</span> <span class="o">+</span> <span class="n">humidity</span> <span class="o">+</span> <span class="s">&quot;% humidity&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StatisticsDisplay</span> <span class="kd">implements</span> <span class="n">Observer</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kt">float</span> <span class="n">maxTemp</span> <span class="o">=</span> <span class="mf">0.0f</span><span class="o">;</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kt">float</span> <span class="n">minTemp</span> <span class="o">=</span> <span class="mi">200</span><span class="o">;</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kt">float</span> <span class="n">tempSum</span> <span class="o">=</span> <span class="mf">0.0f</span><span class="o">;</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kt">int</span> <span class="n">numReadings</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">StatisticsDisplay</span><span class="o">(</span><span class="n">WeatherData</span> <span class="n">weatherData</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">weatherData</span><span class="o">.</span><span class="na">registerObserver</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">update</span><span class="o">(</span><span class="kt">float</span> <span class="n">temp</span><span class="o">,</span> <span class="kt">float</span> <span class="n">humidity</span><span class="o">,</span> <span class="kt">float</span> <span class="n">pressure</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">tempSum</span> <span class="o">+=</span> <span class="n">temp</span><span class="o">;</span>
+</span><span class='line'>        <span class="n">numReadings</span><span class="o">++;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">temp</span> <span class="o">&gt;</span> <span class="n">maxTemp</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">maxTemp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">temp</span> <span class="o">&lt;</span> <span class="n">minTemp</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">minTemp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Avg/Max/Min temperature = &quot;</span> <span class="o">+</span> <span class="o">(</span><span class="n">tempSum</span> <span class="o">/</span> <span class="n">numReadings</span><span class="o">)</span>
+</span><span class='line'>                <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="n">maxTemp</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="n">minTemp</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ForecastDisplay</span> <span class="kd">implements</span> <span class="n">Observer</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kt">float</span> <span class="n">currentPressure</span> <span class="o">=</span> <span class="mf">29.92f</span><span class="o">;</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kt">float</span> <span class="n">lastPressure</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">ForecastDisplay</span><span class="o">(</span><span class="n">WeatherData</span> <span class="n">weatherData</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">weatherData</span><span class="o">.</span><span class="na">registerObserver</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">update</span><span class="o">(</span><span class="kt">float</span> <span class="n">temp</span><span class="o">,</span> <span class="kt">float</span> <span class="n">humidity</span><span class="o">,</span> <span class="kt">float</span> <span class="n">pressure</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">lastPressure</span> <span class="o">=</span> <span class="n">currentPressure</span><span class="o">;</span>
+</span><span class='line'>        <span class="n">currentPressure</span> <span class="o">=</span> <span class="n">pressure</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;Forecast: &quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">currentPressure</span> <span class="o">&gt;</span> <span class="n">lastPressure</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Improving weather on the way!&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">currentPressure</span> <span class="o">==</span> <span class="n">lastPressure</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;More of the same&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">currentPressure</span> <span class="o">&lt;</span> <span class="n">lastPressure</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Watch out for cooler, rainy weather&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后有三个观察者，分别负责显示当前气象，气象历史分析和晴雨预测。</p>
+
+<p>CurrentConditionsDisplay是最简单的，没有任何状态，它只是负责在每次气象有变化的时候把最新的气象显示出来。</p>
+
+<p>StatisticsDisplay复杂一点点，它需要记录历史气温，以便于计算平均温度，最高和最低气温。这是一个会有状态变化的对象。</p>
+
+<p>ForecastDisplay也有状态变化，它需要记录上次的气压，以便于根据气压变化来预测晴雨。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WeatherStation</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">WeatherData</span> <span class="n">weatherData</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WeatherData</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">CurrentConditionsDisplay</span> <span class="n">currentDisplay</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CurrentConditionsDisplay</span><span class="o">(</span><span class="n">weatherData</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">StatisticsDisplay</span> <span class="n">statisticsDisplay</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StatisticsDisplay</span><span class="o">(</span><span class="n">weatherData</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">ForecastDisplay</span> <span class="n">forecastDisplay</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ForecastDisplay</span><span class="o">(</span><span class="n">weatherData</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">weatherData</span><span class="o">.</span><span class="na">setMeasurements</span><span class="o">(</span><span class="mi">80</span><span class="o">,</span> <span class="mi">65</span><span class="o">,</span> <span class="mf">30.4f</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">weatherData</span><span class="o">.</span><span class="na">setMeasurements</span><span class="o">(</span><span class="mi">82</span><span class="o">,</span> <span class="mi">70</span><span class="o">,</span> <span class="mf">29.2f</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">weatherData</span><span class="o">.</span><span class="na">setMeasurements</span><span class="o">(</span><span class="mi">78</span><span class="o">,</span> <span class="mi">90</span><span class="o">,</span> <span class="mf">29.2f</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最后，有一个main函数，把以上所有代码串起来。</p>
+
+<p>三个观察者都在观察同一个气象数据，每当气象有变化的时候，三个观察者都会被通知，并作出相应处理。</p>
+
+<p>如果我们需要其他的更复杂的气象显示装置，只需要实现Observer接口，注册到气象数据上去，那么在每次气象有变化的时候就可以收到通知并作出处理。不需要对已有代码做出任何改变。</p>
+
+<p>很灵活，很强大，对吧？</p>
+
+<h2>不过再想一下</h2>
+
+<p>观察者模式有没有更好地实现方式呢？</p>
+
+<p>答案肯定是有的。</p>
+
+<p>C#的delegate和Event就是一种用来实现观察者模式的很好的语言特性。它在语言级别为添加事件订阅和取消订阅提供了支持。</p>
+
+<p>不过这一篇博客主要是想要讲一个immutable的观察者模式实现，C#就不多讲了。</p>
+
+<p>可以想一下，上面的Java代码里的三个观察者，CurrentConditionsDisplay是没有任何状态变化的，它存在的意义仅在于其update方法。
+而这个方法每次都是接受最新的气象数据，并作出输出。</p>
+
+<p>StatisticsDisplay和ForecastDisplay则是截取气象历史数据不同的片段，将其作为可变状态封装在内部，并据其状态的改变决定update方法的行为。</p>
+
+<p>这样看来，如果我们有一种方式，可以提供完整的气象数据历史，那么这三个观察者就都可以各取所需，而不需要拥有自己的可变状态了。</p>
+
+<p>具体该怎么做呢？</p>
+
+<h1>functions</h1>
+
+<p>以下是Scala的实现：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">WeatherData</span><span class="o">(</span><span class="n">temperature</span><span class="k">:</span> <span class="kt">Float</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span>
+</span><span class='line'>                       <span class="n">humidity</span><span class="k">:</span> <span class="kt">Float</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span>
+</span><span class='line'>                       <span class="n">pressure</span><span class="k">:</span> <span class="kt">Float</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span>
+</span><span class='line'>                       <span class="n">observers</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Observer</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Nil</span><span class="o">,</span>
+</span><span class='line'>                       <span class="n">history</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">WeatherData</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">(</span><span class="nc">WeatherData</span><span class="o">(</span><span class="n">history</span> <span class="k">=</span> <span class="nc">Nil</span><span class="o">)))</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">register</span><span class="o">(</span><span class="n">observer</span><span class="k">:</span> <span class="kt">Observer</span><span class="o">)</span> <span class="k">=</span>
+</span><span class='line'>    <span class="k">this</span><span class="o">.</span><span class="n">copy</span><span class="o">(</span><span class="n">temperature</span><span class="o">,</span> <span class="n">humidity</span><span class="o">,</span> <span class="n">pressure</span><span class="o">,</span> <span class="n">observers</span> <span class="o">:+</span> <span class="n">observer</span><span class="o">,</span> <span class="n">history</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">weatherChanged</span><span class="o">(</span><span class="n">weatherData</span><span class="k">:</span> <span class="kt">WeatherData</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">newHistory</span> <span class="k">=</span> <span class="n">history</span> <span class="o">:+</span> <span class="n">weatherData</span>
+</span><span class='line'>    <span class="n">observers</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">observer</span> <span class="k">=&gt;</span> <span class="n">observer</span><span class="o">(</span><span class="n">newHistory</span><span class="o">))</span>
+</span><span class='line'>    <span class="k">this</span><span class="o">.</span><span class="n">copy</span><span class="o">(</span><span class="n">temperature</span><span class="o">,</span> <span class="n">humidity</span><span class="o">,</span> <span class="n">pressure</span><span class="o">,</span> <span class="n">observers</span><span class="o">,</span> <span class="n">newHistory</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">object</span> <span class="nc">Observers</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">type</span> <span class="kt">Observer</span> <span class="o">=</span> <span class="nc">Seq</span><span class="o">[</span><span class="kt">WeatherData</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Unit</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">val</span> <span class="n">currentConditionsDisplay</span><span class="k">:</span> <span class="kt">Observer</span> <span class="o">=</span> <span class="n">history</span> <span class="k">=&gt;</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;Current conditions: &quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="n">s</span><span class="s">&quot;${history.last.temperature} F degrees and &quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="n">s</span><span class="s">&quot;${history.last.humidity} % humidity&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">val</span> <span class="n">statisticsDisplay</span><span class="k">:</span> <span class="kt">Observer</span> <span class="o">=</span> <span class="n">history</span> <span class="k">=&gt;</span>
+</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;Avg/Max/Min temperature = &quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="n">s</span><span class="s">&quot;${history.map(_.temperature).sum / history.size}&quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="n">s</span><span class="s">&quot;/${history.map(_.temperature).max}&quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="n">s</span><span class="s">&quot;/${history.map(_.temperature).max}&quot;</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">val</span> <span class="n">forecastDisplay</span><span class="k">:</span> <span class="kt">Observer</span> <span class="o">=</span> <span class="n">history</span> <span class="k">=&gt;</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">currentPressure</span> <span class="k">=</span> <span class="n">history</span><span class="o">.</span><span class="n">last</span><span class="o">.</span><span class="n">pressure</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">lastPressure</span> <span class="k">=</span> <span class="n">history</span><span class="o">.</span><span class="n">dropRight</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="n">last</span><span class="o">.</span><span class="n">pressure</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">print</span><span class="o">(</span><span class="s">&quot;Forecast: &quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">currentPressure</span> <span class="o">&gt;</span> <span class="n">lastPressure</span><span class="o">)</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Improving weather on the way!&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">currentPressure</span> <span class="o">==</span> <span class="n">lastPressure</span><span class="o">)</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;More of the same&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">currentPressure</span> <span class="o">&lt;</span> <span class="n">lastPressure</span><span class="o">)</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Watch out for cooler, rainy weather&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">object</span> <span class="nc">WeatherStation</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">main</span><span class="o">(</span><span class="n">args</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">weatherData</span> <span class="k">=</span> <span class="nc">WeatherData</span><span class="o">()</span>
+</span><span class='line'>      <span class="o">.</span><span class="n">register</span><span class="o">(</span><span class="n">currentConditionsDisplay</span><span class="o">)</span>
+</span><span class='line'>      <span class="o">.</span><span class="n">register</span><span class="o">(</span><span class="n">statisticsDisplay</span><span class="o">)</span>
+</span><span class='line'>      <span class="o">.</span><span class="n">register</span><span class="o">(</span><span class="n">forecastDisplay</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">weatherData</span>
+</span><span class='line'>      <span class="o">.</span><span class="n">weatherChanged</span><span class="o">(</span><span class="nc">WeatherData</span><span class="o">(</span><span class="mi">80</span><span class="o">,</span> <span class="mi">65</span><span class="o">,</span> <span class="mf">30.4f</span><span class="o">))</span>
+</span><span class='line'>      <span class="o">.</span><span class="n">weatherChanged</span><span class="o">(</span><span class="nc">WeatherData</span><span class="o">(</span><span class="mi">82</span><span class="o">,</span> <span class="mi">70</span><span class="o">,</span> <span class="mf">29.2f</span><span class="o">))</span>
+</span><span class='line'>      <span class="o">.</span><span class="n">weatherChanged</span><span class="o">(</span><span class="nc">WeatherData</span><span class="o">(</span><span class="mi">78</span><span class="o">,</span> <span class="mi">90</span><span class="o">,</span> <span class="mf">29.2f</span><span class="o">))</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以上就是Scala实现的全部代码了。</p>
+
+<p>开始分析之前，先做一个极其复杂的数学运算：
+106行的Java代码，等价于54行Scala代码。
+7个类，变成了3个。</p>
+
+<p>下面开始正经的分析。</p>
+
+<p>首先有一个叫做WeatherData的case class，它是完全不可变的。</p>
+
+<p>其register方法，接受一个新的Observer作为参数，并产生一个新的包含比原来多一个Observer的WeatherData实例。</p>
+
+<p>其weatherChanged方法接受一个新的气象数据，生成一个新的历史数据Seq，并把目前为止包含所有历史气象数据的Seq传递给每一个Observer去做处理。最后返回一个包含最新历史数据的新的WeatherData实例。</p>
+
+<p>那么这些Observer具体是怎么定义的呢？</p>
+
+<p>首先Observer只是一个type，不是一个class，它是没有状态的，用来定义函数签名。</p>
+
+<p>三个具体的display仅仅是三个符合Observer签名的函数，它们都接受气象历史数据作为参数，在历史数据中各取所需，作出处理。都是没有任何副作用的。
+这很合理，毕竟只是display，仅需要对数据进行分析和显示，只读不写，没有什么要改变已有数据的必要性。</p>
+
+<p>最后一个main函数把所有代码串起来，就得到了一份没有任何可变性的代码。</p>
+
+<h1>Mutation vs Transformation</h1>
+
+<p>在Java版的代码中，不同的显示设备不断地根据最新的气象数据改变自己的状态，并根据改变之后的状态来决定其update的行为。</p>
+
+<p>而在Scala代码中，不同的显示设备没有状态，它们都仅仅是函数而已。它们在每次气象变化时根据全部气象历史数据决定自己的行为。</p>
+
+<p>全部代码中没有重新赋值语句，所有的赋值操作都是对局部变量的赋值，程序员可以感知到的变化就只在于observers列表和history列表的增长。而即便是这两个数据结构的增长都是通过不断生成新的不可变的Seq来实现的。</p>
+
+<p>总结来说，Java版代码通过改变已有数据来达成行为的改变。而Scala代码则通过利用不可变的函数和不断生成不可变的数据来实现行为的改变。</p>
+
+<p>这种不可变的代码于什么优势呢？</p>
+
+<p>其好处在于需要程序员操心的事情更少。变化的点越少，麻烦事越少。</p>
+
+<p>如果以上的Java代码有问题，程序员除了需要检查计算平均气温，最高最低气温，气压变化的算法之外，还需要检查重新赋值语句所造成的效果。气温的sum是否算对了？测温次数是否算错了？气压变化是否记录对了？这些都是变化的点，这些都是导致错误的可能性之所在。</p>
+
+<p>而在Scala代码中，如果代码有问题，同样需要检查算法的正确性，也就是检查不可变的函数的正确性。除此之外，只需要检查history列表的增长就可以了。而一个列表的增长是很难出错的。</p>
+
+<p>Java中所有对象状态的改变分散在代码中不同的地方，到了Scala代码中它们都集中到了一个列表的增长上，仅仅通过对这个列表的transformation就驱动了其余全部代码的行为改变。减少了变化的点，就减少了出错的可能情况的数量，减少了程序员的负担。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[解释器模式：OOP versus Functional Decomposition]]></title>
@@ -4100,161 +4547,6 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
 <p>当你在本地调试运行时，liquibase会帮你set up数据库。</p>
 
 <p>当应用被部署到生产环境下去的时候，liquibase也可以帮你在第一次运行时进行数据的初创。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的]]></title>
-    <link href="http://cuipengfei.github.com/blog/2014/06/28/scala-java-interop-trait-with-impl/"/>
-    <updated>2014-06-28T12:55:00+05:30</updated>
-    <id>http://cuipengfei.github.com/blog/2014/06/28/scala-java-interop-trait-with-impl</id>
-    <content type="html"><![CDATA[<p>最近还是在看郑大翻译的《Scala程序设计》，其中第十一章还有一句话：</p>
-
-<blockquote><p>如果trait有方法实现，那么Java类就不能实现这个trait</p></blockquote>
-
-<p>口说还是无凭，还是拍照为证：</p>
-
-<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ehtqjokutnj21kw23u7wh.jpg" alt="" /></p>
-
-<p>我感觉这句话是错的，下面寻根究底地探索一下。</p>
-
-<p>trait这个语言特性<a href="http://cuipengfei.me/blog/2013/10/13/scala-trait/">前面的博文</a>讲过。</p>
-
-<p>一个含有方法实现的trait会被编译成一个interface，还有一个含有实现的静态方法。</p>
-
-<p>所有extends或者是with这个trait的Scala类，实际上都是implements了这个interface，在具体实现中调用了静态方法。</p>
-
-<p>快速的简单回忆一下：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">trait</span> <span class="nc">HappyThoughts</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">whatAreYouThinking</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="s">&quot; food :D &quot;</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>定义一个含有方法实现的trait。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Animal</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">Dog</span> <span class="k">extends</span> <span class="nc">Animal</span> <span class="k">with</span> <span class="nc">HappyThoughts</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然后让Dog去with这个trait。</p>
-
-<p>之后就可以这样调用：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">new</span> <span class="nc">Dog</span><span class="o">().</span><span class="n">whatAreYouThinking</span><span class="o">()</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样就能打印出food :D了。虽然Dog本身是空的，但是因为with了一个trait，它也拥有了一些行为。</p>
-
-<p>再来看看反编译出的代码：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HappyThoughts</span>
-</span><span class='line'><span class="o">{</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">whatAreYouThinking</span><span class="o">();</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">HappyThoughts</span><span class="n">$class</span>
-</span><span class='line'><span class="o">{</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">whatAreYouThinking</span><span class="o">(</span><span class="n">HappyThoughts</span> <span class="n">$this</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; food :D &quot;</span><span class="o">);</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">$init$</span><span class="o">(</span><span class="n">HappyThoughts</span> <span class="n">$this</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>HappyThoughts就是上面这样的，一个interface，还有一个含有实现的静态方法。</p>
-
-<p>Dog则是这样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="n">Animal</span> <span class="kd">implements</span> <span class="n">HappyThoughts</span>
-</span><span class='line'><span class="o">{</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">whatAreYouThinking</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>    <span class="n">HappyThoughts</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">whatAreYouThinking</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="nf">Dog</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>      <span class="n">HappyThoughts</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="n">$init$</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>它implements了HappyThoughts，其实现则依赖于上面提到的静态方法。</p>
-
-<p>Ok，足够清晰了。</p>
-
-<p>这么一个trait，当真在Java中不可以利用吗？</p>
-
-<p>写点代码试试看：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DogJ</span> <span class="kd">implements</span> <span class="n">HappyThoughts</span> <span class="o">{</span>
-</span><span class='line'>    <span class="nd">@Override</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">whatAreYouThinking</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">HappyThoughts$class</span><span class="o">.</span><span class="na">whatAreYouThinking</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>基本照抄上面反编译的代码。这段Java代码是可以编译的，而且也可以运行，运行结果也是打印出了food :D。</p>
-
-<p>这次，我就不去探寻旧版本的Scala是如何处理trait的了。我们只要知道当前版本（比如我用的2.10.4）的Scala中定义的含有方法实现的trait，拿到Java中依然是可用的就行了。虽说用起来有一点蹩脚，但终归是可用的。</p>
 ]]></content>
   </entry>
   
