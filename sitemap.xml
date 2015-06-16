@@ -192,19 +192,23 @@
         <loc>
             http://cuipengfei.github.com/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/
         </loc>
-        <lastmod>2015-06-07T17:10:00+05:30</lastmod>
+        <lastmod>2015-06-16T20:43:27+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/blog/2015/06/13/observers-pattern-fp/</loc>
         <lastmod>2015-06-14T02:01:06+05:30</lastmod>
     </url>
     <url>
+        <loc>http://cuipengfei.github.com/blog/2015/06/16/visitor-pattern-pattern-match/</loc>
+        <lastmod>2015-06-17T00:33:18+05:30</lastmod>
+    </url>
+    <url>
         <loc>http://cuipengfei.github.com/blog/archives/</loc>
-        <lastmod>2015-06-14T02:01:06+05:30</lastmod>
+        <lastmod>2015-06-17T00:33:18+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/</loc>
-        <lastmod>2015-06-14T02:01:06+05:30</lastmod>
+        <lastmod>2015-06-17T00:33:18+05:30</lastmod>
     </url>
     <url>
         <loc>http://cuipengfei.github.com/robots.txt</loc>

@@ -4,7 +4,7 @@
   <title><![CDATA[崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2015-06-14T02:01:40+05:30</updated>
+  <updated>2015-06-17T00:41:39+05:30</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -12,6 +12,391 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[访问者模式 in FP：Pattern Matching]]></title>
+    <link href="http://cuipengfei.github.com/blog/2015/06/16/visitor-pattern-pattern-match/"/>
+    <updated>2015-06-16T19:11:00+05:30</updated>
+    <id>http://cuipengfei.github.com/blog/2015/06/16/visitor-pattern-pattern-match</id>
+    <content type="html"><![CDATA[<blockquote><p>访问者模式是一种将算法与对象结构分离的软件设计模式。</p>
+
+<p>这个模式的基本想法如下：首先我们拥有一个由许多对象构成的对象结构，这些对象的类都拥有一个accept方法用来接受访问者对象；访问者是一个接口，它拥有一个visit方法，这个方法对访问到的对象结构中不同类型的元素作出不同的反应；在对象结构的一次访问过程中，我们遍历整个对象结构，对每一个元素都实施accept方法，在每一个元素的accept方法中回调访问者的visit方法，从而使访问者得以处理对象结构的每一个元素。我们可以针对对象结构设计不同的实在的访问者类来完成不同的操作。</p></blockquote>
+
+<p>以上是wiki对访问者模式的定义。</p>
+
+<p>这个定义着实难读。我们来看wiki给出的例子：</p>
+
+<p>假设我们要为汽车建模，汽车有不同的组成部件，轮胎，车身，和引擎。</p>
+
+<p>在开车之前需要先检查车辆每个部件的状况，然后依次启动所有部件以启动汽车。</p>
+
+<p>在这里我们很容易识别出车的组件各自应该是一个实体。而对车辆组件进行检查和启动的代码应该分别处于不同的实体中。</p>
+
+<p>这样就有了访问者的代码（来自wiki）：</p>
+
+<h1>Java</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">interface</span> <span class="nc">ICarElement</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="n">ICarElementVisitor</span> <span class="n">visitor</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">Wheel</span> <span class="kd">implements</span> <span class="n">ICarElement</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">Wheel</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">name</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="n">ICarElementVisitor</span> <span class="n">visitor</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">visitor</span><span class="o">.</span><span class="na">visit</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">Engine</span> <span class="kd">implements</span> <span class="n">ICarElement</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="n">ICarElementVisitor</span> <span class="n">visitor</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">visitor</span><span class="o">.</span><span class="na">visit</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">Body</span> <span class="kd">implements</span> <span class="n">ICarElement</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="n">ICarElementVisitor</span> <span class="n">visitor</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">visitor</span><span class="o">.</span><span class="na">visit</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">Car</span> <span class="kd">implements</span> <span class="n">ICarElement</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">ICarElement</span><span class="o">[]</span> <span class="n">elements</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">Car</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">elements</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ICarElement</span><span class="o">[]{</span><span class="k">new</span> <span class="n">Wheel</span><span class="o">(</span><span class="s">&quot;front left&quot;</span><span class="o">),</span>
+</span><span class='line'>                <span class="k">new</span> <span class="nf">Wheel</span><span class="o">(</span><span class="s">&quot;front right&quot;</span><span class="o">),</span> <span class="k">new</span> <span class="n">Wheel</span><span class="o">(</span><span class="s">&quot;back left&quot;</span><span class="o">),</span>
+</span><span class='line'>                <span class="k">new</span> <span class="nf">Wheel</span><span class="o">(</span><span class="s">&quot;back right&quot;</span><span class="o">),</span> <span class="k">new</span> <span class="n">Body</span><span class="o">(),</span> <span class="k">new</span> <span class="n">Engine</span><span class="o">()};</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="n">ICarElementVisitor</span> <span class="n">visitor</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">for</span> <span class="o">(</span><span class="n">ICarElement</span> <span class="n">elem</span> <span class="o">:</span> <span class="n">elements</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">elem</span><span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="n">visitor</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>        <span class="n">visitor</span><span class="o">.</span><span class="na">visit</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>首先是汽车部件的实体。它们都实现同一个ICarElement的接口。
+该接口定义一个accept方法，用来接受访问者然后用访问者来访问所有汽车部件。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">interface</span> <span class="nc">ICarElementVisitor</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">visit</span><span class="o">(</span><span class="n">Wheel</span> <span class="n">wheel</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">visit</span><span class="o">(</span><span class="n">Engine</span> <span class="n">engine</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">visit</span><span class="o">(</span><span class="n">Body</span> <span class="n">body</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">visit</span><span class="o">(</span><span class="n">Car</span> <span class="n">car</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">CarElementPrintVisitor</span> <span class="kd">implements</span> <span class="n">ICarElementVisitor</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">visit</span><span class="o">(</span><span class="n">Wheel</span> <span class="n">wheel</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Visiting &quot;</span> <span class="o">+</span> <span class="n">wheel</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; wheel&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">visit</span><span class="o">(</span><span class="n">Engine</span> <span class="n">engine</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Visiting engine&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">visit</span><span class="o">(</span><span class="n">Body</span> <span class="n">body</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Visiting body&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">visit</span><span class="o">(</span><span class="n">Car</span> <span class="n">car</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Visiting car&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">class</span> <span class="nc">CarElementDoVisitor</span> <span class="kd">implements</span> <span class="n">ICarElementVisitor</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">visit</span><span class="o">(</span><span class="n">Wheel</span> <span class="n">wheel</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Kicking my &quot;</span> <span class="o">+</span> <span class="n">wheel</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; wheel&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">visit</span><span class="o">(</span><span class="n">Engine</span> <span class="n">engine</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Starting my engine&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">visit</span><span class="o">(</span><span class="n">Body</span> <span class="n">body</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Moving my body&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">visit</span><span class="o">(</span><span class="n">Car</span> <span class="n">car</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Starting my car&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后就是访问者的实体。它们都实现ICarElementVisitor接口。
+这个接口里定义的方法有点多，分别对应每个汽车部件定义了一个visit方法的重载。</p>
+
+<p>在实现的时候自然是做检查的实体实现每个部件的检查，启动的实体实现每个部件的启动。</p>
+
+<p>这里就有一个陷阱，如果代码发展的趋势是汽车部件的种类会增加的话，那这个接口就很不稳定。每增加一种汽车部件就要修改接口并且修改每个实现类。</p>
+
+<p>而如果代码发展的趋势是在自检和启动之外加一些保养啊，洗车啊之类的话就没问题，不需要对已有代码进行修改。</p>
+
+<p>所以使用访问者模式的时候要注意识别被访问者是否是相对稳定而访问者是有扩展趋势的，这样用这个模式才合适。</p>
+
+<p>接下来的代码把以上所有代码串起来执行：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">VisitorDemo</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">ICarElement</span> <span class="n">car</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Car</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">car</span><span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="k">new</span> <span class="n">CarElementPrintVisitor</span><span class="o">());</span>
+</span><span class='line'>        <span class="n">car</span><span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="k">new</span> <span class="n">CarElementDoVisitor</span><span class="o">());</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>从最后的main函数来看，只要能确保汽车部件的数量不会增加，而只有访问者增加，那么客户代码只需要增加一行就能够增加对整车进行清洗或者保养的行为。</p>
+
+<p>车的部件和对部件的操作相互分离，独立发展。很灵活，很巧妙，对吧？</p>
+
+<h2>不过再想一下</h2>
+
+<p>其实也不需要使劲想了，如果你看过这一系列博文前面的几篇的话，想必已经能够猜到我的用意了。</p>
+
+<p>这些访问者存在的意义就在于承载对汽车部件的某些具体操作，操作是个好听的词儿，说白了就是函数啊。</p>
+
+<p>那既然这些类只是承载函数而已，何不直接就用函数而不费劲去用类包裹一层呢？</p>
+
+<h1>functions</h1>
+
+<p>那接下来就是用Scala的实现：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">trait</span> <span class="nc">CarElement</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">accept</span><span class="o">(</span><span class="n">visitor</span><span class="k">:</span> <span class="kt">Visitor</span><span class="o">)</span> <span class="k">=</span> <span class="n">visitor</span><span class="o">(</span><span class="k">this</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Body</span><span class="o">()</span> <span class="k">extends</span> <span class="nc">CarElement</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Engine</span><span class="o">()</span> <span class="k">extends</span> <span class="nc">CarElement</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Wheel</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">CarElement</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Car</span><span class="o">()</span> <span class="k">extends</span> <span class="nc">CarElement</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">elements</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">CarElement</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">(</span>
+</span><span class='line'>    <span class="nc">Wheel</span><span class="o">(</span><span class="s">&quot;front left&quot;</span><span class="o">),</span> <span class="nc">Wheel</span><span class="o">(</span><span class="s">&quot;front right&quot;</span><span class="o">),</span>
+</span><span class='line'>    <span class="nc">Wheel</span><span class="o">(</span><span class="s">&quot;back left&quot;</span><span class="o">),</span> <span class="nc">Wheel</span><span class="o">(</span><span class="s">&quot;back right&quot;</span><span class="o">),</span>
+</span><span class='line'>    <span class="nc">Body</span><span class="o">(),</span> <span class="nc">Engine</span><span class="o">())</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">override</span> <span class="k">def</span> <span class="n">accept</span><span class="o">(</span><span class="n">visitor</span><span class="k">:</span> <span class="kt">Visitor</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">elements</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">accept</span><span class="o">(</span><span class="n">visitor</span><span class="o">))</span>
+</span><span class='line'>    <span class="n">visitor</span><span class="o">(</span><span class="k">this</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以上是汽车各种部件的定义，和Java代码没有太大区别。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Visitors</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">type</span> <span class="kt">Visitor</span> <span class="o">=</span> <span class="nc">CarElement</span> <span class="k">=&gt;</span> <span class="nc">Unit</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">val</span> <span class="n">printVisitor</span><span class="k">:</span> <span class="kt">Visitor</span> <span class="o">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nc">Wheel</span><span class="o">(</span><span class="n">name</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;Visiting $name wheel&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nc">Body</span><span class="o">()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Visiting Body&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nc">Engine</span><span class="o">()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Visiting Engine&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nc">Car</span><span class="o">()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Visiting Car&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">val</span> <span class="n">doVisitor</span><span class="k">:</span> <span class="kt">Visitor</span> <span class="o">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nc">Wheel</span><span class="o">(</span><span class="n">name</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;Kicking my $name wheel&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nc">Body</span><span class="o">()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Moving my body&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nc">Engine</span><span class="o">()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Starting my engine&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nc">Car</span><span class="o">()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Starting my car&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面这一段定义了一个叫做Visitor的type，它只是一个函数签名。任何接受一个汽车部件作为参数并且没有返回值的函数都符合它的签名，也就可以被视作Visitor。</p>
+
+<p>接下来是两个符合Visitor签名的函数，都是用pattern match实现的。</p>
+
+<p>pattern match这种神奇的语言特性是如何实现的呢？背后的原因并不神奇，更多详情请参考我之前的另一篇博客：<a href="http://cuipengfei.me/blog/2013/12/29/desugar-scala-8/">http://cuipengfei.me/blog/2013/12/29/desugar-scala-8/</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">VisitorDemo</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">main</span><span class="o">(</span><span class="n">args</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">car</span> <span class="k">=</span> <span class="nc">Car</span><span class="o">()</span>
+</span><span class='line'>    <span class="n">car</span><span class="o">.</span><span class="n">accept</span><span class="o">(</span><span class="n">printVisitor</span><span class="o">)</span>
+</span><span class='line'>    <span class="n">car</span><span class="o">.</span><span class="n">accept</span><span class="o">(</span><span class="n">doVisitor</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最后定义一个main函数，与Java的main函数做的事情是等价的。</p>
+
+<p>这样，100行变成了45行。Visitor不再作为臃肿的实体存在，而只是函数。</p>
+
+<p>而且如果遵照同样的假设，认为车的部件是稳定的，而访问者是会增多的，那这段Scala代码的增长趋势是每加一个访问者就加一个函数。与Java代码的增长趋势相同。</p>
+
+<h1>结语</h1>
+
+<p>这次分析的访问者模式和之前的一些模式很类似，当我们需要的实体仅仅是作为承载某种行为的一个载具，那就可以考虑将实体消去，而换用函数这种更简单，更轻量级的抽象方式来实现我们想要的东西。</p>
+
+<p>当年OO模式出现的时候，FP并不盛行，原作者提出的方案无可厚非。不过我们今天有了FP这种更趁手的工具，就可以考虑在合适的时候将其与OO结合使用来达到更好的设计的目的。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[观察者模式 in FP：Mutation vs Transformation]]></title>
@@ -640,7 +1025,7 @@
 
 <p>首先构造一个context，里面有w，x，z三个数字。然后计算w+(x-z)的值（看着像不像Lisp？）。</p>
 
-<h1>仔细想一下</h1>
+<h2>不过再想一下</h2>
 
 <p>这些代码实际做的是什么事呢？</p>
 
@@ -4430,123 +4815,6 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
 
 <pre><code>THE END
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[在使用play framework的evolutions？需要支持SQL Server？用Liquibase吧]]></title>
-    <link href="http://cuipengfei.github.com/blog/2014/07/18/play-evolutions-to-liquibase/"/>
-    <updated>2014-07-18T15:11:00+05:30</updated>
-    <id>http://cuipengfei.github.com/blog/2014/07/18/play-evolutions-to-liquibase</id>
-    <content type="html"><![CDATA[<p>我所在的项目在用Scala + Play framework做一个web app。</p>
-
-<p>Play自带的evolutions是一个DB Migration工具，从一开始我们就在用它来做所有阶段的数据迁移工作。</p>
-
-<p>运行自动化测试时它可以帮每个测试用例在H2中创建数据（H2是Play默认的内存数据库）。
-在下一个测试用例运行时evolutions则会创建一份和上次完全相同的新数据，这样我们的测试可以获得独立性而不用担心之前的测试遗留的副作用。也不用担心会给下一个测试遗留下什么脏数据。</p>
-
-<p>在测试或者部署环境中运行时它也可以针对Postgres做数据迁移。</p>
-
-<p>这一切看起来都挺好，我们就差喊evolutions是我们忠实的好伙伴了。</p>
-
-<p>但是，快到给终端客户部署时，某一家客户提出他们一定要使用SQL Server，我们最初提出的使用Postgres他们不接受了。这时我们才发现evolutions的设计初衷就是在开发和测试阶段提供便利性，它根本就没想成为一个production ready的东西。</p>
-
-<p>这样看来我们必须得寻找一个正经的DB Migration的工具了。而且这个DB Migration工具一定要满足以下几点：</p>
-
-<ol>
-<li>能够在运行自动化测试时和H2结合使用（因为我们已经有很多测试在依赖于H2跑了，要换掉成本较高）</li>
-<li>能支持多种数据库（今天有人要SQL Server的支持，明天说不定还会有人要其他的）</li>
-<li>在支持多种数据库时不需要我们写不同风格的SQL脚本（要写出让各个DB都不挑剔的SQL实在是太费劲了）</li>
-</ol>
-
-
-<p>我最先想到的就是Flyway，之前用过，而且TW的tech radar也提到过它。</p>
-
-<p>但是它并没有入选，原因在于上面的第三点。Flyway要求使用者自己提供执行所需的SQL脚本。
-这就意味着我们写SQL时需要同时兼顾H2，Postgres，SQL Server的异同。而且还无法预知未来的其他数据库会对我们现在写出的SQL脚本产生什么样的影响。</p>
-
-<p>最后我们选择了Liquibase，我们可以通过JSON，YAML，或者XML来定义数据。Liquibase自己负责把我们定义的数据翻译给各种不同的数据库。</p>
-
-<p>这样，通过一层中间语言。我们就隔离了数据库的差异对我们开发工作可能会造成的影响。</p>
-
-<p>Ok，要用Liquibase这个大方向就确定了。但是具体怎么把它跑起来呢？在什么时机跑它呢？</p>
-
-<p>用脚本跑？</p>
-
-<p>Liquibase确实提供了Standalone，我们可以用脚本来调用它。</p>
-
-<p>但是这怎么和build结合起来呀？在测试时调用它？在app启动时调用它？</p>
-
-<p>那H2运行的端口每次都未必是一样的，这怎么办啊？</p>
-
-<p>这个方案想想就费劲。</p>
-
-<p>把它做成sbt的一个task？</p>
-
-<p>这样确实比直接用脚本要稍微距离我们的build近一点，但是还是会有类似的问题。我们需要显式地去调用它，还要选择合适的时机去调用它。实现起来也会很麻烦。</p>
-
-<p>而实际上，Play自己是支持plug in的。我们想要控制执行时机，而有谁比Play自己更了解它的运行时机呢？</p>
-
-<p>而且已经有人做了liquibase play plug in。我把它fork了一份，更新了liquibase和play的版本，提高了log的level。并且部署到了sonatype去。</p>
-
-<p>由于是Play自己的plug in，不是我们试图插入的生硬的脚本或者sbt task。Play自己知道该在什么合适的时机去执行它。</p>
-
-<p>下面说一下如何应用它吧。</p>
-
-<ul>
-<li>在所有的conf文件中删掉所有和evolutions有关的配置</li>
-</ul>
-
-
-<p>这两个东西不能一起用，要不然我们需要同时维护两种DB Migration的脚本。</p>
-
-<ul>
-<li>在dependencies中加入这一项：</li>
-</ul>
-
-
-<p>&#8220;com.github.cuipengfei&#8221; % &#8220;play-liquibase_2.11&#8221; % &#8220;1.1&#8221;</p>
-
-<p>很明显，这是用来引入这个plugin的。</p>
-
-<ul>
-<li>在conf目录下创建一个名为play.plugins的文件，在其中写入：</li>
-</ul>
-
-
-<p>400:com.github.cuipengfei.LiquibasePlugin</p>
-
-<p>冒号前的400用来定义plugin的执行优先级，Play会由此决定何时执行该plugin。</p>
-
-<p>冒号后是plugin的完全限定名。</p>
-
-<ul>
-<li>在你需要的conf文件中加入两行：</li>
-</ul>
-
-
-<p>liquibaseplugin=enabled</p>
-
-<p>applyLiquibase.default=true</p>
-
-<p>这样用来启用该plugin。</p>
-
-<ul>
-<li>在conf/liquibase/default/下创建一个modules.xml。</li>
-</ul>
-
-
-<p>在其中写入你的数据定义。（具体如何写，liquibase的官网有详细的介绍）</p>
-
-<p>如果你用的数据库名字不是default，相应的替换就ok了。</p>
-
-<p>这样，就大功告成了。</p>
-
-<p>当你用sbt运行自动化测试时，liquibase会帮你创建数据。</p>
-
-<p>当你在本地调试运行时，liquibase会帮你set up数据库。</p>
-
-<p>当应用被部署到生产环境下去的时候，liquibase也可以帮你在第一次运行时进行数据的初创。</p>
 ]]></content>
   </entry>
   
