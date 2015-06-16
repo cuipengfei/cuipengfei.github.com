@@ -112,7 +112,7 @@ public class InterpreterExample {
 
 首先构造一个context，里面有w，x，z三个数字。然后计算w+(x-z)的值（看着像不像Lisp？）。
 
-# 仔细想一下
+## 不过再想一下
 
 这些代码实际做的是什么事呢？
 
