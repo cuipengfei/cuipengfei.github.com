@@ -80,7 +80,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2015/06/23/template-method-pattern/">模板方法模式：subtype Polymorphism和parametric Polymorphism</a></h1>
+      <h1 class="entry-title"><a href="/blog/2015/06/23/template-method-pattern/">模板方法模式：子类型多态和高阶函数</a></h1>
     
     
       <p class="meta">
@@ -166,7 +166,7 @@
 
 <p>首先，定义三个type，分别是泡和加调料这两个步骤，还有饮品本身（这三个type其实是一样的，看起来有点傻）。</p>
 
-<p>然后有一个算法骨架，把第一和第三步锁死，把第二和第四步空出来，分别用一个参数来实现参数多态（Parametric polymorphism）。</p>
+<p>然后有一个算法骨架，把第一和第三步锁死，把第二和第四步空出来，分别用一个参数来实现注入不同的实现。</p>
 
 <p>接下来有泡和加调料的四种不同实现，分别是一个函数，符合各自的函数签名。</p>
 
@@ -178,11 +178,9 @@
 
 <h1>结语</h1>
 
-<p>这两种实现的区别其实就是子类型多态（subtype polymorphism）和参数多态（parametric polymorphism）的区别。</p>
-
 <p>Java代码中实现多态的方式是通过子类继承父类并且实现抽象方法来实现的。而Scala代码中则是通过把不同的函数传入骨架组合出一个新的函数来实现的。</p>
 
-<p>多态是个好东西，但是多态也有轻重之分。能用参数多态这种轻量级的方式来实现的时候，就没有必要选择子类型多态这种过重的方式。</p>
+<p>子类型多态（subtype polymorphism）是个好东西，但是在某些场景下显得有点重。能用高阶函数这种轻量级的方式来实现的时候，就没有必要选择子类型多态这种过重的方式。</p>
 </div>
   
   
@@ -3646,7 +3644,7 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/06/23/template-method-pattern/">模板方法模式：subtype polymorphism和parametric polymorphism</a>
+        <a href="/blog/2015/06/23/template-method-pattern/">模板方法模式：子类型多态和高阶函数</a>
       </li>
     
       <li class="post">
