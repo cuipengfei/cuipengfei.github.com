@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Scala | 崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/blog/categories/scala/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2015-06-17T00:41:39+05:30</updated>
+  <updated>2015-06-27T00:23:59+05:30</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -12,6 +12,92 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[模板方法模式：subtype polymorphism和parametric polymorphism]]></title>
+    <link href="http://cuipengfei.github.com/blog/2015/06/23/template-method-pattern/"/>
+    <updated>2015-06-23T15:42:00+05:30</updated>
+    <id>http://cuipengfei.github.com/blog/2015/06/23/template-method-pattern</id>
+    <content type="html"><![CDATA[<blockquote><p>模板方法模式定义了一个算法的步骤，并允许次类别为一个或多个步骤提供其实践方式。让次类别在不改变算法架构的情况下，重新定义算法中的某些步骤。</p></blockquote>
+
+<p>以上是wiki对模板方法的定义。</p>
+
+<p>比较容易理解，我们有一个算法，其中某些步骤是确定的不太会变的代码。而另外一些步骤则需要变化并且自由组合。</p>
+
+<p>《Head First Design Patterns》里有一个🌰：</p>
+
+<p>假设我们需要制作咖啡因饮品，其实就是咖啡和茶。制作步骤有些类似，分为四步：1烧水，2泡，3装杯，4加调料。</p>
+
+<p>其中第一步和第三步是稳定的代码，变化可能性不大，而第二步和第四步则每种饮品有自己的风味。</p>
+
+<p>这样就有了下面的代码：</p>
+
+<h1>Java</h1>
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/CaffeineBeverage.java?slice=1:">
+</script>
+
+
+<p>首先有一个咖啡因饮品的抽象类，定义一个算法骨架：1烧水，2泡，3装杯，4加调料。
+其中的第二步和第四步是有待实现的抽象方法，留给子类决定怎么搞。第一步和第三步是写死的。</p>
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/Coffee.java?slice=1:">
+</script>
+
+
+<p>接下来是咖啡，它实现了过滤咖啡和添加牛奶、糖的步骤。这样当它的实例的prepareRecipe方法被调用时就会执行父类的烧水、装杯，以及自己的泡和加调料。</p>
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/Tea.java?slice=1:">
+</script>
+
+
+<p>还有，就是茶了。它和咖啡不一样，是用浸泡而不是过滤，加的是柠檬而不是牛奶和糖。</p>
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/BeverageTestDrive.java?slice=1:">
+</script>
+
+
+<p>最后用一个main函数来执行制作咖啡和茶的代码。</p>
+
+<p>很好，如果再有其他的咖啡因饮品，只需要增加一个子类，并且实现两个方法就好了。只要我们对于四个步骤的定义在该领域中足够稳定，这份代码就是很好很强大，易于扩展的。</p>
+
+<p>有代码如此，夫复何求呢？</p>
+
+<h2>不过再想一下</h2>
+
+<p>这个模式想要达到的，不过是将一个算法的某些部分做的灵活一些，可以自由替换和组合。</p>
+
+<p>那这个，不就是函数组合吗？如果我们使用的是允许高阶函数的语言的话，那还有什么必要把这些函数包装在类里呢？</p>
+
+<h1>functions</h1>
+
+<p>接下来是用Scala实现的版本：</p>
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/templatemethodS/Beverages.scala?slice=1:">
+</script>
+
+
+<p>首先，定义三个type，分别是泡和加调料这两个步骤，还有饮品本身（这三个type其实是一样的，看起来有点傻）。</p>
+
+<p>然后有一个算法骨架，把第一和第三步锁死，把第二和第四步空出来，分别用一个参数来实现参数多态（Parametric polymorphism）。</p>
+
+<p>接下来有泡和加调料的四种不同实现，分别是一个函数，符合各自的函数签名。</p>
+
+<p>最后，用一个main函数来执行。可以看到，泡和加调料的函数是作为参数传入的。如果我们需要加牛奶和糖的茶，或者是柠檬味的咖啡的话，也会变得非常容易。</p>
+
+<p>就这样，51行代码变成了28行。四个类变成了一个object。</p>
+
+<p>而如果是要用子类型多态（subtype polymorphism）来做到这样的自由组合，那么我们需要的或许就是策略模式，把泡和加调料分别写成接口并提供不同的实现类来组合。可以想象，这会导致很多的boilerplate。</p>
+
+<h1>结语</h1>
+
+<p>这两种实现的区别其实就是子类型多态（subtype polymorphism）和参数多态（parametric polymorphism）的区别。</p>
+
+<p>Java代码中实现多态的方式是通过子类继承父类并且实现抽象方法来实现的。而Scala代码中则是通过把不同的函数传入骨架组合出一个新的函数来实现的。</p>
+
+<p>多态是个好东西，但是多态也有轻重之分。能用参数多态这种轻量级的方式来实现的时候，就没有必要选择子类型多态这种过重的方式。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[访问者模式 in FP：Pattern Matching]]></title>
@@ -1440,263 +1526,6 @@ remoteControl.pushOffButton(0)
 <p>该模式提出的时候FP并不如今日盛行，其作者选用了可能会导致贫血类泛滥的解决方案，这无可厚非。传播了解耦和开闭等良好设计的原则也实为功德。</p>
 
 <p>不过今天我们有了剃须刀，就无需一定要用指甲刀来刮胡子了。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[职责链模式的别扭就像用门框夹核桃]]></title>
-    <link href="http://cuipengfei.github.com/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/"/>
-    <updated>2015-05-30T09:40:00+05:30</updated>
-    <id>http://cuipengfei.github.com/blog/2015/05/30/fp-implementation-of-chain-of-responsibility</id>
-    <content type="html"><![CDATA[<h1>职责链模式</h1>
-
-<blockquote><p>责任链模式在面向对象程式设计里是一种软件设计模式，它包含了一些命令对象和一系列的处理对象。每一个处理对象决定它能处理哪些命令对象，它也知道如何将它不能处理的命令对象传递给该链中的下一个处理对象。该模式还描述了往该处理链的末尾添加新的处理对象的方法。</p></blockquote>
-
-<p>以上是wiki对职责链模式的定义。</p>
-
-<p>举个例子来说，我们的系统中需要记录日志的功能。日志需要根据优先级被发送到不同的地方。</p>
-
-<p>低优先级的日志输出到命令行就好了。而高优先级的错误信息则需要通过邮件通知相关人员并且输出到命令行。</p>
-
-<p>这个例子也是来自wiki的。</p>
-
-<p>以下是wiki提供的Java实现：</p>
-
-<h1>Java</h1>
-
-<p>```java
-abstract class Logger {</p>
-
-<pre><code>public static int ERR = 3;
-public static int NOTICE = 5;
-public static int DEBUG = 7;
-private int mask;
-
-private Logger next;
-
-public Logger(int mask) {
-    this.mask = mask;
-}
-
-public void setNext(Logger logger) {
-    next = logger;
-}
-
-public void message(String msg, int priority) {
-    if (priority &lt;= mask) {
-        writeMessage(msg);
-    }
-    if (next != null) {
-        next.message(msg, priority);
-    }
-}
-
-abstract protected void writeMessage(String msg);
-</code></pre>
-
-<p>}
-```</p>
-
-<p>首先定义一个Logger抽象类。从其setNext和message这两个方法可以看出，我们后面会把多个具有不同writeMessage实现的Logger链到一起，并且依次让它们处理某件需要被记录的事件。</p>
-
-<p>```java
-class StdoutLogger extends Logger {</p>
-
-<pre><code>public StdoutLogger(int mask) {
-    super(mask);
-}
-
-protected void writeMessage(String msg) {
-    System.out.println("Writing to stdout: " + msg);
-}
-</code></pre>
-
-<p>}</p>
-
-<p>class EmailLogger extends Logger {</p>
-
-<pre><code>public EmailLogger(int mask) {
-    super(mask);
-}
-
-protected void writeMessage(String msg) {
-    System.out.println("Sending via e-mail: " + msg);
-}
-</code></pre>
-
-<p>}</p>
-
-<p>class StderrLogger extends Logger {</p>
-
-<pre><code>public StderrLogger(int mask) {
-    super(mask);
-}
-
-protected void writeMessage(String msg) {
-    System.err.println("Sending to stderr: " + msg);
-}
-</code></pre>
-
-<p>}
-```</p>
-
-<p>然后有三个Logger的实现，分别为向命令行输出消息，发送邮件（当然是假的），向命令行输出错误。</p>
-
-<p>```java
-public class ChainOfResponsibilityExample {</p>
-
-<pre><code>private static Logger createChain() {
-    Logger logger = new StdoutLogger(Logger.DEBUG);
-
-    Logger logger1 = new EmailLogger(Logger.NOTICE);
-    logger.setNext(logger1);
-
-    Logger logger2 = new StderrLogger(Logger.ERR);
-    logger1.setNext(logger2);
-
-    return logger;
-}
-
-public static void main(String[] args) {
-    Logger chain = createChain();
-    chain.message("Entering function y.", Logger.DEBUG);
-    chain.message("Step1 completed.", Logger.NOTICE);
-    chain.message("An error has occurred.", Logger.ERR);
-}
-</code></pre>
-
-<p>}
-```</p>
-
-<p>最后，有一个main函数，创建三个Logger的实例，把它们通过setNext链在一起。 只需要调用一次message就可以让三个Logger依次工作。</p>
-
-<p>如果以后再有更多的Logger呢，还是可以通过同样的方式把它们链接起来协同工作。</p>
-
-<p>很好，很强大，很易于扩展，对吧？</p>
-
-<h2>不过再想一下</h2>
-
-<p>这三个Logger的实现类看起来都非常的单薄，弱不禁风。</p>
-
-<p>一个接收mask的构造函数，其唯一职责就是把接收到的mask传递给父类的构造函数。</p>
-
-<p>然后父类根据mask和所发生事件优先级的大小关系决定到底要不要调用子类实现的writeMessage方法。</p>
-
-<p>也就是说，子类完全没有定义自己的实例级状态，其实例级方法的行为也就谈不上随着其状态的变化而变化了。</p>
-
-<p>换句话说，这几个子类存在的价值就在于为父类提供writeMessage这个函数。</p>
-
-<p>啊。。。。。。！</p>
-
-<p>一说到提供函数，我就想到了。。。。。。</p>
-
-<h1>functions</h1>
-
-<p>我想到的自然是FP了，既然需要的是函数，那我们就使用函数好了。</p>
-
-<p>何必用更重的抽象手段：类，去包裹函数呢？</p>
-
-<p>下面就是比较偏函数式的Scala实现：</p>
-
-<p>```scala
-object Loggers {
-  val ERR = 3
-  val NOTICE = 5
-  val DEBUG = 7</p>
-
-<p>  case class Event(message: String, priority: Int)</p>
-
-<p>  type Logger = Event => Event</p>
-
-<p>  def stdOutLogger(mask: Int): Logger = event => handleEvent(event, mask) {</p>
-
-<pre><code>println(s"Writing to stdout: ${event.message}")
-</code></pre>
-
-<p>  }</p>
-
-<p>  def emailLogger(mask: Int): Logger = event => handleEvent(event, mask) {</p>
-
-<pre><code>println(s"Sending via e-mail: ${event.message}")
-</code></pre>
-
-<p>  }</p>
-
-<p>  def stdErrLogger(mask: Int): Logger = event => handleEvent(event, mask) {</p>
-
-<pre><code>System.err.println(s"Sending to stderr: ${event.message}")
-</code></pre>
-
-<p>  }</p>
-
-<p>  private def handleEvent(event: Event, mask: Int)(handler: => Unit) = {</p>
-
-<pre><code>if (event.priority &lt;= mask) handler
-event
-</code></pre>
-
-<p>  }
-}
-```</p>
-
-<p>这个代码已经简短到我不想解释的程度了。不过还是解释一下吧。</p>
-
-<p>三个log的的等级ERR，NOTICE和DEBUG和之前Java的实现是一样的。</p>
-
-<p>一个case class Event，用来包裹需要被log的事件。</p>
-
-<p>type Logger则是声明了一个函数签名，凡是符合这个签名的函数都可以作为logger被使用。</p>
-
-<p>然后便是三个函数实现，它们将mask通过闭包封进函数内。这三个函数共同依赖一个私有handleEvent函数，其作用和Java代码中的message类似，判断mask和正在发生的事件之间优先级大小关系，并以此决定当前logger是否需要处理该事件。</p>
-
-<p>哎？等一下，这个是职责链模式啊，那个啥，链在哪儿呢？</p>
-
-<p>很简单，这样就可以链起来了：</p>
-
-<p>```scala
-object ChainRunner {</p>
-
-<p>  import chain.Loggers._</p>
-
-<p>  def main(args: Array[String]) {</p>
-
-<pre><code>val chain = stdOutLogger(DEBUG) andThen emailLogger(NOTICE) andThen stdErrLogger(ERR)
-
-chain(Event("Entering function y.", DEBUG))
-chain(Event("Step1 completed.", NOTICE))
-chain(Event("An error has occurred.", ERR))
-</code></pre>
-
-<p>  }
-}
-```</p>
-
-<p>以上代码中的andThen就可以把三个logger链在一起。</p>
-
-<p>这个andThen是个什么东西？何以如此神奇？</p>
-
-<p>欲知详情，请参考我之前的另一篇博客： <a href="http://cuipengfei.me/blog/2013/12/30/desugar-scala-9/">http://cuipengfei.me/blog/2013/12/30/desugar-scala-9/</a></p>
-
-<p>而链接之后的结果本身也是一个函数，于是我们就可以调用chain并传入Event了。</p>
-
-<p>这份代码和前面Java版的行为是等价的，输出是一致的。</p>
-
-<h1>门框夹核桃</h1>
-
-<p>最后回到标题上去：门框夹核桃，意即用不合适的工具解决问题。</p>
-
-<p>职责链模式想要做到的事情其实就是把多个函数链起来调用。</p>
-
-<p>该模式提出的时候FP并不如今日盛行，其作者选用类来包装需要被链接的多个函数，这无可厚非。</p>
-
-<p>无论是class，还是function，都是为程序员提供抽象的手段。当我们想要链接的东西就是多个function，选择直接用function而非class就会显得更加自然，也更加轻量且合适。</p>
-
-<p>当年design pattern的作者广为传播各种patterns，实为功德。</p>
-
-<p>不过今天我们有了核桃夹，就无需一定要用门框了。</p>
-
-<p>最后，依照惯例，羞辱Java一小下下。
-以上wiki提供的实现有77行，偏FP风的实现只有38行，只有一个实体Event。</p>
 ]]></content>
   </entry>
   

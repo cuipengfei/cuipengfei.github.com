@@ -9,7 +9,7 @@
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content="访问者模式是一种将算法与对象结构分离的软件设计模式。 这个模式的基本想法如下：首先我们拥有一个由许多对象构成的对象结构，这些对象的类都拥有一个accept方法用来接受访问者对象；访问者是一个接口，它拥有一个visit方法，这个方法对访问到的对象结构中不同类型的元素作出不同的反应； &hellip;">
+  <meta name="description" content="模板方法模式定义了一个算法的步骤，并允许次类别为一个或多个步骤提供其实践方式。让次类别在不改变算法架构的情况下，重新定义算法中的某些步骤。 以上是wiki对模板方法的定义。 比较容易理解，我们有一个算法，其中某些步骤是确定的不太会变的代码。而另外一些步骤则需要变化并且自由组合。 《Head &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,121 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/06/23/template-method-pattern/">模板方法模式：subtype Polymorphism和parametric Polymorphism</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-06-23T15:42:00+05:30" pubdate data-updated="true">Jun 23<span>rd</span>, 2015</time>
+        
+         | <a href="/blog/2015/06/23/template-method-pattern/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote><p>模板方法模式定义了一个算法的步骤，并允许次类别为一个或多个步骤提供其实践方式。让次类别在不改变算法架构的情况下，重新定义算法中的某些步骤。</p></blockquote>
+
+<p>以上是wiki对模板方法的定义。</p>
+
+<p>比较容易理解，我们有一个算法，其中某些步骤是确定的不太会变的代码。而另外一些步骤则需要变化并且自由组合。</p>
+
+<p>《Head First Design Patterns》里有一个🌰：</p>
+
+<p>假设我们需要制作咖啡因饮品，其实就是咖啡和茶。制作步骤有些类似，分为四步：1烧水，2泡，3装杯，4加调料。</p>
+
+<p>其中第一步和第三步是稳定的代码，变化可能性不大，而第二步和第四步则每种饮品有自己的风味。</p>
+
+<p>这样就有了下面的代码：</p>
+
+<h1>Java</h1>
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/CaffeineBeverage.java?slice=1:">
+</script>
+
+
+<p>首先有一个咖啡因饮品的抽象类，定义一个算法骨架：1烧水，2泡，3装杯，4加调料。
+其中的第二步和第四步是有待实现的抽象方法，留给子类决定怎么搞。第一步和第三步是写死的。</p>
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/Coffee.java?slice=1:">
+</script>
+
+
+<p>接下来是咖啡，它实现了过滤咖啡和添加牛奶、糖的步骤。这样当它的实例的prepareRecipe方法被调用时就会执行父类的烧水、装杯，以及自己的泡和加调料。</p>
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/Tea.java?slice=1:">
+</script>
+
+
+<p>还有，就是茶了。它和咖啡不一样，是用浸泡而不是过滤，加的是柠檬而不是牛奶和糖。</p>
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/BeverageTestDrive.java?slice=1:">
+</script>
+
+
+<p>最后用一个main函数来执行制作咖啡和茶的代码。</p>
+
+<p>很好，如果再有其他的咖啡因饮品，只需要增加一个子类，并且实现两个方法就好了。只要我们对于四个步骤的定义在该领域中足够稳定，这份代码就是很好很强大，易于扩展的。</p>
+
+<p>有代码如此，夫复何求呢？</p>
+
+<h2>不过再想一下</h2>
+
+<p>这个模式想要达到的，不过是将一个算法的某些部分做的灵活一些，可以自由替换和组合。</p>
+
+<p>那这个，不就是函数组合吗？如果我们使用的是允许高阶函数的语言的话，那还有什么必要把这些函数包装在类里呢？</p>
+
+<h1>functions</h1>
+
+<p>接下来是用Scala实现的版本：</p>
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/templatemethodS/Beverages.scala?slice=1:">
+</script>
+
+
+<p>首先，定义三个type，分别是泡和加调料这两个步骤，还有饮品本身（这三个type其实是一样的，看起来有点傻）。</p>
+
+<p>然后有一个算法骨架，把第一和第三步锁死，把第二和第四步空出来，分别用一个参数来实现参数多态（Parametric polymorphism）。</p>
+
+<p>接下来有泡和加调料的四种不同实现，分别是一个函数，符合各自的函数签名。</p>
+
+<p>最后，用一个main函数来执行。可以看到，泡和加调料的函数是作为参数传入的。如果我们需要加牛奶和糖的茶，或者是柠檬味的咖啡的话，也会变得非常容易。</p>
+
+<p>就这样，51行代码变成了28行。四个类变成了一个object。</p>
+
+<p>而如果是要用子类型多态（subtype polymorphism）来做到这样的自由组合，那么我们需要的或许就是策略模式，把泡和加调料分别写成接口并提供不同的实现类来组合。可以想象，这会导致很多的boilerplate。</p>
+
+<h1>结语</h1>
+
+<p>这两种实现的区别其实就是子类型多态（subtype polymorphism）和参数多态（parametric polymorphism）的区别。</p>
+
+<p>Java代码中实现多态的方式是通过子类继承父类并且实现抽象方法来实现的。而Scala代码中则是通过把不同的函数传入骨架组合出一个新的函数来实现的。</p>
+
+<p>多态是个好东西，但是多态也有轻重之分。能用参数多态这种轻量级的方式来实现的时候，就没有必要选择子类型多态这种过重的方式。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -3516,45 +3631,6 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/04/11/wuhan-english-workshop/">English Workshop Wuhan 2015.04.14</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-04-11T14:28:00+05:30" pubdate data-updated="true">Apr 11<span>th</span>, 2015</time>
-        
-         | <a href="/blog/2015/04/11/wuhan-english-workshop/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><iframe src="//slides.com/pengfeicui/deck/embed" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -3568,6 +3644,10 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/06/23/template-method-pattern/">模板方法模式：subtype polymorphism和parametric polymorphism</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/06/16/visitor-pattern-pattern-match/">访问者模式 in FP：Pattern Matching</a>
@@ -3603,10 +3683,6 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
     
       <li class="post">
         <a href="/blog/2015/04/19/principles-of-reactive-programming-week-one/">Principles of Reactive Programming Week One作业导学</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/04/11/wuhan-english-workshop/">English workshop Wuhan 2015.04.14</a>
       </li>
     
   </ul>

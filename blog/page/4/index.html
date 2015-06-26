@@ -9,19 +9,8 @@
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content="Implicit function，中文或许应该叫做隐式函数吧。主要用来作隐式类型转换。例子： 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-class Duck { def makeDuckNoise() = &quot;gua gua&quot;
-} class Chicken { def &hellip;">
+  <meta name="description" content="Structural types，中文怎么翻译不确定。我们可以用它来实现类似于鸭子类型的效果。为什么说是“类似”鸭子类型呢？稍后会说到它和鸭子类型的区别。 举一个例子，看看它都可以做什么： 1
+def makeNoise(quacker: {def quack(): String}) = &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,6 +75,291 @@ class Duck { def makeDuckNoise() = &quot;gua gua&quot;
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/02/desugar-scala-11/">剥掉Scala的糖衣(11) &#8211; Structural Types</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-02T22:13:00+05:30" pubdate data-updated="true">Jan 2<span>nd</span>, 2014</time>
+        
+         | <a href="/blog/2014/01/02/desugar-scala-11/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Structural types，中文怎么翻译不确定。我们可以用它来实现类似于鸭子类型的效果。为什么说是“类似”鸭子类型呢？稍后会说到它和鸭子类型的区别。</p>
+
+<p>举一个例子，看看它都可以做什么：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">def</span> <span class="n">makeNoise</span><span class="o">(</span><span class="n">quacker</span><span class="k">:</span> <span class="o">{</span><span class="kt">def</span> <span class="kt">quack</span><span class="o">()</span><span class="kt">:</span> <span class="kt">String</span><span class="o">})</span> <span class="k">=</span> <span class="n">quacker</span><span class="o">.</span><span class="n">quack</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>声明一个方法，叫做makeNoise，接受什么类型的参数呢？不做严格限制，我们只声明说参数必须有一个叫做quack的方法，该quack方法返回值类型为String。然后在makeNoise方法内调用quack方法。请注意我们并没有声明一个含有quack方法签名的接口或者类，我们仅仅是在声明参数的同时声明我们期待参数含有什么样的成员。</p>
+
+<p>然后我们声明一个Duck类：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Duck</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">quack</span><span class="o">()</span> <span class="k">=</span> <span class="s">&quot;real quack&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样就可以调用makeNoise方法了：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">makeNoise</span><span class="o">(</span><span class="k">new</span> <span class="nc">Duck</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>或者再声明一个NotADuck类：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">NotADuck</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">quack</span><span class="o">()</span> <span class="k">=</span> <span class="s">&quot;fake quack&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>也可以把它传给makeNoise方法：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">makeNoise</span><span class="o">(</span><span class="k">new</span> <span class="nc">NotADuck</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>甚至是匿名对象也可以：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="n">makeNoise</span><span class="o">(</span><span class="k">new</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">def</span> <span class="n">quack</span><span class="o">()</span> <span class="k">=</span> <span class="s">&quot;anonymous quack&quot;</span>
+</span><span class='line'>  <span class="o">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果我们把Duck的quack方法改个名字：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">class</span> <span class="nc">Duck</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">quackRenamed</span><span class="o">()</span> <span class="k">=</span> <span class="s">&quot;real quack&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>那么编译器就会对下面这行代码给出错误：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">makeNoise</span><span class="o">(</span><span class="k">new</span> <span class="nc">Duck</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>type mismatch, found : hello.Duck, required: AnyRef{def quack(): String}</p>
+
+<p>是做了编译时类型检查的。</p>
+
+<p>然后我们反编译代码，看看它是如何实现的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kd">static</span> <span class="n">Class</span><span class="o">[]</span> <span class="n">reflParams$Cache1</span><span class="o">;</span>
+</span><span class='line'><span class="kd">private</span> <span class="kd">static</span> <span class="kd">volatile</span> <span class="n">SoftReference</span> <span class="n">reflPoly$Cache1</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">static</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Hello</span><span class="o">.</span><span class="na">reflParams</span><span class="n">$Cache1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Class</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+</span><span class='line'>    <span class="n">Hello</span><span class="o">.</span><span class="na">reflPoly</span><span class="n">$Cache1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SoftReference</span><span class="o">((</span><span class="n">T</span><span class="o">)</span><span class="k">new</span> <span class="n">EmptyMethodCache</span><span class="o">());</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">static</span> <span class="n">Method</span> <span class="n">reflMethod$Method1</span><span class="o">(</span><span class="kd">final</span> <span class="n">Class</span> <span class="n">x$1</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">MethodCache</span> <span class="n">methodCache1</span> <span class="o">=</span> <span class="n">Hello</span><span class="o">.</span><span class="na">reflPoly</span><span class="n">$Cache1</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">methodCache1</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">methodCache1</span> <span class="o">=</span> <span class="o">(</span><span class="n">MethodCache</span><span class="o">)</span><span class="k">new</span> <span class="n">EmptyMethodCache</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">Hello</span><span class="o">.</span><span class="na">reflPoly</span><span class="n">$Cache1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SoftReference</span><span class="o">((</span><span class="n">T</span><span class="o">)</span><span class="n">methodCache1</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>    <span class="n">Method</span> <span class="n">method1</span> <span class="o">=</span> <span class="n">methodCache1</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="n">x$1</span><span class="o">);</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">method1</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">method1</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>    <span class="n">method1</span> <span class="o">=</span> <span class="n">ScalaRunTime$</span><span class="o">.</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">ensureAccessible</span><span class="o">(</span><span class="n">x$1</span><span class="o">.</span><span class="na">getMethod</span><span class="o">(</span><span class="s">&quot;quack&quot;</span><span class="o">,</span> <span class="n">Hello</span><span class="o">.</span><span class="na">reflParams</span><span class="n">$Cache1</span><span class="o">));</span>
+</span><span class='line'>    <span class="n">Hello</span><span class="o">.</span><span class="na">reflPoly</span><span class="n">$Cache1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SoftReference</span><span class="o">((</span><span class="n">T</span><span class="o">)</span><span class="n">methodCache1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">x$1</span><span class="o">,</span> <span class="n">method1</span><span class="o">));</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">method1</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">makeNoise</span><span class="o">(</span><span class="kd">final</span> <span class="n">Object</span> <span class="n">quacker</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">final</span> <span class="n">Object</span> <span class="n">invoke</span><span class="o">;</span>
+</span><span class='line'>    <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">invoke</span> <span class="o">=</span> <span class="n">reflMethod$Method1</span><span class="o">(</span><span class="n">quacker</span><span class="o">.</span><span class="na">getClass</span><span class="o">()).</span><span class="na">invoke</span><span class="o">(</span><span class="n">quacker</span><span class="o">,</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>    <span class="k">catch</span> <span class="o">(</span><span class="n">InvocationTargetException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">throw</span> <span class="n">ex</span><span class="o">.</span><span class="na">getCause</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span><span class="n">invoke</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们可以看到，makeNoise方法的参数类型被编译成了Object。方法内部通过反射去调用quack方法。</p>
+
+<p>再仔细看一下，方法内做了个catch，如果找不到quack方法就把异常抛出来。我们刚才不是看到有编译时类型检查吗？怎么会找不到quack方法呢？</p>
+
+<p>其实找不到quack方法的情况还是会存在的。假如我们把以上代码打成jar包供别人调用，那别人看到的你这个方法要的是Object啊，随便传一个什么东西进来都可以。如果传入的参数没有quack方法，那自然就会有异常了。这也是一个很好的信号，告诉我们说这个语言特性不适合用在public API中。</p>
+
+<p>刚开始时提到过，这个语言特性不能叫做鸭子类型，为什么呢？我们看两个真正鸭子类型的例子：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">makeNoise</span><span class="p">(</span><span class="nx">quacker</span><span class="p">){</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nx">quacker</span><span class="p">.</span><span class="nx">quack</span><span class="p">()</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">makeNoise</span><span class="p">({</span><span class="nx">quack</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span><span class="k">return</span> <span class="s2">&quot;quack quack&quot;</span><span class="p">}})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面的是JavaScript的，下面的是C#的。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">class</span> <span class="nc">Duck</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">public</span> <span class="n">String</span> <span class="nf">Quack</span> <span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="s">&quot;quack quack&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Hello</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">public</span> <span class="n">String</span> <span class="nf">MakeNoise</span> <span class="p">(</span><span class="kt">dynamic</span> <span class="n">quacker</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">quacker</span><span class="p">.</span><span class="n">Quack</span> <span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">MainClass</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">Console</span><span class="p">.</span><span class="n">Out</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="k">new</span> <span class="n">Hello</span> <span class="p">().</span><span class="n">MakeNoise</span> <span class="p">(</span><span class="k">new</span> <span class="n">Duck</span> <span class="p">()));</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在上面两段代码中，如果我们把quack或者Quack改个名字的话，都会导致运行失败。而且在声明参数的时候也没有指明我们期待有一个quack或者Quack成员的存在。所以说Scala的这个语言特性不能称之为鸭子类型的原因在于两点：</p>
+
+<ul>
+<li>Scala做了编译时类型安全检查</li>
+<li>声明参数时显式的指明了期待的成员</li>
+</ul>
+
+
+<p>存疑：虽然上面的C#例子看起来是鸭子类型，但是C#的wiki页面上的typing discipline一项里并没有列出duck typing。原因不明。</p>
+
+<p>=======================================</p>
+
+<p>后记：C#的wiki页面没有把duck typing列为其typing discipline的一项。但是，duck typing的wiki页面上又用C#举了例子。互相矛盾啊，于是我在stackoverflow上问了个问题，引来了C#编译器的程序员之一Eric Lippert，他回答问题之后还写了篇博客来表示对duck typing这个名词的困惑。看完之后我表示更晕了。</p>
+
+<p>所以请不要把上面我说的关于duck typing的东西当真，随便瞄一眼就好了。duck typing是一个没有清晰定义的名词，在我们能够共同认同它的某一种特定的definition之前去讨论它是无谓的。</p>
+
+<p>下面把链接列出：</p>
+
+<p><a href="http://en.wikipedia.org/wiki/C_Sharp_programming_language">C#的wiki</a>  （typing discipline在页面右侧的那个表里）</p>
+
+<p><a href="http://en.wikipedia.org/wiki/Duck_typing">Duck typing的wiki</a></p>
+
+<p><a href="http://ericlippert.com/2014/01/02/what-is-duck-typing/">Eric Lippert的博客</a></p>
+
+<p>以上链接，建议别点  :)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1959,322 +2233,6 @@ type Function23 is not a member of package scala</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/22/why-does-it-have-to-be-final/">为什么必须是final的呢？</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-22T14:54:00+05:30" pubdate data-updated="true">Jun 22<span>nd</span>, 2013</time>
-        
-         | <a href="/blog/2013/06/22/why-does-it-have-to-be-final/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>一个谜团</h2>
-
-<p>如果你用过类似guava这种“伪函数式编程”风格的library的话，那下面这种风格的代码对你来说应该不陌生：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">tryUsingGuava</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">final</span> <span class="kt">int</span> <span class="n">expectedLength</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
-</span><span class='line'>    <span class="n">Iterables</span><span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">(</span><span class="s">&quot;123&quot;</span><span class="o">,</span> <span class="s">&quot;1234&quot;</span><span class="o">),</span> <span class="k">new</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="nd">@Override</span>
-</span><span class='line'>        <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">apply</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="k">return</span> <span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">==</span> <span class="n">expectedLength</span><span class="o">;</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">});</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这段代码对一个字符串的list进行过滤，从中找出长度为4的字符串。看起来很是平常，没什么特别的。</p>
-
-<p>但是，声明expectedLength时用的那个final看起来有点扎眼，把它去掉试试：</p>
-
-<blockquote><p>error: local variable expectedLength is accessed from within inner class; needs to be declared final</p></blockquote>
-
-<p>结果Java编译器给出了如上的错误，看起来匿名内部类只能够访问final的局部变量。但是，<strong>为什么呢？其他的语言也有类似的规定吗？</strong></p>
-
-<p>在开始用其他语言做实验之前我们先把问题简化一下，不要再带着guava了，我们去除掉噪音，把问题归结为：</p>
-
-<p><strong>为什么Java中的匿名内部类只可以访问final的局部变量呢？其他语言中的匿名函数也有类似的限制吗？</strong></p>
-
-<h2>Scala中有类似的规定吗？</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">def</span> <span class="n">tryAccessingLocalVariable</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">var</span> <span class="n">number</span> <span class="k">=</span> <span class="mi">123</span>
-</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">number</span><span class="o">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">var</span> <span class="n">lambda</span> <span class="k">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="o">{</span>
-</span><span class='line'>      <span class="n">number</span> <span class="k">=</span> <span class="mi">456</span>
-</span><span class='line'>      <span class="n">println</span><span class="o">(</span><span class="n">number</span><span class="o">)</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">lambda</span><span class="o">.</span><span class="n">apply</span><span class="o">()</span>
-</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">number</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>上面的Scala代码是合法的，number变量是声明为var的，不是val（类似于Java中的final）。而且在匿名函数中可以修改number的值。</p>
-
-<p>看来<strong>Scala中没有类似的规定</strong>。</p>
-
-<h2>C#中有类似的规定吗？</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">public</span> <span class="k">void</span> <span class="nf">tryUsingLambda</span> <span class="p">()</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="kt">int</span> <span class="n">number</span> <span class="p">=</span> <span class="m">123</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">number</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">Action</span> <span class="n">action</span> <span class="p">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span><span class='line'>      <span class="n">number</span> <span class="p">=</span> <span class="m">456</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">number</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">};</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">action</span> <span class="p">();</span>
-</span><span class='line'>  <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">number</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这段C#代码也是合法的，number这个局部变量在lambda表达式内外都可以访问和赋值。</p>
-
-<p>看来<strong>C#中也没有类似的规定</strong>。</p>
-
-<h2>分析谜团</h2>
-
-<p>三门语言中只有Java有这种限制，那我们分析一下吧。先来看一下Java中的匿名内部类是如何实现的：</p>
-
-<p>先定义一个接口：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyInterface</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">();</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然后创建这个接口的匿名子类：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TryUsingAnonymousClass</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">useMyInterface</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kd">final</span> <span class="n">Integer</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">123</span><span class="o">;</span>
-</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">MyInterface</span> <span class="n">myInterface</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyInterface</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>            <span class="nd">@Override</span>
-</span><span class='line'>            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
-</span><span class='line'>            <span class="o">}</span>
-</span><span class='line'>        <span class="o">};</span>
-</span><span class='line'>        <span class="n">myInterface</span><span class="o">.</span><span class="na">doSomething</span><span class="o">();</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这个匿名子类会被编译成一个单独的类，反编译的结果是这样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">class</span> <span class="nc">TryUsingAnonymousClass</span><span class="n">$1</span>
-</span><span class='line'>        <span class="kd">implements</span> <span class="n">MyInterface</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="kd">final</span> <span class="n">TryUsingAnonymousClass</span> <span class="k">this</span><span class="n">$0</span><span class="o">;</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Integer</span> <span class="n">paramInteger</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">TryUsingAnonymousClass$1</span><span class="o">(</span><span class="n">TryUsingAnonymousClass</span> <span class="k">this</span><span class="n">$0</span><span class="o">,</span> <span class="n">Integer</span> <span class="n">paramInteger</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">this</span><span class="n">$0</span> <span class="o">=</span> <span class="k">this</span><span class="n">$0</span><span class="o">;</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">paramInteger</span> <span class="o">=</span> <span class="n">paramInteger</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">paramInteger</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可以看到名为number的局部变量是作为构造方法的参数传入匿名内部类的（以上代码经过了手动修改，真实的反编译结果中有一些不可读的命名）。</p>
-
-<p>如果Java允许匿名内部类访问非final的局部变量的话，那我们就可以在TryUsingAnonymousClass$1中修改paramInteger，但是这不会对number的值有影响，因为它们是不同的reference。</p>
-
-<p>这就会造成数据不同步的问题。</p>
-
-<p>所以，<strong>谜团解开了：Java为了避免数据不同步的问题，做出了匿名内部类只可以访问final的局部变量的限制。</strong></p>
-
-<p>但是，新的谜团又出现了：</p>
-
-<h2>Scala和C#为什么没有类似的限制呢？它们是如何处理数据同步问题的呢？</h2>
-
-<p>上面出现过的那段Scala代码中的lambda表达式会编译成这样：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">TryUsingAnonymousClassInScala</span><span class="n">$$anonfun$1</span> <span class="kd">extends</span> <span class="n">AbstractFunction0</span><span class="o">.</span><span class="na">mcV</span><span class="o">.</span><span class="na">sp</span>
-</span><span class='line'>        <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">0L</span><span class="o">;</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="kd">final</span> <span class="n">IntRef</span> <span class="n">number$2</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">apply</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">apply$mcV$sp</span><span class="o">();</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="n">apply$mcV$sp</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">number</span><span class="n">$2</span><span class="o">.</span><span class="na">elem</span> <span class="o">=</span> <span class="mi">456</span><span class="o">;</span>
-</span><span class='line'>        <span class="n">Predef</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">BoxesRunTime</span><span class="o">.</span><span class="na">boxToInteger</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">number</span><span class="n">$2</span><span class="o">.</span><span class="na">elem</span><span class="o">));</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="n">TryUsingAnonymousClassInScala$$anonfun$1</span><span class="o">(</span><span class="n">TryUsingAnonymousClassInScala</span> <span class="n">$outer</span><span class="o">,</span> <span class="n">IntRef</span> <span class="n">number$2</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">number</span><span class="n">$2</span> <span class="o">=</span> <span class="n">number$2</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可以看到number也是通过构造方法的参数传入的，但是与Java的不同是这里的number不是直接传入的，是被IntRef包装了一层然后才传入的。对number的值修改也是通过包装类进行的：this.number$2.elem = 456;</p>
-
-<p>这样就保证了lambda表达式内外访问到的是同一个对象。</p>
-
-<p>再来看看C#的处理方式，反编译一下，发现C#编译器生成了如下的一个类：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">private</span> <span class="k">sealed</span> <span class="k">class</span> <span class="err">&lt;</span><span class="nc">tryUsingLambda</span><span class="p">&gt;</span><span class="n">c__AnonStorey0</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">internal</span> <span class="kt">int</span> <span class="n">number</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">internal</span> <span class="k">void</span> <span class="p">&lt;&gt;</span><span class="n">m__0</span> <span class="p">()</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="n">number</span> <span class="p">=</span> <span class="m">456</span><span class="p">;</span>
-</span><span class='line'>      <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">number</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>把number包装在这个类内，这样就保证了lambda表达式内外使用的都是同一个number，即便重新赋值也可以保证内外部的数据是同步的。</p>
-
-<h2>小结</h2>
-
-<p>Scala和C#的编译器通过把局部变量包装在另一个对象中，来实现lambda表达式内外的数据同步。</p>
-
-<p>而Java的编译器由于未知的原因（怀疑是为了图省事儿？）没有做包装局部变量这件事儿，于是就只好强制用户把局部变量声明为final才能在匿名内部类中使用来避免数据不同步的问题。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -2290,6 +2248,10 @@ type Function23 is not a member of package scala</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/06/23/template-method-pattern/">模板方法模式：subtype polymorphism和parametric polymorphism</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/06/16/visitor-pattern-pattern-match/">访问者模式 in FP：Pattern Matching</a>
@@ -2325,10 +2287,6 @@ type Function23 is not a member of package scala</p>
     
       <li class="post">
         <a href="/blog/2015/04/19/principles-of-reactive-programming-week-one/">Principles of Reactive Programming Week One作业导学</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/04/11/wuhan-english-workshop/">English workshop Wuhan 2015.04.14</a>
       </li>
     
   </ul>

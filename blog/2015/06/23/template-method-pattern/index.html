@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>今天是二零一四年的第一天，回忆一下二零一三年都干了些什么，然后再回忆一下没干什么 - 崔鹏飞的Octopress Blog</title>
+  <title>模板方法模式：subtype polymorphism和parametric polymorphism - 崔鹏飞的Octopress Blog</title>
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content="干了什么 上半年： 看了十几本书； 写了几篇博客； 在github上做了一个豆瓣读书的插件； 肇始了一个十万个为什么的活动，自始至终只有我一个人参与，然后就挂掉了； 做了三章的SICP，然后卡住做不动了； 乏善可陈。 上面列的最后两项的价值最大，但都没做完。究其原因： 坚持不够
-attention &hellip;">
+  <meta name="description" content="模板方法模式定义了一个算法的步骤，并允许次类别为一个或多个步骤提供其实践方式。让次类别在不改变算法架构的情况下，重新定义算法中的某些步骤。 以上是wiki对模板方法的定义。 比较容易理解，我们有一个算法，其中某些步骤是确定的不太会变的代码。而另外一些步骤则需要变化并且自由组合。 《Head &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ attention &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://cuipengfei.github.com/blog/2014/01/01/my-2013/">
+  <link rel="canonical" href="http://cuipengfei.github.com/blog/2015/06/23/template-method-pattern/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -78,7 +77,7 @@ attention &hellip;">
   
   <header>
     
-      <h1 class="entry-title">今天是二零一四年的第一天，回忆一下二零一三年都干了些什么，然后再回忆一下没干什么</h1>
+      <h1 class="entry-title">模板方法模式：subtype Polymorphism和parametric Polymorphism</h1>
     
     
       <p class="meta">
@@ -94,7 +93,7 @@ attention &hellip;">
   
 
 
-<time datetime="2014-01-01T13:48:00+05:30" pubdate data-updated="true">Jan 1<span>st</span>, 2014</time>
+<time datetime="2015-06-23T15:42:00+05:30" pubdate data-updated="true">Jun 23<span>rd</span>, 2015</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -103,65 +102,84 @@ attention &hellip;">
   </header>
 
 
-<div class="entry-content"><h2>干了什么</h2>
+<div class="entry-content"><blockquote><p>模板方法模式定义了一个算法的步骤，并允许次类别为一个或多个步骤提供其实践方式。让次类别在不改变算法架构的情况下，重新定义算法中的某些步骤。</p></blockquote>
 
-<p><strong>上半年：</strong></p>
+<p>以上是wiki对模板方法的定义。</p>
 
-<p>看了十几本书；</p>
+<p>比较容易理解，我们有一个算法，其中某些步骤是确定的不太会变的代码。而另外一些步骤则需要变化并且自由组合。</p>
 
-<p>写了几篇博客；</p>
+<p>《Head First Design Patterns》里有一个🌰：</p>
 
-<p>在github上做了一个豆瓣读书的插件；</p>
+<p>假设我们需要制作咖啡因饮品，其实就是咖啡和茶。制作步骤有些类似，分为四步：1烧水，2泡，3装杯，4加调料。</p>
 
-<p>肇始了一个十万个为什么的活动，自始至终只有我一个人参与，然后就挂掉了；</p>
+<p>其中第一步和第三步是稳定的代码，变化可能性不大，而第二步和第四步则每种饮品有自己的风味。</p>
 
-<p>做了三章的SICP，然后卡住做不动了；</p>
+<p>这样就有了下面的代码：</p>
 
-<p>乏善可陈。</p>
+<h1>Java</h1>
 
-<p>上面列的最后两项的价值最大，但都没做完。究其原因：</p>
-
-<ul>
-<li>坚持不够</li>
-<li>attention span太短</li>
-</ul>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/CaffeineBeverage.java?slice=1:">
+</script>
 
 
-<p>这两项在下半年做的事儿里address到了。</p>
+<p>首先有一个咖啡因饮品的抽象类，定义一个算法骨架：1烧水，2泡，3装杯，4加调料。
+其中的第二步和第四步是有待实现的抽象方法，留给子类决定怎么搞。第一步和第三步是写死的。</p>
 
-<p><strong>下半年：</strong></p>
-
-<p>又看了十几本书（量与上半年持平）；</p>
-
-<p>又写了几篇博客（量较上半年有增）；</p>
-
-<p>跟完了Coursera上的Functional programming principles in Scala的课，拿到了Statement of Accomplishment with distinction；</p>
-
-<p>键盘速度到了60wpm左右；</p>
-
-<p>找到了坚持和attention span问题的解决方案；</p>
-
-<p>有善可陈。</p>
-
-<p>善在最后一项。解决方案是这样的：</p>
-
-<ul>
-<li>戒掉微博，规避碎片化娱乐化的信息。（还没戒掉的是美剧）</li>
-<li>把番茄钟用到自己的时间中去。track用在“正经事儿”上的时间。</li>
-</ul>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/Coffee.java?slice=1:">
+</script>
 
 
-<p>不细说了，下面说没干什么。</p>
+<p>接下来是咖啡，它实现了过滤咖啡和添加牛奶、糖的步骤。这样当它的实例的prepareRecipe方法被调用时就会执行父类的烧水、装杯，以及自己的泡和加调料。</p>
 
-<h2>没干什么</h2>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/Tea.java?slice=1:">
+</script>
 
-<p>我的情商和people skill很低，低的你都猜不到哦亲。</p>
 
-<p>我可以预感到这个东西即将成为我的bottle neck。但是我二零一三年并没有在上面做太多事情。</p>
+<p>还有，就是茶了。它和咖啡不一样，是用浸泡而不是过滤，加的是柠檬而不是牛奶和糖。</p>
 
-<p>读了几本我认为会有帮助的书，一些被我认为是不知所云，一些促使我得出了死硬的理性派结论。</p>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/BeverageTestDrive.java?slice=1:">
+</script>
 
-<p>二零一四年需要在这个领域积累知识，然后期待量变带来的质变。</p>
+
+<p>最后用一个main函数来执行制作咖啡和茶的代码。</p>
+
+<p>很好，如果再有其他的咖啡因饮品，只需要增加一个子类，并且实现两个方法就好了。只要我们对于四个步骤的定义在该领域中足够稳定，这份代码就是很好很强大，易于扩展的。</p>
+
+<p>有代码如此，夫复何求呢？</p>
+
+<h2>不过再想一下</h2>
+
+<p>这个模式想要达到的，不过是将一个算法的某些部分做的灵活一些，可以自由替换和组合。</p>
+
+<p>那这个，不就是函数组合吗？如果我们使用的是允许高阶函数的语言的话，那还有什么必要把这些函数包装在类里呢？</p>
+
+<h1>functions</h1>
+
+<p>接下来是用Scala实现的版本：</p>
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/templatemethodS/Beverages.scala?slice=1:">
+</script>
+
+
+<p>首先，定义三个type，分别是泡和加调料这两个步骤，还有饮品本身（这三个type其实是一样的，看起来有点傻）。</p>
+
+<p>然后有一个算法骨架，把第一和第三步锁死，把第二和第四步空出来，分别用一个参数来实现参数多态（Parametric polymorphism）。</p>
+
+<p>接下来有泡和加调料的四种不同实现，分别是一个函数，符合各自的函数签名。</p>
+
+<p>最后，用一个main函数来执行。可以看到，泡和加调料的函数是作为参数传入的。如果我们需要加牛奶和糖的茶，或者是柠檬味的咖啡的话，也会变得非常容易。</p>
+
+<p>就这样，51行代码变成了28行。四个类变成了一个object。</p>
+
+<p>而如果是要用子类型多态（subtype polymorphism）来做到这样的自由组合，那么我们需要的或许就是策略模式，把泡和加调料分别写成接口并提供不同的实现类来组合。可以想象，这会导致很多的boilerplate。</p>
+
+<h1>结语</h1>
+
+<p>这两种实现的区别其实就是子类型多态（subtype polymorphism）和参数多态（parametric polymorphism）的区别。</p>
+
+<p>Java代码中实现多态的方式是通过子类继承父类并且实现抽象方法来实现的。而Scala代码中则是通过把不同的函数传入骨架组合出一个新的函数来实现的。</p>
+
+<p>多态是个好东西，但是多态也有轻重之分。能用参数多态这种轻量级的方式来实现的时候，就没有必要选择子类型多态这种过重的方式。</p>
 </div>
 
 
@@ -184,12 +202,12 @@ attention &hellip;">
   
 
 
-<time datetime="2014-01-01T13:48:00+05:30" pubdate data-updated="true">Jan 1<span>st</span>, 2014</time>
+<time datetime="2015-06-23T15:42:00+05:30" pubdate data-updated="true">Jun 23<span>rd</span>, 2015</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/me/'>me</a>
+    <a class='category' href='/blog/categories/oodp/'>OODP</a>, <a class='category' href='/blog/categories/scala/'>Scala</a>
   
 </span>
 
@@ -198,7 +216,7 @@ attention &hellip;">
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cuipengfei.github.com/blog/2014/01/01/my-2013/" data-via="cuipf" data-counturl="http://cuipengfei.github.com/blog/2014/01/01/my-2013/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cuipengfei.github.com/blog/2015/06/23/template-method-pattern/" data-via="cuipf" data-counturl="http://cuipengfei.github.com/blog/2015/06/23/template-method-pattern/" >Tweet</a>
   
   
   
@@ -209,10 +227,8 @@ attention &hellip;">
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/12/30/desugar-scala-9/" title="Previous Post: 掀开Scala的糖衣(9) -- function composition">&laquo; 掀开Scala的糖衣(9) -- function composition</a>
+        <a class="basic-alignment left" href="/blog/2015/06/16/visitor-pattern-pattern-match/" title="Previous Post: 访问者模式 in FP：Pattern Matching">&laquo; 访问者模式 in FP：Pattern Matching</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/01/01/desugar-scala-10/" title="Next Post: 褪去Scala的糖衣(10) -- implicit function">褪去Scala的糖衣(10) -- implicit function &raquo;</a>
       
     </p>
   </footer>
@@ -344,8 +360,8 @@ attention &hellip;">
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://cuipengfei.github.com/blog/2014/01/01/my-2013/';
-        var disqus_url = 'http://cuipengfei.github.com/blog/2014/01/01/my-2013/';
+        var disqus_identifier = 'http://cuipengfei.github.com/blog/2015/06/23/template-method-pattern/';
+        var disqus_url = 'http://cuipengfei.github.com/blog/2015/06/23/template-method-pattern/';
         var disqus_script = 'embed.js';
       
     (function () {

@@ -4,7 +4,7 @@
   <title><![CDATA[崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2015-06-17T00:41:39+05:30</updated>
+  <updated>2015-06-27T00:23:59+05:30</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -12,6 +12,92 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[模板方法模式：subtype polymorphism和parametric polymorphism]]></title>
+    <link href="http://cuipengfei.github.com/blog/2015/06/23/template-method-pattern/"/>
+    <updated>2015-06-23T15:42:00+05:30</updated>
+    <id>http://cuipengfei.github.com/blog/2015/06/23/template-method-pattern</id>
+    <content type="html"><![CDATA[<blockquote><p>模板方法模式定义了一个算法的步骤，并允许次类别为一个或多个步骤提供其实践方式。让次类别在不改变算法架构的情况下，重新定义算法中的某些步骤。</p></blockquote>
+
+<p>以上是wiki对模板方法的定义。</p>
+
+<p>比较容易理解，我们有一个算法，其中某些步骤是确定的不太会变的代码。而另外一些步骤则需要变化并且自由组合。</p>
+
+<p>《Head First Design Patterns》里有一个🌰：</p>
+
+<p>假设我们需要制作咖啡因饮品，其实就是咖啡和茶。制作步骤有些类似，分为四步：1烧水，2泡，3装杯，4加调料。</p>
+
+<p>其中第一步和第三步是稳定的代码，变化可能性不大，而第二步和第四步则每种饮品有自己的风味。</p>
+
+<p>这样就有了下面的代码：</p>
+
+<h1>Java</h1>
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/CaffeineBeverage.java?slice=1:">
+</script>
+
+
+<p>首先有一个咖啡因饮品的抽象类，定义一个算法骨架：1烧水，2泡，3装杯，4加调料。
+其中的第二步和第四步是有待实现的抽象方法，留给子类决定怎么搞。第一步和第三步是写死的。</p>
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/Coffee.java?slice=1:">
+</script>
+
+
+<p>接下来是咖啡，它实现了过滤咖啡和添加牛奶、糖的步骤。这样当它的实例的prepareRecipe方法被调用时就会执行父类的烧水、装杯，以及自己的泡和加调料。</p>
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/Tea.java?slice=1:">
+</script>
+
+
+<p>还有，就是茶了。它和咖啡不一样，是用浸泡而不是过滤，加的是柠檬而不是牛奶和糖。</p>
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/BeverageTestDrive.java?slice=1:">
+</script>
+
+
+<p>最后用一个main函数来执行制作咖啡和茶的代码。</p>
+
+<p>很好，如果再有其他的咖啡因饮品，只需要增加一个子类，并且实现两个方法就好了。只要我们对于四个步骤的定义在该领域中足够稳定，这份代码就是很好很强大，易于扩展的。</p>
+
+<p>有代码如此，夫复何求呢？</p>
+
+<h2>不过再想一下</h2>
+
+<p>这个模式想要达到的，不过是将一个算法的某些部分做的灵活一些，可以自由替换和组合。</p>
+
+<p>那这个，不就是函数组合吗？如果我们使用的是允许高阶函数的语言的话，那还有什么必要把这些函数包装在类里呢？</p>
+
+<h1>functions</h1>
+
+<p>接下来是用Scala实现的版本：</p>
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/templatemethodS/Beverages.scala?slice=1:">
+</script>
+
+
+<p>首先，定义三个type，分别是泡和加调料这两个步骤，还有饮品本身（这三个type其实是一样的，看起来有点傻）。</p>
+
+<p>然后有一个算法骨架，把第一和第三步锁死，把第二和第四步空出来，分别用一个参数来实现参数多态（Parametric polymorphism）。</p>
+
+<p>接下来有泡和加调料的四种不同实现，分别是一个函数，符合各自的函数签名。</p>
+
+<p>最后，用一个main函数来执行。可以看到，泡和加调料的函数是作为参数传入的。如果我们需要加牛奶和糖的茶，或者是柠檬味的咖啡的话，也会变得非常容易。</p>
+
+<p>就这样，51行代码变成了28行。四个类变成了一个object。</p>
+
+<p>而如果是要用子类型多态（subtype polymorphism）来做到这样的自由组合，那么我们需要的或许就是策略模式，把泡和加调料分别写成接口并提供不同的实现类来组合。可以想象，这会导致很多的boilerplate。</p>
+
+<h1>结语</h1>
+
+<p>这两种实现的区别其实就是子类型多态（subtype polymorphism）和参数多态（parametric polymorphism）的区别。</p>
+
+<p>Java代码中实现多态的方式是通过子类继承父类并且实现抽象方法来实现的。而Scala代码中则是通过把不同的函数传入骨架组合出一个新的函数来实现的。</p>
+
+<p>多态是个好东西，但是多态也有轻重之分。能用参数多态这种轻量级的方式来实现的时候，就没有必要选择子类型多态这种过重的方式。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[访问者模式 in FP：Pattern Matching]]></title>
@@ -4595,226 +4681,6 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
 <p>而空值判断是偏技术的，把这种代码消掉，我们传递给其他程序员的信息里就含有更少的与业务无关的噪音。而且我们自己写起来的时候，脑子里也不需要考虑那么多的东西。</p>
 
 <p>对自己，对他人都有利。这实在是一个美妙的语言特性。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[大理]]></title>
-    <link href="http://cuipengfei.github.com/blog/2014/08/10/da-li/"/>
-    <updated>2014-08-10T20:38:00+05:30</updated>
-    <id>http://cuipengfei.github.com/blog/2014/08/10/da-li</id>
-    <content type="html"><![CDATA[<p>昆明机场，等待去大理的飞机</p>
-
-<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1ej7t5jg23zj20hs0nu0wt.jpg" width="800" alt="：）" /></p>
-
-<p>下了飞机，出租车上，窗外有云，和蓝天</p>
-
-<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7t5lh0jvj21w02io1ky.jpg" width="800" alt="：）" /></p>
-
-<p>第二天早上，帮校长画墙</p>
-
-<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7t6vgeh4j20f20qowfs.jpg" width="800" alt="：）" /></p>
-
-<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7t6umefgj20qo0f23zj.jpg" width="800" alt="：）" /></p>
-
-<p>王鹏和顺子也在画</p>
-
-<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7t5ohwv6j21w02ioe82.jpg" width="800" alt="：）" /></p>
-
-<p>去环绕洱海</p>
-
-<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1ej7t5rds9nj22io1w0x6p.jpg" width="1200" alt="：）" /></p>
-
-<p>视野开阔，水面如镜</p>
-
-<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7t5tphlyj22io1w0kjl.jpg" width="1200" alt="：）" /></p>
-
-<p>云，与水，与山</p>
-
-<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7t5vwmxkj22io1w0kjl.jpg" width="1200" alt="：）" /></p>
-
-<p>云诡</p>
-
-<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7t5yjz3ij22io1w0kjl.jpg" width="1200" alt="：）" /></p>
-
-<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7t677ddmj22io1w0u0x.jpg" width="1200" alt="：）" /></p>
-
-<p>无尽的路</p>
-
-<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7t6cjok0j21w02io7wi.jpg" width="1200" alt="：）" /></p>
-
-<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7t6ouqxcj22io1w04qq.jpg" width="1200" alt="：）" /></p>
-
-<p>你是一株什么植物？</p>
-
-<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7t6ilxm1j22io1w0b2a.jpg" width="1200" alt="：）" /></p>
-
-<p>你又是一簇什么花？</p>
-
-<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7t6lishyj22io1w0x6p.jpg" width="1200" alt="：）" /></p>
-
-<p>晚上回来，墙画好了</p>
-
-<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7twb68w8j20np0hsdh6.jpg" width="1200" alt="：）" /></p>
-
-<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7twfj2qfj20np0hs76x.jpg" width="1200" alt="：）" /></p>
-
-<p>大门口也颇有点样子了</p>
-
-<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7twdzj0gj20np0hs76v.jpg" width="1200" alt="：）" /></p>
-
-<p>晒出一条麒麟臂</p>
-
-<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7t6tr10gj20qo0zkgya.jpg" width="1200" alt="：）" /></p>
-
-<p>你是谁家的狗？</p>
-
-<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7t6xx53lj21w02iou0x.jpg" width="1200" alt="：）" /></p>
-
-<p>为什么一到饭点就来？</p>
-
-<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7t70jalbj22io1w0npd.jpg" width="1200" alt="：）" /></p>
-
-<p>扎染的布，不需要买一匹</p>
-
-<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7t740ay1j22io1w0kjm.jpg" width="1200" alt="：）" /></p>
-
-<p>走，去喝酒</p>
-
-<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7tb6qowij20qo0f0dgu.jpg" width="1200" alt="：）" /></p>
-
-<p>尼玛，为什么这么悲壮？</p>
-
-<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1ej7tb7fs00j20qo0f0ta4.jpg" width="1200" alt="：）" /></p>
-
-<p>洱海门下听歌</p>
-
-<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7tb8ywj6j20qo0f00u6.jpg" width="1200" alt="：）" /></p>
-
-<p>被雨困住走不了</p>
-
-<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7tb9y5zbj20qo0f0abc.jpg" width="1200" alt="：）" /></p>
-
-<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7tbb7rv4j20qo0k076g.jpg" width="1200" alt="：）" /></p>
-
-<p>时间的轨迹变得模糊，不记得这是哪天晚上，大家在画墙</p>
-
-<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1ej7t74us92j20hs0nujup.jpg" width="800" alt="：）" /></p>
-
-<p>燕子来了，走，我们再去一次洱海</p>
-
-<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7tbhdshdj20hs0d9dgm.jpg" width="800" alt="：）" /></p>
-
-<p>Kratos ！ ！ ！</p>
-
-<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7tbi2kq4j20hs0d9mxy.jpg" width="800" alt="：）" /></p>
-
-<p>大家都骑的自行车，是的</p>
-
-<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7tbc1njnj20hs0dc0to.jpg" width="800" alt="：）" /></p>
-
-<p>停车拍照</p>
-
-<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1ej7tbjyfjgj20hs0npmyw.jpg" width="800" alt="：）" /></p>
-
-<p><img src="http://ww3.sinaimg.cn/mw690/8b1ece2agw1ej7tbj3z0mj20hs0dc0tz.jpg" width="800" alt="：）" /></p>
-
-<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1ej7t7xldcyj22io1w0x6p.jpg" width="800" alt="：）" /></p>
-
-<p>又是波谲云诡
-<a href="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7t99kua8j28c01ss4qv.jpg" target="_blank">点击看大图</a></p>
-
-<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7t99kua8j28c01ss4qv.jpg" width="4000" alt="：）" /></p>
-
-<p>又是无尽的路</p>
-
-<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7t9nv70uj22io1w0u0x.jpg" width="1200" alt="：）" /></p>
-
-<p>无尽的路全景
-<a href="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7taa5gkrj28c01ssx6v.jpg" target="_blank">点击看大图</a></p>
-
-<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7taa5gkrj28c01ssx6v.jpg" width="4000" alt="：）" /></p>
-
-<p>左手山，右手水
-<a href="http://ww2.sinaimg.cn/large/8b1ece2agw1ej7tatvzpgj28c01ssb2g.jpg" target="_blank">点击看大图</a></p>
-
-<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1ej7tatvzpgj28c01ssb2g.jpg" width="4000" alt="：）" /></p>
-
-<p>这是我们当天的队伍</p>
-
-<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7tb640cfj20hs0d9js4.jpg" width="800" alt="：）" /></p>
-
-<p>下午累了，吃蛋炒饭。我的索马里海盗造型。</p>
-
-<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7tb496o3j20hs0nuafg.jpg" width="800" alt="：）" /></p>
-
-<p>脚蹬子掉了，海盗修车</p>
-
-<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1ej7tb55t2mj20hs0dgab4.jpg" width="800" alt="：）" /></p>
-
-<p>这是哪天的饭？</p>
-
-<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7tbglwrxj20k00qodjf.jpg" width="800" alt="：）" /></p>
-
-<p>翻墙</p>
-
-<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7tcodq6nj20qo0f275v.jpg" width="800" alt="：）" /></p>
-
-<p><img src="http://ww2.sinaimg.cn/large/8b1ece2agw1ej7tcmilqjj20qo0f2jsp.jpg" width="800" alt="：）" /></p>
-
-<p>降魔杵</p>
-
-<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7vgwbjczj20k00qodj2.jpg" width="800" alt="：）" /></p>
-
-<p>寺外全景
-<a href="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7tc6hvxsj28c01ssu12.jpg" target="_blank">点击看大图</a></p>
-
-<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7tc6hvxsj28c01ssu12.jpg" width="800" alt="：）" /></p>
-
-<p><a href="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7tbxyah7j28c01ssqvc.jpg" target="_blank">点击看大图</a></p>
-
-<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7tbxyah7j28c01ssqvc.jpg" width="800" alt="：）" /></p>
-
-<p>此为何物？</p>
-
-<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7vgyuar9j20k00qo0ww.jpg" width="800" alt="：）" /></p>
-
-<p><img src="http://ww3.sinaimg.cn/large/8b1ece2agw1ej7vgxhsk3j20qo0k00u8.jpg" width="800" alt="：）" /></p>
-
-<p>我要撤了，大家包饺子</p>
-
-<p><img src="http://ww2.sinaimg.cn/mw690/8b1ece2agw1ej7tcgqk6lj20dc09zaac.jpg" width="600" alt="：）" /></p>
-
-<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ej7tchgeihj209y0dcmxl.jpg" width="400" alt="：）" /></p>
-
-<p><img src="http://ww1.sinaimg.cn/mw690/8b1ece2agw1ej7tciado3j209y0dcmxd.jpg" width="400" alt="：）" /></p>
-
-<p><img src="http://ww4.sinaimg.cn/mw690/8b1ece2agw1ej7tcjbj5cj20hs0nsdgw.jpg" width="600" alt="：）" /></p>
-
-<p>合影</p>
-
-<p><img src="http://ww1.sinaimg.cn/mw690/8b1ece2agw1ej7tcbixf4j20f00qowgu.jpg" width="600" alt="：）" /></p>
-
-<p>再见！</p>
-
-<p><img src="http://ww4.sinaimg.cn/large/8b1ece2agw1ej7tceiarqj22io1w0x6p.jpg" width="1000" alt="：）" /></p>
-
-<p>我走之后棚子搭好了</p>
-
-<p><img src="http://ww1.sinaimg.cn/mw690/8b1ece2agw1ej7vgv5561j20qo0k0adm.jpg" width="600" alt="：）" /></p>
-
-<p><img src="http://ww1.sinaimg.cn/mw690/8b1ece2agw1ej7vgt5k59j20qo0k0di4.jpg" width="600" alt="：）" /></p>
-
-<p>大家还在一起吃饭</p>
-
-<p><img src="http://ww3.sinaimg.cn/mw690/8b1ece2agw1ej7tckandsj20qo0f00ua.jpg" width="600" alt="：）" /></p>
-
-<p><img src="http://ww4.sinaimg.cn/mw690/8b1ece2agw1ej7tcl911qj20qo0f0763.jpg" width="600" alt="：）" /></p>
-
-<p>故事还在继续</p>
-
-<pre><code>THE END
-</code></pre>
 ]]></content>
   </entry>
   
