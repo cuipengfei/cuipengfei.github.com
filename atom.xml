@@ -4,7 +4,7 @@
   <title><![CDATA[崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2015-06-27T01:35:39+05:30</updated>
+  <updated>2015-07-04T21:52:34+05:30</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -12,6 +12,114 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[2015第二季度]]></title>
+    <link href="http://cuipengfei.github.com/blog/2015/07/04/2015-second-season/"/>
+    <updated>2015-07-04T20:37:00+05:30</updated>
+    <id>http://cuipengfei.github.com/blog/2015/07/04/2015-second-season</id>
+    <content type="html"><![CDATA[<p>2015竟然这么快就过去一半了。逝者如斯夫。</p>
+
+<h1>博客</h1>
+
+<p>第一季度总结的时候说：</p>
+
+<blockquote><p>今年的博客主线任务定为OO与FP的比较和结合应用吧。</p></blockquote>
+
+<p>这个任务完成的不错，这个主题写了7篇博客。</p>
+
+<p>迭代器已经relevant了，中介者和备忘录太简单就没写，状态模式没找到好的FP实现方式。
+这样11种行为模式除去上述4个，算是基本覆盖完了。</p>
+
+<p>Principles of Reactive Programming作业导学写了两篇，后面的有点难，写不出来了。。。
+这一点后面MOOC再说。</p>
+
+<p>还有一篇gender pay gap的博客，算是今年到目前为止阅读量最多的得意之作。</p>
+
+<p>在武汉做了一次学英语的workshop，在TWU做了pecha kucha，总结成了两篇。</p>
+
+<p>这样，不算季度总结的博客，写了12篇，数量和内容自己都满意。和技术相关的还可以充当复习和刷新记忆的资料。</p>
+
+<p>不错，博客这方面达标了。</p>
+
+<h1>读书</h1>
+
+<p>这个季度比较惨。这一季度只读了五本书。</p>
+
+<p>一部分原因在于TWU的日程太紧，一部分原因在于博客，MOOC和翻译占用的时间很多，不可兼得。</p>
+
+<p>还好第一季度看书比较多，所以到目前为止这半年一共读过16本书，总体数量还不算太惨。</p>
+
+<p>这十六本书里有7本有笔记，可以充当复习和刷新记忆的资料，而且效果很好。自己写的笔记，瞄一眼，整本书的内容和重点就全部复活。</p>
+
+<p>不过看书的领域方面有点杂，2014总结的时候说：</p>
+
+<blockquote><p>明年需要看一些轻量级的经济、哲学和社会心理学的书。</p></blockquote>
+
+<p>这方面执行的不好。</p>
+
+<p><img src="http://i1.tietuku.com/26b6dd870a313983.png" alt="http://i1.tietuku.com/26b6dd870a313983.png" /></p>
+
+<p>于是建了一个trello，把2015下半年要读的书预先plan出来。每个月plan两三本，一部分符合上述他山之石的领域，一部分符合OOP和FP的技术主线。</p>
+
+<p><img src="http://i1.tietuku.com/09607b3bd8c47d1d.png" alt="http://i1.tietuku.com/09607b3bd8c47d1d.png" /></p>
+
+<p>这样plan的数量并不大，如果突然出现兴趣很高，或者优先级很高的书的话，可以随时插入计划中。</p>
+
+<p>另外，pipeline定义清晰，每本书要读完，有笔记，有复习，有某种形式的产出（笔记也算）。</p>
+
+<h1>MOOC</h1>
+
+<p>把Principles of Reactive Programming跟完了，证书拿到了。</p>
+
+<p><img src="http://i1.tietuku.com/cff384ac4788e10b.png" alt="http://i1.tietuku.com/cff384ac4788e10b.png" /></p>
+
+<p>但是照实说，这门课没学懂，只是应付过了。后四周的作业导学没写出来。</p>
+
+<p>主要原因在于事先对课程难度估计过低，投入时间不够。下次开课，需要再跟一遍。</p>
+
+<p>除此之外，下半年对于MOOC这方面不做过多预期，有特别好的特别感兴趣的就跟，没有就算了。</p>
+
+<p>算是对年初说过的话彻底食言了。。。</p>
+
+<h1>体重</h1>
+
+<p>在印度这段时间健身房出勤率74%左右，还挺好。</p>
+
+<p>现在，60.5公斤，第一季度结束时是61。基本算是没变。充分说明了没有改进目标就不会有成绩。</p>
+
+<p>不过鉴于我现在已经不算胖子了，这方面仍然不做过多奢求，维持就好。</p>
+
+<p>另外，腹肌的轮廓开始出现了，我很开心：）</p>
+
+<p><img src="http://i1.tietuku.com/4866dc89e0ffac6a.jpg" style="width: 300px;"/></p>
+
+<p><img src="http://i1.tietuku.com/6b5710437ae31c2f.jpg" style="width: 300px;"/></p>
+
+<h1>翻译</h1>
+
+<p>接了出版社一个翻译的活儿，《Seven more languages in seven weeks》，是本蛮不错的书。这个额外的任务投入时间较多也是读书方面有欠缺的原因之一。</p>
+
+<p>对出版充满期待。</p>
+
+<h1>时间管理与统计</h1>
+
+<p>从四月一号开始，开始使用pomotodo这款超赞的番茄钟软件。从开始的第一天开始，到现在为止，凡是需要坐下来专心执行的事情都有记录。</p>
+
+<p><img src="http://i1.tietuku.com/50d083b12ab39342.png" alt="http://i1.tietuku.com/50d083b12ab39342.png" /></p>
+
+<p>这款软件的统计分析功能很好用，每个番茄钟还可以加tag。可以看到，这三个月做多的时间放在了TWU的备课上（26%），其次是翻译书（16%），mooc和blog紧跟其后（13%和10%），然后还有读书和写TWU需要的总结反馈（都是7%）。</p>
+
+<p>这样，有数据，为什么读书少就一目了然了。</p>
+
+<p>另外，可以看到这三个月平均日完成7.55个番茄钟。这个数量很说明问题，工作的效率靠感觉是感觉不出来的，要靠统计数据和分析。
+7.55个番茄钟，相当于四个小时左右。每天平均专心工作，执行任务的时间只有四个小时啊！</p>
+
+<p>这里面有一部分原因是TWU过程中需要听别的讲师的很多sessions，如果没有这个因素，日均数量应该是9个左右。</p>
+
+<p>下个季度这方面的数据会是什么样的很难说，如果做的工作中有很大部分涉及沟通和协调的话，这个数字或许会走低。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[模板方法模式：子类型多态和高阶函数]]></title>
@@ -4482,203 +4590,6 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
     <id>http://cuipengfei.github.com/blog/2014/09/06/solving-regular-problems-in-scala</id>
     <content type="html"><![CDATA[<iframe src="http://cuipengfei.github.com//slides.com/pengfeicui/solving-regular-problems-in-scala/embed" width="800" height="600" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Desugar Scala(17) -- Option和for，以及脑子里发生的事情]]></title>
-    <link href="http://cuipengfei.github.com/blog/2014/08/30/options-for/"/>
-    <updated>2014-08-30T11:36:00+05:30</updated>
-    <id>http://cuipengfei.github.com/blog/2014/08/30/options-for</id>
-    <content type="html"><![CDATA[<p>Scala里的for关键字是个很有趣的东西。可以用来把多层嵌套for循环写成一层。比如这样：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">for</span><span class="o">(</span><span class="n">i</span><span class="k">&lt;-</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span><span class="o">;</span><span class="n">j</span><span class="k">&lt;-</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span><span class="o">;</span><span class="n">k</span><span class="k">&lt;-</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span><span class="o">)</span> <span class="k">yield</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;$i $j $k&quot;</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这行代码执行的结果是这样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">3</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">4</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">5</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">6</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">7</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">8</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">9</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">10</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">4</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">5</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">6</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">7</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">8</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">9</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">10</span>
-</span><span class='line'><span class="o">......</span>
-</span><span class='line'><span class="o">......</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样，就可以用一行代码写出三层循环的效果。代码看起来非常紧凑，噪音很少。</p>
-
-<p>但是今天主要要说的不是这种for，而是它和Option结合的写法。</p>
-
-<p>Option本身是一个抽象类，代表一个可能存在，也可能不存在的值（那谁谁的喵？）。它有两个实现类，分别是Some和None。顾名思义，Some代表有值，None代表没有。</p>
-
-<p>实际上，上面的说法不够准确，Some是一个实现类，而None实际是一个单例，不过这点对后面的内容没影响。</p>
-
-<p>现在设想一个很简单的场景，需要用单价和数量来算总价，而单价和数量未必拿得到，那代码大概会是这样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">def</span> <span class="n">calculateTotal</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">val</span> <span class="n">price</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">getPrice</span>
-</span><span class='line'>    <span class="k">val</span> <span class="n">amount</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">getAmount</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">price</span><span class="o">.</span><span class="n">isEmpty</span> <span class="o">||</span> <span class="n">amount</span><span class="o">.</span><span class="n">isEmpty</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>      <span class="nc">None</span>
-</span><span class='line'>    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-</span><span class='line'>      <span class="nc">Some</span><span class="o">(</span><span class="n">price</span><span class="o">.</span><span class="n">get</span> <span class="o">*</span> <span class="n">amount</span><span class="o">.</span><span class="n">get</span><span class="o">)</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>getPrice和getAmount都返回一个Option[Int]，就类似Java中Integer可以为null一样。计算出来的总价也是一个Option[Int]，说不定会有，也说不定没有。</p>
-
-<p>在这段代码中先检查单价和数量是否存在，如果二者中任意一个不存在，那就返回None，代表无法求得总价。如果二者都存在，那就将二者的乘积用Some包起来返回。</p>
-
-<p>这代码看起来还ok，很常规的写法，但是稍显啰嗦。如果用上for的话，可以大大简化这段代码：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">def</span> <span class="n">calculateTotalWithFor</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">for</span> <span class="o">(</span><span class="n">price</span> <span class="k">&lt;-</span> <span class="n">getPrice</span><span class="o">;</span> <span class="n">amount</span> <span class="k">&lt;-</span> <span class="n">getAmount</span><span class="o">)</span> <span class="k">yield</span> <span class="n">price</span> <span class="o">*</span> <span class="n">amount</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这个方法体只有一行了，而它实现出来的行为和上面那段代码是完全一致的。</p>
-
-<p>这感觉好神奇啊，不用判断价格和数量是否存在，也不需要根据判断结果决定到底返回None还是Some。它是怎么搞的呢？</p>
-
-<p>看一下反编译的结果吧：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="n">Option</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="nf">calculateTotalWithFor</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="nf">getPrice</span><span class="o">().</span><span class="na">flatMap</span><span class="o">(</span><span class="k">new</span> <span class="n">AbstractFunction1</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kd">public</span> <span class="kd">final</span> <span class="n">Option</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="nf">apply</span><span class="o">(</span><span class="kd">final</span> <span class="kt">int</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="k">return</span> <span class="n">OptionAndFor</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">account</span><span class="n">$of$OptionAndFor$$getAmount</span><span class="o">().</span><span class="na">map</span><span class="o">(</span><span class="k">new</span> <span class="n">AbstractFunction1</span><span class="o">.</span><span class="na">mcII</span><span class="o">.</span><span class="na">sp</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>                <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">price$1</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>                <span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">apply</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>                    <span class="k">return</span> <span class="n">apply$mcII$sp</span><span class="o">(</span><span class="n">amount</span><span class="o">);</span>
-</span><span class='line'>                <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>                <span class="kd">public</span> <span class="kt">int</span> <span class="n">apply$mcII$sp</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>                    <span class="k">return</span> <span class="n">price</span> <span class="o">*</span> <span class="n">amount</span><span class="o">;</span>
-</span><span class='line'>                <span class="o">}</span>
-</span><span class='line'>            <span class="o">});</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">});</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这个反编译的结果很不好读，不过还是可以看出个大概。它先是对getPrice的返回值调用了flatMap，给其传入一个匿名函数（AbstractFunction1），在这个匿名函数里面又对getAmount的返回值调用了map，也给其传入了一个匿名函数，再在这第二层匿名函数里做了乘法运算。</p>
-
-<p>如果用Scala把它表达出来，是这样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">def</span> <span class="n">calculateTotalWithFlatMapAndMap</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">getPrice</span><span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">price</span> <span class="k">=&gt;</span> <span class="n">getAmount</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">amount</span> <span class="k">=&gt;</span> <span class="n">amount</span> <span class="o">*</span> <span class="n">price</span><span class="o">))</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>由此可见，上面使用for的代码的神奇之处在于它利用了Option的flatMap和map方法。</p>
-
-<p>这两个方法具有一个共同特征：如果被调用flatMap或者map的当前Option实例为None的话，则忽略传入的匿名函数，直接返回None。</p>
-
-<p>这很容易理解，要参与运算的成员之一已经是None了，那就不用管剩下的成员到底是啥了，它随便是啥，最终的计算结果都会是None。这和最初写出的用 || 运算符的代码的逻辑是一致的。</p>
-
-<p>到此为止，我们给Option和for的结合使用脱光了衣服，它就是利用Option的flatMap和map来实现紧凑的代码的。</p>
-
-<h3>神奇之处不仅在于更短的代码，还在于它提高了信噪比，给我们提供了更加简化的思考模型</h3>
-
-<p>最初那段用if else的代码，在写它或者读它的时候，我们的脑子里面发生了什么呢？</p>
-
-<pre><code>1. 要获取价格和数量
-2. 要判断价格是否为空，要判断数量是否为空        （与业务关联较小，属于技术范畴）
-3. 如果任意一个为空，结果是空                 （与业务关联较小，属于技术范畴）
-4. 如果两个都不是空，再做乘法运算
-</code></pre>
-
-<p>而在写或者读用for的那段代码的时候，脑子里又是怎么想的呢？</p>
-
-<pre><code>1. 获取价格和数量
-2. 做乘法运算
-</code></pre>
-
-<p>我们写这段代码的目的是要表述业务逻辑，是要给未来读代码的人传递和业务相关的信息。</p>
-
-<p>而空值判断是偏技术的，把这种代码消掉，我们传递给其他程序员的信息里就含有更少的与业务无关的噪音。而且我们自己写起来的时候，脑子里也不需要考虑那么多的东西。</p>
-
-<p>对自己，对他人都有利。这实在是一个美妙的语言特性。</p>
 ]]></content>
   </entry>
   

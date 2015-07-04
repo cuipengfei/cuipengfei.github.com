@@ -9,7 +9,8 @@
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content=" ">
+  <meta name="description" content="前尘 Principles of Reactive Programming在4月13号又开课了。
+https://www.coursera.org/course/reactive 上次开课是在2013年的11月，当时我刚第一次上完Functional programming principles &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +75,230 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/04/19/principles-of-reactive-programming-week-one/">Principles of Reactive Programming Week One作业导学</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-04-19T13:59:00+05:30" pubdate data-updated="true">Apr 19<span>th</span>, 2015</time>
+        
+         | <a href="/blog/2015/04/19/principles-of-reactive-programming-week-one/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>前尘</h1>
+
+<p>Principles of Reactive Programming在4月13号又开课了。
+<a href="https://www.coursera.org/course/reactive">https://www.coursera.org/course/reactive</a></p>
+
+<p>上次开课是在2013年的11月，当时我刚第一次上完Functional programming principles in Scala，热情很高于是就报名参加了这门课。
+还群发了一个邮件找人一起上课。</p>
+
+<p>但是上了几周发现有点难，于是就放弃了。现在去bitbucket看，最后一次push停留在了2013-11-18。</p>
+
+<p>后来还在上海被8x鄙视于无形之中。</p>
+
+<h1>后世</h1>
+
+<p>14年做了几个月的Scala开发，后来Functional programming principles in Scala再次开课又上了一遍，拿了个认证证书。</p>
+
+<p>感觉似乎可以再挑战一次。</p>
+
+<h1>今生</h1>
+
+<p>上课习得的知识放在脑子里是不牢靠的。大脑有遗忘周期。</p>
+
+<p>需要有成文或者成代码的产出，作为日后回忆和做spaced repetition的资料。</p>
+
+<p>于是就有了这个即将成为系列的博文中的第一篇《Principles of Reactive Programming Week One作业导学》。</p>
+
+<p>这系列博文的目标读者仅限于报名参加了这门课并且看完了视频，看完了作业的instruction之后仍有困难的同学。</p>
+
+<p>这系列博文不会公布作业的答案，那是违反Coursera的code of honor的。</p>
+
+<p>我只会试着解释作业中已有的代码，以及应该如何入手。</p>
+
+<p>其实，写这个系列博文对我的帮助比对读者的帮助要大。</p>
+
+<h1>正文</h1>
+
+<h2>Heap.scala</h2>
+
+<p>第一周的代码下载下来之后，先来看一下Heap.scala这个文件。</p>
+
+<p>这个文件里定义了很多个trait。现在只需要关注其中一个Heap。</p>
+
+<p>这个就是所有其他trait都会去extend的基类（这个说法合适吗？）。
+它定义了所有Heap的实现者都需要实现的方法。</p>
+
+<p>然后BinomialHeap完整实现了Heap定义的所有东西。</p>
+
+<p>Bogus1BinomialHeap到Bogus5BinomialHeap都是继承自BinomialHeap，其中各自覆盖了BinomialHeap的不同方法，以不同的方式引入了bug。
+第一周作业的目的就是用ScalaCheck把其中的bug找出来。</p>
+
+<p>这个文件里还有一个IntHeap，这个稍后再说。</p>
+
+<p>实现代码其实就只有这一个文件，接下来看测试代码。</p>
+
+<h2>QuickCheckSuite.scala</h2>
+
+<p>这个文件里主要定义了QuickCheckSuite这个测试类。</p>
+
+<p>这个测试类继承自FunSuite，这是ScalaTest的测试基类。同时mix in了Checkers，这是ScalaTest为了与ScalaCheck集成而提供的trait。</p>
+
+<p>接下来看测试的case：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">def</span> <span class="n">checkBogus</span><span class="o">(</span><span class="n">p</span><span class="k">:</span> <span class="kt">Prop</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">var</span> <span class="n">foundBug</span> <span class="k">=</span> <span class="kc">false</span>
+</span><span class='line'>  <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">check</span><span class="o">(</span><span class="n">p</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span> <span class="k">catch</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">case</span> <span class="n">e</span><span class="k">:</span> <span class="kt">TestFailedException</span> <span class="o">=&gt;</span>
+</span><span class='line'>      <span class="n">foundBug</span> <span class="k">=</span> <span class="kc">true</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>  <span class="n">assert</span><span class="o">(</span><span class="n">foundBug</span><span class="o">,</span> <span class="s">&quot;A bogus heap should NOT satisfy all properties. Try to find the bug!&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">test</span><span class="o">(</span><span class="s">&quot;Binomial heap satisfies properties.&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">check</span><span class="o">(</span><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">BinomialHeap</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">test</span><span class="o">(</span><span class="s">&quot;Bogus (1) binomial heap does not satisfy properties.&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">checkBogus</span><span class="o">(</span><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">Bogus1BinomialHeap</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">test</span><span class="o">(</span><span class="s">&quot;Bogus (2) binomial heap does not satisfy properties.&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">checkBogus</span><span class="o">(</span><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">Bogus2BinomialHeap</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到，每个case都调用了check这个方法，或者是check的变体-checkBogus。</p>
+
+<p>checkBogus里面则调用了check，并且assert说一定要出现TestFailedException异常了，测试才算成功。也就是说checkBogus的目的就是要在某些Heap的实现中找到bug。</p>
+
+<p>现在来看check这个方法本身。它接受一个类型为Prop的参数，这些参数从哪儿来呢？这些参数就是：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">BinomialHeap</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">Bogus1BinomialHeap</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这些代码。</p>
+
+<p>这就意味着QuickCheckHeap一定要是一个Prop，是不是这样呢？</p>
+
+<h2>QuickCheckHeap.scala</h2>
+
+<p>那就到QuickCheckHeap.scala这个文件中来看一下。</p>
+
+<p>可以看到QuickCheckHeap这个抽象类确实是extends了Properties，而properties又extends了Prop。那么，没问题，这个类型是匹配的。</p>
+
+<p>QuickCheckHeap里可以定义任意多个property，这些property将会检查Heap的实现正确与否。</p>
+
+<p>而且它还mix in了IntHeap，就是前面略过的那个trait。它的目的是锁定Heap这个trait里所定义的A这个元素的类型到Int。</p>
+
+<h2>全部连起来</h2>
+
+<p>第一周作业的已有代码很少，有用的就是这三个文件。</p>
+
+<p>Heap.scala定义了很多个Heap的不同实现。有些是正确的，有些是有bug的。</p>
+
+<p>QuickCheckSuite.scala则是测试的入口点，它由JunitRunner拽着跑起来。
+其中的test case使用ScalaCheck去检查对于Heap这种数据结构恒定为true的properties是不是hold住的。</p>
+
+<p>对于Heap这种数据结构恒定为true的properties从哪儿来呢？就来自于QuickCheckHeap.scala。
+QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有了牛逼的trait，就可以用这种代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">BinomialHeap</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">new</span> <span class="nc">QuickCheckHeap</span> <span class="k">with</span> <span class="nc">Bogus1BinomialHeap</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>创建出实例，进行测试了。</p>
+
+<p>最后，我们的任务就是在QuickCheckHeap.scala添加更多的properties，把所有实现有误的Heap都揪出来。</p>
+
+<h1>题外话</h1>
+
+<p>有没有发现QuickCheckHeap.scala里面有些奇怪的代码？</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">property</span><span class="o">(</span><span class="s">&quot;min1&quot;</span><span class="o">)</span> <span class="k">=</span> <span class="n">forAll</span> <span class="o">{</span> <span class="o">(</span><span class="n">heap</span><span class="k">:</span> <span class="kt">H</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span> <span class="k">=&gt;</span>
+</span><span class='line'>  <span class="k">val</span> <span class="n">min</span> <span class="k">=</span> <span class="k">if</span> <span class="o">(</span><span class="n">isEmpty</span><span class="o">(</span><span class="n">heap</span><span class="o">))</span> <span class="n">a</span> <span class="k">else</span> <span class="n">findMin</span><span class="o">(</span><span class="n">heap</span><span class="o">)</span>
+</span><span class='line'>  <span class="n">findMin</span><span class="o">(</span><span class="n">insert</span><span class="o">(</span><span class="n">min</span><span class="o">,</span> <span class="n">heap</span><span class="o">))</span> <span class="o">==</span> <span class="n">min</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>property(&#8220;min should be min&#8221;)，这看起来像是一个方法调用啊。</p>
+
+<p>尼玛，方法调用后面怎么跟着一个等号啊？等号后面还有一个有返回值的表达式啊？</p>
+
+<p>这是啥啊？</p>
+
+<p>这是个乍一看很自然，但是仔细一想很费解的Scala语言特性-update方法。</p>
+
+<p>详情请见我之前的一篇博客：<a href="http://cuipengfei.me/blog/2014/06/12/scala-update-method/">http://cuipengfei.me/blog/2014/06/12/scala-update-method/</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1544,232 +1769,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/08/30/options-for/">Desugar Scala(17) &#8211; Option和for，以及脑子里发生的事情</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-30T11:36:00+05:30" pubdate data-updated="true">Aug 30<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/08/30/options-for/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Scala里的for关键字是个很有趣的东西。可以用来把多层嵌套for循环写成一层。比如这样：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">for</span><span class="o">(</span><span class="n">i</span><span class="k">&lt;-</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span><span class="o">;</span><span class="n">j</span><span class="k">&lt;-</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span><span class="o">;</span><span class="n">k</span><span class="k">&lt;-</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10</span><span class="o">)</span> <span class="k">yield</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;$i $j $k&quot;</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这行代码执行的结果是这样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">3</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">4</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">5</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">6</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">7</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">8</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">9</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">1</span> <span class="mi">10</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">2</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">4</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">5</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">6</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">7</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">8</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">9</span>
-</span><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">10</span>
-</span><span class='line'><span class="o">......</span>
-</span><span class='line'><span class="o">......</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样，就可以用一行代码写出三层循环的效果。代码看起来非常紧凑，噪音很少。</p>
-
-<p>但是今天主要要说的不是这种for，而是它和Option结合的写法。</p>
-
-<p>Option本身是一个抽象类，代表一个可能存在，也可能不存在的值（那谁谁的喵？）。它有两个实现类，分别是Some和None。顾名思义，Some代表有值，None代表没有。</p>
-
-<p>实际上，上面的说法不够准确，Some是一个实现类，而None实际是一个单例，不过这点对后面的内容没影响。</p>
-
-<p>现在设想一个很简单的场景，需要用单价和数量来算总价，而单价和数量未必拿得到，那代码大概会是这样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">def</span> <span class="n">calculateTotal</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">val</span> <span class="n">price</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">getPrice</span>
-</span><span class='line'>    <span class="k">val</span> <span class="n">amount</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">getAmount</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">price</span><span class="o">.</span><span class="n">isEmpty</span> <span class="o">||</span> <span class="n">amount</span><span class="o">.</span><span class="n">isEmpty</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>      <span class="nc">None</span>
-</span><span class='line'>    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-</span><span class='line'>      <span class="nc">Some</span><span class="o">(</span><span class="n">price</span><span class="o">.</span><span class="n">get</span> <span class="o">*</span> <span class="n">amount</span><span class="o">.</span><span class="n">get</span><span class="o">)</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>getPrice和getAmount都返回一个Option[Int]，就类似Java中Integer可以为null一样。计算出来的总价也是一个Option[Int]，说不定会有，也说不定没有。</p>
-
-<p>在这段代码中先检查单价和数量是否存在，如果二者中任意一个不存在，那就返回None，代表无法求得总价。如果二者都存在，那就将二者的乘积用Some包起来返回。</p>
-
-<p>这代码看起来还ok，很常规的写法，但是稍显啰嗦。如果用上for的话，可以大大简化这段代码：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">def</span> <span class="n">calculateTotalWithFor</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">for</span> <span class="o">(</span><span class="n">price</span> <span class="k">&lt;-</span> <span class="n">getPrice</span><span class="o">;</span> <span class="n">amount</span> <span class="k">&lt;-</span> <span class="n">getAmount</span><span class="o">)</span> <span class="k">yield</span> <span class="n">price</span> <span class="o">*</span> <span class="n">amount</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这个方法体只有一行了，而它实现出来的行为和上面那段代码是完全一致的。</p>
-
-<p>这感觉好神奇啊，不用判断价格和数量是否存在，也不需要根据判断结果决定到底返回None还是Some。它是怎么搞的呢？</p>
-
-<p>看一下反编译的结果吧：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="n">Option</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="nf">calculateTotalWithFor</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="nf">getPrice</span><span class="o">().</span><span class="na">flatMap</span><span class="o">(</span><span class="k">new</span> <span class="n">AbstractFunction1</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kd">public</span> <span class="kd">final</span> <span class="n">Option</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="nf">apply</span><span class="o">(</span><span class="kd">final</span> <span class="kt">int</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="k">return</span> <span class="n">OptionAndFor</span><span class="o">..</span><span class="na">MODULE</span><span class="n">$</span><span class="o">.</span><span class="na">account</span><span class="n">$of$OptionAndFor$$getAmount</span><span class="o">().</span><span class="na">map</span><span class="o">(</span><span class="k">new</span> <span class="n">AbstractFunction1</span><span class="o">.</span><span class="na">mcII</span><span class="o">.</span><span class="na">sp</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>                <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">price$1</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>                <span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">apply</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>                    <span class="k">return</span> <span class="n">apply$mcII$sp</span><span class="o">(</span><span class="n">amount</span><span class="o">);</span>
-</span><span class='line'>                <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>                <span class="kd">public</span> <span class="kt">int</span> <span class="n">apply$mcII$sp</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>                    <span class="k">return</span> <span class="n">price</span> <span class="o">*</span> <span class="n">amount</span><span class="o">;</span>
-</span><span class='line'>                <span class="o">}</span>
-</span><span class='line'>            <span class="o">});</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">});</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这个反编译的结果很不好读，不过还是可以看出个大概。它先是对getPrice的返回值调用了flatMap，给其传入一个匿名函数（AbstractFunction1），在这个匿名函数里面又对getAmount的返回值调用了map，也给其传入了一个匿名函数，再在这第二层匿名函数里做了乘法运算。</p>
-
-<p>如果用Scala把它表达出来，是这样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">def</span> <span class="n">calculateTotalWithFlatMapAndMap</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">getPrice</span><span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">price</span> <span class="k">=&gt;</span> <span class="n">getAmount</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">amount</span> <span class="k">=&gt;</span> <span class="n">amount</span> <span class="o">*</span> <span class="n">price</span><span class="o">))</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>由此可见，上面使用for的代码的神奇之处在于它利用了Option的flatMap和map方法。</p>
-
-<p>这两个方法具有一个共同特征：如果被调用flatMap或者map的当前Option实例为None的话，则忽略传入的匿名函数，直接返回None。</p>
-
-<p>这很容易理解，要参与运算的成员之一已经是None了，那就不用管剩下的成员到底是啥了，它随便是啥，最终的计算结果都会是None。这和最初写出的用 || 运算符的代码的逻辑是一致的。</p>
-
-<p>到此为止，我们给Option和for的结合使用脱光了衣服，它就是利用Option的flatMap和map来实现紧凑的代码的。</p>
-
-<h3>神奇之处不仅在于更短的代码，还在于它提高了信噪比，给我们提供了更加简化的思考模型</h3>
-
-<p>最初那段用if else的代码，在写它或者读它的时候，我们的脑子里面发生了什么呢？</p>
-
-<pre><code>1. 要获取价格和数量
-2. 要判断价格是否为空，要判断数量是否为空        （与业务关联较小，属于技术范畴）
-3. 如果任意一个为空，结果是空                 （与业务关联较小，属于技术范畴）
-4. 如果两个都不是空，再做乘法运算
-</code></pre>
-
-<p>而在写或者读用for的那段代码的时候，脑子里又是怎么想的呢？</p>
-
-<pre><code>1. 获取价格和数量
-2. 做乘法运算
-</code></pre>
-
-<p>我们写这段代码的目的是要表述业务逻辑，是要给未来读代码的人传递和业务相关的信息。</p>
-
-<p>而空值判断是偏技术的，把这种代码消掉，我们传递给其他程序员的信息里就含有更少的与业务无关的噪音。而且我们自己写起来的时候，脑子里也不需要考虑那么多的东西。</p>
-
-<p>对自己，对他人都有利。这实在是一个美妙的语言特性。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1785,6 +1784,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/07/04/2015-second-season/">2015第二季度</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2015/06/23/template-method-pattern/">模板方法模式：子类型多态和高阶函数</a>
@@ -1820,10 +1823,6 @@
     
       <li class="post">
         <a href="/blog/2015/04/22/twu-pecha-kucha/">twu pecha kucha</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/04/19/principles-of-reactive-programming-week-one/">Principles of Reactive Programming Week One作业导学</a>
       </li>
     
   </ul>
