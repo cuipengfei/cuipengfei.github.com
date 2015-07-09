@@ -22,7 +22,7 @@ categories: Scala OODP
 
 # Java
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/CaffeineBeverage.java?slice=1:">
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/CaffeineBeverage.java?slice=1:&footer=minimal">
 </script>
 
 首先有一个咖啡因饮品的抽象类，定义一个算法骨架：1烧水，2泡，3装杯，4加调料。
