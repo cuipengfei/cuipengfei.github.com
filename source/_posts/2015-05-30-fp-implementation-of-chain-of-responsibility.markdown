@@ -22,95 +22,23 @@ keywords: 'scala, java, design pattern, Chain Of Responsibility pattern, OO, FP,
 
 # Java
 
-```java
-abstract class Logger {
-    public static int ERR = 3;
-    public static int NOTICE = 5;
-    public static int DEBUG = 7;
-    private int mask;
-
-    private Logger next;
-
-    public Logger(int mask) {
-        this.mask = mask;
-    }
-
-    public void setNext(Logger logger) {
-        next = logger;
-    }
-
-    public void message(String msg, int priority) {
-        if (priority <= mask) {
-            writeMessage(msg);
-        }
-        if (next != null) {
-            next.message(msg, priority);
-        }
-    }
-
-    abstract protected void writeMessage(String msg);
-}
-```
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/chainofresponsibility/Logger.java?slice=1:&footer=minimal">
+</script>
 
 首先定义一个Logger抽象类。从其setNext和message这两个方法可以看出，我们后面会把多个具有不同writeMessage实现的Logger链到一起，并且依次让它们处理某件需要被记录的事件。
 
-```java
-class StdoutLogger extends Logger {
-    public StdoutLogger(int mask) {
-        super(mask);
-    }
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/chainofresponsibility/StdoutLogger.java?slice=1:&footer=minimal">
+</script>
 
-    protected void writeMessage(String msg) {
-        System.out.println("Writing to stdout: " + msg);
-    }
-}
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/chainofresponsibility/EmailLogger.java?slice=1:&footer=minimal">
+</script>
 
-class EmailLogger extends Logger {
-    public EmailLogger(int mask) {
-        super(mask);
-    }
-
-    protected void writeMessage(String msg) {
-        System.out.println("Sending via e-mail: " + msg);
-    }
-}
-
-class StderrLogger extends Logger {
-    public StderrLogger(int mask) {
-        super(mask);
-    }
-
-    protected void writeMessage(String msg) {
-        System.err.println("Sending to stderr: " + msg);
-    }
-}
-```
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/chainofresponsibility/StderrLogger.java?slice=1:&footer=minimal">
+</script>
 
 然后有三个Logger的实现，分别为向命令行输出消息，发送邮件（当然是假的），向命令行输出错误。
-
-```java
-public class ChainOfResponsibilityExample {
-
-    private static Logger createChain() {
-        Logger logger = new StdoutLogger(Logger.DEBUG);
-
-        Logger logger1 = new EmailLogger(Logger.NOTICE);
-        logger.setNext(logger1);
-
-        Logger logger2 = new StderrLogger(Logger.ERR);
-        logger1.setNext(logger2);
-
-        return logger;
-    }
-
-    public static void main(String[] args) {
-        Logger chain = createChain();
-        chain.message("Entering function y.", Logger.DEBUG);
-        chain.message("Step1 completed.", Logger.NOTICE);
-        chain.message("An error has occurred.", Logger.ERR);
-    }
-}
-```
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/chainofresponsibility/ChainOfResponsibilityExample.java?slice=1:&footer=minimal">
+</script>
 
 最后，有一个main函数，创建三个Logger的实例，把它们通过setNext链在一起。 只需要调用一次message就可以让三个Logger依次工作。
 
@@ -140,34 +68,8 @@ public class ChainOfResponsibilityExample {
 
 下面就是比较偏函数式的Scala实现：
 
-```scala
-object Loggers {
-  val ERR = 3
-  val NOTICE = 5
-  val DEBUG = 7
-
-  case class Event(message: String, priority: Int)
-
-  type Logger = Event => Event
-
-  def stdOutLogger(mask: Int): Logger = event => handleEvent(event, mask) {
-    println(s"Writing to stdout: ${event.message}")
-  }
-
-  def emailLogger(mask: Int): Logger = event => handleEvent(event, mask) {
-    println(s"Sending via e-mail: ${event.message}")
-  }
-
-  def stdErrLogger(mask: Int): Logger = event => handleEvent(event, mask) {
-    System.err.println(s"Sending to stderr: ${event.message}")
-  }
-
-  private def handleEvent(event: Event, mask: Int)(handler: => Unit) = {
-    if (event.priority <= mask) handler
-    event
-  }
-}
-```
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/chain/Loggers.scala?slice=1:&footer=minimal">
+</script>
 
 这个代码已经简短到我不想解释的程度了。不过还是解释一下吧。
 
@@ -179,26 +81,7 @@ type Logger则是声明了一个函数签名，凡是符合这个签名的函数
 
 然后便是三个函数实现，它们将mask通过闭包封进函数内。这三个函数共同依赖一个私有handleEvent函数，其作用和Java代码中的message类似，判断mask和正在发生的事件之间优先级大小关系，并以此决定当前logger是否需要处理该事件。
 
-哎？等一下，这个是职责链模式啊，那个啥，链在哪儿呢？
-
-很简单，这样就可以链起来了：
-
-```scala
-object ChainRunner {
-
-  import chain.Loggers._
-
-  def main(args: Array[String]) {
-    val chain = stdOutLogger(DEBUG) andThen emailLogger(NOTICE) andThen stdErrLogger(ERR)
-
-    chain(Event("Entering function y.", DEBUG))
-    chain(Event("Step1 completed.", NOTICE))
-    chain(Event("An error has occurred.", ERR))
-  }
-}
-```
-
-以上代码中的andThen就可以把三个logger链在一起。
+哎？等一下，这个是职责链模式啊，那个啥，链在哪儿呢？就在main函数里。其中的andThen就可以把三个logger链在一起。
 
 这个andThen是个什么东西？何以如此神奇？
 
