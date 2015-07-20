@@ -1618,397 +1618,78 @@ Which is “most natural” may depend on what you are doing (e.g., an interpret
 
 <h1>Java</h1>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Light</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">String</span> <span class="n">location</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="nf">Light</span><span class="o">(</span><span class="n">String</span> <span class="n">location</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">location</span> <span class="o">=</span> <span class="n">location</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">on</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Light is on&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">off</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Light is off&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TV</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">String</span> <span class="n">location</span><span class="o">;</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">channel</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="nf">TV</span><span class="o">(</span><span class="n">String</span> <span class="n">location</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">location</span> <span class="o">=</span> <span class="n">location</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">on</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">location</span> <span class="o">+</span> <span class="s">&quot; TV is on&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">off</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">location</span> <span class="o">+</span> <span class="s">&quot; TV is off&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setInputChannel</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">channel</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
-</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">location</span> <span class="o">+</span> <span class="s">&quot; TV channel is set for DVD&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Stereo</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">String</span> <span class="n">location</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="nf">Stereo</span><span class="o">(</span><span class="n">String</span> <span class="n">location</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">location</span> <span class="o">=</span> <span class="n">location</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">on</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">location</span> <span class="o">+</span> <span class="s">&quot; stereo is on&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">off</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">location</span> <span class="o">+</span> <span class="s">&quot; stereo is off&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Hottub</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kt">boolean</span> <span class="n">on</span><span class="o">;</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">temperature</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="nf">Hottub</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">on</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">on</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">off</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">on</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">circulate</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">on</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Hottub is bubbling!&quot;</span><span class="o">);</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setTemperature</span><span class="o">(</span><span class="kt">int</span> <span class="n">temperature</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">temperature</span> <span class="o">&gt;</span> <span class="k">this</span><span class="o">.</span><span class="na">temperature</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Hottub is heating to a steaming &quot;</span> <span class="o">+</span> <span class="n">temperature</span> <span class="o">+</span> <span class="s">&quot; degrees&quot;</span><span class="o">);</span>
-</span><span class='line'>        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Hottub is cooling to &quot;</span> <span class="o">+</span> <span class="n">temperature</span> <span class="o">+</span> <span class="s">&quot; degrees&quot;</span><span class="o">);</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">temperature</span> <span class="o">=</span> <span class="n">temperature</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/appliances/Light.java?slice=1:&footer=minimal">
+</script>
+
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/appliances/TV.java?slice=1:&footer=minimal">
+</script>
+
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/appliances/Stereo.java?slice=1:&footer=minimal">
+</script>
+
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/appliances/Hottub.java?slice=1:&footer=minimal">
+</script>
 
 
 <p>首先是有四大件家用电器。各自之间没有什么关系。</p>
 
 <p>这里面的代码都有点傻，不过没关系，我们就想象这都是些很复杂的硬件通信之类的代码就好了。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Command</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kt">void</span> <span class="nf">execute</span><span class="o">();</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/Command.java?slice=1:&footer=minimal">
+</script>
 
 
 <p>然后，定义一个Command接口，其中只有一个execute()方法。</p>
 
 <p>之后我们会用它的实现类来操作各种电器。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-<span class='line-number'>86</span>
-<span class='line-number'>87</span>
-<span class='line-number'>88</span>
-<span class='line-number'>89</span>
-<span class='line-number'>90</span>
-<span class='line-number'>91</span>
-<span class='line-number'>92</span>
-<span class='line-number'>93</span>
-<span class='line-number'>94</span>
-<span class='line-number'>95</span>
-<span class='line-number'>96</span>
-<span class='line-number'>97</span>
-<span class='line-number'>98</span>
-<span class='line-number'>99</span>
-<span class='line-number'>100</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LightOnCommand</span> <span class="kd">implements</span> <span class="n">Command</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">Light</span> <span class="n">light</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="nf">LightOnCommand</span><span class="o">(</span><span class="n">Light</span> <span class="n">light</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">light</span> <span class="o">=</span> <span class="n">light</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">light</span><span class="o">.</span><span class="na">on</span><span class="o">();</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LightOffCommand</span> <span class="kd">implements</span> <span class="n">Command</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">Light</span> <span class="n">light</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="nf">LightOffCommand</span><span class="o">(</span><span class="n">Light</span> <span class="n">light</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">light</span> <span class="o">=</span> <span class="n">light</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">light</span><span class="o">.</span><span class="na">off</span><span class="o">();</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TVOnCommand</span> <span class="kd">implements</span> <span class="n">Command</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">TV</span> <span class="n">tv</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="nf">TVOnCommand</span><span class="o">(</span><span class="n">TV</span> <span class="n">tv</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">tv</span> <span class="o">=</span> <span class="n">tv</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">tv</span><span class="o">.</span><span class="na">on</span><span class="o">();</span>
-</span><span class='line'>        <span class="n">tv</span><span class="o">.</span><span class="na">setInputChannel</span><span class="o">();</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TVOffCommand</span> <span class="kd">implements</span> <span class="n">Command</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">TV</span> <span class="n">tv</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="nf">TVOffCommand</span><span class="o">(</span><span class="n">TV</span> <span class="n">tv</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">tv</span> <span class="o">=</span> <span class="n">tv</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">tv</span><span class="o">.</span><span class="na">off</span><span class="o">();</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StereoOnCommand</span> <span class="kd">implements</span> <span class="n">Command</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">Stereo</span> <span class="n">stereo</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="nf">StereoOnCommand</span><span class="o">(</span><span class="n">Stereo</span> <span class="n">stereo</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">stereo</span> <span class="o">=</span> <span class="n">stereo</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">stereo</span><span class="o">.</span><span class="na">on</span><span class="o">();</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StereoOffCommand</span> <span class="kd">implements</span> <span class="n">Command</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">Stereo</span> <span class="n">stereo</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="nf">StereoOffCommand</span><span class="o">(</span><span class="n">Stereo</span> <span class="n">stereo</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">stereo</span> <span class="o">=</span> <span class="n">stereo</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">stereo</span><span class="o">.</span><span class="na">off</span><span class="o">();</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HottubOnCommand</span> <span class="kd">implements</span> <span class="n">Command</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">Hottub</span> <span class="n">hottub</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="nf">HottubOnCommand</span><span class="o">(</span><span class="n">Hottub</span> <span class="n">hottub</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">hottub</span> <span class="o">=</span> <span class="n">hottub</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">hottub</span><span class="o">.</span><span class="na">on</span><span class="o">();</span>
-</span><span class='line'>        <span class="n">hottub</span><span class="o">.</span><span class="na">setTemperature</span><span class="o">(</span><span class="mi">104</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">hottub</span><span class="o">.</span><span class="na">circulate</span><span class="o">();</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HottubOffCommand</span> <span class="kd">implements</span> <span class="n">Command</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">Hottub</span> <span class="n">hottub</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="nf">HottubOffCommand</span><span class="o">(</span><span class="n">Hottub</span> <span class="n">hottub</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">hottub</span> <span class="o">=</span> <span class="n">hottub</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">hottub</span><span class="o">.</span><span class="na">setTemperature</span><span class="o">(</span><span class="mi">98</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">hottub</span><span class="o">.</span><span class="na">off</span><span class="o">();</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/LightOnCommand.java?slice=4:&footer=minimal">
+</script>
+
+
+
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/LightOffCommand.java?slice=4:&footer=minimal">
+</script>
+
+
+
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/TVOnCommand.java?slice=4:&footer=minimal">
+</script>
+
+
+
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/TVOffCommand.java?slice=4:&footer=minimal">
+</script>
+
+
+
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/StereoOnCommand.java?slice=4:&footer=minimal">
+</script>
+
+
+
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/StereoOffCommand.java?slice=4:&footer=minimal">
+</script>
+
+
+
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/HottubOnCommand.java?slice=4:&footer=minimal">
+</script>
+
+
+
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/HottubOffCommand.java?slice=4:&footer=minimal">
+</script>
 
 
 <p>这一大坨，就是Command的实现了。</p>
@@ -2017,82 +1698,14 @@ Which is “most natural” may depend on what you are doing (e.g., an interpret
 
 <p>有些电器的开启和关闭比别的要复杂一些，不过这没有关系，因为它们的细节都被封装在Command的实现类里面了，我们接下来的代码只要和Command这个接口打交道就好了。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MacroCommand</span> <span class="kd">implements</span> <span class="n">Command</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">Command</span><span class="o">[]</span> <span class="n">commands</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="nf">MacroCommand</span><span class="o">(</span><span class="n">Command</span><span class="o">[]</span> <span class="n">commands</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">commands</span> <span class="o">=</span> <span class="n">commands</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">commands</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">commands</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">execute</span><span class="o">();</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/MacroCommand.java?slice=1:&footer=minimal">
+</script>
 
 
 <p>还有一个宏命令，用来组合其他命令。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RemoteControl</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">Command</span><span class="o">[]</span> <span class="n">onCommands</span><span class="o">;</span>
-</span><span class='line'>    <span class="n">Command</span><span class="o">[]</span> <span class="n">offCommands</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="nf">RemoteControl</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">onCommands</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Command</span><span class="o">[</span><span class="mi">7</span><span class="o">];</span>
-</span><span class='line'>        <span class="n">offCommands</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Command</span><span class="o">[</span><span class="mi">7</span><span class="o">];</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCommand</span><span class="o">(</span><span class="kt">int</span> <span class="n">slot</span><span class="o">,</span> <span class="n">Command</span> <span class="n">onCommand</span><span class="o">,</span> <span class="n">Command</span> <span class="n">offCommand</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">onCommands</span><span class="o">[</span><span class="n">slot</span><span class="o">]</span> <span class="o">=</span> <span class="n">onCommand</span><span class="o">;</span>
-</span><span class='line'>        <span class="n">offCommands</span><span class="o">[</span><span class="n">slot</span><span class="o">]</span> <span class="o">=</span> <span class="n">offCommand</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onButtonWasPushed</span><span class="o">(</span><span class="kt">int</span> <span class="n">slot</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">onCommands</span><span class="o">[</span><span class="n">slot</span><span class="o">].</span><span class="na">execute</span><span class="o">();</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">offButtonWasPushed</span><span class="o">(</span><span class="kt">int</span> <span class="n">slot</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">offCommands</span><span class="o">[</span><span class="n">slot</span><span class="o">].</span><span class="na">execute</span><span class="o">();</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/runner/RemoteControl.java?slice=3:&footer=minimal">
+</script>
 
 
 <p>可以实现遥控器了。</p>
@@ -2101,55 +1714,8 @@ Which is “most natural” may depend on what you are doing (e.g., an interpret
 
 <p>这个遥控器上的按钮都是空白的，我们可以给它置入任意我们想要的命令。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RemoteLoader</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">RemoteControl</span> <span class="n">remoteControl</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RemoteControl</span><span class="o">();</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">Light</span> <span class="n">light</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Light</span><span class="o">(</span><span class="s">&quot;Living Room&quot;</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">TV</span> <span class="n">tv</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TV</span><span class="o">(</span><span class="s">&quot;Living Room&quot;</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">Stereo</span> <span class="n">stereo</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stereo</span><span class="o">(</span><span class="s">&quot;Living Room&quot;</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">Hottub</span> <span class="n">hottub</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hottub</span><span class="o">();</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">Command</span><span class="o">[]</span> <span class="n">partyOn</span> <span class="o">=</span> <span class="o">{</span>
-</span><span class='line'>                <span class="k">new</span> <span class="nf">LightOnCommand</span><span class="o">(</span><span class="n">light</span><span class="o">),</span> <span class="k">new</span> <span class="n">StereoOnCommand</span><span class="o">(</span><span class="n">stereo</span><span class="o">),</span>
-</span><span class='line'>                <span class="k">new</span> <span class="nf">TVOnCommand</span><span class="o">(</span><span class="n">tv</span><span class="o">),</span> <span class="k">new</span> <span class="n">HottubOnCommand</span><span class="o">(</span><span class="n">hottub</span><span class="o">)};</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">Command</span><span class="o">[]</span> <span class="n">partyOff</span> <span class="o">=</span> <span class="o">{</span><span class="k">new</span> <span class="n">LightOffCommand</span><span class="o">(</span><span class="n">light</span><span class="o">),</span> <span class="k">new</span> <span class="n">StereoOffCommand</span><span class="o">(</span><span class="n">stereo</span><span class="o">),</span>
-</span><span class='line'>                <span class="k">new</span> <span class="nf">TVOffCommand</span><span class="o">(</span><span class="n">tv</span><span class="o">),</span> <span class="k">new</span> <span class="n">HottubOffCommand</span><span class="o">(</span><span class="n">hottub</span><span class="o">)};</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">remoteControl</span><span class="o">.</span><span class="na">setCommand</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="k">new</span> <span class="n">MacroCommand</span><span class="o">(</span><span class="n">partyOn</span><span class="o">),</span> <span class="k">new</span> <span class="n">MacroCommand</span><span class="o">(</span><span class="n">partyOff</span><span class="o">));</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;--- Pushing Macro On---&quot;</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">remoteControl</span><span class="o">.</span><span class="na">onButtonWasPushed</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;--- Pushing Macro Off---&quot;</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">remoteControl</span><span class="o">.</span><span class="na">offButtonWasPushed</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/runner/RemoteLoader.java?slice=9:&footer=minimal">
+</script>
 
 
 <p>终于可以写一个main函数了：</p>
@@ -2194,144 +1760,32 @@ Which is “most natural” may depend on what you are doing (e.g., an interpret
 
 <p>来试试用Scala实现：</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Light</span><span class="o">(</span><span class="n">location</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">on</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;$location light is on&quot;</span><span class="o">)</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">off</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;$location light is off&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">TV</span><span class="o">(</span><span class="n">location</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">private</span> <span class="k">var</span> <span class="n">channel</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">on</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="n">location</span> <span class="o">+</span> <span class="s">&quot; TV is on&quot;</span><span class="o">)</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">off</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="n">location</span> <span class="o">+</span> <span class="s">&quot; TV is off&quot;</span><span class="o">)</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">setInputChannel</span><span class="o">()</span> <span class="k">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">this</span><span class="o">.</span><span class="n">channel</span> <span class="k">=</span> <span class="mi">3</span>
-</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="n">location</span> <span class="o">+</span> <span class="s">&quot; TV channel is set for DVD&quot;</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Stereo</span><span class="o">(</span><span class="n">location</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">on</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;$location stereo is on&quot;</span><span class="o">)</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">off</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">&quot;$location stereo is off&quot;</span><span class="o">)</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Hottub</span><span class="o">(</span><span class="k">var</span> <span class="n">isOn</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">private</span> <span class="k">var</span> <span class="n">temperature</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">on</span><span class="o">()</span> <span class="k">=</span> <span class="n">isOn</span> <span class="k">=</span> <span class="kc">true</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">off</span><span class="o">()</span> <span class="k">=</span> <span class="n">isOn</span> <span class="k">=</span> <span class="kc">false</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">circulate</span><span class="o">()</span> <span class="k">=</span> <span class="k">if</span> <span class="o">(</span><span class="n">isOn</span><span class="o">)</span> <span class="n">println</span><span class="o">(</span><span class="s">&quot;Hottub is bubbling!&quot;</span><span class="o">)</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">setTemperature</span><span class="o">(</span><span class="n">temperature</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">temperature</span> <span class="o">&gt;</span> <span class="k">this</span><span class="o">.</span><span class="n">temperature</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>      <span class="n">println</span><span class="o">(</span><span class="s">&quot;Hottub is heating to a steaming &quot;</span> <span class="o">+</span> <span class="n">temperature</span> <span class="o">+</span> <span class="s">&quot; degrees&quot;</span><span class="o">)</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>    <span class="k">else</span> <span class="o">{</span>
-</span><span class='line'>      <span class="n">println</span><span class="o">(</span><span class="s">&quot;Hottub is cooling to &quot;</span> <span class="o">+</span> <span class="n">temperature</span> <span class="o">+</span> <span class="s">&quot; degrees&quot;</span><span class="o">)</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>    <span class="k">this</span><span class="o">.</span><span class="n">temperature</span> <span class="k">=</span> <span class="n">temperature</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/appliances/Light.scala?slice=1:&footer=minimal">
+</script>
+
+
+
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/appliances/TV.scala?slice=1:&footer=minimal">
+</script>
+
+
+
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/appliances/Stereo.scala?slice=1:&footer=minimal">
+</script>
+
+
+
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/appliances/Hottub.scala?slice=1:&footer=minimal">
+</script>
 
 
 <p>首先是有四大件家用电器，这部分和Java的代码等价。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Commands</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">type</span> <span class="kt">Command</span> <span class="o">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="nc">Unit</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">tvOn</span><span class="o">(</span><span class="n">tv</span><span class="k">:</span> <span class="kt">TV</span><span class="o">)</span><span class="k">:</span> <span class="kt">Command</span> <span class="o">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">tv</span><span class="o">.</span><span class="n">on</span><span class="o">()</span>
-</span><span class='line'>    <span class="n">tv</span><span class="o">.</span><span class="n">setInputChannel</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">hottubOn</span><span class="o">(</span><span class="n">hottub</span><span class="k">:</span> <span class="kt">Hottub</span><span class="o">)</span><span class="k">:</span> <span class="kt">Command</span> <span class="o">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">hottub</span><span class="o">.</span><span class="n">on</span><span class="o">()</span>
-</span><span class='line'>    <span class="n">hottub</span><span class="o">.</span><span class="n">setTemperature</span><span class="o">(</span><span class="mi">104</span><span class="o">)</span>
-</span><span class='line'>    <span class="n">hottub</span><span class="o">.</span><span class="n">circulate</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">hottubOff</span><span class="o">(</span><span class="n">hottub</span><span class="k">:</span> <span class="kt">Hottub</span><span class="o">)</span><span class="k">:</span> <span class="kt">Command</span> <span class="o">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">hottub</span><span class="o">.</span><span class="n">setTemperature</span><span class="o">(</span><span class="mi">98</span><span class="o">)</span>
-</span><span class='line'>    <span class="n">hottub</span><span class="o">.</span><span class="n">off</span><span class="o">()</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">macroCommand</span><span class="o">(</span><span class="n">commands</span><span class="k">:</span> <span class="kt">Command*</span><span class="o">)</span><span class="k">:</span> <span class="kt">Command</span> <span class="o">=</span> <span class="o">()</span> <span class="k">=&gt;</span>
-</span><span class='line'>    <span class="n">commands</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">command</span> <span class="k">=&gt;</span> <span class="n">command</span><span class="o">())</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/Commands.scala?slice=3:&footer=minimal">
+</script>
 
 
 <p>这一段用来定义各种命令的代码就不同了。</p>
@@ -2346,61 +1800,14 @@ Which is “most natural” may depend on what you are doing (e.g., an interpret
 
 <p>由于这几个操作都只涉及到一个方法的调用，它们直接就符合Command的函数签名，所以不用再封入任何闭包了。这一点看下面的代码就明白了。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">RemoteControl</span><span class="o">(</span><span class="n">onCommands</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Command</span><span class="o">],</span> <span class="n">offCommands</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Command</span><span class="o">])</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">pushOnButton</span><span class="o">(</span><span class="n">slot</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="n">onCommands</span><span class="o">(</span><span class="n">slot</span><span class="o">)()</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="n">pushOffButton</span><span class="o">(</span><span class="n">slot</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="n">offCommands</span><span class="o">(</span><span class="n">slot</span><span class="o">)()</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">object</span> <span class="nc">RemoteLoader</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">main</span><span class="o">(</span><span class="n">args</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">val</span> <span class="n">light</span> <span class="k">=</span> <span class="nc">Light</span><span class="o">(</span><span class="s">&quot;living room&quot;</span><span class="o">)</span>
-</span><span class='line'>    <span class="k">val</span> <span class="n">tv</span> <span class="k">=</span> <span class="nc">TV</span><span class="o">(</span><span class="s">&quot;living room&quot;</span><span class="o">)</span>
-</span><span class='line'>    <span class="k">val</span> <span class="n">stereo</span> <span class="k">=</span> <span class="nc">Stereo</span><span class="o">(</span><span class="s">&quot;living room&quot;</span><span class="o">)</span>
-</span><span class='line'>    <span class="k">val</span> <span class="n">hottub</span> <span class="k">=</span> <span class="nc">Hottub</span><span class="o">()</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">val</span> <span class="n">on</span> <span class="k">=</span> <span class="n">macroCommand</span><span class="o">(</span><span class="n">light</span><span class="o">.</span><span class="n">on</span><span class="o">,</span>
-</span><span class='line'>      <span class="n">stereo</span><span class="o">.</span><span class="n">on</span><span class="o">,</span> <span class="n">tvOn</span><span class="o">(</span><span class="n">tv</span><span class="o">),</span> <span class="n">hottubOn</span><span class="o">(</span><span class="n">hottub</span><span class="o">))</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">val</span> <span class="n">off</span> <span class="k">=</span> <span class="n">macroCommand</span><span class="o">(</span><span class="n">light</span><span class="o">.</span><span class="n">off</span><span class="o">,</span>
-</span><span class='line'>      <span class="n">stereo</span><span class="o">.</span><span class="n">off</span><span class="o">,</span> <span class="n">tv</span><span class="o">.</span><span class="n">off</span><span class="o">,</span> <span class="n">hottubOff</span><span class="o">(</span><span class="n">hottub</span><span class="o">))</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">val</span> <span class="n">remoteControl</span> <span class="k">=</span> <span class="nc">RemoteControl</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">on</span><span class="o">),</span> <span class="nc">Seq</span><span class="o">(</span><span class="n">off</span><span class="o">))</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="s">&quot;--- Pushing Macro On---&quot;</span><span class="o">)</span>
-</span><span class='line'>    <span class="n">remoteControl</span><span class="o">.</span><span class="n">pushOnButton</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
-</span><span class='line'>    <span class="n">println</span><span class="o">(</span><span class="s">&quot;--- Pushing Macro Off---&quot;</span><span class="o">)</span>
-</span><span class='line'>    <span class="n">remoteControl</span><span class="o">.</span><span class="n">pushOffButton</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/RemoteControl.scala?slice=3:&footer=minimal">
+</script>
+
+
+
+
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/RemoteLoader.scala?slice=4:&footer=minimal">
+</script>
 
 
 <p>我们可以定义一个遥控器。其中有开启，和关闭两排按钮。</p>

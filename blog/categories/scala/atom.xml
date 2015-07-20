@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Scala | 崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/blog/categories/scala/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2015-07-20T10:30:12+05:30</updated>
+  <updated>2015-07-20T16:03:20+05:30</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -979,247 +979,79 @@ Which is “most natural” may depend on what you are doing (e.g., an interpret
 
 <h1>Java</h1>
 
-<p>```java
-public class Light {</p>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/appliances/Light.java?slice=1:&footer=minimal">
+</script>
 
-<pre><code>String location;
 
-public Light(String location) {
-    this.location = location;
-}
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/appliances/TV.java?slice=1:&footer=minimal">
+</script>
 
-public void on() {
-    System.out.println("Light is on");
-}
 
-public void off() {
-    System.out.println("Light is off");
-}
-</code></pre>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/appliances/Stereo.java?slice=1:&footer=minimal">
+</script>
 
-<p>}</p>
 
-<p>public class TV {</p>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/appliances/Hottub.java?slice=1:&footer=minimal">
+</script>
 
-<pre><code>String location;
-int channel;
-
-public TV(String location) {
-    this.location = location;
-}
-
-public void on() {
-    System.out.println(location + " TV is on");
-}
-
-public void off() {
-    System.out.println(location + " TV is off");
-}
-
-public void setInputChannel() {
-    this.channel = 3;
-    System.out.println(location + " TV channel is set for DVD");
-}
-</code></pre>
-
-<p>}</p>
-
-<p>public class Stereo {</p>
-
-<pre><code>String location;
-
-public Stereo(String location) {
-    this.location = location;
-}
-
-public void on() {
-    System.out.println(location + " stereo is on");
-}
-
-public void off() {
-    System.out.println(location + " stereo is off");
-}
-</code></pre>
-
-<p>}</p>
-
-<p>public class Hottub {</p>
-
-<pre><code>boolean on;
-int temperature;
-
-public Hottub() {
-}
-
-public void on() {
-    on = true;
-}
-
-public void off() {
-    on = false;
-}
-
-public void circulate() {
-    if (on) {
-        System.out.println("Hottub is bubbling!");
-    }
-}
-
-public void setTemperature(int temperature) {
-    if (temperature &gt; this.temperature) {
-        System.out.println("Hottub is heating to a steaming " + temperature + " degrees");
-    } else {
-        System.out.println("Hottub is cooling to " + temperature + " degrees");
-    }
-    this.temperature = temperature;
-}
-</code></pre>
-
-<p>}
-```</p>
 
 <p>首先是有四大件家用电器。各自之间没有什么关系。</p>
 
 <p>这里面的代码都有点傻，不过没关系，我们就想象这都是些很复杂的硬件通信之类的代码就好了。</p>
 
-<p>```java
-public interface Command {</p>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/Command.java?slice=1:&footer=minimal">
+</script>
 
-<pre><code>void execute();
-</code></pre>
-
-<p>}
-```</p>
 
 <p>然后，定义一个Command接口，其中只有一个execute()方法。</p>
 
 <p>之后我们会用它的实现类来操作各种电器。</p>
 
-<p>```java
-public class LightOnCommand implements Command {</p>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/LightOnCommand.java?slice=4:&footer=minimal">
+</script>
 
-<pre><code>Light light;
 
-public LightOnCommand(Light light) {
-    this.light = light;
-}
 
-public void execute() {
-    light.on();
-}
-</code></pre>
 
-<p>}</p>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/LightOffCommand.java?slice=4:&footer=minimal">
+</script>
 
-<p>public class LightOffCommand implements Command {</p>
 
-<pre><code>Light light;
 
-public LightOffCommand(Light light) {
-    this.light = light;
-}
 
-public void execute() {
-    light.off();
-}
-</code></pre>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/TVOnCommand.java?slice=4:&footer=minimal">
+</script>
 
-<p>}</p>
 
-<p>public class TVOnCommand implements Command {</p>
 
-<pre><code>TV tv;
 
-public TVOnCommand(TV tv) {
-    this.tv = tv;
-}
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/TVOffCommand.java?slice=4:&footer=minimal">
+</script>
 
-public void execute() {
-    tv.on();
-    tv.setInputChannel();
-}
-</code></pre>
 
-<p>}</p>
 
-<p>public class TVOffCommand implements Command {</p>
 
-<pre><code>TV tv;
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/StereoOnCommand.java?slice=4:&footer=minimal">
+</script>
 
-public TVOffCommand(TV tv) {
-    this.tv = tv;
-}
 
-public void execute() {
-    tv.off();
-}
-</code></pre>
 
-<p>}</p>
 
-<p>public class StereoOnCommand implements Command {</p>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/StereoOffCommand.java?slice=4:&footer=minimal">
+</script>
 
-<pre><code>Stereo stereo;
 
-public StereoOnCommand(Stereo stereo) {
-    this.stereo = stereo;
-}
 
-public void execute() {
-    stereo.on();
-}
-</code></pre>
 
-<p>}</p>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/HottubOnCommand.java?slice=4:&footer=minimal">
+</script>
 
-<p>public class StereoOffCommand implements Command {</p>
 
-<pre><code>Stereo stereo;
 
-public StereoOffCommand(Stereo stereo) {
-    this.stereo = stereo;
-}
 
-public void execute() {
-    stereo.off();
-}
-</code></pre>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/HottubOffCommand.java?slice=4:&footer=minimal">
+</script>
 
-<p>}</p>
-
-<p>public class HottubOnCommand implements Command {</p>
-
-<pre><code>Hottub hottub;
-
-public HottubOnCommand(Hottub hottub) {
-    this.hottub = hottub;
-}
-
-public void execute() {
-    hottub.on();
-    hottub.setTemperature(104);
-    hottub.circulate();
-}
-</code></pre>
-
-<p>}</p>
-
-<p>public class HottubOffCommand implements Command {</p>
-
-<pre><code>Hottub hottub;
-
-public HottubOffCommand(Hottub hottub) {
-    this.hottub = hottub;
-}
-
-public void execute() {
-    hottub.setTemperature(98);
-    hottub.off();
-}
-</code></pre>
-
-<p>}
-```</p>
 
 <p>这一大坨，就是Command的实现了。</p>
 
@@ -1227,54 +1059,15 @@ public void execute() {
 
 <p>有些电器的开启和关闭比别的要复杂一些，不过这没有关系，因为它们的细节都被封装在Command的实现类里面了，我们接下来的代码只要和Command这个接口打交道就好了。</p>
 
-<p>```java
-public class MacroCommand implements Command {</p>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/MacroCommand.java?slice=1:&footer=minimal">
+</script>
 
-<pre><code>Command[] commands;
-
-public MacroCommand(Command[] commands) {
-    this.commands = commands;
-}
-
-public void execute() {
-    for (int i = 0; i &lt; commands.length; i++) {
-        commands[i].execute();
-    }
-}
-</code></pre>
-
-<p>}
-```</p>
 
 <p>还有一个宏命令，用来组合其他命令。</p>
 
-<p>```java
-public class RemoteControl {</p>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/runner/RemoteControl.java?slice=3:&footer=minimal">
+</script>
 
-<pre><code>Command[] onCommands;
-Command[] offCommands;
-
-public RemoteControl() {
-    onCommands = new Command[7];
-    offCommands = new Command[7];
-}
-
-public void setCommand(int slot, Command onCommand, Command offCommand) {
-    onCommands[slot] = onCommand;
-    offCommands[slot] = offCommand;
-}
-
-public void onButtonWasPushed(int slot) {
-    onCommands[slot].execute();
-}
-
-public void offButtonWasPushed(int slot) {
-    offCommands[slot].execute();
-}
-</code></pre>
-
-<p>}
-```</p>
 
 <p>可以实现遥控器了。</p>
 
@@ -1282,35 +1075,9 @@ public void offButtonWasPushed(int slot) {
 
 <p>这个遥控器上的按钮都是空白的，我们可以给它置入任意我们想要的命令。</p>
 
-<p>```java
-public class RemoteLoader {</p>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/runner/RemoteLoader.java?slice=9:&footer=minimal">
+</script>
 
-<pre><code>public static void main(String[] args) {
-    RemoteControl remoteControl = new RemoteControl();
-
-    Light light = new Light("Living Room");
-    TV tv = new TV("Living Room");
-    Stereo stereo = new Stereo("Living Room");
-    Hottub hottub = new Hottub();
-
-    Command[] partyOn = {
-            new LightOnCommand(light), new StereoOnCommand(stereo),
-            new TVOnCommand(tv), new HottubOnCommand(hottub)};
-
-    Command[] partyOff = {new LightOffCommand(light), new StereoOffCommand(stereo),
-            new TVOffCommand(tv), new HottubOffCommand(hottub)};
-
-    remoteControl.setCommand(0, new MacroCommand(partyOn), new MacroCommand(partyOff));
-
-    System.out.println("--- Pushing Macro On---");
-    remoteControl.onButtonWasPushed(0);
-    System.out.println("--- Pushing Macro Off---");
-    remoteControl.offButtonWasPushed(0);
-}
-</code></pre>
-
-<p>}
-```</p>
 
 <p>终于可以写一个main函数了：</p>
 
@@ -1354,97 +1121,33 @@ public class RemoteLoader {</p>
 
 <p>来试试用Scala实现：</p>
 
-<p>```scala
-case class Light(location: String) {
-  def on() = println(s"$location light is on")</p>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/appliances/Light.scala?slice=1:&footer=minimal">
+</script>
 
-<p>  def off() = println(s"$location light is off")
-}</p>
 
-<p>case class TV(location: String) {
-  private var channel: Int = 0</p>
 
-<p>  def on() = println(location + " TV is on")</p>
 
-<p>  def off() = println(location + " TV is off")</p>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/appliances/TV.scala?slice=1:&footer=minimal">
+</script>
 
-<p>  def setInputChannel() = {</p>
 
-<pre><code>this.channel = 3
-println(location + " TV channel is set for DVD")
-</code></pre>
 
-<p>  }
-}</p>
 
-<p>case class Stereo(location: String) {
-  def on() = println(s"$location stereo is on")</p>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/appliances/Stereo.scala?slice=1:&footer=minimal">
+</script>
 
-<p>  def off() = println(s"$location stereo is off")
-}</p>
 
-<p>case class Hottub(var isOn: Boolean = false) {
-  private var temperature: Int = 0</p>
 
-<p>  def on() = isOn = true</p>
 
-<p>  def off() = isOn = false</p>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/appliances/Hottub.scala?slice=1:&footer=minimal">
+</script>
 
-<p>  def circulate() = if (isOn) println("Hottub is bubbling!")</p>
-
-<p>  def setTemperature(temperature: Int) = {</p>
-
-<pre><code>if (temperature &gt; this.temperature) {
-  println("Hottub is heating to a steaming " + temperature + " degrees")
-}
-else {
-  println("Hottub is cooling to " + temperature + " degrees")
-}
-this.temperature = temperature
-</code></pre>
-
-<p>  }
-}
-```</p>
 
 <p>首先是有四大件家用电器，这部分和Java的代码等价。</p>
 
-<p>```scala
-object Commands {
-  type Command = () => Unit</p>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/Commands.scala?slice=3:&footer=minimal">
+</script>
 
-<p>  def tvOn(tv: TV): Command = () => {</p>
-
-<pre><code>tv.on()
-tv.setInputChannel()
-</code></pre>
-
-<p>  }</p>
-
-<p>  def hottubOn(hottub: Hottub): Command = () => {</p>
-
-<pre><code>hottub.on()
-hottub.setTemperature(104)
-hottub.circulate()
-</code></pre>
-
-<p>  }</p>
-
-<p>  def hottubOff(hottub: Hottub): Command = () => {</p>
-
-<pre><code>hottub.setTemperature(98)
-hottub.off()
-</code></pre>
-
-<p>  }</p>
-
-<p>  def macroCommand(commands: Command*): Command = () =></p>
-
-<pre><code>commands.foreach(command =&gt; command())
-</code></pre>
-
-<p>}
-```</p>
 
 <p>这一段用来定义各种命令的代码就不同了。</p>
 
@@ -1458,38 +1161,15 @@ hottub.off()
 
 <p>由于这几个操作都只涉及到一个方法的调用，它们直接就符合Command的函数签名，所以不用再封入任何闭包了。这一点看下面的代码就明白了。</p>
 
-<p>```scala
-case class RemoteControl(onCommands: Seq[Command], offCommands: Seq[Command]) {
-  def pushOnButton(slot: Int) = onCommands(slot)()</p>
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/RemoteControl.scala?slice=3:&footer=minimal">
+</script>
 
-<p>  def pushOffButton(slot: Int) = offCommands(slot)()
-}</p>
 
-<p>object RemoteLoader {
-  def main(args: Array[String]) {</p>
 
-<pre><code>val light = Light("living room")
-val tv = TV("living room")
-val stereo = Stereo("living room")
-val hottub = Hottub()
 
-val on = macroCommand(light.on,
-  stereo.on, tvOn(tv), hottubOn(hottub))
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/RemoteLoader.scala?slice=4:&footer=minimal">
+</script>
 
-val off = macroCommand(light.off,
-  stereo.off, tv.off, hottubOff(hottub))
-
-val remoteControl = RemoteControl(Seq(on), Seq(off))
-
-println("--- Pushing Macro On---")
-remoteControl.pushOnButton(0)
-println("--- Pushing Macro Off---")
-remoteControl.pushOffButton(0)
-</code></pre>
-
-<p>  }
-}
-```</p>
 
 <p>我们可以定义一个遥控器。其中有开启，和关闭两排按钮。</p>
 
