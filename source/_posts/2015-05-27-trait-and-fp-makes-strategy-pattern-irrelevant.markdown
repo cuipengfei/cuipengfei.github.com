@@ -116,7 +116,7 @@ Duck原来是持有Fly和Quack的实例，现在则是变成了混入Fly和Quack
 也就是说我们想要做的不过是把符合某个签名的函数塞到鸭子的子类里去而已，而却用interface，class，trait来把这些行为包裹起来了。有些臃肿不是吗？
 
 下面是直接把函数塞入鸭子子类的做法：
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/strategyfp/Duck.scala?slice=1:&footer=minimal">
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/strategyfp/Duck.scala?slice=3:&footer=minimal">
 </script>
 
 Fly和Quack不再是interface或者是trait。而是type aliase。
