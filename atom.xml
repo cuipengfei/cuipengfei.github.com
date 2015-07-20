@@ -4,7 +4,7 @@
   <title><![CDATA[崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2015-07-10T16:30:51+05:30</updated>
+  <updated>2015-07-20T10:30:12+05:30</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -2476,7 +2476,7 @@ Which is “most natural” may depend on what you are doing (e.g., an interpret
 
 <p>下面是直接把函数塞入鸭子子类的做法：</p>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/strategyfp/Duck.scala?slice=1:&footer=minimal">
+<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/strategyfp/Duck.scala?slice=3:&footer=minimal">
 </script>
 
 
