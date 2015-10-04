@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ScalaInAction | 崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/blog/categories/scalainaction/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2015-07-20T16:03:20+05:30</updated>
+  <updated>2015-10-05T01:33:23+08:00</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Spark RDD的fold和aggregate为什么是两个API？为什么不是一个foldLeft？]]></title>
     <link href="http://cuipengfei.github.com/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/"/>
-    <updated>2014-10-31T15:29:00+05:30</updated>
+    <updated>2014-10-31T15:29:00+08:00</updated>
     <id>http://cuipengfei.github.com/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft</id>
     <content type="html"><![CDATA[<p>大家都知道Scala标准库的List有一个用来做聚合操作的foldLeft方法。</p>
 
@@ -137,7 +137,7 @@ companies.foldLeft("")((acc,company)=&gt;acc+company.name)
   <entry>
     <title type="html"><![CDATA[Scala中Stream的应用场景及其实现原理]]></title>
     <link href="http://cuipengfei.github.com/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/"/>
-    <updated>2014-10-23T17:21:00+05:30</updated>
+    <updated>2014-10-23T17:21:00+08:00</updated>
     <id>http://cuipengfei.github.com/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented</id>
     <content type="html"><![CDATA[<h1>假设一个场景</h1>
 
@@ -562,7 +562,7 @@ trait MyStream[+A] {</p>
   <entry>
     <title type="html"><![CDATA[solving regular problems in scala]]></title>
     <link href="http://cuipengfei.github.com/blog/2014/09/06/solving-regular-problems-in-scala/"/>
-    <updated>2014-09-06T20:28:00+05:30</updated>
+    <updated>2014-09-06T20:28:00+08:00</updated>
     <id>http://cuipengfei.github.com/blog/2014/09/06/solving-regular-problems-in-scala</id>
     <content type="html"><![CDATA[<iframe src="http://cuipengfei.github.com//slides.com/pengfeicui/solving-regular-problems-in-scala/embed" width="800" height="600" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
@@ -572,7 +572,7 @@ trait MyStream[+A] {</p>
   <entry>
     <title type="html"><![CDATA[在使用play framework的evolutions？需要支持SQL Server？用Liquibase吧]]></title>
     <link href="http://cuipengfei.github.com/blog/2014/07/18/play-evolutions-to-liquibase/"/>
-    <updated>2014-07-18T15:11:00+05:30</updated>
+    <updated>2014-07-18T15:11:00+08:00</updated>
     <id>http://cuipengfei.github.com/blog/2014/07/18/play-evolutions-to-liquibase</id>
     <content type="html"><![CDATA[<p>我所在的项目在用Scala + Play framework做一个web app。</p>
 
