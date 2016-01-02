@@ -4,7 +4,7 @@
   <title><![CDATA[Category: me | 崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/blog/categories/me/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2015-10-05T01:33:23+08:00</updated>
+  <updated>2016-01-03T02:07:36+08:00</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -12,6 +12,92 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[2015]]></title>
+    <link href="http://cuipengfei.github.com/blog/2016/01/03/2015/"/>
+    <updated>2016-01-03T01:03:00+08:00</updated>
+    <id>http://cuipengfei.github.com/blog/2016/01/03/2015</id>
+    <content type="html"><![CDATA[<p>2015年结束了，一如已经结束了的每一年，非常迅速。</p>
+
+<p>按惯例，从博客说起。</p>
+
+<h1>博客</h1>
+
+<p>15年写了16篇博客，其中9篇是与Scala，Reactive，OODP相关的。这个数字倒还不算太坏。</p>
+
+<p>14年总结的时候说：</p>
+
+<blockquote><p>明年可以改进的是不要嫌话题小，不要嫌话题不够深。 有了有价值的想法就记下来，形成惯性。</p></blockquote>
+
+<p>15年第一季度没有执行这一条原则。其原因在于懒惰。</p>
+
+<p>15年第二季度超额执行。其原因在于找到了主线任务，足够的探索便促成了足够的产出。</p>
+
+<p>第三季度和第四季度未执行。其原因在于到客户现场去工作彻底打乱了所有的日常习惯与日程计划。</p>
+
+<p>这么看来，博客这一块有得有失，得者为要找到一个足够有趣的主线任务，用来催生产出。失者为习惯的打破与难以重补。</p>
+
+<p>由此得出16年需要执行的事项：</p>
+
+<p>主线任务要明确，暂定为Reactive以及与之相关的一切。Review不能每个季度做一次，要每个月做一次，每次可以短，不能没有，这样强迫自己去关注进度，不可斜视。</p>
+
+<h1>读书</h1>
+
+<p><img src="http://i4.tietuku.com/9ba5abac153d116a.png"></p>
+
+<p><img src="http://i4.tietuku.com/607f32c9450c71cf.png"></p>
+
+<p>这个数字可以，分布情况不太漂亮。5月和9月是两个空档。</p>
+
+<p>5月是因为刚去TWU，说得过去。9月是因为去了客户现场，其实也说得过去。</p>
+
+<p>但是内容控制的不好。</p>
+
+<p>14年总结说的是：</p>
+
+<blockquote><p>另外一个改进点是领域，我明年需要看一些轻量级的经济、哲学和社会心理学的书。口说无凭，于此立字为据。</p></blockquote>
+
+<p>这方面第一季度执行的可以，第二季度开始用trello track，也不错。
+但是下半年就废了，还是前文提过的同样的原因。</p>
+
+<p>16年的trello重新建了一个board，遵循上段同样的方式，每个月review。</p>
+
+<h1>MOOC</h1>
+
+<p>极其差。</p>
+
+<p>一年只上完了一门课。没有勇气提16年的目标了。看际遇吧。</p>
+
+<h1>健身</h1>
+
+<p>这个坚持执行的很好。还探索出了好的玩法。</p>
+
+<p><img src="http://i4.tietuku.com/59dfa3e76e11f382.jpg"></p>
+
+<p>数据统计不完整，但是可以凑合看，增重0.4，减脂0.1，算是净增1斤肌肉。曲线不难看，但是这个数字不算漂亮。</p>
+
+<p><img src="http://i4.tietuku.com/93656571b24423e4.jpg"></p>
+
+<p>从8月4号开始用bodyspace来track运动量，至此共91次，重量累计935吨。</p>
+
+<p>这个数字累积到1000吨（也就是100万千克）时就换方法，不着重统计重量了，而是统计围度。</p>
+
+<p>下面统计下出勤率：</p>
+
+<p>从14年6月8日到现在,共574天。出勤362次，出勤率63%。</p>
+
+<h1>时间管理与统计</h1>
+
+<p>这个统计是从15年4月1日开始的，9，10月份由于去客户现场的原因，中断掉了。数据就放在这儿，不分析了。</p>
+
+<p><img src="http://i4.tietuku.com/5e3c1b5be12d1fe5.png"></p>
+
+<h1>其他</h1>
+
+<p>这一年脾气见好，不错。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[2015第三季度]]></title>
@@ -338,73 +424,6 @@
 <p>像这种与天性作斗争的行为，其过程一定是困难，漫长，且鲜有正面自我回馈的。</p>
 
 <p>明年需要<em><strong>改进</strong></em>的是，持续以上改进手段的执行，增加自控强度。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[今天是二零一四年的第一天，回忆一下二零一三年都干了些什么，然后再回忆一下没干什么]]></title>
-    <link href="http://cuipengfei.github.com/blog/2014/01/01/my-2013/"/>
-    <updated>2014-01-01T13:48:00+08:00</updated>
-    <id>http://cuipengfei.github.com/blog/2014/01/01/my-2013</id>
-    <content type="html"><![CDATA[<h2>干了什么</h2>
-
-<p><strong>上半年：</strong></p>
-
-<p>看了十几本书；</p>
-
-<p>写了几篇博客；</p>
-
-<p>在github上做了一个豆瓣读书的插件；</p>
-
-<p>肇始了一个十万个为什么的活动，自始至终只有我一个人参与，然后就挂掉了；</p>
-
-<p>做了三章的SICP，然后卡住做不动了；</p>
-
-<p>乏善可陈。</p>
-
-<p>上面列的最后两项的价值最大，但都没做完。究其原因：</p>
-
-<ul>
-<li>坚持不够</li>
-<li>attention span太短</li>
-</ul>
-
-
-<p>这两项在下半年做的事儿里address到了。</p>
-
-<p><strong>下半年：</strong></p>
-
-<p>又看了十几本书（量与上半年持平）；</p>
-
-<p>又写了几篇博客（量较上半年有增）；</p>
-
-<p>跟完了Coursera上的Functional programming principles in Scala的课，拿到了Statement of Accomplishment with distinction；</p>
-
-<p>键盘速度到了60wpm左右；</p>
-
-<p>找到了坚持和attention span问题的解决方案；</p>
-
-<p>有善可陈。</p>
-
-<p>善在最后一项。解决方案是这样的：</p>
-
-<ul>
-<li>戒掉微博，规避碎片化娱乐化的信息。（还没戒掉的是美剧）</li>
-<li>把番茄钟用到自己的时间中去。track用在“正经事儿”上的时间。</li>
-</ul>
-
-
-<p>不细说了，下面说没干什么。</p>
-
-<h2>没干什么</h2>
-
-<p>我的情商和people skill很低，低的你都猜不到哦亲。</p>
-
-<p>我可以预感到这个东西即将成为我的bottle neck。但是我二零一三年并没有在上面做太多事情。</p>
-
-<p>读了几本我认为会有帮助的书，一些被我认为是不知所云，一些促使我得出了死硬的理性派结论。</p>
-
-<p>二零一四年需要在这个领域积累知识，然后期待量变带来的质变。</p>
 ]]></content>
   </entry>
   

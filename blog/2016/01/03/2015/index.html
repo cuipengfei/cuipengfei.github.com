@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>模板方法模式：子类型多态和高阶函数 - 崔鹏飞的Octopress Blog</title>
+  <title>2015 - 崔鹏飞的Octopress Blog</title>
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content="模板方法模式定义了一个算法的步骤，并允许次类别为一个或多个步骤提供其实践方式。让次类别在不改变算法架构的情况下，重新定义算法中的某些步骤。 以上是wiki对模板方法的定义。 比较容易理解，我们有一个算法，其中某些步骤是确定的不太会变的代码。而另外一些步骤则需要变化并且自由组合。 《Head &hellip;">
+  <meta name="description" content="2015年结束了，一如已经结束了的每一年，非常迅速。 按惯例，从博客说起。 博客 15年写了16篇博客，其中9篇是与Scala，Reactive，OODP相关的。这个数字倒还不算太坏。 14年总结的时候说： 明年可以改进的是不要嫌话题小，不要嫌话题不够深。 有了有价值的想法就记下来，形成惯性。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://cuipengfei.github.com/blog/2015/06/23/template-method-pattern/">
+  <link rel="canonical" href="http://cuipengfei.github.com/blog/2016/01/03/2015/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -77,7 +77,7 @@
   
   <header>
     
-      <h1 class="entry-title">模板方法模式：子类型多态和高阶函数</h1>
+      <h1 class="entry-title">2015</h1>
     
     
       <p class="meta">
@@ -93,7 +93,7 @@
   
 
 
-<time datetime="2015-06-23T15:42:00+08:00" pubdate data-updated="true">Jun 23<span>rd</span>, 2015</time>
+<time datetime="2016-01-03T01:03:00+08:00" pubdate data-updated="true">Jan 3<span>rd</span>, 2016</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -102,82 +102,84 @@
   </header>
 
 
-<div class="entry-content"><blockquote><p>模板方法模式定义了一个算法的步骤，并允许次类别为一个或多个步骤提供其实践方式。让次类别在不改变算法架构的情况下，重新定义算法中的某些步骤。</p></blockquote>
+<div class="entry-content"><p>2015年结束了，一如已经结束了的每一年，非常迅速。</p>
 
-<p>以上是wiki对模板方法的定义。</p>
+<p>按惯例，从博客说起。</p>
 
-<p>比较容易理解，我们有一个算法，其中某些步骤是确定的不太会变的代码。而另外一些步骤则需要变化并且自由组合。</p>
+<h1>博客</h1>
 
-<p>《Head First Design Patterns》里有一个🌰：</p>
+<p>15年写了16篇博客，其中9篇是与Scala，Reactive，OODP相关的。这个数字倒还不算太坏。</p>
 
-<p>假设我们需要制作咖啡因饮品，其实就是咖啡和茶。制作步骤有些类似，分为四步：1烧水，2泡，3装杯，4加调料。</p>
+<p>14年总结的时候说：</p>
 
-<p>其中第一步和第三步是稳定的代码，变化可能性不大，而第二步和第四步则每种饮品有自己的风味。</p>
+<blockquote><p>明年可以改进的是不要嫌话题小，不要嫌话题不够深。 有了有价值的想法就记下来，形成惯性。</p></blockquote>
 
-<p>这样就有了下面的代码：</p>
+<p>15年第一季度没有执行这一条原则。其原因在于懒惰。</p>
 
-<h1>Java</h1>
+<p>15年第二季度超额执行。其原因在于找到了主线任务，足够的探索便促成了足够的产出。</p>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/CaffeineBeverage.java?slice=1:&footer=minimal">
-</script>
+<p>第三季度和第四季度未执行。其原因在于到客户现场去工作彻底打乱了所有的日常习惯与日程计划。</p>
 
+<p>这么看来，博客这一块有得有失，得者为要找到一个足够有趣的主线任务，用来催生产出。失者为习惯的打破与难以重补。</p>
 
-<p>首先有一个咖啡因饮品的抽象类，定义一个算法骨架：1烧水，2泡，3装杯，4加调料。
-其中的第二步和第四步是有待实现的抽象方法，留给子类决定怎么搞。第一步和第三步是写死的。</p>
+<p>由此得出16年需要执行的事项：</p>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/Coffee.java?slice=1:">
-</script>
+<p>主线任务要明确，暂定为Reactive以及与之相关的一切。Review不能每个季度做一次，要每个月做一次，每次可以短，不能没有，这样强迫自己去关注进度，不可斜视。</p>
 
+<h1>读书</h1>
 
-<p>接下来是咖啡，它实现了过滤咖啡和添加牛奶、糖的步骤。这样当它的实例的prepareRecipe方法被调用时就会执行父类的烧水、装杯，以及自己的泡和加调料。</p>
+<p><img src="http://i4.tietuku.com/9ba5abac153d116a.png"></p>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/Tea.java?slice=1:">
-</script>
+<p><img src="http://i4.tietuku.com/607f32c9450c71cf.png"></p>
 
+<p>这个数字可以，分布情况不太漂亮。5月和9月是两个空档。</p>
 
-<p>还有，就是茶了。它和咖啡不一样，是用浸泡而不是过滤，加的是柠檬而不是牛奶和糖。</p>
+<p>5月是因为刚去TWU，说得过去。9月是因为去了客户现场，其实也说得过去。</p>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/BeverageTestDrive.java?slice=1:">
-</script>
+<p>但是内容控制的不好。</p>
 
+<p>14年总结说的是：</p>
 
-<p>最后用一个main函数来执行制作咖啡和茶的代码。</p>
+<blockquote><p>另外一个改进点是领域，我明年需要看一些轻量级的经济、哲学和社会心理学的书。口说无凭，于此立字为据。</p></blockquote>
 
-<p>很好，如果再有其他的咖啡因饮品，只需要增加一个子类，并且实现两个方法就好了。只要我们对于四个步骤的定义在该领域中足够稳定，这份代码就是很好很强大，易于扩展的。</p>
+<p>这方面第一季度执行的可以，第二季度开始用trello track，也不错。
+但是下半年就废了，还是前文提过的同样的原因。</p>
 
-<p>有代码如此，夫复何求呢？</p>
+<p>16年的trello重新建了一个board，遵循上段同样的方式，每个月review。</p>
 
-<h2>不过再想一下</h2>
+<h1>MOOC</h1>
 
-<p>这个模式想要达到的，不过是将一个算法的某些部分做的灵活一些，可以自由替换和组合。</p>
+<p>极其差。</p>
 
-<p>那这个，不就是函数组合吗？如果我们使用的是允许高阶函数的语言的话，那还有什么必要把这些函数包装在类里呢？</p>
+<p>一年只上完了一门课。没有勇气提16年的目标了。看际遇吧。</p>
 
-<h1>functions</h1>
+<h1>健身</h1>
 
-<p>接下来是用Scala实现的版本：</p>
+<p>这个坚持执行的很好。还探索出了好的玩法。</p>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/templatemethodS/Beverages.scala?slice=1:">
-</script>
+<p><img src="http://i4.tietuku.com/59dfa3e76e11f382.jpg"></p>
 
+<p>数据统计不完整，但是可以凑合看，增重0.4，减脂0.1，算是净增1斤肌肉。曲线不难看，但是这个数字不算漂亮。</p>
 
-<p>首先，定义三个type，分别是泡和加调料这两个步骤，还有饮品本身（这三个type其实是一样的，看起来有点傻）。</p>
+<p><img src="http://i4.tietuku.com/93656571b24423e4.jpg"></p>
 
-<p>然后有一个算法骨架，把第一和第三步锁死，把第二和第四步空出来，分别用一个参数来实现注入不同的实现。</p>
+<p>从8月4号开始用bodyspace来track运动量，至此共91次，重量累计935吨。</p>
 
-<p>接下来有泡和加调料的四种不同实现，分别是一个函数，符合各自的函数签名。</p>
+<p>这个数字累积到1000吨（也就是100万千克）时就换方法，不着重统计重量了，而是统计围度。</p>
 
-<p>最后，用一个main函数来执行。可以看到，泡和加调料的函数是作为参数传入的。如果我们需要加牛奶和糖的茶，或者是柠檬味的咖啡的话，也会变得非常容易。</p>
+<p>下面统计下出勤率：</p>
 
-<p>就这样，51行代码变成了28行。四个类变成了一个object。</p>
+<p>从14年6月8日到现在,共574天。出勤362次，出勤率63%。</p>
 
-<p>而如果是要用子类型多态（subtype polymorphism）来做到这样的自由组合，那么我们需要的或许就是策略模式，把泡和加调料分别写成接口并提供不同的实现类来组合。可以想象，这会导致很多的boilerplate。</p>
+<h1>时间管理与统计</h1>
 
-<h1>结语</h1>
+<p>这个统计是从15年4月1日开始的，9，10月份由于去客户现场的原因，中断掉了。数据就放在这儿，不分析了。</p>
 
-<p>Java代码中实现多态的方式是通过子类继承父类并且实现抽象方法来实现的。而Scala代码中则是通过把不同的函数传入骨架组合出一个新的函数来实现的。</p>
+<p><img src="http://i4.tietuku.com/5e3c1b5be12d1fe5.png"></p>
 
-<p>子类型多态（subtype polymorphism）是个好东西，但是在某些场景下显得有点重。能用高阶函数这种轻量级的方式来实现的时候，就没有必要选择子类型多态这种过重的方式。</p>
+<h1>其他</h1>
+
+<p>这一年脾气见好，不错。</p>
 </div>
 
 
@@ -200,12 +202,12 @@
   
 
 
-<time datetime="2015-06-23T15:42:00+08:00" pubdate data-updated="true">Jun 23<span>rd</span>, 2015</time>
+<time datetime="2016-01-03T01:03:00+08:00" pubdate data-updated="true">Jan 3<span>rd</span>, 2016</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/oodp/'>OODP</a>, <a class='category' href='/blog/categories/scala/'>Scala</a>
+    <a class='category' href='/blog/categories/me/'>me</a>
   
 </span>
 
@@ -214,7 +216,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cuipengfei.github.com/blog/2015/06/23/template-method-pattern/" data-via="cuipf" data-counturl="http://cuipengfei.github.com/blog/2015/06/23/template-method-pattern/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cuipengfei.github.com/blog/2016/01/03/2015/" data-via="cuipf" data-counturl="http://cuipengfei.github.com/blog/2016/01/03/2015/" >Tweet</a>
   
   
   
@@ -225,10 +227,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2015/06/16/visitor-pattern-pattern-match/" title="Previous Post: 访问者模式 in FP：Pattern Matching">&laquo; 访问者模式 in FP：Pattern Matching</a>
+        <a class="basic-alignment left" href="/blog/2015/10/05/2015-3rd-season/" title="Previous Post: 2015第三季度">&laquo; 2015第三季度</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2015/07/04/2015-second-season/" title="Next Post: 2015第二季度">2015第二季度 &raquo;</a>
       
     </p>
   </footer>
@@ -360,8 +360,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://cuipengfei.github.com/blog/2015/06/23/template-method-pattern/';
-        var disqus_url = 'http://cuipengfei.github.com/blog/2015/06/23/template-method-pattern/';
+        var disqus_identifier = 'http://cuipengfei.github.com/blog/2016/01/03/2015/';
+        var disqus_url = 'http://cuipengfei.github.com/blog/2016/01/03/2015/';
         var disqus_script = 'embed.js';
       
     (function () {
