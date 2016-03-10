@@ -4,7 +4,7 @@
   <title><![CDATA[崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2016-01-03T02:07:36+08:00</updated>
+  <updated>2016-03-10T15:45:54+08:00</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -12,6 +12,191 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[利用CouchBase为弱网环境构建云同步Android应用]]></title>
+    <link href="http://cuipengfei.github.com/blog/2016/03/10/couchbase-android-sync/"/>
+    <updated>2016-03-10T10:26:00+08:00</updated>
+    <id>http://cuipengfei.github.com/blog/2016/03/10/couchbase-android-sync</id>
+    <content type="html"><![CDATA[<h1>背景</h1>
+
+<p>Wifi，4G，3G，这些我们习以为常的东西，未必对所有人来说都是随时可用的。</p>
+
+<p>以我当前所在项目为例，应用场景是某欠发达地区医疗服务机构的药品库存管理。</p>
+
+<p>所谓欠发达，具体怎样呢？</p>
+
+<ul>
+<li>没有台式电脑</li>
+<li>没有笔记本</li>
+<li>只能使用低端的安卓平板</li>
+<li>4G，3G信号不要想</li>
+<li>我们去过现场的一位同事甚至要爬到树上去，才能勉强收到2G信号
+<img src="http://img2.cache.netease.com/cnews/2009/2/2/20090202093425b68f3.jpg" alt="tree" /></li>
+<li>即便是2G信号，也是时断时续，非常不稳定</li>
+</ul>
+
+
+<p>因此，需要随时保持连通的BS结构基本不可行，我们选择了重度依赖移动端设备本地存储的CS结构（胖客户端）。</p>
+
+<p>网络不可用时，库存变动存储在安卓本地，何时网络可用，再将数据与服务器同步。</p>
+
+<h1>问题</h1>
+
+<p>以上描述的解决方案似乎合情合理，但是真实实施中还是遇到不少问题：</p>
+
+<ul>
+<li>本地schema与服务器schema不一致，中间涉及数据转换与回转</li>
+<li>本地到服务器的同步数据流动链条过长（本地orm->本地Json serialization->服务器Json deserialization->服务器orm），链条中任何一环都有出差池的可能性。
+换句话说，导致数据健全性受损的可能性分散在了太多的点上，一旦出错，难以定位</li>
+<li>服务器到本地的数据同步，上一条中所描述的链条的逆向，同样是链条太长，潜在的出现错误的点太多</li>
+<li>服务器端所掌握的数据只是客户端真实数据的一个变体，并且还未必是最新的，这样就导致当移动端应用因其本地数据而出错的时候，我们只能对着服务器干着急</li>
+</ul>
+
+
+<p>以上描述的问题并不是偶发性的，它不像这里有个bug今天修了，明天那里有个bug再修一次就好。</p>
+
+<p>只要我们仍然要在弱网环境中运行应用，我们就需要重度依赖本地存储，就需要持续的在移动端和服务端进行双向数据同步，以上的问题就将会一直存在。</p>
+
+<p>这是自然环境限制与技术选择所带来的固有的内在的问题。</p>
+
+<h1>解决方案</h1>
+
+<p>上面提到：</p>
+
+<blockquote><p>这是自然环境限制与技术选择所带来的固有的内在的问题。</p></blockquote>
+
+<p>这句话再解释明白一些，自然环境限制指的是很差的网络可用性，技术选择指的是服务器端提供REST API，移动端利用该API进行通行。</p>
+
+<p>以上这二者相结合导致了上述情况成为了固有的内在的问题。</p>
+
+<p>自然环境的限制我们无法突破，我们不能把基站部署过去，让大家打电话之前不用再爬到树上去。</p>
+
+<p>但是技术选择是完全受我们控制的，是有做文章的空间的。</p>
+
+<p>这就引出了文章标题提到的CouchBase。</p>
+
+<h1>CouchBase</h1>
+
+<p>关于CouchBase是一个怎样的DB，请大家自行搜索。</p>
+
+<p>我们主要关注它推出的CouchBase-Lite（android和iOS均有对应版本）。</p>
+
+<p><img src="https://camo.githubusercontent.com/c1aa705fde3eb12245c06730d850c23e5a84ad8d/687474703a2f2f746c657964656e2d6d6973632e73332e616d617a6f6e6177732e636f6d2f636f756368626173652d6c6974652f636f756368626173652d6c6974652d6172636869746563747572652e706e67" alt="replicate" /></p>
+
+<p>左边的绿色方框是移动端应用，它通过蓝色标示的Sync Gateway与CouchBase Server通信。</p>
+
+<p>请注意图中的箭头都是双向的，任何一方对本地数据库的写操作，都会导致对方的更新。任何一方的网络暂时中断也没有关系，在网络恢复的时候将会自动重试。</p>
+
+<p>这样一来，数据同步的思路就变了，不再是在服务器端定义上传下载的API，移动端进行调用。而是利用DB自有的replication机制进行数据同步。</p>
+
+<p>这就意味着我们在移动端只需要关注建立领域特定的模型，并将其存储入移动端本地的CouchBase即可，至于后面的序列化、网络通信等等问题就不需要我们去担心了。</p>
+
+<p>关注点中很大一部分就这样被分离了出去，交由infrastructure去完成。</p>
+
+<p>至于DB自有的replication机制的可靠性，应该可以比较安全的做出假设，认为一个有商用场景的DB厂商的通用数据备份机制不会比我们自己拼凑出来的更差。</p>
+
+<h1>一个原型</h1>
+
+<p><a href="https://github.com/cuipengfei/Spikes/tree/master/android/sync-prototype">https://github.com/cuipengfei/Spikes/tree/master/android/sync-prototype</a></p>
+
+<p>上面的链接是一个基本可用的购物清单应用。全部代码都在，供参考。</p>
+
+<p>下面谈如何把玩它。</p>
+
+<h2>第一步</h2>
+
+<p>下载CouchBase Server： <a href="http://www.couchbase.com/nosql-databases/downloads#">http://www.couchbase.com/nosql-databases/downloads#</a>，安装，配置管理员账户，不赘述。</p>
+
+<p>在CouchBase Server的Admin console(默认地址： http://127.0.0.1:8091/index.html)中创建一个bucket，命名为demodb。</p>
+
+<h2>第二步</h2>
+
+<p>安装sync_gateway，Mac用户可以：</p>
+
+<pre><code>brew install sync_gateway
+</code></pre>
+
+<p>以上github代码克隆下来后，sync-gateway路径下有个名为start_sync_gateway_server.sh的脚本，运行它来启动sync gateway。</p>
+
+<h2>第三步</h2>
+
+<p>运行同一个路径下的create_user.sh，来创建一个名为user1的用户，然后运行create_session.sh，为该用户创建一个session。</p>
+
+<p>create_session.sh脚本有类似如下的输出：</p>
+
+<pre><code>{"session_id":"a469f18027647e4957ffd1743e2ea33ce0386dbc","expires":"2016-02-21T17:51:43.071175586+08:00","cookie_name":"SyncGatewaySession"}
+</code></pre>
+
+<p>把其中的session id记下备用。</p>
+
+<p>（注：这里的用户和session都是sync gateway需要的，与CouchBase Server无直接关系）</p>
+
+<h2>第四步</h2>
+
+<p>找到代码中的MainActivity类，在startSync方法中加入session id：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="c1">//......</span>
+</span><span class='line'><span class="n">Replication</span> <span class="n">pullReplication</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="na">createPullReplication</span><span class="o">(</span><span class="n">syncUrl</span><span class="o">);</span>
+</span><span class='line'><span class="n">pullReplication</span><span class="o">.</span><span class="na">setCookie</span><span class="o">(</span><span class="s">&quot;SyncGatewaySession&quot;</span><span class="o">,</span> <span class="s">&quot;a469f18027647e4957ffd1743e2ea33ce0386dbc&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="mi">86400000000000L</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+</span><span class='line'><span class="n">pullReplication</span><span class="o">.</span><span class="na">setChannels</span><span class="o">(</span><span class="n">asList</span><span class="o">(</span><span class="s">&quot;user1&quot;</span><span class="o">));</span>
+</span><span class='line'><span class="n">pullReplication</span><span class="o">.</span><span class="na">setContinuous</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">Replication</span> <span class="n">pushReplication</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="na">createPushReplication</span><span class="o">(</span><span class="n">syncUrl</span><span class="o">);</span>
+</span><span class='line'><span class="n">pushReplication</span><span class="o">.</span><span class="na">setCookie</span><span class="o">(</span><span class="s">&quot;SyncGatewaySession&quot;</span><span class="o">,</span> <span class="s">&quot;a469f18027647e4957ffd1743e2ea33ce0386dbc&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="mi">86400000000000L</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+</span><span class='line'><span class="n">pushReplication</span><span class="o">.</span><span class="na">setChannels</span><span class="o">(</span><span class="n">asList</span><span class="o">(</span><span class="s">&quot;user1&quot;</span><span class="o">));</span>
+</span><span class='line'><span class="n">pushReplication</span><span class="o">.</span><span class="na">setContinuous</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这段代码负责启动replication，双向同步从此而起。</p>
+
+<p>找到createGroceryItem，为其中创建document的代码指定其所归属的用户：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="c1">//......</span>
+</span><span class='line'><span class="n">Document</span> <span class="n">document</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="na">createDocument</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">properties</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;();</span>
+</span><span class='line'><span class="n">properties</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;channels&quot;</span><span class="o">,</span> <span class="n">asList</span><span class="o">(</span><span class="s">&quot;user1&quot;</span><span class="o">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这几行代码可以保证各个移动端用户之间的数据不会混杂在一起。</p>
+
+<h2>第五步</h2>
+
+<p>在genymotion中启动android虚拟机（如果使用其他虚拟设备或者真机，请注意修改代码中的服务器ip地址）。</p>
+
+<p>在购物清单中创建几条记录，然后清空移动端本机数据，重启应用，可以看到刚刚被清空的购物清单会从服务器上同步回来。</p>
+
+<p>也可以尝试把虚拟机的网络连接断掉，创建或者修改几条记录，稍后重新连通网络，可以发现数据仍然可以上传到服务器。</p>
+
+<p>还可以尝试用第三步中提到的脚本多创建几个用户，在不同的android虚拟机中使用不同用户，可以发现它们对彼此的数据是没有访问权的。</p>
+
+<h1>总结</h1>
+
+<p>以上第五步提到的双向同步，离线操作，不同用户之间的数据隔离，都不需要我们写任何特殊的代码来实现。</p>
+
+<p>我们移动端的代码与CouchBase的集成基本就只涉及到第四步中提到的启动replication和创建document，那这样移动端剩下的工作就只有构建业务逻辑了。</p>
+
+<p>如果你的移动端应用也需要在弱网环境下进行离线操作，在网络恢复时与服务器同步数据的话，不妨尝试一下CouchBase。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[2015]]></title>
@@ -2955,139 +3140,6 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
     <id>http://cuipengfei.github.com/blog/2014/11/16/zdyx2015wuhansecondclass</id>
     <content type="html"><![CDATA[<iframe src="http://cuipengfei.github.com//slides.com/pengfeicui/285849/embed" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Spark RDD的fold和aggregate为什么是两个API？为什么不是一个foldLeft？]]></title>
-    <link href="http://cuipengfei.github.com/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/"/>
-    <updated>2014-10-31T15:29:00+08:00</updated>
-    <id>http://cuipengfei.github.com/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft</id>
-    <content type="html"><![CDATA[<p>大家都知道Scala标准库的List有一个用来做聚合操作的foldLeft方法。</p>
-
-<p>比如我定义一个公司类：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">case</span> <span class="k">class</span> <span class="nc">Company</span><span class="o">(</span><span class="n">name</span><span class="k">:</span><span class="kt">String</span><span class="o">,</span> <span class="n">children</span><span class="k">:</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">Company</span><span class="o">]</span><span class="k">=</span><span class="nc">Nil</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>它有名字和子公司。
-然后定义几个公司：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">val</span> <span class="n">companies</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="nc">Company</span><span class="o">(</span><span class="s">&quot;B&quot;</span><span class="o">),</span><span class="nc">Company</span><span class="o">(</span><span class="s">&quot;A&quot;</span><span class="o">),</span><span class="nc">Company</span><span class="o">(</span><span class="s">&quot;T&quot;</span><span class="o">))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>三家大公司，然后呢，我假设有一家超牛逼的公司把它们给合并了：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">companies</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="nc">Company</span><span class="o">(</span><span class="s">&quot;King&quot;</span><span class="o">))((</span><span class="n">king</span><span class="o">,</span><span class="n">company</span><span class="o">)</span><span class="k">=&gt;</span><span class="nc">Company</span><span class="o">(</span><span class="n">name</span><span class="k">=</span><span class="n">king</span><span class="o">.</span><span class="n">name</span><span class="o">,</span><span class="n">king</span><span class="o">.</span><span class="n">children</span><span class="o">:+</span><span class="n">company</span><span class="o">))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这个执行的结果是这样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">companies</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="nc">Company</span><span class="o">(</span><span class="s">&quot;King&quot;</span><span class="o">))((</span><span class="n">king</span><span class="o">,</span><span class="n">company</span><span class="o">)</span><span class="k">=&gt;</span><span class="nc">Company</span><span class="o">(</span><span class="n">name</span><span class="k">=</span><span class="n">king</span><span class="o">.</span><span class="n">name</span><span class="o">,</span><span class="n">king</span><span class="o">.</span><span class="n">children</span><span class="o">:+</span><span class="n">company</span><span class="o">))</span>
-</span><span class='line'><span class="n">res6</span><span class="k">:</span> <span class="kt">Company</span> <span class="o">=</span> <span class="nc">Company</span><span class="o">(</span><span class="nc">King</span><span class="o">,</span><span class="nc">List</span><span class="o">(</span><span class="nc">Company</span><span class="o">(</span><span class="n">B</span><span class="o">,</span><span class="nc">List</span><span class="o">()),</span> <span class="nc">Company</span><span class="o">(</span><span class="n">A</span><span class="o">,</span><span class="nc">List</span><span class="o">()),</span> <span class="nc">Company</span><span class="o">(</span><span class="n">T</span><span class="o">,</span><span class="nc">List</span><span class="o">())))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可见foldLeft的结果是一家包含了BAT三大家得新公司。</p>
-
-<p>由List[Company]聚合出一个新的Company，这种属于foldLeft的同构聚合操作。</p>
-
-<p>同时，foldLeft也可以做异构的聚合操作：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">companies</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">)((</span><span class="n">acc</span><span class="o">,</span><span class="n">company</span><span class="o">)</span><span class="k">=&gt;</span><span class="n">acc</span><span class="o">+</span><span class="n">company</span><span class="o">.</span><span class="n">name</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>它的执行结果是这样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">companies</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">)((</span><span class="n">acc</span><span class="o">,</span><span class="n">company</span><span class="o">)</span><span class="k">=&gt;</span><span class="n">acc</span><span class="o">+</span><span class="n">company</span><span class="o">.</span><span class="n">name</span><span class="o">)</span>
-</span><span class='line'><span class="n">res7</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="nc">BAT</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>由List[Company]聚合出一个String。</p>
-
-<p>这样的API感觉很方便，只要是聚合，无论同构异构，都可以用它来做。</p>
-
-<p>最近接触了Spark，其中的RDD是做分布式计算时最常用的一个类。</p>
-
-<p>RDD有一个叫做fold的API，它和foldLeft的签名很像，唯一区别是它只能做同构聚合操作。</p>
-
-<p>也就是说如果你有一个RDD[X]，通过fold，你只能构造出一个X。</p>
-
-<p>如果我想通过一个RDD[X]构造一个Y出来呢？</p>
-
-<p>那就得用aggregate这个API了，aggregate的签名是这样的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">aggregate</span><span class="o">[</span><span class="kt">U</span><span class="o">](</span><span class="n">zeroValue</span><span class="k">:</span> <span class="kt">U</span><span class="o">)(</span><span class="n">seqOp</span><span class="k">:</span> <span class="o">(</span><span class="kt">U</span><span class="o">,</span> <span class="kt">T</span><span class="o">)</span> <span class="k">⇒</span> <span class="n">U</span><span class="o">,</span> <span class="n">combOp</span><span class="k">:</span> <span class="o">(</span><span class="kt">U</span><span class="o">,</span> <span class="kt">U</span><span class="o">)</span> <span class="k">⇒</span> <span class="n">U</span><span class="o">)(</span><span class="k">implicit</span> <span class="n">arg0</span><span class="k">:</span> <span class="kt">ClassTag</span><span class="o">[</span><span class="kt">U</span><span class="o">])</span><span class="k">:</span> <span class="kt">U</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>它比fold和foldLeft多需要一个combOp做参数。</p>
-
-<p>这让我很不解，同构和异构的API干嘛非得拆成两个呢？怎么不能学Scala的标准库，把它做成类似foldLeft的样子呢？</p>
-
-<p>后来想明白了，这是由于Spark需要分布运算造成的。</p>
-
-<p>先想一下Scala List的foldLeft是怎么工作的？</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">companies</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="nc">Company</span><span class="o">(</span><span class="s">&quot;King&quot;</span><span class="o">))((</span><span class="n">king</span><span class="o">,</span><span class="n">company</span><span class="o">)</span><span class="k">=&gt;</span><span class="nc">Company</span><span class="o">(</span><span class="n">name</span><span class="k">=</span><span class="n">king</span><span class="o">.</span><span class="n">name</span><span class="o">,</span><span class="n">king</span><span class="o">.</span><span class="n">children</span><span class="o">:+</span><span class="n">company</span><span class="o">))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ol>
-<li>拿到初始值，即名字为king的公司，把它和list中的第一个公司合并，成为一个包含一家子公司的新公司</li>
-<li>把上一步中的新公司拿来和list中的第二个公司合并，成为一个包含两家子公司的新公司</li>
-<li>把上一步中的新公司拿来和list中的第三个公司合并，成为一个包含三家子公司的新公司</li>
-</ol>
-
-
-<p>这是同构的过程。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">companies</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">)((</span><span class="n">acc</span><span class="o">,</span><span class="n">company</span><span class="o">)</span><span class="k">=&gt;</span><span class="n">acc</span><span class="o">+</span><span class="n">company</span><span class="o">.</span><span class="n">name</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ol>
-<li>拿到初始值，即空字符串，把它和list中的第一个公司的名字拼在一起，成为B</li>
-<li>把上一步中的B第二个公司名字拼一起，成为BA</li>
-<li>把上一步中的BA拿来和list中的第三个公司的名字拼一起，成为BAT</li>
-</ol>
-
-
-<p>这是异构的过程。</p>
-
-<p>像多米诺骨牌一样，从左到右依次把list中的元素吸收入结果中。</p>
-
-<p>现在假设RDD[X]中有一个类似foldLeft的API，其签名和foldLeft一致，我现在调用foldLeft，给它一个f:(Y,X)=>Y，接下来该发生什么呢？</p>
-
-<ol>
-<li>因为要分布计算，所以我先要把手里的很多个X分成几份，分发到不同的节点上去</li>
-<li>每个节点把拿到的很多个X计算出一个Y出来</li>
-<li>把所有节点的结果拿来，这时我手里就有了很多个Y</li>
-<li>啊。。。我不知道怎么把很多个Y变成一个Y啊。。。</li>
-</ol>
-
-
-<p>由于Spark的RDD不像Scala的List一样只需要推倒一副多米诺骨牌，而是要推倒很多副，最后再对很多副多米诺骨牌的结果做聚合。</p>
-
-<p>这时如果是同构还好，我只需要再用f:(X,X)=>X做一遍就ok了。</p>
-
-<p>但是如果是异构的，那我就必须得再需要一个f:(Y,Y)=>Y了。</p>
 ]]></content>
   </entry>
   

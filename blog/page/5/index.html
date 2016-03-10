@@ -9,7 +9,7 @@
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content="Scala中的lazy关键字是实现延迟加载的好帮手。 在Java中想要做到延迟加载，常规的做法是大抵是这样的： 1
+  <meta name="description" content="这篇博客介绍一下Scala中的partial application，局部应用，或者叫做柯里化。 所谓柯里化就是指把一个接受多个参数的函数的一部分参数写死，剩下的一部分由调用者提供。 用Java代码来表述，大概可以写成这样： 1
 2
 3
 4
@@ -17,7 +17,10 @@
 6
 7
 8
-private String str = null; public String getStr() { if (str == null) { str = &hellip;">
+9
+10
+11
+public &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,6 +85,193 @@ private String str = null; public String getStr() { if (str == null) { str = &he
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/25/desugar-scala-6/">褪去Scala的糖衣(6) &#8211; Partial Application</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-25T14:40:00+08:00" pubdate data-updated="true">Dec 25<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/12/25/desugar-scala-6/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>这篇博客介绍一下Scala中的partial application，局部应用，或者叫做柯里化。</p>
+
+<p>所谓柯里化就是指把一个接受多个参数的函数的一部分参数写死，剩下的一部分由调用者提供。</p>
+
+<p>用Java代码来表述，大概可以写成这样：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">greet</span><span class="o">(</span><span class="n">String</span> <span class="n">greeting</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">greeting</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">name</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">greet</span><span class="o">(</span><span class="s">&quot;Hello&quot;</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">greetXiaoMing</span><span class="o">(</span><span class="n">String</span> <span class="n">greeting</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">greet</span><span class="o">(</span><span class="n">greeting</span><span class="o">,</span> <span class="s">&quot;Xiao Ming&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>greet用来给某个不确定的人打个不确定的招呼。</p>
+
+<p>sayHello用来给某个不确定的人说一句固定的Hello。</p>
+
+<p>greetXiaoMing用来给一个固定的人小明打一个不确定的招呼。</p>
+
+<p>如果用Scala来表达同样的含义的话，可以这样写：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">def</span> <span class="n">greet</span><span class="o">(</span><span class="n">greeting</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=</span> <span class="n">greeting</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">name</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">sayHello</span> <span class="k">=</span> <span class="n">greet</span><span class="o">(</span><span class="s">&quot;hello&quot;</span><span class="o">,</span> <span class="k">_:</span> <span class="kt">String</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">greetXiaoMing</span> <span class="k">=</span> <span class="n">greet</span><span class="o">(</span><span class="k">_:</span> <span class="kt">String</span><span class="o">,</span> <span class="s">&quot;Xiao Ming&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其实比Java代码也简单不了多少。只是把暂时不确定的参数用下划线指代出来。</p>
+
+<p>然后我们就可以在稍后需要调用它们的时候再把参数传入：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="n">sayHello</span><span class="o">(</span><span class="s">&quot;world&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="n">greetXiaoMing</span><span class="o">(</span><span class="s">&quot;Ni Hao&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后我们看一下这个语言特性是怎么实现的呢？</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">greet</span><span class="o">(</span><span class="n">String</span> <span class="n">greeting</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">new</span> <span class="nf">StringBuilder</span><span class="o">().</span><span class="na">append</span><span class="o">(</span><span class="n">greeting</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">&quot; &quot;</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">name</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="n">Function1</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">sayHello</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">new</span> <span class="nf">AbstractFunction1</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">0L</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="nf">apply</span><span class="o">(</span><span class="n">String</span> <span class="n">x$1</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="n">Hello</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">greet</span><span class="o">(</span><span class="s">&quot;hello&quot;</span><span class="o">,</span> <span class="n">x$1</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">};</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="n">Function1</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">greetXiaoMing</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">new</span> <span class="nf">AbstractFunction1</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">0L</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="nf">apply</span><span class="o">(</span><span class="n">String</span> <span class="n">x$2</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="k">return</span> <span class="n">Hello</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">greet</span><span class="o">(</span><span class="n">x$2</span><span class="o">,</span> <span class="s">&quot;Xiao Ming&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">};</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到sayHello和greetXiaoMing并不是返回String的，它们返回的是Function1 of String, String。也就是说直接调用它们俩是得不到我们想要的结果的，必须把这个Function1上的apply再调一下才行。实际上正是如此，这段代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="n">sayHello</span><span class="o">(</span><span class="s">&quot;world&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="n">greetXiaoMing</span><span class="o">(</span><span class="s">&quot;Ni Hao&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>会被编译成：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">sayHello</span><span class="o">().</span><span class="na">apply</span><span class="o">(</span><span class="s">&quot;world&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="n">greetXiaoMing</span><span class="o">().</span><span class="na">apply</span><span class="o">(</span><span class="s">&quot;Ni Hao&quot;</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>除此之外，partial application还可以有另一种稍微另类一些的写法：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'>  <span class="k">def</span> <span class="n">greet</span><span class="o">(</span><span class="n">greeting</span><span class="k">:</span> <span class="kt">String</span><span class="o">)(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">=</span> <span class="n">greeting</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">name</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">sayHello</span> <span class="k">=</span> <span class="n">greet</span><span class="o">(</span><span class="s">&quot;hello&quot;</span><span class="o">)(</span><span class="k">_</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">greetXiaoMing</span> <span class="k">=</span> <span class="n">greet</span><span class="o">(</span><span class="k">_:</span> <span class="kt">String</span><span class="o">)(</span><span class="s">&quot;Xiao Ming&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>反编译的结果和上面的代码是完全一致的。</p>
+
+<p>我不太清楚这种写法存在的意义是不是仅仅起一个向外界宣称“我这个函数之所以出现就是给你局部应用的，不要一下子把两个参数都给我”的作用。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -2357,6 +2547,10 @@ knockoutjs和jQuery。</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/03/10/couchbase-android-sync/">利用CouchBase为弱网环境构建云同步Android应用</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/01/03/2015/">2015</a>
       </li>
     
@@ -2390,10 +2584,6 @@ knockoutjs和jQuery。</p>
     
       <li class="post">
         <a href="/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/">职责链模式的别扭就像用门框夹核桃</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/">策略模式的尴尬就像用菜刀开啤酒</a>
       </li>
     
   </ul>
