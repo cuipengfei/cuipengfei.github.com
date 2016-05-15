@@ -1,0 +1,23 @@
+---
+layout: post
+title: "自己动手实现Promises/A+规范"
+date: 2016-05-15 15:42
+comments: true
+categories:
+---
+
+Promise并不是一个新的概念,它已经有将近30年的历史.
+
+其早期的雏形还有里氏替换原则的提出者Barbara Liskov的贡献在其中.
+
+[https://en.wikipedia.org/wiki/Futures_and_promises#History](https://en.wikipedia.org/wiki/Futures_and_promises#History)
+
+而Promises/A+这个规范的出现,则为JavaScript世界中众多Promise实现库提供了一套统一的API和交互机制.
+
+Promises/A+提供了配套的测试集:[https://github.com/promises-aplus/promises-tests](https://github.com/promises-aplus/promises-tests).
+
+其中共有872个测试,如果你的实现能够让全部测试绿起来,则可以认为该实现符合了标准.
+
+我的Promise实现:[https://github.com/cuipengfei/Spikes/tree/master/js/promise](https://github.com/cuipengfei/Spikes/tree/master/js/promise)
+
+在npm上的发布:[https://www.npmjs.com/package/RWPromise](https://www.npmjs.com/package/RWPromise)
