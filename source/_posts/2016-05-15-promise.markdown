@@ -21,3 +21,7 @@ Promises/A+提供了配套的测试集:[https://github.com/promises-aplus/promis
 我的Promise实现:[https://github.com/cuipengfei/Spikes/tree/master/js/promise](https://github.com/cuipengfei/Spikes/tree/master/js/promise)
 
 在npm上的发布:[https://www.npmjs.com/package/RWPromise](https://www.npmjs.com/package/RWPromise)
+
+要实现Promises/A+的规范其实并不需要很多代码,我的实现只有88行.当然,仅仅是符合规范和一个可用,易用的Promise库之间还有很大的差距.
+
+如果作为教学或者演示的目的,我认为我的这份实现是已有实现中最简洁的一版.
