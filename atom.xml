@@ -4,7 +4,7 @@
   <title><![CDATA[崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2016-03-10T15:45:54+08:00</updated>
+  <updated>2016-05-15T16:22:46+08:00</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -12,6 +12,33 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[自己动手实现Promises/A+规范]]></title>
+    <link href="http://cuipengfei.github.com/blog/2016/05/15/promise/"/>
+    <updated>2016-05-15T15:42:00+08:00</updated>
+    <id>http://cuipengfei.github.com/blog/2016/05/15/promise</id>
+    <content type="html"><![CDATA[<p>Promise并不是一个新的概念,它已经有将近30年的历史.</p>
+
+<p>其早期的雏形还有里氏替换原则的提出者Barbara Liskov的贡献在其中.</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Futures_and_promises#History">https://en.wikipedia.org/wiki/Futures_and_promises#History</a></p>
+
+<p>而Promises/A+这个规范的出现,则为JavaScript世界中众多Promise实现库提供了一套统一的API和交互机制.</p>
+
+<p>Promises/A+提供了配套的测试集:<a href="https://github.com/promises-aplus/promises-tests">https://github.com/promises-aplus/promises-tests</a>.</p>
+
+<p>其中共有872个测试,如果你的实现能够让全部测试绿起来,则可以认为该实现符合了标准.</p>
+
+<p>我的Promise实现:<a href="https://github.com/cuipengfei/Spikes/tree/master/js/promise">https://github.com/cuipengfei/Spikes/tree/master/js/promise</a></p>
+
+<p>在npm上的发布:<a href="https://www.npmjs.com/package/RWPromise">https://www.npmjs.com/package/RWPromise</a></p>
+
+<p>要实现Promises/A+的规范其实并不需要很多代码,我的实现只有88行.当然,仅仅是符合规范和一个可用,易用的Promise库之间还有很大的差距.</p>
+
+<p>如果作为教学或者演示的目的,我认为我的这份实现是已有实现中最简洁的一版.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[利用CouchBase为弱网环境构建云同步Android应用]]></title>
@@ -66,7 +93,7 @@
 
 <blockquote><p>这是自然环境限制与技术选择所带来的固有的内在的问题。</p></blockquote>
 
-<p>这句话再解释明白一些，自然环境限制指的是很差的网络可用性，技术选择指的是服务器端提供REST API，移动端利用该API进行通行。</p>
+<p>这句话再解释明白一些，自然环境限制指的是很差的网络可用性，技术选择指的是服务器端提供REST API，移动端利用该API进行通信。</p>
 
 <p>以上这二者相结合导致了上述情况成为了固有的内在的问题。</p>
 
@@ -3130,16 +3157,6 @@ QuickCheckHeap本身是一个抽象类，不可以被实例化。但是由于有
 <p>像这种与天性作斗争的行为，其过程一定是困难，漫长，且鲜有正面自我回馈的。</p>
 
 <p>明年需要<em><strong>改进</strong></em>的是，持续以上改进手段的执行，增加自控强度。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[2015武汉郑大晔校第二次课]]></title>
-    <link href="http://cuipengfei.github.com/blog/2014/11/16/zdyx2015wuhansecondclass/"/>
-    <updated>2014-11-16T16:45:00+08:00</updated>
-    <id>http://cuipengfei.github.com/blog/2014/11/16/zdyx2015wuhansecondclass</id>
-    <content type="html"><![CDATA[<iframe src="http://cuipengfei.github.com//slides.com/pengfeicui/285849/embed" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-
 ]]></content>
   </entry>
   

@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Tech radar 武汉 microservice envy - 崔鹏飞的Octopress Blog</title>
+  <title>自己动手实现Promises/A+规范 - 崔鹏飞的Octopress Blog</title>
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content=" ">
-  <meta name="keywords" content="tw, thoughtworks, techradar">
+  <meta name="description" content="Promise并不是一个新的概念,它已经有将近30年的历史. 其早期的雏形还有里氏替换原则的提出者Barbara Liskov的贡献在其中. https://en.wikipedia.org/wiki/Futures_and_promises#History 而Promises/A+这个规范的出现 &hellip;">
+  
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://cuipengfei.github.com/blog/2015/01/13/tech-radar-wuhan/">
+  <link rel="canonical" href="http://cuipengfei.github.com/blog/2016/05/15/promise/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -77,7 +77,7 @@
   
   <header>
     
-      <h1 class="entry-title">Tech Radar 武汉 Microservice Envy</h1>
+      <h1 class="entry-title">自己动手实现Promises/A+规范</h1>
     
     
       <p class="meta">
@@ -93,7 +93,7 @@
   
 
 
-<time datetime="2015-01-13T23:18:00+08:00" pubdate data-updated="true">Jan 13<span>th</span>, 2015</time>
+<time datetime="2016-05-15T15:42:00+08:00" pubdate data-updated="true">May 15<span>th</span>, 2016</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -102,8 +102,25 @@
   </header>
 
 
-<div class="entry-content"><iframe src="//slides.com/pengfeicui/microservice-envy/embed" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<div class="entry-content"><p>Promise并不是一个新的概念,它已经有将近30年的历史.</p>
 
+<p>其早期的雏形还有里氏替换原则的提出者Barbara Liskov的贡献在其中.</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Futures_and_promises#History">https://en.wikipedia.org/wiki/Futures_and_promises#History</a></p>
+
+<p>而Promises/A+这个规范的出现,则为JavaScript世界中众多Promise实现库提供了一套统一的API和交互机制.</p>
+
+<p>Promises/A+提供了配套的测试集:<a href="https://github.com/promises-aplus/promises-tests">https://github.com/promises-aplus/promises-tests</a>.</p>
+
+<p>其中共有872个测试,如果你的实现能够让全部测试绿起来,则可以认为该实现符合了标准.</p>
+
+<p>我的Promise实现:<a href="https://github.com/cuipengfei/Spikes/tree/master/js/promise">https://github.com/cuipengfei/Spikes/tree/master/js/promise</a></p>
+
+<p>在npm上的发布:<a href="https://www.npmjs.com/package/RWPromise">https://www.npmjs.com/package/RWPromise</a></p>
+
+<p>要实现Promises/A+的规范其实并不需要很多代码,我的实现只有88行.当然,仅仅是符合规范和一个可用,易用的Promise库之间还有很大的差距.</p>
+
+<p>如果作为教学或者演示的目的,我认为我的这份实现是已有实现中最简洁的一版.</p>
 </div>
 
 
@@ -126,7 +143,7 @@
   
 
 
-<time datetime="2015-01-13T23:18:00+08:00" pubdate data-updated="true">Jan 13<span>th</span>, 2015</time>
+<time datetime="2016-05-15T15:42:00+08:00" pubdate data-updated="true">May 15<span>th</span>, 2016</time>
       
 
 
@@ -134,7 +151,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cuipengfei.github.com/blog/2015/01/13/tech-radar-wuhan/" data-via="cuipf" data-counturl="http://cuipengfei.github.com/blog/2015/01/13/tech-radar-wuhan/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cuipengfei.github.com/blog/2016/05/15/promise/" data-via="cuipf" data-counturl="http://cuipengfei.github.com/blog/2016/05/15/promise/" >Tweet</a>
   
   
   
@@ -145,10 +162,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/12/27/2014/" title="Previous Post: 2014年总结">&laquo; 2014年总结</a>
+        <a class="basic-alignment left" href="/blog/2016/03/10/couchbase-android-sync/" title="Previous Post: 利用CouchBase为弱网环境构建云同步Android应用">&laquo; 利用CouchBase为弱网环境构建云同步Android应用</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2015/03/29/2015-first-season/" title="Next Post: 2015第一季度">2015第一季度 &raquo;</a>
       
     </p>
   </footer>
@@ -280,8 +295,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://cuipengfei.github.com/blog/2015/01/13/tech-radar-wuhan/';
-        var disqus_url = 'http://cuipengfei.github.com/blog/2015/01/13/tech-radar-wuhan/';
+        var disqus_identifier = 'http://cuipengfei.github.com/blog/2016/05/15/promise/';
+        var disqus_url = 'http://cuipengfei.github.com/blog/2016/05/15/promise/';
         var disqus_script = 'embed.js';
       
     (function () {
