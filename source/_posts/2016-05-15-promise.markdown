@@ -25,3 +25,123 @@ Promises/A+提供了配套的测试集:[https://github.com/promises-aplus/promis
 要实现Promises/A+的规范其实并不需要很多代码,我的实现只有88行.当然,仅仅是符合规范和一个可用,易用的Promise库之间还有很大的差距.
 
 如果作为教学或者演示的目的,我认为我的这份实现是已有实现中最简洁的一版.
+
+# 自己实现Promise规范时需要注意的几点:
+
+## 1. promise的状态一旦确定,不可更改
+
+一个符合规范的promise有三种可能的状态:pending,resolved,rejected。
+
+这三者是互斥的。
+
+一个pending的promise可以变成resolved,或者rejected。
+
+但是一旦进入resolved或者rejected状态,就再也不能变了。
+
+用形象的语言来描述的话:一个promise就是一个关于未来的承诺,诺言一旦履行,不能反悔。
+
+假设有如下代码:
+
+```javascript
+var p = ???();//首先以某种方式拿到一个promise,假设这个promise现在是pending的
+p.then(x,y);//然后把你希望在成功和失败时执行的x,y通过then方法挂进去
+```
+
+时间流逝,假设???()方法内部在未来某个不确定的时间执行了:
+
+```javascript
+p.resolve();
+```
+
+然后,你的x函数应该会被调用。
+
+再然后,无论p的resolve方法或者reject方法再怎么被调用,p的状态都不会再变更,x和y也再不会被执行了。
+
+## 2. 树状结构
+
+对then方法的多次调用会形成一个树状的数据结构。
+
+假设有如下代码:
+
+```javascript
+var p = ???();//首先以某种方式拿到一个promise
+p
+    .then(a,b) //假设这次then的调用返回的是一个新的promise实例,称之为p1
+    .then(c,d);//假设这次then的调用返回的是一个新的promise实例,称之为p2
+
+```
+
+也就是说上述代码等价于:
+
+```javascript
+var p = ???();//首先以某种方式拿到一个promise
+var p1 = p.then(a,b);
+var p2 = p1.then(c,d);
+```
+
+<img src="http://i2.buimg.com/425a951ceb32210c.png" />
+
+当然,这个代码形成的会是类似于一个链表的结构,可以把这种**看作是树状结构的一个特例**,也就是树中每个节点都最多只有一个子节点。
+
+而如下的代码则会形成我们惯常看到的树:
+
+```javascript
+var p = ???();
+var p1 = p.then(a,b);
+var p2 = p.then(c,d);
+var p3 = p.then(e,f);
+
+var p4 = p1.then(g,h);
+var p5 = p3.then(i,j);
+```
+
+<img src="http://i2.buimg.com/83a315d738e7dc45.png" />
+
+这时,树中每一个节点可以有任意多的子节点(取决于它的then被调用了多少次)。
+
+## 3. 回调的执行时机
+
+这是实现promise的时候,最容易把人搞晕的一点。
+
+```javascript
+var p = ???();//首先以某种方式拿到一个promise,假设这时p是pending的状态
+var p1 = p.then(a,b);
+var p2 = p1.then(c,d);
+```
+
+以上代码执行完之后,我们手里有3个promise:p,p1,p2.
+
+这时,a,b,c,d都还没有执行。
+
+在未来某个不确定的时间,如果p的resolve方法被调用了,接下来会发生的事情是:
+
+* p会把传给resolve方法的参数value记住,并把自己的状态标记为resolved (以后就再也不能变了)
+* a会被调用到,其参数为value
+    * 如果a执行过程中不出错
+        * p1的状态被变成resolved,p1会把a的返回值记住
+        * c会被调用到,其参数为a的返回值
+            * 如果c执行过程中不出错
+                * p2的状态被变成resolved,p2会把c的返回值记住
+            * 如果c执行过程中出错
+                * p2的状态被变成rejected,p2会把c抛出的异常记住
+    * 如果a执行过程中出错
+        * p1的状态被变成rejected,p1会把a抛出的异常记住
+        * d会被调用到,参数为a抛出的异常记住
+            * 如果d执行过程中不出错
+                * p2的状态被变成resolved,p2会把d的返回值记住
+            * 如果d执行过程中出错
+                * p2的状态被变成rejected,p2会把d抛出的异常记住
+                
+这样,就看出递归的意思来了。不过b并没有在上面出现,这是因为p本身是被resolve的,b只有在p被reject的时候才会执行。
+
+在未来某个不确定的时间,如果p的reject方法被调用了,接下来会发生的事情是:
+
+。。。 。。。
+
+就不用写了。
+
+以上的例子中,我们拿到p的时候它的状态是pending的,也就是说我们会先调用p的then,然后p才会被resolve(或者reject掉)。
+
+还有另一种可能性,那就是当你拿到p的时候p就已经被resolve(护着reject掉了),这时如果你再调用then方法的话,所传入的两个回调,到底哪个应该被调用,马上就可以决定了。
+
+也就是说回调被调用的触发点一共有三个,then,resolve,reject这三个方法。
