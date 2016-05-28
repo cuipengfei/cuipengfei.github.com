@@ -154,7 +154,7 @@
 
 <p>然后,你的x函数应该会被调用。</p>
 
-<p>再然后,无论p的resolve方法或者reject方法再怎么被调用,p的状态都不会再变更,x和y也再不会被执行了。</p>
+<p>再然后,<strong>无论p的resolve方法或者reject方法再怎么被调用,p的状态都不会再变更,x和y也再不会被执行了</strong>。</p>
 
 <h2>2. 树状结构</h2>
 
@@ -173,7 +173,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>也就是说上述代码等价于:</p>
+<p>上述代码等价于:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -186,7 +186,7 @@
 
 <p><img src="http://i2.buimg.com/425a951ceb32210c.png" /></p>
 
-<p>当然,这个代码形成的会是类似于一个链表的结构,可以把这种<strong>看作是树状结构的一个特例</strong>,也就是树中每个节点都最多只有一个子节点。</p>
+<p>当然,这个代码形成的会是类似于一个链表的结构,可以把它<strong>看作是树状结构的一个特例</strong>,也就是树中每个节点都最多只有一个子节点。</p>
 
 <p>而如下的代码则会形成我们惯常看到的树:</p>
 
@@ -210,6 +210,8 @@
 <p><img src="http://i2.buimg.com/83a315d738e7dc45.png" /></p>
 
 <p>这时,树中每一个节点可以有任意多的子节点(取决于它的then被调用了多少次)。</p>
+
+<p>了解promise的树状结构,将有助于实现promise时在自己脑子里构造递归模型。</p>
 
 <h2>3. 回调的执行时机</h2>
 
@@ -292,11 +294,12 @@
 
 <p>。。。 。。。</p>
 
-<p>就不用写了。</p>
+<p>就不用写了,把上面的ａ替换为ｂ就好了。</p>
 
-<p>以上的例子中,我们拿到p的时候它的状态是pending的,也就是说我们会先调用p的then,然后p才会被resolve(或者reject掉)。</p>
+<p>以上的例子中,我们拿到p的时候它的状态是pending的,我们会先调用p的then,然后p才会被resolve(或者reject掉)。
+也就是说当我们通过调用then传递给promise两个回调的时候,promise还没有能力确定应该执行哪个回调,只有当未来promise自己被resolve或者reject了的时候,它自己的状态确定了,它才知道该挑哪一个回调来执行。</p>
 
-<p>还有另一种可能性,那就是当你拿到p的时候p就已经被resolve(护着reject掉了),这时如果你再调用then方法的话,所传入的两个回调,到底哪个应该被调用,马上就可以决定了。</p>
+<p>还有另一种可能性,那就是当你拿到p的时候p就已经被resolve(或者reject掉了),这时如果你再调用then方法的话,所传入的两个回调,到底哪个应该被调用,马上就可以决定了。</p>
 
 <p>也就是说回调被调用的触发点一共有三个,then,resolve,reject这三个方法。</p>
 </div>
