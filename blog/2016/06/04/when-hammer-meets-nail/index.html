@@ -1,0 +1,469 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>当锤子遇到钉子 - 崔鹏飞的Octopress Blog</title>
+  <meta name="author" content="崔鹏飞">
+
+  
+  <meta name="description" content="锤子　JS Promise 最近对JS社区里的Promises/A+规范产生了很浓的兴趣,自己把它实现了一遍:https://www.npmjs.com/package/RWPromise 然后在武汉run了3次workshop:http://cuipengfei.me/blog/2016/05/ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://cuipengfei.github.com/blog/2016/06/04/when-hammer-meets-nail/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="崔鹏飞的Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-46270419-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">崔鹏飞的Octopress Blog</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:cuipengfei.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">当锤子遇到钉子</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-06-04T16:58:00+08:00" pubdate data-updated="true">Jun 4<span>th</span>, 2016</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>锤子　JS Promise</h1>
+
+<p>最近对JS社区里的Promises/A+规范产生了很浓的兴趣,自己把它实现了一遍:<a href="https://www.npmjs.com/package/RWPromise">https://www.npmjs.com/package/RWPromise</a></p>
+
+<p>然后在武汉run了3次workshop:<a href="http://cuipengfei.me/blog/2016/05/15/promise/">http://cuipengfei.me/blog/2016/05/15/promise/</a>。</p>
+
+<p>感觉Promise这套东西确实蛮不错的,给异步算法的编写者和异步算法的消费者之间提供了一套统一的沟通手段,也为异步算法的消费者提供了更悦目的代码组织方式。</p>
+
+<p>手里有了这么一把锤子就总想找个钉子敲一敲。</p>
+
+<h1>钉子　《异类》</h1>
+
+<p>无巧不成书,刚好最近在豆瓣上买了一本叫做《异类》的书在看:　<a href="https://read.douban.com/ebook/10580943/">https://read.douban.com/ebook/10580943/</a></p>
+
+<p>书中一开篇就提到了关于加拿大冰球运动员选拔机制的很有趣的一件事:</p>
+
+<blockquote><p>职业青年队绝大多数球员的生日集中在1月、2月和3月，这实在有点不可思议</p>
+
+<p>加拿大冰球队按年龄分组所依据的分界线是1月1日，即从1月1日到当年12月31日之间出生的球员将会被分在同一组。也就是说，一个1月1日出生的选手，是在跟许多年纪比他小的队友争夺晋级权——在青春期到来之前，由于有将近12个月的年龄差距，球员之间在生理成熟度上将会表现出巨大的差异。</p>
+
+<p>正如冰球队员的成长经历一样，因年龄大几个月而显现的微弱优势会在孩子的成长过程中不断积累，最终引导孩子走向成功或不成功，自信或不自信的轨道中，其影响会延伸许多年。</p></blockquote>
+
+<p>能否成为加拿大冰球运动明星竟然和出生月份有关系,假想如果你运动天赋非常好,但是不幸出生在12月,于是不得不从小和大你将近一岁的少年运动员一起训练。</p>
+
+<p>表现难免显得不那么出色,不受教练待见,得不到正面反馈,出场坐冷板凳。。。逐渐逐渐,伤仲永。</p>
+
+<p>实在是太有趣了。</p>
+
+<p>由此就联想到了,到TW来工作的人其出生月份是否也存在什么规律呢?</p>
+
+<h1>Facehub</h1>
+
+<p>一下就想到了Facehub这个网站可以提供生日信息。</p>
+
+<p>铺天盖地的广告宣传,每次看到觉得审美都疲劳了,能用到的时候第一个就想到了它。广告的作用,诚不我欺。</p>
+
+<p>于是我就写了这么个脚本:　<a href="https://github.com/cuipengfei/Spikes/blob/master/js/birth/birth.js">https://github.com/cuipengfei/Spikes/blob/master/js/birth/birth.js</a></p>
+
+<p>其中使用Promise把大量的异步Http请求组织起来,然后分析其结果。</p>
+
+<p>(注:如果需要自己跑这个脚本,需要把第七行的token替换成你自己的合法值)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="err">获取到用户数量</span> <span class="mi">316</span>
+</span><span class='line'><span class="p">[</span> <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;11&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">11.708860759493671</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">11.708860759493671</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;8&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">10.126582278481013</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.860759493670885</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.544303797468354</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.9113924050632916</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.9113924050632916</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;7&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.2784810126582276</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;6&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.2784810126582276</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.2784810126582276</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.012658227848101</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;12&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">5.379746835443038</span> <span class="p">}</span> <span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>由此可以看到,来TW工作的人,11月,10月,8月出生的最多,12月出生的最少。</p>
+
+<p>由于样本量不是太大(316人),所以统计数据的含义还不太好说。
+我猜测:8,10,11月出生的人在参与TW的招聘的时候或许是具备某些特殊的优势的,具体是什么我暂时猜不到。</p>
+
+<p>(注:以上统计数据与各月份人口出生率并不是符合的。</p>
+
+<blockquote><p>全国人口普查都会有月份分布的数据。
+抽06年的来看，1月份占8.6%，2月份占8.4%，3月份占7.7%，4月份占7.1%，5月份占6.9%，6月份占7.3%，7月份占7.4%，8月份占8.3%，9月份占8.8%，10月份占10.5%，11月份占9.8%，12月份占9.3%。从大体上看是秋天和冬天出生的人多，春天和夏天出生的人少。</p>
+
+<p>作者：GraceG
+链接：https://www.zhihu.com/question/19795511/answer/12986633
+来源：知乎
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p></blockquote>
+
+<p>)</p>
+
+<p>既然已经有了这份代码,可以统计出生月份,索性再统计些其他侧面的数据:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span> <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;天秤&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">12.025316455696203</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;狮子&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">10.443037974683545</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;天蝎&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">9.81012658227848</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;双鱼&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">9.49367088607595</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;双子&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.544303797468354</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;水瓶&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.544303797468354</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;摩羯&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.9113924050632916</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;巨蟹&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.9113924050632916</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;处女&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.962025316455696</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;白羊&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.962025316455696</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;射手&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.329113924050633</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;金牛&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">5.063291139240507</span> <span class="p">}</span> <span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可见天秤和狮子座的最多,金牛座的最少。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span> <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;7&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">14.240506329113925</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">14.240506329113925</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;8&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">11.075949367088606</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">10.759493670886076</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;6&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.544303797468354</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.9113924050632916</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;12&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.329113924050633</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.329113924050633</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.329113924050633</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;11&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.012658227848101</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">4.430379746835443</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">3.79746835443038</span> <span class="p">}</span> <span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>入职日期,3,4月和7,8月最多,9,10月最少。</p>
+
+<p>虽然最后也没有根据统计数据得到什么惊人的发现。但是能让锤子和钉子相遇还是挺好玩的。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">崔鹏飞</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-06-04T16:58:00+08:00" pubdate data-updated="true">Jun 4<span>th</span>, 2016</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cuipengfei.github.com/blog/2016/06/04/when-hammer-meets-nail/" data-via="cuipf" data-counturl="http://cuipengfei.github.com/blog/2016/06/04/when-hammer-meets-nail/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/05/15/promise/" title="Previous Post: 自己动手实现Promises/A+规范">&laquo; 自己动手实现Promises/A+规范</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/06/04/when-hammer-meets-nail/">当锤子遇到钉子</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/05/15/promise/">自己动手实现Promises/A+规范</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/03/10/couchbase-android-sync/">利用CouchBase为弱网环境构建云同步Android应用</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/03/2015/">2015</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/05/2015-3rd-season/">2015第三季度</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/04/2015-second-season/">2015第二季度</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/23/template-method-pattern/">模板方法模式：子类型多态和高阶函数</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/16/visitor-pattern-pattern-match/">访问者模式 in FP：Pattern Matching</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/13/observers-pattern-fp/">观察者模式 in FP：Mutation vs Transformation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/">解释器模式：OOP versus Functional Decomposition</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/cuipengfei">@cuipengfei</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'cuipengfei',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("cuipf", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/cuipf" class="twitter-follow-button" data-show-count="false">Follow @cuipf</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - 崔鹏飞 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'cuipengfeioctopressblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://cuipengfei.github.com/blog/2016/06/04/when-hammer-meets-nail/';
+        var disqus_url = 'http://cuipengfei.github.com/blog/2016/06/04/when-hammer-meets-nail/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

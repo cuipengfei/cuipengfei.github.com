@@ -9,7 +9,7 @@
   <meta name="author" content="崔鹏飞">
 
   
-  <meta name="description" content="Promise并不是一个新的概念,它已经有将近30年的历史. 其早期的雏形还有里氏替换原则的提出者Barbara Liskov的贡献在其中. https://en.wikipedia.org/wiki/Futures_and_promises#History 而Promises/A+这个规范的出现 &hellip;">
+  <meta name="description" content="锤子　JS Promise 最近对JS社区里的Promises/A+规范产生了很浓的兴趣,自己把它实现了一遍:https://www.npmjs.com/package/RWPromise 然后在武汉run了3次workshop:http://cuipengfei.me/blog/2016/05/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,192 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2016/06/04/when-hammer-meets-nail/">当锤子遇到钉子</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-06-04T16:58:00+08:00" pubdate data-updated="true">Jun 4<span>th</span>, 2016</time>
+        
+         | <a href="/blog/2016/06/04/when-hammer-meets-nail/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>锤子　JS Promise</h1>
+
+<p>最近对JS社区里的Promises/A+规范产生了很浓的兴趣,自己把它实现了一遍:<a href="https://www.npmjs.com/package/RWPromise">https://www.npmjs.com/package/RWPromise</a></p>
+
+<p>然后在武汉run了3次workshop:<a href="http://cuipengfei.me/blog/2016/05/15/promise/">http://cuipengfei.me/blog/2016/05/15/promise/</a>。</p>
+
+<p>感觉Promise这套东西确实蛮不错的,给异步算法的编写者和异步算法的消费者之间提供了一套统一的沟通手段,也为异步算法的消费者提供了更悦目的代码组织方式。</p>
+
+<p>手里有了这么一把锤子就总想找个钉子敲一敲。</p>
+
+<h1>钉子　《异类》</h1>
+
+<p>无巧不成书,刚好最近在豆瓣上买了一本叫做《异类》的书在看:　<a href="https://read.douban.com/ebook/10580943/">https://read.douban.com/ebook/10580943/</a></p>
+
+<p>书中一开篇就提到了关于加拿大冰球运动员选拔机制的很有趣的一件事:</p>
+
+<blockquote><p>职业青年队绝大多数球员的生日集中在1月、2月和3月，这实在有点不可思议</p>
+
+<p>加拿大冰球队按年龄分组所依据的分界线是1月1日，即从1月1日到当年12月31日之间出生的球员将会被分在同一组。也就是说，一个1月1日出生的选手，是在跟许多年纪比他小的队友争夺晋级权——在青春期到来之前，由于有将近12个月的年龄差距，球员之间在生理成熟度上将会表现出巨大的差异。</p>
+
+<p>正如冰球队员的成长经历一样，因年龄大几个月而显现的微弱优势会在孩子的成长过程中不断积累，最终引导孩子走向成功或不成功，自信或不自信的轨道中，其影响会延伸许多年。</p></blockquote>
+
+<p>能否成为加拿大冰球运动明星竟然和出生月份有关系,假想如果你运动天赋非常好,但是不幸出生在12月,于是不得不从小和大你将近一岁的少年运动员一起训练。</p>
+
+<p>表现难免显得不那么出色,不受教练待见,得不到正面反馈,出场坐冷板凳。。。逐渐逐渐,伤仲永。</p>
+
+<p>实在是太有趣了。</p>
+
+<p>由此就联想到了,到TW来工作的人其出生月份是否也存在什么规律呢?</p>
+
+<h1>Facehub</h1>
+
+<p>一下就想到了Facehub这个网站可以提供生日信息。</p>
+
+<p>铺天盖地的广告宣传,每次看到觉得审美都疲劳了,能用到的时候第一个就想到了它。广告的作用,诚不我欺。</p>
+
+<p>于是我就写了这么个脚本:　<a href="https://github.com/cuipengfei/Spikes/blob/master/js/birth/birth.js">https://github.com/cuipengfei/Spikes/blob/master/js/birth/birth.js</a></p>
+
+<p>其中使用Promise把大量的异步Http请求组织起来,然后分析其结果。</p>
+
+<p>(注:如果需要自己跑这个脚本,需要把第七行的token替换成你自己的合法值)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="err">获取到用户数量</span> <span class="mi">316</span>
+</span><span class='line'><span class="p">[</span> <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;11&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">11.708860759493671</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">11.708860759493671</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;8&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">10.126582278481013</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.860759493670885</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.544303797468354</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.9113924050632916</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.9113924050632916</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;7&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.2784810126582276</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;6&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.2784810126582276</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.2784810126582276</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.012658227848101</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;12&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">5.379746835443038</span> <span class="p">}</span> <span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>由此可以看到,来TW工作的人,11月,10月,8月出生的最多,12月出生的最少。</p>
+
+<p>由于样本量不是太大(316人),所以统计数据的含义还不太好说。
+我猜测:8,10,11月出生的人在参与TW的招聘的时候或许是具备某些特殊的优势的,具体是什么我暂时猜不到。</p>
+
+<p>(注:以上统计数据与各月份人口出生率并不是符合的。</p>
+
+<blockquote><p>全国人口普查都会有月份分布的数据。
+抽06年的来看，1月份占8.6%，2月份占8.4%，3月份占7.7%，4月份占7.1%，5月份占6.9%，6月份占7.3%，7月份占7.4%，8月份占8.3%，9月份占8.8%，10月份占10.5%，11月份占9.8%，12月份占9.3%。从大体上看是秋天和冬天出生的人多，春天和夏天出生的人少。</p>
+
+<p>作者：GraceG
+链接：https://www.zhihu.com/question/19795511/answer/12986633
+来源：知乎
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p></blockquote>
+
+<p>)</p>
+
+<p>既然已经有了这份代码,可以统计出生月份,索性再统计些其他侧面的数据:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span> <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;天秤&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">12.025316455696203</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;狮子&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">10.443037974683545</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;天蝎&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">9.81012658227848</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;双鱼&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">9.49367088607595</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;双子&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.544303797468354</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;水瓶&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.544303797468354</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;摩羯&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.9113924050632916</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;巨蟹&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.9113924050632916</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;处女&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.962025316455696</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;白羊&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.962025316455696</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;射手&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.329113924050633</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;金牛&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">5.063291139240507</span> <span class="p">}</span> <span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可见天秤和狮子座的最多,金牛座的最少。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span> <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;7&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">14.240506329113925</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">14.240506329113925</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;8&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">11.075949367088606</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">10.759493670886076</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;6&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.544303797468354</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.9113924050632916</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;12&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.329113924050633</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.329113924050633</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.329113924050633</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;11&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.012658227848101</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">4.430379746835443</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">3.79746835443038</span> <span class="p">}</span> <span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>入职日期,3,4月和7,8月最多,9,10月最少。</p>
+
+<p>虽然最后也没有根据统计数据得到什么惊人的发现。但是能让锤子和钉子相遇还是挺好玩的。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -2209,297 +2395,6 @@ Which is “most natural” may depend on what you are doing (e.g., an interpret
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/06/01/command-pattern-fp-implementation/">命令模式的不爽就像用指甲刀刮胡子</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-06-01T21:51:00+08:00" pubdate data-updated="true">Jun 1<span>st</span>, 2015</time>
-        
-         | <a href="/blog/2015/06/01/command-pattern-fp-implementation/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>命令模式</h1>
-
-<blockquote><p>在面向对象程式设计的范畴中，命令模式是一种设计模式，它尝试以物件来代表实际行动。命令物件可以把行动(action) 及其参数封装起来，于是这些行动可以被：</p>
-
-<ul>
-<li>重复多次</li>
-<li>取消（如果该物件有实作的话）</li>
-<li>取消后又再重做</li>
-</ul>
-</blockquote>
-
-<p>以上是wiki对命令模式的定义（术语像是台湾的）。</p>
-
-<p>下面是来自《Head first design patterns》的一个例子：</p>
-
-<p>假设你有很多家用电器：电灯泡，电视，音响，还有一个水疗浴缸。（就是没有手电筒）</p>
-
-<p>每个家用电器都有自己的开关装置，处于不同的位置。如果你想把它们都开启，需要一个一个地去按按钮。</p>
-
-<p>现在你想要有一个遥控器，一键开启所有电器，一键关闭所有电器。</p>
-
-<p>或者是一键完成任意的电器操作组合。</p>
-
-<p>每个电器的接口都是不同的，但是又需要和同一个遥控器集成，于是呢，肯定要有一个统一的接口了。</p>
-
-<p>于是就有了下面命令模式的实现代码。</p>
-
-<h1>Java</h1>
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/appliances/Light.java?slice=1:&footer=minimal">
-</script>
-
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/appliances/TV.java?slice=1:&footer=minimal">
-</script>
-
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/appliances/Stereo.java?slice=1:&footer=minimal">
-</script>
-
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/appliances/Hottub.java?slice=1:&footer=minimal">
-</script>
-
-
-<p>首先是有四大件家用电器。各自之间没有什么关系。</p>
-
-<p>这里面的代码都有点傻，不过没关系，我们就想象这都是些很复杂的硬件通信之类的代码就好了。</p>
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/Command.java?slice=1:&footer=minimal">
-</script>
-
-
-<p>然后，定义一个Command接口，其中只有一个execute()方法。</p>
-
-<p>之后我们会用它的实现类来操作各种电器。</p>
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/LightOnCommand.java?slice=4:&footer=minimal">
-</script>
-
-
-
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/LightOffCommand.java?slice=4:&footer=minimal">
-</script>
-
-
-
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/TVOnCommand.java?slice=4:&footer=minimal">
-</script>
-
-
-
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/TVOffCommand.java?slice=4:&footer=minimal">
-</script>
-
-
-
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/StereoOnCommand.java?slice=4:&footer=minimal">
-</script>
-
-
-
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/StereoOffCommand.java?slice=4:&footer=minimal">
-</script>
-
-
-
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/HottubOnCommand.java?slice=4:&footer=minimal">
-</script>
-
-
-
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/HottubOffCommand.java?slice=4:&footer=minimal">
-</script>
-
-
-<p>这一大坨，就是Command的实现了。</p>
-
-<p>四大件电器，于是便有八个Command，分别负责每个电器的开启和关闭。</p>
-
-<p>有些电器的开启和关闭比别的要复杂一些，不过这没有关系，因为它们的细节都被封装在Command的实现类里面了，我们接下来的代码只要和Command这个接口打交道就好了。</p>
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/MacroCommand.java?slice=1:&footer=minimal">
-</script>
-
-
-<p>还有一个宏命令，用来组合其他命令。</p>
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/runner/RemoteControl.java?slice=3:&footer=minimal">
-</script>
-
-
-<p>可以实现遥控器了。</p>
-
-<p><img src="http://elisabethrobson.com/wp-content/uploads/2014/07/Command.jpg" alt="http://elisabethrobson.com/wp-content/uploads/2014/07/Command.jpg" /></p>
-
-<p>这个遥控器上的按钮都是空白的，我们可以给它置入任意我们想要的命令。</p>
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/runner/RemoteLoader.java?slice=9:&footer=minimal">
-</script>
-
-
-<p>终于可以写一个main函数了：</p>
-
-<ul>
-<li>把家用电器和其对应的Command联系起来</li>
-<li>把各种Command组合成开启和关闭两个宏命令</li>
-<li>把宏命令置入遥控器</li>
-</ul>
-
-
-<p>然后，只要按一个按钮，就可以开启所有电器，享受资产阶级奢靡的生活了。</p>
-
-<p>享受够了之后只要再按一个按钮就可以把所有电器关闭掉。</p>
-
-<p>如果再有别的电器，只需要实现几个新的Command，把新的Command组合入宏命令，继续使用遥控器就好了。</p>
-
-<p>换句话说，因为遥控器和电器之间通过Command解耦了，增加新的电器和新的Command对于遥控器没有影响，遥控器的代码是稳定的。这也就是所谓的对扩展开放，对修改关闭。</p>
-
-<p>很好，很符合良好的设计原则，看着就舒服对吧？</p>
-
-<h2>不过再想一下</h2>
-
-<p>电灯的开启和关闭这两个命令仅仅是对电灯的两个方法的简单代理。</p>
-
-<p>音响的开启和关闭这两个命令仅仅是对音响的两个方法的简单代理。</p>
-
-<p>电视机的关闭也是简单的代理。</p>
-
-<p>这些命令类是否看起来太单薄了呢？它们的方法异常瘦弱，营养不良。</p>
-
-<p>它们除了持有一个需要操作的电器的实例之外，基本没有什么实例级状态。</p>
-
-<p>（电视开机还好，由于需要选择频道，好歹调用了两个方法。
-水疗浴缸操作比较复杂，需要调节温度，所以也还稍微好一些。）</p>
-
-<p>每次看到这种贫血的类，我就怀疑它们存在的必要性。</p>
-
-<p>如果我们只是想要给家用电器内的方法构造一个统一个的对外接口，是不是可以用函数式来实现呢？</p>
-
-<h1>functions</h1>
-
-<p>来试试用Scala实现：</p>
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/appliances/Light.scala?slice=1:&footer=minimal">
-</script>
-
-
-
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/appliances/TV.scala?slice=1:&footer=minimal">
-</script>
-
-
-
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/appliances/Stereo.scala?slice=1:&footer=minimal">
-</script>
-
-
-
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/appliances/Hottub.scala?slice=1:&footer=minimal">
-</script>
-
-
-<p>首先是有四大件家用电器，这部分和Java的代码等价。</p>
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/Commands.scala?slice=3:&footer=minimal">
-</script>
-
-
-<p>这一段用来定义各种命令的代码就不同了。</p>
-
-<p>我们对家用电器的各种方法的调用都是只期待其副作用，不期待任何返回值的。所以可以定义一个函数签名Command来涵盖所有这类操作。</p>
-
-<p>和上面的Java代码类似，这里也有一个宏命令，只不过实现简单一些。</p>
-
-<p>电视的开启，水疗浴缸的开和关都有对应的方法来把家用电器的实例封入闭包中。</p>
-
-<p>咦？电灯的开关，音响的开关，以及电视的关闭都跑哪儿去了呢？</p>
-
-<p>由于这几个操作都只涉及到一个方法的调用，它们直接就符合Command的函数签名，所以不用再封入任何闭包了。这一点看下面的代码就明白了。</p>
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/RemoteControl.scala?slice=3:&footer=minimal">
-</script>
-
-
-
-
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/RemoteLoader.scala?slice=4:&footer=minimal">
-</script>
-
-
-<p>我们可以定义一个遥控器。其中有开启，和关闭两排按钮。</p>
-
-<p>最后，可以写一个main函数，其中所做的事情和之前Java代码main函数所做的事情是一样的。</p>
-
-<p>只不过，不需要创建各种Command的实例。</p>
-
-<p>而且light.on，stereo.on，light.off，stereo.off，tv.off这几个方法由于符合Command的签名，是可以直接拿来当Command用的。（注意方法名后面没有()，不是调用，而是函数传递）</p>
-
-<p>前后两版代码是等价的。只不过：</p>
-
-<ul>
-<li>247行代码变成了93行代码</li>
-<li>16个实体变成了7个</li>
-</ul>
-
-
-<p>作为一个多按几个按钮都嫌麻烦的好逸恶劳的资产阶级，这个结果是我所乐于见到的。</p>
-
-<p>更少，更紧凑的代码。更少的实体。我终于可以用更小的成本来享受我昂贵的家用电器了。</p>
-
-<h1>指甲刀刮胡子</h1>
-
-<p>最后回到标题上去：指甲刀刮胡子，意即用不合适的工具解决问题。</p>
-
-<p>命令模式想要做到的事情其实就是给各种不同的操作寻找一个统一的接口，从而实现调用者（遥控器）和被调用者（家用电器）之间的解耦。</p>
-
-<p>给不同的操作寻找一个统一的接口这件事可以通过接口来做，但是我们同时要承担写一堆贫血类的代价。</p>
-
-<p>而如果直接用函数来做的话，则可以得到更紧凑简洁的代码（就像object Commands这个实体内的代码一样）。</p>
-
-<p>该模式提出的时候FP并不如今日盛行，其作者选用了可能会导致贫血类泛滥的解决方案，这无可厚非。传播了解耦和开闭等良好设计的原则也实为功德。</p>
-
-<p>不过今天我们有了剃须刀，就无需一定要用指甲刀来刮胡子了。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -2513,6 +2408,10 @@ Which is “most natural” may depend on what you are doing (e.g., an interpret
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/06/04/when-hammer-meets-nail/">当锤子遇到钉子</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2016/05/15/promise/">自己动手实现Promises/A+规范</a>
@@ -2548,10 +2447,6 @@ Which is “most natural” may depend on what you are doing (e.g., an interpret
     
       <li class="post">
         <a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/">解释器模式：OOP versus Functional Decomposition</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/06/01/command-pattern-fp-implementation/">命令模式的不爽就像用指甲刀刮胡子</a>
       </li>
     
   </ul>
