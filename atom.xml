@@ -4,7 +4,7 @@
   <title><![CDATA[崔鹏飞的Octopress Blog]]></title>
   <link href="http://cuipengfei.github.com/atom.xml" rel="self"/>
   <link href="http://cuipengfei.github.com/"/>
-  <updated>2016-06-05T14:33:53+08:00</updated>
+  <updated>2016-06-13T16:54:24+08:00</updated>
   <id>http://cuipengfei.github.com/</id>
   <author>
     <name><![CDATA[崔鹏飞]]></name>
@@ -18,15 +18,17 @@
     <link href="http://cuipengfei.github.com/blog/2016/06/04/when-hammer-meets-nail/"/>
     <updated>2016-06-04T16:58:00+08:00</updated>
     <id>http://cuipengfei.github.com/blog/2016/06/04/when-hammer-meets-nail</id>
-    <content type="html"><![CDATA[<h1>锤子　JS Promise</h1>
+    <content type="html"><![CDATA[<p><sub>此文标题党。更切题的标题应该叫做《如何用统计科学来黑星座》或者是《积极注册Facehub,促进统计科学蓬勃发展》 </sub></p>
 
-<p>最近对JS社区里的Promises/A+规范产生了很浓的兴趣,自己把它实现了一遍:<a href="https://www.npmjs.com/package/RWPromise">https://www.npmjs.com/package/RWPromise</a></p>
+<h1>锤子　JS Promise</h1>
+
+<p>最近对JS社区里的Promises/A+规范产生了很浓的兴趣,感觉Promise这套东西确实蛮不错的,给异步算法的编写者和异步算法的消费者之间提供了一套统一的沟通手段,也为异步算法的消费者提供了更悦目易读的代码组织方式。</p>
+
+<p>自己把它实现了一遍:<a href="https://www.npmjs.com/package/RWPromise">https://www.npmjs.com/package/RWPromise</a></p>
 
 <p>然后在武汉run了3次workshop:<a href="http://cuipengfei.me/blog/2016/05/15/promise/">http://cuipengfei.me/blog/2016/05/15/promise/</a>。</p>
 
-<p>感觉Promise这套东西确实蛮不错的,给异步算法的编写者和异步算法的消费者之间提供了一套统一的沟通手段,也为异步算法的消费者提供了更悦目的代码组织方式。</p>
-
-<p>手里有了这么一把锤子就总想找个钉子敲一敲。</p>
+<p>手里有了这么一把锤子就总想找个钉子敲一敲。哪里有Ｎ多异步操作需要我来组织一下吗?</p>
 
 <h1>钉子　《异类》</h1>
 
@@ -40,25 +42,31 @@
 
 <p>正如冰球队员的成长经历一样，因年龄大几个月而显现的微弱优势会在孩子的成长过程中不断积累，最终引导孩子走向成功或不成功，自信或不自信的轨道中，其影响会延伸许多年。</p></blockquote>
 
-<p>能否成为加拿大冰球运动明星竟然和出生月份有关系,假想如果你运动天赋非常好,但是不幸出生在12月,于是不得不从小和大你将近一岁的少年运动员一起训练。</p>
+<p>能否进入加拿大职业青年冰球队竟然和出生月份有关系,实在是太有趣了。</p>
 
-<p>表现难免显得不那么出色,不受教练待见,得不到正面反馈,出场坐冷板凳。。。逐渐逐渐,伤仲永。</p>
-
-<p>实在是太有趣了。</p>
+<p>假想如果你运动天赋非常好,但是不幸出生在12月,于是不得不从小和大你将近一岁的少年运动员一起训练。
+表现难免显得不那么出色,不受教练待见,得不到正面反馈,出场坐冷板凳。。。逐渐逐渐,伤仲永。</p>
 
 <p>由此就联想到了,到TW来工作的人其出生月份是否也存在什么规律呢?</p>
 
-<h1>Facehub</h1>
+<h2>Facehub</h2>
 
-<p>一下就想到了Facehub这个网站可以提供生日信息。</p>
+<p>生日信息哪家强?
+Facehub帮你忙,它可以查到每个注册用户的生日(只有月日,没有年)。</p>
 
 <p>铺天盖地的广告宣传,每次看到觉得审美都疲劳了,能用到的时候第一个就想到了它。广告的作用,诚不我欺。</p>
 
+<p>我先目测,Facehub用户不会超过500人。
+并且用户的id是连续的自增数字,这就很好办了,我只要构造Ｎ多获取用户数据的ＧＥＴ请求就好了。
+这Ｎ多的ＧＥＴ请求,肯定不能一个一个慢慢发送,那就需要异步请求了,这就是钉子啊!钉锤终于有机会合体了。</p>
+
 <p>于是我就写了这么个脚本:　<a href="https://github.com/cuipengfei/Spikes/blob/master/js/birth/birth.js">https://github.com/cuipengfei/Spikes/blob/master/js/birth/birth.js</a></p>
 
-<p>其中使用Promise把大量的异步Http请求组织起来,然后分析其结果。</p>
+<p>其中使用Promise把大量的异步Http请求组织起来,然后统计其结果。</p>
 
 <p>(注:如果需要自己跑这个脚本,需要把第七行的token替换成你自己的合法值)</p>
+
+<p>以下是统计结果:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -73,38 +81,37 @@
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="err">获取到用户数量</span> <span class="mi">316</span>
-</span><span class='line'><span class="p">[</span> <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;11&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">11.708860759493671</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">11.708860759493671</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;8&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">10.126582278481013</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.860759493670885</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.544303797468354</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.9113924050632916</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.9113924050632916</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;7&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.2784810126582276</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;6&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.2784810126582276</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.2784810126582276</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.012658227848101</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;12&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">5.379746835443038</span> <span class="p">}</span> <span class="p">]</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="err">获取到用户数量</span> <span class="mi">318</span>
+</span><span class='line'><span class="p">[</span> <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;11&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">11.949685534591195</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">11.635220125786164</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;8&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">10.062893081761008</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.80503144654088</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.49056603773585</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.176100628930817</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.861635220125786</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;7&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.232704402515723</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;6&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.232704402515723</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.232704402515723</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">5.9748427672955975</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;出生月份&#39;</span><span class="o">:</span> <span class="s1">&#39;12&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">5.345911949685535</span> <span class="p">}</span> <span class="p">]</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
 <p>由此可以看到,来TW工作的人,11月,10月,8月出生的最多,12月出生的最少。</p>
 
-<p>由于样本量不是太大(316人),所以统计数据的含义还不太好说。
-我猜测:8,10,11月出生的人在参与TW的招聘的时候或许是具备某些特殊的优势的,具体是什么我暂时猜不到。</p>
+<p>由于样本量不够大(只有318人),所以统计数据的含义还不太好说。</p>
 
-<p>(注:以上统计数据与各月份人口出生率并不是符合的。</p>
+<h2>下面是我胡乱猜测的、不科学的、不严谨的理论</h2>
 
-<blockquote><p>全国人口普查都会有月份分布的数据。
-抽06年的来看，1月份占8.6%，2月份占8.4%，3月份占7.7%，4月份占7.1%，5月份占6.9%，6月份占7.3%，7月份占7.4%，8月份占8.3%，9月份占8.8%，10月份占10.5%，11月份占9.8%，12月份占9.3%。从大体上看是秋天和冬天出生的人多，春天和夏天出生的人少。</p>
+<blockquote><p>我们小学入学时卡生日印象中是用8月卡的,那么这就和加拿大的冰球挑队员卡1月类似。</p>
 
-<p>作者：GraceG
-链接：https://www.zhihu.com/question/19795511/answer/12986633
-来源：知乎
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p></blockquote>
+<p>那这样,小学入学后,优势的积累就应该会倾向于8,9,10这几月的学生(类比冰球青年职业队队员集中分布在1,2,3这几个月)。</p>
 
-<p>)</p>
+<p>这几个月生日的小学生从小积累优势,并在成年后把优势携带到了求职之中去。</p>
+
+<p>那为什么我们统计出来是8,10,11月份的人份额多呢?怎么不是8,9,10这几个月呢?统计出来的数据为什么把9月给跳过去了呢?可怜的9月得罪谁了呢?</p>
+
+<p>我猜是由于9月这群人会成为某种星座的几率实在是太高了,被命运之神无情的给镇压掉了。:(抱歉</p></blockquote>
 
 <p>既然已经有了这份代码,可以统计出生月份,索性再统计些其他侧面的数据:</p>
 
@@ -120,22 +127,24 @@
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span> <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;天秤&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">12.025316455696203</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;狮子&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">10.443037974683545</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;天蝎&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">9.81012658227848</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;双鱼&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">9.49367088607595</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;双子&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.544303797468354</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;水瓶&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.544303797468354</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;摩羯&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.9113924050632916</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;巨蟹&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.9113924050632916</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;处女&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.962025316455696</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;白羊&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.962025316455696</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;射手&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.329113924050633</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;金牛&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">5.063291139240507</span> <span class="p">}</span> <span class="p">]</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span> <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;天秤&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">11.949685534591195</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;狮子&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">10.377358490566039</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;天蝎&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">10.062893081761008</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;双鱼&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">9.433962264150944</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;双子&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.49056603773585</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;水瓶&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.49056603773585</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;摩羯&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.176100628930817</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;巨蟹&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.861635220125786</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;处女&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.918238993710692</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;白羊&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.918238993710692</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;射手&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.289308176100629</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;星座&#39;</span><span class="o">:</span> <span class="s1">&#39;金牛&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">5.031446540880504</span> <span class="p">}</span> <span class="p">]</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>可见天秤和狮子座的最多,金牛座的最少。</p>
+<p>可见天秤和狮子座的最多,金牛座的最少。和上面的月份排名差异不大。</p>
+
+<p>仔细看下的话,发现我只得罪了6.9%的人,好欣慰:)</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -149,24 +158,28 @@
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span> <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;7&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">14.240506329113925</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">14.240506329113925</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;8&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">11.075949367088606</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">10.759493670886076</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;6&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">8.544303797468354</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.9113924050632916</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;12&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.329113924050633</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.329113924050633</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.329113924050633</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;11&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.012658227848101</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">4.430379746835443</span> <span class="p">},</span>
-</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">3.79746835443038</span> <span class="p">}</span> <span class="p">]</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">[</span> <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;7&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">14.150943396226415</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">14.150943396226415</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;8&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">11.0062893081761</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">10.69182389937107</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;6&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">9.119496855345911</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">7.861635220125786</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;12&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.289308176100629</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.289308176100629</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">6.289308176100629</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;11&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">5.9748427672955975</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">4.40251572327044</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span> <span class="s1">&#39;入职月份&#39;</span><span class="o">:</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="nx">percentage</span><span class="o">:</span> <span class="mf">3.7735849056603774</span> <span class="p">}</span> <span class="p">]</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>入职日期,3,4月和7,8月最多,9,10月最少。</p>
+<p>入职日期,3,4月和7,8月最多,9,10月最少,这倒不算什么惊人的发现。</p>
 
-<p>虽然最后也没有根据统计数据得到什么惊人的发现。但是能让锤子和钉子相遇还是挺好玩的。</p>
+<h1>最后</h1>
+
+<p>由于只统计了318人的信息,所以以上猜测仅供娱乐,请勿当真。</p>
+
+<p>请大家积极注册Facehub,并填写真实的生日信息,以促进统计科学的繁荣发展。</p>
 ]]></content>
   </entry>
   
