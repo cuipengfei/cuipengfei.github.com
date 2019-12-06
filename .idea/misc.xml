@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="IdProvider" IDEtalkID="C3E2E839A8E986D3F11CAC0DA174D3DD" />
-  <component name="ProjectRootManager" version="2" project-jdk-name="ruby-1.9.3-p194" project-jdk-type="RUBY_SDK" />
+  <component name="ProjectRootManager">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
 </project>
