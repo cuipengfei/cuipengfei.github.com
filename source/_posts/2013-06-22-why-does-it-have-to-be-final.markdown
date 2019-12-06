@@ -3,7 +3,7 @@ layout: post
 title: "为什么必须是final的呢？"
 date: 2013-06-22 14:54
 comments: true
-categories: Java
+tags:  Java
 ---
 
 ## 一个谜团

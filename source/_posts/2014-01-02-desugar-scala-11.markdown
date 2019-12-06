@@ -3,7 +3,9 @@ layout: post
 title: "剥掉Scala的糖衣(11) -- structural types"
 date: 2014-01-02 22:13
 comments: true
-categories: Desugar_Scala Scala
+tags:
+- Desugar_Scala
+- Scala
 ---
 
 Structural types，中文怎么翻译不确定。我们可以用它来实现类似于鸭子类型的效果。为什么说是“类似”鸭子类型呢？稍后会说到它和鸭子类型的区别。

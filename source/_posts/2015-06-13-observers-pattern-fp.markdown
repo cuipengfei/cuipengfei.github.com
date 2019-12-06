@@ -3,7 +3,9 @@ layout: post
 title: "观察者模式 in FP：Mutation vs Transformation"
 date: 2015-06-13 22:49
 comments: true
-categories: Scala OODP
+tags:
+- Scala
+- OODP
 ---
 
 # 观察者模式

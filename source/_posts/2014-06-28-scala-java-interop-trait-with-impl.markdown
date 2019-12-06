@@ -4,7 +4,7 @@ title: "论“如果trait有方法实现，那么Java类就不能实现这个tra
 date: 2014-06-28 12:55
 comments: true
 keywords: scala, java, interop
-categories:
+tags:
 ---
 最近还是在看郑大翻译的《Scala程序设计》，其中第十一章还有一句话：
 

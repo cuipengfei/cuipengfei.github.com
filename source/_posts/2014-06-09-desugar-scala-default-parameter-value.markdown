@@ -3,7 +3,9 @@ layout: post
 title: "除去Scala的糖衣(13) -- default parameter value"
 date: 2014-06-09 21:34
 comments: true
-categories: Desugar_Scala Scala
+tags:
+- Desugar_Scala
+- Scala
 ---
 好久没有写博客了，上一次更新竟然是一月份。
 

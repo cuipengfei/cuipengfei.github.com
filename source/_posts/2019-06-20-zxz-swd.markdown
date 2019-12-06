@@ -3,7 +3,7 @@ layout: post
 title: "被诅咒的与被祝福的"
 date: 2019-06-20 22:06
 comments: true
-categories:
+tags:
 ---
 
 * TOC

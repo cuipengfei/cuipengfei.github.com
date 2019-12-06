@@ -3,7 +3,9 @@ layout: post
 title: "掀开Scala的糖衣(9) -- function composition"
 date: 2013-12-30 22:29
 comments: true
-categories: Desugar_Scala Scala
+tags:
+- Desugar_Scala
+- Scala
 ---
 
 Function composition，顾名思义，就是函数的组合。直接举例：

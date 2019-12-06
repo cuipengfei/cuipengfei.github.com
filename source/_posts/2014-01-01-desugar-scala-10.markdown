@@ -3,7 +3,9 @@ layout: post
 title: "褪去Scala的糖衣(10) -- implicit function"
 date: 2014-01-01 22:56
 comments: true
-categories: Desugar_Scala Scala
+tags:
+- Desugar_Scala
+- Scala
 ---
 
 Implicit function，中文或许应该叫做隐式函数吧。主要用来作隐式类型转换。例子：

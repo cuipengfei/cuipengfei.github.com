@@ -3,7 +3,7 @@ layout: post
 title: "如何一步一步推导出Y Combinator"
 date: 2013-04-09 22:40
 comments: true
-categories: 
+tags:
 ---
 
 ##本文讲什么？

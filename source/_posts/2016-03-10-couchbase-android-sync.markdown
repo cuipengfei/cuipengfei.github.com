@@ -3,7 +3,7 @@ layout: post
 title: "利用CouchBase为弱网环境构建云同步Android应用"
 date: 2016-03-10 10:26
 comments: true
-categories:
+tags:
 ---
 
 #背景

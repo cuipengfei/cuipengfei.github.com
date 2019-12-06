@@ -3,7 +3,7 @@ layout: post
 title: "读屠龙术五卷，粗浅总结一下太祖的套路"
 date: 2019-04-11 16:08
 comments: true
-categories: marx
+tags:  marx
 ---
 
 最近快速浏览完了太祖的五卷选集。粗浅的尝试着总结一下太祖做事情和分析问题解决问题时都会运用一些什么样的套路。

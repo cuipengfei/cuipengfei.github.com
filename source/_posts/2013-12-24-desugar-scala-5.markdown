@@ -3,7 +3,9 @@ layout: post
 title: "剥开Scala的糖衣(5) -- lazy"
 date: 2013-12-24 17:48
 comments: true
-categories: Desugar_Scala Scala
+tags:
+- Desugar_Scala
+- Scala
 ---
 
 Scala中的lazy关键字是实现延迟加载的好帮手。

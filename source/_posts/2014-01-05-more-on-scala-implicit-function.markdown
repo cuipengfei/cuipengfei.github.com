@@ -3,7 +3,9 @@ layout: post
 title: "褪去Scala的糖衣(12) -- implicit function（补）"
 date: 2014-01-05 00:42
 comments: true
-categories: Desugar_Scala Scala
+tags:
+- Desugar_Scala
+- Scala
 ---
 
 上次[博客谈到了implicit function](http://cuipengfei.me/blog/2014/01/01/desugar-scala-10/)，但是漏掉了一些东西，今天补上。

@@ -3,7 +3,9 @@ layout: post
 title: "Desugar Scala(18) -- stackable traits"
 date: 2017-06-14 14:00
 comments: true
-categories: Desugar_Scala Scala
+tags:
+- Desugar_Scala
+- Scala
 ---
 
 Stackable traits是一种怎样的特性呢？

@@ -3,7 +3,9 @@ layout: post
 title: "抹掉Scala的糖衣(14) -- update method"
 date: 2014-06-12 18:42
 comments: true
-categories: Desugar_Scala Scala
+tags:
+- Desugar_Scala
+- Scala
 ---
 在Scala中，名字叫做update的方法是有特殊作用的。
 

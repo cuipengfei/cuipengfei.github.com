@@ -3,7 +3,7 @@ layout: post
 title: "当锤子遇到钉子"
 date: 2016-06-04 16:58
 comments: true
-categories: 
+tags:
 ---
 
 <sub>此文标题党。更切题的标题应该叫做《如何用统计科学来黑星座》或者是《积极注册Facehub，促进统计科学蓬勃发展》 </sub>

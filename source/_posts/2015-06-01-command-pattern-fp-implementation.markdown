@@ -3,7 +3,9 @@ layout: post
 title: 命令模式的不爽就像用指甲刀刮胡子
 date: '2015-06-01 21:51'
 comments: true
-categories: Scala OODP
+tags:
+- Scala
+- OODP
 ---
 
 # 命令模式

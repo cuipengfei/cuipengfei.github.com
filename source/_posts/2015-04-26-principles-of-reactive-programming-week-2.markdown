@@ -3,7 +3,10 @@ layout: post
 title: "Principles of Reactive Programming Week Two作业导学"
 date: 2015-04-26 17:56
 comments: true
-categories: MOOC Reactive Scala
+tags:
+- MOOC
+- Reactive
+- Scala
 ---
 
 #声明

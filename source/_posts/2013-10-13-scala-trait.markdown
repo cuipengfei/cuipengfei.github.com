@@ -3,7 +3,9 @@ layout: post
 title: "Scala中的语言特性是如何实现的(3) -- trait"
 date: 2013-10-13 17:41
 comments: true
-categories: Desugar_Scala Scala
+tags:
+- Desugar_Scala
+- Scala
 ---
 
 我在Coursera上跟了一门叫做[Functional Programming Principles in Scala](https://www.coursera.org/course/progfun)的课程，是由Scala的作者Martin Odersky讲授的。其中第三周的作业中使用到了Scala的trait这个语言特性。

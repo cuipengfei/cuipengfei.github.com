@@ -3,7 +3,9 @@ layout: post
 title: "揭开Scala的糖衣(8) -- pattern matching"
 date: 2013-12-29 23:20
 comments: true
-categories: Desugar_Scala Scala
+tags:
+- Desugar_Scala
+- Scala
 ---
 
 Pattern matching是Scala中很好用的一个语言特性。先举一个最简单的例子：

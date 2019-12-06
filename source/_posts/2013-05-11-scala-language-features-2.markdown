@@ -3,7 +3,9 @@ layout: post
 title: "Scala中的语言特性是如何实现的(2)"
 date: 2013-05-11 23:37
 comments: true
-categories: Desugar_Scala Scala
+tags:
+- Desugar_Scala
+- Scala
 ---
 
 [上篇博文](http://cuipengfei.me/blog/2013/05/05/how-are-scala-language-features-implemented/)的末尾留了三个问题，现在自问自答一下。

@@ -3,7 +3,9 @@ layout: post
 title: 策略模式的尴尬就像用菜刀开啤酒
 date: '2015-05-27 08:55'
 comments: true
-categories: Scala OODP
+tags:
+- Scala
+- OODP
 keywords: 'scala, java, design pattern, strategy pattern, OO, FP, 设计模式'
 ---
 

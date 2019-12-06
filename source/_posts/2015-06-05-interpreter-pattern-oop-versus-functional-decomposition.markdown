@@ -3,7 +3,9 @@ layout: post
 title: "解释器模式：OOP versus Functional Decomposition"
 date: 2015-06-05 15:34
 comments: true
-categories: Scala OODP
+tags:
+- Scala
+- OODP
 ---
 
 # 解释器模式

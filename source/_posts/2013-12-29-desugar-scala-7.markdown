@@ -3,7 +3,9 @@ layout: post
 title: "剥掉Scala的糖衣(7) -- apply method"
 date: 2013-12-29 19:20
 comments: true
-categories: Desugar_Scala Scala
+tags:
+- Desugar_Scala
+- Scala
 ---
 
 apply method是一个很简单的语言特性。如果一个class或者是object有一个主要的方法，那么与其每次显式的调用这个主要的方法，还不如隐式调用。举个例子：

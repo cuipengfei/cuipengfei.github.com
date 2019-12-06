@@ -4,7 +4,10 @@ title: "Spark RDD的fold和aggregate为什么是两个API？为什么不是一�
 date: 2014-10-31 15:29
 comments: true
 keywords: scala, spark
-categories: Scala Spark ScalaInAction
+tags:
+- Scala
+- Spark
+- ScalaInAction
 ---
 
 大家都知道Scala标准库的List有一个用来做聚合操作的foldLeft方法。

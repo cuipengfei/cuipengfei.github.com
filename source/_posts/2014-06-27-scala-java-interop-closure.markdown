@@ -4,7 +4,7 @@ title: "论“如果Scala类有方法接收闭包，这些方法在Java里就不
 date: 2014-06-27 20:54
 comments: true
 keywords: scala, java, interop
-categories:
+tags:
 ---
 最近在看郑大翻译的《Scala程序设计》，其中第十一章有一句话：
 

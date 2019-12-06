@@ -3,7 +3,9 @@ layout: post
 title: "去掉Scala的糖衣(4) -- type aliase"
 date: 2013-12-23 15:48
 comments: true
-categories: Desugar_Scala Scala
+tags:
+- Desugar_Scala
+- Scala
 ---
 
 Scala中有一个type关键字，用来给类型或者是操作起别名，用起来很是方便。

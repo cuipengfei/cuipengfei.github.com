@@ -3,7 +3,9 @@ layout: post
 title: "访问者模式 in FP：Pattern Matching"
 date: 2015-06-16 19:11
 comments: true
-categories: Scala OODP
+tags:
+- Scala
+- OODP
 ---
 
 > 访问者模式是一种将算法与对象结构分离的软件设计模式。
