@@ -588,7 +588,7 @@ comments:
 disqus:
   enable: true
   shortname: cuipengfeioctopressblog
-  count: false
+  count: true
   lazyload: false
   #post_meta_order: 0
 
