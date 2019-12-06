@@ -8,7 +8,7 @@ tags:  me
 
 2015竟然这么快就过去一半了。逝者如斯夫。
 
-#博客
+# 博客
 
 第一季度总结的时候说：
 
@@ -30,7 +30,7 @@ Principles of Reactive Programming作业导学写了两篇，后面的有点难�
 
 不错，博客这方面达标了。
 
-#读书
+# 读书
 
 这个季度比较惨。这一季度只读了五本书。
 
@@ -55,7 +55,7 @@ Principles of Reactive Programming作业导学写了两篇，后面的有点难�
 
 另外，pipeline定义清晰，每本书要读完，有笔记，有复习，有某种形式的产出（笔记也算）。
 
-#MOOC
+# MOOC
 
 把Principles of Reactive Programming跟完了，证书拿到了。
 
@@ -69,7 +69,7 @@ Principles of Reactive Programming作业导学写了两篇，后面的有点难�
 
 算是对年初说过的话彻底食言了。。。
 
-#体重
+# 体重
 
 在印度这段时间健身房出勤率74%左右，还挺好。
 
@@ -83,13 +83,13 @@ Principles of Reactive Programming作业导学写了两篇，后面的有点难�
 
 <img src="http://i1.tietuku.com/6b5710437ae31c2f.jpg" style="width: 300px;"/>
 
-#翻译
+# 翻译
 
 接了出版社一个翻译的活儿，《Seven more languages in seven weeks》，是本蛮不错的书。这个额外的任务投入时间较多也是读书方面有欠缺的原因之一。
 
 对出版充满期待。
 
-#时间管理与统计
+# 时间管理与统计
 
 从四月一号开始，开始使用pomotodo这款超赞的番茄钟软件。从开始的第一天开始，到现在为止，凡是需要坐下来专心执行的事情都有记录。
 

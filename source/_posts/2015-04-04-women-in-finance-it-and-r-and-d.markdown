@@ -7,7 +7,7 @@ keywords: 女性, 职业女性, 收入
 tags:
 ---
 
-#源起
+# 源起
 
 前两天，在一个武汉本地程序员聚集的技术社区微信群里某位群友发了两张图片：
 
@@ -39,7 +39,7 @@ Y君回应：*&……%￥#@！啊
 
 以上，为源起。
 
-#定题
+# 定题
 近来我正尝试着自我疏离本性中近似于周树人先生的那一部分。
 
 便不太愿用“歧视”这个颇为尖刻的词汇，因而本文的标题中用了“劣势”这一稍为中性的说法。
@@ -52,7 +52,7 @@ Y君回应：*&……%￥#@！啊
 
 是为题目由来。
 
-#开篇
+# 开篇
 我是一个颇为庸俗的人，也时常会被称为理性的人。
 
 **于是，别人看待职业女性的眼光、上司是否会给小鞋穿、同事是否会区别对待等等这些无法量化，难以考量的因素均不采用。**
@@ -67,7 +67,7 @@ Y君回应：*&……%￥#@！啊
 
 所以接下来通篇都围绕着**人数多寡和挣钱多少**展开。
 
-#什么行业收入高？
+# 什么行业收入高？
 **中华人民共和国国家统计局，中国统计年鉴（2014）**中有一个条目：**按行业分城镇单位就业人员平均工资**，以Excel格式提供：
 
 （这一行Excel实在是太长了，我把它分开截了两张图）
@@ -90,7 +90,7 @@ Y君回应：*&……%￥#@！啊
 
 （为什么只有三个？笔者精力有限，只求管窥，不求完全覆盖）
 
-#金融
+# 金融
 搜寻良久，实在是找不到国内的资料，只好拿些英文的资料作为旁证了。
 
 以下是来自美国的**公平就业机会委员会（Equal Employment Opportunity Commission,缩写为EEOC）**2006年发布的一份报告中关于**女性金融从业者比例**的图表：
@@ -134,7 +134,7 @@ Y君回应：*&……%￥#@！啊
 
 平等与人权委员会的wiki页面：<a href="http://en.wikipedia.org/wiki/Equality_and_Human_Rights_Commission" target="_blank">http://en.wikipedia.org/wiki/Equality_and_Human_Rights_Commission</a>
 
-#IT
+# IT
 接下来开始看三大高收入行业中的第二名：IT行业中女性的状况。
 
 我找到了一份来自美国的非营利机构：**National Center for Women & Information Technology (NCWIT)**在2009年发布的报告。
@@ -161,7 +161,7 @@ Y君回应：*&……%￥#@！啊
 
 NCWIT的wiki页面：<a target="_blank" href="http://en.wikipedia.org/wiki/National_Center_for_Women_%26_Information_Technology">http://en.wikipedia.org/wiki/National_Center_for_Women_%26_Information_Technology</a>
 
-#科研
+# 科研
 高薪行业之三，科研。
 
 找到了两份来自欧盟的报告。
@@ -191,7 +191,7 @@ NCWIT的wiki页面：<a target="_blank" href="http://en.wikipedia.org/wiki/Natio
 
 发布报告的欧盟网站：<a href="http://ec.europa.eu/index_en.htm" target="_blank">http://ec.europa.eu/index_en.htm</a>
 
-#小结
+# 小结
 **以上观察了三个薪水最高的行业：金融，IT和科研，这三个行业中都呈现出了女性从业人员少于男性，且收入低于男性的态势。**
 
 如果这条结论和以上干巴巴的数据无法让您获得感性的认知的话，那我们再结合其他数据做个分析。
@@ -229,7 +229,7 @@ NCWIT的wiki页面：<a target="_blank" href="http://en.wikipedia.org/wiki/Natio
 
 NACE的wiki页面：<a href="http://en.wikipedia.org/wiki/National_Association_of_Colleges_and_Employers" target="_blank">http://en.wikipedia.org/wiki/National_Association_of_Colleges_and_Employers</a>
 
-#然后呢？
+# 然后呢？
 以上仅仅是通过交叉引证来描述了职业女性的状况。是属于**实证性的表述（positive statement）。**
 
 而关于职业女性应该处于何种状况，那是属于**规范性的表述（normative statement）**，本文就不涉及了。
@@ -245,7 +245,7 @@ NACE的wiki页面：<a href="http://en.wikipedia.org/wiki/National_Association_o
 所有这些问题，都属于**价值判断**。通过上面引用的数据，以及常识的积累，我对这些问题会有确定性的判断。
 想来你也能猜到我的判断是什么。但是我不把它说出来，**留待读者自己得出结论**。
 
-#最后
+# 最后
 如果您觉得这篇博客写的还可以，请用手机支付宝扫描下面的二维码：
 
 ![](https://tfsimg.alipay.com/images/mobilecodec/T1J3FfXbpsXXXXXXXX)
@@ -260,7 +260,7 @@ NACE的wiki页面：<a href="http://en.wikipedia.org/wiki/National_Association_o
 
 成为一名雄性鼓励师，从此人生走上巅峰。
 
-#最后的后面
+# 最后的后面
 最后的后面怎么还有呢？因为标题已经啰嗦了，索性结尾也啰嗦一下。
 
 说是不严谨的考据，但是还是用了十几个番茄钟，五六次git commit，三四次审校。

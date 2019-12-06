@@ -10,13 +10,13 @@ tags:
 
 [上篇博文](http://cuipengfei.me/blog/2013/05/05/how-are-scala-language-features-implemented/)的末尾留了三个问题，现在自问自答一下。
 
-###在Scala中被声明为val的v4为什么在反编译的Java中不是final的呢？
+### 在Scala中被声明为val的v4为什么在反编译的Java中不是final的呢？
 
 在方法中声明局部变量时，如果用Scala的val关键字（或者是Java中的final）来修饰变量，则代表着此变量在赋过初始值之后不可以再被重新赋值。这个val或者final只是给编译器用的，编译器如果发现你给此变量重新赋值会抛出错误。
 
 而bytecode不具备表达一个局部变量是immutable的能力，也就是说对于JVM来说，不存在不可变的局部变量这个概念。所以v4在反编译之后，就和普通的局部变量无异了。
 
-###在Scala中被声明为val的v2为什么在反编译的C#中不是readonly的呢？
+### 在Scala中被声明为val的v2为什么在反编译的C#中不是readonly的呢？
 
 这是个挺tricky的问题，我试着解释一下。Scala .NET是基于IKVM实现的，IKVM可以把Java bytecode翻译为CIL。
 所以Scala编译为CIL的过程实际是这样的：
@@ -32,7 +32,7 @@ Java中，final实例变量定义的时候，可以先声明，而不给初值�
 
 可见，一个initonly的成员，不是随便在哪儿都可以赋初值的。由于这点不同IKVM就没有直接把final翻译成initonly。如果想让v2在C#代码中变成readonly的，可以给IKVM加上strictfinalfieldsemantics这个参数。
 
-###为什么反编译出来的C#代码中的实例级公开方法都是标有override的呢？
+### 为什么反编译出来的C#代码中的实例级公开方法都是标有override的呢？
 
 这个问题还没搞明白。
 

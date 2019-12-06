@@ -9,7 +9,7 @@ tags:
 - Scala
 ---
 
-#声明
+# 声明
 这系列博文的目标读者仅限于报名参加了这门课并且看完了视频，看完了作业的instruction之后仍有困难的同学。
 
 这系列博文不会公布作业的答案，那是违反Coursera的code of honor的。
@@ -21,7 +21,7 @@ tags:
 
 这周的作业不太难，主要就是一个观察者模式。
 
-#Signal是怎么work的？
+# Signal是怎么work的？
 
 ```scala
 scala> val a = Var(1)
@@ -114,7 +114,7 @@ a就会通知它的observers去重新求值。
 
 搞懂了上面的内容就足以去做作业了。
 
-#怎么和html页面结合起来的？
+# 怎么和html页面结合起来的？
 
 执行instruction里提到的webUI/fastOptJS这个task就会把Scala作业代码编译成js。
 

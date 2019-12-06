@@ -9,7 +9,7 @@ tags:
 - Scala
 ---
 
-#假设一个场景
+# 假设一个场景
 
 需要在50个随机数中找到前两个可以被3整除的数字。
 
@@ -98,7 +98,7 @@ res34: List[Int] = List(48, 27)
 
 但是如果List很大，filter时所做的运算很复杂的话，那这种做法就不可取了。
 
-#现有解法的优缺点
+# 现有解法的优缺点
 
 ```scala
 randomList.filter(isDivisibleBy3).take(2)
@@ -111,7 +111,7 @@ randomList.filter(isDivisibleBy3).take(2)
 
 做了多余的运算，浪费资源，而且这个缺点会随着数据量的增大以及计算复杂度的增加而更为凸显。
 
-#试着解决其缺点
+# 试着解决其缺点
 
 解决多余运算的思路很简单，不要过滤完整个List之后再取前两个。而是在过滤的过程中如果发现已经找到两个了，那剩下的就忽略掉不管了。
 
@@ -176,7 +176,7 @@ res36: List[Int] = List(93, 93)
 
 这两种解法在去除多余运算这个缺点的同时也把原来的优点给丢掉了，我们又退化回了描述如何做而不是做什么的程度了。
 
-#如何保持代码的表意性而又不用做多余运算呢？
+# 如何保持代码的表意性而又不用做多余运算呢？
 
 其实类似的问题是有套路化的解决方案的：使用Stream。
 
@@ -204,7 +204,7 @@ res42: List[Int] = List(15, 93)
 
 接下来就看一下这两个晦涩的名词是如何帮助Stream完成工作的吧。
 
-#实现原理
+# 实现原理
 
 在这里我借用一下Functional programming in Scala这本书里对Stream实现的代码，之所以不用Scala标准库的源码是因为我们只需要实现filter，take和toList这三个方法就可以展示Stream的原理，就不需要动用重型武器了。
 
@@ -216,7 +216,7 @@ MyStream(randomList: _*).filter(isDivisibleBy3).take(2).toList
 
 以这一行代码为引子，我们来开始解剖MyStream是如何工作的。
 
-#类型签名
+# 类型签名
 
 ```scala
 trait MyStream[+A] {
@@ -234,7 +234,7 @@ case class Cons[+A](h: () => A, t: () => MyStream[A]) extends MyStream[A]
 
 而Cons则是头尾结构的，头是Stream中的一个元素，尾是Stream中余下的元素。请注意头和尾这两个参数的类型并不是A，头的类型是一个能够返回A的函数，尾的类型是一个能够返回MyStream[A]的函数。
 
-#初始化
+# 初始化
 
 有了以上的类型定义以及头尾结构，我们就可以把很多个Cons加一个Empty（或者是无限多个Cons，没有Empty）连起来就构成一个Stream了，比如这样：
 
@@ -250,7 +250,7 @@ Cons(()=>1,()=>Cons(()=>2,()=>Empty))
 
 如果说我们通常熟知的一些集合包含的是花朵的话，那Stream所包含的就是花苞，它本身不是花，但是有开出花来的能力。
 
-#Smart初始化
+# Smart初始化
 
 当然，如果直接暴露Cons的构造函数出去给别人用的话，那这API也未免太不友好了，所以Stream需要提供一个易用的初始化的方式：
 
@@ -292,7 +292,7 @@ MyStream(randomList: _*).filter(isDivisibleBy3).take(2).toList
 
 接下来看MyStream(randomList: _*).filter(isDivisibleBy3)是如何work的。
 
-#filter
+# filter
 
 ```scala
 trait MyStream[+A] {
@@ -324,7 +324,7 @@ if (p(h())) cons(h(), t().filter(p))
 
 比较值得提一下的是：这里的h()是什么呢？h是构造Cons时的第一个参数，它是什么类型的？()=>A。它就是之前提到的能够生产数据的算法，就是那个能够开出花朵的花苞。在这里我们说h()，就是在调用这个函数来拿到它所生产的数据，就是让一个花苞开出花朵。
 
-#take
+# take
 
 ```scala
 MyStream(randomList: _*).filter(isDivisibleBy3).take(2)
@@ -358,7 +358,7 @@ trait MyStream[+A] {
 
 那就得看下面的toList了。
 
-#toList
+# toList
 
 ```scala
 trait MyStream[+A] {
@@ -378,7 +378,7 @@ trait MyStream[+A] {
 
 又是一个递归实现，但是这次可不是看似递归了，这次是实打实的递归：只要还没有遇到空节点，就继续向后遍历。这次没有使用cons，没有任何计算被延迟执行，我们通过不断地对h()求值，来把整个Stream中每一个能够生产数据的函数都调用一遍以此来拿到我们最终想要的数据。
 
-#总结
+# 总结
 
 要把以上的代码细节全部load进脑子跑一遍确实不太容易，我们人类的大脑栈空间太浅了。
 

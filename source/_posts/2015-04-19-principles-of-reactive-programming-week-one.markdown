@@ -21,12 +21,12 @@ Principles of Reactive Programming在4月13号又开课了。
 
 后来还在上海被8x鄙视于无形之中。
 
-#后世
+# 后世
 14年做了几个月的Scala开发，后来Functional programming principles in Scala再次开课又上了一遍，拿了个认证证书。
 
 感觉似乎可以再挑战一次。
 
-#今生
+# 今生
 
 上课习得的知识放在脑子里是不牢靠的。大脑有遗忘周期。
 
@@ -42,7 +42,7 @@ Principles of Reactive Programming在4月13号又开课了。
 
 其实，写这个系列博文对我的帮助比对读者的帮助要大。
 
-#正文
+# 正文
 
 ## Heap.scala
 第一周的代码下载下来之后，先来看一下Heap.scala这个文件。
@@ -135,7 +135,7 @@ new QuickCheckHeap with Bogus1BinomialHeap
 
 最后，我们的任务就是在QuickCheckHeap.scala添加更多的properties，把所有实现有误的Heap都揪出来。
 
-#题外话
+# 题外话
 
 有没有发现QuickCheckHeap.scala里面有些奇怪的代码？
 

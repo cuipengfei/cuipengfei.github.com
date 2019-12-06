@@ -184,7 +184,7 @@ StatisticsDisplay和ForecastDisplay则是截取气象历史数据不同的片段
 
 具体该怎么做呢？
 
-#functions
+# functions
 
 以下是Scala的实现：
 
