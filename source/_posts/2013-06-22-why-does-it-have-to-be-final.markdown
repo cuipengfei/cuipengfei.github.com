@@ -6,7 +6,7 @@ comments: true
 tags:  Java
 ---
 
-## 一个谜团
+##  一个谜团
 如果你用过类似guava这种“伪函数式编程”风格的library的话，那下面这种风格的代码对你来说应该不陌生：
 
 ```java
@@ -33,7 +33,7 @@ tags:  Java
 
 **为什么Java中的匿名内部类只可以访问final的局部变量呢？其他语言中的匿名函数也有类似的限制吗？**
 
-## Scala中有类似的规定吗？
+##  Scala中有类似的规定吗？
 
 ```scala
   def tryAccessingLocalVariable {
@@ -54,7 +54,7 @@ tags:  Java
 
 看来**Scala中没有类似的规定**。
 
-## C#中有类似的规定吗？
+##  C#中有类似的规定吗？
 
 ```c#
 	public void tryUsingLambda ()
@@ -76,7 +76,7 @@ tags:  Java
 
 看来**C#中也没有类似的规定**。
 
-## 分析谜团
+##  分析谜团
 
 三门语言中只有Java有这种限制，那我们分析一下吧。先来看一下Java中的匿名内部类是如何实现的：
 
@@ -138,7 +138,7 @@ class TryUsingAnonymousClass$1
 
 但是，新的谜团又出现了：
 
-## Scala和C#为什么没有类似的限制呢？它们是如何处理数据同步问题的呢？
+##  Scala和C#为什么没有类似的限制呢？它们是如何处理数据同步问题的呢？
 
 上面出现过的那段Scala代码中的lambda表达式会编译成这样：
 
@@ -185,7 +185,7 @@ private sealed class <tryUsingLambda>c__AnonStorey0
 
 把number包装在这个类内，这样就保证了lambda表达式内外使用的都是同一个number，即便重新赋值也可以保证内外部的数据是同步的。
 
-## 小结
+##  小结
 
 Scala和C#的编译器通过把局部变量包装在另一个对象中，来实现lambda表达式内外的数据同步。
 

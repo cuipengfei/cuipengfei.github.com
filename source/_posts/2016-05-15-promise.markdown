@@ -29,7 +29,7 @@ Promises/A+提供了配套的测试集:[https://github.com/promises-aplus/promis
 
 # 自己实现Promise规范时需要注意的几点:
 
-## 1. promise的状态一旦确定,不可更改
+##  1. promise的状态一旦确定,不可更改
 
 一个符合规范的promise有三种可能的状态:pending,resolved,rejected。
 
@@ -58,7 +58,7 @@ p.resolve();
 
 再然后,**无论p的resolve方法或者reject方法再怎么被调用,p的状态都不会再变更,x和y也再不会被执行了**。
 
-## 2. 树状结构
+##  2. 树状结构
 
 对then方法的多次调用会形成一个树状的数据结构。
 
@@ -102,7 +102,7 @@ var p5 = p3.then(i,j);
 
 了解promise的树状结构,将有助于实现promise时在自己脑子里构造递归模型。
 
-## 3. 回调的执行时机
+##  3. 回调的执行时机
 
 这是实现promise的时候,最容易把人搞晕的一点。
 

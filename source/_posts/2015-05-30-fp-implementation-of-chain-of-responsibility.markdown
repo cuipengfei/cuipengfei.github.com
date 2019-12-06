@@ -48,7 +48,7 @@ keywords: 'scala, java, design pattern, Chain Of Responsibility pattern, OO, FP,
 
 很好，很强大，很易于扩展，对吧？
 
-## 不过再想一下
+##  不过再想一下
 这三个Logger的实现类看起来都非常的单薄，弱不禁风。
 
 一个接收mask的构造函数，其唯一职责就是把接收到的mask传递给父类的构造函数。

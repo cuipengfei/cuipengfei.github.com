@@ -10,7 +10,7 @@ tags:
 
 Scala可以编译为Java bytecode和CIL，从而在JVM和CLI之上运行。Scala有很多在Java和C#的世界中显得陌生的语言特性，本文将分析这些语言特性是如何实现的。
 
-##object
+## object
 
 Scala中可以像这样创建object：
 
@@ -89,7 +89,7 @@ public sealed class HowIsObjectImplementedInScala$ : ScalaObject
 
 和Java代码大同小异，除了静态构造和某几个关键字外，基本一样。一个object就是一个Scala编译器帮我们实现的singleton。
 
-##var和val
+## var和val
 
 var：可变。val：不可变。关于这两个关键字何时该使用哪一个，这里不做讨论，我们只是观察这二者在编译后是如何被表示的。
 
@@ -180,7 +180,7 @@ public class HowAreVarAndValImplementedInScala : ScalaObject
 
 除此之外，和Java代码一致。但是有趣的是代码中的所有public方法（包括上一段演示object的代码）都被标为了override，原因不明。
 
-##小结
+## 小结
 
 本来以为研究这么简单的两个语言特性不会有啥收获，仅仅是反编译一下，看看compiler都做了啥，满足下好奇心罢了。
 

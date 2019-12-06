@@ -86,20 +86,20 @@ Wifi，4G，3G，这些我们习以为常的东西，未必对所有人来说都
 
 下面谈如何把玩它。
 
-##第一步
+## 第一步
 
 下载CouchBase Server： [http://www.couchbase.com/nosql-databases/downloads#](http://www.couchbase.com/nosql-databases/downloads#)，安装，配置管理员账户，不赘述。
 
 在CouchBase Server的Admin console(默认地址： http://127.0.0.1:8091/index.html)中创建一个bucket，命名为demodb。
 
-##第二步
+## 第二步
 
 安装sync_gateway，Mac用户可以：
 	brew install sync_gateway
 
 以上github代码克隆下来后，sync-gateway路径下有个名为start_sync_gateway_server.sh的脚本，运行它来启动sync gateway。
 
-##第三步
+## 第三步
 
 运行同一个路径下的create_user.sh，来创建一个名为user1的用户，然后运行create_session.sh，为该用户创建一个session。
 
@@ -111,7 +111,7 @@ create_session.sh脚本有类似如下的输出：
 
 （注：这里的用户和session都是sync gateway需要的，与CouchBase Server无直接关系）
 
-## 第四步
+##  第四步
 
 找到代码中的MainActivity类，在startSync方法中加入session id：
 
@@ -142,7 +142,7 @@ properties.put("channels", asList("user1"));
 
 这几行代码可以保证各个移动端用户之间的数据不会混杂在一起。
 
-##第五步
+## 第五步
 
 在genymotion中启动android虚拟机（如果使用其他虚拟设备或者真机，请注意修改代码中的服务器ip地址）。
 

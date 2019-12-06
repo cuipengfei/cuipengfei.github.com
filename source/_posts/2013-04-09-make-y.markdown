@@ -6,23 +6,23 @@ comments: true
 tags:
 ---
 
-##本文讲什么？
+## 本文讲什么？
 
 本文用Scheme（Racket）代码为例，一步一步的推出Y Combinator的实现。
 
-##本文不讲什么？
+## 本文不讲什么？
 
 Y Combinator是什么，干什么用的，它为什么能够work，它的数学含义以及实际应用场景，这些话题由于篇幅所限（咳咳，楼主的无知）不在本文论述范围之内。
 
 如果有兴趣，请参考维基： [http://en.wikipedia.org/wiki/Fixed-point_combinator#Y_combinator](http://en.wikipedia.org/wiki/Fixed-point_combinator#Y_combinator)
 
-##鸣谢
+## 鸣谢
 
 感谢Jojo同学的
 [这段JavaScript代码](https://github.com/zhewuzhou/js-y-combinator/blob/master/y-combinator.js)的启发，我写了[对应的Scheme实现](https://github.com/cuipengfei/lambda-calculus-impl/blob/master/racket/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E6%8E%A8%E5%87%BAY.rkt)。然后才有了本文。
 
 
-##正文开始
+## 正文开始
 
 我们知道Y Combinator可以帮匿名函数实现递归。那就从一个广为人知的递归函数-阶乘开始吧。
 

@@ -44,7 +44,7 @@ Principles of Reactive Programming在4月13号又开课了。
 
 #正文
 
-##Heap.scala
+## Heap.scala
 第一周的代码下载下来之后，先来看一下Heap.scala这个文件。
 
 这个文件里定义了很多个trait。现在只需要关注其中一个Heap。
@@ -61,7 +61,7 @@ Bogus1BinomialHeap到Bogus5BinomialHeap都是继承自BinomialHeap，其中各�
 
 实现代码其实就只有这一个文件，接下来看测试代码。
 
-##QuickCheckSuite.scala
+## QuickCheckSuite.scala
 这个文件里主要定义了QuickCheckSuite这个测试类。
 
 这个测试类继承自FunSuite，这是ScalaTest的测试基类。同时mix in了Checkers，这是ScalaTest为了与ScalaCheck集成而提供的trait。
@@ -107,7 +107,7 @@ new QuickCheckHeap with Bogus1BinomialHeap
 
 这就意味着QuickCheckHeap一定要是一个Prop，是不是这样呢？
 
-##QuickCheckHeap.scala
+## QuickCheckHeap.scala
 那就到QuickCheckHeap.scala这个文件中来看一下。
 
 可以看到QuickCheckHeap这个抽象类确实是extends了Properties，而properties又extends了Prop。那么，没问题，这个类型是匹配的。
@@ -116,7 +116,7 @@ QuickCheckHeap里可以定义任意多个property，这些property将会检查He
 
 而且它还mix in了IntHeap，就是前面略过的那个trait。它的目的是锁定Heap这个trait里所定义的A这个元素的类型到Int。
 
-##全部连起来
+## 全部连起来
 第一周作业的已有代码很少，有用的就是这三个文件。
 
 Heap.scala定义了很多个Heap的不同实现。有些是正确的，有些是有bug的。

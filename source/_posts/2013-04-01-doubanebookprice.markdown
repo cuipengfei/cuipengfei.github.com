@@ -6,7 +6,7 @@ comments: true
 tags:
 ---
 
-##为什么要做这款插件？
+## 为什么要做这款插件？
 
 在豆瓣上查看一本书的时候，页面的右侧会显示哪些网站可以购买该书以及各自的价格。
 比如这本《乡关何处》，页面右侧显示了亚马逊，京东，当当等网站的购买链接。
@@ -16,7 +16,7 @@ tags:
 但是豆瓣只会提供纸质书的购买链接，不提供电子书的。除非该书豆瓣自己有售。
 所以我写了个Chrome的插件来解决这个问题。
 
-##这款插件怎么用？
+## 这款插件怎么用？
 
 这款插件会在每个图书页面上添加正版电子书的购买链接及其价格。您只需点击链接去购买就好了。
 
@@ -47,7 +47,7 @@ tags:
 * kobo
 * nook
 
-##如何实现的？
+## 如何实现的？
 
 是用JavaScript写的。
 
@@ -65,12 +65,12 @@ tags:
 主要技术：
 knockoutjs和jQuery。
 
-##插件下载和源码
+## 插件下载和源码
 
 插件下载地址：[chrome store](https://chrome.google.com/webstore/detail/ebook-price-for-douban/ppbnlfplpcjhdphaejdfhbojmjifdjgd?hl=zh-CN)
 
 源码：[github](https://github.com/cuipengfei/JavaScript-Practice-Code/tree/master/EBookPriceForDouBan)
 
-##Disclaimer
+## Disclaimer
 
 插件的实现中违反了豆瓣API的协议（豆瓣不允许其API的使用者利用豆瓣的数据产生其他网站的购买信息）。如果您对这点很敏感，请慎用。
