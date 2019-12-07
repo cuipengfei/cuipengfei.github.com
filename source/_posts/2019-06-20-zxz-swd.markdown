@@ -6,9 +6,6 @@ comments: true
 tags:
 ---
 
-* TOC
-{:toc}
-
 身陷南洋囹圄，心系故园风物，无以聊赖之中，撰文权作慰藉。
 
 # 从Neal Ford的一段话讲开去
