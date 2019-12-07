@@ -99,3 +99,9 @@ deploy:
   type: 'git'
   repo: 'git@github.com:cuipengfei/cuipengfei.github.com.git'
   branch: 'master'
+
+excerpt:
+  depth: 6
+  excerpt_excludes: []
+  more_excludes: []
+  hideWholePostExcerpts: true
