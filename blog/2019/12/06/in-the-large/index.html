@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://cuipengfei.github.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="自敏捷之开端始，我们就思考大规模敏捷的问题。我们是否能够把轻量级，迭代，增量，快速反馈等软件开发的原理应用于规模巨大的项目呢？ 最初我们想到的答案是Scrum of Scrums之类的东西。这个想法是在更高的层次上递归地应用敏捷开发的原理。如果一个项目需要超过5-12个开发人员，那么可以组织两个这样的团队，以及一个更高级别的团队来“监督？”他们。 请注意上面的问号。当我们开始考虑大型项目时，我们不">
+<meta name="keywords" content="Uncle Bob">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「译」大规模敏捷">
+<meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2019&#x2F;12&#x2F;06&#x2F;in-the-large&#x2F;index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="自敏捷之开端始，我们就思考大规模敏捷的问题。我们是否能够把轻量级，迭代，增量，快速反馈等软件开发的原理应用于规模巨大的项目呢？ 最初我们想到的答案是Scrum of Scrums之类的东西。这个想法是在更高的层次上递归地应用敏捷开发的原理。如果一个项目需要超过5-12个开发人员，那么可以组织两个这样的团队，以及一个更高级别的团队来“监督？”他们。 请注意上面的问号。当我们开始考虑大型项目时，我们不">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;blog.cleancoder.com&#x2F;assets&#x2F;pyramids.jpg">
+<meta property="og:updated_time" content="2019-12-09T02:39:54.432Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;blog.cleancoder.com&#x2F;assets&#x2F;pyramids.jpg">
+
+<link rel="canonical" href="https://cuipengfei.github.com/blog/2019/12/06/in-the-large/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>「译」大规模敏捷</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+    <script pjax>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-46270419-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">崔鹏飞的Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.github.com/blog/2019/12/06/in-the-large/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          「译」大规模敏捷
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-06 16:19:00" itemprop="dateCreated datePublished" datetime="2019-12-06T16:19:00+08:00">2019-12-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-09 10:39:54" itemprop="dateModified" datetime="2019-12-09T10:39:54+08:00">2019-12-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2019/12/06/in-the-large/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2019/12/06/in-the-large/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>自敏捷之开端始，我们就思考大规模敏捷的问题。我们是否能够把轻量级，迭代，增量，快速反馈等软件开发的原理应用于规模巨大的项目呢？</p>
+<p>最初我们想到的答案是Scrum of Scrums之类的东西。这个想法是在更高的层次上递归地应用敏捷开发的原理。如果一个项目需要超过5-12个开发人员，那么可以组织两个这样的团队，以及一个更高级别的团队来“监督？”他们。</p>
+<p>请注意上面的问号。当我们开始考虑大型项目时，我们不可避免地要谈及层级化的组织。但是敏捷似乎是厌恶组织层级的。毕竟，敏捷就是关于平等主义的。敏捷是拒绝命令和控制的。敏捷是拒绝计划和时间表的，还有…</p>
+<p><strong>无稽之谈！并不是这样的！</strong></p>
+<p>敏捷其实是一场“风水轮流转”的革命。在软件行业的早期，我们原本就以敏捷的方式编写代码。我们写小块代码片段，对其进行了测试，将它们构建为更大的块，如此循环往复。如果您回到1960年代后期，并观察当时人们编写代码的方式，您会发现敏捷的小荷尖尖角正在显露出来。</p>
+<p>当然，当时我们在硬件方面受到了很大的限制。编译要跑好几个小时。代码编辑要用电传打字机。那时，大多数程序员根本不会使用键盘。因此他们让按键操作员替他们输入代码。在这种环境下，很难实现快速反馈机制。</p>
+<p>即便如此，我们仍竭尽所能去缩短反馈周期。我们使用汇编器编写程序，坐在控制台前通过用八进制或十六进制打补丁的方式来进行调试。我们可以通过在调试器中执行代码，甚至通过单步执行来测试代码。经年累月，熟能生巧。这是在合理的时间内完成工作的唯一方法。</p>
+<p>但是“风水轮流转”了。我们开始使用在控制台上不容易调试的语言。我们开始编写越来越大的程序。为了在反馈周期如此长的环境中工作，我们需要制定计划。</p>
+<p>瀑布就在这样的环境中诞生了出来。当编辑,编译,测试的循环周期需要一整天的时候，我们需要进行大量的计划和检查。在24小时的循环周期内做TDD和重构是不现实的！</p>
+<p>但是“风水”一直在转动。今天的大多数程序员都没有深切体会到摩尔定律的指数发展。我们从1970年的24小时循环周期，到1980年的60分钟循环周期，到1990年的十分钟循环周期，再到2000年的10秒循环周期。到2005年，大多数程序员的循环周期不到1秒。</p>
+<p>敏捷就在这样的环境中诞生了出来。敏捷是对1960年代快速周转，高频反馈开发策略的一种历史回归，不过这次我们有了更强大的机器，更强大的语言和工具以及更大规模的项目。</p>
+<p>敏捷也可以说是从历史的灰烬中浴火重生而来的。瀑布虽然在70年代和80年代是很有必要的，但却令人非常痛苦。在那几十年中，我们学会了哪些事情是不该做的。因此，当敏捷在90年代末出现时，它也承载着之前那段黑暗时期所积累的教训。</p>
+<p>敏捷却也不仅仅是对短反馈周期的历史回归。敏捷在短反馈周期的基础之上增强了纪律。诸如测试，重构，结对编程和高度自动化之类的实践。敏捷确实让我们从六十年代的策略中前进了。</p>
+<p>不过前进的方向是什么？敏捷革命改进了什么？</p>
+<p>敏捷革命关注的是相对较<em>小</em>的团队如何开发相对较<em>小</em>的软件项目。请注意，我强调了“<em>小</em>”这个字。</p>
+<p>敏捷团队擅长于创建十万行左右的软件系统。十万行已经可以做很多事情了。对于许多公司而言，一两个敏捷团队足以满足他们。</p>
+<p>另一方面，如果您需要创建一个千万行代码的系统，那么一个敏捷团队就不够了。您需要大约一百个团队来构建千万代码行级别的系统。</p>
+<p>但是，您如何管理一百个敏捷团队？您如何给他们提供用户故事？您如何协调它们之间的接口？您如何在那千万行代码中创造边界而让团队可以彼此独立工作？</p>
+<p>以及您如何以“敏捷”的方式做到这一点？ （这才是真正的问题）</p>
+<p><strong>答案是：你不能！</strong></p>
+<p>我们人类非常擅长于建设大型项目。长久以来我们就知道如何做这件事。</p>
+<p><img src="https://blog.cleancoder.com/assets/pyramids.jpg" alt="alt img"></p>
+<p>想想我们人类完成过的真正巨大的项目吧。</p>
+<ul>
+<li>阿波罗登月：我们把人送到月球上！</li>
+<li>诺曼底战役：我们在50英里坚固的防线上，以156000名士兵入侵了诺曼底。</li>
+<li>我们拥有支持80亿人口的世界经济。</li>
+<li>全球各地都有庞大的网络，您可以在树林里徒步时在手机上读这篇文章！</li>
+<li>你要买东西吗？按几下手机，明天甚至今天就会有人来送快递。</li>
+<li>我们将红色跑车驶入了太阳轨道。</li>
+</ul>
+<p>应该不用说更多例子了。我们人类确实非常擅长做大事。</p>
+<p>那为什么我们对大型软件会有所忧虑呢？我们已经知道如何构建大型软件了。我们已经这样做了50多年或更久了。“大”的部分实际上从来不是问题所在。我们用敏捷解决的问题是关于“<strong>小</strong>”的那部分。我们之前不知道如何搞定的，是做<strong>小</strong>型项目。</p>
+<p>我们一直都知道如何做大型项目。那就是分而治之。敏捷解决了其中“<strong>小</strong>”的那一部分。敏捷与“<strong>大</strong>”的部分无关。</p>
+<p>但是，但是，但是，但是……平等主义！拒绝计划和命令与控制！敏捷！</p>
+<p><strong>无稽之谈！</strong></p>
+<p>敏捷不是平等主义。敏捷不是拒绝计划，也不是拒绝命令和控制。事实上，敏捷是命令和控制体系中最小单元的体现：战术小队。</p>
+<p>是的，在层级结构的末端，命令和控制不再有效。一小组人可以通过大量反馈和激烈的沟通在较短的周期内工作，以实现目标。这就是一支敏捷的团队。在这个级别上，严格的命令和控制是极为有害的。但是在此级别之上，命令和控制就变得有必要了。在层级上越往上走，这种效应就越明显。没有大量的命令和控制，就无法设计，建造，生产和销售数以亿部的iPhone。</p>
+<p>市场上有很多种大规模敏捷的玩法。有关该主题的书籍和博客也有很多。也有人成立了咨询公司，专门为大公司做大规模敏捷的转型。这没有什么不好的。</p>
+<p>这些大规模敏捷方法所讲的策略和技术都没有错。只不过，它们不是敏捷的。它们与敏捷无关。它们是在人类几千年来用于完成重大工作的策略和技术的基础上加了点敏捷的“味道”。</p>
+<p>这点味道来自敏捷使用的词汇和概念。增添些口味没有错–没问题。如果您喜欢使用敏捷中的词语和概念，那就尽管去用。但是不要过分关注它的“敏捷性”。一旦你要做大规模的事情，就离开了敏捷的领域。希望您的各个开发小组正在使用敏捷；但是整个大规模项目并不是敏捷的。</p>
+<p>因为敏捷是专注于做”<strong>小</strong>“事情的。</p>
+
+    </div>
+
+    
+    
+    
+      
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="/https:/cuipengfei.github.com/blog/2019/12/06/in-the-large/" title="「译」大规模敏捷">https://cuipengfei.github.com/blog/2019/12/06/in-the-large/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Uncle-Bob/" rel="tag"><i class="fa fa-tag"></i> Uncle Bob</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2019/11/03/fp-vs-oo/" rel="prev" title="[译] FP vs OO">
+      <i class="fa fa-chevron-left"></i> [译] FP vs OO
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener" target="_blank"><i class="fa fa-fw fa-stack-overflow"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i></a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">131k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+    <script defer src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cuipengfeioctopressblog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "https://cuipengfei.github.com/blog/2019/12/06/in-the-large/",
+            identifier: "blog/2019/12/06/in-the-large/",
+            title: "「译」大规模敏捷"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cuipengfeioctopressblog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    (function() {
+      var offsetTop = document.getElementById('comments').offsetTop - window.innerHeight;
+      if (offsetTop <= 0) {
+        // load directly when there's no a scrollbar
+        window.addEventListener('load', loadComments, false);
+      } else {
+        var disqus_scroll = () => {
+          // offsetTop may changes because of manually resizing browser window or lazy loading images.
+          var offsetTop = document.getElementById('comments').offsetTop - window.innerHeight;
+          var scrollTop = window.scrollY;
+
+          // pre-load comments a bit? (margin or anything else)
+          if (offsetTop - scrollTop < 60) {
+            window.removeEventListener('scroll', disqus_scroll);
+            loadComments();
+          }
+        };
+        window.addEventListener('scroll', disqus_scroll);
+      }
+    })();
+  
+</script>
+
+    </div>
+</body>
+</html>
