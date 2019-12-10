@@ -32,6 +32,3 @@ C#  和Visual Studio IDE帮你把写代码这回事儿变
 IDE，你可以很快的专注于你期望你的的程序要做的事情上  .
 
 ![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081008/%E6%88%AA%E5%9B%BE03.jpg)
-
-
-

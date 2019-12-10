@@ -12,8 +12,9 @@ com:office:office" />
 
 把数据和我们的窗体连接起来，但是我们还是要
 
-先创建数据库本身。  ![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/Entr
-yImages/20081015/%E6%88%AA%E5%9B%BE00.jpg)
+先创建数据库本身。  
+
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081015/%E6%88%AA%E5%9B%BE00.jpg)
 
 1  向你的项目添加一个SQL数据库
 

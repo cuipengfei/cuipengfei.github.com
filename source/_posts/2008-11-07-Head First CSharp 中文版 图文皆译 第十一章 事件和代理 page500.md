@@ -11,7 +11,9 @@ com:office:office" />
 但是--还有一个微妙的地方--你不可以把发送者和接受者联系起来。你会希望发送者发送事件而并不用关心谁会收到。而接受者只需关心事件，而不关心发送它的对象。所以
 发送者和接受者都只注意事件，而不关心对方。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081107/%E6%88%AA%E5%9B%BE00.jpg) “  我的人会和你的人联系”
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081107/%E6%88%AA%E5%9B%BE00.jpg) 
+
+“  我的人会和你的人联系”
 
 你知道下面的代码会做什么：
 
