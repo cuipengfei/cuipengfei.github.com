@@ -3,8 +3,7 @@ title: Head First C# 中文版 第10章 异常处理 page462
 date: 2009-06-02 21:41:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90602/2009-06-02_21-00-25.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090602/2009-06-02_21-00-25.jpg)
 
 问：等一会。这么说每次我的程序遇到异常，除非我写了代码去捕获异常，它都会停止正在做的事情？这怎么会是好事儿呢？
 

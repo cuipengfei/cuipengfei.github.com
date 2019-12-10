@@ -3,8 +3,7 @@ title: Head First C# 中文版 第10章 异常处理 page471
 date: 2009-06-06 21:21:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90606/2009-06-06_20-56-30.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090606/2009-06-06_20-56-30.jpg)
 
 ■如果在运行时某些事情出错的话，任何语句都会抛出异常。
 
@@ -53,8 +52,7 @@ try  块中抛出的任何异常的信息。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90606/2009-06-06_21-12-47.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090606/2009-06-06_21-12-47.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

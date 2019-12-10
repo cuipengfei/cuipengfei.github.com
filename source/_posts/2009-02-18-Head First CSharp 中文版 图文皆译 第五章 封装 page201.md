@@ -3,8 +3,7 @@ title: Head First C# 中文版 图文皆译 第五章 封装 page201
 date: 2009-02-18 19:49:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90218/2009-02-18_19-30-10.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090218/2009-02-18_19-30-10.jpg)
 
 问：我注意到你给某些字段命名时用大写字母而有些是小写的。这个要紧吗？
 
@@ -21,11 +20,9 @@ tags: 我翻译的Head First C#（习作）
 有些方法，尤其是构造方法，经常有与字段同名的参数。这时，参数会遮盖掉字段，也就是说在方法中使用这个名字是代表参数而不是字段。用this关键字来解决这个问题
 --在变量名前写this，告诉编译器你指的是字段而不是参数。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90218/2009-02-18_19-45-08.jpg) 这段代码有问题。写下你认为代码中哪儿有错，你会怎么修改。
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090218/2009-02-18_19-45-08.jpg) 这段代码有问题。写下你认为代码中哪儿有错，你会怎么修改。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90218/2009-02-18_19-47-14.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090218/2009-02-18_19-47-14.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

@@ -18,24 +18,21 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90806/2009-08-06_08-44-05.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090806/2009-08-06_08-44-05.jpg)
 
 ②  要做双缓冲的话，可以添加一个  Bitmap
 到程序中去充当缓冲器的角色。这样，每当窗体或者控件需要重绘的时候，图形就可以绘制到缓冲器上而不是窗体上去。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90806/2009-08-06_08-49-57.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090806/2009-08-06_08-49-57.jpg)
 
 ③  现在一帧已经绘制到一个不可见的  Bitmap  上了，我们可以使用  DrawImageUnscaled  （）方法来把  Bitmap
 复制回窗体的  Graphics  去。复制是一次性完成的，这就避免了闪烁。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90806/2009-08-06_09-02-33.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090806/2009-08-06_09-02-33.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

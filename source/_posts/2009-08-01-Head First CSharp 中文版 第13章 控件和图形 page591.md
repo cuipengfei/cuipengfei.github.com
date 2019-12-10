@@ -20,8 +20,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90801/2009-07-31_22-06-56.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090801/2009-07-31_22-06-56.jpg)
 
 ②给  BeeControl  添加这个  ResizeCells  方法
 
@@ -31,8 +30,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90801/2009-07-31_22-12-33.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090801/2009-07-31_22-12-33.jpg)
 
 ③修改  switch  语句来让它使用  cells  数组，而不是使用资源
 
@@ -42,8 +40,7 @@ BeeControl  的  Tick  事件的处理方法中有一个  switch  语句，这�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90801/2009-08-01_09-25-55.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090801/2009-08-01_09-25-55.jpg)
 
 把  Properties.Resources.Bee_animation_1  替换为  cells[0]  。依次把其他的  case  代码行也替换为
 cells  的元素，这样就只有缩放过的图片才会被显示出来。
@@ -68,8 +65,7 @@ cells  的元素，这样就只有缩放过的图片才会被显示出来。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90801/2009-08-01_09-38-56.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090801/2009-08-01_09-38-56.jpg)
 
 现在运行模拟器，快多了！
 

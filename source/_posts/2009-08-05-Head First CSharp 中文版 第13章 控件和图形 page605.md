@@ -3,8 +3,7 @@ title: Head First C# 中文版 第13章 控件和图形 page605
 date: 2009-08-05 09:37:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90805/2009-08-05_09-03-40.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090805/2009-08-05_09-03-40.jpg)
 
 仔细研究窗体和控件是如何重绘自己的
 
@@ -25,8 +24,7 @@ Control  类继承来的。去任意一个窗体中去，覆写  OnPaint  ：
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90805/2009-08-05_09-14-43.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090805/2009-08-05_09-14-43.jpg)
 
 拖动窗体  \--  拖出屏幕，最小化，把它隐藏到其它窗口后面。仔细观察输出。任何时候窗体的一部分被弄花了或者失效了的时候，它就需要被重绘。
 ClipRectangle  定义了窗体需要被重绘的部分。只重绘需要重绘的一部分，可以提高性能。

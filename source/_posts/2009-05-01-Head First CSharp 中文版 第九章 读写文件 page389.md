@@ -21,8 +21,7 @@ C#  可以用一个很简单的叫做StreamWriter类来把上面说到的事情�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90501/2009-05-01_21-52-48.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090501/2009-05-01_21-52-48.jpg)
 
 ②  使用Write（）或者WriteLine（）方法来写文件
 
@@ -33,8 +32,7 @@ C#  可以用一个很简单的叫做StreamWriter类来把上面说到的事情�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90501/2009-05-01_22-01-07.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090501/2009-05-01_22-01-07.jpg)
 
 ③  使用Close（）方法来释放文件
 

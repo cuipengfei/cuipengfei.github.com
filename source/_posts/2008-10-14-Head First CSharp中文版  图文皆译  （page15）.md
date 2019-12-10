@@ -8,11 +8,9 @@ com:office:office" />
 
 IDE  为你创建了很多代码，但是你仍然会想要深入代码并增加它。让我们设置logo，让它在被用户双击的时候显示  关于  信息。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81014/%E6%88%AA%E5%9B%BE00633595793360033750.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081014/%E6%88%AA%E5%9B%BE00633595793360033750.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81014/%E6%88%AA%E5%9B%BE01633595793360971250.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081014/%E6%88%AA%E5%9B%BE01633595793360971250.jpg)
 
 问：什么叫方法？
 

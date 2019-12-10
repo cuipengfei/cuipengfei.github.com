@@ -11,11 +11,9 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90627/2009-06-27_22-44-16.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090627/2009-06-27_22-44-16.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90627/2009-06-27_22-48-12.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090627/2009-06-27_22-48-12.jpg)
 
 现在是你把所学的知识付诸实践的时候了。我们需要让蜜蜂告诉模拟器他们在做什么。这时，我们要让模拟器的状态栏的信息更新。
 
@@ -29,8 +27,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90627/2009-06-27_22-53-24.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090627/2009-06-27_22-53-24.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

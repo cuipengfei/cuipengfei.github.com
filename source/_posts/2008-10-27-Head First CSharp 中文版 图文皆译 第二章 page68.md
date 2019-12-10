@@ -28,13 +28,11 @@ com:office:office" />
 
 设置一个变量并检查它的值
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81027/%E6%88%AA%E5%9B%BE00633607431222925000.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081027/%E6%88%AA%E5%9B%BE00633607431222925000.jpg)
 
 这儿是第二个按钮的代码。这是检查一个叫做x的整数变量是否等于10的指令。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81027/%E6%88%AA%E5%9B%BE01633607431223393750.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081027/%E6%88%AA%E5%9B%BE01633607431223393750.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

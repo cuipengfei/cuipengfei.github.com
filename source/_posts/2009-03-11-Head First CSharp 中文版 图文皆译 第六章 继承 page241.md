@@ -3,8 +3,7 @@ title: Head First C# 中文版 图文皆译 第六章 继承 page241
 date: 2009-03-11 09:57:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90311/2009-03-11_09-18-41.jpg) 蜂后需要你的帮助！用你学过的关于类和对象的知识来构建一个蜂窝管理系统来帮助蜂后管理工蜂。
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090311/2009-03-11_09-18-41.jpg) 蜂后需要你的帮助！用你学过的关于类和对象的知识来构建一个蜂窝管理系统来帮助蜂后管理工蜂。
 
 ①  创建窗体
 
@@ -12,8 +11,7 @@ tags: 我翻译的Head First C#（习作）
 Shift（）方法。添加一个ComboBox控件来显示蜜蜂的工作列表（返回前几页查看蜜蜂的工作有哪几项），添加一个NumbericUpDown控件，两个按钮
 ，还有一个多行的textbox控件来显示班次报告。你也需要一个窗体的构造方法--就在截图下面。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90311/2009-03-11_09-27-38.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090311/2009-03-11_09-27-38.jpg)
 
 ②  创建Worker和Queen类
 

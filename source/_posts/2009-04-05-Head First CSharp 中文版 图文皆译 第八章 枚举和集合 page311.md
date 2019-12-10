@@ -7,18 +7,15 @@ tags: 我翻译的Head First C#（习作）
 
 枚举是一种只允许某些特定值的数据类型。所以我们可以定义一个叫做Jobs的枚举，并定义蜜蜂可以做的工作：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90405/2009-04-05_12-54-24.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090405/2009-04-05_12-54-24.jpg)
 
 现在你可以这样使用枚举了：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90405/2009-04-05_13-07-03.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090405/2009-04-05_13-07-03.jpg)
 
 你不可以给枚举胡乱编一个值。如果你那么做，程序会无法编译。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90405/2009-04-05_13-11-47.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090405/2009-04-05_13-11-47.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

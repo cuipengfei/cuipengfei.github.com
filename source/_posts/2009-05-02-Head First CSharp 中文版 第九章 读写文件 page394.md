@@ -12,8 +12,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90502/2009-05-02_22-37-33.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090502/2009-05-02_22-37-33.jpg)
 
 你可以把流连接起来。一个流写到另一个流，然后再写到另一个流...最终通常以网络流或者文件流结束。
 

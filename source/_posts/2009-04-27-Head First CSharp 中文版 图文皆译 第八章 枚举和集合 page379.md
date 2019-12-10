@@ -11,11 +11,9 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90427/2009-04-27_08-34-49.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090427/2009-04-27_08-34-49.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90427/2009-04-27_09-01-49.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090427/2009-04-27_09-01-49.jpg)
 
 剑是玩家捡起来第一件武器。它的攻击范围很大：向上攻击的时候，试着攻击上方的敌人--
 如果向上的方向没有敌人，就攻击任何处于顺时针方向上的敌人，如果还是没有敌人，就试着去攻击逆时针方向上的敌人。它的攻击长度是10，可以造成3点伤害。

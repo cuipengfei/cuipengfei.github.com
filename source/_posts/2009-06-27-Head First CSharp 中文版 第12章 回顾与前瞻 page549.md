@@ -3,8 +3,7 @@ title: Head First C# 中文版 第12章 回顾与前瞻 page549
 date: 2009-06-27 09:13:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90627/2009-06-27_09-02-33.jpg) ![](https://p-blog.csdn.net/images/p_blog_csdn_
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090627/2009-06-27_09-02-33.jpg) ![](https://p-blog.csdn.net/images/p_blog_csdn_
 net/cuipengfei1/EntryImages/20090627/2009-06-27_08-55-53.jpg) 你的任务就是给
 ToolStrip  中的  startSimulation  和  reset  按钮编写事件处理方法。下面是每个按钮需要做的事情：
 
@@ -20,18 +19,15 @@ Simulation  ”改变为“  Start Simulation  ”。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90627/2009-06-27_09-04-07.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090627/2009-06-27_09-04-07.jpg)
 
 你认为现阶段的模拟器还需要做哪些完善？试着运行程序。把你认为我们需要在去处理图像有关的东西之前做完的事情写下来。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90627/2009-06-27_09-06-39.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090627/2009-06-27_09-06-39.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90627/2009-06-27_09-07-04.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090627/2009-06-27_09-07-04.jpg)
 
 问：我们一直在讲“一轮”这个术语，现在你又在说“一帧”。二者有何区别？
 

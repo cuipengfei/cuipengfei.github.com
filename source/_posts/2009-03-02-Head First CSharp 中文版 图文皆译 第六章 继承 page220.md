@@ -13,8 +13,7 @@ tags: 我翻译的Head First C#（习作）
 
 现在你知道了如何组织动物类，你可以添加Feline和Canine类了。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90302/2009-03-02_09-05-09.jpg)  
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090302/2009-03-02_09-05-09.jpg)  
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

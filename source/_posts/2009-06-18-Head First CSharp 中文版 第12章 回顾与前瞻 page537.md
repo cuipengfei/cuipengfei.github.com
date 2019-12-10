@@ -3,8 +3,7 @@ title: Head First C# 中文版 第12章 回顾与前瞻 page537
 date: 2009-06-18 09:15:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90618/2009-06-18_08-47-01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090618/2009-06-18_08-47-01.jpg)
 
 我们在模拟器中用到的面向对象的一个重要原则就是封装。看看你可不可以根据观察我们已经写过的类来找出每个类中两个封装的例子。
 
@@ -26,11 +25,9 @@ Flower  ：花朵提供了采集花粉的方法；花朵的布尔型  alive  字
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90618/2009-06-18_08-52-29.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090618/2009-06-18_08-52-29.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90618/2009-06-18_09-01-50.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090618/2009-06-18_09-01-50.jpg)
 
 问：为什么不用  foreach  循环来移除死掉的花朵和退休的蜜蜂呢？
 

@@ -9,14 +9,12 @@ tags: 我翻译的Head First C#（习作）
 
 ①  每个数组都有长度，你需要知道长度才可以操作数组。你可以用空引用来把某些数组元素保持为空：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90406/2009-04-06_19-13-37.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090406/2009-04-06_19-13-37.jpg)
 
 ②  你需要知道保存了多少张牌。所以你需要一个int类型的字段，把它叫做topCard，它保存着数组中最后一张牌的位序。所以我们的只有三张牌的数组长度为7，
 但是我们要把topCard赋值为3。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90406/2009-04-06_19-26-18.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090406/2009-04-06_19-26-18.jpg)
 
 ③  现在情况复杂了。添加一个返回最上面的牌的引用的Peek（）（偷窥）方法很简单--这样你就可以偷看牌堆中最上面的牌了。但是如果想要添加一张牌怎么办呢？如
 果topCard小于数组的长度，你可以把一张牌放进数组去并给topCard加1。但是如果数组满了，你就需要创建一个新的，更大的数组并把原数组中的牌复制进去。

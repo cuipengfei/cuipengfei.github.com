@@ -7,11 +7,9 @@ tags: 我翻译的Head First C#（习作）
 
 编译代码，找到所有的错误，运行模拟器。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90731/2009-07-31_13-29-45.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090731/2009-07-31_13-29-45.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90731/2009-07-31_13-29-58.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090731/2009-07-31_13-29-58.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

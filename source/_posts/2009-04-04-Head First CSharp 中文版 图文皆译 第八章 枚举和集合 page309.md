@@ -3,8 +3,7 @@ title: Head First C# 中文版 图文皆译 第八章 枚举和集合 page309
 date: 2009-04-04 22:05:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90404/2009-04-04_21-16-44.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090404/2009-04-04_21-16-44.jpg)
 
 不鸣则已，一鸣惊人。
 

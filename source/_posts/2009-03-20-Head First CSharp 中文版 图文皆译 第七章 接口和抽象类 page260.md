@@ -16,15 +16,13 @@ Robot对象，甚至Dog对象也可以。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90320/2009-03-20_14-41-28.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090320/2009-03-20_14-41-28.jpg)
 
 很显然，你不可以用new关键字来实例化接口，因为其中并没有方法、属性的实现体。如果可以实例化一个接口的话，那创建出来的对象怎么可能知道自己应该如何行为呢？
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90320/2009-03-20_14-47-22.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090320/2009-03-20_14-47-22.jpg)
 
 第一行是一个普通的new语句，创建一个叫做Fred的引用并把它指向一个NectarStinger对象。
 

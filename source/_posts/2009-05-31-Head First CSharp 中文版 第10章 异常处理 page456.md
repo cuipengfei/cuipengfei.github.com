@@ -10,8 +10,7 @@ tags: 我翻译的Head First C#（习作）
 用户的行为是不可预期的。他们会给你的程序输入各种奇怪的数据，还会以你不可预期的方式点击一些东西。不过这也不要紧，因为你可以用良好的异常处理来处理未预期的输入
 。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90531/2009-05-31_21-43-03.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090531/2009-05-31_21-43-03.jpg)
 
 ①我们来假设用户正在使用你的代码，并给出了一些程序未预期的输入。
 
@@ -21,8 +20,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90531/2009-05-31_21-43-17.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090531/2009-05-31_21-43-17.jpg)
 
 ③你需要知道你调用的方法是有风险的。
 

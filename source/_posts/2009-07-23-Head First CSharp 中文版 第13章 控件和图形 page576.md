@@ -28,18 +28,15 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90723/2009-07-23_21-25-02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090723/2009-07-23_21-25-02.jpg)
 
 现在运行程序，点击按钮一次将会添加一个新的  BeeControl  到窗体上去。再次点击将会删除它。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90723/2009-07-23_21-32-57.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090723/2009-07-23_21-32-57.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90723/2009-07-23_21-32-05.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090723/2009-07-23_21-32-05.jpg)
 
 工具栏中的每一个可视化控件都继承自  System.Windows.Forms.Control  。
 

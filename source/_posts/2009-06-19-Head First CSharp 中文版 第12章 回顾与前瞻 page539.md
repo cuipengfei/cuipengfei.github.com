@@ -3,8 +3,7 @@ title: Head First C# 中文版 第12章 回顾与前瞻 page539
 date: 2009-06-19 21:50:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90619/2009-06-19_21-34-46.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090619/2009-06-19_21-34-46.jpg)
 
 问：为什么在  GetLocation  （）方法中抛出了一个异常呢？
 

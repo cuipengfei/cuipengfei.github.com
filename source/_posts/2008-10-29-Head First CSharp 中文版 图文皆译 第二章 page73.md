@@ -5,8 +5,7 @@ tags: 我翻译的Head First C#（习作）
 ---
 <?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" />
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81029/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081029/%E6%88%AA%E5%9B%BE00.jpg)
 
 问：所有代码都要在类里面？
 
@@ -36,8 +35,7 @@ tem。就在那儿你可以找到所有给你的程序添加动力的工具。�
 答：你应该很小心。知道IDE在做什么很有用，有时需要解决严重问题时你需要知道具体IDE怎么处理代码。但是在大多数情况下，用IDE你就可以做完你想要做的事儿了
 。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81029/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081029/%E6%88%AA%E5%9B%BE01.jpg)
 
 *  用指令告诉程序做什么，指令是类的一部分，而类是命名空间的一部分。 
 

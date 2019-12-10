@@ -17,16 +17,14 @@ using  中得以运行岂不是很酷？
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90607/2009-06-07_12-37-12.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090607/2009-06-07_12-37-12.jpg)
 
 我们可以使用多重的  using  语句。首先，使用一个内建的实现了  IDisposable  的类型，  Stream  。然后，操作我们更新了的
 Nectar  对象，它也实现了  IDisposable  ：
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90607/2009-06-07_12-44-41.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090607/2009-06-07_12-44-41.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

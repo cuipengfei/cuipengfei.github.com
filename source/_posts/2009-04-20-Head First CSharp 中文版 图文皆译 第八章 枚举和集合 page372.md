@@ -16,8 +16,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90420/2009-04-20_14-26-44.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090420/2009-04-20_14-26-44.jpg)
 
 添加一个Direction枚举
 

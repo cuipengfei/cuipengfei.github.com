@@ -14,8 +14,7 @@ finally  块就显得很方便了。它出现在  try  和  catch  块之后。 
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90602/2009-06-02_08-20-41.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090602/2009-06-02_08-20-41.jpg)
 
 注意到  catch  后面跟着（  Exception  ）了吗？写  catch
 语句的时候，你可以在其后面写一种特定类型的异常来告诉它要捕获什么。如果你指明是（  Exception

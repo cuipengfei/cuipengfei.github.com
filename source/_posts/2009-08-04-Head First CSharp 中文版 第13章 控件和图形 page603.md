@@ -3,8 +3,7 @@ title: Head First C# 中文版 第13章 控件和图形 page603
 date: 2009-08-04 17:31:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90804/2009-08-04_17-10-38.jpg) 使用  Bitmap  对象和  DrawImage
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090804/2009-08-04_17-10-38.jpg) 使用  Bitmap  对象和  DrawImage
 （）方法，以及窗体和用户控件的知识来创建一个使用  TrackBar  来缩放图片的用户控件。
 
   
@@ -36,8 +35,7 @@ Horizontal  。两个  TrackBar  的  Minimum  都设置为  1  ，  Maximum  �
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90804/2009-08-04_17-28-10.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090804/2009-08-04_17-28-10.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

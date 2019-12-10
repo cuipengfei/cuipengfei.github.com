@@ -3,8 +3,7 @@ title: Head First C# 中文版 第九章 读写文件 page385
 date: 2009-04-29 12:53:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90429/2009-04-29_12-38-48.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090429/2009-04-29_12-38-48.jpg)
 
 有时候坚持（持久化）一点是会有好处的
 

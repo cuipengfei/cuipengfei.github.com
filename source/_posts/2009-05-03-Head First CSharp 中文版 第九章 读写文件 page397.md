@@ -11,8 +11,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90503/2009-05-03_12-00-47.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090503/2009-05-03_12-00-47.jpg)
 
 ShowDialog  （）方法弹出一个对话框
 

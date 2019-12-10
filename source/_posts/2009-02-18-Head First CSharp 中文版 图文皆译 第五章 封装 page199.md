@@ -3,8 +3,7 @@ title: Head First C# 中文版 图文皆译 第五章 封装 page199
 date: 2009-02-18 11:59:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90218/2009-02-18_11-20-02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090218/2009-02-18_11-20-02.jpg)
 
 问：为什么我在get或者set访问器中需要复杂的逻辑呢？它不只是创建字段的一种方式吗？
 
@@ -35,13 +34,11 @@ tags: 我翻译的Head First C#（习作）
 
 答：可以！只有get访问器的时候，就是创建了一个只读的属性。举例来说，SecretAgent类就应该有一个只读的name属性：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90218/2009-02-18_11-52-27.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090218/2009-02-18_11-52-27.jpg)
 
 只有set访问器的时候，就是创建了一个只写的属性，不可读。SecretAgent类的Password字段就可以采取这种方式：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90218/2009-02-18_11-54-26.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090218/2009-02-18_11-54-26.jpg)
 
 这些技术在封装时都很有用。
 

@@ -21,18 +21,15 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90616/2009-06-16_10-00-14.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090616/2009-06-16_10-00-14.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90616/2009-06-16_10-06-59.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090616/2009-06-16_10-06-59.jpg)
 
 我们在模拟器中用到的面向对象的一个重要原则就是封装。看看你可不可以根据观察我们已经写过的类来找出每个类中两个封装的例子。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90616/2009-06-16_10-10-07.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090616/2009-06-16_10-10-07.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

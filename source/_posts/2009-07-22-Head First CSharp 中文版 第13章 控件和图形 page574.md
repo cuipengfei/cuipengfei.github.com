@@ -23,15 +23,13 @@ BeeControl  和  PictureBox  很类似  ...  所以我们就从继承  PictureBo
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90722/2009-07-22_22-19-42.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090722/2009-07-22_22-19-42.jpg)
 
 ②我们已经绘制好了四幅图，你可以在  www.headfirstlabs.com/books/hfcsharp  下载到。把它们添加到资源中去。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90722/2009-07-22_22-24-56.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090722/2009-07-22_22-24-56.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

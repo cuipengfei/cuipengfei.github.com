@@ -16,8 +16,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90319/2009-03-19_12-45-30.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090319/2009-03-19_12-45-30.jpg)
 
 ②  创建一个IClown接口。你已经知道了接口中的成员都是公有的。但是不要轻易相信我们  告诉你的。如下声明一个接口：
 
@@ -39,8 +38,7 @@ private void Honk  （）；
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90319/2009-03-19_12-49-34.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090319/2009-03-19_12-49-34.jpg)
 
 现在删除private访问修饰符--错误将会消失，程序可以编译了。
 

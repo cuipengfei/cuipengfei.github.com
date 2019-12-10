@@ -9,14 +9,11 @@ com:office:office" />
 创建一个窗体应用，IDE添加的文件里面有一个叫做Program.cs。去解决方案浏览器里双击它。它里面有一个类叫Program，类里面有一个叫做Main（）
 的方法。这个方法就是程序入口点，也就是说这个方法是程序里第一个被执行的。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81025/%E6%88%AA%E5%9B%BE03.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081025/%E6%88%AA%E5%9B%BE03.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81025/%E6%88%AA%E5%9B%BE04.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081025/%E6%88%AA%E5%9B%BE04.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81025/%E6%88%AA%E5%9B%BE05.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081025/%E6%88%AA%E5%9B%BE05.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

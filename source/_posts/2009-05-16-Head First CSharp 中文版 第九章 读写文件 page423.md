@@ -11,8 +11,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90516/2009-05-16_10-08-10.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090516/2009-05-16_10-08-10.jpg)
 
 ⑤现在把几副牌序列化到同一个文件
 
@@ -23,8 +22,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90516/2009-05-16_10-16-35.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090516/2009-05-16_10-16-35.jpg)
 
 ⑥看看你你写的文件
 

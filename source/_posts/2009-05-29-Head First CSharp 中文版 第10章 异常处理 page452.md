@@ -3,8 +3,7 @@ title: Head First C# 中文版 第10章 异常处理 page452
 date: 2009-05-29 22:36:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90325/2009-03-25_13-04-01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090325/2009-03-25_13-04-01.jpg)
 
 问：  Brian  的未处理异常窗口看起来怎么和在  IDE  中不一样？
 

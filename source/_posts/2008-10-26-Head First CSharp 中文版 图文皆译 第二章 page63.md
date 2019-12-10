@@ -15,8 +15,7 @@ MessageBox.Show  （“The answer is”+z）；
 向前走，试一试。你会收到一个错误，IDE将会拒绝编译代码。那是因为IDE将会检查每一个变量来确定它已经在被使用之前被赋值过了。防止忘记赋值的最简单方法就是把
 声明变量和给它赋值的指令合为一句。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81026/%E6%88%AA%E5%9B%BE00633606390336206250.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081026/%E6%88%AA%E5%9B%BE00633606390336206250.jpg)
 
 一些有用的类型
 
@@ -31,8 +30,7 @@ MessageBox.Show  （“The answer is”+z）；
 
 给它赋值的指令合为一句。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81026/%E6%88%AA%E5%9B%BE01633606390336675000.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081026/%E6%88%AA%E5%9B%BE01633606390336675000.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

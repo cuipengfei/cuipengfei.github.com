@@ -10,11 +10,9 @@ tags: 我翻译的Head First C#（习作）
 
 输出：Finger is coming to get you！
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81110/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081110/%E6%88%AA%E5%9B%BE01.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81110/%E6%88%AA%E5%9B%BE02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081110/%E6%88%AA%E5%9B%BE02.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

@@ -3,8 +3,7 @@ title: Head First C# 中文版 图文皆译 第七章 接口和抽象类 page290
 date: 2009-03-30 14:02:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90330/2009-03-30_13-45-12.jpg) ![](https://p-blog.csdn.net/images/p_blog_csdn_
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090330/2009-03-30_13-45-12.jpg) ![](https://p-blog.csdn.net/images/p_blog_csdn_
 net/cuipengfei1/EntryImages/20090330/2009-03-30_13-27-07.jpg)
 
 我们来创建一座房子吧！创建一个房子的模型，用类来表示房间和地点，每个有门的地方都要用一个接口。
@@ -27,8 +26,7 @@ ryImages/20090330/2009-03-30_13-52-54.jpg)
 房子里又两个户外门，前门和后门。每个有户外门的地点都要实现IHasExteriorDoor接口。DoorDescruption只读属性包含对门的描述。Doo
 rLocation字段含有一个指向门通向哪里的引用。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90330/2009-03-30_13-58-34.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090330/2009-03-30_13-58-34.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

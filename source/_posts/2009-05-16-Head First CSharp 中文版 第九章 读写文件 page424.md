@@ -3,8 +3,7 @@ title: Head First C# 中文版 第九章 读写文件 page424
 date: 2009-05-16 17:00:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90516/2009-05-16_16-17-35.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090516/2009-05-16_16-17-35.jpg)
 
 把一个对象序列化到文件的时候，是以二进制格式写的。
 
@@ -16,8 +15,7 @@ C#  把数字  49  ，  369  ，  144  以你可以阅读的方式作为八个�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90516/2009-05-16_16-29-40.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090516/2009-05-16_16-29-40.jpg)
 
 .NET  使用  Unicode  来把字符或者字符串编码到字节。很幸运，  Windows  有一个很有用的工具可以帮你来搞明白  Unicode
 如何工作。打开字符映射表（它在开始菜单内的附件之内，或者在  cmd  中输入“  charmap.exe  ”）。
@@ -31,8 +29,7 @@ C#  把数字  49  ，  369  ，  144  以你可以阅读的方式作为八个�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90516/2009-05-16_16-45-58.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090516/2009-05-16_16-45-58.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

@@ -3,8 +3,7 @@ title: Head First C# 中文版 第12章 回顾与前瞻 page515
 date: 2009-06-09 15:43:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90609/2009-06-09_15-26-54.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090609/2009-06-09_15-26-54.jpg)
 
 学习的好处要到创建些什么东西的时候才看得出来。
 

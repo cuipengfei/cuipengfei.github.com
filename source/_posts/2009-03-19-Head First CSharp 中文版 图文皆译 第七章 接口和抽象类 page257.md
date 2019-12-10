@@ -40,8 +40,7 @@ public class Bee : IStingPatrol {
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90319/2009-03-19_10-34-14.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090319/2009-03-19_10-34-14.jpg)
 
 ④  向Bee类添加属性、方法
 

@@ -11,8 +11,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90418/2009-04-18_09-31-00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090418/2009-04-18_09-31-00.jpg)
 
 ...  并用武器攻击敌人
 
@@ -22,8 +21,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90418/2009-04-18_09-36-24.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090418/2009-04-18_09-36-24.jpg)
 
 更高的等级会有更多的敌人
 
@@ -33,8 +31,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90418/2009-04-18_09-41-19.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090418/2009-04-18_09-41-19.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

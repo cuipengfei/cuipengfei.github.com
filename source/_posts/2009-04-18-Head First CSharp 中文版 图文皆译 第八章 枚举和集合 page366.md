@@ -12,8 +12,7 @@ eLayoutPanel控件来呈现玩家的生命值，还要呈现蝙蝠，幽灵，�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90418/2009-04-18_13-08-54.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090418/2009-04-18_13-08-54.jpg)
 
 从Head First Labs的网站下载背景，武器，敌人，玩家的图片：  [ www.headfirstlabs.com/books/hfcsharp
 ](http://www.headfirstlabs.com/books/hfcsharp)

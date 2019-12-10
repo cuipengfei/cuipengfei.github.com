@@ -20,8 +20,7 @@ ntryImages/20090320/2009-03-20_22-45-24.jpg)
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90320/2009-03-20_22-35-45.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090320/2009-03-20_22-35-45.jpg)
 
 ②  添加IStingPatrol和INectarCollector接口引用
 
@@ -29,8 +28,7 @@ ntryImages/20090320/2009-03-20_22-45-24.jpg)
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90320/2009-03-20_22-37-29.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090320/2009-03-20_22-37-29.jpg)
 
 ③  接口引用可以使得对象不被垃圾回收
 
@@ -52,8 +50,7 @@ biff = null  ；
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90320/2009-03-20_22-44-15.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090320/2009-03-20_22-44-15.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

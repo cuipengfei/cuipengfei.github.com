@@ -5,8 +5,7 @@ tags: 我翻译的Head First C#（习作）
 ---
 <?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" />
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81108/%E6%88%AA%E5%9B%BE00633617788299445000.jpg) ![](https://p-blog.csdn.net/
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081108/%E6%88%AA%E5%9B%BE00633617788299445000.jpg) ![](https://p-blog.csdn.net/
 images/p_blog_csdn_net/cuipengfei1/EntryImages/20081108/%E6%88%AA%E5%9B%BE0163
 3617788300382500.jpg)
 

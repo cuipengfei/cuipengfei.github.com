@@ -20,8 +20,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90718/2009-07-18_20-33-43.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090718/2009-07-18_20-33-43.jpg)
 
 ②我们要给状态窗口添加一个打印按钮
 
@@ -31,8 +30,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90718/2009-07-18_20-43-31.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090718/2009-07-18_20-43-31.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

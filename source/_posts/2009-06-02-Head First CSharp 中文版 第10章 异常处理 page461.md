@@ -16,8 +16,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90602/2009-06-02_12-37-49.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090602/2009-06-02_12-37-49.jpg)
 
 ③  逐步执行  Random Excuse  按钮事件处理方法中余下的代码，确保它是按照你预期的方式运行的。调试应该执行玩  try  块，跳过
 catch  块（因为没有抛出异常），然后执行  finally  块。

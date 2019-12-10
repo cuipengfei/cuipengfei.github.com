@@ -3,8 +3,7 @@ title: Head First C# 中文版 第13章 控件和图形 page579
 date: 2009-07-24 20:22:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90724/2009-07-24_19-57-47.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090724/2009-07-24_19-57-47.jpg)
 
 因为窗体替你完成了工作
 
@@ -15,8 +14,7 @@ IDE  替你覆写了  Dispose  （）方法，当窗体要释放的时候，它�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90724/2009-07-24_20-04-23.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090724/2009-07-24_20-04-23.jpg)
 
 问：为什么窗体中对应于基于  PictureBox  的  BeeControl  的代码同样适用于基于  UserControl  的
 BeeControl  ？

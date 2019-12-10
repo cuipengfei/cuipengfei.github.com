@@ -3,8 +3,7 @@ title: Head First C# 中文版 第九章 读写文件 page401
 date: 2009-05-04 21:59:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90504/2009-05-04_21-22-35.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090504/2009-05-04_21-22-35.jpg)
 
 问：我还是不明白  StreamWriter  中用到的那些  {0}  和  {1}  。
 

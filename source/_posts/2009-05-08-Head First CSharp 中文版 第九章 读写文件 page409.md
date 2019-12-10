@@ -24,8 +24,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90508/2009-05-08_20-18-37.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090508/2009-05-08_20-18-37.jpg)
 
 ④让  Open  按钮打开一个保存过的借口
 
@@ -45,8 +44,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90508/2009-05-08_20-29-17.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090508/2009-05-08_20-29-17.jpg)
 
 ⑤最后，让  Random Excuse  按钮载入一个随机的借口
 

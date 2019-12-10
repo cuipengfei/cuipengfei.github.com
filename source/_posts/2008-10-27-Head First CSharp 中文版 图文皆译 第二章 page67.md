@@ -9,11 +9,9 @@ com:office:office" />
 用if/else语句告诉程序在你设定的状态为真（或为假）的时候去做特定的事情。很多if/else语句检查两个表达式是否相等。这时你就要用到=
 =运算符了。这个和你用来赋值的=运算符不同。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81027/%E6%88%AA%E5%9B%BE00633607225234956250.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081027/%E6%88%AA%E5%9B%BE00633607225234956250.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81027/%E6%88%AA%E5%9B%BE01633607225235893750.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081027/%E6%88%AA%E5%9B%BE01633607225235893750.jpg)
 
 别被双等运算符弄糊涂了！
 

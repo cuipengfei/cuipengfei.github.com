@@ -30,8 +30,7 @@ s类文件的顶部去把它修改为与当前项目一致。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90412/2009-04-12_16-42-46.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090412/2009-04-12_16-42-46.jpg)
 
 ③  向窗体添加一个按钮来使用新方法
 
@@ -53,8 +52,7 @@ bool doesItMatch = Card.DoesCardMatch(cardToCeck , Card.Suits.Hearts);
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90412/2009-04-12_16-49-21.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090412/2009-04-12_16-49-21.jpg)
 
 使用一下这两个方法，熟悉一下重载。
 

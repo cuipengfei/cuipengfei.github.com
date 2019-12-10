@@ -11,8 +11,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90321/2009-03-21_18-05-04.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090321/2009-03-21_18-05-04.jpg)
 
 记住，对于应用中的其它类来说，RoboBee和普通的工蜂并没有什么功能上的区别。它们都实现了IWorker接口，所以对于相关的程序来说它们工作起来是一样的。
 
@@ -22,8 +21,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90321/2009-03-21_18-16-50.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090321/2009-03-21_18-16-50.jpg)
 
 一个类实现一个接口的前提就是要实现接口中定义的所有方法、属性。
 

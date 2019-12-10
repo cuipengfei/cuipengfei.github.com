@@ -7,8 +7,7 @@ FlieStream  向文件写入比特
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90501/2009-05-01_16-53-36.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090501/2009-05-01_16-53-36.jpg)
 
 要向文件写入几行文本需要做很多事情：
 
@@ -24,8 +23,7 @@ FlieStream  向文件写入比特
 
 ③  流向文件写入的是字节，所以你需要把需要写入的字符串转换为字节。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90501/2009-05-01_16-59-53.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090501/2009-05-01_16-59-53.jpg)
 
 ④  调用流的Write（）方法，并把字节数组作为参数传递给它。
 
@@ -33,15 +31,13 @@ FlieStream  向文件写入比特
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90501/2009-05-01_17-03-00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090501/2009-05-01_17-03-00.jpg)
 
 ⑤  关闭流，这样别的程序才可以访问文件
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90501/2009-05-01_17-05-00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090501/2009-05-01_17-05-00.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

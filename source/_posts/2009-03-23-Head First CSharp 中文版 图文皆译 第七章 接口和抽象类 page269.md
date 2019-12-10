@@ -13,11 +13,9 @@ wave类--
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90323/2009-03-23_08-12-49.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090323/2009-03-23_08-12-49.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90323/2009-03-23_08-19-40.jpg) 三个指
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090323/2009-03-23_08-19-40.jpg) 三个指
 
 向同一个对象的三个引用可以访问不同的方法、属性，而可以访问哪些方法、属性则取决于引用的类型。
 

@@ -12,17 +12,14 @@ allInPlay（）。这不是不可违背的规矩，但是这么写，别的程�
 很幸运，IDE使得给事件处理者合适的命名很容易。IDE有一个特性来给你操作的有事件触发的类自动添加事件处理方法。IDE会做这个，太令人惊讶了--
 其实，你双击窗体上的按钮的时候，IDE就是这么做的。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81103/%E6%88%AA%E5%9B%BE00633613479867955000.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081103/%E6%88%AA%E5%9B%BE00633613479867955000.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81103/%E6%88%AA%E5%9B%BE02633613479876392500.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081103/%E6%88%AA%E5%9B%BE02633613479876392500.jpg)
 
 向项目中添加一个投手类。然后给它一个构造器，以一个叫做ball的Ball的引用作为参数。向ball.BallInPlay添加事件处理只会用一行代码。开始写代
 码，但是先别用+=。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81103/%E6%88%AA%E5%9B%BE03.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081103/%E6%88%AA%E5%9B%BE03.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

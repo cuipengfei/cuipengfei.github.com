@@ -12,15 +12,13 @@ com:office:office" />
 
 你将在类之间来回切换，最简单的方式就是用解决方案浏览器。它有两种视图：解决方案视图（显示项目中的文件）和类视图（显示你的代码是怎么在逻辑上分割到不同的类）。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81023/%E6%88%AA%E5%9B%BE00633603845225000000.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081023/%E6%88%AA%E5%9B%BE00633603845225000000.jpg)
 
 *  使用标签页在打开的文件之间切换 
 
 因为你的程序分散在多个文件中，总会有多个文件同时打开。每个打开的文件都会在代码编辑器中处于自己的标签页中。IDE在还没被保存的文件名前显示一个星号（*）。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81023/%E6%88%AA%E5%9B%BE01633603845225781250.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081023/%E6%88%AA%E5%9B%BE01633603845225781250.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

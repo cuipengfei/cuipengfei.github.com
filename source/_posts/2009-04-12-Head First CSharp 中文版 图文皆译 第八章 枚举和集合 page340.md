@@ -3,14 +3,11 @@ title: Head First C# 中文版 图文皆译 第八章 枚举和集合 page340
 date: 2009-04-12 10:50:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90412/2009-04-12_10-27-22.jpg) 创建一个类来存储一副牌，还有一个使用这个类的窗体。
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090412/2009-04-12_10-27-22.jpg) 创建一个类来存储一副牌，还有一个使用这个类的窗体。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90412/2009-04-12_10-29-38.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090412/2009-04-12_10-29-38.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90412/2009-04-12_10-39-18.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090412/2009-04-12_10-39-18.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

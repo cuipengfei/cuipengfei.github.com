@@ -16,46 +16,40 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90802/2009-08-02_09-48-34.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090802/2009-08-02_09-48-34.jpg)
 
 ②  如果你想要画线，调用  DrawLine  （）方法，参数为用  X  和  Y  坐标代表的起始点和结束点：
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90802/2009-08-02_09-51-15.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090802/2009-08-02_09-51-15.jpg)
 
 或者用两个  Point  作为参数也可以：
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90802/2009-08-02_09-52-50.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090802/2009-08-02_09-52-50.jpg)
 
 ③  如下的代码绘制一个填充的石灰色的矩形，并给它绘制一个天蓝色的边框。它使用一个  Rectangle  来定义绘制区域  \--  在这儿，左上角是（
 150  ，  15  ），宽为  140  ，高为  90\.
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90802/2009-08-02_09-57-40.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090802/2009-08-02_09-57-40.jpg)
 
 ④  可以使用  DrawCircle  （）或者  FillCircle  （）方法来绘制椭圆或者圆，这两个方法也使用  Rectangle
 来指明图形的大小。下面的代码绘制两个椭圆，它们稍有交错，呈现阴影的效果：
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90802/2009-08-02_10-01-01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090802/2009-08-02_10-01-01.jpg)
 
 ⑤  使用  DrawString  （）方法可以绘制任何字体和颜色的文本。使用这个方法，需要创建一个  Font  对象。它实现了
 IDisposable  ，要使用  using  语句：
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90802/2009-08-02_10-05-18.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090802/2009-08-02_10-05-18.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

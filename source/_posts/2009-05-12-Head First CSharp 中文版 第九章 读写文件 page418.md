@@ -20,16 +20,14 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90512/2009-05-12_18-05-00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090512/2009-05-12_18-05-00.jpg)
 
 要怎样才可以让这个  Car  对象被存储后还可以依原样被恢复呢？我们假设这辆车有三个乘客，一台三公升引擎还有一个全天候辐射层轮胎  ...
 这些东西不都是状态的一部分吗？应该如何处理它们呢？
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90512/2009-05-12_18-09-56.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090512/2009-05-12_18-09-56.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

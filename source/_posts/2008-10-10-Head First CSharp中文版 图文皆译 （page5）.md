@@ -10,15 +10,13 @@ com:office:office" />
 
 1\.  CEO  需要在工作的时候用这个通讯簿程序，在他的笔记本电脑上也需要用。他需要一个安装包来确保把所有的文件都正确的安装到这两台电脑上。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81010/2222.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081010/2222.jpg)
 
 2\.  Objectville Paper  公司的销售团队也想要用CEO的通讯簿。他们需要CEO的数据来建立一个邮件列表，来获得用户、获得更多的销售额。
 
 CEO  感觉到使用数据库是让全公司的人都可以看到他的数据的最佳途径，然后他就只需要维护所有联系方式的一份拷贝就行了。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81010/1111.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081010/1111.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

@@ -20,8 +20,7 @@ File.WriteAllBytes  （）和  ReadAllBytes  （）方法来感受一下  Unicod
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90517/2009-05-17_09-05-08.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090517/2009-05-17_09-05-08.jpg)
 
 你将会看到这些字节输出为：  69 117 114 101 107 97 33  。现在把文件在你本章早先写的简单文本编辑器中打开。它会显示为“
 Eureka  ！”。

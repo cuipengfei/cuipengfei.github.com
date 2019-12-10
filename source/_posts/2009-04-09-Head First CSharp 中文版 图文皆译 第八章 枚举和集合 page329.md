@@ -30,8 +30,7 @@ List.Sort  （）方法知道如何给实现了IComparable接口的类排序。�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90409/2009-04-09_21-29-06.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090409/2009-04-09_21-29-06.jpg)
 
 你可以通过让一个类实现IComparable接口并给它添加CompareTo（）方法来让List的Sort（）方法可以给它排序。
 

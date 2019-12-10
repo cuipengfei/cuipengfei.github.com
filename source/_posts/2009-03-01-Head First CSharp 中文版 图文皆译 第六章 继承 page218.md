@@ -8,8 +8,7 @@ tags: 我翻译的Head First C#（习作）
 狮吼、犬吠，据我们所知河马不出声。每一个Animal的子类都有一个MakeNoise（）方法，但是它们的工作方式不同，代码也不同。当一个子类要改变继承来的某
 个行为的时候，这就叫做覆盖方法。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90301/2009-03-01_12-09-17.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090301/2009-03-01_12-09-17.jpg)
 
 ③  搞明白每个Animal子类是怎样不同的实现基类的行为--或者根本不实现
 
@@ -21,8 +20,7 @@ wim（）方法。
 子类改变继承来的行为就叫做覆盖。每个都需要进食。狗吃少量的肉，河马吃大量的草。那么它们的行为的代码是什么样的呢？狗和河马都要覆盖Eat（）方法。河马的方法每
 次被调用将会消耗，大概，二十磅干草。狗的Eat（）方法将会消耗动物园的食品供给中的十二盎司狗粮。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90301/2009-03-01_12-27-15.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090301/2009-03-01_12-27-15.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

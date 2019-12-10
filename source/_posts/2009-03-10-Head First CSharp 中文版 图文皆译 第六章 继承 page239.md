@@ -20,8 +20,7 @@ yImages/20090310/2009-03-10_13-21-30.jpg)
 工蜂需要做六种工作。有的工蜂懂得采集花蜜和制作蜂蜜，其他的会维护蜂窝、巡逻、防卫敌人。有一些工蜂会做所有的工作。所以你需要让蜂后可以给工蜂分配其可以胜任的工
 作。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90310/2009-03-10_13-26-49.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090310/2009-03-10_13-26-49.jpg)
 
 ②  工作分配完成之后，就要开工了。
 

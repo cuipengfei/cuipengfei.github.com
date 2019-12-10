@@ -9,22 +9,19 @@ com:office:office" />
 几乎每个C#类文件顶部都可以找到上页类似的代码行。System.Windows.Forms是一个命名空间。using
 System.Windows.Forms这一行使得这个命名空间内的一切在你的程序中都是可用的。在我们的情况下，这个命名空间有很多可视化元素，比如按钮和窗体。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81025/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081025/%E6%88%AA%E5%9B%BE00.jpg)
 
 2 IDE  给你的代码选择一个命名空间
 
 IDE  给你创建命名空间--它基于项目名字选择Contacts作为命名空间的名字。你的程序的代码都处于这个命名空间里面。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81025/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081025/%E6%88%AA%E5%9B%BE01.jpg)
 
 3  你的代码存在类中
 
 这个类叫做Program。IDE创建它，并添加了开始程序和显示窗体的代码进去。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81025/%E6%88%AA%E5%9B%BE02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081025/%E6%88%AA%E5%9B%BE02.jpg)
 
 4  这段代码有一个方法，内有三条指令。
 

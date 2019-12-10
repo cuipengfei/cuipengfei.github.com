@@ -9,8 +9,7 @@ tags: 我翻译的Head First C#（习作）
 (https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200902
 11/%E6%88%AA%E5%9B%BE03.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90211/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090211/%E6%88%AA%E5%9B%BE01.jpg)
 
 但是这个类有个问题。给窗体添加一个按钮让它执行下面的语句：
 
@@ -24,8 +23,7 @@ farmer.BagsOfFeed = 5  ；
 问题就在于类不是完全封装的。你使用属性封装了NumerOfCows，但是BagsOfFeed还是public的。这是一个很普遍的问题。实际上，由于这个问题太
 过于普遍，C#提供了一个方式来自动解决它。把BagsOfFeed字段改为自动属性就可以了。IDE使得添加自动属性很是简单。就这样做：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90211/%E6%88%AA%E5%9B%BE02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090211/%E6%88%AA%E5%9B%BE02.jpg)
 
 ①  把Farmer类中的BagsOfFeed字段删掉。把光标定位到字段原来所在地，并键入prop然后按tab键两次。IDE将会向你的代码添加这行代码：
 

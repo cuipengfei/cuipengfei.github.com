@@ -7,8 +7,7 @@ tags: 我翻译的Head First C#（习作）
 
 声明一个weaponControl变量并用一个很长的switch语句来把它赋值为当前武器对应的PictureBox。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90428/2009-04-28_21-39-06.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090428/2009-04-28_21-39-06.jpg)
 
 余下的case语
 句要把weaponControl赋值为当前窗体上的控件。Switch语句之后，把weaponControl.Visible设置为true来把它显示出来。
@@ -21,8 +20,7 @@ tags: 我翻译的Head First C#（习作）
 
 首先更新玩家的PictureBox的位置并更新显示玩家的生命值的标签。然后还需要一些变量来表示是否要显示各个敌人。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90428/2009-04-28_21-52-24.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090428/2009-04-28_21-52-24.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

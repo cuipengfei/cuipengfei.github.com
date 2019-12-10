@@ -5,8 +5,7 @@ tags: 我翻译的Head First C#（习作）
 ---
 <?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" />
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81112/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081112/%E6%88%AA%E5%9B%BE00.jpg)
 
 问：回调和事件有什么区别？
 
@@ -23,8 +22,7 @@ tags: 我翻译的Head First C#（习作）
 
 有很多你可以用的模式。实际上，有一个叫做设计模式的领域。你会遇见的问题有很多已经有人解决过了，你可以从已有的设计模式中受益良多。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81112/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081112/%E6%88%AA%E5%9B%BE01.jpg)
 
 问：那么回调就是私有的事件？
 

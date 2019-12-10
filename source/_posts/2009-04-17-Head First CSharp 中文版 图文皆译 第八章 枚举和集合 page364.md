@@ -13,8 +13,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90417/2009-04-17_21-29-51.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090417/2009-04-17_21-29-51.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

@@ -12,15 +12,13 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90711/2009-07-11_08-08-44.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090711/2009-07-11_08-08-44.jpg)
 
 Bee  对象的字段中包含很多数据。你可以把集合中的对象想象为数据库中的数据行。每个对象把数据保存在其字段中，就如同数据库中的每一行把数据保存在列中。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90711/2009-07-11_08-11-51.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090711/2009-07-11_08-11-51.jpg)
 
 多数的集合，尤其是当它们包含数据的时候，可以被想象成数
 

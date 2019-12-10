@@ -9,8 +9,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90719/2009-07-19_11-02-30.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090719/2009-07-19_11-02-30.jpg)
 
 ④  Filed  窗口是蜜蜂们采集花粉的所在地
 
@@ -20,8 +19,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90719/2009-07-19_11-07-54.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090719/2009-07-19_11-07-54.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

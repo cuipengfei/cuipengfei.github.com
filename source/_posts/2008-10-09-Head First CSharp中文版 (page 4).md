@@ -9,8 +9,7 @@ com:office:office" />
 Objectville Paper  公司刚刚雇佣了一个新的CEO。他喜欢徒步旅行、喝咖啡、热爱自然...平且，他决定要尽力拯救森林。他想要从他的会晤开始做
 一个无纸化的主管。他周末要去白杨林去滑雪，他希望回来时可以看到新的通讯簿程序。要不然...那个老CEO也不用正在找新工作了。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81009/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081009/%E6%88%AA%E5%9B%BE00.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

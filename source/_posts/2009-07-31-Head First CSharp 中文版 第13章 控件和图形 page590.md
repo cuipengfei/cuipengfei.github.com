@@ -13,11 +13,9 @@ BeeControl  的背景设置为透明的时候，有两件事儿要做：首先�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90731/2009-07-31_20-13-45.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090731/2009-07-31_20-13-45.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90731/2009-07-31_20-16-34.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090731/2009-07-31_20-16-34.jpg)
 
 所以我们需要做的就是在显示之前首先把图片缩小。
 

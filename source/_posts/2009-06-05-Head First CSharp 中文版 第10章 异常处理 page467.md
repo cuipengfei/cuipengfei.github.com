@@ -24,8 +24,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90605/2009-06-05_08-51-52.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090605/2009-06-05_08-51-52.jpg)
 
 ...  要如下这样做
 
@@ -35,8 +34,7 @@ BeeProfile  对象可以截获异常并写一条日志记录。然后转身把�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90605/2009-06-05_09-00-00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090605/2009-06-05_09-00-00.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

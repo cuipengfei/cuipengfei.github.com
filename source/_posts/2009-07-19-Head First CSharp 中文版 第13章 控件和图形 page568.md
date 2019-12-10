@@ -12,8 +12,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90719/2009-07-19_17-11-00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090719/2009-07-19_17-11-00.jpg)
 
 由于Bee，Hive，Flower和World这些类是封装良好的，所以可以添加一个渲染这些对象的类并不会对已有代码产生什么影响。
 

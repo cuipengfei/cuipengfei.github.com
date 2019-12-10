@@ -3,8 +3,7 @@ title: Head First C# 中文版 图文皆译 第八章 枚举和集合 page344
 date: 2009-04-12 22:13:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90412/2009-04-12_21-30-50.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090412/2009-04-12_21-30-50.jpg)
 
 创建一个钓鱼游戏！你可以和电脑对玩这个游戏。
 

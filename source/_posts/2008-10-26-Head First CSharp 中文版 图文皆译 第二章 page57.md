@@ -3,8 +3,7 @@ title: Head First C# 中文版 图文皆译 第二章 page57
 date: 2008-10-26 11:28:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81026/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081026/%E6%88%AA%E5%9B%BE00.jpg)
 
 怎么样了？  <?xml:namespace prefix = o ns = "urn:schemas-microsoft-
 com:office:office" />
@@ -14,11 +13,9 @@ com:office:office" />
 
 5  想想怎么修复你的程序，让它还可以弹出联系人窗口。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81026/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081026/%E6%88%AA%E5%9B%BE01.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81026/%E6%88%AA%E5%9B%BE02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081026/%E6%88%AA%E5%9B%BE02.jpg)
 
 问：大括号都是干嘛用的？
 

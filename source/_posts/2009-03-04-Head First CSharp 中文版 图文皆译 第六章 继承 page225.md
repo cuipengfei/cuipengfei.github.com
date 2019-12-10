@@ -7,15 +7,13 @@ tags: 我翻译的Head First C#（习作）
 
 如果子类需要父类所有的字段，方法，属性的话，继承是很简单的。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90304/2009-03-04_09-04-20.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090304/2009-03-04_09-04-20.jpg)
 
 ...  但是有的鸟不会飞！
 
 如果父类有一个在子类中需要被改变的方法，那怎么办呢？
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90304/2009-03-04_09-09-48.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090304/2009-03-04_09-09-48.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

@@ -8,8 +8,7 @@ tags: 我翻译的Head First C#（习作）
 如果你想要创建一个类来代表一副牌怎么办？那就需要存储一副牌中的每一张牌，还需要知道牌的顺序。数组可以做到这一点--
 一副牌中顶上的位序是0，下一张是1，等等。下面开始--52张牌全在的一副扑克。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90406/2009-04-06_16-16-56.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090406/2009-04-06_16-16-56.jpg)
 
 ...  如果想要做更多的事情怎么办呢？
 

@@ -20,15 +20,13 @@ tags: 我翻译的Head First C#（习作）
 构造方法只有两行，但是要做的不少。我们一步一步来。我们知道我们需要牛的数目和饲料乘数，那就把它们当成参数传进构造方法吧。把feedMultiplier从co
 nst改为int。它需要一个值，一定要传进构造方法去。我们还要用构造方法设置牛的数目...
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90217/2009-02-17_14-14-07.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090217/2009-02-17_14-14-07.jpg)
 
 ②  现在修改窗体m让它使用构造方法
 
 现在你需要做的就是修改窗体的代码，来让创建Farmer对象的new语句使用构造方法而不是使用对象初始化器。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90217/2009-02-17_14-33-23.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090217/2009-02-17_14-33-23.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

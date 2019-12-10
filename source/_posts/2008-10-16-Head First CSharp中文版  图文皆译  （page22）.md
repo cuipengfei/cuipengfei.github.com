@@ -8,11 +8,9 @@ microsoft-com:office:office" />
 
 现在你已经给数据表创建了一个主键，你需要定义所有你要在数据库中跟踪的字段。我们写好的联系人卡片上的每一个字段应该对应People数据库里的一个数据列。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81016/%E6%88%AA%E5%9B%BE00633597905642221250.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081016/%E6%88%AA%E5%9B%BE00633597905642221250.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81016/%E6%88%AA%E5%9B%BE01633597905643002500.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081016/%E6%88%AA%E5%9B%BE01633597905643002500.jpg)
 
 用多行数据为同一个人存储信息会产生什么后果？
 

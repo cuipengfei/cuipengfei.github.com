@@ -15,13 +15,11 @@ tags: 我翻译的Head First C#（习作）
 ②  然后运行。啊~~出错了！饲料数总是返回0！等会儿，这也说得通。FeedMultiplier从没有得以初始化。它开始就是默认值0并且从来没有改变过。当它
 乘以牛的数目的时候，还是0。所以添加一个对象初始化器：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90211/%E6%88%AA%E5%9B%BE05.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090211/%E6%88%AA%E5%9B%BE05.jpg)
 
 啊~~无法编译！你会得到这个错误：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90211/%E6%88%AA%E5%9B%BE06.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090211/%E6%88%AA%E5%9B%BE06.jpg)
 
 在对象初始化器内只可以初始化公有的字段和属性。那么，在某些需要初始化的字段是私有的情况下，怎么确保对象可以得以恰当的初始化呢？
 

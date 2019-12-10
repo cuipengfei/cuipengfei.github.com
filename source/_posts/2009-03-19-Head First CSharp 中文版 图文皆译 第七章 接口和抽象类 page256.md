@@ -12,18 +12,15 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90319/2009-03-19_08-28-10.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090319/2009-03-19_08-28-10.jpg)
 
 一个实现了接口的类和其他类并无二致。你可以用new来实例化它也可以调用它的方法：
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90319/2009-03-19_08-41-47.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090319/2009-03-19_08-41-47.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90319/2009-03-19_08-42-10.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090319/2009-03-19_08-42-10.jpg)
 
 ** 问：我还是看不出接口对于我们的代码有什么促进。还是需要写NectarCollector类，还是会有冗余代码...对吧？  **
 

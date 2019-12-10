@@ -3,8 +3,7 @@ title: Head First C# 中文版 第10章 异常处理 page457
 date: 2009-06-01 08:44:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90601/2009-06-01_08-21-27.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090601/2009-06-01_08-21-27.jpg)
 
 问：何时应该使用  try  和  catch  呢？
 

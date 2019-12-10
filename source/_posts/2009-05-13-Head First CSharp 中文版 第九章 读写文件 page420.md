@@ -37,16 +37,14 @@ BinaryFormatter formatter = new BinaryFormatter( );
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90513/2009-05-13_11-55-18.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090513/2009-05-13_11-55-18.jpg)
 
 把对象序列化到文件之后，可以用  BinaryFormatter  对象的  Deserialize  （）方法来把它读取回来。此方法返回一个
 object  引用，所以你需要把它转型为你需要的类型。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90513/2009-05-13_12-10-04.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090513/2009-05-13_12-10-04.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

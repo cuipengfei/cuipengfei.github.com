@@ -8,16 +8,14 @@ com:office:office" />
 
 IDE  长于为你写可视化代码。但是别全靠它。打开VS，创建一个新窗体应用项目，亲自看看吧。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81024/%E6%88%AA%E5%9B%BE06.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081024/%E6%88%AA%E5%9B%BE06.jpg)
 
 1  打开设计器代码
 
 在IDE里打开Form1.Designer.cs文件。但是这次，不是在窗体设计器里面打开，而是通过在解决方案浏览器里右击它并选择“查看代码”来打开它的代码。
 找到Form1类的声明：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81024/%E6%88%AA%E5%9B%BE07.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081024/%E6%88%AA%E5%9B%BE07.jpg)
 
 2  打开窗体设计器并向窗体添加一个PictureBox
 
@@ -27,13 +25,11 @@ IDE  长于为你写可视化代码。但是别全靠它。打开VS，创建一�
 
 回到Form1.Designer.cs标签页。向下滚动找到这一行代码：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81024/%E6%88%AA%E5%9B%BE08.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081024/%E6%88%AA%E5%9B%BE08.jpg)
 
 点击左侧的+来展开代码。向下滚动找到这些代码：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81024/%E6%88%AA%E5%9B%BE09.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081024/%E6%88%AA%E5%9B%BE09.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

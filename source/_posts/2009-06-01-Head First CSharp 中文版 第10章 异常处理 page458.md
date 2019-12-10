@@ -22,16 +22,14 @@ Excuse  按钮。调试器会在你设置的断点处停下来。按  F10  六�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90601/2009-06-01_15-40-30.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090601/2009-06-01_15-40-30.jpg)
 
 ②  用  F11  来进入  new  语句。调试器将会跳入  Excuse  类的构造方法，黄色的“下一条语句”栏将会指在构造方法的声明上。一直点击
 F11  直到进入  OpenFile  （）方法。看看你碰到  Deserialize  （）这一行的时候会怎样。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90601/2009-06-01_15-51-31.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090601/2009-06-01_15-51-31.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

@@ -9,11 +9,9 @@ com:office:office" />
 你把数据存在变量里面了，你可以怎么操作它呢？好，如果它是一个数字，你可能想要对它加减乘除。这就用到操作符了。你已经知道几个基本的了。我们来多讨论几个。下面是
 一段代码，它用操作符做一些简单的数学运算：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81026/%E6%88%AA%E5%9B%BE00633606579877925000.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081026/%E6%88%AA%E5%9B%BE00633606579877925000.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81026/%E6%88%AA%E5%9B%BE01633606579879018750.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081026/%E6%88%AA%E5%9B%BE01633606579879018750.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

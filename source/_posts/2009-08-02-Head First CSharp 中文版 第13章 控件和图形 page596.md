@@ -24,8 +24,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90802/2009-08-02_20-02-22.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090802/2009-08-02_20-02-22.jpg)
 
 ②注意在窗体上绘制的顺序
 
@@ -35,8 +34,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90802/2009-08-02_20-12-11.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090802/2009-08-02_20-12-11.jpg)
 
 ③绘制蜜蜂和花朵
 
@@ -46,8 +44,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90802/2009-08-02_20-13-58.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090802/2009-08-02_20-13-58.jpg)
 
 ④添加一个用来绘制的  Pen
 
@@ -59,8 +56,7 @@ Brushes  类，它给你提供了多种颜色的刷子。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90802/2009-08-02_20-18-07.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090802/2009-08-02_20-18-07.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

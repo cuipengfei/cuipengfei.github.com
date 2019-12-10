@@ -17,8 +17,7 @@ IDisposable  接口的定义如下：
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90506/2009-05-06_12-38-00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090506/2009-05-06_12-38-00.jpg)
 
 在using语句块中声明的对象的Dispose（）方法将
 

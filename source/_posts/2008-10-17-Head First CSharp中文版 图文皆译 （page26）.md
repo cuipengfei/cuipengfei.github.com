@@ -13,22 +13,19 @@ IDE可以用来和数据表协调工作的对于你的数据表的简单描述�
 
 去数据库浏览器窗口并右键单击  数据库图  表节点。选择添加新图表。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81017/%E6%88%AA%E5%9B%BE00633598622044240151.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081017/%E6%88%AA%E5%9B%BE00633598622044240151.jpg)
 
 2  让IDE生成访问代码。
 
 在你告诉IDE你的特定数据表之前，它需要创建一些基本存储过程来与你的数据库互动。在这儿点击Yes，并让IDE去工作。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81017/%E6%88%AA%E5%9B%BE01633598622044708886.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081017/%E6%88%AA%E5%9B%BE01633598622044708886.jpg)
 
 3  选择你要用的数据表。
 
 在弹出的窗口中选择People数据表，并点击添加。现在IDE已经准备好了生成特定于你的数据表的代码。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81017/%E6%88%AA%E5%9B%BE02633598622045177621.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081017/%E6%88%AA%E5%9B%BE02633598622045177621.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

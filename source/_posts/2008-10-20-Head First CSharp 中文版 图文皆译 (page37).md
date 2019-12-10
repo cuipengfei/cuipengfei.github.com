@@ -3,8 +3,7 @@ title: Head First C# 中文版 图文皆译 (page37)
 date: 2008-10-20 08:44:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81020/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081020/%E6%88%AA%E5%9B%BE00.jpg)
 
 让你的应用成为每个人的应用  <?xml:namespace prefix = o ns = "urn:schemas-microsoft-
 com:office:office" />
@@ -16,13 +15,11 @@ C#  使得你部署应用变得容易。部署就是把一个应用安装到其�
 
 1  在生成菜单里选择发布。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81020/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081020/%E6%88%AA%E5%9B%BE01.jpg)
 
 2  接受发布向导的默认设置并点击完成就可以了。你将会看见它打包你的应用并展示给你一个包含你的Setup.exe的文件夹。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81020/%E6%88%AA%E5%9B%BE02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081020/%E6%88%AA%E5%9B%BE02.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

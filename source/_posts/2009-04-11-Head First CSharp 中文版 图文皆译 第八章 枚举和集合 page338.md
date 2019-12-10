@@ -3,8 +3,7 @@ title: Head First C# 中文版 图文皆译 第八章 枚举和集合 page338
 date: 2009-04-11 22:24:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90411/2009-04-11_21-44-38.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090411/2009-04-11_21-44-38.jpg)
 
 ①  创建一个窗体来在两副扑克之间移动牌
 
@@ -20,16 +19,14 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90411/2009-04-11_21-57-34.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090411/2009-04-11_21-57-34.jpg)
 
 除了六个按钮的事件处理方法之外，你还需要给窗体添加两个方法。首先添加一个ResetDeck（）方法，它把一副牌重设到初始状态。它接受一个int参数：如果传入
 1，它把第一副牌重设为含有十张随机牌的初始状态；如果传入2，它把第二副牌重设为含有52张牌的一整副牌。再然后添加下面这个方法：
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90411/2009-04-11_22-16-09.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090411/2009-04-11_22-16-09.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

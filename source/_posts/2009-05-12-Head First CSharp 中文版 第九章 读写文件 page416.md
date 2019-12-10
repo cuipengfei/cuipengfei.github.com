@@ -3,8 +3,7 @@ title: Head First C# 中文版 第九章 读写文件 page416
 date: 2009-05-12 08:52:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90512/2009-05-12_08-42-24.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090512/2009-05-12_08-42-24.jpg)
 
 还有一种简单的方式可以用来把对象存储到文件。这种方式叫做序列化。
 

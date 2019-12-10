@@ -34,16 +34,14 @@ UserControl  重建  BeeControl  吧。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90724/2009-07-24_12-43-18.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090724/2009-07-24_12-43-18.jpg)
 
 ⑤回到窗体的按钮事件处理方法。当你把  BeeControl  改名为  OldBeeControl  的时候，窗体的代码也改变了。所以把这两行重新改为
 BeeControl  ，这样窗体将会使用新的  UserControl  而不是  PictureBox  ：
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90724/2009-07-24_12-48-15.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090724/2009-07-24_12-48-15.jpg)
 
 运行程序  \--  它将会运行的与原来无异。按钮现在添加和删除基于  UserControl  的  BeeControl  。
 

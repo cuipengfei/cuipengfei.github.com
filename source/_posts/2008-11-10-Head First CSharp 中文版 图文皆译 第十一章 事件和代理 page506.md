@@ -3,8 +3,7 @@ title: Head First C# 中文版 图文皆译 第十一章 事件和代理 page506
 date: 2008-11-10 13:23:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81110/third0.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081110/third0.jpg)
 
 <?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" />
 
@@ -23,8 +22,7 @@ tags: 我翻译的Head First C#（习作）
 
 其他寻宝者怎么会比亨利更早的找到金镶玉蟹呢？
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81110/third1.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081110/third1.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

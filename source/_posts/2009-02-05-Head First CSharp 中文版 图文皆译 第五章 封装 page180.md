@@ -5,11 +5,9 @@ tags: 我翻译的Head First C#（习作）
 ---
 凯瑟琳的测试运行
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90205/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090205/%E6%88%AA%E5%9B%BE01.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90205/%E6%88%AA%E5%9B%BE02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090205/%E6%88%AA%E5%9B%BE02.jpg)
 
 Rob  （打电话过来）：嗨，凯瑟琳。我的晚宴聚会安排的怎么样了？
 
@@ -21,8 +19,7 @@ Rob  ：太棒了。听着，我刚才接到我老婆的姨妈的电话。姨妈
 
 凯瑟琳：当然了！一分钟就计算出来。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90205/%E6%88%AA%E5%9B%BE03.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090205/%E6%88%AA%E5%9B%BE03.jpg)
 
 凯瑟琳：哦。花费好像是从575变成了665美元。
 

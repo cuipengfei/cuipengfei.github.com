@@ -29,8 +29,7 @@ Open  按钮显示出来一个  OpenFileDialog  并且使用  File.ReadAllText  
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90505/2009-05-05_12-27-03.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090505/2009-05-05_12-27-03.jpg)
 
 ③现在，把  Save  按钮联系起来
 
@@ -40,8 +39,7 @@ Save  按钮使用  File.WriteAllText  （）方法来保存文件：
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90505/2009-05-05_12-30-45.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090505/2009-05-05_12-30-45.jpg)
 
 ④试玩一下对话框的其它属性
 

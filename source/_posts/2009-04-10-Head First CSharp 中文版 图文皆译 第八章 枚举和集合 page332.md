@@ -7,11 +7,9 @@ IComparer  可以做复杂的比较
 
 创建一个单独的类来给鸭子排序的一个好处就是你可以在其中构建更复杂的逻辑--你可以向其中添加一些成员来帮助决定列表如何排序。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90410/2009-04-10_16-38-40.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090410/2009-04-10_16-38-40.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90410/2009-04-10_16-49-34.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090410/2009-04-10_16-49-34.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

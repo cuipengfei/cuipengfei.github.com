@@ -9,19 +9,16 @@ com:office:office" />
 对大多数比较大的程序有一个奇怪的事儿：它们经常反复调用一个特定的动作。循环就是做这个用的--
 它们告诉程序持续执行一段特定代码直到某些状态成为true或false。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81027/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081027/%E6%88%AA%E5%9B%BE00.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81027/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081027/%E6%88%AA%E5%9B%BE01.jpg)
 
 用一小段代码写一个for循环
 
 一分钟就能写完一个for循环。IDE还能帮你加快一点。键入for和两次tab，IDE将会自动为你插入代码。如果你键入一个新变量，它将会自动更新剩下的代码段。
 再按一次tab，光标将会跳到length上去。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81027/%E6%88%AA%E5%9B%BE02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081027/%E6%88%AA%E5%9B%BE02.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

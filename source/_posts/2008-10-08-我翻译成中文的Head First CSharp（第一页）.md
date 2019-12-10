@@ -7,8 +7,7 @@ tags: 我翻译的Head First C#（习作）
 
 第一章  ：C#令你高效率：十分钟之内创建可视化应用程序
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81008/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081008/%E6%88%AA%E5%9B%BE00.jpg)
 
 想要快速构建很棒的程序？  <?xml:namespace prefix = o ns = "urn:schemas-microsoft-
 com:office:office" />

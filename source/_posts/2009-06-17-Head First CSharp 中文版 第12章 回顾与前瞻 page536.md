@@ -11,11 +11,9 @@ World  类实际上是我们的模拟器中的相对简单一点的类。下面�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90617/2009-06-17_10-47-15.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090617/2009-06-17_10-47-15.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90617/2009-06-17_10-47-38.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090617/2009-06-17_10-47-38.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

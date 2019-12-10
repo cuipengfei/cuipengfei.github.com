@@ -3,8 +3,7 @@ title: Head First C#中文版  图文皆译  （page11）
 date: 2008-10-13 08:37:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81013/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081013/%E6%88%AA%E5%9B%BE00.jpg)
 
 问：如果IDE为我写了那么多代码的话，学C#就是学怎么用IDE喽？
 

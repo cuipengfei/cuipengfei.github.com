@@ -3,8 +3,7 @@ title: Head First C#中文版  图文皆译  （page21）
 date: 2008-10-16 16:24:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81016/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081016/%E6%88%AA%E5%9B%BE00.jpg)
 
 3  告诉数据库去自动生成ID.  <?xml:namespace prefix = o ns = "urn:schemas-microsoft-
 com:office:office" />
@@ -13,8 +12,7 @@ com:office:office" />
 
 在你的数据表下面的属性栏里，向下滚动到Identity Specification，点击按钮+，然后点击（Is Identity）属性旁的Yes。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81016/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081016/%E6%88%AA%E5%9B%BE01.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

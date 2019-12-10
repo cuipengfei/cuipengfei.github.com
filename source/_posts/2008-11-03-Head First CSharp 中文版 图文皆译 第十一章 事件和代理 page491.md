@@ -5,8 +5,7 @@ tags: 我翻译的Head First C#（习作）
 ---
 <?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" />
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81103/%E6%88%AA%E5%9B%BE00633613159027955000.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081103/%E6%88%AA%E5%9B%BE00633613159027955000.jpg)
 
 问：声明事件的时候为什么要用EventHandler关键字？我认我EventHandler是别的对象用来注册事件的。
 

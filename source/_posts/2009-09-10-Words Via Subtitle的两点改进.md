@@ -13,15 +13,13 @@ tags: undefined
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90910/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090910/%E6%88%AA%E5%9B%BE01.jpg)
 
 2\.  导出文档。可以把列表中的单词，其简明解释和在剧中出现的语境保存到文档中。关键词开头绿色显示，例句中红色显示。效果如下：
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90910/%E6%88%AA%E5%9B%BE02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090910/%E6%88%AA%E5%9B%BE02.jpg)
 
 为什么要写这个功能呢？因为九月中下旬有很多美剧要回归，包括  TBBT  ，  Lie to me  ，  Heroes  ，  Fringe  。到时候每
 一集出来之后可以用这个程序迅速的把一集中出现的生词，其音标及解释还有语境总结出来。可以把它发到博客里，或者发到美剧对应的社区或者贴吧里去，会比一般的影迷手工

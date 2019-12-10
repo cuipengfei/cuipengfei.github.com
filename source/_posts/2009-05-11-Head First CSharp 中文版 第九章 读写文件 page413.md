@@ -16,8 +16,7 @@ Switch  语句可以让你用一种简单易读而又紧凑的方式来把一个
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90511/2009-05-11_08-43-09.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090511/2009-05-11_08-43-09.jpg)
 
 switch语句把一个变量和很多个可能的值作比较。
 

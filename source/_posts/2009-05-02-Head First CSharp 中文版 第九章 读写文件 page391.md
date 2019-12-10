@@ -3,8 +3,7 @@ title: Head First C# 中文版 第九章 读写文件 page391
 date: 2009-05-02 12:08:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90502/2009-05-02_11-59-07.jpg) StreamWriter  代码贴
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090502/2009-05-02_11-59-07.jpg) StreamWriter  代码贴
 
   
 
@@ -13,8 +12,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90502/2009-05-02_12-04-01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090502/2009-05-02_12-04-01.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

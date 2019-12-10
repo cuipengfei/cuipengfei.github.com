@@ -7,8 +7,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90322/2009-03-22_21-56-50.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090322/2009-03-22_21-56-50.jpg)
 
 向上转型很好很强大，因为它让你可以在需要电器的地方使用咖啡壶或者电热炉。但是这样也有缺点--如果用Appliance的引用指向了一个CoffeeMaker对
 象，那就只可以调用Appliance定义的方法、属性。这时就需要向下转型了：向下转型把原先向上转型的引用再次转换回去。你可以用is关键字来检查你的Appli
@@ -24,8 +23,7 @@ ance引用是否实际指向了一个CoffeeMaker对象。如果是的话，你�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90322/2009-03-22_21-42-53.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090322/2009-03-22_21-42-53.jpg)
 
 ②  如果我们想要把Appliance转换回CoffeeMaker怎么办？
 
@@ -46,8 +44,7 @@ ffeeMaker的方法、属性了。而由于CoffeeMaker又是继承自Appliance，
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90322/2009-03-22_21-49-01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090322/2009-03-22_21-49-01.jpg)
 
 如果向下转型失败，as将会返回null
 
@@ -55,8 +52,7 @@ ffeeMaker的方法、属性了。而由于CoffeeMaker又是继承自Appliance，
 
 如果试着把Oven对象转型为CoffeeMaker会怎样呢？将会返回null--而如果你使用转型后的对象，.NET将会中止你的程序。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90322/2009-03-22_21-52-07.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090322/2009-03-22_21-52-07.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

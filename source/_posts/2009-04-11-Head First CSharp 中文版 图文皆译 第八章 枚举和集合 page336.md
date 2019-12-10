@@ -42,8 +42,7 @@ String lookupValue = myDictionary["some key"];
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90411/2009-04-11_12-07-04.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090411/2009-04-11_12-07-04.jpg)
 
 ★  获取键的集合
 
@@ -53,8 +52,7 @@ String lookupValue = myDictionary["some key"];
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90411/2009-04-11_12-15-49.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090411/2009-04-11_12-15-49.jpg)
 
 ★  获取值的集合
 
@@ -64,8 +62,7 @@ String lookupValue = myDictionary["some key"];
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90411/2009-04-11_12-22-36.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090411/2009-04-11_12-22-36.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

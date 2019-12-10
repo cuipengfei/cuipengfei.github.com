@@ -11,11 +11,9 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90405/2009-04-05_09-08-51.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090405/2009-04-05_09-08-51.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90405/2009-04-05_09-29-27.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090405/2009-04-05_09-29-27.jpg)
 
 或许你可以在Woker类的构造方法中添加代码来检查代表工作类型的字符串。但是如果你要让蜜蜂掌握一些
 新工作，那你就需要修改检查代码并重新编译Woker类。这是相当短视的解决方案。如果有别的类也需要检查蜜蜂工作的类型怎么办呢？那就会造成冗余代码，此路不通。

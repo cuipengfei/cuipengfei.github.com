@@ -13,8 +13,7 @@ Paint  事件处理方法。下面是蜂巢窗体的  Paint  事件的处理方�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90806/2009-08-06_17-25-26.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090806/2009-08-06_17-25-26.jpg)
 
 ④两个窗体都需要一个公有的  renderer  属性：
 
@@ -25,8 +24,7 @@ Paint  事件处理方法。下面是蜂巢窗体的  Paint  事件的处理方�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90806/2009-08-06_17-31-54.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090806/2009-08-06_17-31-54.jpg)
 
 ⑤大修渲染器
 

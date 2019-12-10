@@ -11,11 +11,9 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90419/2009-04-19_11-51-33.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090419/2009-04-19_11-51-33.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90419/2009-04-19_12-03-52.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090419/2009-04-19_12-03-52.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

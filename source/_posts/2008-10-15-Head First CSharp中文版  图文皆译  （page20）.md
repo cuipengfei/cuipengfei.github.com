@@ -13,8 +13,7 @@ com:office:office" />
 
 在数据库浏览器里面右键单击Tables，并且选择Add New Table。这会打开一个让你来定义刚刚创建的数据表中数据列的窗口。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81015/%E6%88%AA%E5%9B%BE04.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081015/%E6%88%AA%E5%9B%BE04.jpg)
 
 现在我们需要向我们的数据表中添加数据列了。首先，让我们向新建的People数据表中添加一个叫做ContactID的数据列，这样每一个联系人记录就会有一个唯一
 的ID了。
@@ -25,11 +24,9 @@ com:office:office" />
 
 最后，我们把它作为我们数据表的主键。选中你刚刚创建的ContactID数据列，并点击主键按钮。这告诉数据库每一个条目都将会有一个主键条目。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81015/%E6%88%AA%E5%9B%BE05.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081015/%E6%88%AA%E5%9B%BE05.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81015/%E6%88%AA%E5%9B%BE06.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081015/%E6%88%AA%E5%9B%BE06.jpg)
 
 问：什么是数据列来着？
 

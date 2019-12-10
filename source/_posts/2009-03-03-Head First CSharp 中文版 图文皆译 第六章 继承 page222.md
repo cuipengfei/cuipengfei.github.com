@@ -9,11 +9,9 @@ tags: 我翻译的Head First C#（习作）
 
 子类继承基类的时候，基类所有的字段，属性，方法会自动的添加进子类中去。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90303/2009-03-03_12-58-14.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090303/2009-03-03_12-58-14.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90303/2009-03-03_13-07-14.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090303/2009-03-03_13-07-14.jpg)
 
 问：为什么子类和父类之间的箭头指向父类？如果箭头向下指的话，这个类图不是会好看一点吗？
 

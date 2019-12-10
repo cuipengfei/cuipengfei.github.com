@@ -3,8 +3,7 @@ title: Head First C# 中文版 第13章 控件和图形 page610
 date: 2009-08-06 14:50:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90806/2009-08-06_13-37-19.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090806/2009-08-06_13-37-19.jpg)
 
 该是时候解决掉蜂巢模拟器中的小故障了。使用双缓冲来把模拟器弄得漂亮一点。
 
@@ -18,8 +17,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90806/2009-08-06_13-45-13.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090806/2009-08-06_13-45-13.jpg)
 
 ②给主窗体再添加一个  Timer  来使得蜜蜂的翅膀扇动
 
@@ -30,15 +28,13 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90806/2009-08-06_13-53-09.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090806/2009-08-06_13-53-09.jpg)
 
 然后把这个  AnimateBees  （）方法添加到渲染器中去来使得蜜蜂的翅膀扇动：
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90806/2009-08-06_13-54-13.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090806/2009-08-06_13-54-13.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

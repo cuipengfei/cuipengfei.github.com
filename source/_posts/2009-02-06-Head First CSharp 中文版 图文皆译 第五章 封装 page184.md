@@ -13,15 +13,13 @@ erParty类工作的不错，但是窗体以未预期的方式调用了它...这�
 DinnerParty  类给了窗体一个很好的方法来计算装饰的总花费。它所需要做的就是调用CalculateCostOfDecorations（），然后Ca
 lculateCost（）方法就会返回正确的花费。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90206/%E6%88%AA%E5%9B%BE04.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090206/%E6%88%AA%E5%9B%BE04.jpg)
 
 2 DinnerParty  类实际是怎么被调用的
 
 窗体设置人数，但是没有重新计算装饰费就只调用了CalculateCost（）方法。这样凯瑟琳就给了Rob错误的价格。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90206/%E6%88%AA%E5%9B%BE05.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090206/%E6%88%AA%E5%9B%BE05.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

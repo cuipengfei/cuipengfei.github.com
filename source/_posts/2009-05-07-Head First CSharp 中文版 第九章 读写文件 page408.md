@@ -3,13 +3,11 @@ title: Head First C# 中文版 第九章 读写文件 page408
 date: 2009-05-07 13:37:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90507/2009-05-07_12-59-52.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090507/2009-05-07_12-59-52.jpg)
 
 创建借口管理器，这样  Brian  就可以管理自己工作中的借口了。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90507/2009-05-07_13-35-25.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090507/2009-05-07_13-35-25.jpg)
 
 ①创建窗体
 
@@ -56,8 +54,7 @@ Fixed3D  的标签上。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90507/2009-05-07_13-22-04.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090507/2009-05-07_13-22-04.jpg)
 
 ③让  Folder  按钮打开一个文件夹浏览器
 

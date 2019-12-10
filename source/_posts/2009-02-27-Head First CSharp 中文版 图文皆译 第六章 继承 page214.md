@@ -8,15 +8,13 @@ tags: 我翻译的Head First C#（习作）
 DinnerParty  和BirthDayParty两个类中有很多相似代码并不是巧合。用C#写程序的时候，总是会创建代表现实事物的类--
 而现实中的事物总是相关联的。你的类中有相似代码是因为它们代表的现实事物--生日聚会和晚宴聚会--有着相似的行为。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90227/2009-02-27_10-26-03.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090227/2009-02-27_10-26-03.jpg)
 
 晚宴聚会和生日聚会都是聚会
 
 如果有两个类都是某种概括性事物的特例，你可以让它们都去继承同一个类。这样，它们就都是同一个基类的子类。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90227/2009-02-27_10-33-33.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090227/2009-02-27_10-33-33.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

@@ -7,8 +7,7 @@ tags: 我翻译的Head First C#（习作）
 
 所以，只要克格勃不知道中情局探员的密码，中情局探员的真实姓名就是安全的，对吧？但是realName字段的声明又是怎样的呢:
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90207/%E6%88%AA%E5%9B%BE05.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090207/%E6%88%AA%E5%9B%BE05.jpg)
 
 Jones  探员可以使用私有字段来把保护自
 
@@ -22,8 +21,7 @@ EntryImages/20090207/%E6%88%AA%E5%9B%BE06.jpg) 份。一  旦他把  realName字
 
 勃就被击退了！
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90207/%E6%88%AA%E5%9B%BE07.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090207/%E6%88%AA%E5%9B%BE07.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

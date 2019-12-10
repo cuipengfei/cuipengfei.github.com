@@ -13,8 +13,7 @@ List  类是内建在.NET Framework中的，它让你可以做很多用简单�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90407/2009-04-07_08-49-09.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090407/2009-04-07_08-49-09.jpg)
 
 List<Egg> myCarton = new List<Egg>();
 

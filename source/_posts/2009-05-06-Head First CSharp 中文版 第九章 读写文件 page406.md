@@ -15,8 +15,7 @@ Dispose  （）方法。下面是示例：
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90506/2009-05-06_22-40-07.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090506/2009-05-06_22-40-07.jpg)
 
 每个流都有一个用于关闭流的  Dispose  （）方法。所以如果你在  using  语句中声明流，它将总可以关闭自己！
 
@@ -28,8 +27,7 @@ Dispose  （）方法。下面是示例：
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90506/2009-05-06_22-51-44.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090506/2009-05-06_22-51-44.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

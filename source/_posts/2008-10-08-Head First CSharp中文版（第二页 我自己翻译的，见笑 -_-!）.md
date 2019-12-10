@@ -15,8 +15,7 @@ C#  和Visual Studio IDE帮你把写代码这回事儿变
 
 是你最好的朋友和长久的伴侣.
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81008/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081008/%E6%88%AA%E5%9B%BE01.jpg)
 
 下面是VS IDE为你自动生成的...
 
@@ -24,8 +23,7 @@ C#  和Visual Studio IDE帮你把写代码这回事儿变
 
 上放一个按钮，你的程序都需要一大堆的重复代码.
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81008/%E6%88%AA%E5%9B%BE02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081008/%E6%88%AA%E5%9B%BE02.jpg)
 
 你能从Visual Studio和C#这儿获得什么呢...
 
@@ -33,8 +31,7 @@ C#  和Visual Studio IDE帮你把写代码这回事儿变
 
 IDE，你可以很快的专注于你期望你的的程序要做的事情上  .
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81008/%E6%88%AA%E5%9B%BE03.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081008/%E6%88%AA%E5%9B%BE03.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

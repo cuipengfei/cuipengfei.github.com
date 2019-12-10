@@ -3,8 +3,7 @@ title: Head First C# 中文版 第12章 回顾与前瞻 page556
 date: 2009-07-11 10:49:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90711/2009-07-11_10-37-10.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090711/2009-07-11_10-37-10.jpg)
 
 如果告诉你可以使用一样的语法来查询集合，数
 
@@ -21,8 +20,7 @@ C#  有一个很有用的功能叫做  LINQ  （代表  Language INtegrated Qu
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90711/2009-07-11_10-45-30.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090711/2009-07-11_10-45-30.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

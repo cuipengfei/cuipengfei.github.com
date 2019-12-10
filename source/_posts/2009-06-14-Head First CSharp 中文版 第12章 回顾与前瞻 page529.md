@@ -3,8 +3,7 @@ title: Head First C# 中文版 第12章 回顾与前瞻 page529
 date: 2009-06-14 15:31:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90614/2009-06-14_15-02-27.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090614/2009-06-14_15-02-27.jpg)
 
 编写  Hive  的代码是你的任务。
 
@@ -14,8 +13,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90614/2009-06-14_15-07-41.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090614/2009-06-14_15-07-41.jpg)
 
 就像编写  Flower  类时一样，你应该开始先给  Hive  类写一个骨架代码。类图如右图所示。把  Honey  设置为只读的自动属性，
 locations  要是私有的，  beeCount  只在内部使用，所以也可以是私有的字段。

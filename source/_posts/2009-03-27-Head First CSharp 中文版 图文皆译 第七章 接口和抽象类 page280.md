@@ -8,15 +8,13 @@ tags: 我翻译的Head First C#（习作）
 实例化PlanetMission是问题的罪魁祸首。它的FuelNeeded（）方法期望字段是被子类赋了值的。但是如果没有赋值，字段们将会被赋值为默认值0.而
 当C#用一个数字除以0的时候...
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90327/2009-03-27_16-55-21.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090327/2009-03-27_16-55-21.jpg)
 
 解决方案：使用抽象类
 
 C#  中不允许创建一个声明为抽象的类的实例。抽象类很像接口--它就好像是继承它的类的模板。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90327/2009-03-27_17-01-21.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090327/2009-03-27_17-01-21.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

@@ -15,8 +15,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90427/2009-04-27_21-42-08.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090427/2009-04-27_21-42-08.jpg)
 
 每个PictureBox的Click事件对应一个事件处理方法。玩家点击剑的时候，首先用Game对象的CheckPlayerInventory（）方法来检查剑
 是否在玩家的物品栏中。如果玩家持有剑，窗体将会调用Game的Equip（）方法来装备它。然后设置每个PictureBox的BorderStyle属性来在剑的
@@ -24,8 +23,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90427/2009-04-27_21-59-06.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090427/2009-04-27_21-59-06.jpg)
 
 每个移动按钮对应一个事件处理方法。这些方法很简单。首先用一个适当的Direction值去调用Game的Move（）方法，然后调用窗体的UpdateChara
 cters（）方法。

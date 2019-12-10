@@ -12,8 +12,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90721/2009-07-21_20-30-47.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090721/2009-07-21_20-30-47.jpg)
 
 我们想要一个可以放入工具箱的控件
 
@@ -24,8 +23,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90721/2009-07-21_20-37-07.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090721/2009-07-21_20-37-07.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

@@ -17,8 +17,7 @@ tags: 我翻译的Head First C#（习作）
 
 看看这六个动物。狮子、河马、老虎、猫、  达尔马西亚狗  ，它们有什么共同点呢？它们有什么联系？你要弄清楚它们的关系然后才能构建出包含所有特性的类模型。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90228/2009-02-28_13-34-17.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090228/2009-02-28_13-34-17.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

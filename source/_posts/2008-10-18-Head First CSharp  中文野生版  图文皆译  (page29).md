@@ -3,18 +3,15 @@ title: Head First C#  中文野生版  图文皆译  (page29)
 date: 2008-10-18 12:26:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81018/%E6%88%AA%E5%9B%BE08.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081018/%E6%88%AA%E5%9B%BE08.jpg)
 
 3  一旦你键入了所有六条记录，再次从文件菜单选择全部保存。那将会把所有记录保存到数据库。
 
 <?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" />
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81018/%E6%88%AA%E5%9B%BE09.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081018/%E6%88%AA%E5%9B%BE09.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81018/%E6%88%AA%E5%9B%BE10.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081018/%E6%88%AA%E5%9B%BE10.jpg)
 
 问：我输入完的数据怎么样了？它去哪儿了？
 
@@ -26,8 +23,7 @@ Express的ContactDB.mdf文件里。这个文件被作为项目的一部分存储
 答：对，它们就像你写的代码和正在创建的窗体一样，是你的程序的一部分。不同的是，他们不被编译为可执行文件，而是被复制并且和可执行文件一起存储。当你的程序需要访
 问数据时，它读写程序的输出目录下的ContactDB.mdf。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81018/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081018/%E6%88%AA%E5%9B%BE00.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

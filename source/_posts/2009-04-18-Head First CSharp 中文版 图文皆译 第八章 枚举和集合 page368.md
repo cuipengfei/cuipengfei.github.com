@@ -15,8 +15,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90418/2009-04-18_21-40-33.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090418/2009-04-18_21-40-33.jpg)
 
 Game  对象管理回合
 
@@ -31,8 +30,7 @@ Game  对象管理回合
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90418/2009-04-18_21-52-36.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090418/2009-04-18_21-52-36.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

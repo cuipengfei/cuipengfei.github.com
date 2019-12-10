@@ -5,22 +5,18 @@ tags: 我翻译的Head First C#（习作）
 ---
 <?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" />
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81104/%E6%88%AA%E5%9B%BE00633614155822330000.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081104/%E6%88%AA%E5%9B%BE00633614155822330000.jpg)
 
 创建一个新应用。它应有两个NumericUpDown控件：一个是距离，一个是轨迹角度。添加一个按钮，标签为“Play
 ball”。当点击按钮时，一个球以两个NumericUpDown控件里的数值被击打。你的窗体应该看起来像这样：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81104/%E6%88%AA%E5%9B%BE01633614155822642500.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081104/%E6%88%AA%E5%9B%BE01633614155822642500.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81104/%E6%88%AA%E5%9B%BE02633614155823111250.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081104/%E6%88%AA%E5%9B%BE02633614155823111250.jpg)
 
 看看你的模拟器能否以三个连续的球产生如下的输出。写下你用来得到这个输出的值：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81104/%E6%88%AA%E5%9B%BE03633614155823267500.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081104/%E6%88%AA%E5%9B%BE03633614155823267500.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

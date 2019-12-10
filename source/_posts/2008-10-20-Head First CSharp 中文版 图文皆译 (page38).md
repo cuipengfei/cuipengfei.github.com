@@ -9,11 +9,9 @@ com:office:office" />
 一旦创建了一个部署文件，你将会有一个叫做publish/的文件夹。文件夹里有一些东西，都是用来安装的。对用户来说最重要的是安装文件，安装文件使用户可以把你的
 程序安装到他们自己的电脑上。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81020/%E6%88%AA%E5%9B%BE00633601052033437500.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081020/%E6%88%AA%E5%9B%BE00633601052033437500.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81020/%E6%88%AA%E5%9B%BE01633601052034218750.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081020/%E6%88%AA%E5%9B%BE01633601052034218750.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

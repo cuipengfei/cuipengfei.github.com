@@ -7,11 +7,9 @@ Weapon  类继承自Mover类，每种武器继承自Weapon
 
 我们需要一个Weapon基类，就好像有一个Enemy基类一样。每个武器有一个位置值，还有一个指示该武器是否被捡起来的属性。下面是Weapon基类：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90426/2009-04-26_21-57-34.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090426/2009-04-26_21-57-34.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90426/2009-04-26_22-06-43.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090426/2009-04-26_22-06-43.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

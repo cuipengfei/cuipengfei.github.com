@@ -3,16 +3,14 @@ title: Head First C# 中文版 图文皆译 第五章 封装 page203
 date: 2009-02-19 13:22:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90219/2009-02-19_12-43-26.jpg) 用你已经学过的属性和构造方法知识来修改凯瑟琳的聚会计划程序。
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090219/2009-02-19_12-43-26.jpg) 用你已经学过的属性和构造方法知识来修改凯瑟琳的聚会计划程序。
 
 ①  怎么修改聚会计划计算器
 
 要想修改DinnerParty类，我们需要有办法让CalculateCostOfDecorations（）方法在每次NumberOfPeople改变时都得以
 执行。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90219/2009-02-19_12-49-44.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090219/2009-02-19_12-49-44.jpg)
 
 ②  添加属性和构造方法
 
@@ -26,13 +24,11 @@ fDecorations（）的属性开始吧。然后添加一个构造方法来确保�
 
 *  添加一个构造方法。它接受三个参数，分别是给人数、健康选择、高级装饰的。现在，窗体在初始化DinnerParty对象的时候会调用两个方法--把它们移动到构造方法里面去。 
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90219/2009-02-19_13-18-57.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090219/2009-02-19_13-18-57.jpg)
 
 *  这是窗体的构造方法--窗体中其他的东西都保持不变： 
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90219/2009-02-19_13-20-21.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090219/2009-02-19_13-20-21.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

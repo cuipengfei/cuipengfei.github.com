@@ -12,8 +12,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90501/2009-05-01_13-08-03.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090501/2009-05-01_13-08-03.jpg)
 
 你可以用流做的事情：
 

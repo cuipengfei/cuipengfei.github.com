@@ -17,24 +17,21 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90720/2009-07-20_13-20-51.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090720/2009-07-20_13-20-51.jpg)
 
 ②蜜蜂从蜂巢中飞出来进入田园的时候，渲染器会把  BeeControl  从  Hive  窗体的  Controls  中移除并添加到  Filed
 窗体的  Controls  中去。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90720/2009-07-20_13-22-25.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090720/2009-07-20_13-22-25.jpg)
 
 ③一只蜜蜂在太老了并处于空闲状态的时候就会退休。渲染器检查  World  中的蜜蜂列表，如果找出一只蜜蜂已经不在其中了，就会把其对应的控件从  Hive
 窗体中移除。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90720/2009-07-20_13-25-08.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090720/2009-07-20_13-25-08.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

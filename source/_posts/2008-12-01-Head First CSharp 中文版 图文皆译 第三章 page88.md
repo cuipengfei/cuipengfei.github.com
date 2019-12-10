@@ -13,8 +13,7 @@ Mike  设计导航器类来方便的生成和修改路径。要得到一条路�
 径信息包含到一个String中去。如果需要改变路径，他的程序调用ModifyRouteToAvoid（）方法来避开一条特定的街道，然后再调用GetRoute
 （）方法来得到新方向。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81201/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081201/%E6%88%AA%E5%9B%BE00.jpg)
 
 有的方法有一个返回值
 
@@ -24,16 +23,13 @@ Mike  设计导航器类来方便的生成和修改路径。要得到一条路�
 return  语句告诉方法马上退出。如果你的方法没有返回值--也就是说返回类型为void--
 那么return语句就用分号结束，或者干脆不写return语句都可以。但是如果方法有返回类型，那么就必须有return语句。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81201/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081201/%E6%88%AA%E5%9B%BE01.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81201/%E6%88%AA%E5%9B%BE02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081201/%E6%88%AA%E5%9B%BE02.jpg)
 
 这个语句调用方法来计算两个数字相乘。它返回一个int：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81201/%E6%88%AA%E5%9B%BE03.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081201/%E6%88%AA%E5%9B%BE03.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

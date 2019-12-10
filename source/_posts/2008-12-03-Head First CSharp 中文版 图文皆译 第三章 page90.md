@@ -8,13 +8,11 @@ com:office:office" />
 
 面试进行的很顺利！但是早上的交通堵塞让Mike想要改进他的导航器。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81203/%E6%88%AA%E5%9B%BE00.jpg) Mike  可以创建三个不一样的导航器类...
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081203/%E6%88%AA%E5%9B%BE00.jpg) Mike  可以创建三个不一样的导航器类...
 
 Mike  可以把Navigator类的代码复制进另外两个类里面。这样他的程序就可以同时存储三条路径了。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81203/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081203/%E6%88%AA%E5%9B%BE01.jpg)
 
 对！同时维护三份一样的代码太麻烦了。
 

@@ -3,8 +3,7 @@ title: Head First C# 中文版 图文皆译 第六章 继承 page205
 date: 2009-02-20 15:22:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90220/2009-02-20_14-58-40.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090220/2009-02-20_14-58-40.jpg)
 
 有时你真的想要像你的父母。
 

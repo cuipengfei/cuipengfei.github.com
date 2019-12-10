@@ -12,8 +12,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90521/2009-05-21_18-37-43.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090521/2009-05-21_18-37-43.jpg)
 
 还有一个选择  \--  一种叫做十六进制转储的格式，这是查看二进制数据的标准方式。这比用记事本阅读文件好多了。每个字节在十六进制中占用两个字符，这样你就可
 以在很小的空间内查阅很多信息了。还有，在长度为  8  ，  16  或者  32  的行中显示二进制数据是很有用的，因为二进制数据趋向于分解到长度为  4
@@ -22,8 +21,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90521/2009-05-21_18-55-45.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090521/2009-05-21_18-55-45.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

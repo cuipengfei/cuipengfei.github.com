@@ -3,8 +3,7 @@ title: Head First C# 中文版 第13章 控件和图形 page607
 date: 2009-08-05 20:19:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90805/2009-08-05_19-58-30.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090805/2009-08-05_19-58-30.jpg)
 
 即使是不缩放，把图像绘制到窗体上也需要时间。
 

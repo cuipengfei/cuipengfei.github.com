@@ -8,8 +8,7 @@ com:office:office" />
 
 每个C#程序的代码都是以相同的方式组织的。所有程序都用命名空间，类，和方法来使你的代码易于管理。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81024/%E6%88%AA%E5%9B%BE02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081024/%E6%88%AA%E5%9B%BE02.jpg)
 
 咱们近距离看看你的代码
 
@@ -21,8 +20,7 @@ com:office:office" />
 Framework的哪部分。如果你要用其他命名空间的类，自己添加using来引用它们。因为窗体经常用一些.NET
 Framework里的工具，IDE会自动添加它们。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81024/%E6%88%AA%E5%9B%BE03.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081024/%E6%88%AA%E5%9B%BE03.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

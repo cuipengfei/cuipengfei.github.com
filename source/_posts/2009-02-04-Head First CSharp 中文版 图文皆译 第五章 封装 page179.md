@@ -6,11 +6,9 @@ tags: 我翻译的Head First C#（习作）
 我们让你用decimal来代表价钱是因为decimal就是为代表货币值而设计的。一定要在每一个字面值后面加一个“M”--所以如果你想要存储$35.26的话，
 一定要写35.26M。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90204/%E6%88%AA%E5%9B%BE00633693846815483750.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090204/%E6%88%AA%E5%9B%BE00633693846815483750.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90204/%E6%88%AA%E5%9B%BE01633693846816577500.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090204/%E6%88%AA%E5%9B%BE01633693846816577500.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

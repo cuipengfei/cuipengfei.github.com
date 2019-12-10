@@ -13,13 +13,11 @@ tags: 我翻译的Head First C#（习作）
 
 载入窗体的时候，窗体把人数设置为5，把高级装饰选项设置为true。健康选择没有选中，总的花费是350美元。初始的花费是这么计算出来的：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90206/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090206/%E6%88%AA%E5%9B%BE00.jpg)
 
 当你把客人数改变之后，程序本应该按照一样的方式来估价。但是它没有：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90206/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090206/%E6%88%AA%E5%9B%BE01.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

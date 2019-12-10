@@ -5,8 +5,7 @@ tags: 我翻译的Head First C#（习作）
 ---
 <?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" />
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81030/%E6%88%AA%E5%9B%BE03633609673872300000.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081030/%E6%88%AA%E5%9B%BE03633609673872300000.jpg)
 
 4  平滑一点
 
@@ -16,8 +15,7 @@ tags: 我翻译的Head First C#（习作）
 
 用一个一直循环不停地循环把你的两个循环包起来，所以点击了按钮，颜色就不停的变换。（提示：while（true）循环永不停止！）
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81030/%E6%88%AA%E5%9B%BE04633609673872612500.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081030/%E6%88%AA%E5%9B%BE04633609673872612500.jpg)
 
 啊！程序停不下来！
 
@@ -28,8 +26,7 @@ IDE不会回到编辑模式！它表现的就像程序仍然在运行。要用ID
 
 关闭程序时让你在第五步骤添加的循环停止。把外层循环修改为下面这样：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81030/%E6%88%AA%E5%9B%BE05.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081030/%E6%88%AA%E5%9B%BE05.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

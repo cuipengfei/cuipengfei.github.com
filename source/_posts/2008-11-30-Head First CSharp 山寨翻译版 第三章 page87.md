@@ -8,11 +8,9 @@ com:office:office" />
 
 Mike  自己编制了车辆导航系统，用来给自己在城里导航。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81130/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081130/%E6%88%AA%E5%9B%BE00.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81130/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081130/%E6%88%AA%E5%9B%BE01.jpg)
 
 Mike  的街道导航系统和Mike以
 

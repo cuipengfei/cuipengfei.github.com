@@ -16,35 +16,29 @@ com:office:office" />
 
 义”，你就会看见下面的代码：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81107/%E6%88%AA%E5%9B%BE00633616843806057924.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081107/%E6%88%AA%E5%9B%BE00633616843806057924.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81107/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081107/%E6%88%AA%E5%9B%BE01.jpg)
 
 一个委托向你的项目添加一个新的类型
 
 向你的项目添加一个委托，就是在添加一个委托类型。用它来创建一个字段或者变量的时候，你就是在在创建一个委托类型的实例。创建一个新项目。然后添加一个新的叫做Re
 turnAString.cs的类文件到项目中去。不要写一个类，就添加一行进去：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81107/%E6%88%AA%E5%9B%BE02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081107/%E6%88%AA%E5%9B%BE02.jpg)
 
 去到窗体代码那儿并添加这一行进去：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81107/%E6%88%AA%E5%9B%BE03.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081107/%E6%88%AA%E5%9B%BE03.jpg)
 
 现在生成你的程序--可以编译！（你没有使用这个变量--会有一个警告，没事儿。）你添加一个新的委托进去，它就创建了一个叫做ReturnAString的类型。如
 果你用这个类型创建一个变量，你可以让它等于一个返回String值没有参数的方法。试着把这个方法添加进去：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81107/%E6%88%AA%E5%9B%BE04.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081107/%E6%88%AA%E5%9B%BE04.jpg)
 
 添加一个有以下三行代码的按钮。点击它，看看怎么样：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81107/%E6%88%AA%E5%9B%BE05.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081107/%E6%88%AA%E5%9B%BE05.jpg)
 
 委托，名词。
 

@@ -21,15 +21,13 @@ BeeControl  继承自  Control  ，所以它必然含有  Dispose  （）方法�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90724/2009-07-24_08-35-34.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090724/2009-07-24_08-35-34.jpg)
 
 在智能感应窗口中点击了  Dispose  （）之后，  IDE  将会用  base.Dispose  （）这一语句填充该方法：
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90724/2009-07-24_08-39-22.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090724/2009-07-24_08-39-22.jpg)
 
 ④添加代码来处理  Timer
 
@@ -39,8 +37,7 @@ BeeControl  继承自  Control  ，所以它必然含有  Dispose  （）方法�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90724/2009-07-24_08-41-20.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090724/2009-07-24_08-41-20.jpg)
 
 现在你的  BeeControl  可以处理掉  Timer  了。把  IDE  给你生成的那行代码留在那儿，这样  PictureBox
 本身也可以得以处理了。

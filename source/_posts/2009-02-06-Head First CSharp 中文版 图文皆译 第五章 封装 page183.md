@@ -3,22 +3,18 @@ title: Head First C# 中文版 图文皆译 第五章 封装 page183
 date: 2009-02-06 21:07:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90206/%E6%88%AA%E5%9B%BE00633695512283076708.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090206/%E6%88%AA%E5%9B%BE00633695512283076708.jpg)
 
 看看响应NumericUpDown控件的值的改变的方法。它先把值赋给NumberofPeople变量然后调用DisplayDinnerPartyCost()
 方法。然后就靠着这个方法来重新计算每一项的花费。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90206/%E6%88%AA%E5%9B%BE01633695512283389200.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090206/%E6%88%AA%E5%9B%BE01633695512283389200.jpg)
 
 所以，当你修改了NumberofPeople字段的值的时候，这个方法不会得到调用：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90206/%E6%88%AA%E5%9B%BE02633695512284014184.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090206/%E6%88%AA%E5%9B%BE02633695512284014184.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90206/%E6%88%AA%E5%9B%BE03.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090206/%E6%88%AA%E5%9B%BE03.jpg)
 
 人们并不是总会按照你预期的方式使用你的程序的。
 

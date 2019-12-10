@@ -3,8 +3,7 @@ title: Head First C# 中文版 图文皆译 第六章 继承 page231
 date: 2009-03-07 10:29:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90307/2009-03-07_09-47-22.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090307/2009-03-07_09-47-22.jpg)
 
 问：你在泳池难题中指出了程序入口点--这是不是意味着我可以写一个没有Form1窗体的程序？
 
@@ -17,8 +16,7 @@ tags: 我翻译的Head First C#（习作）
 
 现在运行...你就可以看见结果了！恭喜，你徒手创建了一个C#程序。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90307/2009-03-07_10-01-42.jpg)  
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090307/2009-03-07_10-01-42.jpg)  
 
 问：可以继承含有入口点的类吗？
 

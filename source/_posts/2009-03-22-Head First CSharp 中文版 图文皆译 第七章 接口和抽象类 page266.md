@@ -7,8 +7,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90322/2009-03-22_10-15-32.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090322/2009-03-22_10-15-32.jpg)
 
 如果你想要节约电费的话，你不会在意每个电器做什么，你只会关心它们消耗多少电量。所以如果你要写一个监控电量消耗的程序，你可能会只写一个Appliance（器具
 ）类。
@@ -18,18 +17,15 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90322/2009-03-22_10-16-10.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090322/2009-03-22_10-16-10.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90322/2009-03-22_10-25-11.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090322/2009-03-22_10-25-11.jpg)
 
 观察左侧的数组，写出i的值是多少的时候可以使得右侧的is语句返回true。还有，左侧有两个语句无法编译--把它们圈出来。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90322/2009-03-22_10-25-58.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090322/2009-03-22_10-25-58.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

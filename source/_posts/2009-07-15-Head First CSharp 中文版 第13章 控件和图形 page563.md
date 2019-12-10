@@ -3,8 +3,7 @@ title: Head First C# 中文版 第13章 控件和图形 page563
 date: 2009-07-15 18:46:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90715/2009-07-15_18-36-09.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090715/2009-07-15_18-36-09.jpg)
 
 有时候你需要掌握一些图形知识
 

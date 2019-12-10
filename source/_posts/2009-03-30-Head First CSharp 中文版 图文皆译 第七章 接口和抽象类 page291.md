@@ -7,8 +7,7 @@ tags: 我翻译的Head First C#（习作）
 
 为帮助你入门，下面是Location类：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90330/2009-03-30_21-34-46.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090330/2009-03-30_21-34-46.jpg)
 
 ⑥  创建类
 
@@ -17,8 +16,7 @@ tags: 我翻译的Head First C#（习作）
 
 下面是帮你开始的类声明：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90330/2009-03-30_21-59-35.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090330/2009-03-30_21-59-35.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

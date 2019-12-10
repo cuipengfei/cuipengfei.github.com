@@ -3,8 +3,7 @@ title: Head First C# 中文版 第10章 异常处理 page473
 date: 2009-06-07 22:12:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90607/2009-06-07_21-49-44.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090607/2009-06-07_21-49-44.jpg)
 
 问：  using  中只可以使用实现了  IDisposable  接口的对象？
 
@@ -45,8 +44,7 @@ tags: 我翻译的Head First C#（习作）
 答：不是的，很多类都实现了  IDisposable  ，你在使用它们的时候总是应该用  using
 语句。如果你写一个需要用某种方式去处置的类，你也可以实现  IDisposable  。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90607/2009-06-07_22-03-22.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090607/2009-06-07_22-03-22.jpg)
 
   
 

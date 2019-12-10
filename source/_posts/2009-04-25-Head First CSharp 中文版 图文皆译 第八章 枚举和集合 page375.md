@@ -12,8 +12,7 @@ irection枚举）。下面是Move（）方法的开头：
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90425/2009-04-24_18-08-17.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090425/2009-04-24_18-08-17.jpg)
 
 你需要补全这个方法。检查是否有武器在玩家附近（距离在1个单位之内）。如果有，捡起武器并把它加入到玩家的物品栏。
 
@@ -33,8 +32,7 @@ irection枚举）。下面是Move（）方法的开头：
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90425/2009-04-25_10-27-31.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090425/2009-04-25_10-27-31.jpg)
 
 所有的武器都有一个Attack（）方法，它接受一个Direction枚举和一个Random对象作为参数。玩家的Attack（）方法调用当前装备的武器并调用其
 Attack（）方法。

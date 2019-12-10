@@ -12,15 +12,13 @@ tags: 我翻译的Head First C#（习作）
 
 数组都是有类型的--int数组，或者Card数组，等等。List也是一样。你需要在用new关键字创建实例时通过把类型写在尖括号<>中来指明类型。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90406/2009-04-06_22-35-32.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090406/2009-04-06_22-35-32.jpg)
 
 ②  现在你可以向其中添加元素了
 
 创建List对象之后，你可以向其中放入任意数量的元素（只要放入的元素的类型和你声明List对象时指明的一样就行）。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90406/2009-04-06_22-39-26.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090406/2009-04-06_22-39-26.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

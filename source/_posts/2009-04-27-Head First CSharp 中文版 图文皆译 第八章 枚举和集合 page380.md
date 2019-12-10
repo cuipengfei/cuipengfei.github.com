@@ -3,8 +3,7 @@ title: Head First C# 中文版 图文皆译 第八章 枚举和集合 page380
 date: 2009-04-27 13:20:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90427/2009-04-27_13-02-54.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090427/2009-04-27_13-02-54.jpg)
 
 药剂要实现IPotion接口
 
@@ -30,8 +29,7 @@ bool Used{get;}
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90427/2009-04-27_13-14-28.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090427/2009-04-27_13-14-28.jpg)
 
 IPotion  接口使得药剂只可以使用一次。通过该接口也可以判断某个武器是不是药剂：“if（weapon is IPotion）”。
 

@@ -12,20 +12,17 @@ type="text/javascript"></script>
 
 ①  向项目中添加Farmer类：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90210/%E6%88%AA%E5%9B%BE06.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090210/%E6%88%AA%E5%9B%BE06.jpg)
 
 ②  创建这个窗体：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90210/%E6%88%AA%E5%9B%BE07.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090210/%E6%88%AA%E5%9B%BE07.jpg)
 
 ③  下面是窗体的代码。它用Console.WriteLine（）来把输出写到IDE的输出窗口（可以在“视图”菜单中选择“输出”来使它出现）。你可以给Wri
 teLine（）传递很多参数（）--第一个是需要输出的字符串。如果在字符串中加入了"{0}"，然后WriteLine（）将会用字符串后面第一个参数代替它。用
 字符串参数后面第二个参数代替"{1}","{2}"会被第三个代替，等等。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90210/%E6%88%AA%E5%9B%BE08.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090210/%E6%88%AA%E5%9B%BE08.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

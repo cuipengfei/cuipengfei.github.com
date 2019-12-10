@@ -16,8 +16,7 @@ com:office:office" />
 你可以认为IDE就是一个很帅的编辑器。它为你自动缩进，改变关键字的颜色，为你匹配括号，甚至建议下一个可能用的词。但是最后，IDE做的所有事儿就是编辑包含你的
 程序的文件。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81022/%E6%88%AA%E5%9B%BE00633603024940937500.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081022/%E6%88%AA%E5%9B%BE00633603024940937500.jpg)
 
 IDE  创建一个solution（.sln）文件和一个包含所有程序用到的文件的文件夹，以此来把程序的所有文件都绑定到这个解决方案。解决方案文件包含一个项目
 文件（以.csproj结尾）列表，而项目文件包含了所有与项目关联的文件的列表。
@@ -31,8 +30,7 @@ Framework了。还记得你从窗体上去掉的最大化按钮吗？当你点�
 Framework的一部分。按钮，复选框，列表...这些都是.NET
 Framework的组成部分。把你的窗体和数据库连接起来的也是一些内部代码块。它有绘制图形，读写文件，管理集合的工具，做程序员的各种日常工作的工具。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81022/%E6%88%AA%E5%9B%BE01633603024941406250.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081022/%E6%88%AA%E5%9B%BE01633603024941406250.jpg)
 
 .NET Framework
 中的工具分割到命名空间里。你已经见过那些命名空间了，就在你的代码最上面的“using”那些行。有一个命名空间叫做System.Windows.Forms--

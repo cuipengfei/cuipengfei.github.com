@@ -29,8 +29,7 @@ tags: 我翻译的Head First C#（习作）
 
 *  计算蜂蜜消耗量需要知道密封的体重，所以Bee的构造方法需要接受一个代表体重的参数，并把它存储在一个字段里。而由于其他类并不需要访问它，所以可以把它声明为私有变量。 
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90313/2009-03-13_22-15-39.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090313/2009-03-13_22-15-39.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

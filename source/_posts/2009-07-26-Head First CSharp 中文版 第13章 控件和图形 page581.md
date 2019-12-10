@@ -3,8 +3,7 @@ title: Head First C# 中文版 第13章 控件和图形 page581
 date: 2009-07-26 11:09:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90726/2009-07-26_10-01-52.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090726/2009-07-26_10-01-52.jpg)
 
 ④蜜蜂和花朵已经知道自己的位置了
 
@@ -14,8 +13,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90726/2009-07-26_10-55-49.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090726/2009-07-26_10-55-49.jpg)
 
 ⑤如果某只蜜蜂没有对应的控件，渲染器会去把它添加到蜂巢窗体中去
 
@@ -27,8 +25,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90726/2009-07-26_11-02-23.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090726/2009-07-26_11-02-23.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

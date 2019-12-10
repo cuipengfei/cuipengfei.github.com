@@ -12,8 +12,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90507/2009-05-07_08-37-30.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090507/2009-05-07_08-37-30.jpg)
 
 你可以创建一个程序来帮助  Brian  管理借口
 
@@ -23,8 +22,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90507/2009-05-07_08-45-08.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090507/2009-05-07_08-45-08.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

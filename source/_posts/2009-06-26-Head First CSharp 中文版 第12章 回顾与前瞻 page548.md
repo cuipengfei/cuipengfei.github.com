@@ -12,11 +12,9 @@ RunFrame  （）方法联系起来，而不是让  IDE  去生成  timer1_Tick  
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90626/2009-06-26_22-32-08.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090626/2009-06-26_22-32-08.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90626/2009-06-26_22-37-39.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090626/2009-06-26_22-37-39.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

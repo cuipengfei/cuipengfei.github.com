@@ -14,8 +14,7 @@ Bitmap  对象，它可以被用作窗体的背景或者是动画单元。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90801/2009-08-01_10-49-47633847239951073595.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090801/2009-08-01_10-49-47633847239951073595.jpg)
 
 看看实际中的图像缩放
 
@@ -31,8 +30,7 @@ Image  属性。把  PictureBox  添加到窗体之后，蜜蜂就出现了。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90801/2009-08-01_11-01-59633847239951698595.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090801/2009-08-01_11-01-59633847239951698595.jpg)
 
 ResizeImage（）方法创建一个Graphics对象来把图像绘制到Bitmap上去。然后把Bitmap返回，它可以用以显示在窗体上或者是Picture
 Box上。

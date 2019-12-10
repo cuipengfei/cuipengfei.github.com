@@ -12,16 +12,14 @@ ll（）方法，这将会触发一个HitTheBall事件。
 所以现在我们可以添加一个bat_HitTheBall方法到球类，它注册球棒的HitTheBall事件。然后击球时，球的事件处理器调用它的OnBallInPl
 ay（）方法来触发BallInPlay事件，连锁反应就开始了。守场员守场，球迷欢呼，裁判大吼...我们就有了一场球赛。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81110/sec.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081110/sec.jpg)
 
 ...  但是并那不是总是很好！
 
 球赛里并不是只有一个球。但是如果球棒用一个事件来代表它击打的球，那么所有的球都可以注册它了。这意味着我们让自己陷入了一个险恶的小bug--
 如果程序员恰巧添加了另外三个球会怎么样呢？那么击球手就会晃动，击球，会有四个球飞入球场！
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81110/sec2.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081110/sec2.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

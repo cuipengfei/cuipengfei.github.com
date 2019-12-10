@@ -3,16 +3,14 @@ title: Head First C# 中文版 图文皆译 第七章 接口和抽象类 page292
 date: 2009-03-31 09:23:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90331/2009-03-31_08-44-41.jpg) 你已经有了类模型了，你可以给房子的各个部分创建对象，并用一个窗体来浏览它们。
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090331/2009-03-31_08-44-41.jpg) 你已经有了类模型了，你可以给房子的各个部分创建对象，并用一个窗体来浏览它们。
 
 ⑥  房子中的对象是如何工作的
 
 下面是frontYard和diningRoom的构造图。它们都有门，所以都要实现IHasExteriorDoor接口。DoorLocation属性持有一个指
 向门的另一侧的地点的引用。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90331/2009-03-31_08-54-35.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090331/2009-03-31_08-54-35.jpg)
 
 ⑦  完成类，并实例化之
 
@@ -28,13 +26,11 @@ tags: 我翻译的Head First C#（习作）
 
 ★  初始化房子中六个地点的对象。下面是一部分代码：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90331/2009-03-31_09-14-42.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090331/2009-03-31_09-14-42.jpg)
 
 ★CreatObjects  （）方法需要填充每一个对象的Exits[]数组：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90331/2009-03-31_09-16-14.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090331/2009-03-31_09-16-14.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

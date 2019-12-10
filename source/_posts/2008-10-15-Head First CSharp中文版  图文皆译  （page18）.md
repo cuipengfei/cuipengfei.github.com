@@ -19,8 +19,7 @@ yImages/20081015/%E6%88%AA%E5%9B%BE00.jpg)
 
 在解决方案浏览器里，右键点击Contacts项目，选择添加，然后选择新建项。选择SQL数据库图标，并把它命名为ContactDB.mdf。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81015/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081015/%E6%88%AA%E5%9B%BE01.jpg)
 
 2  取消数据源配置向导。
 
@@ -30,8 +29,7 @@ yImages/20081015/%E6%88%AA%E5%9B%BE00.jpg)
 
 在解决方案浏览器里你会看到ContactDB已经被添加到文件列表里。双击ContactDB.mdf，看看你屏幕的左侧。工具箱已经变成了数据库浏览器。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81015/%E6%88%AA%E5%9B%BE02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081015/%E6%88%AA%E5%9B%BE02.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

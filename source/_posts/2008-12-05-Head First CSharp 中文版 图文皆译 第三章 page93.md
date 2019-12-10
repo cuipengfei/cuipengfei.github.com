@@ -10,8 +10,7 @@ com:office:office" />
 E就会自动创建一个它的实例并命名为button1。在拖拽一个Button，将会在创建一个实例叫做button2.每一个Button的实例都有自己的属性和方法
 。但是每一个按钮行为都是一致的，因为他们都是同一个类的实例。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81205/%E6%88%AA%E5%9B%BE00.jpg) 自己查看一下！
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081205/%E6%88%AA%E5%9B%BE00.jpg) 自己查看一下！
 
 打开一个含有叫做button1的按钮实例的工程，在IDE里面搜索“new Button”。你将在窗体设计器里发现创建Button类的实例的代码。
 

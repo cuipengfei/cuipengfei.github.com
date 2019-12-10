@@ -13,8 +13,7 @@ OpenFileDialog  对象可以显示出标准的  Windows  “打开”窗口，�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90503/2009-05-03_17-53-47.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090503/2009-05-03_17-53-47.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

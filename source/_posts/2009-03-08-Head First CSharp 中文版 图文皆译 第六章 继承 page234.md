@@ -22,8 +22,7 @@ tags: 我翻译的Head First C#（习作）
 我们还是会保留DinnerParty和BirthdayParty类，但是现在它们要继承自同一个Party类。我们需要让它们保持和原来一样的方法、字段、属性，
 这样就无需修改窗体了。但是某些方法、字段、属性需要移动到Party类中去，我们还需要覆写它们中的一部分。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90308/2009-03-08_22-27-06.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090308/2009-03-08_22-27-06.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

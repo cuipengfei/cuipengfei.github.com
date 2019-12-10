@@ -13,11 +13,9 @@ reBox可以使用它。
 当你把PictureBox拖拽到你的窗体，IDE会自动的创建一个叫做Form1.resx来存储资源并把它保存在项目里。双击这个文件，你可以看见新近添加的图片
 。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81014/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081014/%E6%88%AA%E5%9B%BE00.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81014/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081014/%E6%88%AA%E5%9B%BE01.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

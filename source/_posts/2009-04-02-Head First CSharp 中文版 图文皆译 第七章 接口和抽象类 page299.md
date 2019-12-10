@@ -7,8 +7,7 @@ tags: 我翻译的Head First C#（习作）
 
 需要给窗体添加一些按钮。判断这些按钮是否可见有一点复杂，这取决于游戏的状态。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90402/2009-04-02_12-22-52.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090402/2009-04-02_12-22-52.jpg)
 
 ⑥  让按钮可以工作
 

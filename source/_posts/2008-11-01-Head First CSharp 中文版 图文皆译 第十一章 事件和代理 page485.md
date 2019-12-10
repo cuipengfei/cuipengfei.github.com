@@ -20,15 +20,13 @@ com:office:office" />
 
 奇妙的事件。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81101/%E6%88%AA%E5%9B%BE00633611738069048750.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081101/%E6%88%AA%E5%9B%BE00633611738069048750.jpg)
 
 想要用事件做点什么吗？你需要一个事件处理者
 
 一旦你的对象“听见”了事件，你可以设置一些代码来运行。这代码就叫做事件处理者。一个事件处理者获取关于事件的信息，并且每次事件发生它都运行。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81101/%E6%88%AA%E5%9B%BE01633611738069986250.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081101/%E6%88%AA%E5%9B%BE01633611738069986250.jpg)
 
 记住，这些在运行时都是无需你的介入的。所以你写代码来触发事件，然后你写代码来处理事件，并且通知你的程序。然后，无论何时一个事件被触发，你的处理者就开始行动.
 ..  你不需要做任何事儿  。并且，最好的是，你的对象有了  关注点分离  。它们关注自己，不是别的对象。

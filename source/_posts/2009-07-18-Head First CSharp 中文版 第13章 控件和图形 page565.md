@@ -14,8 +14,7 @@ tags: 我翻译的Head First C#（习作）
 控件就是一个对象  \--  与其他对象一样  \--  只是它碰巧知道如何绘制自己而已。窗体用一个特殊的叫做  Controls
 的集合来记录它的所有控件，你可以在自己的代码中通过  Controls  来添加或者移除控件。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90718/2009-07-18_17-59-10.jpg)  
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090718/2009-07-18_17-59-10.jpg)  
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

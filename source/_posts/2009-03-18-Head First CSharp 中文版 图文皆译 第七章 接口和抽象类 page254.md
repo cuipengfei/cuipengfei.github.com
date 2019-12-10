@@ -17,8 +17,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90318/2009-03-18_13-07-54.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090318/2009-03-18_13-07-54.jpg)
 
 NectarCollector  对象懂得如何采集花粉，StingPatrol对象懂得如何防护蜂巢。即使蜂后可以通过给NectarCollector添加Sh
 arpenStinger（）和LookForEnemies（）方法来让花粉采集者学会防护蜂巢，但是蜂后还是无法把NectarCollector作为参数传入D
@@ -26,11 +25,9 @@ efendTheHive（）方法。或许蜂后可以用两个各版本的方法：
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90318/2009-03-18_13-12-51.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090318/2009-03-18_13-12-51.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90318/2009-03-18_13-19-44.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090318/2009-03-18_13-19-44.jpg)
 
 但是这个解决方法并不好。这两个方法几乎是一样的，它们都要都要被传入的参数的相同的方法。这两个方法唯一区别就是参数类型不同。你早就知道维护两个相同的方法是多么
 麻烦了。幸运的是，C#提供了接口来处理这种情况。接口定义其实现类必须实现的方法。接口要求实现它的类必须包含它定义的方法，否则，编译器将会报错。实现类可以直接

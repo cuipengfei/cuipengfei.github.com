@@ -15,22 +15,19 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90604/2009-06-04_08-49-29.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090604/2009-06-04_08-49-29.jpg)
 
 ②幸运的是，  try/catch  块捕获了这个异常。在  catch  块中，异常对象命名为  ex  。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90604/2009-06-04_08-52-12.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090604/2009-06-04_08-52-12.jpg)
 
 ③异常对象在  catch  块结束之前都是有效的。  catch  块结束之后  ex  引用失效，对象也就被垃圾收集了。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90604/2009-06-04_08-56-57.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090604/2009-06-04_08-56-57.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

@@ -16,11 +16,9 @@ tingHitPoints参数，还需要给每一个子类实现不同的Move（）方法
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90426/2009-04-26_10-30-27.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090426/2009-04-26_10-30-27.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90426/2009-04-26_10-50-37.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090426/2009-04-26_10-50-37.jpg)
 
 蝙蝠初始生命值为6。只要他还有一点生命值就继续向玩家移动并攻击。有50%的可能性它会向着玩家移动，50%的可能它向一个随机的方向移动。它移动之后，检查是否与
 玩家近距离--如果近距离，然后攻击玩家，最高伤害值为2。

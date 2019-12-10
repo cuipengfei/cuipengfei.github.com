@@ -7,11 +7,9 @@ tags: 我翻译的Head First C#（习作）
 
 我们的花朵会经过一个基本的过程，生长，增加花粉，收获花粉，并且最终死掉：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90612/2009-06-12_21-29-36.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090612/2009-06-12_21-29-36.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90612/2009-06-12_21-36-38.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090612/2009-06-12_21-36-38.jpg)
 
 问：  NectarHarvested  变量在类中似乎除了给它增加值之外就没有用到，这个变量是做什么用的呢？
 

@@ -5,16 +5,13 @@ tags: 我翻译的Head First C#（习作）
 ---
 <?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" />
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81113/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081113/%E6%88%AA%E5%9B%BE00.jpg)
 
 填写空白使得打鼹鼠的游戏可以运行。你需要补全回调的代码。填完空就输入IDE试一试，或者在IDE里面写了再来填空，很好玩的哦！
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81113/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081113/%E6%88%AA%E5%9B%BE01.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81113/%E6%88%AA%E5%9B%BE02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081113/%E6%88%AA%E5%9B%BE02.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

@@ -8,8 +8,7 @@ com:office:office" />
 
 现在你可以处理发生的事儿了，让我们近距离看看这些东西都是怎么联系起来的。很幸运，只有一些变动的部分。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81102/%E6%88%AA%E5%9B%BE05.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081102/%E6%88%AA%E5%9B%BE05.jpg)
 
 1  我们需要一个事件参数对象
 
@@ -23,8 +22,7 @@ Public class BallEventArgs:EventArgs
 球类里有一行带有event关键字--它就是这样通知其他对象可以注册它的。这一行可以在类里面的任何地方--
 它通常靠近属性定义的地方。它在球类里，其他对象就可以注册一个球的事件。看起来是这样的：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81102/%E6%88%AA%E5%9B%BE06.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081102/%E6%88%AA%E5%9B%BE06.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

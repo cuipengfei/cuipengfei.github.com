@@ -3,11 +3,9 @@ title: Head First C#中文版 图文皆译 (page23~page24)
 date: 2008-10-17 00:58:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81017/page23.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081017/page23.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81017/page24.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081017/page24.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

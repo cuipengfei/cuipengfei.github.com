@@ -23,8 +23,7 @@ tags: 我翻译的Head First C#（习作）
 
 这些是封装的首要考虑因素。如果有人稍后会写方法来改变这些字段的值，那就会给你的程序已经做过的工作造成问题。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90209/%E6%88%AA%E5%9B%BE01633698172342656250.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090209/%E6%88%AA%E5%9B%BE01633698172342656250.jpg)
 
 *  只有你真的需要的时候才把方法设置为public 
 

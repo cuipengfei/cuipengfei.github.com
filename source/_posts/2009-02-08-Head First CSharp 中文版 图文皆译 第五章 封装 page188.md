@@ -8,11 +8,9 @@ tags: 我翻译的Head First C#（习作）
 一个对象要接触到另一个对象内存储的数据只有一个方法：使用返回数据的公有方法和字段。克格勃和军情五处的探员们需要使用AgentGreeting（）方法，而友方
 间谍可以看到一切--同类的实例可以看见彼此的私有字段。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90208/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090208/%E6%88%AA%E5%9B%BE00.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90208/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090208/%E6%88%AA%E5%9B%BE01.jpg)
 
 问：好，访问私有字段需要通过公有方法。但是如果类不提供访问私有字段的公有方法，而我的对象又需要访问它怎么办呢？
 

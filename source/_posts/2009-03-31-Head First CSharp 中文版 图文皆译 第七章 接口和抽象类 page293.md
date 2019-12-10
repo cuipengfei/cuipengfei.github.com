@@ -8,8 +8,7 @@ tags: 我翻译的Head First C#（习作）
 创建一个窗体来浏览房子。它需要有一个多行的textbox叫做description，来显示当前的房间的描述。一个叫做exits的列表列出所有与当前房间连通的
 地点。有两个按钮：goHere会移动到在列表中选中的地点，goThroughTheDoor按钮只有在有户外门的时候才可见。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90331/2009-03-31_13-24-57.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090331/2009-03-31_13-24-57.jpg)
 
 ⑨  现在你只需要让窗体可以工作
 
@@ -28,8 +27,7 @@ tags: 我翻译的Head First C#（习作）
 
 ★  如果“Go through the door”按钮被点击了，就移动到这扇门连接的地点去。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90331/2009-03-31_13-40-50.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090331/2009-03-31_13-40-50.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

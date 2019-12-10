@@ -11,15 +11,13 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90511/2009-05-11_13-03-44.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090511/2009-05-11_13-03-44.jpg)
 
 那么从文件读取扑克呢？那就不那么简单了。这时  switch  语句就会显得很方便了。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90511/2009-05-11_13-05-12.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090511/2009-05-11_13-05-12.jpg)
 
 switch语句让你可以把一个值拿来和很多种情况做比较，并根据匹配的不同来执行不同的语句。
 

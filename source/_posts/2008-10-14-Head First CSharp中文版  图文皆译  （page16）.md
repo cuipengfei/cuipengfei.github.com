@@ -9,14 +9,11 @@ com:office:office" />
 按你键盘上的F5键，或者点击工具栏上的绿色按钮来检查目前为止你已经做了什么。（这被叫做“调试”，意味着用IDE运行你的程序。）你可以通过选择“调试”菜单里的
 “停止调试”或者点击工具栏的按钮来停止调试。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81014/%E6%88%AA%E5%9B%BE00633596023289721250.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081014/%E6%88%AA%E5%9B%BE00633596023289721250.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81014/%E6%88%AA%E5%9B%BE01633596023290346250.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081014/%E6%88%AA%E5%9B%BE01633596023290346250.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81014/%E6%88%AA%E5%9B%BE02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081014/%E6%88%AA%E5%9B%BE02.jpg)
 
 问：在我的IDE里，绿色的肩头被标为“调试”。这是个问题吗？
 

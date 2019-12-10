@@ -3,8 +3,7 @@ title: Head First C# 中文版 图文皆译 第七章 接口和抽象类 page270
 date: 2009-03-23 14:01:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90323/2009-03-23_13-20-58.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090323/2009-03-23_13-20-58.jpg)
 
 问：向上转型总是可行的，而向下转型则不然？为什么？
 
@@ -52,8 +51,7 @@ IPuller[] pullerArray  ；
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90323/2009-03-23_13-53-30.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090323/2009-03-23_13-53-30.jpg)
 
 点击一下ICookFood--字母I下面会出现一个小按钮。鼠标点击它，选择“实现接口“ICookFood””，所有方法将会被自动添入你的类。
 

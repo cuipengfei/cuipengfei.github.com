@@ -16,8 +16,7 @@ tags: 我翻译的Head First C#（习作）
 这个问题很简单...但是如果有三个类似的类呢？四个呢？十多个呢？如果你还要维护这些类，有可能要做更多的更改呢？如果要对五六个相似的类做同样的更改需要怎么做呢
 ？
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90226/2009-02-26_12-19-34.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090226/2009-02-26_12-19-34.jpg)
 
 对！在多个类中写同样的代码是低效率的，而且容易出错。
 

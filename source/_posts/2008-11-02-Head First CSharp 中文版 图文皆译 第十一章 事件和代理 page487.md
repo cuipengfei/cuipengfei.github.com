@@ -12,16 +12,14 @@ com:office:office" />
 
 因为投手，裁判和球迷对象都注册了球对象的BallInPlay事件，他们就都得到通知--它们的事件处理方法一个接一个的得到调用。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81102/%E6%88%AA%E5%9B%BE03.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081102/%E6%88%AA%E5%9B%BE03.jpg)
 
 5  每个对象处理事件
 
 现在，投手，裁判，和球迷对象都可以以自己的方式处理事件了。但是它们并不是一起执行--
 它们的事件处理者一个接一个的得以执行，都带着一个BallEventArgs对象作参数。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81102/%E6%88%AA%E5%9B%BE04.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081102/%E6%88%AA%E5%9B%BE04.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

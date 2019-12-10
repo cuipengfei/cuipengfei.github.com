@@ -21,8 +21,7 @@ Appliance类中）。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90322/2009-03-22_12-57-28.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090322/2009-03-22_12-57-28.jpg)
 
 ②  如果想要创建一个电器的数组怎么办？
 
@@ -32,8 +31,7 @@ Appliance类中）。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90322/2009-03-22_13-02-02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090322/2009-03-22_13-02-02.jpg)
 
 ③  但是你不可以把电器当作电热炉
 
@@ -44,8 +42,7 @@ Appliance类中）。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90322/2009-03-22_13-10-40.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090322/2009-03-22_13-10-40.jpg)
 
 一旦从子类向父类转型，你就只可以调用和引用类型相匹配的方法、属性。
 

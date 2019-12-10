@@ -3,8 +3,7 @@ title: Head First C#  中文野生版  图文皆译  (page31)
 date: 2008-10-18 21:22:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81018/%E6%88%AA%E5%9B%BE03.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081018/%E6%88%AA%E5%9B%BE03.jpg)
 
 3  配置你的新数据源  <?xml:namespace prefix = o ns = "urn:schemas-microsoft-
 com:office:office" />
@@ -21,11 +20,9 @@ com:office:office" />
 
 *  在数据集名字字段里面，确定它说的是“ContactDBDataSet”并点击结束。 
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81018/%E6%88%AA%E5%9B%BE04.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081018/%E6%88%AA%E5%9B%BE04.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81018/%E6%88%AA%E5%9B%BE05.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081018/%E6%88%AA%E5%9B%BE05.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

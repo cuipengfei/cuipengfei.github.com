@@ -21,8 +21,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90521/2009-05-20_22-30-01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090521/2009-05-20_22-30-01.jpg)
 
 ②写一个循环来比较两个二进制文件
 
@@ -33,8 +32,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90521/2009-05-21_08-37-33.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090521/2009-05-21_08-37-33.jpg)
 
 注意！写文件的时候并不总是从头开始的！
 

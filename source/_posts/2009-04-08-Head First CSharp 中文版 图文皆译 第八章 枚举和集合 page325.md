@@ -3,8 +3,7 @@ title: Head First C# 中文版 图文皆译 第八章 枚举和集合 page325
 date: 2009-04-08 22:00:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90408/2009-04-08_21-30-40.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090408/2009-04-08_21-30-40.jpg)
 
 问：我何时会用枚举代替List呢？它们不是解决一样的问题吗？
 

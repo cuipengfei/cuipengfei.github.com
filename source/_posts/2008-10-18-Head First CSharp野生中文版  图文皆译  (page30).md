@@ -12,15 +12,13 @@ com:office:office" />
 
 关闭People数据表和ContactDB数据库图表。你现在应该可以看见Form1.cs[Design]了。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81018/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081018/%E6%88%AA%E5%9B%BE01.jpg)
 
 2  向你的应用添加一个数据源。
 
 这个现在应该很简单了。点击数据菜单，然后从下拉列表选择添加新数据源。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81018/%E6%88%AA%E5%9B%BE02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081018/%E6%88%AA%E5%9B%BE02.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

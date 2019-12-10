@@ -7,13 +7,11 @@ tags: 我翻译的Head First C#（习作）
 
 C#有特殊的方法可以让你封装数据更容易。你可以使用属性，属性是每次字段被读取或设置的时候都得以执行的方法，也叫做后台字段。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90210/%E6%88%AA%E5%9B%BE03.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090210/%E6%88%AA%E5%9B%BE03.jpg)
 
 get和set访问器使用起来就像字段一样。下面是一个设置牛的数目并读取饲料数目的按钮的代码：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90210/%E6%88%AA%E5%9B%BE04.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090210/%E6%88%AA%E5%9B%BE04.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

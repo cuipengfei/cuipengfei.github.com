@@ -3,8 +3,7 @@ title: Head First C# 中文版 第12章 回顾与前瞻 page540
 date: 2009-06-20 12:23:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90620/2009-06-20_12-11-51.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090620/2009-06-20_12-11-51.jpg)
 我们已经有了四个核心类，我们需要做一些工作来把它们联系起来。遵循下面的步骤来做。但是要知道：在完成之前你必须修改几乎每一个类的某些地方。
 
   
@@ -18,8 +17,7 @@ World  的引用并且保存这些引用来在稍后使用。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90620/2009-06-20_12-14-32.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090620/2009-06-20_12-14-32.jpg)
 
 ②更新  Hive  来让它接受一个  World  的引用
 
@@ -30,8 +28,7 @@ World  的引用并且保存这些引用来在稍后使用。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90620/2009-06-20_12-16-53.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090620/2009-06-20_12-16-53.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

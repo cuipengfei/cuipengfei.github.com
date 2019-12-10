@@ -15,25 +15,21 @@ com:office:office" />
 
 IDE  允许你创建很多种应用，但是现在咱们就专注于窗口应用。窗口应用是那些很有类似窗体、按钮的程序。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81021/%E6%88%AA%E5%9B%BE00633602245424531250.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081021/%E6%88%AA%E5%9B%BE00633602245424531250.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81021/%E6%88%AA%E5%9B%BE01633602245424843750.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081021/%E6%88%AA%E5%9B%BE01633602245424843750.jpg)
 
 2  从工具箱拖动一个按钮去窗体上，并双击它。
 
 按钮是你在窗体中驱动时间的方式。我们将会用很多按钮来探索C#语言的不同部分。按钮也会是你将写的绝大多数C#程序的组成部分。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81021/%E6%88%AA%E5%9B%BE02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081021/%E6%88%AA%E5%9B%BE02.jpg)
 
 3  设置你的窗体的一个属性
 
 IDE  中的属性窗口确实是个强大工具，你可以用它来改变你程序中的任何元素的性质：控件的所有可视化和功能化属性，数据库的性质，甚至你的项目自身的选项。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81021/%E6%88%AA%E5%9B%BE03.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081021/%E6%88%AA%E5%9B%BE03.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

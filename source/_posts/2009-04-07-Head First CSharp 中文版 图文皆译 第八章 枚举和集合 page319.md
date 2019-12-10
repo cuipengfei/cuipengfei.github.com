@@ -3,13 +3,11 @@ title: Head First C# 中文版 图文皆译 第八章 枚举和集合 page319
 date: 2009-04-07 13:02:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90407/2009-04-07_12-53-48.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090407/2009-04-07_12-53-48.jpg)
 
 观察左侧的List相关的代码并在右侧补全用数组实现一样功能的代码。我们并不期望你可以写的完全正确，尽力做就好了。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90407/2009-04-07_12-57-32.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090407/2009-04-07_12-57-32.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

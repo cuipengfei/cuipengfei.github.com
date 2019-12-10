@@ -8,8 +8,7 @@ yImages/20090317/2009-03-17_08-26-43.jpg)
 
 General Bee-namic  公司想要把你在上一章创建的蜂窝管理程序改进成一个完善的蜂窝模拟程序。下面是新程序特性的概览：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90317/2009-03-17_08-27-29.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090317/2009-03-17_08-27-29.jpg)
 
 很多东西没有变
 

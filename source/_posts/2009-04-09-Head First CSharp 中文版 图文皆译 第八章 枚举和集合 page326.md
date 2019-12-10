@@ -8,8 +8,7 @@ tags: 我翻译的Head First C#（习作）
 在你需要创建一个列表并立即添加一些项进去的时候，C#给你提供了一个捷径让你可以少打些字。创建List对象的时候，你可以用集合初始化器来给它一列初始项。列表创
 建好初始项也就添加进去了。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90409/2009-04-09_08-32-18.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090409/2009-04-09_08-32-18.jpg)
 
 通过允许你把创建列表的语句和向列表中添加初始项的语句结合起来，集合初始化器使得你的代码更加紧凑。
 

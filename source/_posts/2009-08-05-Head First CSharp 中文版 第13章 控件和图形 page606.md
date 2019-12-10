@@ -3,8 +3,7 @@ title: Head First C# 中文版 第13章 控件和图形 page606
 date: 2009-08-05 17:50:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90805/2009-08-05_17-26-05.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090805/2009-08-05_17-26-05.jpg)
 
 问：在  PhotoShop  中缩放图片不是更好吗？
 

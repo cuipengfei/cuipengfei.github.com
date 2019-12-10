@@ -9,11 +9,9 @@ Images/20090324/2009-03-24_18-59-49.jpg)
 我们来仔细看看访问修饰符，看它如何影响不同类的成员。我们做了两个修改：funnyThingIHave后备字段现在是protected的，我们修改了Scare
 LittleChildren（）方法，让它使用funnyThingIHave字段。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90324/2009-03-24_19-02-17.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090324/2009-03-24_19-02-17.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90324/2009-03-24_19-15-13.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090324/2009-03-24_19-15-13.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

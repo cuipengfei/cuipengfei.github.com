@@ -5,23 +5,19 @@ tags: 我翻译的Head First C#（习作）
 ---
 <?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" />
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81111/%E6%88%AA%E5%9B%BE00633620392498820000.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081111/%E6%88%AA%E5%9B%BE00633620392498820000.jpg)
 
 通常以On...什么什么开头的方法才触发一个公有的事件。你可以自己检查一下--进入窗体的代码试着调用playBall按钮的OnClick（）事件。你会调用失
 败的，因为它是protected的（子类可以覆盖）。我们来把我们的球类的OnBallInPlay（）方法设置为protected来使用这种模式吧：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81111/%E6%88%AA%E5%9B%BE01633620392499132500.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081111/%E6%88%AA%E5%9B%BE01633620392499132500.jpg)
 
 窗体不能调用球对象的OnBallInPlay（）方法了--这正是我们希望的。这也正是我们创建Ball.GetNewBat（）方法的原因。现在窗体要向棒球要一
 根球棒来击球。这么做的时候，球对象将会把它的OnBallInPlay（）方法联系到球棒的回调上。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81111/%E6%88%AA%E5%9B%BE02633620392499445000.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081111/%E6%88%AA%E5%9B%BE02633620392499445000.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81111/%E6%88%AA%E5%9B%BE03633620392500070000.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081111/%E6%88%AA%E5%9B%BE03633620392500070000.jpg)
 
 *  向项目里添加一个委托就是在添加一个新类型，它含有方法的引用。 
 

@@ -11,8 +11,7 @@ com:office:office" />
 看看这个PetFiler2程序中的两个类文件。两个类文件内有三个类：Dog，Cat，和Fish。因为它们处于同一个命名空间，所以Dog.Bark（）方法里可
 以调用Cat.Meow（）和Fish.Swim()。这些命名空间和类分散在不同文件中并不要紧，运行起来还是一样的。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81026/%E6%88%AA%E5%9B%BE03.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081026/%E6%88%AA%E5%9B%BE03.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

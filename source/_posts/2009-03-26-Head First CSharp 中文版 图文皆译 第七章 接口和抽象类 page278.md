@@ -7,8 +7,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90326/2009-03-26_08-37-19.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090326/2009-03-26_08-37-19.jpg)
 
 假设你需要一个像接口一样的东西，它要求类实现某些特定的方法、属性。但是你还需要在其中写一些代码实现，这样某些特定方法就不用在子类中去实现。这时，你需要的是抽
 象类。你可以获得借口的特性，而同时可以像在普通类中一样的写实现代码。
@@ -38,8 +37,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90326/2009-03-26_08-36-26.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090326/2009-03-26_08-36-26.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

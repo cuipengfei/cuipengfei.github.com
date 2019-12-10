@@ -3,8 +3,7 @@ title: Head First C# 中文版 第12章 回顾与前瞻 page531
 date: 2009-06-14 22:21:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90614/2009-06-14_21-55-53.jpg) 真正的代码是一点一点写出来的
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090614/2009-06-14_21-55-53.jpg) 真正的代码是一点一点写出来的
 
 如果可以一次性写完一个类的代码，编译，测试，然后把它放到一边，再来写另一个类的话自然是很好的。不幸的是，这是不可能的。
 

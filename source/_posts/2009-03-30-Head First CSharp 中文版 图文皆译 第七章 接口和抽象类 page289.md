@@ -14,23 +14,19 @@ tags: 我翻译的Head First C#（习作）
 
 □  把一个类的实例赋值给另一个类的引用变量。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90330/2009-03-30_08-28-28.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090330/2009-03-30_08-28-28.jpg)
 
 □  通过在期待父类的语句或者方法中使用子类来向上转型
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90330/2009-03-30_08-30-10.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090330/2009-03-30_08-30-10.jpg)
 
 □  创建一个接口的引用变量并把它指向实现了该接口的类的实例。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90330/2009-03-30_08-33-52.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090330/2009-03-30_08-33-52.jpg)
 
 □  用as关键字向下转型
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90330/2009-03-30_08-35-08.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090330/2009-03-30_08-35-08.jpg)
 
 把一个实例用在期待其父类或它实现过的接口的语句或者方法中，这就是在使用多态了。
 

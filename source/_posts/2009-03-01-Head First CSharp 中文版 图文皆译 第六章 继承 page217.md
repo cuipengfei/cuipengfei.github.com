@@ -32,8 +32,7 @@ Animal  类还有四个方法可以供子类继承：
 
 基类中的字段、属性、和方法将会给所有继承自它的子类们共同的状态和行为。子类们都是动物，所以基类叫做Animal是说的通的。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90301/2009-03-01_10-16-35.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090301/2009-03-01_10-16-35.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

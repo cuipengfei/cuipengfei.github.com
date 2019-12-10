@@ -8,15 +8,13 @@ com:office:office" />
 
 第三个按钮做下面的输出。现在改两行代码来让它弹出两个消息框窗口。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81028/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081028/%E6%88%AA%E5%9B%BE00.jpg)
 
 向你的程序添加循环
 
 这儿是最后一个按钮的代码。它有两个循环。第一个是while循环，它在条件为真时反复执行括号内的代码。第二个是for循环。看看它怎么工作的。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81028/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081028/%E6%88%AA%E5%9B%BE01.jpg)
 
 点击按钮之前，读读代码并试着弄明白消息窗口会
 

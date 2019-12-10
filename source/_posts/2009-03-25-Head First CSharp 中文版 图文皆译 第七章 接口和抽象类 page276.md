@@ -3,8 +3,7 @@ title: Head First C# 中文版 图文皆译 第七章 接口和抽象类 page276
 date: 2009-03-25 13:31:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90325/2009-03-25_13-04-01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090325/2009-03-25_13-04-01.jpg)
 
 问：为什么我要使用接口而不是把我需要的方法全部写到类里面？
 

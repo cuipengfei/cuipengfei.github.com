@@ -7,8 +7,7 @@ tags: 我翻译的Head First C#（习作）
 
 修改你的程序来计算生日聚会的花费就意味着要添加一个类并改变窗体来同时掌管两种类型的聚会。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90224/2009-02-23_22-29-56.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090224/2009-02-23_22-29-56.jpg)
 
 ** 一、  ** ** 创建一个新的  BirthDayParty  ** ** 类  **
 

@@ -5,11 +5,9 @@ tags: 我翻译的Head First C#（习作）
 ---
 3\.  这儿的图形代码是处理非规则图形的。通过使用我们在下面给出的网格来搞明白这段代码绘制了什么。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90803/2009-08-03_17-35-08.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090803/2009-08-03_17-35-08.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90803/2009-08-03_17-35-16.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090803/2009-08-03_17-35-16.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

@@ -3,8 +3,7 @@ title: Head First C# 山寨翻译版 第三章 page85
 date: 2008-11-29 10:59:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81129/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081129/%E6%88%AA%E5%9B%BE00.jpg)
 
 你写的每一个程序都解决一个特定的问题。
 

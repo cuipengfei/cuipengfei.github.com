@@ -44,8 +44,7 @@ Byte #266: 3 versus 6
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90521/2009-05-21_13-52-04.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090521/2009-05-21_13-52-04.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

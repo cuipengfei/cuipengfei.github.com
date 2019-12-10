@@ -13,8 +13,7 @@ com:office:office" />
 
 声明一个变量，你要告诉程序它的类型和名字。一旦C#知道了变量的类型，它将会在你犯了错误或作一些没有道理的事儿时组织编译，比如用“Fido”去减48353.
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81026/%E6%88%AA%E5%9B%BE04.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081026/%E6%88%AA%E5%9B%BE04.jpg)
 
 变量可变
 

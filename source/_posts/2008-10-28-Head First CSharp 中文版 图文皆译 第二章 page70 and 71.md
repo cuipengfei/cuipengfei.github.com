@@ -5,13 +5,11 @@ tags: 我翻译的Head First C#（习作）
 ---
 <?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" />
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81028/%E6%88%AA%E5%9B%BE00633607970845425000.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081028/%E6%88%AA%E5%9B%BE00633607970845425000.jpg)
 
 我们多练习一些条件测试和循环。看看下面的代码。圈出条件测试并填空。让注释解释正在被运行的代码。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81028/%E6%88%AA%E5%9B%BE01633607970845737500.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081028/%E6%88%AA%E5%9B%BE01633607970845737500.jpg)
 
 条件测试的更多知识
 
@@ -25,16 +23,14 @@ x= =y(  等于)
 
 这些是最常用的。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81028/%E6%88%AA%E5%9B%BE02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081028/%E6%88%AA%E5%9B%BE02.jpg)
 
 那你的循环就一直运行！
 
 每次程序运行条件测试，结果或是真或是假。如果是真，那你的程序就会多循环一次。每个循环都应该有在运行次数足够之后可以使得返回结果为假的代码。如果没有，那么这个
 循环就一直执行，知道你关掉程序或者关掉电脑。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81028/%E6%88%AA%E5%9B%BE03.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081028/%E6%88%AA%E5%9B%BE03.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

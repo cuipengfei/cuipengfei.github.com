@@ -12,18 +12,15 @@ engfei1/EntryImages/20090305/2009-03-04_22-50-43.jpg)
 
 ①  假设我们有一个分析三明治对象的方法
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90305/2009-03-04_22-52-02.jpg)  
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090305/2009-03-04_22-52-02.jpg)  
 
 ②  你可以给上面的方法传递一个三明治对象--不过你也可以传递一个BLT对象，因为我们让BLT继承了Sandwich类，BLT也是一种三明治了。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90305/2009-03-04_22-55-00.jpg)  
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090305/2009-03-04_22-55-00.jpg)  
 
 ③  类图可以向下看--也就是说父类的引用变量可以被赋值为子类的实例。而反之则不然。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90305/2009-03-04_22-58-19.jpg)  
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090305/2009-03-04_22-58-19.jpg)  
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

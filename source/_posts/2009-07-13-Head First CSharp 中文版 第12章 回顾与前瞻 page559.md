@@ -29,8 +29,7 @@ printToolStripButton  。右击每一个来给它们添加事件处理方法。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90713/2009-07-13_12-01-01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090713/2009-07-13_12-01-01.jpg)
 
 添加代码来让保存和打开按钮可以工作。
 

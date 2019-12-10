@@ -3,8 +3,7 @@ title: Head First C# 中文版 第12章 回顾与前瞻 page520
 date: 2009-06-12 09:23:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90612/2009-06-12_08-57-34.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090612/2009-06-12_08-57-34.jpg)
 
 我们来直接跳到代码。首先，我们需要一个  Flower  类。  Flower  类需要一个由  Point
 定义的位置，有年龄，还有寿命。随着时间的流逝，鲜花会变老。然后，当年龄到达了寿命值的时候，花朵会死去。你的任务就是把这些实现出来。
@@ -20,8 +19,7 @@ NectarHarvested  都是自动属性。  NectarHarvested  是可写的，其他�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90612/2009-06-12_09-08-25.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090612/2009-06-12_09-08-25.jpg)
 
 ②给类添加一些常量
 

@@ -3,8 +3,7 @@ title: Head First C# 中文版 图文皆译 第八章 枚举和集合 page313
 date: 2009-04-06 10:28:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90406/2009-04-06_10-26-22.jpg) 用你学过的关于枚举的知识来创建一个扑克牌的程序。
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090406/2009-04-06_10-26-22.jpg) 用你学过的关于枚举的知识来创建一个扑克牌的程序。
 
 ①  创建一个新项目并添加一个Card类
 
@@ -20,19 +19,16 @@ tags: 我翻译的Head First C#（习作）
 
 Name  应该是一个只读属性。它的get访问器会返回一个描述牌的字符串。下面的代码将会在窗体中调用Card类的Name属性，并把它显示出来：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90406/2009-04-06_10-07-17.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090406/2009-04-06_10-07-17.jpg)
 
 ④  在窗体上添加一个按钮，让它弹出一个消息框来显示随机一张牌
 
 你可以通过把一个0到3的随机值转型为Cards.Suits，还把一个1到13之间的随机值转型为Cards.Values来创建一张随机的牌。你可以通过内建的R
 andom类来做这件事，你有三种方式来调用它的Next（）方法。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90406/2009-04-06_10-13-20.jpg)  
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090406/2009-04-06_10-13-20.jpg)  
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90406/2009-04-06_10-17-04.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090406/2009-04-06_10-17-04.jpg)
 
 问：  等一下。当我键入上面的代码的时候，我注意到一个智能感应窗口在我用Random.Next（）方法的时候弹出来说什么“3 of 3”。这是什么意思？
 

@@ -12,8 +12,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90615/2009-06-15_12-55-22.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090615/2009-06-15_12-55-22.jpg)
 
 World  对象维持所有事物的运行
 
@@ -24,8 +23,7 @@ World  对象的最重要的任务之一就是在模拟器中的每一轮去调�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90615/2009-06-15_17-19-50.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090615/2009-06-15_17-19-50.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

@@ -3,8 +3,7 @@ title: Head First C# 中文版 第10章 异常处理 page477
 date: 2009-06-08 22:09:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90608/2009-06-08_21-39-33.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090608/2009-06-08_21-39-33.jpg)
 
 使用你学到的  try/catch/finally  的知识来改进  Brian  的借口管理器中的异常处理。
 
@@ -15,16 +14,14 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90608/2009-06-08_21-44-09.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090608/2009-06-08_21-44-09.jpg)
 
 ②  还没完事儿。运行程序，选择一个文件夹，在  Description  和  Last Results  栏中写入数据，但是不要输入  Last
 Used date  。现在选择一个文件夹并试着去保存借口。得下面这个  ArgumentOutOfRange  异常了吧？
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90608/2009-06-08_21-54-27.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090608/2009-06-08_21-54-27.jpg)
 
 使用调试器追踪这个异常。这个异常完全可以避免  \--  你可以修复这个问题并确保这个异常永不再发生吗？
 

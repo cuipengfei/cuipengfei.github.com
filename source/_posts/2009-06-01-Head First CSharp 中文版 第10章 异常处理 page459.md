@@ -8,15 +8,13 @@ UpdateForm  （）的调用而跳到了  catch  块中去。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90601/2009-06-01_21-43-25.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090601/2009-06-01_21-43-25.jpg)
 
 ④  按  F5  来让程序开始运行。这将会重新启动程序，从黄色高亮显示的部分开始，在这儿，也就是  catch  块了。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90601/2009-06-01_21-48-38.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090601/2009-06-01_21-48-38.jpg)
 
 注意！小心处理构造方法中的异常！
 

@@ -8,11 +8,9 @@ microsoft-com:office:office" />
 
 现在事件都设置好了，球可以触发它的事件来回应模拟器里面发生的事情。触发事件很简单--只要调用BallInPlay事件就好了。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81103/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081103/%E6%88%AA%E5%9B%BE00.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81103/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081103/%E6%88%AA%E5%9B%BE01.jpg)
 
 如果你触发一个事件而没有处理者，它将会抛出异常。
 
@@ -23,8 +21,7 @@ eException。
 
 进入任何一个窗体的代码，在可以定义方法的地方键入override关键字。你一按空格，一个智能感应窗口就弹出来：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81103/%E6%88%AA%E5%9B%BE02.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081103/%E6%88%AA%E5%9B%BE02.jpg)
 
 一个窗体可以触发很多事件，它们每一个都有自己的触发方法。窗体的OnDouble（）触发OnDouble事件，这也是它存在的意义。所以球的事件也要遵循这个惯例
 ：我们要确保它有一个叫做OnBallInPlay的方法，以BallEventArgs对象作为参数。棒球模拟器会在需要球触发BallInPlay时间的时候调用

@@ -11,8 +11,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90512/2009-05-12_12-21-14.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090512/2009-05-12_12-21-14.jpg)
 
 每个实例都有状态。一个对象“知道”的东西将它和同类的其他对象区分开来。
 
@@ -20,8 +19,7 @@ C#  序列化对象的时候，会把对象的完整状态保存起来，这样�
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90512/2009-05-12_12-32-38.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090512/2009-05-12_12-32-38.jpg)
 
 ③然后  ....
 

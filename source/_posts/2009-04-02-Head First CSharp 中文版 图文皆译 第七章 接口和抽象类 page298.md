@@ -3,8 +3,7 @@ title: Head First C# 中文版 图文皆译 第七章 接口和抽象类 page298
 date: 2009-04-02 09:34:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90402/2009-04-02_08-59-16.jpg) 捉迷藏的时间打了！在你原来的房子的基础上添加一些房间、藏匿地点还有添加一个和你捉迷藏的对手。
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090402/2009-04-02_08-59-16.jpg) 捉迷藏的时间打了！在你原来的房子的基础上添加一些房间、藏匿地点还有添加一个和你捉迷藏的对手。
 
 ①  添加一个IHidingPlace接口
 

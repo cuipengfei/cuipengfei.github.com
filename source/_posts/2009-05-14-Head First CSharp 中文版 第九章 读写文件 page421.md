@@ -33,8 +33,7 @@ public class Guy
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90514/2009-05-14_13-19-30.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090514/2009-05-14_13-19-30.jpg)
 
 ②运行程序并试玩一下
 

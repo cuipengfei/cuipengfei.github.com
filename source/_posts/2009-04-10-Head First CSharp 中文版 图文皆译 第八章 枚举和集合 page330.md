@@ -17,8 +17,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90410/2009-04-10_10-21-04.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090410/2009-04-10_10-21-04.jpg)
 
 你实现IComparer的方式决定List如何给你的对象排序。
 

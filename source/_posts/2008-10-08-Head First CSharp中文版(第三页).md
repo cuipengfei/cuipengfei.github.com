@@ -30,8 +30,7 @@ microsoft-com:office:office" />
 
 这意味着你可以把花在琐碎事务上的时间花在构建杀手级程序上。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81008/%E6%88%AA%E5%9B%BE00633590939300208750.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081008/%E6%88%AA%E5%9B%BE00633590939300208750.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

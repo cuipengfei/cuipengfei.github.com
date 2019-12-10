@@ -7,8 +7,7 @@ tags: 我翻译的Head First C#（习作）
 
 一个类由构造方法，那么任何继承自它的子类都会调用它的构造方法。子类和父类的构造方法可以有不同的参数列表。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90308/2009-03-08_12-54-35.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090308/2009-03-08_12-54-35.jpg)
 
 父类的构造方法首先得以调用，然后才执行子类的构造方法
 
@@ -18,22 +17,19 @@ tags: 我翻译的Head First C#（习作）
 
 然后向窗体添加一个按钮，它实例化父类并会弹出消息框：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90308/2009-03-08_13-02-59.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090308/2009-03-08_13-02-59.jpg)
 
 ②  写一个子类，但是别调用父类的构造方法
 
 然后向窗体添加一个按钮，让它实例化一个子类的对象并显示一个消息框：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90308/2009-03-08_13-07-06.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090308/2009-03-08_13-07-06.jpg)
 
 ③  通过让子类的构造方法调用父类的构造方法来解决问题
 
 然后实例化子类，看看消息框以什么顺序弹出来！
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90308/2009-03-08_13-12-44.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090308/2009-03-08_13-12-44.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

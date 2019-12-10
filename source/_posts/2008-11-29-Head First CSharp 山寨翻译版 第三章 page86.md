@@ -9,11 +9,9 @@ Mike  是怎么思考他的问题的
 
 Mike  是一个程序员，他正要去参加一个面试。他已经等不及要去秀一秀C#技巧了，他是他得先去面试地点--并且他快要迟到了！
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81129/%E6%88%AA%E5%9B%BE00633635903499522500.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081129/%E6%88%AA%E5%9B%BE00633635903499522500.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81129/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081129/%E6%88%AA%E5%9B%BE01.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

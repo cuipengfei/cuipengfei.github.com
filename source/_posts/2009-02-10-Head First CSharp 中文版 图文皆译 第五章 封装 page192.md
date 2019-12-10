@@ -13,13 +13,11 @@ tags: 我翻译的Head First C#（习作）
 
 一个Farmer类用一个字段存储牛的数目，并用一个数字乘它来计算需要多少饲料来喂牛：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90210/%E6%88%AA%E5%9B%BE00.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090210/%E6%88%AA%E5%9B%BE00.jpg)
 
 当你需要创建一个窗体来让用户输入牛的数目的时候，你得可以改变存储牛的数目的字段值。你可以创建一个向窗体返回字段值的方法。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90210/%E6%88%AA%E5%9B%BE01.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090210/%E6%88%AA%E5%9B%BE01.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

@@ -3,15 +3,13 @@ title: Head First C# 中文版 图文皆译 第八章 枚举和集合 page333
 date: 2009-04-10 22:03:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90410/2009-04-10_21-30-12.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090410/2009-04-10_21-30-12.jpg)
 
 随机创建五张扑克然后给它们排序。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90410/2009-04-10_21-58-26.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090410/2009-04-10_21-58-26.jpg)
 
 ①  写代码来生成一堆乱七八糟的扑克
 
@@ -38,8 +36,7 @@ Public class CardComparer_byValue : IComparer<Card>
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90410/2009-04-10_21-45-56.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090410/2009-04-10_21-45-56.jpg)
 
 如果你点击“实现IComparer<Card>接口”，IDE将会自动写出你需要实现的方法、属性。在这个特例下，IDE将会创建一个空的Comparer（）方法
 来比较两张扑克，x和y。自己写方法让方法在x比y大的时候返回1，反之返回-1，如果一样大就返回0。在这个例子中，确保K在J之后，而J在4之后，4在A之后。
@@ -54,8 +51,7 @@ Public class CardComparer_byValue : IComparer<Card>
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90410/2009-04-10_21-52-59.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090410/2009-04-10_21-52-59.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)

@@ -8,8 +8,7 @@ tags: 我翻译的Head First C#（习作）
 C#  程序使用继承，因为它模拟你要构建的现实事物之间的关系。现实事物总是处于由概括到具体的层级中，你的程序也有自己的类层级。你的类模型中，下面层级中的类继
 承于上面层级中的类。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90227/2009-02-27_17-22-44.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090227/2009-02-27_17-22-44.jpg)
 
 继承，动词
 

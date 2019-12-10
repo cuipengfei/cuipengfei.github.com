@@ -3,11 +3,9 @@ title: Head First C# 中文版 图文皆译 第七章 接口和抽象类 page297
 date: 2009-04-01 21:57:00
 tags: 我翻译的Head First C#（习作）
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90401/2009-04-01_21-37-10.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090401/2009-04-01_21-37-10.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90401/2009-04-01_21-46-04.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090401/2009-04-01_21-46-04.jpg)
 
 但是还没有完事儿呢！
 

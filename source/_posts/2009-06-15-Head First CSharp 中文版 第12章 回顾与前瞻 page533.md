@@ -12,19 +12,16 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90615/2009-06-15_10-55-05.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090615/2009-06-15_10-55-05.jpg)
 
 不幸的是，这不太现实。很多时候，蜂后没有时间来生育幼蜂。我们没有一个  QueenBee
 类，但是我们来假设蜂蜜足够的时候会有十分之一的几率去创建一只幼蜂。我们可以如下来写：
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90615/2009-06-15_11-04-31.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090615/2009-06-15_11-04-31.jpg)
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90615/2009-06-15_11-06-50.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090615/2009-06-15_11-06-50.jpg)
 
 问：蜂巢可以创建无数的幼蜂？
 

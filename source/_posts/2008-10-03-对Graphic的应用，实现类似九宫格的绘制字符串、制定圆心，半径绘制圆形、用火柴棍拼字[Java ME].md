@@ -3,8 +3,7 @@ title: 对Graphic的应用，实现类似九宫格的绘制字符串、制定圆
 date: 2008-10-03 10:26:00
 tags: 杂7杂8
 ---
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-81003/%E6%88%AA%E5%9B%BE03.jpg) ![](https://p-blog.csdn.net/images/p_blog_csdn
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081003/%E6%88%AA%E5%9B%BE03.jpg) ![](https://p-blog.csdn.net/images/p_blog_csdn
 _net/cuipengfei1/EntryImages/20081003/%E6%88%AA%E5%9B%BE02.jpg) ![](https://p-
 blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081003/%E6%88%A
 A%E5%9B%BE01.jpg) ![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfe

@@ -16,8 +16,7 @@ Hive  类（蜂巢）。
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90614/2009-06-14_10-21-28.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090614/2009-06-14_10-21-28.jpg)
 
 蜂巢靠着蜂蜜来维持运行
 

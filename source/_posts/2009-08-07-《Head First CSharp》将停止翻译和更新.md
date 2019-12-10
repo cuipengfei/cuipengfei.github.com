@@ -11,8 +11,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90807/2009-08-07_16-33-29.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090807/2009-08-07_16-33-29.jpg)
 
 剩余的正文内容已不足百页，无法做到有始有终，颇为遗憾。
 

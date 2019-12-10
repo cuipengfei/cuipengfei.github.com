@@ -16,8 +16,7 @@ tags: 我翻译的Head First C#（习作）
 
 的继承用虚线表示
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90321/2009-03-21_09-30-11.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090321/2009-03-21_09-30-11.jpg)
 
 实现IWoker的子接口的类必须要实现IWorker接口的方法、属性
 
@@ -27,8 +26,7 @@ tags: 我翻译的Head First C#（习作）
 
   
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
-90321/2009-03-21_09-36-46.jpg)
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090321/2009-03-21_09-36-46.jpg)
 
   * [ 点赞  ](javascript:;)
   * [ 收藏  ](javascript:;)
