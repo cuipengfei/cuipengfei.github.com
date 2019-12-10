@@ -1,7 +1,7 @@
 ---
 title: "格物致知--《Effective C#》读书笔记--验证四种判等方式"
 date: 2009-07-19 22:47:00
-tags: undefined
+tags: 格物致知 《Effective C#》读书笔记
 ---
 原地址在我的CSDN
 Blog：http://blog.csdn.net/cuipengfei1/archive/2009/07/19/4362245.aspx
