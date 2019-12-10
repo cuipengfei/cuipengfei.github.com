@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://cuipengfei.github.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: true,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="本文翻译自   Jon Skeet   的系列博文“Edulinq  ”。 本篇原文地址： [ _ http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;27&#x2F;reimplementing-linq-to-objects-part-8-concat.aspx _](http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;20">
+<meta name="keywords" content="linq">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自己动手重新实现LINQ to Objects 8 - Concat">
+<meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2011&#x2F;09&#x2F;14&#x2F;%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%208%20-%20Concat&#x2F;index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="本文翻译自   Jon Skeet   的系列博文“Edulinq  ”。 本篇原文地址： [ _ http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;27&#x2F;reimplementing-linq-to-objects-part-8-concat.aspx _](http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;20">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-10T09:33:08.544Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://cuipengfei.github.com/blog/2011/09/14/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%208%20-%20Concat/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>自己动手重新实现LINQ to Objects 8 - Concat</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+    <script pjax>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-46270419-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">崔鹏飞的Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.github.com/blog/2011/09/14/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%208%20-%20Concat/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          自己动手重新实现LINQ to Objects 8 - Concat
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2011-09-14 22:40:28" itemprop="dateCreated datePublished" datetime="2011-09-14T22:40:28+08:00">2011-09-14</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2011/09/14/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%208%20-%20Concat/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文翻译自  <a href="http://stackoverflow.com/users/22656/jon-skeet" target="_blank" rel="noopener"> Jon Skeet  </a> 的系列博文“<br>Edulinq  ”。</p>
+<p>本篇原文地址：</p>
+<p>[ _ <a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/27/reimplementing-linq-" target="_blank" rel="noopener">http://msmvps.com/blogs/jon_skeet/archive/2010/12/27/reimplementing-linq-</a><br>to-objects-part-8-concat.aspx _<br>](<a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/27/reimplementing-linq-to-" target="_blank" rel="noopener">http://msmvps.com/blogs/jon_skeet/archive/2010/12/27/reimplementing-linq-to-</a><br>objects-part-8-concat.aspx)</p>
+<hr>
+<p>上文讲的  Count  和  LongCount  返回的是数值类型，本文我们讲的  Concat  返回的是一个序列。  </p>
+<p>** Concat  是什么？  **</p>
+<p><a href="http://msdn.microsoft.com/en-us/library/bb302894.aspx" target="_blank" rel="noopener"><br>Concat  </a><br>只有一种签名形式，这让它使用起来很简单：</p>
+<p>public  static  IEnumerable<tsource> Concat<tsource>(</tsource></tsource></p>
+<p>this  IEnumerable<tsource> first,</tsource></p>
+<p>IEnumerable<tsource> second)</tsource></p>
+<p>Concat  的返回值依次包含了两个序列中的元素，也就是说把两个序列串联起来了。</p>
+<p>我有时会觉得  .NET  没有提供  Prepend/Append  这样的方法是个遗憾，这两个方法应该可以和  Concat<br>做类似的事情，只不过它们把一个序列和一个单个的元素串联起来。如果要做一个填充着国家名和一个“  None<br>”值的下拉列表的话，这两个方法是很有用的。当然，向  Concat<br>中传入一个单元素的数组也可以达到同样的目的，但是我个人认为用特定的方法名做特定的事会让代码的可读性更高。  <a href="http://code.google.com/p/morelinq/" target="_blank" rel="noopener"> MoreLINQ
+</a> 中的  [ Concat  方法  ](<a href="http://code.google.c" target="_blank" rel="noopener">http://code.google.c</a><br>om/p/morelinq/source/browse/trunk/MoreLinq/Concat.cs?r=171) 可以做这件事，不过  Edulinq<br>的目的只是要实现  LINQ to Objects  中已有的方法。</p>
+<p>和往常一样，我们列出  Concat  的行为：</p>
+<p>l  参数校验需要立即执行：两个参数都不允许为  null</p>
+<p>l  返回值是延迟执行的：当  Concat  被调用时，两个参数不会立即被迭代</p>
+<p>l  输入序列只有在需要的时候才会被迭代：如果你停止迭代输出序列时第一个输入序列还没有被耗尽的话，那么第二个序列根本就不会被迭代</p>
+<p>这几点描述基本就涵盖了  Concat  的所有行为。</p>
+<p>**<br>我们需要测试什么呢？ **</p>
+<p>Concat  的串联行为很容易被测试，只需要一个用例就够了。我们或许也可以测试输入空序列会如何，但是那种测试基本没有不通过的可能。</p>
+<p>参数校验的测试方式和往常一样：调用方法时传入非法的参数，然后不去迭代方法的返回值。</p>
+<p>最后，还有一个单元测试用来测试两个输入序列被迭代的时机。这个测试中用到了我们在测试  Where  时用过的  ThrowingEnumerable  ：</p>
+<p>[Test]</p>
+<p>public  void  FirstSequenceIsntAccessedBeforeFirstUse()</p>
+<p>{</p>
+<p>IEnumerable&lt; int  &gt; first =  new  ThrowingEnumerable();</p>
+<p>IEnumerable&lt; int  &gt; second =  new  int  [] {  5  };</p>
+<p>_ // No exception yet… _</p>
+<p>var query = first.Concat(second);</p>
+<p>_ // Still no exception… _</p>
+<p>using  (var iterator = query.GetEnumerator())</p>
+<p>{</p>
+<p>_ // Now it will go bang _</p>
+<p>Assert.Throws<invalidoperationexception>(() =&gt; iterator.MoveNext());</invalidoperationexception></p>
+<p>}</p>
+<p>}</p>
+<p>[Test]</p>
+<p>public  void  SecondSequenceIsntAccessedBeforeFirstUse()</p>
+<p>{</p>
+<p>IEnumerable&lt; int  &gt; first =  new  int  [] {  5  };</p>
+<p>IEnumerable&lt; int  &gt; second =  new  ThrowingEnumerable();</p>
+<p>_ // No exception yet… _</p>
+<p>var query = first.Concat(second);</p>
+<p>_ // Still no exception… _</p>
+<p>using  (var iterator = query.GetEnumerator())</p>
+<p>{</p>
+<p>_ // First element is fine… _</p>
+<p>Assert.IsTrue(iterator.MoveNext());</p>
+<p>Assert.AreEqual(  5  , iterator.Current);</p>
+<p>_ // Now it will go bang, as we move into the second sequence _</p>
+<p>Assert.Throws<invalidoperationexception>(() =&gt; iterator.MoveNext());</invalidoperationexception></p>
+<p>}</p>
+<p>}</p>
+<p>我们写测试来检查迭代器是否被  Dispose  掉了。但是我们可以预测到输入序列的迭代器应该会被合理的  Dispose<br>掉。实际上，第一个序列的迭代器会在第二个序列开始被迭代之前就被  Dispose  掉。</p>
+<p>**<br>开始动手实现吧！ **</p>
+<p>Concat  的实现虽然比较简单，但是我写完之后还是觉得  F#  更值得拥有  …  实现分为参数校验和迭代器代码块两部分，每一部分都不复杂：</p>
+<p>public  static  IEnumerable<tsource> Concat<tsource>(</tsource></tsource></p>
+<p>this  IEnumerable<tsource> first,</tsource></p>
+<p>IEnumerable<tsource> second)</tsource></p>
+<p>{</p>
+<p>if  (first == null)</p>
+<p>{</p>
+<p>throw  new  ArgumentNullException(  “first”  );</p>
+<p>}</p>
+<p>if  (second == null)</p>
+<p>{</p>
+<p>throw  new  ArgumentNullException(  “second”  );</p>
+<p>}</p>
+<p>return  ConcatImpl(first, second);</p>
+<p>}</p>
+<p>private  static  IEnumerable<tsource> ConcatImpl<tsource>(</tsource></tsource></p>
+<p>IEnumerable<tsource> first,</tsource></p>
+<p>IEnumerable<tsource> second)</tsource></p>
+<p>{</p>
+<p>foreach (TSource item in first)</p>
+<p>{</p>
+<p>yield  return  item;</p>
+<p>}</p>
+<p>foreach (TSource item in second)</p>
+<p>{</p>
+<p>yield  return  item;</p>
+<p>}</p>
+<p>}</p>
+<p>如果不能利用迭代器代码块的话，这个实现会变得很麻烦。虽然不会特别难，但是我们需要记住当前正在迭代的是哪个序列。</p>
+<p>如果是在用  F#  的话，我们可以使用  yield!  表达式来把它实现的更简单，  yield!<br>表达式作用于一整个序列而不是单个的元素。必需得承认在这种场景下使用  yield!<br>并不会带来什么性能上的提升（如果是在递归的场景下就很可能会有性能提升），但是能够用一个语句来  yield  返回整个序列确实是一种更优雅的风格。（<br>Spec#  中也有一个类似的结构叫做嵌套迭代器，用  [ yield foreach  ](<a href="http://research.microsoft.com" target="_blank" rel="noopener">http://research.microsoft.com</a><br>/en-us/projects/specsharp/iterators.pdf) 来表示。）我对  F#  和  Spec#<br>了解的都不够深入，所以就不做更深入的比较了。不过我们在以后实现  Edulinq  的过程中还会遇到好几次“  yield<br>返回一个序列中的每个元素”的模式。请记住，我们不能把  yield  返回的代码抽取到一个单独的方法中去，因为“  yield  ”表达式需要  C#<br>编译器的特殊处理。</p>
+<p>**<br>结论 **</p>
+<p>虽然我用的实现方式还是蛮简单的，但是我还是吐槽一下：） 如果  C#  里面也有嵌套迭代器那多好啊，虽然说没有它也没有令我太苦恼。</p>
+<p>Concat  是一个很有用的操作符，不过它也不过是  SelectMany  的一个特例罢了。  Concat  只能把两个序列连接成一个序列，而<br>SelectMany  则可以把很多个序列连接成一个序列，而且  SelectMany  在有时还更有普遍性。下次我们会实现  SelectMany<br>，而且会展示一些基于  SelectMany  来实现其他操作符的例子。（等实现  Aggregate  的时候，我们会再次见到操作符只返回一个值的例子。）</p>
+<p>**<br>附录：避免不必要的保持引用 **</p>
+<p>有一条留言建议说要在遍历完第一个序列后把它设为  null  。这样，在遍历完第一个序列后，它就可以被垃圾回收了。如果采取这个建议，那么实现起来会是这样的：</p>
+<p>private  static  IEnumerable<tsource> ConcatImpl<tsource>(</tsource></tsource></p>
+<p>IEnumerable<tsource> first,</tsource></p>
+<p>IEnumerable<tsource> second)</tsource></p>
+<p>{</p>
+<p>foreach (TSource item in first)</p>
+<p>{</p>
+<p>yield  return  item;</p>
+<p>}</p>
+<p>_ // Avoid hanging onto a reference we don’t really need _</p>
+<p>first = null;</p>
+<p>foreach (TSource item in second)</p>
+<p>{</p>
+<p>yield  return  item;</p>
+<p>}</p>
+<p>}</p>
+<p>在普通情况下，把一个不再使用的局部变量设为  null  这种做法是没用的。因为当  CLR<br>在执行优化过的代码，并且没有挂上调试器时，垃圾收集器只关心在方法内部可能还会被访问的变量。</p>
+<p>但是在我们这个特例中，这么做还是有用的。因为第一个参数并不是一个简单的局部变量，在  C#  编译器生成的隐藏类型中，它是一个实例字段，而  CLR<br>无法判断实例字段是否会被再次使用。</p>
+<p>或许我们可以在调用  GetEnumerator  之前清空掉我们对“  first  ”这个参数的唯一引用。我们可以写一个这样的方法：</p>
+<p>public  static  T ReturnAndSetToNull<t>(ref T value) where T :  class</t></p>
+<p>{</p>
+<p>T tmp = value;</p>
+<p>value = null;</p>
+<p>return  tmp;</p>
+<p>}</p>
+<p>然后这样调用它：</p>
+<p>foreach (TSource item in ReturnAndSetToNull(ref first))</p>
+<p>我认为这样做绝对是有点过了，因为迭代器有可能还会持有对集合的引用。不过在遍历之后把“  first  ”这个参数设为  null  在我看来是说得通的。</p>
+<p>需要提醒你一下，我觉得  .NET  的  LINQ to Objects  的实现里面是不会这样做的。（以后我可能会用一个有  finalizer<br>的集合类来测试一下。）</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/08/19/自己动手重新实现LINQ to Objects: 1 - 引言/" rel="bookmark">自己动手重新实现LINQ to Objects 1 - 引言</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/08/21/自己动手重新实现LINQ to Objects: 2 - Where/" rel="bookmark">自己动手重新实现LINQ to Objects 2 - Where</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 3 - Select/" rel="bookmark">自己动手重新实现LINQ to Objects 3 - Select</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 4 - Range/" rel="bookmark">自己动手重新实现LINQ to Objects 4 - Range</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/08/24/自己动手重新实现LINQ to Objects: 6 - Repeat/" rel="bookmark">自己动手重新实现LINQ to Objects 6 - Repeat</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/08/23/自己动手重新实现LINQ to Objects: 5 - Empty/" rel="bookmark">自己动手重新实现LINQ to Objects 5 - Empty</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/09/05/自己动手重新实现LINQ to Objects: 7 - Count和LongCount/" rel="bookmark">自己动手重新实现LINQ to Objects 7 - Count和LongCount</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2012/02/15/自己动手重新实现LINQ to Objects: 10 - Any和All/" rel="bookmark">自己动手重新实现LINQ to Objects 10 - Any和All</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/12/15/自己动手重新实现LINQ to Objects: 9 - SelectMany/" rel="bookmark">自己动手重新实现LINQ to Objects 9 - SelectMany</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2012/04/10/自己动手重新实现LINQ to Objects: 12 - DefaultIfEmpty/" rel="bookmark">自己动手重新实现LINQ to Objects 12 - DefaultIfEmpty</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2012/04/09/自己动手重新实现LINQ to Objects: 11 - First，Last，Single以及它们带有OrDefault的重载/" rel="bookmark">自己动手重新实现LINQ to Objects 11 - First，Last，Single以及它们带有OrDefault的重载</a></div>
+    </li>
+  </ul>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="/https:/cuipengfei.github.com/blog/2011/09/14/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%208%20-%20Concat/" title="自己动手重新实现LINQ to Objects 8 - Concat">https://cuipengfei.github.com/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/linq/" rel="tag"><i class="fa fa-tag"></i> linq</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2011/09/05/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%207%20-%20Count%E5%92%8CLongCount/" rel="prev" title="自己动手重新实现LINQ to Objects 7 - Count和LongCount">
+      <i class="fa fa-chevron-left"></i> 自己动手重新实现LINQ to Objects 7 - Count和LongCount
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2011/12/15/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%209%20-%20SelectMany/" rel="next" title="自己动手重新实现LINQ to Objects 9 - SelectMany">
+      自己动手重新实现LINQ to Objects 9 - SelectMany <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener" target="_blank"><i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">285k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:19</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+    <script defer src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cuipengfeioctopressblog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "https://cuipengfei.github.com/blog/2011/09/14/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%208%20-%20Concat/",
+            identifier: "blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/",
+            title: "自己动手重新实现LINQ to Objects 8 - Concat"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cuipengfeioctopressblog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    (function() {
+      var offsetTop = document.getElementById('comments').offsetTop - window.innerHeight;
+      if (offsetTop <= 0) {
+        // load directly when there's no a scrollbar
+        window.addEventListener('load', loadComments, false);
+      } else {
+        var disqus_scroll = () => {
+          // offsetTop may changes because of manually resizing browser window or lazy loading images.
+          var offsetTop = document.getElementById('comments').offsetTop - window.innerHeight;
+          var scrollTop = window.scrollY;
+
+          // pre-load comments a bit? (margin or anything else)
+          if (offsetTop - scrollTop < 60) {
+            window.removeEventListener('scroll', disqus_scroll);
+            loadComments();
+          }
+        };
+        window.addEventListener('scroll', disqus_scroll);
+      }
+    })();
+  
+</script>
+
+    </div>
+</body>
+</html>

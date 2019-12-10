@@ -1,5 +1,5 @@
-/*!	SWFObject v2.2 <http://code.google.com/p/swfobject/>
-	is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
+/*!	SWFObject v2.2 <http: code.google.com p swfobject>
+	is released under the MIT License <http: www.opensource.org licenses mit-license.php>
 */
 
 var swfobject = function() {
@@ -140,10 +140,10 @@ var swfobject = function() {
 				var par = "";
 				for (var j in parObj) {
 					if (parObj[j] != Object.prototype[j]) { // filter out prototype additions from other potential libraries
-						par += '<param name="' + j + '" value="' + parObj[j] + '" />';
+						par += '<param name="' + j + '" value="' + parObj[j] + '">';
 					}
 				}
-				el.outerHTML = '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"' + att + '>' + par + '</object>';
+				el.outerHTML = '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" ' + att>' + par + '</object>';
 				objIdArr[objIdArr.length] = attObj.id; // stored to fix object 'leaks' on unload (dynamic publishing only)
 				r = getElementById(attObj.id);
 			}
@@ -296,3 +296,4 @@ var swfobject = function() {
 		}
 	};
 }();
+</http:></http:>

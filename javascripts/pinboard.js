@@ -35,16 +35,16 @@ function Pinboard_Linkroll() {
   }
 
   this.format_item = function(it) {
-    var str = "<li class=\"pin-item\">";
+    var str = "<li class="\"pin-item\"">";
     if (!it.d) { return; }
-    str += "<p><a class=\"pin-title\" href=\"" + this.cook(it.u) + "\">" + this.cook(it.d) + "</a>";
+    str += "<p><a class="\"pin-title\"" href="\""" + this.cook(it.u) "\">" + this.cook(it.d) + "</a>";
     if (it.n) {
-      str += "<span class=\"pin-description\">" + this.cook(it.n) + "</span>\n";
+      str += "<span class="\"pin-description\"">" + this.cook(it.n) + "</span>\n";
     }
     if (it.t.length > 0) {
       for (var i = 0; i < it.t.length; i++) {
         var tag = it.t[i];
-        str += " <a class=\"pin-tag\" href=\"https://pinboard.in/u:"+ this.cook(it.a) + "/t:" + this.cook(tag) + "\">" + this.cook(tag).replace(/^\s+|\s+$/g, '') + "</a> ";
+        str += " <a class="\"pin-tag\"" href="\"https://pinboard.in/u:"+" this.cook(it.a) + " t:" this.cook(tag) "\">" + this.cook(tag).replace(/^\s+|\s+$/g, '') + "</a> ";
       }
     }
     str += "</p></li>\n";
@@ -54,3 +54,4 @@ function Pinboard_Linkroll() {
 Pinboard_Linkroll.prototype = new Pinboard_Linkroll();
 pinboardNS_fetch_script("https://feeds.pinboard.in/json/v1/u:"+pinboard_user+"/?cb=pinboardNS_show_bmarks\&count="+pinboard_count);
 
+</',>

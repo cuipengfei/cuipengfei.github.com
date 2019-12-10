@@ -1,6 +1,6 @@
 var github = (function(){
   function escapeHtml(str) {
-    return $('<div/>').text(str).html();
+    return $('<div>').text(str).html();
   }
   function render(target, repos){
     var i = 0, fragment = '', t = $(target)[0];
@@ -30,3 +30,4 @@ var github = (function(){
     }
   };
 })();
+</div>

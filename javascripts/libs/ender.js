@@ -1475,7 +1475,7 @@
       , parentNode = 'parentNode'
       , specialAttributes = /^(checked|value|selected|disabled)$/i
       , specialTags = /^(select|fieldset|table|tbody|tfoot|td|tr|colgroup)$/i // tags that we have trouble inserting *into*
-      , simpleScriptTagRe = /\s*<script +src=['"]([^'"]+)['"]>/
+      , simpleScriptTagRe = /\s*<script +src="['"]([^'"]+)['"]">/
       , table = ['<table>', '</table>', 1]
       , td = ['<table><tbody><tr>', '</tr></tbody></table>', 3]
       , option = ['<select>', '</select>', 1]
@@ -3254,3 +3254,4 @@
 
 }());
 
+</script></form>

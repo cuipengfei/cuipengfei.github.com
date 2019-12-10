@@ -32,7 +32,7 @@
     bookmark: {"enable":false,"color":"#222","save":"auto"},
     fancybox: false,
     mediumzoom: false,
-    lazyload: false,
+    lazyload: true,
     pangu: false,
     algolia: {
       appID: '',
@@ -242,13 +242,6 @@
 
               <time title="创建时间：2014-06-28 12:55:00" itemprop="dateCreated datePublished" datetime="2014-06-28T12:55:00+08:00">2014-06-28</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-07 21:18:10" itemprop="dateModified" datetime="2019-12-07T21:18:10+08:00">2019-12-07</time>
-              </span>
 
           
   
@@ -294,7 +287,7 @@
 <p>如果trait有方法实现，那么Java类就不能实现这个trait</p>
 </blockquote>
 <p>口说还是无凭，还是拍照为证：</p>
-<p><img src="http://ww1.sinaimg.cn/large/8b1ece2agw1ehtqjokutnj21kw23u7wh.jpg" alt=""></p>
+<p><img alt data-src="http://ww1.sinaimg.cn/large/8b1ece2agw1ehtqjokutnj21kw23u7wh.jpg"></p>
 <p>我感觉这句话是错的，下面寻根究底地探索一下。</p>
 <p>trait这个语言特性<a href="http://cuipengfei.me/blog/2013/10/13/scala-trait/" target="_blank" rel="noopener">前面的博文</a>讲过。</p>
 <p>一个含有方法实现的trait会被编译成一个interface，还有一个含有实现的静态方法。</p>
@@ -423,27 +416,27 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">157</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener" target="_blank"><i class="fa fa-fw fa-stack-overflow"></i></a>
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener" target="_blank"><i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
       </span>
       <span class="links-of-author-item">
-        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i></a>
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
       </span>
   </div>
   <div class="cc-license motion-element" itemprop="license">
@@ -482,12 +475,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">131k</span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">285k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:01</span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:19</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
@@ -512,6 +507,7 @@
   
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 <script src="/js/utils.js"></script><script src="/js/motion.js"></script>
