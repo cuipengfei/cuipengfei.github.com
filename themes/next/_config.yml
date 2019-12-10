@@ -195,7 +195,7 @@ social:
 
 social_icons:
   enable: true
-  icons_only: true
+  icons_only: false
   transition: true
 
 # Blog rolls
@@ -252,8 +252,8 @@ post_meta:
   item_text: true
   created_at: true
   updated_at:
-    enable: true
-    another_day: true
+    enable: false
+    another_day: false
   categories: true
   tags: true
 
@@ -262,7 +262,7 @@ post_meta:
 symbols_count_time:
   separated_meta: true
   item_text_post: true
-  item_text_total: false
+  item_text_total: true
   awl: 4
   wpm: 275
 
@@ -289,7 +289,7 @@ related_posts:
   title: # Custom header, leave empty to use the default one
   display_in_home: true
   params:
-    maxCount: 5
+    maxCount: 999
     #PPMixingRate: 0.0
     #isDate: false
     #isImage: false
@@ -538,7 +538,7 @@ mediumzoom: false
 
 # Vanilla JavaScript plugin for lazyloading images.
 # For more information: https://github.com/ApoorvSaxena/lozad.js
-lazyload: false
+lazyload: true
 
 # Pangu Support
 # For more information: https://github.com/vinta/pangu.js
