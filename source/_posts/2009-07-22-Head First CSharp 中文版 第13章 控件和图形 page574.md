@@ -33,11 +33,3 @@ BeeControl  和  PictureBox  很类似  ...  所以我们就从继承  PictureBo
 
 
 
-[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
-![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
-](https://blog.csdn.net/cuipengfei1)
-
-
-
-
-

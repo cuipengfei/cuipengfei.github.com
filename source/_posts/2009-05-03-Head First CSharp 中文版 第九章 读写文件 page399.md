@@ -17,11 +17,3 @@ OpenFileDialog  对象可以显示出标准的  Windows  “打开”窗口，�
 
 
 
-[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
-![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
-](https://blog.csdn.net/cuipengfei1)
-
-
-
-
-

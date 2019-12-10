@@ -16,11 +16,3 @@ E就会自动创建一个它的实例并命名为button1。在拖拽一个Button
 
 
 
-[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
-![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
-](https://blog.csdn.net/cuipengfei1)
-
-
-
-
-

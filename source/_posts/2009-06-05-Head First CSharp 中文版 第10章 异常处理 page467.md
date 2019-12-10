@@ -38,11 +38,3 @@ BeeProfile  对象可以截获异常并写一条日志记录。然后转身把�
 
 
 
-[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
-![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
-](https://blog.csdn.net/cuipengfei1)
-
-
-
-
-

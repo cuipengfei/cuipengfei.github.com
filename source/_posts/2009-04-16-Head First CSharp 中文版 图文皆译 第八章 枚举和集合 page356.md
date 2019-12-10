@@ -18,11 +18,3 @@ dequeue）一个对象。当你这样做的时候，队首的对象被移除，�
 
 
 
-[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
-![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
-](https://blog.csdn.net/cuipengfei1)
-
-
-
-
-

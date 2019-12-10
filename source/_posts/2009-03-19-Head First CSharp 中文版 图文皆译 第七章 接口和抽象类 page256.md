@@ -47,11 +47,3 @@ rCollector和StingPatrol可以创建一个它的实例，在需要做某种工�
 
 
 
-[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
-![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
-](https://blog.csdn.net/cuipengfei1)
-
-
-
-
-

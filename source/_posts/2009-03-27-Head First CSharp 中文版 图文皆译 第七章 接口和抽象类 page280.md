@@ -18,11 +18,3 @@ C#  中不允许创建一个声明为抽象的类的实例。抽象类很像接�
 
 
 
-[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
-![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
-](https://blog.csdn.net/cuipengfei1)
-
-
-
-
-

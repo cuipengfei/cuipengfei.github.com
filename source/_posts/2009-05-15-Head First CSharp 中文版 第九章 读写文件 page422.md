@@ -40,11 +40,3 @@ RandomDeck  方法随机创建一副牌，  PrintCards  方法处理所有的牌
 
 
 
-[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
-![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
-](https://blog.csdn.net/cuipengfei1)
-
-
-
-
-

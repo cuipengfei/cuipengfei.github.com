@@ -33,11 +33,3 @@ IDE  中的属性窗口确实是个强大工具，你可以用它来改变你程
 
 
 
-[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
-![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
-](https://blog.csdn.net/cuipengfei1)
-
-
-
-
-

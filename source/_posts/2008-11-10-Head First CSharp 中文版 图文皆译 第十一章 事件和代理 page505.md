@@ -23,11 +23,3 @@ ay（）方法来触发BallInPlay事件，连锁反应就开始了。守场员�
 
 
 
-[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
-![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
-](https://blog.csdn.net/cuipengfei1)
-
-
-
-
-

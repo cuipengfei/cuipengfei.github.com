@@ -39,11 +39,3 @@ Horizontal  。两个  TrackBar  的  Minimum  都设置为  1  ，  Maximum  �
 
 
 
-[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
-![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
-](https://blog.csdn.net/cuipengfei1)
-
-
-
-
-

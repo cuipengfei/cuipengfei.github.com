@@ -18,11 +18,3 @@ RunFrame  （）方法联系起来，而不是让  IDE  去生成  timer1_Tick  
 
 
 
-[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
-![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
-](https://blog.csdn.net/cuipengfei1)
-
-
-
-
-

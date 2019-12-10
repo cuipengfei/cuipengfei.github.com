@@ -49,11 +49,3 @@ BinaryWriter  的方法来写出数据。所以再向窗体添加一个按钮吧
 
 
 
-[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
-![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
-](https://blog.csdn.net/cuipengfei1)
-
-
-
-
-

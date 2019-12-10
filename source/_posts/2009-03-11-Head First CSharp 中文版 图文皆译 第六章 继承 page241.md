@@ -22,11 +22,3 @@ urrentJob为分配的工作，设置shiftNumber为零。工蜂工作一个班次
 
 
 
-[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
-![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
-](https://blog.csdn.net/cuipengfei1)
-
-
-
-
-

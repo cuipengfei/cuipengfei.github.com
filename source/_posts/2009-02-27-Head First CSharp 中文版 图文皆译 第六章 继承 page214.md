@@ -18,11 +18,3 @@ DinnerParty  和BirthDayParty两个类中有很多相似代码并不是巧合。
 
 
 
-[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
-![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
-](https://blog.csdn.net/cuipengfei1)
-
-
-
-
-
