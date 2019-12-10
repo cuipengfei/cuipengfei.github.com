@@ -1,0 +1,47 @@
+---
+title: Head First C# 中文版 图文皆译 第十一章 事件和代理 page485
+date: 2008-11-01 22:03:00
+tags: 我翻译的Head First C#（习作）
+---
+当  事件  发生的时候...对象监听  <?xml:namespace prefix = o ns = "urn:schemas-microsoft-
+com:office:office" />
+
+球被击打的时候你需要做的就是使用一个事件。事件就是你的  程序里面发生的一些事情  。然后别的对象就可以响应它--比如我们的投手对象。
+
+更好的是，不止一个对象可以监听事件。所以投手可以监听球-被击打事件，捕手，三垒手，裁判，甚至是球迷也都可以。并且每个对象可以对事件做出不同的响应。
+
+所以我们想要的就是一个可以  触发事件  的球对象。然后，我们需要其他对象去  注册这个特定的事件  ...  这意味着监听它，在事件发生的时候被通知。
+
+事件，名词。
+
+一个发生的事情，尤指某些重要
+
+的事情。日蚀是一个值得关注的
+
+奇妙的事件。
+
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
+81101/%E6%88%AA%E5%9B%BE00633611738069048750.jpg)
+
+想要用事件做点什么吗？你需要一个事件处理者
+
+一旦你的对象“听见”了事件，你可以设置一些代码来运行。这代码就叫做事件处理者。一个事件处理者获取关于事件的信息，并且每次事件发生它都运行。
+
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
+81101/%E6%88%AA%E5%9B%BE01633611738069986250.jpg)
+
+记住，这些在运行时都是无需你的介入的。所以你写代码来触发事件，然后你写代码来处理事件，并且通知你的程序。然后，无论何时一个事件被触发，你的处理者就开始行动.
+..  你不需要做任何事儿  。并且，最好的是，你的对象有了  关注点分离  。它们关注自己，不是别的对象。
+
+  * [ 点赞  ](javascript:;)
+  * [ 收藏  ](javascript:;)
+  * [ 分享 ](javascript:;)
+
+[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
+![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
+](https://blog.csdn.net/cuipengfei1)
+
+[ 崔鹏飞 ](https://blog.csdn.net/cuipengfei1)
+
+发布了127 篇原创文章  ·  获赞 8  ·  访问量 74万+
+

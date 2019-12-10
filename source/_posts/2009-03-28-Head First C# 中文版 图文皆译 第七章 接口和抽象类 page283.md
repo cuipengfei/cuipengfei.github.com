@@ -1,0 +1,25 @@
+---
+title: Head First C# 中文版 图文皆译 第七章 接口和抽象类 page283
+date: 2009-03-28 21:56:00
+tags: 我翻译的Head First C#（习作）
+---
+左侧是类图。你的任务就是把它们转化为有效地C#声明。我们把第一个给你做好了。
+
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
+90328/2009-03-28_21-49-34.jpg)
+
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
+90328/2009-03-28_21-50-50.jpg)
+
+  * [ 点赞  ](javascript:;)
+  * [ 收藏  ](javascript:;)
+  * [ 分享 ](javascript:;)
+
+[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
+![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
+](https://blog.csdn.net/cuipengfei1)
+
+[ 崔鹏飞 ](https://blog.csdn.net/cuipengfei1)
+
+发布了127 篇原创文章  ·  获赞 8  ·  访问量 74万+
+

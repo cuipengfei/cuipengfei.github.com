@@ -1,0 +1,52 @@
+---
+title: Head First C# 中文版 第10章 异常处理 page454
+date: 2009-05-30 18:46:00
+tags: 我翻译的Head First C#（习作）
+---
+![](http://student.csdn.net/attachment/200905/30/39098_1243680336tjJZ.jpg)
+
+实际上，你是可以处理这种情况的。
+
+  
+
+对，用户总会搞错。这是事实。但是这并不意味着你对此无法处理。有一个名词，它描述程序优雅的处理不合适的输入和其他未预期的情况：这个名词叫做鲁棒（健壮性）。
+C#  给你提供了一些很有用的异常处理的工具来把你的程序写得更健壮。虽然你无法控制用户的行为，但是你可以确保你的程序在用户搞错的时候不会崩溃。
+
+  
+
+注意！如果序列化文件有哪怕一丁点问题，  BinaryFormatter  就会抛出异常。
+
+  
+
+要让借口管理器抛出异常很容易  \--  给它提供一个不是序列化的  Excuse  对象的文件就可以了。从文件中反序列化一个对象的时候，
+BinaryFormatter  期望文件中包含有与它要读取的类型匹配的序列化了的对象。如果文件含有其他内容，哪怕一丁点，  Deserialize
+（）方法就会抛出一个  SerializationException  。
+
+  
+
+健壮性，形容词。
+
+  
+
+结构坚固；能够经受或者克服不良条件。例句：塔科马海峡大桥灾难
+
+  
+
+之后，国内的工程师组织就致力于寻找替代该桥的更加健壮的设计方
+
+  
+
+案。
+
+  * [ 点赞  ](javascript:;)
+  * [ 收藏  ](javascript:;)
+  * [ 分享 ](javascript:;)
+
+[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
+![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
+](https://blog.csdn.net/cuipengfei1)
+
+[ 崔鹏飞 ](https://blog.csdn.net/cuipengfei1)
+
+发布了127 篇原创文章  ·  获赞 8  ·  访问量 74万+
+

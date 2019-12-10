@@ -1,0 +1,359 @@
+---
+title: 如何一步一步推导出Y Combinator
+date: 2013-04-13 22:20:55
+tags: 杂7杂8
+---
+##  本文讲什么？
+
+本文用Scheme（Racket）代码为例，一步一步的推出Y Combinator的实现。
+
+##  本文不讲什么？
+
+Y
+Combinator是什么，干什么用的，它为什么能够work，它的数学含义以及实际应用场景，这些话题由于篇幅所限（咳咳，楼主的无知）不在本文论述范围之内。
+
+如果有兴趣，请参考维基： [ http://en.wikipedia.org/wiki/Fixed-
+point_combinator#Y_combinator ](http://en.wikipedia.org/wiki/Fixed-
+point_combinator#Y_combinator)
+
+##  鸣谢
+
+感谢Jojo同学的 [ 这段JavaScript代码
+](https://github.com/zhewuzhou/js-y-combinator/blob/master/y-combinator.js)
+的启发，我写了 [ 对应的Scheme实现 ](https://github.com/cuipengfei/lambda-calculus-impl/blo
+b/master/racket/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E6%8E%A8%E5%87%BAY.rkt)
+。然后才有了本文。
+
+##  正文开始
+
+我们知道Y Combinator可以帮匿名函数实现递归。那就从一个广为人知的递归函数-阶乘开始吧。
+
+    
+    
+    1
+    2
+    3
+    
+    
+    
+    (define (fac1 n)
+      (if (< n 2) 1
+          (* n (fac1 (- n 1)))))
+    
+
+如果n小于2，则返回1，否则开始递归，简单明了。如果像这样调用它一下：
+
+    
+    
+    1
+    
+    
+    
+    (fac1 5)
+    
+
+会返回120，结果无误。
+
+上面是阶乘的递归实现，它有一个名字叫做fac1，但是如果用匿名函数实现阶乘呢？
+
+    
+    
+    1
+    2
+    3
+    4
+    
+    
+    
+    (lambda (f)
+      (lambda (n)
+        (if (< n 2) 1
+            (* n (f (- n 1))))))
+    
+
+这个匿名函数“梦想着”其调用者会把该函数自己的实现作为参数传递进去。
+
+    
+    
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    
+    
+    
+    (((lambda (f)
+        (lambda (n)
+          (if (< n 2) 1
+              (* n (f (- n 1))))))
+      (lambda (f)
+        (lambda (n)
+          (if (< n 2) 1
+              (* n (f (- n 1))))))) 1)
+    
+
+我们把匿名函数重复写一遍，就可以计算1或者是0的阶乘，但是要计算3的阶乘呢？那就得这么写：
+
+    
+    
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+    10
+    11
+    12
+    13
+    14
+    15
+    16
+    
+    
+    
+    (((lambda (f)
+        (lambda (n)
+          (if (< n 2) 1
+              (* n (f (- n 1))))))
+      ((lambda (f)
+         (lambda (n)
+           (if (< n 2) 1
+               (* n (f (- n 1))))))
+       ((lambda (f)
+          (lambda (n)
+            (if (< n 2) 1
+                (* n (f (- n 1))))))
+        (lambda (f)
+          (lambda (n)
+            (if (< n 2) 1
+                (* n (f (- n 1))))))))) 3)
+    
+
+想要计算一个大于2的n的阶乘，就得把这个匿名函数重复写n+1次。这么多的重复代码，这么多的括号。。。
+
+所以我们需要一个神奇的函数，Y，它可以接受一个匿名的伪递归函数作为参数，产出一个真递归的函数。
+这个神奇的Y作用在上面的匿名函数上之后产出的结果就可以用来计算任何n的阶乘。下面的代码会输出120（如果Y已经实现了的话）。
+
+    
+    
+    1
+    2
+    3
+    4
+    
+    
+    
+    ((Y (lambda (f)
+           (lambda (n)
+             (if (< n 2) 1
+                 (* n (f (- n 1))))))) 5)
+    
+
+下面就开始一步步的构造这个神奇的Y吧。
+
+为了便于推导，暂时给这个匿名函数一个名字，叫做fake_fac。
+
+    
+    
+    1
+    2
+    3
+    4
+    5
+    
+    
+    
+    (define fake_fac
+      (lambda (f)
+        (lambda (n)
+          (if (< n 2) 1
+              (* n (f (- n 1)))))))
+    
+
+有了这个名字之后，再要计算3的阶乘就容易了一些。
+
+    
+    
+    1
+    
+    
+    
+    ((fake_fac (fake_fac (fake_fac fake_fac))) 3)
+    
+
+观察上面的代码，我们把fake_fac传递给它自己，得到一个返回值，把这个返回的值再次传递给fake_fac，再得到一个新的返回值，又把新的返回值传递给fa
+ke_fac，得到最终的返回值，最后把3传递给这个返回值。
+
+可以看到，我们在不停的把fake_rec传给它自己，所以定义一个helper吧：
+
+    
+    
+    1
+    
+    
+    
+    (define (callself f) (f f))
+    
+
+这个helper一会儿会派上用场。
+
+现在看看fake_fac中的f是什么呢？对于((fake_fac (fake_fac (fake_fac fake_fac)))
+3)这行代码中的最右侧的fake_fac来说，f没有用，因为这个fake_fac自己都没有被调到，它只是起个占位符的作用，实际上这行代码((fake_fac
+(fake_fac (fake_fac 1))) 3)和上面的那行是等价的。
+
+对于右侧第二个fake_fac来说，f就是fake_fac。对于左侧第二个fake_fac来说，f是(fake_fac fake_fac)的返回值。
+
+对于左侧第一个fake_fac来说，f是(fake_fac (fake_fac fake_fac))的返回值。
+
+由此可见，f是fake_fac对自己反复调用的返回值。而且从fake_fac的定义可见，我们总是给f传递一个数字n，这样的话，我们再写一个helper：
+
+    
+    
+    1
+    
+    
+    
+    (lambda (n) ((f f) n))
+    
+
+再把这个helper传递给fake_fac。
+
+    
+    
+    1
+    
+    
+    
+    (fake_fac (lambda (n) ((f f) n)))
+    
+
+但是上面这两段代码是有问题的，因为f的值无法确定。
+
+有句话说的好： if you don’t know exactly what you want to put somewhere in a piece of
+code, just abstract it out and make it a parameter of a function.
+所以我们就把f抽成参数吧。
+
+    
+    
+    1
+    2
+    
+    
+    
+    (define (callselfWithN f)
+      (fake_fac (lambda (n) ((f f) n))))
+    
+
+我们希望这个helper可以帮fake_fac无限次的调用自己。
+
+现在，我们该怎么调用callselfWithN呢？不能把fake_fac传给它，因为那样的话(f f)就只是fake_fac对自己的调用，它只能计算0或者1
+的阶乘。所以要把callselfWithN这个我们希望可以帮fake_fac实现无限次自调用的函数传给callselfWithN它自己。
+
+    
+    
+    1
+    
+    
+    
+    ((callselfWithN callselfWithN) 5)
+    
+
+这行代码可以返回120，结果正确了！
+
+记得前面定义的第一个helper吗？现在用的上了：
+
+    
+    
+    1
+    
+    
+    
+    ((callself callselfWithN) 5)
+    
+
+现在把callselfWithN带入：
+
+    
+    
+    1
+    2
+    
+    
+    
+    ((callself  (lambda (f)
+      (fake_fac (lambda (n) ((f f) n))))) 5)
+    
+
+可以看出，这段代码和fake_fac是紧耦合的，把它抽到参数上去：
+
+    
+    
+    1
+    2
+    3
+    
+    
+    
+    (define (Y3 fake_recur)
+      (callself  (lambda (f)
+                   (fake_recur (lambda (n) ((f f) n))))))
+    
+
+然后再把callself也带入：
+
+    
+    
+    1
+    2
+    3
+    4
+    5
+    
+    
+    
+    (define Y (lambda (fake_recur)
+                ((lambda (f) (f f))
+                 (lambda (f)
+                   (fake_recur
+                    (lambda (n) ((f f) n)))))))
+    
+
+现在Y不依赖于任何其他函数了，测试一下Y，把前面的计算阶乘的匿名函数传给它：
+
+    
+    
+    1
+    2
+    3
+    4
+    
+    
+    
+    ((Y (lambda (f)
+          (lambda (n)
+            (if (< n 2) 1
+                (* n (f (- n 1))))))) 5)
+    
+
+能够返回120，正确！Y Combinator构造完成！
+
+  * [ 点赞  ](javascript:;)
+  * [ 收藏  ](javascript:;)
+  * [ 分享 ](javascript:;)
+
+[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
+![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
+](https://blog.csdn.net/cuipengfei1)
+
+[ 崔鹏飞 ](https://blog.csdn.net/cuipengfei1)
+
+发布了127 篇原创文章  ·  获赞 8  ·  访问量 74万+
+

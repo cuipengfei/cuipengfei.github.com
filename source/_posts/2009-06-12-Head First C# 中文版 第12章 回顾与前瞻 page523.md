@@ -1,0 +1,51 @@
+---
+title: Head First C# 中文版 第12章 回顾与前瞻 page523
+date: 2009-06-12 21:49:00
+tags: 我翻译的Head First C#（习作）
+---
+花之生死
+
+我们的花朵会经过一个基本的过程，生长，增加花粉，收获花粉，并且最终死掉：
+
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
+90612/2009-06-12_21-29-36.jpg)
+
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
+90612/2009-06-12_21-36-38.jpg)
+
+问：  NectarHarvested  变量在类中似乎除了给它增加值之外就没有用到，这个变量是做什么用的呢？
+
+  
+
+答：好眼力！我们是提前做了计划的，模拟器会监视花朵们一共产出了多少花粉，以供统计之用。所以暂时把它放一下，我们其他的类很快就会用到它。
+
+  
+
+问：这些只读自动属性是怎么回事？
+
+  
+
+答：记得第五章的隐藏私有变量吗？这是个好传统。花朵应该可以管理这些值，所以我们让它们是只读的。其他的对象，比如蜜蜂和蜂窝，应该可以读取这些属性而不可以改变它
+们。
+
+  
+
+问：我写的代码有些不同，我做错了吗？
+
+  
+
+答：你在每个方法中写的代码的顺序或许不同，但是只要功能和我们的一样，那就可以。这是封装的另一个方面：一个类只要做其该做的事情，那么它的内部实现对于别的类来说
+不重要。
+
+  * [ 点赞  ](javascript:;)
+  * [ 收藏  ](javascript:;)
+  * [ 分享 ](javascript:;)
+
+[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
+![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
+](https://blog.csdn.net/cuipengfei1)
+
+[ 崔鹏飞 ](https://blog.csdn.net/cuipengfei1)
+
+发布了127 篇原创文章  ·  获赞 8  ·  访问量 74万+
+

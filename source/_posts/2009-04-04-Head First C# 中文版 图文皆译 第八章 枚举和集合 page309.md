@@ -1,0 +1,25 @@
+---
+title: Head First C# 中文版 图文皆译 第八章 枚举和集合 page309
+date: 2009-04-04 22:05:00
+tags: 我翻译的Head First C#（习作）
+---
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
+90404/2009-04-04_21-16-44.jpg)
+
+不鸣则已，一鸣惊人。
+
+在真实的世界中，你不会只处理少量的数据。数据会成堆、成群地向你汹涌而来。你需要有有力的工具来处理数据，这时集合就派上用场了。集合可以存储、排序、管理你的程序
+需要的数据。这样，你只需写程序来操作数据，而数据的存储就交给集合吧。
+
+  * [ 点赞  ](javascript:;)
+  * [ 收藏  ](javascript:;)
+  * [ 分享 ](javascript:;)
+
+[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
+![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
+](https://blog.csdn.net/cuipengfei1)
+
+[ 崔鹏飞 ](https://blog.csdn.net/cuipengfei1)
+
+发布了127 篇原创文章  ·  获赞 8  ·  访问量 74万+
+

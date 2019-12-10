@@ -1,0 +1,26 @@
+---
+title: Head First C# 中文版 第12章 回顾与前瞻 page522
+date: 2009-06-12 18:52:00
+tags: 我翻译的Head First C#（习作）
+---
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
+90612/2009-06-12_18-36-54.jpg) 你的任务是给我们的蜂巢模拟器创建一个  Flower  类。
+
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
+90612/2009-06-12_18-38-21.jpg)
+
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
+90612/2009-06-12_18-44-14.jpg)
+
+  * [ 点赞  ](javascript:;)
+  * [ 收藏  ](javascript:;)
+  * [ 分享 ](javascript:;)
+
+[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
+![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
+](https://blog.csdn.net/cuipengfei1)
+
+[ 崔鹏飞 ](https://blog.csdn.net/cuipengfei1)
+
+发布了127 篇原创文章  ·  获赞 8  ·  访问量 74万+
+

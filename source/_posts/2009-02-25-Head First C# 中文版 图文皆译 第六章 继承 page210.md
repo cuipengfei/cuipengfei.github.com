@@ -1,0 +1,26 @@
+---
+title: Head First C# 中文版 图文皆译 第六章 继承 page210
+date: 2009-02-25 11:02:00
+tags: 我翻译的Head First C#（习作）
+---
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
+90225/2009-02-25_10-47-21.jpg) 向凯瑟琳的聚会计划程序添加生日聚会
+
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
+90225/2009-02-25_10-48-14.jpg)
+
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
+90225/2009-02-25_10-48-45.jpg)
+
+  * [ 点赞  ](javascript:;)
+  * [ 收藏  ](javascript:;)
+  * [ 分享 ](javascript:;)
+
+[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
+![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
+](https://blog.csdn.net/cuipengfei1)
+
+[ 崔鹏飞 ](https://blog.csdn.net/cuipengfei1)
+
+发布了127 篇原创文章  ·  获赞 8  ·  访问量 74万+
+

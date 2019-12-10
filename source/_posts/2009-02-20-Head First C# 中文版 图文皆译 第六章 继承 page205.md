@@ -1,0 +1,25 @@
+---
+title: Head First C# 中文版 图文皆译 第六章 继承 page205
+date: 2009-02-20 15:22:00
+tags: 我翻译的Head First C#（习作）
+---
+![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/200
+90220/2009-02-20_14-58-40.jpg)
+
+有时你真的想要像你的父母。
+
+曾经遇到过可以做你想要它做的事情的对象吗？曾经希望过你只要只要修改一点东西对象就变得完美了吗？这就是C#语言中继承如此重要的原因。读了这一章，你将学会如何通
+过继承一个对象来获得它的行为，同时还保持修改它的行为的灵活性。你将不用再复制代码，可以更好的模拟现实世界，最后写出容易维护的代码。
+
+  * [ 点赞  ](javascript:;)
+  * [ 收藏  ](javascript:;)
+  * [ 分享 ](javascript:;)
+
+[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
+![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
+](https://blog.csdn.net/cuipengfei1)
+
+[ 崔鹏飞 ](https://blog.csdn.net/cuipengfei1)
+
+发布了127 篇原创文章  ·  获赞 8  ·  访问量 74万+
+
