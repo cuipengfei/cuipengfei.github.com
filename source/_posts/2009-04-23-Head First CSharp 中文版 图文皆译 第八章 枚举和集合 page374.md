@@ -15,9 +15,7 @@ Player  类记录玩家
 
 ![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090423/2009-04-23_16-06-08.jpg)
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

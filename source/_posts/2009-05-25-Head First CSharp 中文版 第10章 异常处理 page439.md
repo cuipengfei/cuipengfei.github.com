@@ -13,9 +13,7 @@ tags: 我翻译的Head First C#（习作）
 书，你已经达到了专业领域的象牙塔：程序员大师。但是你的程序还是会崩溃，或者其行为与预期不符。并不是让你戒掉愉悦的编程习惯去修复一些奇怪的  bug....
 但是有了异常处理，你可以写代码来处理出现的问题。更好的是，你可以对这些问题做出反应，而且保持程序运行。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

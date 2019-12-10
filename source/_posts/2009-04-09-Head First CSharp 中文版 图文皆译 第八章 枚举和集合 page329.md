@@ -34,9 +34,7 @@ List.Sort  （）方法知道如何给实现了IComparable接口的类排序。�
 
 你可以通过让一个类实现IComparable接口并给它添加CompareTo（）方法来让List的Sort（）方法可以给它排序。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

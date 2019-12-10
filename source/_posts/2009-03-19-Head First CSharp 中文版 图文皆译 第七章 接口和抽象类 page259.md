@@ -31,9 +31,7 @@ t访问器总是返回“big shoes”。然后添加一个Honk（）方法，�
 
 ⑥  现在你的代码可以编译了！修改你的按钮的事件响应方法，让对象初始化器设置FunnyThingIHave属性，并调用对象的Honk（）方法。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

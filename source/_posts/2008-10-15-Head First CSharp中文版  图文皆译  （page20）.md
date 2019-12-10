@@ -46,9 +46,7 @@ com:office:office" />
 答：不，你现在还不能全明白也OK。集中精力于基本步骤上，在这本书的后续章节里面我们会花更多的时间在数据库上。如果你现在非常渴望懂得更多，你总是可以拿起Hea
 d First SQL来和这本书一起读的。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

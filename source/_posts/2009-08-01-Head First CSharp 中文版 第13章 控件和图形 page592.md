@@ -35,9 +35,7 @@ Image  属性。把  PictureBox  添加到窗体之后，蜜蜂就出现了。
 ResizeImage（）方法创建一个Graphics对象来把图像绘制到Bitmap上去。然后把Bitmap返回，它可以用以显示在窗体上或者是Picture
 Box上。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

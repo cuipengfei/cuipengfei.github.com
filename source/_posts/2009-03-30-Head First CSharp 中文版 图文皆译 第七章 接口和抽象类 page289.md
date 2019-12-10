@@ -30,9 +30,7 @@ tags: 我翻译的Head First C#（习作）
 
 把一个实例用在期待其父类或它实现过的接口的语句或者方法中，这就是在使用多态了。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

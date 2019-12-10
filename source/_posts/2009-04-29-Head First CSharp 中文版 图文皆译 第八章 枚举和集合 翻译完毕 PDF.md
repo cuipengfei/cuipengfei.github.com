@@ -35,9 +35,7 @@ tags: c#
 这儿也可以下载（电驴）： [ http://www.verycd.com/topics/2728712/
 ](http://www.verycd.com/topics/2728712/)
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

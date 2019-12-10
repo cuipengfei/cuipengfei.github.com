@@ -12,9 +12,7 @@ tags: 我翻译的Head First C#（习作）
 写程序的时候，先想一想程序要解决什么问题是个好注意。这就是对象这么重要的原因。它让你可以基于要解决的问题来组织代码，这样你就可以集中精力于思考程序要解决的问
 题而不会被书写代码的技术细节纠缠住。正确的使用对象，你可以写出凭直觉的代码，它会易读易改。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

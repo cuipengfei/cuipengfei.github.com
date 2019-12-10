@@ -40,9 +40,7 @@ VS  会生成让你当做你的应用的起点的代码。
 
 记住，程序实现预期的表现还是取决于你的。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

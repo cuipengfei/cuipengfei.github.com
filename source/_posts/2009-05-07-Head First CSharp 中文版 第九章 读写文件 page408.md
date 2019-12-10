@@ -65,9 +65,7 @@ Fixed3D  的标签上。
 、  Open  和  Random Excuse  按钮是不可用的，但是如果用户选择了一个文件夹，那么  Folder
 文件夹的事件响应方法将会使得其他三个按钮可用。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

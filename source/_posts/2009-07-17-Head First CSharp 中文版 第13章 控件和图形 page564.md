@@ -38,9 +38,7 @@ IDE  的工具箱也没有什么神奇的。它只是在你的项目中的类和
 的窗体设计器中给窗体布局，但是这并不意味着布局就得是一成不变的。你曾移动过控件（赛狗的那个程序）。你也可以添加、移除控件。实际上，你用  IDE
 创建窗体的时候，  IDE  做的工作就是生成给窗体添加控件的代码，这就意味着你可以写类似的代码并在你想要的时候运行它们。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

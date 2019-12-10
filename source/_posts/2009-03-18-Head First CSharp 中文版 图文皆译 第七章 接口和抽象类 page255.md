@@ -25,9 +25,7 @@ tags: 我翻译的Head First C#（习作）
 
 公有接口中的任何东西都默认为公有的。因为你要用它们来定义其实现类需要的公有方法和属性。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

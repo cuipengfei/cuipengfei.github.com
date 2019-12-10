@@ -11,9 +11,7 @@ s/20090202/%E6%88%AA%E5%9B%BE02.jpg)
 有时候你的项目也会这么想的。就好像你不想让任何你不信任的人从你的银行帐单中了解到你的财务收支状况一样，好的项目也不想让任何人在它的字段中间乱转。这一章，你将
 会学习封装的奇妙力量。你将会把项目中的数据设置为私有，并用方法来保护它们的访问权。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

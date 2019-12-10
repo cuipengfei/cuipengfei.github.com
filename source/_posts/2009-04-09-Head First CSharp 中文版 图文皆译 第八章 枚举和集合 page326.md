@@ -12,9 +12,7 @@ tags: 我翻译的Head First C#（习作）
 
 通过允许你把创建列表的语句和向列表中添加初始项的语句结合起来，集合初始化器使得你的代码更加紧凑。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

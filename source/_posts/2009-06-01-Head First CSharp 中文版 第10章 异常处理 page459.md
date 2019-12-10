@@ -29,9 +29,7 @@ UpdateForm  （）的调用而跳到了  catch  块中去。
 
 职业提示：很多  C#  编程工作的面试中会问到你如何去处理构造方法中的异常。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

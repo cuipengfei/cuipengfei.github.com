@@ -38,9 +38,7 @@ Graphics  属于  System.Drawing  命名空间。  .NET  框架中有很多比�
 System.Drawing命名空间下的方法有时候被称作GDI+，是Graphics Device Interface的缩写。用GDI+绘制图形的时候，要用
 一个Graphics对象开始，用该对象的方法来在与之联系着的Bitmap，窗体，控件或者其他对象上绘制图形。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

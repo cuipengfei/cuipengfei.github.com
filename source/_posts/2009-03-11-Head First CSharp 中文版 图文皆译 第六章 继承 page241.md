@@ -20,9 +20,7 @@ Shift（）方法。添加一个ComboBox控件来显示蜜蜂的工作列表（�
 urrentJob为分配的工作，设置shiftNumber为零。工蜂工作一个班次之后，给shiftNumber减一
 。只读的ShiftsNumber属性返回shiftsToWork-shiftsWorked。蜂后用它检查一项工作还剩多少班次。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

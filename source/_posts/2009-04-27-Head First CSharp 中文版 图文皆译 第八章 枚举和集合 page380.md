@@ -42,9 +42,7 @@ BluePotion  类的Name属性要返回“Blue Potion”。它的Attack（）方�
 
 RedPotion  类和BluePotion很类似，只是它的Name属性返回“Red Potion”，它的Attack（）方法最多给玩家增加10点生命值。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

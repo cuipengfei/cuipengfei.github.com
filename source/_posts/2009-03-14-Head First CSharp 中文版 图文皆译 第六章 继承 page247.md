@@ -36,9 +36,7 @@ Left添加override关键字。这样工蜂就可以计算蜂蜜消耗量了...�
 
 对于窗体只需要这么一点修改！
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

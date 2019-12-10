@@ -42,9 +42,7 @@ tags: 我翻译的Head First C#（习作）
 答：开始构建爱一个类之前，需要先知道它是用来解决什么问题的。因此你必须和凯瑟琳谈谈  —
 是她要使用这个程序。还好你记了不少笔记！你可以通过考虑类的行为（类需要做什么）和状态（类需要知悉什么）来想出类的方法，字段，和属性。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

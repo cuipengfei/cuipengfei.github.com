@@ -375,9 +375,7 @@ SelectMany  是  LINQ  中的基础之一，初看上去它很是令人生畏。
 
 下一次我们讨论  All  和  Any  ，这两个操作符很适合放在一起来讲解。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

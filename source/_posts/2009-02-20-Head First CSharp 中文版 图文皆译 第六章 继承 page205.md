@@ -10,9 +10,7 @@ tags: 我翻译的Head First C#（习作）
 曾经遇到过可以做你想要它做的事情的对象吗？曾经希望过你只要只要修改一点东西对象就变得完美了吗？这就是C#语言中继承如此重要的原因。读了这一章，你将学会如何通
 过继承一个对象来获得它的行为，同时还保持修改它的行为的灵活性。你将不用再复制代码，可以更好的模拟现实世界，最后写出容易维护的代码。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

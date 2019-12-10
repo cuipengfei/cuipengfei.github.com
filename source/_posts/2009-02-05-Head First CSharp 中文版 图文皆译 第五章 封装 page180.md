@@ -25,9 +25,7 @@ Rob  ：太棒了。听着，我刚才接到我老婆的姨妈的电话。姨妈
 
 Rob  ：只有90美元的差距？看去来很不错啊！如果我们把奇妙装饰去掉呢？花费会是多少呢？
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

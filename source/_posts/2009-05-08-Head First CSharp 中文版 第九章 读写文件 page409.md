@@ -58,9 +58,7 @@ tags: 我翻译的Head First C#（习作）
 
 ★如果当前的借口没有保存，这个按钮应该弹出和  Open  按钮一样的对话框。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

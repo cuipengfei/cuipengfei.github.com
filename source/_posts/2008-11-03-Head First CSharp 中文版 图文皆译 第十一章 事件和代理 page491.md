@@ -47,9 +47,7 @@ rgs，就像BallEventArgs那样。窗体的DragDrop事件不用EventHandler。�
 
 一个事件是被  一个  对象触发的，但是可以被  多个  对象响应。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

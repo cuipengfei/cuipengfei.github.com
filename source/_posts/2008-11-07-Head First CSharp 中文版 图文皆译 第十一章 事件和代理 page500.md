@@ -22,9 +22,7 @@ Ball  currentBall  ；
 一个事件需要一个类似的引用--不是指向一个对象，而是指向一个方法。每个事件都需要和很多注册了它的方法保持联系。你已经看见了，那些方法可以处于别的类，甚至是私
 有方法。那么，事件是怎么和它需要调用事件处理方法保持联系的呢？
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

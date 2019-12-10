@@ -13,9 +13,7 @@ tags: 我翻译的Head First C#（习作）
 来处理集合（只列举某些）。我们还要创建一个很复杂的应用的第一阶段，并且确保你很好的掌握了前面几章学过的知识。做好准备  ...
 我们要创建一些很酷的程序了。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

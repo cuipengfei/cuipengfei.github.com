@@ -14,9 +14,7 @@ tags: 我翻译的Head First C#（习作）
 
 你的代码和我们的有点不同吧？解决任何编程问题都不止有一个途径--比如你可能用while循环替代for循环。如果你的程序能运行，你的练习就成功了！
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

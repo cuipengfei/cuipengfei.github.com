@@ -21,9 +21,7 @@ Images/20090614/2009-06-14_22-09-38.jpg)
 
 如果你在创建项目之前知道要创建什么，项目往往会进行的更加顺利。这看起来很简明易懂而且是常识性的。但是它对最终产品至关重要。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

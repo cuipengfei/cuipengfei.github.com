@@ -283,9 +283,7 @@ foreach (TSource item in ReturnAndSetToNull(ref first))
 需要提醒你一下，我觉得  .NET  的  LINQ to Objects  的实现里面是不会这样做的。（以后我可能会用一个有  finalizer
 的集合类来测试一下。）
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

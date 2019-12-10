@@ -36,9 +36,7 @@ void Main（）的方法。然后，程序执行时,Main方法的第一条指�
 
 这个方法是你代码的入口点。执行时，Main（）方法里的代码首先被执行。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

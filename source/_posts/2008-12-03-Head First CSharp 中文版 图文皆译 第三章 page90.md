@@ -19,9 +19,7 @@ Mike  可以把Navigator类的代码复制进另外两个类里面。这样他�
 很多你需要解决得问题都需要反复运用一件事物。在这儿是很多条路径。但是也有可能会是涡轮、狗、音乐文件，任何事物。这些程序有一个共同点：用同样的方式对待同样的事
 物，不管这样的事物有多少个。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

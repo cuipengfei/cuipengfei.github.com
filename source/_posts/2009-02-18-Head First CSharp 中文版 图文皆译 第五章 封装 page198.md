@@ -24,9 +24,7 @@ itializeComponent（）方法中。InitializeComponent（）方法在窗体的�
 注意到构造方法的numberOfCows参数和NumberOfCows属性的后备字段同名了吗？所以如果想在构造方法中使用这个后备字段的话，需要写this.n
 umberOfCows。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

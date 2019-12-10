@@ -22,9 +22,7 @@ Runtime，或叫做CLR。不久之前（但是在C#出现之前），写程序�
 你将会了解关于CLR为你做的的很多事儿。比如说，它为你管理内存，在程序结束时销毁无用的数据。程序员原来要自己处理这些，现在你不用麻烦了。现在你可能不懂，但是
 CLR将会使你学习C#变得容易多了。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

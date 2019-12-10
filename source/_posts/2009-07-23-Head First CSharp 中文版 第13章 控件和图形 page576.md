@@ -40,9 +40,7 @@ tags: 我翻译的Head First C#（习作）
 
 工具栏中的每一个可视化控件都继承自  System.Windows.Forms.Control  。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

@@ -19,9 +19,7 @@ wave类--
 
 向同一个对象的三个引用可以访问不同的方法、属性，而可以访问哪些方法、属性则取决于引用的类型。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

@@ -14,9 +14,7 @@ tags: 我翻译的Head First C#（习作）
 
 想想你会用一副牌做什么呢？如果你在打扑克，通常都会需要洗牌，在牌堆里取出牌或者放牌进去。用数组来做这些并不是很简单。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

@@ -31,9 +31,7 @@ String.IsNullOrEmpty（）
 供了一个简单的方式来完成这个功能：String.IsNullOrEmpty（CurrentJob）在字符串为空或者为null的时候返回true，否则返回fa
 lse。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

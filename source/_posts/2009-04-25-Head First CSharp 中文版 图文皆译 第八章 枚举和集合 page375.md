@@ -49,9 +49,7 @@ Attack（）方法。
 
 药剂会实现一个IPotion接口（一会再讨论它），所以你可以用“is”关键字来看某个武器是不是实现了IPotion。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

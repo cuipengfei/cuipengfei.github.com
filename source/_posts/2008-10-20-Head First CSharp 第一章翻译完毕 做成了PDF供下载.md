@@ -14,9 +14,7 @@ Head First C# 第一章翻译完毕 做成了PDF供下载
 下载地址： [ http://download.csdn.net/source/704235
 ](http://download.csdn.net/source/704235)
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

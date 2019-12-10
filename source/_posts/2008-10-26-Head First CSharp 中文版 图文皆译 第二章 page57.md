@@ -33,9 +33,7 @@ com:office:office" />
 答：因为你运行程序时，发生的第一件事就是保存解决方案里的所有文件并尝试去编译。而编译的时候--不管是运行是还是生成时--
 如果有错误，IDE都会把错误显示在错误列表中而不会去运行程序。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

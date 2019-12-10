@@ -55,9 +55,7 @@ tags: 我翻译的Head First C#（习作）
 异常处理不仅是打印一个错误信息。比如说，在借口管理器中，如果我们知道捕获了一个  FileNotFoundException
 ，我们可以打印一个信息来提示在哪儿可以找到正确的文件。如果我们捕获了关于数据库的异常，我们可以给数据库管理员发一封邮件。这都是基于捕获特定种类的异常的。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

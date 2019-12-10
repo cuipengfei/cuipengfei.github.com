@@ -78,9 +78,7 @@ FileInfo和File的工作方式很类似。如果你要做很多操作文件的�
 ileInfo类几乎可以做File类可以做的一切事情，只是你必须要实例化它。你可以创建一个FileInfo类的实例并且访问它的Exits（）方法或者Open
 Read（）方法，访问方法和使用File类的方法一样。唯一的区别是File类对于小规模的应用来说更快，而FileInfo更适合于大规模的工作。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

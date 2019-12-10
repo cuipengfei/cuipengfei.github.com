@@ -24,9 +24,7 @@ com:office:office" />
 
 答：停止运行按钮只在你运行程序时才会在一个特殊的工具栏上出现。试着再运行一次程序，看看它是不是会出现。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

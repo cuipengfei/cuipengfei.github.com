@@ -31,9 +31,7 @@ ShowDialog  （）方法弹出一个对话框
 ④  ShowDialog  （）方法返回一个  DialogResult  枚举值。它的枚举值有  OK  （代表用户点击了  OK  按钮），
 Cancel  ，  Yes  和  No  （用于  Yes/No  对话框）。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

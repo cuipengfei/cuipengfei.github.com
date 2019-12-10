@@ -61,9 +61,7 @@ Timer--  一个控制模拟器的帧频的，一个控制蜜蜂扇动翅膀的  
 
 使用Paint事件的方式绘制图形的时候，你可以通过设置DoubleBuffered属性来很方便的开启双缓冲。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

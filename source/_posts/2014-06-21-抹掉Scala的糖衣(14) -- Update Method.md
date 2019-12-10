@@ -168,9 +168,7 @@ addressOf(name = “xiao ming”, age = 23)可以看做一个整体，它就如�
 
 apply和update都是蛮简单的语言特性，但是加以合适的应用，却能得到可读性极强的代码。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

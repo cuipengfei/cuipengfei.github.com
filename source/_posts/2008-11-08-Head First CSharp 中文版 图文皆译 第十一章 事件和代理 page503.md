@@ -23,9 +23,7 @@ images/p_blog_csdn_net/cuipengfei1/EntryImages/20081108/%E6%88%AA%E5%9B%BE0163
 
 *  现在用调试器来看看究竟发生了什么。在窗体的三个方法的第一行都加一个断点。然后再次开启程序（这会重新给ingredientMethod赋值，使之等于空），在做上面这五个步骤。用调试器的单步（F11）特性来一步一步的跑这个程序的每一行。看看你点击“Get the ingredient”。它会进入Suzanne或Amy类，这取决于ingredientMethod字段指向哪个方法。 
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

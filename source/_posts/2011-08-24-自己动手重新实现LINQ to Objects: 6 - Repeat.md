@@ -102,9 +102,7 @@ yield  return  element;
   
 其实没有什么结论可写。下一次我们讲  Count  和  LongCount  ，那里面倒是有些有趣的东西可以细说。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

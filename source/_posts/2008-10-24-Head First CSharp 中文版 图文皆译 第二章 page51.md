@@ -17,9 +17,7 @@ com:office:office" />
 
 用IDE去修改窗体设计器生成的代码总是会更简单一些。在IDE里面做的任何修改最终都会反映到项目代码的改变上。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

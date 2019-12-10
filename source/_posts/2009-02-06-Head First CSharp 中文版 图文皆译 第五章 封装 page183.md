@@ -20,9 +20,7 @@ tags: 我翻译的Head First C#（习作）
 
 很幸运，C#给了你一个很有用的工具来使得你的程序总是正确工作--即使用户做了你从来没有预期的事儿。这叫做封装，这对于操作对象是很有用的技术。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

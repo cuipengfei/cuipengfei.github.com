@@ -11,9 +11,7 @@ tags: 我翻译的Head First C#（习作）
 把图像绘制到窗体上去。如果你的眼睛捕捉到一次渲染的尾部，你会认为它是一次闪动。由于需要绘制的图形很多，所以很有可能会出现闪烁。这就是多数业余电脑游戏的毛病
 ...  人眼捕捉到渲染的尾部，把它当做一次闪烁。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

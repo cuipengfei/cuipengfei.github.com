@@ -21,9 +21,7 @@ tags: 我翻译的Head First C#（习作）
 
 答：不可以访问内建的控件的代码。你可以继承自那些控件，再向其中添加行为或者修改其行为。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

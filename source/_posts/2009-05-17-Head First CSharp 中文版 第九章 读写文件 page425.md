@@ -65,9 +65,7 @@ File.WriteAllText("eureka.txt","  שׁוּלּמּ  ");
 dd 05  。前两个字符为“  FF FE  ”，这就是  Unicode  表示将要以两个字节的形式表示一个字符串中的每个字母。然后显示的是希伯来字母
 \--  但是是倒过来的，所以  U+05E9  显示为  e9 05  。现在把文件在文本编辑器中打开  \--  看起来是对的！
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

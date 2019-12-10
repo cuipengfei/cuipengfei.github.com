@@ -37,9 +37,7 @@ IDE  把一行设置为红色并在左侧画一个红色的点，这是调试器
 使用逐语句命令（用工具栏或者  F11  键都可以）来一句一句的执行程序。执行到创建新  Excuse  对象的时候，将会跳入  Excuse
 的构造方法。执行过方法中第一行，  fileName  变量就被赋值了。然后在变量上悬停鼠标来查看它的值。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

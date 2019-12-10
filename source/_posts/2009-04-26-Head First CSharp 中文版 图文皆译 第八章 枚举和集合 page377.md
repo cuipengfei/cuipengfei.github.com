@@ -33,9 +33,7 @@ tingHitPoints参数，还需要给每一个子类实现不同的Move（）方法
 食尸鬼是最厉害的敌人。它生命值是10。只在生命值大于零的时候移动并攻击玩家。移动的时候，三分之二的可能会向着玩家移动，三分之一的可能站着不动。如果距离玩家比
 较近，就攻击玩家，最多伤害值为4。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

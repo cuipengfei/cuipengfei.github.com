@@ -20,9 +20,7 @@ StreamReader  和  StreamWriter  可以胜任
 
 ![](http://student.csdn.net/attachment/200905/23/39098_1243041623T8Nx.jpg)
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

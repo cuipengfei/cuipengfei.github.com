@@ -10,9 +10,7 @@ tags: 我翻译的Head First C#（习作）
 DividedByZero  异常并不一定要发生。你可以通过观察知道代码中有些地方有问题。其他的异常也是一样。这些异常都是可以避免的  \--
 对于异常了解的越多，就越能够避免程序崩溃。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

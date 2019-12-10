@@ -12,9 +12,7 @@ com:office:office" />
 你不能总是控制你的对象做什么。有时...会出事儿。当发生事情的时候，你会希望你的对象足够聪明来应对发生的任何事儿。时间就是这么回事儿。一个对象发布一个事件，
 其他对象注册它，大家一起工作来保持正常运转。更帅的是，你有太多的东西回应同一个事件。这时候，用回调就很方便了。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

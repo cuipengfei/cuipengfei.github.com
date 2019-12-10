@@ -57,9 +57,7 @@ that spans two lines  。”；
 答：使用  Word  程序的时候打开文件的时候。有没有提示过你说“正忙”？一个程序使用一个文件的时候会把文件锁定来防止文件被别的程序访问。所以如果你不调用
 Close  （）方法，那么你的程序就有可能锁定一个文件知道程序结束为止。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

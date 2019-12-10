@@ -31,9 +31,7 @@ BeeControl  和  PictureBox  很类似  ...  所以我们就从继承  PictureBo
 
 ![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090722/2009-07-22_22-24-56.jpg)
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

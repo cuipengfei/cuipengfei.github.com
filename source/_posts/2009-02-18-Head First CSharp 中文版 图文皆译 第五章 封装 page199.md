@@ -44,9 +44,7 @@ tags: 我翻译的Head First C#（习作）
 
 属性（get和set访问器）是只有在别的类读写属性时才得以执行的特殊方法。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

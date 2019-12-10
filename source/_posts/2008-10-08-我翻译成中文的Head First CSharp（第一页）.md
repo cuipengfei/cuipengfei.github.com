@@ -16,9 +16,7 @@ com:office:office" />
 了。更好的是，你可以把精力集中在你的工作上，而不用记住哪个方法参数是给按钮用的，哪个又是给标签（label）用的了。听起来很吸引人吧？翻到下一页，我们开始编
 程吧。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

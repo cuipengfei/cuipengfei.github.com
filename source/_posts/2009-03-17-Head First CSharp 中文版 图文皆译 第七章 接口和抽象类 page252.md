@@ -14,9 +14,7 @@ General Bee-namic  公司想要把你在上一章创建的蜂窝管理程序改
 
 蜜蜂们消耗蜂蜜的方式没有变。蜂后仍然需要给工蜂们分配工作并根据看班次报告来知道哪只蜜蜂在做什么。工蜂们的轮班工作方式也没有变，只是它们需要做的工作被细分了。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

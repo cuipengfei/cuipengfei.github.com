@@ -35,9 +35,7 @@ andom类来做这件事，你有三种方式来调用它的Next（）方法。
 答：  这就是重载了。一个方法有多种被调用的方式就叫做重载。使用重载方法的时候，IDE会给出你所有可能的选择。在这儿，Random的Next（）方法有三种调
 用方式。你一旦键入“random.Next（”，IDE就会弹出智能感应窗口来提示你。现在不用太关心重载的问题，本章后面我们会讲的。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

@@ -32,9 +32,7 @@ tags: 我翻译的Head First C#（习作）
 
 首次启动程序的时候，你看到的是一个空的文本框和“Hide！”按钮。点击按钮，游戏开始！
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

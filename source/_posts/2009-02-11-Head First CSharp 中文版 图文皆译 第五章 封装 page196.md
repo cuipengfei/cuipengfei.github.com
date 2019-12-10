@@ -23,9 +23,7 @@ tags: 我翻译的Head First C#（习作）
 
 在对象初始化器内只可以初始化公有的字段和属性。那么，在某些需要初始化的字段是私有的情况下，怎么确保对象可以得以恰当的初始化呢？
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

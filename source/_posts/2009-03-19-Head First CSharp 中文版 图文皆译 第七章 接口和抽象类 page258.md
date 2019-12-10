@@ -47,9 +47,7 @@ private void Honk  （）；
 ③  翻页之前，试着看看你可不可以完成IClown接口，并让TallGuy类实现它。IClown接口
 要有一个无参的返回值为void的方法，叫做Honk，还有一个只读的strig属性，叫做FunnyThingIHave，它只有get访问器没有set访问器。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

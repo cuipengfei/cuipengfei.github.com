@@ -25,9 +25,7 @@ tags: 我翻译的Head First C#（习作）
 
 让程序崩溃固然不好。但是不知道崩溃的原因或者不知道程序在对用户的数据做什么则更糟。所以你总是要处理可以预见的异常并记录不可预见的异常。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

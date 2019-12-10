@@ -11,9 +11,7 @@ tags: 我翻译的Head First C#（习作）
 
 继承使得你可以很容易的给Queen和Worker添加蜂蜜消耗量计算的行为。如果不是有继承要做这个改变就很困难，会产生很多重复代码。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

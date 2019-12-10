@@ -45,9 +45,7 @@ ctarCollector继承StingPatrol--
 你可以想到使用接口的同时还可以防止冗余代码的方法吗？你可以创建一个叫做Stinger或者Proboscis的类，它包含采集花粉或者巡逻的特定代码。Necta
 rCollector和StingPatrol可以创建一个它的实例，在需要做某种工作的时候就调用它的方法、属性。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

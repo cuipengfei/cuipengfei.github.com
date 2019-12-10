@@ -46,9 +46,7 @@ Used date  。现在选择一个文件夹并试着去保存借口。得下面�
 3\.  给外层  try/catch  块添加一个  finally  来把窗体重设为它的原始的空白状态。如果  clearForm  为  true
 的话，把  LastUsed.Value  重设为  DateTime.Now  （这会返回当前时间）。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

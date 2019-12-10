@@ -26,9 +26,7 @@ PictureBox  控件来显示的。不过我们在蜜蜂身上深入一些吧，�
 
 ![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090720/2009-07-20_09-47-20.jpg)
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

@@ -35,9 +35,7 @@ tags: 我翻译的Head First C#（习作）
 
 普通事件和回调的一个大区别就是类公布事件向世界宣称一些特定的事儿发生了。但是回调从来都不公布。它是私有的，做调用的方法紧紧地控制着谁要调用。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

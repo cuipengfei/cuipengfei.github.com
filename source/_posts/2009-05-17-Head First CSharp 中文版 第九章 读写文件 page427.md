@@ -47,9 +47,7 @@ BinaryWriter  的方法来写出数据。所以再向窗体添加一个按钮吧
 
 小提示：字符串的长度不定，所以字符串必须要以一个标记其长度的数字开始。你也可以通过字符映射表来查看字符串和字符对应的  Unicode  值。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

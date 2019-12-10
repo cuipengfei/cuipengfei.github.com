@@ -48,9 +48,7 @@ lifeSpan = random.Next  （  LifeSpanMin  ，  LifeSpanMax + 1  ）；
 
 我们最后要把它做成有动画效果的，会有蜜蜂飞来飞去的图片。  Go  （）方法会每一帧被调用一次，而每秒钟会有若干帧。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

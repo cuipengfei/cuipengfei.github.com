@@ -10,9 +10,7 @@ tags: 我翻译的Head First C#（习作）
 
 有了VS  IDE，添加控件和润饰UI就简单到只需要拖拽的程度。我们来给窗体上添加一个logo：
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

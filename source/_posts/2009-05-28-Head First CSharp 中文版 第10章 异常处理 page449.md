@@ -34,9 +34,7 @@ tags: 我翻译的Head First C#（习作）
 
 运行调试器的时候，  IDE  会停止你的程序并用黄色高亮显示下一句即将执行的语句。然后你可以逐语句的执行直到找到问题所在。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

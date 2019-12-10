@@ -19,9 +19,7 @@ umerable接口的对象来创建List，Queue或者Stack对象。你要做的就�
 
 ...  你总是可以用foreach循环来遍历堆栈或者队列中的元素。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

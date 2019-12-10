@@ -41,9 +41,7 @@ tags: 我翻译的Head First C#（习作）
 
 *  调试器是帮你更好的认识事件、委托、回调是怎么运作的好工具。好好利用它！ 
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

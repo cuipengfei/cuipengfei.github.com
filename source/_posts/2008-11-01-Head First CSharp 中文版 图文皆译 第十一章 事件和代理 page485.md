@@ -31,9 +31,7 @@ com:office:office" />
 记住，这些在运行时都是无需你的介入的。所以你写代码来触发事件，然后你写代码来处理事件，并且通知你的程序。然后，无论何时一个事件被触发，你的处理者就开始行动.
 ..  你不需要做任何事儿  。并且，最好的是，你的对象有了  关注点分离  。它们关注自己，不是别的对象。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

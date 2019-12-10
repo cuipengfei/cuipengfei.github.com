@@ -19,9 +19,7 @@ Co.-Contactt List”。
 
 好的应用不仅仅要可以工作，还要易用。确定程序的行为符合标准用户的预期总会是一个好主意。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

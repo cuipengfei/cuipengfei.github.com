@@ -18,9 +18,7 @@ com:office:office" />
 你用一个等号（=）来给变量赋值，但是两个等号（= =）是用来比较两个变量的。你无法相信程序中的多少bug--即使是老手程序员写的！--是因为错把=
 =用成了=。如果你看见IDE提示你“不能隐式把int转化为bool”，那可能就是出上面讲的差错了。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

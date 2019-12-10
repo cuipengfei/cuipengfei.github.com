@@ -25,9 +25,7 @@ C#  实验室
 
 由你来完成这个任务。  你可以从我们的网站下载这个实验室的可执行文件...但是我们不会给出你答案代码。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

@@ -206,9 +206,7 @@ jacoco:cover的监视下跑的，所以自然就纳入了coverage的范围。
 
   3. 重复发明轮子总是会显得很诱人，因为它看起来可以非常直接而且准确的解决我们的问题。而实际上它常常是直接而且准确的解决我们的问题的现象。如果能找到现象产生的原因，干死这个原因，问题的解决或许会更彻底。 
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

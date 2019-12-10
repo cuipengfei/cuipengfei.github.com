@@ -50,9 +50,7 @@ Invalidate  消息移动到消息队列中的最上方。
 有一个捷径，就是  Refresh  （）方法，它首先调用  Invalidate  （）方法来让整个区域失效，然后调用  Update
 （）来使得消息移动到队列的顶端。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

@@ -16,9 +16,7 @@ tags: 我翻译的Head First C#（习作）
 
 由于Bee，Hive，Flower和World这些类是封装良好的，所以可以添加一个渲染这些对象的类并不会对已有代码产生什么影响。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

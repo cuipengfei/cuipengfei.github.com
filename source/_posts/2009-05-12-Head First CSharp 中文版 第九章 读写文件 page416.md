@@ -12,9 +12,7 @@ tags: 我翻译的Head First C#（习作）
 你可以把你的对象很简单的序列化到一个流而不是很费劲的把每个字段、每个值写入文件。对象序列化就好像是把对象压平，这样你就可以把它塞进文件中去。另一方面，你也可
 以反序列化，就好像是把它从文件中取出来在恢复原状。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

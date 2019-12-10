@@ -38,9 +38,7 @@ tags: 我翻译的Head First C#（习作）
 
 流让你可以读写数据。要使用和你操作的数据类型对应的流。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

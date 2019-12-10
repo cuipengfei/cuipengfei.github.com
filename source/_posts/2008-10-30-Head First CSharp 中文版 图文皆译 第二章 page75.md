@@ -19,9 +19,7 @@ Label1.BackColor=Color.Red;
 
 （提示：测试标签的背景颜色是不是红色的代码和上面的很像--但是有一点小区别！）
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

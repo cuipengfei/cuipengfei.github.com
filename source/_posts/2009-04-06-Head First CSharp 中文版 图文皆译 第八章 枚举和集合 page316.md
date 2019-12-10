@@ -21,9 +21,7 @@ tags: 我翻译的Head First C#（习作）
 移除牌是很简单的--但是给topCard减1之后，你需要把被移除的牌原来所在的位序设置为空。而如果需要在数组中间某个位置移除一张牌又怎么办呢？如果你想要移除
 第四张牌，那你就要把第五张牌向前移来填补空白，然后前移第六张牌，然后第七张...噢，这太麻烦了！
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

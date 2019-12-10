@@ -67,9 +67,7 @@ tags: 我翻译的Head First C#（习作）
 
 *  没错，可以覆写属性！和覆写方法一样。你设置base.NumberOfPeople的值的时候，会调用这个属性父类中的的set访问器。使用set和get访问器都需要用到base关键字。 
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

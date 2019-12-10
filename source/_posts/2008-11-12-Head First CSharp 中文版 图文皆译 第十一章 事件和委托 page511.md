@@ -28,9 +28,7 @@ tags: 我翻译的Head First C#（习作）
 亨利就这么失败了。他自己注册事件时就不经意的帮别的寻宝者都注册了！这意味着每个人的事件处理器都关联到同一个事件。所以螃蟹逃跑时，每个人都收到通知。但是亨利不
 知道自己什么时候被调用，要是别人先注册，别人就先得到通知。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

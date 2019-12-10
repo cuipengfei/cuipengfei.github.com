@@ -41,9 +41,7 @@ Words Via Subtitle  改进：视频播放例句、加快生成  WPS  文档的
 程序下载地址：  [ http://cuipengfei1.download.csdn.net/
 ](http://cuipengfei1.download.csdn.net/)
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

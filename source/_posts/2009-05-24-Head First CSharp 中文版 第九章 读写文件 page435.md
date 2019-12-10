@@ -53,9 +53,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 Excuse  类将会处理余下的一切。这样，如果你要修改  Excuse  类处理文件的方式的话就很简单了。类封装的越好，后续工作中就越容易修改。还记得封装
 是四个面向对象核心原则之一吗？这里的例子就说明了运用那些原则会如何的使得你的编程便容易。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

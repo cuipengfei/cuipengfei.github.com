@@ -42,9 +42,7 @@ public class Guy
 如果在运行程序的过程中  Joe  在和  Bob  交易中攒了  200  美元，而仅仅因为你要关闭程序而把这些钱丢失了那实在是太不爽了。现在你可以把
 Joe  存储到文件并且随时可以读取回来。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

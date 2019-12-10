@@ -21,9 +21,7 @@ tags: 我翻译的Head First C#（习作）
 
 在子类中用以override关键字修饰的方法来替代从父类中继承来的方法。在此之前，父类中的方法需要用virtual关键字修饰。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

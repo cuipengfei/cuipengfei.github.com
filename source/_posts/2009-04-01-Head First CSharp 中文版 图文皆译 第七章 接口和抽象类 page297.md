@@ -13,9 +13,7 @@ tags: 我翻译的Head First C#（习作）
 些。啊，对手还需要一些地方来藏起来！我们需要一个新的接口来让某些房间可以有藏人的地方。最后，我们需要升级窗体来让你检查藏人的地方，还需要记录你为了找到对方已
 经移动了几次。听起来不错吧？肯定不错！
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

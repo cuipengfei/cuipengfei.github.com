@@ -30,9 +30,7 @@ tags: 我翻译的Head First C#（习作）
 
 用记事本打开  Deck1.dat  。这个文件看起来可能不很爽，但是其中包含了所有恢复一副牌的用得到的信息。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

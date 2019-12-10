@@ -25,9 +25,7 @@ Exception  。
 在我们的例子中，  IndexOutOfRangeException  提醒你你有一个  bug
 ：你试图去访问一个越界的数组元素。你也得到了问题出在代码中什么位置的信息，这样跟踪问题就简单多了（即使你有数千行代码）。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

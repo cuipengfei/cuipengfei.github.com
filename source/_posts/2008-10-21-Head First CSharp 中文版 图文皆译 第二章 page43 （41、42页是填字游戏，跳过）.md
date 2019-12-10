@@ -13,9 +13,7 @@ com:office:office" />
 用IDE你可以完成很多任务。但是它也只能带你走那么远了。当然，创建一个应用的时候你有很多的  重复任务  要做。IDE很善于为你做那些事儿。但是用IDE工作
 只是一个开始  。你可以让你的程序做的更多--  写C#代码  是实现的方式。一旦你掌握了编码的窍门，就没有你的程序做不到的了。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

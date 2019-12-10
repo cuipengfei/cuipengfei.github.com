@@ -20,9 +20,7 @@ C#  总是会调用最具体的方法
 Animal中的话，那就是描述了一个普遍性的、对于所有动物都适用的行为。所以如果你让狗出声音的话，C#会先去Dog类中找适用于狗的这种行为。如果Dog类没有
 这种行为，就去Canine中找，然后再去Animal中找。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

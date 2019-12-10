@@ -35,9 +35,7 @@ efendTheHive（）方法。或许蜂后可以用两个各版本的方法：
 
 接口要求其实现类实现接口中定义的所有方法和属性，否则，编译器将会报错。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

@@ -14,9 +14,7 @@ E就会自动创建一个它的实例并命名为button1。在拖拽一个Button
 
 打开一个含有叫做button1的按钮实例的工程，在IDE里面搜索“new Button”。你将在窗体设计器里发现创建Button类的实例的代码。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

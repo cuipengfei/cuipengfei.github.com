@@ -16,9 +16,7 @@ tags: 我翻译的Head First C#（习作）
 
 你可以把流连接起来。一个流写到另一个流，然后再写到另一个流...最终通常以网络流或者文件流结束。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

@@ -41,9 +41,7 @@ tags: 我翻译的Head First C#（习作）
 缩放图片耗费很多处理器时间！只做一次的话，没关系。但是如果每一帧都处理的话，程序就会变慢。蜜蜂的尺寸很大，渲染器把它四处移动的时候（尤其是在蜂巢中的时候），
 就必须一次又一次的缩放。这就导致了性能问题！
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

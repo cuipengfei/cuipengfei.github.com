@@ -51,9 +51,7 @@ World  了，你应该可以运用这个约束了。
 
 World  类保持所有的存在的蜜蜂。当  Hive  创建幼蜂的时候，确保这个蜜蜂被添加到  World  保持的全局列表里面去。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

@@ -20,9 +20,7 @@ IDE  为你创建了很多代码，但是你仍然会想要深入代码并增加
 
 答：那是换行符。它告诉C#把“Contact List 1.0”放在第一行，并为“Written by”新起一行。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

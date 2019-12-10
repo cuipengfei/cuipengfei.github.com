@@ -14,9 +14,7 @@ tags: 我翻译的Head First C#（习作）
 程序创建自己的控件，添加一些双缓冲，或者是直接绘制到窗体上去。这一切都开始于  Graphics  对象，  Bitmaps
 ，还有不满足于图形的现状的决心。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

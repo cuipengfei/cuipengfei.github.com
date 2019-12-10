@@ -54,9 +54,7 @@ DrawImageUnscaled  （）来绘制蜂巢内部的图片，然后使用  DrawImag
 
 *  绘制蜜蜂的时候，要记得  AnimateBees  （）方法设置了  Cell  字段。 
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

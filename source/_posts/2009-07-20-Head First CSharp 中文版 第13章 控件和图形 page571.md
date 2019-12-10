@@ -15,9 +15,7 @@ tags: 我翻译的Head First C#（习作）
 
 附加题：你认为为什么我们没有把  Controls.Remove  （）语句写在  foreach  循环之内呢？
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

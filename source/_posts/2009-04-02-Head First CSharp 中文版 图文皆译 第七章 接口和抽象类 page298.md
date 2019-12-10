@@ -43,9 +43,7 @@ tags: 我翻译的Head First C#（习作）
 
 ★  前院和后院都连接着车道，车道上的车库里可以藏身。还有，花园里的棚里也可藏身。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

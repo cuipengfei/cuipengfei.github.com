@@ -19,9 +19,7 @@ tags: 我翻译的Head First C#（习作）
 一个子类，父类的行为是不会改变的。父类甚至到不会知晓有一个新的子类存在。父类的方法，字段，和属性都是原封不动的。而子类的行为却改变了。每一个子类的实例都会得
 到父类所有的字段，方法和属性，而这一切，只写一个冒号就做到了。在类图上这样画箭头就代表父类会成为子类的一部分，而箭头指向子类继承的父类。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

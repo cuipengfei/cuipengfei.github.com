@@ -20,9 +20,7 @@ net/cuipengfei1/EntryImages/20090329/2009-03-29_21-24-40.jpg)
 0090329/2009-03-29_21-41-19.jpg) ](https://p-blog.csdn.net/images/p_blog_csdn_
 net/cuipengfei1/EntryImages/20090329/2009-03-29_21-41-19.jpg)
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

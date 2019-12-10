@@ -300,9 +300,7 @@ Int32.MaxValue  个元素的话，它的  Count  属性应该返回什么值呢�
 下一次我想我会去实现  Concat  ，主要是因为实现了  Concat  就可以把对  Count  进行溢出测试的代码反注释了。  Concat
 是一个会返回一个序列的操作符，不过它很简单。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

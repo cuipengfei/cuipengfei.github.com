@@ -41,9 +41,7 @@ public int BagsOfFeed  { get  ；private set； }
 
 重新生成代码--你将会在新添加的按钮设置BagsOfFeed的那一行代码处发现一个错误，它告诉你set访问器是私有的。现在Farmer类封装的好多了！
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

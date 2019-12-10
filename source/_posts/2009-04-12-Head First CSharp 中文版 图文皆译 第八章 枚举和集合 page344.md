@@ -34,9 +34,7 @@ Fish（钓鱼）！不同的人玩这个游戏的方式不太一样，所以下�
 
 如果你在开始之前不知道自己要做什么，那你如何知道什么时候算是做完了呢？所以多数专业的软件项目都是从规格说明开始，它告诉你你要做什么。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

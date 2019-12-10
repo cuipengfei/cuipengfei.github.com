@@ -12,9 +12,7 @@ tags: 我翻译的Head First C#（习作）
 迄今为止，你写过的程序都很短命。启动，运行一会，然后就关闭了。这样是不够的，尤其是处理重要的信息时。你需要可以存盘。这一章，我们将会看看如何把数据写到文件，
 然后学习如何把文件中的信息读取出来。你将会学习关于输入输出流的类，还会小窥一下十六进制和二进制的秘密。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

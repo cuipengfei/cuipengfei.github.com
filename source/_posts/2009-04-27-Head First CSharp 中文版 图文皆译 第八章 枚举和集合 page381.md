@@ -34,9 +34,7 @@ cters（）方法。
 剂，攻击按钮还是调用Game的Attack（）方法--但是使用药剂的时候不需要方向。所以要使Left、Right、Down的按钮不可见（玩家装备别的武器之后
 要把它们修改回可见状态），并把Up按钮的文字设置为“Drink”。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

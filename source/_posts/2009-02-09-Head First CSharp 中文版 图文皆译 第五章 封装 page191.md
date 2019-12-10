@@ -30,9 +30,7 @@ tags: 我翻译的Head First C#（习作）
 没有确切的理由声明公有的时候，就别声明公有。把类内的东西都声明为公有会使得事情很糟糕--
 但是也别把所有东西都声明为私有。首先把哪些是公有，哪些是私有想清楚，之后就可以节省很多时间。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

@@ -49,9 +49,7 @@ public class Bee : IStingPatrol {
 添加一个LookForEnemies方法和一个SharpenStinger方法--这两个方法不需要做什么。然后添加一个叫做AlertLevel的int属性的
 get访问器还有一个叫做StingerLength的int属性的set访问器。现在程序可以编译了！
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

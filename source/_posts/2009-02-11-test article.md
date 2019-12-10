@@ -12,9 +12,7 @@ tags: undefined
 
 ，正以其专业、智能和高含量的技术纯度，成为您的精准网络营销专家！
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

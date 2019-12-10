@@ -69,9 +69,7 @@ cells  的元素，这样就只有缩放过的图片才会被显示出来。
 
 现在运行模拟器，快多了！
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

@@ -18,9 +18,7 @@ tags: 我翻译的Head First C#（习作）
 
 希望大家下一下，帮忙分流，O(∩_∩)O谢谢
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

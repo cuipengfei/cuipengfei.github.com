@@ -10,9 +10,7 @@ tags: 我翻译的Head First C#（习作）
 有时候给对象们分类要基于他们可以做的事，而不是他们共同继承的父类。接口就是做这个用的--
 处理一些可以做一样的事情的类。但是能力越大，责任越大，实现一个接口也就意味着要尽应尽的义务...否则编译器决不答应，明白？
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

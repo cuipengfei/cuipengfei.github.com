@@ -12,9 +12,7 @@ ngfei1/EntryImages/20081030/%E6%88%AA%E5%9B%BE02633610043085581250.jpg)
 ](http://www.headfirstlabs.com/books/hfcsharp/) 下载所有练习的答案。  <?xml:namespace
 prefix = o ns = "urn:schemas-microsoft-com:office:office" />
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

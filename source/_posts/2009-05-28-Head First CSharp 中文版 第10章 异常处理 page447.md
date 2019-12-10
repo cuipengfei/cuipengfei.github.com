@@ -19,9 +19,7 @@ tags: 我翻译的Head First C#（习作）
 有时候程序员看见异常就会感觉很沮丧。不过异常是很有用处的，你可以利用它。看见异常的时候，它给出你很多的线索，帮你找出代码中有未预期行为的地方。这对你有好处：
 它让你知道你的程序需要处理什么新的状况，并给你一个机会去处理它。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

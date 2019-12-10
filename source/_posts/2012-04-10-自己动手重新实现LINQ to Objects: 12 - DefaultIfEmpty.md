@@ -153,9 +153,7 @@ SingleOrDefault  也可以通过类似的方式来实现。
 
 我现在不确定下次要实现哪个操作符。我明早看看会不会有哪个特殊的方法让我获得灵感。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

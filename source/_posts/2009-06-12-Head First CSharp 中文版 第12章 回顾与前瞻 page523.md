@@ -35,9 +35,7 @@ tags: 我翻译的Head First C#（习作）
 答：你在每个方法中写的代码的顺序或许不同，但是只要功能和我们的一样，那就可以。这是封装的另一个方面：一个类只要做其该做的事情，那么它的内部实现对于别的类来说
 不重要。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

@@ -29,9 +29,7 @@ yImages/20090310/2009-03-10_13-21-30.jpg)
 蜂后分配完工作之后，她点击“Work the next
 shift（进行下一个半次）”按钮。然后程序生成一个班次报告告诉蜂后哪些蜜蜂这个班次上工了，它做了什么工作，还需要多少个班次来完成一项工作。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

@@ -27,9 +27,7 @@ eException。
 ：我们要确保它有一个叫做OnBallInPlay的方法，以BallEventArgs对象作为参数。棒球模拟器会在需要球触发BallInPlay时间的时候调用
 这个方法--所以当模拟器检测到球棒击打棒球，它创建一个带有球的距离和轨道的BallEventArgs新实例并把它传递给OnBallInPlay（）。
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)

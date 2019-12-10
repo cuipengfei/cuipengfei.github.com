@@ -7,9 +7,7 @@ tags: 我翻译的Head First C#（习作）
 images/p_blog_csdn_net/cuipengfei1/EntryImages/20081028/%E6%88%AA%E5%9B%BE0163
 3608283205112500.jpg)
 
-  * [ 点赞  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
+
 
 [ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
 ![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
