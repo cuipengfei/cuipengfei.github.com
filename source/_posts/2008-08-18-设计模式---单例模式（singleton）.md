@@ -5,8 +5,8 @@ tags: 设计模式读书笔记
 ---
 设计模式---单例模式（singleton）
 
-![c56fe019dbd71a62dbb4bd42.jpg](http://hiphotos.baidu.com/yansuochonglou/pic/i
-tem/c56fe019dbd71a62dbb4bd42.jpg)
+
+![c56fe019dbd71a62dbb4bd42.jpg](http://hiphotos.baidu.com/yansuochonglou/pic/item/c56fe019dbd71a62dbb4bd42.jpg)
 
 using System;  
 using System.Collections.Generic;  
