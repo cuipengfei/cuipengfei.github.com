@@ -1,7 +1,7 @@
 ---
 title: 自己动手重新实现LINQ to Objects 8 - Concat
 date: 2011-09-14 22:40:28
-tags: linq
+tags: LinQ
 ---
 本文翻译自  [ Jon Skeet  ](http://stackoverflow.com/users/22656/jon-skeet) 的系列博文“
 Edulinq  ”。

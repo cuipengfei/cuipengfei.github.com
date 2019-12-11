@@ -1,7 +1,7 @@
 ---
 title: 自己动手重新实现LINQ to Objects 12 - DefaultIfEmpty
 date: 2012-04-10 11:57:25
-tags: linq
+tags: LinQ
 ---
 本文翻译自  [ Jon Skeet  ](http://stackoverflow.com/users/22656/jon-skeet) 的系列博文“
 Edulinq  ”。
