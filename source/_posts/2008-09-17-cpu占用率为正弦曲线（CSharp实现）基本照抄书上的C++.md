@@ -5,42 +5,45 @@ tags: 《编程之美——微软技术面试心得》的C#实现
 ---
 internal值根据配置调整
 
-  1. using  System; 
-  2. using  System.Collections.Generic; 
-  3. using  System.Linq; 
-  4. using  System.Text; 
-  5.   6. namespace  ConsoleApplication1 
-  7. { 
-  8. class  Program 
-  9. { 
-  10. static  void  Main(  string  [] args) 
-  11. { 
-  12. const  double  SPLIT = 0.01; 
-  13. const  int  COUNT = 200; 
-  14. const  double  PI = 3.14159265; 
-  15. const  int  INTERVAL = 100; 
-  16.   17.   18. double  [] busySpan =  new  double  [COUNT];  //array of busy times 
-  19. double  [] idleSpan =  new  double  [COUNT];  //array of idle times 
-  20. int  half = INTERVAL / 2; 
-  21. double  radian = 0.0; 
-  22. for  (  int  i = 0; i < COUNT; i++) 
-  23. { 
-  24. busySpan[i] = (  double  )(half + (Math.Sin(PI * radian) * half)); 
-  25. idleSpan[i] = INTERVAL - busySpan[i]; 
-  26. radian += SPLIT; 
-  27. } 
-  28. double  startTime = 0; 
-  29. int  j = 0; 
-  30. while  (  true  ) 
-  31. { 
-  32. j = j % COUNT; 
-  33. startTime = Environment.TickCount; 
-  34. while  ((Environment.TickCount - startTime) <= busySpan[j]) ; 
-  35. System.Threading.Thread.Sleep((  int  )idleSpan[j]); 
-  36. j++; 
-  37. } 
-  38.   39. } 
-  40.   41.   42. } 
-  43. } 
-  44. 
+```
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            const double SPLIT = 0.01;
+            const int COUNT = 200;
+            const double PI = 3.14159265;
+            const int INTERVAL = 100;
+            double[] busySpan = new double [COUNT]; //array of busy times
+            double[] idleSpan = new double [COUNT]; //array of idle times
+            int half = INTERVAL / 2;
+            double radian = 0.0;
+            for (int i = 0; i < COUNT; i++)
+            {
+                busySpan[i] = (double) (half + (Math.Sin(PI * radian) * half));
+                idleSpan[i] = INTERVAL - busySpan[i];
+                radian += SPLIT;
+            }
+
+            double startTime = 0;
+            int j = 0;
+            while (true)
+            {
+                j = j % COUNT;
+                startTime = Environment.TickCount;
+                while ((Environment.TickCount - startTime) <= busySpan[j]) ;
+                System.Threading.Thread.Sleep((int) idleSpan[j]);
+                j++;
+            }
+        }
+    }
+}
+```
 

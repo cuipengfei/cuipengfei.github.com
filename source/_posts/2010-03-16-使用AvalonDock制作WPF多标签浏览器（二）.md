@@ -3,6 +3,7 @@ title: 使用AvalonDock制作WPF多标签浏览器（二）
 date: 2010-03-16 21:19:00
 tags: 杂7杂8
 ---
+
 闲话少叙，书接上文。
 
 现在我们已经通过  ReStyle  给  DocumentPane  加上了一个加号的按钮，并且可以通过点击该按钮给  DocumentPane  的
@@ -111,25 +112,18 @@ WebBrowser  重定向到输入的地址呢？
 
 啊哦  ~~~~~
 
-  
-
 ![](http://images.cnblogs.com/cnblogs_com/cuipengfei/2010-03-16_20-51-40.jpg)
 
 新标签是空的，不是明明已经在每个新标签被添加时给其中加上一个  WebBrowser  了吗？咋没有捏？这究竟是哪儿来的  Bug  呢？
 
-  
-
 再注意观察一下，这个新标签的标题是  new content  而不是  New Tab  ，呵呵，是不是已经猜到了呢？
 
-  
+
 
 其实这是和  AvalonDock  中的另一个类  \--  DocumentFloatingWindow  有关的问题。
 
-  
+
 
 怎么解决这个问题明天再说吧。
 
 Over and out  ！
-
-
-

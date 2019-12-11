@@ -3,6 +3,7 @@ title: 使用AvalonDock制作WPF多标签浏览器（一）
 date: 2010-03-15 22:31:00
 tags: 杂7杂8
 ---
+
 AvalonDock  是  CodePlex  上的一个开源项目，利用它可以很容易的做出类似于  VS  的  UI  效果。
 
 下图是  AvalonDock  源码中自带的一个  Demo  ：
@@ -101,6 +102,3 @@ http://channel9.msdn.com/shows/10-4/  ](http://channel9.msdn.com/shows/10-4/)
 ）
 
 Over and out  ！  Ciao  ！
-
-
-

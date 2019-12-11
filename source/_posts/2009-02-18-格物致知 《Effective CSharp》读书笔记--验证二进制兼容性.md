@@ -13,75 +13,75 @@ tags: 格物致知 《Effective C#》读书笔记
 
 创建一个ClassLibrary，叫做TheDLL。代码如下：
 
-public  class  DataHolder
-
+```
+public class DataHolder
 {
-
-public  String  Data =  "Hey! Hey!You!You!"  ;
-
+    public String Data = "Hey! Hey!You!You!";
 }
+```
+
 
 用它生成一个dll。
 
 然后创建一个WindowsFormsApplication，叫做TheForm，上有一个按钮，点击按钮就去读取dll中的数据，把它显示在按钮上。具体代码如下
 ：
 
-public  partial  class  TheForm  :  Form
+```
+public partial class TheForm : Form
 
 {
+    public TheForm()
 
-public  TheForm()
+    {
+        InitializeComponent();
+    }
 
-{
+    private void button1_Click(object sender, EventArgs e)
 
-InitializeComponent();
+    {
+        TheDLL.DataHolder DH = new TheDLL.DataHolder();
 
+        button1.Text = DH.Data;
+    }
 }
+```
 
-private  void  button1_Click(  object  sender,  EventArgs  e)
-
-{
-
-TheDLL.  DataHolder  DH =  new  TheDLL.  DataHolder  ();
-
-button1.Text = DH.Data;
-
-}
-
-}
 
 运行，点击按钮，效果如下：
 
+
 ![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090218/2009-02-18_13-07-45.jpg)
+
 
 然后修改  TheDLL  的代码为如下：
 
-public  class  DataHolder
+```
+public class DataHolder
 
 {
+    private String data = "Hey! Hey!You!You!";
 
-private  String  data =  "Hey! Hey!You!You!"  ;
+    public String Data
 
-public  String  Data
+    {
+        get { return data; }
 
-{
-
-get  {  return  data; }
-
-set  { data =  value  ; }
-
+        set { data = value; }
+    }
 }
+```
 
-}
 
 重新生成dll，把新生成的dll复制到TheForm的debug文件夹下去覆盖原来的dll文件。然后双击运行TheForm.exe。结果如下：
 
 ![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090218/2009-02-18_13-11-29.jpg)
 
-提示找不到TheDLL.DataHolder.Data。没错!这就是因为访问字段和访问属性的C#代码虽然一样，都是  TheDLL.  DataHolder
-DH =  new  TheDLL.  DataHolder  ();
+提示找不到TheDLL.DataHolder.Data。没错!这就是因为访问字段和访问属性的C#代码虽然一样，都是
 
-button1.Text = DH.Data;
+```
+TheDLL.DataHolder DH = new TheDLL.DataHolder();
+button1.Text = DH.Data;
+```
 
 但是生成的MSIL是不一样的，这就造成了二进制不兼容。
 
@@ -89,41 +89,36 @@ button1.Text = DH.Data;
 
 另外，即使在TheForm中用try -catch来把访问dll的代码包含起来，如下：
 
-public  partial  class  TheForm  :  Form
+```
+public partial class TheForm : Form
 
 {
+    public TheForm()
 
-public  TheForm()
+    {
+        InitializeComponent();
+    }
 
-{
+    private void button1_Click(object sender, EventArgs e)
 
-InitializeComponent();
+    {
+        try
 
+        {
+            TheDLL.DataHolder DH = new TheDLL.DataHolder();
+
+            button1.Text = DH.Data;
+        }
+
+        catch (Exception)
+
+        {
+        }
+    }
 }
+```
 
-private  void  button1_Click(  object  sender,  EventArgs  e)
-
-{
-
-try
-
-{
-
-TheDLL.  DataHolder  DH =  new  TheDLL.  DataHolder  ();
-
-button1.Text = DH.Data;
-
-}
-
-catch  (  Exception  )
-
-{
-
-}
-
-}
-
-}  还是会发生上图报错的结果。
+还是会发生上图报错的结果。
 
 
 
