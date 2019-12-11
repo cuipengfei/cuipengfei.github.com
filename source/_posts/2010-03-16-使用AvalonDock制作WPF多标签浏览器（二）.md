@@ -1,7 +1,7 @@
 ---
 title: 使用AvalonDock制作WPF多标签浏览器（二）
 date: 2010-03-16 21:19:00
-tags: 杂7杂8
+tags: WPF
 ---
 
 闲话少叙，书接上文。

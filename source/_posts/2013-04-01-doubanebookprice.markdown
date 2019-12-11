@@ -4,6 +4,8 @@ title: "用豆瓣读书Chrome插件，简单购买电子书"
 date: 2013-04-01 16:09
 comments: true
 tags:
+- 豆瓣
+- 读书
 ---
 
 ## 为什么要做这款插件？

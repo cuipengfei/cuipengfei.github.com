@@ -1,7 +1,7 @@
 ---
 title: "WP7 Tip: 禁用Pivot控件的切换手势"
 date: 2011-07-06 13:26:26
-tags: 杂7杂8
+tags: C#
 ---
 原文地址： [ http://www.imaginativeuniversal.com/blog/post/2010/12/09/WP7-Tip-
 disabling-the-Pivot-Control-swipe-gesture.aspx

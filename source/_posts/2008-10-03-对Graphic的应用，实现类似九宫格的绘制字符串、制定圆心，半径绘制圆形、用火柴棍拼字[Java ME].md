@@ -1,7 +1,7 @@
 ---
 title: 对Graphic的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME]
 date: 2008-10-03 10:26:00
-tags: 杂7杂8
+tags: graphics
 ---
 ![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081003/%E6%88%AA%E5%9B%BE03.jpg)
 

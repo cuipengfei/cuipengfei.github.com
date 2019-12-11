@@ -5,6 +5,7 @@ date: 2014-06-22 17:00
 comments: true
 keywords: scala, play, sbt, protractor, build, CI
 tags:
+- Scala
 ---
 
 我所在的项目的技术栈选用的是Play framework做后端API，前端用Angular JS。

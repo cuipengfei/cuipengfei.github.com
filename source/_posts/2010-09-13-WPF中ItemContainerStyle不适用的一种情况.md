@@ -1,7 +1,7 @@
 ---
 title: WPF中ItemContainerStyle不适用的一种情况
 date: 2010-09-13 23:55:00
-tags: 杂7杂8
+tags: WPF
 ---
 WPF中的ItemsControl定义了  ItemContainerStyle  这一属性，顾名思义，该属性用来给
 ItemsControl中包含的每一个Item的容器定义样式  。

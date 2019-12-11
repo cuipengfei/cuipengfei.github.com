@@ -1,7 +1,7 @@
 ---
 title: 送给所有需要学英语的朋友—Words Via Subtitle
 date: 2010-10-06 16:50:00
-tags: 杂7杂8
+tags: Words Via Subtitle
 ---
 
 从名字就可以看出来，Words Via Subtitle是用来通过字幕学单词的辅助工具。它通过解析美剧或者电影的字幕文件把其中的生词取出，用网络上提供的开放

@@ -1,7 +1,7 @@
 ---
 title: Words Via Subtitle的两点改进
 date: 2009-09-10 15:12:00
-tags: undefined
+tags: Words Via Subtitle
 ---
 
 上周写了一个  [ 通过英文剧集、电影学单词的小工具

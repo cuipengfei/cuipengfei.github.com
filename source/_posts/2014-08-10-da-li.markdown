@@ -4,7 +4,7 @@ title: "大理"
 date: 2014-08-10 20:38
 comments: true
 keywords: 大理
-tags:
+tags: 图
 ---
 昆明机场，等待去大理的飞机
 

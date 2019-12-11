@@ -1,7 +1,7 @@
 ---
 title: 三种方式统计string中出现次数最多的char（还是LinQ最简便）
 date: 2009-04-26 16:28:00
-tags: undefined
+tags: Linq
 ---
 
 ```

@@ -3,7 +3,7 @@ layout: post
 title: "自己动手实现Promises/A+规范"
 date: 2016-05-15 15:42
 comments: true
-tags:
+tags: Promises/A+
 ---
 
 Promise并不是一个新的概念,它已经有将近30年的历史.
