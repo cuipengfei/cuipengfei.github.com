@@ -47,15 +47,15 @@
   };
 </script>
 
-  <meta name="description" content="编程之美—1的个数C#笨（效率低）的方法实现  class  Program  {  static  void  Main(  string  [] args)  {  Program p &#x3D;  new  Program();  Console.WriteLine(p.count_1_in_a_bounch_of_nums(13));  Console.Read();  }   public  i">
+  <meta name="description" content="编程之美—1的个数C#笨（效率低）的方法实现 1class Program2&amp;#123;3    static void Main(string[] args)4    &amp;#123;5        Program p &#x3D; new Program();6        Console.WriteLine(p.count_1_in_a_bounch_of_nums(13));7        Con">
 <meta name="keywords" content="《编程之美——微软技术面试心得》的C#实现">
 <meta property="og:type" content="article">
 <meta property="og:title" content="编程之美---1的个数C#笨（效率低）方法实现">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2008&#x2F;09&#x2F;18&#x2F;%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E---1%E7%9A%84%E4%B8%AA%E6%95%B0CSharp%E7%AC%A8%EF%BC%88%E6%95%88%E7%8E%87%E4%BD%8E%EF%BC%89%E6%96%B9%E6%B3%95%E5%AE%9E%E7%8E%B0&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="编程之美—1的个数C#笨（效率低）的方法实现  class  Program  {  static  void  Main(  string  [] args)  {  Program p &#x3D;  new  Program();  Console.WriteLine(p.count_1_in_a_bounch_of_nums(13));  Console.Read();  }   public  i">
+<meta property="og:description" content="编程之美—1的个数C#笨（效率低）的方法实现 1class Program2&amp;#123;3    static void Main(string[] args)4    &amp;#123;5        Program p &#x3D; new Program();6        Console.WriteLine(p.count_1_in_a_bounch_of_nums(13));7        Con">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-10T09:33:07.613Z">
+<meta property="og:updated_time" content="2019-12-11T03:50:04.314Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2008/09/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E---1%E7%9A%84%E4%B8%AA%E6%95%B0CSharp%E7%AC%A8%EF%BC%88%E6%95%88%E7%8E%87%E4%BD%8E%EF%BC%89%E6%96%B9%E6%B3%95%E5%AE%9E%E7%8E%B0/">
@@ -261,7 +261,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>383</span>
+              <span>498</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -281,51 +281,9 @@
 
       
         <p>编程之美—1的个数C#笨（效率低）的方法实现</p>
-<ol>
-<li>class  Program </li>
-<li>{ </li>
-<li>static  void  Main(  string  [] args) </li>
-<li>{ </li>
-<li>Program p =  new  Program(); </li>
-<li>Console.WriteLine(p.count_1_in_a_bounch_of_nums(13)); </li>
-<li>Console.Read(); </li>
-<li>} </li>
-<li><ol start="10">
-<li>public  int  count_1_in_a_num(  int  num) </li>
-</ol>
-</li>
-<li>{ </li>
-<li>int  count = 0; </li>
-<li>while  (num != 0) </li>
-<li>{ </li>
-<li><ol start="16">
-<li>count += (num % 10) == 1 ? 1 : 0; </li>
-</ol>
-</li>
-<li>num /= 10; </li>
-<li>} </li>
-<li>return  count; </li>
-<li>} </li>
-<li><ol start="22">
-<li>public  int  count_1_in_a_bounch_of_nums(  int  end) </li>
-</ol>
-</li>
-<li>{ </li>
-<li>int  count = 0; </li>
-<li>for  (  int  i = 1; i &lt;= end; i++) </li>
-<li>{ </li>
-<li>count += count_1_in_a_num(i); </li>
-<li>} </li>
-<li>return  count; </li>
-<li>} </li>
-<li><ol start="32">
-<li><ol start="33">
-<li>} </li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="function"><span class="keyword">Program</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    static void Main(string[] args)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">Program</span></span> p = new <span class="function"><span class="keyword">Program</span><span class="params">()</span></span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        Console.WriteLine(p.count_1_in_a_bounch_of_nums(<span class="number">13</span>));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        Console.Read();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> count_1_in_a_num(<span class="built_in">int</span> num)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">int</span> <span class="built_in">count</span> = <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">while</span> (num <span class="comment">!= 0)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">            <span class="built_in">count</span> += (num % <span class="number">10</span>) == <span class="number">1</span> ? <span class="number">1</span> : <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">            num /= <span class="number">10</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> <span class="built_in">count</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> count_1_in_a_bounch_of_nums(<span class="built_in">int</span> <span class="keyword">end</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">int</span> <span class="built_in">count</span> = <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">        for (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt;= <span class="keyword">end</span>; i++)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">            <span class="built_in">count</span> += count_1_in_a_num(i);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> <span class="built_in">count</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+
 
     </div>
 
@@ -339,19 +297,19 @@
       <div class="popular-posts-title"><a href="/blog/2008/07/02/《编程之美——微软技术面试心得》“中国象棋的将帅问题”CSharp实现/" rel="bookmark">《编程之美——微软技术面试心得》“中国象棋的将帅问题”C#实现</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/07/02/编程之美 CSharp实现 1/" rel="bookmark">编程之美 C#实现 1</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/07/03/《编程之美——微软技术面试心得》一摞烧饼的排序 （不会做，看不懂）/" rel="bookmark">《编程之美——微软技术面试心得》一摞烧饼的排序 （不会做，看不懂）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/07/03/《编程之美——微软技术面试心得》一摞烧饼的排序 （不会做，看不懂）/" rel="bookmark">《编程之美——微软技术面试心得》一摞烧饼的排序 （不会做，看不懂）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/07/02/编程之美 CSharp实现 1/" rel="bookmark">编程之美 C#实现 1</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/09/11/《编程之美——微软技术面试心得》的CSharp实现---电梯调度问题解法一/" rel="bookmark">《编程之美——微软技术面试心得》的C#实现---电梯调度问题解法一</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/09/17/cpu占用率为正弦曲线（CSharp实现）基本照抄书上的C++/" rel="bookmark">cpu占用率为正弦曲线（C#实现）基本照抄书上的C++</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/09/18/编程之美---阶乘末尾有几个"零"?(CSharp实现)/" rel="bookmark">编程之美---阶乘末尾有几个"零"?(C#实现)</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/09/18/编程之美---阶乘末尾有几个"零"?(CSharp实现)/" rel="bookmark">编程之美---阶乘末尾有几个"零"?(C#实现)</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/09/17/cpu占用率为正弦曲线（CSharp实现）基本照抄书上的C++/" rel="bookmark">cpu占用率为正弦曲线（C#实现）基本照抄书上的C++</a></div>
     </li>
   </ul>
 
@@ -449,7 +407,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -509,13 +467,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">285k</span>
+    <span title="站点总字数">289k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:19</span>
+    <span title="站点阅读时长">4:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

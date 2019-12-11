@@ -47,15 +47,15 @@
   };
 </script>
 
-  <meta name="description" content="C# Code：  public  static  void  Main3_3_3()  {  int  x &#x3D; 10;  int  y &#x3D; 6;  if  (x &amp;gt; y)  {  Console.WriteLine(x);  }  else  {  Console.WriteLine(y);  }  Console.Read();  }   对应MSIL及其注释：  .method  pu">
+  <meta name="description" content="C# Code： 1public static void Main3_3_3()2&amp;#123;3    int x &#x3D; 10;45    int y &#x3D; 6;6    if (x &amp;gt; y)7    &amp;#123;8        Console.WriteLine(x);9    &amp;#125;10    else11    &amp;#123;12        Console.WriteLine(y">
 <meta name="keywords" content="《你必须知道的.NET》">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MSIL的条件跳转（不知道正确与否）">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2008&#x2F;08&#x2F;24&#x2F;MSIL%E7%9A%84%E6%9D%A1%E4%BB%B6%E8%B7%B3%E8%BD%AC%EF%BC%88%E4%B8%8D%E7%9F%A5%E9%81%93%E6%AD%A3%E7%A1%AE%E4%B8%8E%E5%90%A6%EF%BC%89&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="C# Code：  public  static  void  Main3_3_3()  {  int  x &#x3D; 10;  int  y &#x3D; 6;  if  (x &amp;gt; y)  {  Console.WriteLine(x);  }  else  {  Console.WriteLine(y);  }  Console.Read();  }   对应MSIL及其注释：  .method  pu">
+<meta property="og:description" content="C# Code： 1public static void Main3_3_3()2&amp;#123;3    int x &#x3D; 10;45    int y &#x3D; 6;6    if (x &amp;gt; y)7    &amp;#123;8        Console.WriteLine(x);9    &amp;#125;10    else11    &amp;#123;12        Console.WriteLine(y">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-10T09:33:08.526Z">
+<meta property="og:updated_time" content="2019-12-11T03:47:04.681Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2008/08/24/MSIL%E7%9A%84%E6%9D%A1%E4%BB%B6%E8%B7%B3%E8%BD%AC%EF%BC%88%E4%B8%8D%E7%9F%A5%E9%81%93%E6%AD%A3%E7%A1%AE%E4%B8%8E%E5%90%A6%EF%BC%89/">
@@ -261,7 +261,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>959</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -281,69 +281,11 @@
 
       
         <p>C# Code：</p>
-<ol>
-<li>public  static  void  Main3_3_3() </li>
-<li>{ </li>
-<li>int  x = 10; </li>
-<li>int  y = 6; </li>
-<li>if  (x &gt; y) </li>
-<li>{ </li>
-<li>Console.WriteLine(x); </li>
-<li>} </li>
-<li>else </li>
-<li>{ </li>
-<li>Console.WriteLine(y); </li>
-<li>} </li>
-<li>Console.Read(); </li>
-<li>} </li>
-</ol>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main3_3_3</span><span class="params">()</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> x = <span class="number">10</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> y = <span class="number">6</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> (x &gt; y)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">Console</span>.WriteLine(x);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">else</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">Console</span>.WriteLine(y);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    <span class="built_in">Console</span>.Read();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
 <p>对应MSIL及其注释：</p>
-<ol>
-<li>.method  public  hidebysig  static  void  Main3_3_3() cil managed </li>
-<li>{ </li>
-<li>.maxstack 2 </li>
-<li>.locals init ( </li>
-<li>[0] int32 x, </li>
-<li>[1] int32 y, </li>
-<li>[2]  bool  CS$4$0000)  //定义三个变量 </li>
-<li>L_0000: nop </li>
-<li>L_0001: ldc.i4.s 10  //把整型值10载入堆栈 </li>
-<li>L_0003: stloc.0  //把刚才载入堆栈的10赋值给第一个local变量，也就是int x=10; </li>
-<li>L_0004: ldc.i4.6  //把整型值6载入堆栈 </li>
-<li>L_0005: stloc.1  //把刚才载入堆栈的6赋值给第二个local变量，也就是int y=6; </li>
-<li>L_0006: ldloc.0 </li>
-<li>L_0007: ldloc.1  //这两句，把x,y两个local变量载入堆栈 </li>
-<li>L_0008: cgt  //比较x，y的大小，结果会保存在堆栈最上方（结果以0或1表示true ，false） </li>
-<li>L_000a: ldc.i4.0  //把0载入堆栈 </li>
-<li>L_000b: ceq  //比较0和cgt的运算结果是否相等，结果会保存在堆栈最上方（结果以0或1表示true ，false） </li>
-<li>L_000d: stloc.2  //ceq的运算结果保存入bool变量中 </li>
-<li>L_000e: ldloc.2  //再把ceq运算结果载入 </li>
-<li>L_000f: brtrue.s L_001a  //判断跳转，若跳转显式Y，不跳转显式X </li>
-<li>L_0011: ldloc.0 </li>
-<li>L_0012: call  void  [mscorlib]System.Console::WriteLine(int32) </li>
-<li>L_0017: nop </li>
-<li>L_0018: br.s L_0021 </li>
-<li>L_001a: ldloc.1 </li>
-<li>L_001b: call  void  [mscorlib]System.Console::WriteLine(int32) </li>
-<li>L_0020: nop </li>
-<li>L_0021: call int32 [mscorlib]System.Console::Read() </li>
-<li>L_0026: pop </li>
-<li>L_0027: ret </li>
-<li>} </li>
-<li><ol start="33">
-<li><ol start="34">
-<li><ol start="35">
-<li><ol start="36">
-<li></li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">.method  <span class="keyword">public</span>  hidebysig  <span class="keyword">static</span>  <span class="keyword">void</span>  Main3_3_3() cil managed </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">&#123; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">.maxstack <span class="number">2</span> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">.locals init ( </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">[<span class="number">0</span>] int32 x, </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>] int32 y, </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">[<span class="number">2</span>]  bool  CS$<span class="number">4</span>$<span class="number">0000</span>)  <span class="comment">//定义三个变量 </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_0000:</span> nop </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_0001:</span> ldc.i4.s <span class="number">10</span>  <span class="comment">//把整型值10载入堆栈 </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_0003:</span> stloc<span class="number">.0</span>  <span class="comment">//把刚才载入堆栈的10赋值给第一个local变量，也就是int x=10; </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_0004:</span> ldc.i4<span class="number">.6</span>  <span class="comment">//把整型值6载入堆栈 </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_0005:</span> stloc<span class="number">.1</span>  <span class="comment">//把刚才载入堆栈的6赋值给第二个local变量，也就是int y=6; </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_0006:</span> ldloc<span class="number">.0</span> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_0007:</span> ldloc<span class="number">.1</span>  <span class="comment">//这两句，把x,y两个local变量载入堆栈 </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_0008:</span> cgt  <span class="comment">//比较x，y的大小，结果会保存在堆栈最上方（结果以0或1表示true ，false） </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_000a:</span> ldc.i4<span class="number">.0</span>  <span class="comment">//把0载入堆栈 </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_000b:</span> ceq  <span class="comment">//比较0和cgt的运算结果是否相等，结果会保存在堆栈最上方（结果以0或1表示true ，false） </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_000d:</span> stloc<span class="number">.2</span>  <span class="comment">//ceq的运算结果保存入bool变量中 </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_000e:</span> ldloc<span class="number">.2</span>  <span class="comment">//再把ceq运算结果载入 </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_000f:</span> brtrue.s L_001a  <span class="comment">//判断跳转，若跳转显式Y，不跳转显式X </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_0011:</span> ldloc<span class="number">.0</span> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_0012:</span> call  <span class="keyword">void</span>  [mscorlib]System.<span class="string">Console:</span>:WriteLine(int32) </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_0017:</span> nop </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_0018:</span> br.s L_0021 </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_001a:</span> ldloc<span class="number">.1</span> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_001b:</span> call  <span class="keyword">void</span>  [mscorlib]System.<span class="string">Console:</span>:WriteLine(int32) </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_0020:</span> nop </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_0021:</span> call int32 [mscorlib]System.<span class="string">Console:</span>:Read() </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_0026:</span> pop </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line"><span class="string">L_0027:</span> ret </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -360,13 +302,13 @@
       <div class="popular-posts-title"><a href="/blog/2008/08/28/引用类型参数的按值传递/" rel="bookmark">引用类型参数的按值传递</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/28/new关键字用作修饰符/" rel="bookmark">new关键字用作修饰符</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/09/04/一个关于深层拷贝的问题（迷惑在私有构造函数）/" rel="bookmark">一个关于深层拷贝的问题（迷惑在私有构造函数）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/09/09/可以为null的值类型/" rel="bookmark">可以为null的值类型</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/28/new关键字用作修饰符/" rel="bookmark">new关键字用作修饰符</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/03/06/CSharp中的语言特性都是从何而来？/" rel="bookmark">C#中的语言特性都是从何而来？</a></div>
@@ -470,7 +412,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -530,13 +472,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">285k</span>
+    <span title="站点总字数">289k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:19</span>
+    <span title="站点阅读时长">4:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

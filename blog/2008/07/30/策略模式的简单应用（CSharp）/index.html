@@ -47,15 +47,15 @@
   };
 </script>
 
-  <meta name="description" content="using System;using System.Collections.Generic;using System.Linq;using System.Text; namespace ConsoleApplication1{abstract  class OperSuper{public  abstract   double GetResult(double a,double b);} clas">
+  <meta name="description" content="1using System;2using System.Collections.Generic;3using System.Linq;4using System.Text;56namespace ConsoleApplication17&amp;#123;8    abstract class OperSuper9    &amp;#123;10        public abstract double Get">
 <meta name="keywords" content="设计模式读书笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="策略模式的简单应用（C#）">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2008&#x2F;07&#x2F;30&#x2F;%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%EF%BC%88CSharp%EF%BC%89&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="using System;using System.Collections.Generic;using System.Linq;using System.Text; namespace ConsoleApplication1{abstract  class OperSuper{public  abstract   double GetResult(double a,double b);} clas">
+<meta property="og:description" content="1using System;2using System.Collections.Generic;3using System.Linq;4using System.Text;56namespace ConsoleApplication17&amp;#123;8    abstract class OperSuper9    &amp;#123;10        public abstract double Get">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-10T09:33:07.831Z">
+<meta property="og:updated_time" content="2019-12-11T03:30:16.745Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2008/07/30/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8%EF%BC%88CSharp%EF%BC%89/">
@@ -261,7 +261,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>653</span>
+              <span>868</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -280,13 +280,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>using System;<br>using System.Collections.Generic;<br>using System.Linq;<br>using System.Text;</p>
-<p>namespace ConsoleApplication1<br>{<br>abstract  class OperSuper<br>{<br>public  abstract   double GetResult(double a,double b);<br>}</p>
-<p>class Add:OperSuper<br>{<br>public  override  double GetResult(double a, double b)<br>{<br>return a + b;<br>}<br>}</p>
-<p>class Minus : OperSuper<br>{<br>public  override  double GetResult(double a, double b)<br>{<br>return a - b;<br>}<br>}</p>
-<p>class Context<br>{<br>OperSuper os = null;<br>double A,B;<br>public  Context(OperSuper o,double a,double b)<br>{<br>os = o;<br>A = a;<br>B = b;<br>}</p>
-<p>public  double  GetResult()<br>{<br>return os.GetResult(A,B);<br>}<br>}</p>
-<p>class client<br>{<br>public static void Main()<br>{<br>Context c = new Context(new Add(), 10, 20);<br>Console.WriteLine(c.GetResult ());<br>c = new Context(new Minus(), 20, 10);<br>Console.WriteLine(c.GetResult());<br>}<br>}<br>}  </p>
+        <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Linq;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Text;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">ConsoleApplication1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">OperSuper</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">double</span> <span class="title">GetResult</span>(<span class="params"><span class="keyword">double</span> a, <span class="keyword">double</span> b</span>)</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">class</span> <span class="title">Add</span> : <span class="title">OperSuper</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">double</span> <span class="title">GetResult</span>(<span class="params"><span class="keyword">double</span> a, <span class="keyword">double</span> b</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">return</span> a + b;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">class</span> <span class="title">Minus</span> : <span class="title">OperSuper</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">double</span> <span class="title">GetResult</span>(<span class="params"><span class="keyword">double</span> a, <span class="keyword">double</span> b</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">return</span> a - b;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">class</span> <span class="title">Context</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">        OperSuper os = <span class="literal">null</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">double</span> A, B;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Context</span>(<span class="params">OperSuper o, <span class="keyword">double</span> a, <span class="keyword">double</span> b</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line">            os = o;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line">            A = a;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">            B = b;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">GetResult</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">return</span> os.GetResult(A, B);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">45</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">46</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">47</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">class</span> <span class="title">client</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">48</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">49</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">50</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">51</span></pre></td><td class="code"><pre><span class="line">            Context c = <span class="keyword">new</span> Context(<span class="keyword">new</span> Add(), <span class="number">10</span>, <span class="number">20</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">52</span></pre></td><td class="code"><pre><span class="line">            Console.WriteLine(c.GetResult());</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">53</span></pre></td><td class="code"><pre><span class="line">            c = <span class="keyword">new</span> Context(<span class="keyword">new</span> Minus(), <span class="number">20</span>, <span class="number">10</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">54</span></pre></td><td class="code"><pre><span class="line">            Console.WriteLine(c.GetResult());</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">55</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">56</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">57</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
 
     </div>
 
@@ -300,19 +294,25 @@
       <div class="popular-posts-title"><a href="/blog/2008/07/29/简单工厂的最最简单应用（CSharp）/" rel="bookmark">简单工厂的最最简单应用（C#）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/07/31/装饰模式的简单实现（CSharp）内有图一张,嘿嘿...../" rel="bookmark">装饰模式的简单实现（C#）内有图一张,嘿嘿.....</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/02/设计模式--工厂模式/" rel="bookmark">设计模式--工厂模式</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/01/设计模式--代理模式的简单实现（CSharp）+类关系图/" rel="bookmark">设计模式--代理模式的简单实现（C#）+类关系图</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/04/设计模式--模板方法模式（照旧，有类关系图）/" rel="bookmark">设计模式--模板方法模式（照旧，有类关系图）</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/03/设计模式--原型模式（附带类关系图一张）/" rel="bookmark">设计模式--原型模式（附带类关系图一张）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/02/设计模式--工厂模式/" rel="bookmark">设计模式--工厂模式</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/07/31/装饰模式的简单实现（CSharp）内有图一张,嘿嘿...../" rel="bookmark">装饰模式的简单实现（C#）内有图一张,嘿嘿.....</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/06/设计模式---建造者（Builder）模式，有关系图/" rel="bookmark">设计模式---建造者（Builder）模式，有关系图</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/04/设计模式--模板方法模式（照旧，有类关系图）/" rel="bookmark">设计模式--模板方法模式（照旧，有类关系图）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/05/设计模式--外观模式/" rel="bookmark">设计模式--外观模式</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/07/设计模式---观察者模式（恐怖袭击、地震的例子，有类关系图）/" rel="bookmark">设计模式---观察者模式（恐怖袭击、地震的例子，有类关系图）</a></div>
@@ -321,40 +321,31 @@
       <div class="popular-posts-title"><a href="/blog/2008/08/08/设计模式---抽象工厂模式+反射+配置文件/" rel="bookmark">设计模式---抽象工厂模式+反射+配置文件</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/05/设计模式--外观模式/" rel="bookmark">设计模式--外观模式</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---中介者模式（打出来是“终结者.......”）/" rel="bookmark">设计模式---中介者模式（打出来是“终结者.......”）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/06/设计模式---建造者（Builder）模式，有关系图/" rel="bookmark">设计模式---建造者（Builder）模式，有关系图</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---单例模式（singleton）/" rel="bookmark">设计模式---单例模式（singleton）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---备忘录模式（CSDN没有恢复迹象......）/" rel="bookmark">设计模式---备忘录模式（CSDN没有恢复迹象......）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---桥接模式/" rel="bookmark">设计模式---桥接模式</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---状态模式（今天CSDN竟然上不去，暂时发在这里） (从百度空间转回来的)/" rel="bookmark">设计模式---状态模式（今天CSDN竟然上不去，暂时发在这里） (从百度空间转回来的)</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---单例模式（singleton）/" rel="bookmark">设计模式---单例模式（singleton）</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---命令模式/" rel="bookmark">设计模式---命令模式</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---中介者模式（打出来是“终结者.......”）/" rel="bookmark">设计模式---中介者模式（打出来是“终结者.......”）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---职责链模式/" rel="bookmark">设计模式---职责链模式</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---桥接模式/" rel="bookmark">设计模式---桥接模式</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---组合模式（CSDN依然没有恢复迹象......）/" rel="bookmark">设计模式---组合模式（CSDN依然没有恢复迹象......）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---迭代器模式（昨天停电了......）/" rel="bookmark">设计模式---迭代器模式（昨天停电了......）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---状态模式（今天CSDN竟然上不去，暂时发在这里） (从百度空间转回来的)/" rel="bookmark">设计模式---状态模式（今天CSDN竟然上不去，暂时发在这里） (从百度空间转回来的)</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---适配器模式（从百度转回来的）/" rel="bookmark">设计模式---适配器模式（从百度转回来的）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---迭代器模式（昨天停电了......）/" rel="bookmark">设计模式---迭代器模式（昨天停电了......）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/19/CSDN被和谐期间的Blog都发到百度空间去了/" rel="bookmark">CSDN被和谐期间的Blog都发到百度空间去了</a></div>
@@ -363,10 +354,13 @@
       <div class="popular-posts-title"><a href="/blog/2008/08/19/设计模式---享元模式/" rel="bookmark">设计模式---享元模式</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/20/设计模式---翻译器模式/" rel="bookmark">设计模式---翻译器模式</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---适配器模式（从百度转回来的）/" rel="bookmark">设计模式---适配器模式（从百度转回来的）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/21/设计模式---访问者模式（应该是最后一篇了）/" rel="bookmark">设计模式---访问者模式（应该是最后一篇了）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/20/设计模式---翻译器模式/" rel="bookmark">设计模式---翻译器模式</a></div>
     </li>
   </ul>
 
@@ -464,7 +458,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -524,13 +518,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">285k</span>
+    <span title="站点总字数">289k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:19</span>
+    <span title="站点阅读时长">4:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

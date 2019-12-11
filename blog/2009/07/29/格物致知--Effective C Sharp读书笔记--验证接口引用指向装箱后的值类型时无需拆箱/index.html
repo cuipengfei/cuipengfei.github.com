@@ -47,19 +47,19 @@
   };
 </script>
 
-  <meta name="description" content="欲验证的结论：  接口引用指向装箱后的值类型时无需拆箱  。 代码如下： interface  SomeInterface { void  MethodInInterface(); }">
+  <meta name="description" content="欲验证的结论：  接口引用指向装箱后的值类型时无需拆箱  。 代码如下： 1interface SomeInterface23&amp;#123;4    void MethodInInterface();5&amp;#125;67struct OneValueType : SomeInterface89&amp;#123;10    public void MethodInInterface()1112    &amp;#12">
 <meta name="keywords" content="格物致知 《Effective C#》读书笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="格物致知--《Effective C#》读书笔记--验证接口引用指向装箱后的值类型时无需拆箱">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2009&#x2F;07&#x2F;29&#x2F;%E6%A0%BC%E7%89%A9%E8%87%B4%E7%9F%A5--Effective%20C%20Sharp%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E9%AA%8C%E8%AF%81%E6%8E%A5%E5%8F%A3%E5%BC%95%E7%94%A8%E6%8C%87%E5%90%91%E8%A3%85%E7%AE%B1%E5%90%8E%E7%9A%84%E5%80%BC%E7%B1%BB%E5%9E%8B%E6%97%B6%E6%97%A0%E9%9C%80%E6%8B%86%E7%AE%B1&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="欲验证的结论：  接口引用指向装箱后的值类型时无需拆箱  。 代码如下： interface  SomeInterface { void  MethodInInterface(); }">
+<meta property="og:description" content="欲验证的结论：  接口引用指向装箱后的值类型时无需拆箱  。 代码如下： 1interface SomeInterface23&amp;#123;4    void MethodInInterface();5&amp;#125;67struct OneValueType : SomeInterface89&amp;#123;10    public void MethodInInterface()1112    &amp;#12">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;p-blog.csdn.net&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20090729&#x2F;2009-07-29_08-47-04.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;p-blog.csdn.net&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20090729&#x2F;2009-07-29_08-47-18.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;profile.csdnimg.cn&#x2F;5&#x2F;2&#x2F;5&#x2F;3_cuipengfei1">
 <meta property="og:image" content="https:&#x2F;&#x2F;g.csdnimg.cn&#x2F;static&#x2F;user-reg-year&#x2F;1x&#x2F;11.png">
-<meta property="og:updated_time" content="2019-12-10T09:32:33.300Z">
+<meta property="og:updated_time" content="2019-12-11T04:58:10.559Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;p-blog.csdn.net&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20090729&#x2F;2009-07-29_08-47-04.jpg">
 
@@ -266,7 +266,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>656</span>
+              <span>805</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -287,35 +287,8 @@
       
         <p>欲验证的结论：  接口引用指向装箱后的值类型时无需拆箱  。</p>
 <p>代码如下：</p>
-<p>interface  SomeInterface</p>
-<p>{</p>
-<p>void  MethodInInterface();</p>
-<p>}</p>
-<p>struct  OneValueType  :  SomeInterface</p>
-<p>{</p>
-<p>public  void  MethodInInterface()</p>
-<p>{</p>
-<p>Console  .WriteLine(  “get called”  );</p>
-<p>}</p>
-<p>}</p>
-<p>class  TestUnBox</p>
-<p>{</p>
-<p>public  static  void  Main()</p>
-<p>{</p>
-<p>}</p>
-<p>private  static  void  CastStruct()</p>
-<p>{</p>
-<p>OneValueType  ovt =  new  OneValueType  ();</p>
-<p>object  o = ovt;  //Box</p>
-<p>((  OneValueType  )o).MethodInInterface();</p>
-<p>}</p>
-<p>private  static  void  CastInterface()</p>
-<p>{</p>
-<p>OneValueType  ovt =  new  OneValueType  ();</p>
-<p>object  o = ovt;  //Box</p>
-<p>((  SomeInterface  )o).MethodInInterface();</p>
-<p>}</p>
-<p>}</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title">SomeInterface</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">MethodInInterface</span>(<span class="params"></span>)</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> OneValueType : SomeInterface</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">MethodInInterface</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        Console.WriteLine(<span class="string">"get called"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">TestUnBox</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">CastStruct</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">        OneValueType ovt = <span class="keyword">new</span> OneValueType();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">object</span> o = ovt; <span class="comment">//Box</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">        ((OneValueType) o).MethodInInterface();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">CastInterface</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">        OneValueType ovt = <span class="keyword">new</span> OneValueType();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">object</span> o = ovt; <span class="comment">//Box</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line">        ((SomeInterface) o).MethodInInterface();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
 <p>其中  OneValueType  是值类型，它实现了  SomeInterface  。</p>
 <p>两个方法  CastStruct  和  CastInterface  分别把装箱之后的值类型转型为  OneValueType  和<br>SomeInterface  。预计的结果是第二个方法无需拆箱，查看  IL  来验证：</p>
 <p>这是  CastStruct  （）：</p>
@@ -440,7 +413,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -500,13 +473,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">285k</span>
+    <span title="站点总字数">289k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:19</span>
+    <span title="站点阅读时长">4:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

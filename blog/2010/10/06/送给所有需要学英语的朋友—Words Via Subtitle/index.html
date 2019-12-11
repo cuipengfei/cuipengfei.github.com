@@ -55,8 +55,19 @@
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="从名字就可以看出来，Words Via Subtitle是用来通过字幕学单词的辅助工具。它通过解析美剧或者电影的字幕文件把其中的生词取出，用网络上提供的开放API或者本地词库解释生词。另外，程序还可以提供单词读音（机器发音），可以播放一个单词在剧中出现的语境，可以把所有生词串起来像幻灯片一样连续播放，也就是说显示一个单词及其解释，然后用机器发音读该单词，然后播放该单词在剧中出现的句子，然后切换到下">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-10T09:33:07.879Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;hi.csdn.net&#x2F;attachment&#x2F;201010&#x2F;24&#x2F;0_1287907696T90H.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;hi.csdn.net&#x2F;attachment&#x2F;201010&#x2F;24&#x2F;0_1287907704bdDE.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;hi.csdn.net&#x2F;attachment&#x2F;201010&#x2F;24&#x2F;0_1287907713GtId.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;hi.csdn.net&#x2F;attachment&#x2F;201010&#x2F;24&#x2F;0_12879077190vv0.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;hi.csdn.net&#x2F;attachment&#x2F;201010&#x2F;24&#x2F;0_12879077217ns1.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;hi.csdn.net&#x2F;attachment&#x2F;201010&#x2F;24&#x2F;0_1287907722PB1b.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;hi.csdn.net&#x2F;attachment&#x2F;201010&#x2F;24&#x2F;0_1287907723rx99.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;hi.csdn.net&#x2F;attachment&#x2F;201010&#x2F;24&#x2F;0_1287907732bkhG.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;hi.csdn.net&#x2F;attachment&#x2F;201010&#x2F;24&#x2F;0_12879077336SN1.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;hi.csdn.net&#x2F;attachment&#x2F;201010&#x2F;24&#x2F;0_1287907734druS.gif">
+<meta property="og:updated_time" content="2019-12-11T04:59:47.702Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;hi.csdn.net&#x2F;attachment&#x2F;201010&#x2F;24&#x2F;0_1287907696T90H.gif">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2010/10/06/%E9%80%81%E7%BB%99%E6%89%80%E6%9C%89%E9%9C%80%E8%A6%81%E5%AD%A6%E8%8B%B1%E8%AF%AD%E7%9A%84%E6%9C%8B%E5%8F%8B%E2%80%94Words%20Via%20Subtitle/">
 
@@ -261,14 +272,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3k</span>
+              <span>2.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -283,25 +294,25 @@
         <p>从名字就可以看出来，Words Via Subtitle是用来通过字幕学单词的辅助工具。它通过解析美剧或者电影的字幕文件把其中的生词取出，用网络上提供的开放<br>API或者本地词库解释生词。另外，程序还可以提供单词读音（机器发音），可以播放一个单词在剧中出现的语境，可以把所有生词串起来像幻灯片一样连续播放，也就是说显<br>示一个单词及其解释，然后用机器发音读该单词，然后播放该单词在剧中出现的句子，然后切换到下一个生词再重复这一过程。</p>
 <p>这个程序去年就写过一个雏形，最近断断续续的重写了。这次主要的改进是将字幕的分析和单词的解释从主程序中抽出来做成插件，也就是说主程序部署到一台机器之后如果想要<br>增加对一种字幕格式的支持就只需要写一个插件拷到部署的机器上去就ok了，无需把整个程序重新编译、重新部署。同样，如果想要增加一种单词解释器也可以通过添加一个插<br>件完成，比如说现在只有一个很小的本地词库和一个网络释义，之后有人想给这个程序增加一个Google词典的解释器就可以写一个插件来完成。这次重写用了WPF、ME<br>F，以及Ribbon Controls等最近接触的新东西，不过在这儿暂时不介绍程序是怎么写，也不说字幕解析插件和解释提供器插件如何编写，先简单介绍一下各功能<br>的使用吧。对代码感兴趣的朋友可以去CodePlex上去搜索WVS（Words Via Subtitle的简写），我把这个程序作为一个开源项目上传到那儿了<br>，用的MS-PL协议，完全开源哈。</p>
 <p>下面就开始说一下大概怎么用这个程序吧。</p>
-<p>运行程序，用左上角的Open按钮（ <a href="http://hi.csdn.net/attachment/201010/24/0_12879076954nrG.gif" target="_blank" rel="noopener"> ![2010-10-24_15-15-25](http://hi.csdn.net/attachment/20101<br>0/24/0_1287907696T90H.gif)
+<p>运行程序，用左上角的Open按钮（ <a href="http://hi.csdn.net/attachment/201010/24/0_12879076954nrG.gif" target="_blank" rel="noopener"><br><img alt="2010-10-24_15-15-25" data-src="http://hi.csdn.net/attachment/201010/24/0_1287907696T90H.gif">
 </a><br>）打开一个字幕文件（现在可以支持srt和ass格式的，当然以后可以通过插件来添加对更多种类的字幕的支持）。</p>
-<p><a href="http://hi.csdn.net/attachment/201010/24/0_1287907700gCeG.gif" target="_blank" rel="noopener"> ![2010-10-24_15-12-10](http://hi.csdn.net/attachment/201010/24/0_1287907704b<br>dDE.gif) </a></p>
+<p><a href="http://hi.csdn.net/attachment/201010/24/0_1287907700gCeG.gif" target="_blank" rel="noopener"><br><img alt="2010-10-24_15-12-10" data-src="http://hi.csdn.net/attachment/201010/24/0_1287907704bdDE.gif"> </a></p>
 <p>上图中右下角可选的文件格式会随着插件的增多而增多。</p>
 <p>加载字幕文件之后程序会把字幕中出现的生词列到一个列表中（如何判断一个单词是不是生词呢？程序需要通过一个已知单词列表来比对，这个列表需要使用者自己慢慢的“养”<br>。第一次运行程序会把字幕中出现的所有单词，无论难易、常见还是生僻统统的列出来，这时需要使用者自己把认识的单词标记一下，这样这个单词在下次打开别的字幕文件时就<br>不会再蹦出来烦您了），程序看起来是这样的：</p>
-<p><a href="http://hi.csdn.net/attachment/201010/24/0_1287907709mQwJ.gif" target="_blank" rel="noopener"> ![2010-10-24_15-01-29](http://hi.csdn.net/attachment/201010/24/0_1287907713G<br>tId.gif) </a></p>
+<p><a href="http://hi.csdn.net/attachment/201010/24/0_1287907709mQwJ.gif" target="_blank" rel="noopener"><br><img alt="2010-10-24_15-01-29" data-src="http://hi.csdn.net/attachment/201010/24/0_1287907713GtId.gif"> </a></p>
 <p>在左侧的列表里切换单词，右侧区域的解释就会跟着切换。右侧区域的解释可以在多个解释提供器间切换（可切换的解释提供器的数量取决于插件的数量），现在有两个选择：D<br>ict.cn的解释和一个很小的本地词库，上图中用的是Dict.cn，切换到本地词库是这样的：</p>
-<p><a href="http://hi.csdn.net/attachment/201010/24/0_128790771673Eq.gif" target="_blank" rel="noopener"> ![2010-10-24_15-05-11](http://hi.csdn.net/attachment/201010/24/0_12879077190<br>vv0.gif) </a></p>
-<p>标有Choose Language的Ribbon Group（ <a href="http://hi.csdn.net/attachment/201010/24/0_1287907720Hs1z.gif" target="_blank" rel="noopener"> ![2010-10-24_15-08-55](http://hi.csdn.net/at<br>tachment/201010/24/0_12879077217ns1.gif)
+<p><a href="http://hi.csdn.net/attachment/201010/24/0_128790771673Eq.gif" target="_blank" rel="noopener"><br><img alt="2010-10-24_15-05-11" data-src="http://hi.csdn.net/attachment/201010/24/0_12879077190vv0.gif"> </a></p>
+<p>标有Choose Language的Ribbon Group（ <a href="http://hi.csdn.net/attachment/201010/24/0_1287907720Hs1z.gif" target="_blank" rel="noopener"><br><img alt="2010-10-24_15-08-55" data-src="http://hi.csdn.net/attachment/201010/24/0_12879077217ns1.gif">
 </a><br>）中的按钮用于切换翻译提供器，其数量会随着插件的增多而增多。</p>
-<p>顺着Ribbon菜单向右走，标为Operations的Ribbon Group里有两个按钮（ <a href="http://hi.csdn.net/attachment/201010/24/0_1287907721nkeH.gif" target="_blank" rel="noopener"> ![2010-10-24_15-21-50](http:/<br>/hi.csdn.net/attachment/201010/24/0_1287907722PB1b.gif)
+<p>顺着Ribbon菜单向右走，标为Operations的Ribbon Group里有两个按钮（ <a href="http://hi.csdn.net/attachment/201010/24/0_1287907721nkeH.gif" target="_blank" rel="noopener"><br><img alt="2010-10-24_15-21-50" data-src="http://hi.csdn.net/attachment/201010/24/0_1287907722PB1b.gif">
 </a> ），Known用于把一个单词<br>标记为已知的，这样该单词就会被记录到已知单词列表中，像前文中说的那样，被“养”起来了。Misspelled用于把字幕中拼错的单词从列表中踢出去，这样在使用S<br>lide Show功能（这个稍后介绍）的时候就不会受到错误单词的干扰了。</p>
-<p>菜单中再向右是标为Video的Ribbon Group（ <a href="http://hi.csdn.net/attachment/201010/24/0_12879077225gx7.gif" target="_blank" rel="noopener"> ![2010-10-24_15-24-16](http://hi.csdn.net/attac<br>hment/201010/24/0_1287907723rx99.gif)
+<p>菜单中再向右是标为Video的Ribbon Group（ <a href="http://hi.csdn.net/attachment/201010/24/0_12879077225gx7.gif" target="_blank" rel="noopener"><br><img alt="2010-10-24_15-24-16" data-src="http://hi.csdn.net/attachment/201010/24/0_1287907723rx99.gif">
 </a><br>），第一个按钮用于选择和当前字幕对应的视频，第二个用于播放当前在列表中选中的单词在剧中出现的语境。播放时界面看起来是这样的：</p>
-<p><a href="http://hi.csdn.net/attachment/201010/24/0_1287907727EHMF.gif" target="_blank" rel="noopener"> ![2010-10-24_15-27-43](http://hi.csdn.net/attachment/201010/24/0_1287907732b<br>khG.gif) </a></p>
+<p><a href="http://hi.csdn.net/attachment/201010/24/0_1287907727EHMF.gif" target="_blank" rel="noopener"><br><img alt="2010-10-24_15-27-43" data-src="http://hi.csdn.net/attachment/201010/24/0_1287907732bkhG.gif"> </a></p>
 <p>能够支持的视频格式取决于部署机器上装过的解码器，应该是Windows Media Player能播放什么这儿就能播放什么。播放完之后自动切换回单词解释界面。</p>
-<p>继续向右走，是用于发音的两个按钮（ <a href="http://hi.csdn.net/attachment/201010/24/0_12879077331c6W.gif" target="_blank" rel="noopener"> ![2010-10-24_15-31-56](http://hi.csdn.net/attachment/20101<br>0/24/0_12879077336SN1.gif)
+<p>继续向右走，是用于发音的两个按钮（ <a href="http://hi.csdn.net/attachment/201010/24/0_12879077331c6W.gif" target="_blank" rel="noopener"><br><img alt="2010-10-24_15-31-56" data-src="http://hi.csdn.net/attachment/201010/24/0_12879077336SN1.gif">
 </a><br>），很明显左侧的用于读出当前单词，右侧的列表用于选择发音风格（其中选项的多少取决于部署机安装过语音引擎，Win7默认会有两个，其他系统没试过）。</p>
-<p>最右侧的就是这次重写后我自己最喜欢的功能了，Slide Show（ <a href="http://hi.csdn.net/attachment/201010/24/0_12879077331mu7.gif" target="_blank" rel="noopener"> ![2010-10-24_15-36-42](http://hi.csdn.net/<br>attachment/201010/24/0_1287907734druS.gif)
+<p>最右侧的就是这次重写后我自己最喜欢的功能了，Slide Show（ <a href="http://hi.csdn.net/attachment/201010/24/0_12879077331mu7.gif" target="_blank" rel="noopener"><br><img alt="2010-10-24_15-36-42" data-src="http://hi.csdn.net/attachment/201010/24/0_1287907734druS.gif">
 </a> ）。它用于把列表中所有的生词<br>串联成幻灯片一样播放。点击该按钮之后，程序会切换到全屏，显示一个单词及其解释，读出该单词的读音，播放该单词对应的语境，然后切换到下一个生词再重复上述过程。这<br>一步就不截图了，我把一些播放Slides Show的过程录下来放到了VeryCD上了（ <a href="http://www.verycd.com/topics/2859418/" target="_blank" rel="noopener"><br>http://www.verycd.com/topics/2859418/ </a><br>）。</p>
 <p>程序现有的功能就是这些了，如果您有好主意、建议请留言哈。</p>
 <p>对程序代码有兴趣的朋友可以去CodePlex看看： <a href="http://wvs.codeplex.com/" target="_blank" rel="noopener"> http://wvs.codeplex.com/
@@ -326,52 +337,40 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/09/25/IE7、Opera只能失败，FireFox3和Chrome却可以成功  访问的页面/" rel="bookmark">IE7、Opera只能失败，FireFox3和Chrome却可以成功  访问的页面</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/10/09/文字竖排工具BY烟锁重楼/" rel="bookmark">文字竖排工具BY烟锁重楼</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/10/12/文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码/" rel="bookmark">文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/10/13/感谢亲爱的Editor把我弄到首页上去了/" rel="bookmark">感谢亲爱的Editor把我弄到首页上去了</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/11/15/数据结构：用队列模拟理发店的排队情况（CSharp）/" rel="bookmark">数据结构：用队列模拟理发店的排队情况（C#）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/10/03/对Graphic的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME]/" rel="bookmark">对Graphic的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME]</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/10/20/用户被忽悠 微软黑屏计划推至21日0点实施/" rel="bookmark">用户被忽悠 微软黑屏计划推至21日0点实施</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/12/12/数据结构:二叉树的建立和遍历(CSharp实现)/" rel="bookmark">数据结构:二叉树的建立和遍历(C#实现)</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/01/14/迅雷账号升级到24了，全球70000名。Oh~~Yeah~~~~/" rel="bookmark">迅雷账号升级到24了，全球70000名。Oh~~Yeah~~~~</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/01/16/西南石油大学--学分绩点计算器（用CSharp编写，需要有.NET 2.0）/" rel="bookmark">西南石油大学--学分绩点计算器（用C#编写，需要有.NET 2.0）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/12/12/数据结构:二叉树的建立和遍历(CSharp实现)/" rel="bookmark">数据结构:二叉树的建立和遍历(C#实现)</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/11/15/数据结构：用队列模拟理发店的排队情况（CSharp）/" rel="bookmark">数据结构：用队列模拟理发店的排队情况（C#）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/03/10/A double blessing has descended upon the house/" rel="bookmark">A double blessing has descended upon the house</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/02/06/SWPU学分绩点计算器女生版/" rel="bookmark">SWPU学分绩点计算器女生版</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/03/02/《计算机图形技术》练习--用GDI+模拟DDA算法/" rel="bookmark">《计算机图形技术》练习--用GDI+模拟DDA算法</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/03/10/A double blessing has descended upon the house/" rel="bookmark">A double blessing has descended upon the house</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/01/16/西南石油大学--学分绩点计算器（用CSharp编写，需要有.NET 2.0）/" rel="bookmark">西南石油大学--学分绩点计算器（用C#编写，需要有.NET 2.0）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/05/15/CET口语证书，呕嘢~~~~~~~~~~~~/" rel="bookmark">CET口语证书，呕嘢~~~~~~~~~~~~</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/09/01/easyMule自动关机工具(可用于1.X和2.0版本)/" rel="bookmark">easyMule自动关机工具(可用于1.X和2.0版本)</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/03/02/《计算机图形技术》练习--用GDI+模拟DDA算法/" rel="bookmark">《计算机图形技术》练习--用GDI+模拟DDA算法</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/09/03/通过英文剧集、电影学单词的小工具/" rel="bookmark">通过英文剧集、电影学单词的小工具</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/09/01/easyMule自动关机工具(可用于1.X和2.0版本)/" rel="bookmark">easyMule自动关机工具(可用于1.X和2.0版本)</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/03/15/使用AvalonDock制作WPF多标签浏览器（一）/" rel="bookmark">使用AvalonDock制作WPF多标签浏览器（一）</a></div>
@@ -380,31 +379,34 @@
       <div class="popular-posts-title"><a href="/blog/2010/03/16/使用AvalonDock制作WPF多标签浏览器（二）/" rel="bookmark">使用AvalonDock制作WPF多标签浏览器（二）</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2009/09/03/通过英文剧集、电影学单词的小工具/" rel="bookmark">通过英文剧集、电影学单词的小工具</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/03/17/用AvalonDock制作WPF多标签浏览器（三）/" rel="bookmark">用AvalonDock制作WPF多标签浏览器（三）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/05/22/.NET 4.0 FAQ 第一部分—DLR/" rel="bookmark">.NET 4.0 FAQ 第一部分—DLR</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/05/22/MEF编程指南（前两节）/" rel="bookmark">MEF编程指南（前两节）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/07/31/在.NET 4中调用GDAL库时遇到的问题及解决方法/" rel="bookmark">在.NET 4中调用GDAL库时遇到的问题及解决方法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/09/13/WPF中ItemContainerStyle不适用的一种情况/" rel="bookmark">WPF中ItemContainerStyle不适用的一种情况</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/10/04/百度游戏 七彩鱼 自动喂鱼器/" rel="bookmark">百度游戏 七彩鱼 自动喂鱼器</a></div>
+      <div class="popular-posts-title"><a href="/blog/2010/05/22/MEF编程指南（前两节）/" rel="bookmark">MEF编程指南（前两节）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2010/05/22/.NET 4.0 FAQ 第一部分—DLR/" rel="bookmark">.NET 4.0 FAQ 第一部分—DLR</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2010/07/31/在.NET 4中调用GDAL库时遇到的问题及解决方法/" rel="bookmark">在.NET 4中调用GDAL库时遇到的问题及解决方法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/09/30/当Generic.xaml遇上BitmapImage：发现一个疑似WPF Bug而又不似Bug的问题/" rel="bookmark">当Generic.xaml遇上BitmapImage：发现一个疑似WPF Bug而又不似Bug的问题</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/04/18/[翻译]List为什么实现了那么多接口？/" rel="bookmark">[翻译]List为什么实现了那么多接口？</a></div>
+      <div class="popular-posts-title"><a href="/blog/2010/10/04/百度游戏 七彩鱼 自动喂鱼器/" rel="bookmark">百度游戏 七彩鱼 自动喂鱼器</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/05/31/美国生活第一个月见闻，有图有真相（1）/" rel="bookmark">美国生活第一个月见闻，有图有真相（1）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/04/18/[翻译]List为什么实现了那么多接口？/" rel="bookmark">[翻译]List为什么实现了那么多接口？</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/06/01/美国生活第一个月见闻，有图有真相（2）/" rel="bookmark">美国生活第一个月见闻，有图有真相（2）</a></div>
@@ -413,13 +415,13 @@
       <div class="popular-posts-title"><a href="/blog/2011/06/02/美国生活第一个月见闻，有图有真相（3）/" rel="bookmark">美国生活第一个月见闻，有图有真相（3）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/06/25/美国生活第二个月照片（2）/" rel="bookmark">美国生活第二个月照片（2）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/06/22/美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡/" rel="bookmark">美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/07/06/WP7 Tip: 禁用Pivot控件的切换手势/" rel="bookmark">WP7 Tip: 禁用Pivot控件的切换手势</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/06/22/美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡/" rel="bookmark">美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/06/25/美国生活第二个月照片（2）/" rel="bookmark">美国生活第二个月照片（2）</a></div>
     </li>
   </ul>
 
@@ -517,7 +519,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -577,13 +579,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">285k</span>
+    <span title="站点总字数">289k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:19</span>
+    <span title="站点阅读时长">4:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

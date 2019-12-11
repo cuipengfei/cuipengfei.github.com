@@ -47,16 +47,18 @@
   };
 </script>
 
-  <meta name="description" content="设计模式—组合模式（CSDN依然没有恢复迹象……） ![7fef7ad965c15b3411df9b0d.jpg](http:&#x2F;&#x2F;hiphotos.baidu.com&#x2F;yansuochonglou&#x2F;pic&#x2F;item&#x2F;7fef7ad965c15b3411df9b0d.jpg) using System;using System.Collections.Generic;using System.Tex">
+  <meta name="description" content="设计模式—组合模式（CSDN依然没有恢复迹象……）  1using System;2using System.Collections.Generic;3using System.Text;45namespace ConsoleApplication16&amp;#123;7    abstract class AbstractCompany8    &amp;#123;9        protected Str">
 <meta name="keywords" content="设计模式读书笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式---组合模式（CSDN依然没有恢复迹象......）">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2008&#x2F;08&#x2F;18&#x2F;%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F---%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F%EF%BC%88CSDN%E4%BE%9D%E7%84%B6%E6%B2%A1%E6%9C%89%E6%81%A2%E5%A4%8D%E8%BF%B9%E8%B1%A1......%EF%BC%89&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="设计模式—组合模式（CSDN依然没有恢复迹象……） ![7fef7ad965c15b3411df9b0d.jpg](http:&#x2F;&#x2F;hiphotos.baidu.com&#x2F;yansuochonglou&#x2F;pic&#x2F;item&#x2F;7fef7ad965c15b3411df9b0d.jpg) using System;using System.Collections.Generic;using System.Tex">
+<meta property="og:description" content="设计模式—组合模式（CSDN依然没有恢复迹象……）  1using System;2using System.Collections.Generic;3using System.Text;45namespace ConsoleApplication16&amp;#123;7    abstract class AbstractCompany8    &amp;#123;9        protected Str">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-10T09:33:07.457Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;hiphotos.baidu.com&#x2F;yansuochonglou&#x2F;pic&#x2F;item&#x2F;7fef7ad965c15b3411df9b0d.jpg">
+<meta property="og:updated_time" content="2019-12-11T03:43:29.330Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;hiphotos.baidu.com&#x2F;yansuochonglou&#x2F;pic&#x2F;item&#x2F;7fef7ad965c15b3411df9b0d.jpg">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2008/08/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F---%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F%EF%BC%88CSDN%E4%BE%9D%E7%84%B6%E6%B2%A1%E6%9C%89%E6%81%A2%E5%A4%8D%E8%BF%B9%E8%B1%A1......%EF%BC%89/">
 
@@ -261,14 +263,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -281,31 +283,10 @@
 
       
         <p>设计模式—组合模式（CSDN依然没有恢复迹象……）</p>
-<p>![7fef7ad965c15b3411df9b0d.jpg](<a href="http://hiphotos.baidu.com/yansuochonglou/pic/i" target="_blank" rel="noopener">http://hiphotos.baidu.com/yansuochonglou/pic/i</a><br>tem/7fef7ad965c15b3411df9b0d.jpg) using System;<br>using System.Collections.Generic;<br>using System.Text;</p>
-<p>namespace ConsoleApplication1<br>{<br>abstract class AbstractCompany<br>{<br>protected String Name;  </p>
-<p>public AbstractCompany(string name)<br>{<br>this.Name = name;<br>}</p>
-<p>public abstract void Add(AbstractCompany c);</p>
-<p>public abstract void Remove(AbstractCompany c);</p>
-<p>public abstract void Show(int len);</p>
-<p>public abstract void DoJob();<br>}</p>
-<p>class RealCompany:AbstractCompany<br>{<br>private IList&lt; AbstractCompany&gt; Son=new List<abstractcompany>();  </abstractcompany></p>
-<p>public RealCompany(string name):base(name){}</p>
-<p>public override void Add(AbstractCompany c)<br>{<br>Son.Add(c);<br>}</p>
-<p>public override void DoJob()<br>{<br>Console.WriteLine(Name+”公司正常运转”);<br>foreach (AbstractCompany a in Son)<br>{<br>a.DoJob();<br>}<br>}</p>
-<p>public override void Remove(AbstractCompany c)<br>{<br>Son.Remove(c);<br>}</p>
-<p>public override void Show(int len)<br>{<br>Console.WriteLine(new String(‘-‘,len)+Name);<br>foreach (AbstractCompany a in Son)<br>{<br>a.Show(len+1);<br>}<br>}<br>}</p>
-<p>class HR:AbstractCompany<br>{<br>public HR(string name) : base(name) { }</p>
-<p>public override void Add(AbstractCompany c)<br>{  </p>
-<p>}</p>
-<p>public override void DoJob()<br>{<br>Console.WriteLine(Name + “人事部正常运转”);<br>}</p>
-<p>public override void Remove(AbstractCompany c)<br>{  </p>
-<p>}</p>
-<p>public override void Show(int len)<br>{<br>Console.WriteLine(new string(‘-‘, len) + Name);<br>}<br>}</p>
-<p>class Client<br>{<br>public static void Main()<br>{<br>AbstractCompany root = new RealCompany(“总公司”);<br>root.Add(new HR(“总公司人事部”));</p>
-<p>RealCompany r=new RealCompany(“分公司”);<br>r.Add(new HR(“分公司人事部”));</p>
-<p>root.Add(r);</p>
-<p>root.Show(1);<br>root.DoJob();</p>
-<p>Console.Read();<br>}<br>}<br>}  </p>
+<p><img alt="7fef7ad965c15b3411df9b0d.jpg" data-src="http://hiphotos.baidu.com/yansuochonglou/pic/item/7fef7ad965c15b3411df9b0d.jpg"></p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Text;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">ConsoleApplication1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">AbstractCompany</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">protected</span> String Name;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">AbstractCompany</span>(<span class="params"><span class="keyword">string</span> name</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">this</span>.Name = name;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Add</span>(<span class="params">AbstractCompany c</span>)</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Remove</span>(<span class="params">AbstractCompany c</span>)</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Show</span>(<span class="params"><span class="keyword">int</span> len</span>)</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">DoJob</span>(<span class="params"></span>)</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">class</span> <span class="title">RealCompany</span> : <span class="title">AbstractCompany</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">private</span> IList&lt;AbstractCompany&gt; Son = <span class="keyword">new</span> List&lt;AbstractCompany&gt;();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">RealCompany</span>(<span class="params"><span class="keyword">string</span> name</span>) : <span class="title">base</span>(<span class="params">name</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Add</span>(<span class="params">AbstractCompany c</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line">            Son.Add(c);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">DoJob</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">            Console.WriteLine(Name + <span class="string">"公司正常运转"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">foreach</span> (AbstractCompany a <span class="keyword">in</span> Son)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line">            &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line">                a.DoJob();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">45</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">46</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">47</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Remove</span>(<span class="params">AbstractCompany c</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">48</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">49</span></pre></td><td class="code"><pre><span class="line">            Son.Remove(c);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">50</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">51</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">52</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Show</span>(<span class="params"><span class="keyword">int</span> len</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">53</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">54</span></pre></td><td class="code"><pre><span class="line">            Console.WriteLine(<span class="keyword">new</span> String(<span class="string">'-'</span>, len) + Name);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">55</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">foreach</span> (AbstractCompany a <span class="keyword">in</span> Son)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">56</span></pre></td><td class="code"><pre><span class="line">            &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">57</span></pre></td><td class="code"><pre><span class="line">                a.Show(len + <span class="number">1</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">58</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">59</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">60</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">61</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">62</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">class</span> <span class="title">HR</span> : <span class="title">AbstractCompany</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">63</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">64</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">HR</span>(<span class="params"><span class="keyword">string</span> name</span>) : <span class="title">base</span>(<span class="params">name</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">65</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">66</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">67</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">68</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Add</span>(<span class="params">AbstractCompany c</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">69</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">70</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">71</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">72</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">DoJob</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">73</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">74</span></pre></td><td class="code"><pre><span class="line">            Console.WriteLine(Name + <span class="string">"人事部正常运转"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">75</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">76</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">77</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Remove</span>(<span class="params">AbstractCompany c</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">78</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">79</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">80</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">81</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Show</span>(<span class="params"><span class="keyword">int</span> len</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">82</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">83</span></pre></td><td class="code"><pre><span class="line">            Console.WriteLine(<span class="keyword">new</span> <span class="keyword">string</span>(<span class="string">'-'</span>, len) + Name);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">84</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">85</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">86</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">87</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">class</span> <span class="title">Client</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">88</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">89</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">90</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">91</span></pre></td><td class="code"><pre><span class="line">            AbstractCompany root = <span class="keyword">new</span> RealCompany(<span class="string">"总公司"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">92</span></pre></td><td class="code"><pre><span class="line">            root.Add(<span class="keyword">new</span> HR(<span class="string">"总公司人事部"</span>));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">93</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">94</span></pre></td><td class="code"><pre><span class="line">            RealCompany r = <span class="keyword">new</span> RealCompany(<span class="string">"分公司"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">95</span></pre></td><td class="code"><pre><span class="line">            r.Add(<span class="keyword">new</span> HR(<span class="string">"分公司人事部"</span>));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">96</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">97</span></pre></td><td class="code"><pre><span class="line">            root.Add(r);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">98</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">99</span></pre></td><td class="code"><pre><span class="line">            root.Show(<span class="number">1</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">100</span></pre></td><td class="code"><pre><span class="line">            root.DoJob();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">101</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">102</span></pre></td><td class="code"><pre><span class="line">            Console.Read();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">103</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">104</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">105</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+
 
     </div>
 
@@ -316,25 +297,31 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/07/30/策略模式的简单应用（CSharp）/" rel="bookmark">策略模式的简单应用（C#）</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/07/29/简单工厂的最最简单应用（CSharp）/" rel="bookmark">简单工厂的最最简单应用（C#）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/07/31/装饰模式的简单实现（CSharp）内有图一张,嘿嘿...../" rel="bookmark">装饰模式的简单实现（C#）内有图一张,嘿嘿.....</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/01/设计模式--代理模式的简单实现（CSharp）+类关系图/" rel="bookmark">设计模式--代理模式的简单实现（C#）+类关系图</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/04/设计模式--模板方法模式（照旧，有类关系图）/" rel="bookmark">设计模式--模板方法模式（照旧，有类关系图）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/03/设计模式--原型模式（附带类关系图一张）/" rel="bookmark">设计模式--原型模式（附带类关系图一张）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/02/设计模式--工厂模式/" rel="bookmark">设计模式--工厂模式</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/07/30/策略模式的简单应用（CSharp）/" rel="bookmark">策略模式的简单应用（C#）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/01/设计模式--代理模式的简单实现（CSharp）+类关系图/" rel="bookmark">设计模式--代理模式的简单实现（C#）+类关系图</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/03/设计模式--原型模式（附带类关系图一张）/" rel="bookmark">设计模式--原型模式（附带类关系图一张）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/07/31/装饰模式的简单实现（CSharp）内有图一张,嘿嘿...../" rel="bookmark">装饰模式的简单实现（C#）内有图一张,嘿嘿.....</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/06/设计模式---建造者（Builder）模式，有关系图/" rel="bookmark">设计模式---建造者（Builder）模式，有关系图</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/04/设计模式--模板方法模式（照旧，有类关系图）/" rel="bookmark">设计模式--模板方法模式（照旧，有类关系图）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/05/设计模式--外观模式/" rel="bookmark">设计模式--外观模式</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/07/设计模式---观察者模式（恐怖袭击、地震的例子，有类关系图）/" rel="bookmark">设计模式---观察者模式（恐怖袭击、地震的例子，有类关系图）</a></div>
@@ -343,16 +330,19 @@
       <div class="popular-posts-title"><a href="/blog/2008/08/08/设计模式---抽象工厂模式+反射+配置文件/" rel="bookmark">设计模式---抽象工厂模式+反射+配置文件</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/05/设计模式--外观模式/" rel="bookmark">设计模式--外观模式</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---单例模式（singleton）/" rel="bookmark">设计模式---单例模式（singleton）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---备忘录模式（CSDN没有恢复迹象......）/" rel="bookmark">设计模式---备忘录模式（CSDN没有恢复迹象......）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---命令模式/" rel="bookmark">设计模式---命令模式</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---中介者模式（打出来是“终结者.......”）/" rel="bookmark">设计模式---中介者模式（打出来是“终结者.......”）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/06/设计模式---建造者（Builder）模式，有关系图/" rel="bookmark">设计模式---建造者（Builder）模式，有关系图</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---备忘录模式（CSDN没有恢复迹象......）/" rel="bookmark">设计模式---备忘录模式（CSDN没有恢复迹象......）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---职责链模式/" rel="bookmark">设计模式---职责链模式</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---桥接模式/" rel="bookmark">设计模式---桥接模式</a></div>
@@ -361,19 +351,7 @@
       <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---状态模式（今天CSDN竟然上不去，暂时发在这里） (从百度空间转回来的)/" rel="bookmark">设计模式---状态模式（今天CSDN竟然上不去，暂时发在这里） (从百度空间转回来的)</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---单例模式（singleton）/" rel="bookmark">设计模式---单例模式（singleton）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---命令模式/" rel="bookmark">设计模式---命令模式</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---职责链模式/" rel="bookmark">设计模式---职责链模式</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---迭代器模式（昨天停电了......）/" rel="bookmark">设计模式---迭代器模式（昨天停电了......）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---适配器模式（从百度转回来的）/" rel="bookmark">设计模式---适配器模式（从百度转回来的）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/19/CSDN被和谐期间的Blog都发到百度空间去了/" rel="bookmark">CSDN被和谐期间的Blog都发到百度空间去了</a></div>
@@ -382,10 +360,13 @@
       <div class="popular-posts-title"><a href="/blog/2008/08/19/设计模式---享元模式/" rel="bookmark">设计模式---享元模式</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/20/设计模式---翻译器模式/" rel="bookmark">设计模式---翻译器模式</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---适配器模式（从百度转回来的）/" rel="bookmark">设计模式---适配器模式（从百度转回来的）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/21/设计模式---访问者模式（应该是最后一篇了）/" rel="bookmark">设计模式---访问者模式（应该是最后一篇了）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/20/设计模式---翻译器模式/" rel="bookmark">设计模式---翻译器模式</a></div>
     </li>
   </ul>
 
@@ -483,7 +464,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -543,13 +524,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">285k</span>
+    <span title="站点总字数">289k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:19</span>
+    <span title="站点阅读时长">4:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

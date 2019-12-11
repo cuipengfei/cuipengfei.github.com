@@ -47,16 +47,16 @@
   };
 </script>
 
-  <meta name="description" content="刘义军老师留的作业 代码简单，一看就懂  using System; using System.Collections.Generic; using System.ComponentModel;using System.Data; using System.Drawing; using System.Linq; using System.Text;using System.Windows.Form">
+  <meta name="description" content="刘义军老师留的作业 代码简单，一看就懂  1using System;2using System.Collections.Generic;3using System.ComponentModel;4using System.Data;5using System.Drawing;6using System.Linq;7using System.Text;8using System.Windows.F">
 <meta name="keywords" content="杂7杂8">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《计算机图形技术》练习--用GDI+模拟DDA算法">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2009&#x2F;03&#x2F;02&#x2F;%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E6%8A%80%E6%9C%AF%E3%80%8B%E7%BB%83%E4%B9%A0--%E7%94%A8GDI+%E6%A8%A1%E6%8B%9FDDA%E7%AE%97%E6%B3%95&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="刘义军老师留的作业 代码简单，一看就懂  using System; using System.Collections.Generic; using System.ComponentModel;using System.Data; using System.Drawing; using System.Linq; using System.Text;using System.Windows.Form">
+<meta property="og:description" content="刘义军老师留的作业 代码简单，一看就懂  1using System;2using System.Collections.Generic;3using System.ComponentModel;4using System.Data;5using System.Drawing;6using System.Linq;7using System.Text;8using System.Windows.F">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;p-blog.csdn.net&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20090311&#x2F;2009-03-11_08-35-10.jpg">
-<meta property="og:updated_time" content="2019-12-10T09:33:06.694Z">
+<meta property="og:updated_time" content="2019-12-11T04:51:01.653Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;p-blog.csdn.net&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20090311&#x2F;2009-03-11_08-35-10.jpg">
 
@@ -263,7 +263,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>1.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -285,7 +285,9 @@
         <p>刘义军老师留的作业</p>
 <p>代码简单，一看就懂</p>
 <p><img alt data-src="https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090311/2009-03-11_08-35-10.jpg"></p>
-<p>using System; using System.Collections.Generic; using System.ComponentModel;<br>using System.Data; using System.Drawing; using System.Linq; using System.Text;<br>using System.Windows.Forms; namespace GDI_DDA { public partial class Form1 :<br>Form { int pointSize = 22; int width = Screen.PrimaryScreen.WorkingArea.Width;<br>int height = Screen.PrimaryScreen.WorkingArea.Height; public Form1() {<br>InitializeComponent(); } void DrawGrid(Graphics gra) { for (int i = 0; i&lt;=<br>Width ; i+=pointSize) { gra.DrawLine(Pens.Black,i,0,i,height); } for (int i =<br>0; i &lt;= height; i += pointSize) { gra.DrawLine(Pens.Black, 0,i,Width,i); } }<br>void MyDrawLine(Graphics gra,float startX,float startY,float endX,float endY )<br>{ float dx=endX - startX; float dy=endY - startY; float delta = dy / dx; float<br>y = startY; for (int x = (int)startX; x &lt;= endX; x++,y+=delta) {<br>DrawEllipseByCenter(gra, Pens.Red, x * pointSize, y * pointSize, pointSize *<br>0.5f); } } void DrawEllipseByCenter(Graphics g,Pen p, float centerX,float<br>centerY, float r) {<br>g.FillEllipse(Brushes.Red,centerX-r<em>0.5f,centerY-0.5f,2</em>r,2<em>r); } private void<br>Form1_Paint(object sender, PaintEventArgs e) { Graphics myGra = e.Graphics;<br>DrawGrid(myGra); MyDrawLine(myGra,3,5,47,25); myGra.DrawLine(Pens.Red,<br>3</em>pointSize, 5<em>pointSize, 47</em>pointSize, 25*pointSize); myGra.Dispose(); } } }</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.ComponentModel;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Data;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Drawing;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Linq;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Text;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Windows.Forms;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> GDI_DDA</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> partial <span class="class"><span class="keyword">class</span> <span class="title">Form1</span> :</span> Form</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">int</span> pointSize = <span class="number">22</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">int</span> <span class="built_in">width</span> = Screen.PrimaryScreen.WorkingArea.Width;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">int</span> <span class="built_in">height</span> = Screen.PrimaryScreen.WorkingArea.Height;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Form1</span><span class="params">()</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"><span class="function">        </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">            InitializeComponent();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">DrawGrid</span><span class="params">(Graphics gra)</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"><span class="function">        </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= Width; i += pointSize)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">            &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">                gra.DrawLine(Pens.Black, i, <span class="number">0</span>, i, <span class="built_in">height</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="built_in">height</span>; i += pointSize)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">            &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">                gra.DrawLine(Pens.Black, <span class="number">0</span>, i, Width, i);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">MyDrawLine</span><span class="params">(Graphics gra, <span class="keyword">float</span> startX, <span class="keyword">float</span> startY, <span class="keyword">float</span> endX, <span class="keyword">float</span> endY)</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line"><span class="function">        </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">float</span> dx = endX - startX;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">float</span> dy = endY - startY;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">float</span> delta = dy / dx;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">float</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line">                y = startY;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> x = (<span class="keyword">int</span>) startX; x &lt;= endX; x++, y += delta)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">            &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">45</span></pre></td><td class="code"><pre><span class="line">                DrawEllipseByCenter(gra, Pens.Red, x * pointSize, y * pointSize, pointSize * <span class="number">0.5f</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">46</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">47</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">48</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">49</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">DrawEllipseByCenter</span><span class="params">(Graphics g, Pen p, <span class="keyword">float</span> centerX, <span class="keyword">float</span> centerY, <span class="keyword">float</span> r)</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">50</span></pre></td><td class="code"><pre><span class="line"><span class="function">        </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">51</span></pre></td><td class="code"><pre><span class="line">            g.FillEllipse(Brushes.Red, centerX - r * <span class="number">0.5f</span>, centerY - <span class="number">0.5f</span>, <span class="number">2</span> * r, <span class="number">2</span> * r);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">52</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">53</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">54</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Form1_Paint</span><span class="params">(object sender, PaintEventArgs e)</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">55</span></pre></td><td class="code"><pre><span class="line"><span class="function">        </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">56</span></pre></td><td class="code"><pre><span class="line">            Graphics myGra = e.Graphics;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">57</span></pre></td><td class="code"><pre><span class="line">            DrawGrid(myGra);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">58</span></pre></td><td class="code"><pre><span class="line">            MyDrawLine(myGra, <span class="number">3</span>, <span class="number">5</span>, <span class="number">47</span>, <span class="number">25</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">59</span></pre></td><td class="code"><pre><span class="line">            myGra.DrawLine(Pens.Red, <span class="number">3</span> * pointSize, <span class="number">5</span> * pointSize, <span class="number">47</span> * pointSize, <span class="number">25</span> * pointSize);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">60</span></pre></td><td class="code"><pre><span class="line">            myGra.Dispose();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">61</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">62</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">63</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+
 
     </div>
 
@@ -296,40 +298,31 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/09/25/IE7、Opera只能失败，FireFox3和Chrome却可以成功  访问的页面/" rel="bookmark">IE7、Opera只能失败，FireFox3和Chrome却可以成功  访问的页面</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/10/09/文字竖排工具BY烟锁重楼/" rel="bookmark">文字竖排工具BY烟锁重楼</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/10/12/文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码/" rel="bookmark">文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/10/13/感谢亲爱的Editor把我弄到首页上去了/" rel="bookmark">感谢亲爱的Editor把我弄到首页上去了</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/11/15/数据结构：用队列模拟理发店的排队情况（CSharp）/" rel="bookmark">数据结构：用队列模拟理发店的排队情况（C#）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/10/03/对Graphic的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME]/" rel="bookmark">对Graphic的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME]</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/10/20/用户被忽悠 微软黑屏计划推至21日0点实施/" rel="bookmark">用户被忽悠 微软黑屏计划推至21日0点实施</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/12/12/数据结构:二叉树的建立和遍历(CSharp实现)/" rel="bookmark">数据结构:二叉树的建立和遍历(C#实现)</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/01/14/迅雷账号升级到24了，全球70000名。Oh~~Yeah~~~~/" rel="bookmark">迅雷账号升级到24了，全球70000名。Oh~~Yeah~~~~</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/01/16/西南石油大学--学分绩点计算器（用CSharp编写，需要有.NET 2.0）/" rel="bookmark">西南石油大学--学分绩点计算器（用C#编写，需要有.NET 2.0）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/12/12/数据结构:二叉树的建立和遍历(CSharp实现)/" rel="bookmark">数据结构:二叉树的建立和遍历(C#实现)</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/11/15/数据结构：用队列模拟理发店的排队情况（CSharp）/" rel="bookmark">数据结构：用队列模拟理发店的排队情况（C#）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/03/10/A double blessing has descended upon the house/" rel="bookmark">A double blessing has descended upon the house</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/02/06/SWPU学分绩点计算器女生版/" rel="bookmark">SWPU学分绩点计算器女生版</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/03/10/A double blessing has descended upon the house/" rel="bookmark">A double blessing has descended upon the house</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/01/16/西南石油大学--学分绩点计算器（用CSharp编写，需要有.NET 2.0）/" rel="bookmark">西南石油大学--学分绩点计算器（用C#编写，需要有.NET 2.0）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/05/15/CET口语证书，呕嘢~~~~~~~~~~~~/" rel="bookmark">CET口语证书，呕嘢~~~~~~~~~~~~</a></div>
@@ -338,31 +331,28 @@
       <div class="popular-posts-title"><a href="/blog/2009/09/01/easyMule自动关机工具(可用于1.X和2.0版本)/" rel="bookmark">easyMule自动关机工具(可用于1.X和2.0版本)</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/09/03/通过英文剧集、电影学单词的小工具/" rel="bookmark">通过英文剧集、电影学单词的小工具</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/03/15/使用AvalonDock制作WPF多标签浏览器（一）/" rel="bookmark">使用AvalonDock制作WPF多标签浏览器（一）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/03/16/使用AvalonDock制作WPF多标签浏览器（二）/" rel="bookmark">使用AvalonDock制作WPF多标签浏览器（二）</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2009/09/03/通过英文剧集、电影学单词的小工具/" rel="bookmark">通过英文剧集、电影学单词的小工具</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/03/17/用AvalonDock制作WPF多标签浏览器（三）/" rel="bookmark">用AvalonDock制作WPF多标签浏览器（三）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/05/22/.NET 4.0 FAQ 第一部分—DLR/" rel="bookmark">.NET 4.0 FAQ 第一部分—DLR</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/05/22/MEF编程指南（前两节）/" rel="bookmark">MEF编程指南（前两节）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/07/31/在.NET 4中调用GDAL库时遇到的问题及解决方法/" rel="bookmark">在.NET 4中调用GDAL库时遇到的问题及解决方法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/09/13/WPF中ItemContainerStyle不适用的一种情况/" rel="bookmark">WPF中ItemContainerStyle不适用的一种情况</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/10/04/百度游戏 七彩鱼 自动喂鱼器/" rel="bookmark">百度游戏 七彩鱼 自动喂鱼器</a></div>
+      <div class="popular-posts-title"><a href="/blog/2010/05/22/MEF编程指南（前两节）/" rel="bookmark">MEF编程指南（前两节）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2010/05/22/.NET 4.0 FAQ 第一部分—DLR/" rel="bookmark">.NET 4.0 FAQ 第一部分—DLR</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2010/07/31/在.NET 4中调用GDAL库时遇到的问题及解决方法/" rel="bookmark">在.NET 4中调用GDAL库时遇到的问题及解决方法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/09/30/当Generic.xaml遇上BitmapImage：发现一个疑似WPF Bug而又不似Bug的问题/" rel="bookmark">当Generic.xaml遇上BitmapImage：发现一个疑似WPF Bug而又不似Bug的问题</a></div>
@@ -371,10 +361,13 @@
       <div class="popular-posts-title"><a href="/blog/2010/10/06/送给所有需要学英语的朋友—Words Via Subtitle/" rel="bookmark">送给所有需要学英语的朋友—Words Via Subtitle</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/04/18/[翻译]List为什么实现了那么多接口？/" rel="bookmark">[翻译]List为什么实现了那么多接口？</a></div>
+      <div class="popular-posts-title"><a href="/blog/2010/10/04/百度游戏 七彩鱼 自动喂鱼器/" rel="bookmark">百度游戏 七彩鱼 自动喂鱼器</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/05/31/美国生活第一个月见闻，有图有真相（1）/" rel="bookmark">美国生活第一个月见闻，有图有真相（1）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/04/18/[翻译]List为什么实现了那么多接口？/" rel="bookmark">[翻译]List为什么实现了那么多接口？</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/06/01/美国生活第一个月见闻，有图有真相（2）/" rel="bookmark">美国生活第一个月见闻，有图有真相（2）</a></div>
@@ -383,13 +376,13 @@
       <div class="popular-posts-title"><a href="/blog/2011/06/02/美国生活第一个月见闻，有图有真相（3）/" rel="bookmark">美国生活第一个月见闻，有图有真相（3）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/06/25/美国生活第二个月照片（2）/" rel="bookmark">美国生活第二个月照片（2）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/06/22/美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡/" rel="bookmark">美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/07/06/WP7 Tip: 禁用Pivot控件的切换手势/" rel="bookmark">WP7 Tip: 禁用Pivot控件的切换手势</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/06/22/美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡/" rel="bookmark">美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/06/25/美国生活第二个月照片（2）/" rel="bookmark">美国生活第二个月照片（2）</a></div>
     </li>
   </ul>
 
@@ -487,7 +480,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -547,13 +540,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">285k</span>
+    <span title="站点总字数">289k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:19</span>
+    <span title="站点阅读时长">4:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

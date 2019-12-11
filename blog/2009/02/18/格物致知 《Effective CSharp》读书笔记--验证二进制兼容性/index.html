@@ -59,7 +59,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;p-blog.csdn.net&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20090218&#x2F;2009-02-18_13-11-29.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;profile.csdnimg.cn&#x2F;5&#x2F;2&#x2F;5&#x2F;3_cuipengfei1">
 <meta property="og:image" content="https:&#x2F;&#x2F;g.csdnimg.cn&#x2F;static&#x2F;user-reg-year&#x2F;1x&#x2F;11.png">
-<meta property="og:updated_time" content="2019-12-10T09:32:33.755Z">
+<meta property="og:updated_time" content="2019-12-11T04:49:39.655Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;p-blog.csdn.net&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20090218&#x2F;2009-02-18_13-07-45.jpg">
 
@@ -266,7 +266,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
+              <span>1.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -289,61 +289,31 @@
 <p>验证思路：创建一个类库内有一个public的类，该类内有一个public的字段。另外创建一个WinForm程序去读区该字段并显示。然后修改类库中的字段为属性<br>。再去运行WinForm，就应该会出错了。出错具体原因请参看《Effective C#》讲解。</p>
 <p>开始吧！</p>
 <p>创建一个ClassLibrary，叫做TheDLL。代码如下：</p>
-<p>public  class  DataHolder</p>
-<p>{</p>
-<p>public  String  Data =  “Hey! Hey!You!You!”  ;</p>
-<p>}</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataHolder</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="class">&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="keyword">String</span> Data = <span class="string">"Hey! Hey!You!You!"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+
 <p>用它生成一个dll。</p>
 <p>然后创建一个WindowsFormsApplication，叫做TheForm，上有一个按钮，点击按钮就去读取dll中的数据，把它显示在按钮上。具体代码如下<br>：</p>
-<p>public  partial  class  TheForm  :  Form</p>
-<p>{</p>
-<p>public  TheForm()</p>
-<p>{</p>
-<p>InitializeComponent();</p>
-<p>}</p>
-<p>private  void  button1_Click(  object  sender,  EventArgs  e)</p>
-<p>{</p>
-<p>TheDLL.  DataHolder  DH =  new  TheDLL.  DataHolder  ();</p>
-<p>button1.Text = DH.Data;</p>
-<p>}</p>
-<p>}</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">TheForm</span> : <span class="title">Form</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TheForm</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        InitializeComponent();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">button1_Click</span>(<span class="params"><span class="keyword">object</span> sender, EventArgs e</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        TheDLL.DataHolder DH = <span class="keyword">new</span> TheDLL.DataHolder();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">        button1.Text = DH.Data;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+
 <p>运行，点击按钮，效果如下：</p>
 <p><img alt data-src="https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090218/2009-02-18_13-07-45.jpg"></p>
 <p>然后修改  TheDLL  的代码为如下：</p>
-<p>public  class  DataHolder</p>
-<p>{</p>
-<p>private  String  data =  “Hey! Hey!You!You!”  ;</p>
-<p>public  String  Data</p>
-<p>{</p>
-<p>get  {  return  data; }</p>
-<p>set  { data =  value  ; }</p>
-<p>}</p>
-<p>}</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataHolder</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">private</span> String <span class="keyword">data</span> = <span class="string">"Hey! Hey!You!You!"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> String Data</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">get</span> &#123; <span class="keyword">return</span> <span class="keyword">data</span>; &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">set</span> &#123; <span class="keyword">data</span> = value; &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+
 <p>重新生成dll，把新生成的dll复制到TheForm的debug文件夹下去覆盖原来的dll文件。然后双击运行TheForm.exe。结果如下：</p>
 <p><img alt data-src="https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090218/2009-02-18_13-11-29.jpg"></p>
-<p>提示找不到TheDLL.DataHolder.Data。没错!这就是因为访问字段和访问属性的C#代码虽然一样，都是  TheDLL.  DataHolder<br>DH =  new  TheDLL.  DataHolder  ();</p>
-<p>button1.Text = DH.Data;</p>
+<p>提示找不到TheDLL.DataHolder.Data。没错!这就是因为访问字段和访问属性的C#代码虽然一样，都是</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">TheDLL.DataHolder DH = new TheDLL.DataHolder()<span class="comment">;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">button1.Text = DH.Data<span class="comment">;</span></span></pre></td></tr></table></figure>
+
 <p>但是生成的MSIL是不一样的，这就造成了二进制不兼容。</p>
 <p>注意，不要去IDE中运行TheForm，因为那样会重编译TheForm，就会看不到二进制不兼容造成的结果了。</p>
 <p>另外，即使在TheForm中用try -catch来把访问dll的代码包含起来，如下：</p>
-<p>public  partial  class  TheForm  :  Form</p>
-<p>{</p>
-<p>public  TheForm()</p>
-<p>{</p>
-<p>InitializeComponent();</p>
-<p>}</p>
-<p>private  void  button1_Click(  object  sender,  EventArgs  e)</p>
-<p>{</p>
-<p>try</p>
-<p>{</p>
-<p>TheDLL.  DataHolder  DH =  new  TheDLL.  DataHolder  ();</p>
-<p>button1.Text = DH.Data;</p>
-<p>}</p>
-<p>catch  (  Exception  )</p>
-<p>{</p>
-<p>}</p>
-<p>}</p>
-<p>}  还是会发生上图报错的结果。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">TheForm</span> : <span class="title">Form</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TheForm</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        InitializeComponent();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">button1_Click</span>(<span class="params"><span class="keyword">object</span> sender, EventArgs e</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">try</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">            TheDLL.DataHolder DH = <span class="keyword">new</span> TheDLL.DataHolder();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">            button1.Text = DH.Data;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">catch</span> (Exception)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>还是会发生上图报错的结果。</p>
 <p><a href="https://blog.csdn.net/cuipengfei1" target="_blank" rel="noopener"> <img alt data-src="https://profile.csdnimg.cn/5/2/5/3_cuipengfei1"><br><img alt data-src="https://g.csdnimg.cn/static/user-reg-year/1x/11.png">
 </a></p>
 
@@ -356,10 +326,10 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/07/19/格物致知--《Effective CSharp》读书笔记--验证四种判等方式/" rel="bookmark">格物致知--《Effective C#》读书笔记--验证四种判等方式</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/07/29/格物致知--Effective C Sharp读书笔记--验证接口引用指向装箱后的值类型时无需拆箱/" rel="bookmark">格物致知--《Effective C#》读书笔记--验证接口引用指向装箱后的值类型时无需拆箱</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/07/29/格物致知--Effective C Sharp读书笔记--验证接口引用指向装箱后的值类型时无需拆箱/" rel="bookmark">格物致知--《Effective C#》读书笔记--验证接口引用指向装箱后的值类型时无需拆箱</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/07/19/格物致知--《Effective CSharp》读书笔记--验证四种判等方式/" rel="bookmark">格物致知--《Effective C#》读书笔记--验证四种判等方式</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/05/31/格物致知 《Effective CSharp》读书笔记--验证类型转换/" rel="bookmark">格物致知 《Effective C#》读书笔记--验证类型转换</a></div>
@@ -460,7 +430,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -520,13 +490,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">285k</span>
+    <span title="站点总字数">289k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:19</span>
+    <span title="站点阅读时长">4:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

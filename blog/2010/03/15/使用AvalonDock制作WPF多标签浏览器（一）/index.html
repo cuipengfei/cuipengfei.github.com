@@ -62,7 +62,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;images.cnblogs.com&#x2F;cnblogs_com&#x2F;cuipengfei&#x2F;2010-03-15_21-06-04.jpg">
 <meta property="og:image" content="http:&#x2F;&#x2F;images.cnblogs.com&#x2F;cnblogs_com&#x2F;cuipengfei&#x2F;2010-03-15_21-06-25.jpg">
 <meta property="og:image" content="http:&#x2F;&#x2F;images.cnblogs.com&#x2F;cnblogs_com&#x2F;cuipengfei&#x2F;2010-03-15_21-34-27.jpg">
-<meta property="og:updated_time" content="2019-12-10T09:33:06.714Z">
+<meta property="og:updated_time" content="2019-12-11T05:12:37.622Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;images.cnblogs.com&#x2F;cnblogs_com&#x2F;cuipengfei&#x2F;2010-03-15_21-01-24.jpg">
 
@@ -269,7 +269,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
+              <span>2.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -302,21 +302,24 @@
 <p><img alt data-src="http://images.cnblogs.com/cnblogs_com/cuipengfei/2010-03-15_21-06-04.jpg"></p>
 <p>FireFox  ：</p>
 <p><img alt data-src="http://images.cnblogs.com/cnblogs_com/cuipengfei/2010-03-15_21-06-25.jpg"></p>
-<p>它们都有一个添加新标签的按钮，但是  AvalonDock  的  DocumentPane  默认并没有新建一个  DocumentContent<br>的按钮。</p>
+<p>它们都有一个添加新标签的按钮，但是  AvalonDock  的  DocumentPane  默认并没有新建一个  DocumentContent的按钮。</p>
 <p>DocumentPane  和  DocumentContent  是  AvalonDock  中众多类型中的两个，  DocumentPane  是<br>DocumentContent  的父级容器，  DocumentContent  中则可以置入任何  UI  元素，比如说一个  WebBrowser<br>。</p>
 <p>所以我们的第一步就从给  AvalonDock  的  DocumentPane  写一个添加新  DocumentContent  的按钮开始吧。</p>
 <p>首先  ReStyle  ，从  AvalonDock  的源码中找到  DocumentPaneStyles.xaml  这个文件，定位到</p>
-<p><button x:name="PART_ShowContextMenuButton" dockpanel.dock="Right" width="18" height="18" style="{StaticResource PaneHeaderCommandStyle}" mce_style="{StaticResource PaneHeaderCommandStyle}" command="ad:DocumentPane.ShowDocumentsListMenuCommand"> <a href="ad:AlignedImage" target="_blank" rel="noopener">ad:AlignedImage</a><br><image x:name="ShowContextMenuIcon" source="Images/PinMenu.png" width="13" height="13" stretch="Uniform">  </image></button></p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">x:Name</span>=<span class="string">"PART_ShowContextMenuButton"</span> <span class="attr">DockPanel.Dock</span>=<span class="string">"Right"</span> <span class="attr">Width</span>=<span class="string">"18"</span></span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="xml">        Height="18" Style="</span><span class="template-variable">&#123;StaticResource PaneHeaderCommandStyle&#125;</span><span class="xml">"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="xml">        mce_Style="</span><span class="template-variable">&#123;StaticResource PaneHeaderCommandStyle&#125;</span><span class="xml">"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="xml">        Command="ad:DocumentPane.ShowDocumentsListMenuCommand"&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">ad:AlignedImage</span>&gt;</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Image</span> <span class="attr">x:Name</span>=<span class="string">"ShowContextMenuIcon"</span> <span class="attr">Source</span>=<span class="string">"Images/PinMenu.png"</span> <span class="attr">Width</span>=<span class="string">"13"</span></span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="xml">               Height="13" Stretch="Uniform"/&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">ad:AlignedImage</span>&gt;</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span></pre></td></tr></table></figure>
+
 <p>这段代码</p>
 <p>紧接着这段代码添加如下代码：</p>
-<p><button dockpanel.dock="Right" width="18" height="18" style="{StaticResource
-PaneHeaderCommandStyle}" mce_style="{StaticResource PaneHeaderCommandStyle}" command="ad:DocumentPane.AddNewCommand"> <a href="ad:AlignedImage" target="_blank" rel="noopener">ad:AlignedImage</a> <image source="Images/add.png" width="13" height="13" stretch="Uniform"><br> </image></button></p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">DockPanel.Dock</span>=<span class="string">"Right"</span> <span class="attr">Width</span>=<span class="string">"18"</span> <span class="attr">Height</span>=<span class="string">"18"</span> <span class="attr">Style</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;StaticResource</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="template-variable">PaneHeaderCommandStyle&#125;</span><span class="xml">" mce_Style="</span><span class="template-variable">&#123;StaticResource PaneHeaderCommandStyle&#125;</span><span class="xml">"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="xml">        Command="ad:DocumentPane.AddNewCommand"&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">ad:AlignedImage</span>&gt;</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Image</span></span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="xml">                Source="Images/add.png" Width="13" Height="13" Stretch="Uniform"/&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">ad:AlignedImage</span>&gt;</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span></pre></td></tr></table></figure>
+
 <p>其中的  add.png  是我从网上随便找的一个加号的图片；</p>
 <p>其中的  ad:DocumentPane.AddNewCommand  是紧接下来我们要给  DocumentPane  添加的一个  Command  。</p>
 <p>找到  DocumentPane.cs  文件并添加代码：</p>
-<p>public static RoutedCommand AddNewCommand = new RoutedCommand(); private void<br>ExecutedAddNewCommand(object sender, ExecutedRoutedEventArgs e) { AddNew(); }<br>private void AddNew() { DocumentContent newContent = new DocumentContent();<br>newContent.Title = “new content”; newContent.IsFloatingAllowed = true;<br>Items.Add(newContent); } private void CanExecuteAddNewCommand(object sender,<br>CanExecuteRoutedEventArgs e) { e.CanExecute = true; }</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> RoutedCommand AddNewCommand = <span class="keyword">new</span> <span class="type">RoutedCommand</span>();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> void</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    ExecutedAddNewCommand(object sender, ExecutedRoutedEventArgs e)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    AddNew();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> void AddNew()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    DocumentContent <span class="keyword">new</span><span class="type">Content</span> = <span class="keyword">new</span> <span class="type">DocumentContent</span>();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">new</span><span class="type">Content</span>.Title = <span class="string">"new content"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">new</span><span class="type">Content</span>.IsFloatingAllowed = <span class="literal">true</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    Items.Add(<span class="keyword">new</span><span class="type">Content</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> void CanExecuteAddNewCommand(object sender,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">    CanExecuteRoutedEventArgs e)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">    e.CanExecute = <span class="literal">true</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
 <p>然后再在其  OnInitialized  方法中添加如下一句：</p>
-<p>this  .CommandBindings.Add(  new  CommandBinding(AddNewCommand,<br>ExecutedAddNewCommand, CanExecuteAddNewCommand));</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">this</span>  .CommandBindings.Add(  <span class="keyword">new</span>  <span class="type">CommandBinding</span>(AddNewCommand,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">ExecutedAddNewCommand, CanExecuteAddNewCommand));</span></pre></td></tr></table></figure>
+
 <p>这样我们就给  DocumentPane  添加了一个加号按钮并把它和  AddNewCommand  这个命令联系了起来，点击按钮时我们添加的<br>AddNew  方法就会执行。由于  DocumentPane  是  WPF  中  Selector  的子类，而  Selector  又继承自<br>ItemsControl  ，所以  DocumentPane  会有一个  Items  属性，我们在  AddNew  方法中做的就是给其  Items<br>中塞进一个新的  DocumentContent  。</p>
 <p>这时再次运行  AvalonDock  自带的  Demo  ，可以看见右侧有一个小加号按钮，点击按钮则可以新建标签页：</p>
 <p><img alt data-src="http://images.cnblogs.com/cnblogs_com/cuipengfei/2010-03-15_21-34-27.jpg"></p>
@@ -336,73 +339,61 @@ PaneHeaderCommandStyle}" mce_style="{StaticResource PaneHeaderCommandStyle}" com
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/09/25/IE7、Opera只能失败，FireFox3和Chrome却可以成功  访问的页面/" rel="bookmark">IE7、Opera只能失败，FireFox3和Chrome却可以成功  访问的页面</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/10/09/文字竖排工具BY烟锁重楼/" rel="bookmark">文字竖排工具BY烟锁重楼</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/10/12/文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码/" rel="bookmark">文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/10/13/感谢亲爱的Editor把我弄到首页上去了/" rel="bookmark">感谢亲爱的Editor把我弄到首页上去了</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/11/15/数据结构：用队列模拟理发店的排队情况（CSharp）/" rel="bookmark">数据结构：用队列模拟理发店的排队情况（C#）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/10/03/对Graphic的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME]/" rel="bookmark">对Graphic的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME]</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/10/20/用户被忽悠 微软黑屏计划推至21日0点实施/" rel="bookmark">用户被忽悠 微软黑屏计划推至21日0点实施</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/12/12/数据结构:二叉树的建立和遍历(CSharp实现)/" rel="bookmark">数据结构:二叉树的建立和遍历(C#实现)</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/01/14/迅雷账号升级到24了，全球70000名。Oh~~Yeah~~~~/" rel="bookmark">迅雷账号升级到24了，全球70000名。Oh~~Yeah~~~~</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/01/16/西南石油大学--学分绩点计算器（用CSharp编写，需要有.NET 2.0）/" rel="bookmark">西南石油大学--学分绩点计算器（用C#编写，需要有.NET 2.0）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/12/12/数据结构:二叉树的建立和遍历(CSharp实现)/" rel="bookmark">数据结构:二叉树的建立和遍历(C#实现)</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/11/15/数据结构：用队列模拟理发店的排队情况（CSharp）/" rel="bookmark">数据结构：用队列模拟理发店的排队情况（C#）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/03/10/A double blessing has descended upon the house/" rel="bookmark">A double blessing has descended upon the house</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/02/06/SWPU学分绩点计算器女生版/" rel="bookmark">SWPU学分绩点计算器女生版</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/03/02/《计算机图形技术》练习--用GDI+模拟DDA算法/" rel="bookmark">《计算机图形技术》练习--用GDI+模拟DDA算法</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/03/10/A double blessing has descended upon the house/" rel="bookmark">A double blessing has descended upon the house</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/01/16/西南石油大学--学分绩点计算器（用CSharp编写，需要有.NET 2.0）/" rel="bookmark">西南石油大学--学分绩点计算器（用C#编写，需要有.NET 2.0）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/05/15/CET口语证书，呕嘢~~~~~~~~~~~~/" rel="bookmark">CET口语证书，呕嘢~~~~~~~~~~~~</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/09/01/easyMule自动关机工具(可用于1.X和2.0版本)/" rel="bookmark">easyMule自动关机工具(可用于1.X和2.0版本)</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/03/02/《计算机图形技术》练习--用GDI+模拟DDA算法/" rel="bookmark">《计算机图形技术》练习--用GDI+模拟DDA算法</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/09/03/通过英文剧集、电影学单词的小工具/" rel="bookmark">通过英文剧集、电影学单词的小工具</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/09/01/easyMule自动关机工具(可用于1.X和2.0版本)/" rel="bookmark">easyMule自动关机工具(可用于1.X和2.0版本)</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/03/16/使用AvalonDock制作WPF多标签浏览器（二）/" rel="bookmark">使用AvalonDock制作WPF多标签浏览器（二）</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2009/09/03/通过英文剧集、电影学单词的小工具/" rel="bookmark">通过英文剧集、电影学单词的小工具</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/03/17/用AvalonDock制作WPF多标签浏览器（三）/" rel="bookmark">用AvalonDock制作WPF多标签浏览器（三）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/05/22/.NET 4.0 FAQ 第一部分—DLR/" rel="bookmark">.NET 4.0 FAQ 第一部分—DLR</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/05/22/MEF编程指南（前两节）/" rel="bookmark">MEF编程指南（前两节）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/07/31/在.NET 4中调用GDAL库时遇到的问题及解决方法/" rel="bookmark">在.NET 4中调用GDAL库时遇到的问题及解决方法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/09/13/WPF中ItemContainerStyle不适用的一种情况/" rel="bookmark">WPF中ItemContainerStyle不适用的一种情况</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/10/04/百度游戏 七彩鱼 自动喂鱼器/" rel="bookmark">百度游戏 七彩鱼 自动喂鱼器</a></div>
+      <div class="popular-posts-title"><a href="/blog/2010/05/22/MEF编程指南（前两节）/" rel="bookmark">MEF编程指南（前两节）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2010/05/22/.NET 4.0 FAQ 第一部分—DLR/" rel="bookmark">.NET 4.0 FAQ 第一部分—DLR</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2010/07/31/在.NET 4中调用GDAL库时遇到的问题及解决方法/" rel="bookmark">在.NET 4中调用GDAL库时遇到的问题及解决方法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/09/30/当Generic.xaml遇上BitmapImage：发现一个疑似WPF Bug而又不似Bug的问题/" rel="bookmark">当Generic.xaml遇上BitmapImage：发现一个疑似WPF Bug而又不似Bug的问题</a></div>
@@ -411,10 +402,13 @@ PaneHeaderCommandStyle}" mce_style="{StaticResource PaneHeaderCommandStyle}" com
       <div class="popular-posts-title"><a href="/blog/2010/10/06/送给所有需要学英语的朋友—Words Via Subtitle/" rel="bookmark">送给所有需要学英语的朋友—Words Via Subtitle</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/04/18/[翻译]List为什么实现了那么多接口？/" rel="bookmark">[翻译]List为什么实现了那么多接口？</a></div>
+      <div class="popular-posts-title"><a href="/blog/2010/10/04/百度游戏 七彩鱼 自动喂鱼器/" rel="bookmark">百度游戏 七彩鱼 自动喂鱼器</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/05/31/美国生活第一个月见闻，有图有真相（1）/" rel="bookmark">美国生活第一个月见闻，有图有真相（1）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/04/18/[翻译]List为什么实现了那么多接口？/" rel="bookmark">[翻译]List为什么实现了那么多接口？</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/06/01/美国生活第一个月见闻，有图有真相（2）/" rel="bookmark">美国生活第一个月见闻，有图有真相（2）</a></div>
@@ -423,13 +417,13 @@ PaneHeaderCommandStyle}" mce_style="{StaticResource PaneHeaderCommandStyle}" com
       <div class="popular-posts-title"><a href="/blog/2011/06/02/美国生活第一个月见闻，有图有真相（3）/" rel="bookmark">美国生活第一个月见闻，有图有真相（3）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/06/25/美国生活第二个月照片（2）/" rel="bookmark">美国生活第二个月照片（2）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/06/22/美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡/" rel="bookmark">美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/07/06/WP7 Tip: 禁用Pivot控件的切换手势/" rel="bookmark">WP7 Tip: 禁用Pivot控件的切换手势</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/06/22/美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡/" rel="bookmark">美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/06/25/美国生活第二个月照片（2）/" rel="bookmark">美国生活第二个月照片（2）</a></div>
     </li>
   </ul>
 
@@ -527,7 +521,7 @@ PaneHeaderCommandStyle}" mce_style="{StaticResource PaneHeaderCommandStyle}" com
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -587,13 +581,13 @@ PaneHeaderCommandStyle}" mce_style="{StaticResource PaneHeaderCommandStyle}" com
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">285k</span>
+    <span title="站点总字数">289k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:19</span>
+    <span title="站点阅读时长">4:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

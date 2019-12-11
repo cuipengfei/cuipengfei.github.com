@@ -47,16 +47,18 @@
   };
 </script>
 
-  <meta name="keywords" content="杂7杂8">
+  <meta name="description" content="昨天遇到了一个  Bug  ，如果在浏览器中打开多个标签，并把其中一个标签拖拽到主窗口的一侧来划分出独立的一个区域，然后在新区域中通过点击加号键添加的新标签内不会被添加上  WebBrowser  。    说得好绕嘴啊，截张图吧：      而且没有加上  WebBrowser  的标签的标题是  new content  （我们在  AvalonDock  中给新标签的默认标题）而不是  N">
+<meta name="keywords" content="杂7杂8">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用AvalonDock制作WPF多标签浏览器（三）">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2010&#x2F;03&#x2F;17&#x2F;%E7%94%A8AvalonDock%E5%88%B6%E4%BD%9CWPF%E5%A4%9A%E6%A0%87%E7%AD%BE%E6%B5%8F%E8%A7%88%E5%99%A8%EF%BC%88%E4%B8%89%EF%BC%89&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="昨天遇到了一个  Bug  ，如果在浏览器中打开多个标签，并把其中一个标签拖拽到主窗口的一侧来划分出独立的一个区域，然后在新区域中通过点击加号键添加的新标签内不会被添加上  WebBrowser  。    说得好绕嘴啊，截张图吧：      而且没有加上  WebBrowser  的标签的标题是  new content  （我们在  AvalonDock  中给新标签的默认标题）而不是  N">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;images.cnblogs.com&#x2F;cnblogs_com&#x2F;cuipengfei&#x2F;2010-03-17_21-21-44.jpg">
 <meta property="og:image" content="http:&#x2F;&#x2F;images.cnblogs.com&#x2F;cnblogs_com&#x2F;cuipengfei&#x2F;2010-03-17_21-58-17.jpg">
 <meta property="og:image" content="http:&#x2F;&#x2F;images.cnblogs.com&#x2F;cnblogs_com&#x2F;cuipengfei&#x2F;2010-03-17_21-59-16.jpg">
-<meta property="og:updated_time" content="2019-12-10T09:33:08.507Z">
+<meta property="og:updated_time" content="2019-12-11T04:59:09.477Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;images.cnblogs.com&#x2F;cnblogs_com&#x2F;cuipengfei&#x2F;2010-03-17_21-21-44.jpg">
 
@@ -263,7 +265,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.6k</span>
+              <span>2.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -282,137 +284,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <hr>
-<hr>
-<hr>
-<hr>
-<hr>
-<hr>
-<hr>
-<hr>
-<p>** 昨天遇到了一个  Bug  ，如果在浏览器中打开多个标签，并把其中一个标签拖拽到主窗口的一侧来划分出独立的一个区域，然后在新区域中通过点击加号键添加的新标签内不会被添加上  WebBrowser  。  **</p>
-<hr>
-<hr>
-<hr>
-<hr>
-<hr>
-<p>** 说得好绕嘴啊，截张图吧：  **</p>
-<hr>
-<hr>
-<hr>
-<p>** <img alt data-src="http://images.cnblogs.com/cnblogs_com/cuipengfei/2010-03-17_21-21-44.jpg"><br>**</p>
-<hr>
-<hr>
-<hr>
-<p>** 而且没有加上  WebBrowser  的标签的标题是  new content  （我们在  AvalonDock  中给新标签的默认标题）而不是  New Tab  （客户代码中重新赋的值）。  **</p>
-<hr>
-<p>** OK  ，问题明了了，是不是新添加的标签的  Got_Focus  没能够挂到客户代码中的方法上去呢？  **</p>
-<hr>
-<hr>
-<hr>
-<hr>
-<hr>
-<p>** 的确是这样，当我们把一个标签（  DocumentContent  ）拖拽到一侧从而划分出一个新区域的时候，  AvalonDock  会创建一个新的  DocumentPane  来代表这个新区域。  **</p>
-<hr>
-<p>** 我们浏览器中默认的  DocumentPane  是在  XAML  中声明的，声明时其  NewContentAdded  **</p>
-<hr>
-<p>** 事件就挂到了事件响应方法DocumentPane_NewContentAdded上。  **</p>
-<hr>
-<p>** 而这个新区域中的  DocumentPane  是在  AvalonDock  内部的  DocumentFloatingWindow类中创建的，其事件自然没有挂上来。  **</p>
-<hr>
-<p>** 知道了这些，解决方案自然就有了。  **</p>
-<hr>
-<hr>
-<hr>
-<p>** 在DocumentFloatingWindow中添加如下事件：  **</p>
-<hr>
-<p>** public static event EventHandler<newdocumentpaneaddedbymouseeventargs> NewDocumentPaneAddedByMouse; **</newdocumentpaneaddedbymouseeventargs></p>
-<hr>
-<p>** 其中用到的事件参数定义如下：  **</p>
-<hr>
-<p>** public class NewDocumentPaneAddedByMouseEventArgs : EventArgs { public NewDocumentPaneAddedByMouseEventArgs(DocumentPane addedPane) { AddedPane = addedPane; } public DocumentPane AddedPane { get; private set; } } **</p>
-<hr>
-<hr>
-<hr>
-<p>** 依然尊规范在DocumentFloatingWindow中定义如下方法来触发事件：  **</p>
-<hr>
-<p>** private void OnNewDocumentPaneAddedByMouse(NewDocumentPaneAddedByMouseEventArgs args) { if (NewDocumentPaneAddedByMouse != null) { NewDocumentPaneAddedByMouse(this, args); } } **</p>
-<hr>
-<hr>
-<hr>
-<p>** 并在DocumentFloatingWindow中的ClonePane方法（鼠标拖拽时创建新  DocumentPane  的工作就是在这个方法中做的）中调用该方法来触发事件，修改后的  ClonePane方法是这样的：  **</p>
-<hr>
-<p>** public override Pane ClonePane() { DocumentPane paneToAnchor = new DocumentPane(); OnNewDocumentPaneAddedByMouse(new NewDocumentPaneAddedByMouseEventArgs(paneToAnchor)); ResizingPanel.SetEffectiveSize(paneToAnchor, new Size(Width, Height)); while (HostedPane.Items.Count &gt; 0) { paneToAnchor.Items.Add( HostedPane.RemoveContent(0)); } return paneToAnchor; } **</p>
-<hr>
-<hr>
-<hr>
-<hr>
-<hr>
-<p>** 我们只关心其中的OnNewDocumentPaneAddedByMouse(new NewDocumentPaneAddedByMouseEventArgs(paneToAnchor));  这一句就OK了。  **</p>
-<hr>
-<hr>
-<hr>
-<hr>
-<hr>
-<p>** 好了，现在每当因鼠标拖拽而创建出一个新的  DocumentPane  时，都有一个事件会被触发，而且其传递的事件参数中还含有对新添加的  DocumentPane  实例的引用。这样订阅事件的地方（比如说我们的客户代码中）就可以通过该引用来把新添加的  DocumentPane  的  NewContentAdded事件挂到某个方法上了（当然就是我们的DocumentPane_NewContentAdded方法了）。  **</p>
-<hr>
-<hr>
-<hr>
-<p>** 接下来修改客户代码吧：  **</p>
-<hr>
-<p>** 在浏览器窗口的构造方法中添加下面一句：  **</p>
-<hr>
-<p>** DocumentFloatingWindow.NewDocumentPaneAddedByMouse += (object sender, NewDocumentPaneAddedByMouseEventArgs e) =&gt; { e.AddedPane.NewContentAdded += DocumentPane_NewContentAdded; }; **</p>
-<hr>
-<p>** 用了  lambda  表达式，有点长，不过的确还只是一句啊。  **</p>
-<hr>
-<hr>
-<hr>
-<p>** 这样每个通过鼠标拖拽出来的  DocumentPane  就和我们在  XAML  中声明的  DocumentPane  没什么两样了，它们的  NewContentAdded 事件都挂到了DocumentPane_NewContentAdded方法上，这个方法做什么的来着？它做的就是给每一个新标签中置入一个新的  WebBrowser  。  **</p>
-<hr>
-<hr>
-<hr>
-<hr>
-<hr>
-<p>** 好了，现在再运行一下，之前的问题不见了。  **</p>
-<hr>
-<p>** 另外，如果你在使用  Win7  的话，把某个新标签拖拽出窗口，右击，选择  Floating  **</p>
-<hr>
-<hr>
-<hr>
-<p>** <img alt data-src="http://images.cnblogs.com/cnblogs_com/cuipengfei/2010-03-17_21-58-17.jpg"><br>**</p>
-<hr>
-<hr>
-<hr>
-<p>** 然后就可以把这个拖拽出来的标签  Dock  到屏幕的一侧了  **</p>
-<hr>
-<hr>
-<hr>
-<p>** <img alt data-src="http://images.cnblogs.com/cnblogs_com/cuipengfei/2010-03-17_21-59-16.jpg"> **</p>
-<hr>
-<hr>
-<hr>
-<hr>
-<hr>
-<p>** 那个玻璃化的框框好漂亮啊，呵呵。  **</p>
-<hr>
-<hr>
-<hr>
-<hr>
-<hr>
-<hr>
-<hr>
-<hr>
-<hr>
-<p>** 好了，到现在为止我们的多标签浏览器基本就运转起来了。如果您发现其中隐含的  Bug  或者不妥之处请不吝赐教哈！  **</p>
-<hr>
-<p>** 另外，  AvalonDock  有两套  Theme  ，我们之前的  Restyle  只修改了  DocumentPaneStyles.xaml  ，要在  Win7  下看到想要的效果还要对  aero.normalcolor.xaml  做同样的修改。  **</p>
-<hr>
-<hr>
-<hr>
-<p>** 好了，  Over and out  ！  **</p>
-<hr>
-<hr>
+        <p> 昨天遇到了一个  Bug  ，如果在浏览器中打开多个标签，并把其中一个标签拖拽到主窗口的一侧来划分出独立的一个区域，然后在新区域中通过点击加号键添加的新标签内不会被添加上  WebBrowser  。  </p>
+<p> 说得好绕嘴啊，截张图吧：  </p>
+<p> <img alt data-src="http://images.cnblogs.com/cnblogs_com/cuipengfei/2010-03-17_21-21-44.jpg"></p>
+<p> 而且没有加上  WebBrowser  的标签的标题是  new content  （我们在  AvalonDock  中给新标签的默认标题）而不是  New Tab  （客户代码中重新赋的值）。  </p>
+<p> OK  ，问题明了了，是不是新添加的标签的  Got_Focus  没能够挂到客户代码中的方法上去呢？  </p>
+<p> 的确是这样，当我们把一个标签（  DocumentContent  ）拖拽到一侧从而划分出一个新区域的时候，  AvalonDock  会创建一个新的  DocumentPane  来代表这个新区域。  </p>
+<p> 我们浏览器中默认的  DocumentPane  是在  XAML  中声明的，声明时其  NewContentAdded  </p>
+<p> 事件就挂到了事件响应方法DocumentPane_NewContentAdded上。  </p>
+<p> 而这个新区域中的  DocumentPane  是在  AvalonDock  内部的  DocumentFloatingWindow类中创建的，其事件自然没有挂上来。  </p>
+<p> 知道了这些，解决方案自然就有了。  </p>
+<p> 在DocumentFloatingWindow中添加如下事件：  </p>
+<p> public static event EventHandler<newdocumentpaneaddedbymouseeventargs> NewDocumentPaneAddedByMouse;</newdocumentpaneaddedbymouseeventargs></p>
+<p> 其中用到的事件参数定义如下：  </p>
+<pre><code>public class NewDocumentPaneAddedByMouseEventArgs : EventArgs {
+   public NewDocumentPaneAddedByMouseEventArgs(DocumentPane addedPane) { AddedPane = addedPane; }
+   public DocumentPane AddedPane { get; private set; }
+ }</code></pre><p> 依然尊规范在DocumentFloatingWindow中定义如下方法来触发事件：  </p>
+<p> private void OnNewDocumentPaneAddedByMouse(NewDocumentPaneAddedByMouseEventArgs args) { if (NewDocumentPaneAddedByMouse != null) { NewDocumentPaneAddedByMouse(this, args); } }</p>
+<p> 并在DocumentFloatingWindow中的ClonePane方法（鼠标拖拽时创建新  DocumentPane  的工作就是在这个方法中做的）中调用该方法来触发事件，修改后的  ClonePane方法是这样的：  </p>
+<p> public override Pane ClonePane() { DocumentPane paneToAnchor = new DocumentPane(); OnNewDocumentPaneAddedByMouse(new NewDocumentPaneAddedByMouseEventArgs(paneToAnchor)); ResizingPanel.SetEffectiveSize(paneToAnchor, new Size(Width, Height)); while (HostedPane.Items.Count &gt; 0) { paneToAnchor.Items.Add( HostedPane.RemoveContent(0)); } return paneToAnchor; }</p>
+<p> 我们只关心其中的OnNewDocumentPaneAddedByMouse(new NewDocumentPaneAddedByMouseEventArgs(paneToAnchor));  这一句就OK了。  </p>
+<p> 好了，现在每当因鼠标拖拽而创建出一个新的  DocumentPane  时，都有一个事件会被触发，而且其传递的事件参数中还含有对新添加的  DocumentPane  实例的引用。这样订阅事件的地方（比如说我们的客户代码中）就可以通过该引用来把新添加的  DocumentPane  的  NewContentAdded事件挂到某个方法上了（当然就是我们的DocumentPane_NewContentAdded方法了）。  </p>
+<p> 接下来修改客户代码吧：  </p>
+<p> 在浏览器窗口的构造方法中添加下面一句：  </p>
+<p> DocumentFloatingWindow.NewDocumentPaneAddedByMouse += (object sender, NewDocumentPaneAddedByMouseEventArgs e) =&gt; { e.AddedPane.NewContentAdded += DocumentPane_NewContentAdded; };</p>
+<p> 用了  lambda  表达式，有点长，不过的确还只是一句啊。  </p>
+<p> 这样每个通过鼠标拖拽出来的  DocumentPane  就和我们在  XAML  中声明的  DocumentPane  没什么两样了，它们的  NewContentAdded 事件都挂到了DocumentPane_NewContentAdded方法上，这个方法做什么的来着？它做的就是给每一个新标签中置入一个新的  WebBrowser  。  </p>
+<p> 好了，现在再运行一下，之前的问题不见了。  </p>
+<p> 另外，如果你在使用  Win7  的话，把某个新标签拖拽出窗口，右击，选择  Floating  </p>
+<p> <img alt data-src="http://images.cnblogs.com/cnblogs_com/cuipengfei/2010-03-17_21-58-17.jpg"></p>
+<p> 然后就可以把这个拖拽出来的标签  Dock  到屏幕的一侧了  </p>
+<p> <img alt data-src="http://images.cnblogs.com/cnblogs_com/cuipengfei/2010-03-17_21-59-16.jpg"></p>
+<p> 那个玻璃化的框框好漂亮啊，呵呵。  </p>
+<p> 好了，到现在为止我们的多标签浏览器基本就运转起来了。如果您发现其中隐含的  Bug  或者不妥之处请不吝赐教哈！  </p>
+<p> 另外，  AvalonDock  有两套  Theme  ，我们之前的  Restyle  只修改了  DocumentPaneStyles.xaml  ，要在  Win7  下看到想要的效果还要对  aero.normalcolor.xaml  做同样的修改。  </p>
+<p> 好了，  Over and out  ！  </p>
 <p>代码下载： <a href="http://download.csdn.net/source/2137819" target="_blank" rel="noopener"> http://download.csdn.net/source/2137819
 </a></p>
 
@@ -425,52 +332,40 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/09/25/IE7、Opera只能失败，FireFox3和Chrome却可以成功  访问的页面/" rel="bookmark">IE7、Opera只能失败，FireFox3和Chrome却可以成功  访问的页面</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/10/09/文字竖排工具BY烟锁重楼/" rel="bookmark">文字竖排工具BY烟锁重楼</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/10/12/文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码/" rel="bookmark">文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/10/13/感谢亲爱的Editor把我弄到首页上去了/" rel="bookmark">感谢亲爱的Editor把我弄到首页上去了</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/11/15/数据结构：用队列模拟理发店的排队情况（CSharp）/" rel="bookmark">数据结构：用队列模拟理发店的排队情况（C#）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/10/03/对Graphic的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME]/" rel="bookmark">对Graphic的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME]</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/10/20/用户被忽悠 微软黑屏计划推至21日0点实施/" rel="bookmark">用户被忽悠 微软黑屏计划推至21日0点实施</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/12/12/数据结构:二叉树的建立和遍历(CSharp实现)/" rel="bookmark">数据结构:二叉树的建立和遍历(C#实现)</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/01/14/迅雷账号升级到24了，全球70000名。Oh~~Yeah~~~~/" rel="bookmark">迅雷账号升级到24了，全球70000名。Oh~~Yeah~~~~</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/01/16/西南石油大学--学分绩点计算器（用CSharp编写，需要有.NET 2.0）/" rel="bookmark">西南石油大学--学分绩点计算器（用C#编写，需要有.NET 2.0）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/12/12/数据结构:二叉树的建立和遍历(CSharp实现)/" rel="bookmark">数据结构:二叉树的建立和遍历(C#实现)</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/11/15/数据结构：用队列模拟理发店的排队情况（CSharp）/" rel="bookmark">数据结构：用队列模拟理发店的排队情况（C#）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/03/10/A double blessing has descended upon the house/" rel="bookmark">A double blessing has descended upon the house</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/02/06/SWPU学分绩点计算器女生版/" rel="bookmark">SWPU学分绩点计算器女生版</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/03/02/《计算机图形技术》练习--用GDI+模拟DDA算法/" rel="bookmark">《计算机图形技术》练习--用GDI+模拟DDA算法</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/03/10/A double blessing has descended upon the house/" rel="bookmark">A double blessing has descended upon the house</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/01/16/西南石油大学--学分绩点计算器（用CSharp编写，需要有.NET 2.0）/" rel="bookmark">西南石油大学--学分绩点计算器（用C#编写，需要有.NET 2.0）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/05/15/CET口语证书，呕嘢~~~~~~~~~~~~/" rel="bookmark">CET口语证书，呕嘢~~~~~~~~~~~~</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/09/01/easyMule自动关机工具(可用于1.X和2.0版本)/" rel="bookmark">easyMule自动关机工具(可用于1.X和2.0版本)</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/03/02/《计算机图形技术》练习--用GDI+模拟DDA算法/" rel="bookmark">《计算机图形技术》练习--用GDI+模拟DDA算法</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/09/03/通过英文剧集、电影学单词的小工具/" rel="bookmark">通过英文剧集、电影学单词的小工具</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/09/01/easyMule自动关机工具(可用于1.X和2.0版本)/" rel="bookmark">easyMule自动关机工具(可用于1.X和2.0版本)</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/03/15/使用AvalonDock制作WPF多标签浏览器（一）/" rel="bookmark">使用AvalonDock制作WPF多标签浏览器（一）</a></div>
@@ -479,19 +374,19 @@
       <div class="popular-posts-title"><a href="/blog/2010/03/16/使用AvalonDock制作WPF多标签浏览器（二）/" rel="bookmark">使用AvalonDock制作WPF多标签浏览器（二）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/05/22/.NET 4.0 FAQ 第一部分—DLR/" rel="bookmark">.NET 4.0 FAQ 第一部分—DLR</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/05/22/MEF编程指南（前两节）/" rel="bookmark">MEF编程指南（前两节）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/07/31/在.NET 4中调用GDAL库时遇到的问题及解决方法/" rel="bookmark">在.NET 4中调用GDAL库时遇到的问题及解决方法</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/09/03/通过英文剧集、电影学单词的小工具/" rel="bookmark">通过英文剧集、电影学单词的小工具</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/09/13/WPF中ItemContainerStyle不适用的一种情况/" rel="bookmark">WPF中ItemContainerStyle不适用的一种情况</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/10/04/百度游戏 七彩鱼 自动喂鱼器/" rel="bookmark">百度游戏 七彩鱼 自动喂鱼器</a></div>
+      <div class="popular-posts-title"><a href="/blog/2010/05/22/MEF编程指南（前两节）/" rel="bookmark">MEF编程指南（前两节）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2010/05/22/.NET 4.0 FAQ 第一部分—DLR/" rel="bookmark">.NET 4.0 FAQ 第一部分—DLR</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2010/07/31/在.NET 4中调用GDAL库时遇到的问题及解决方法/" rel="bookmark">在.NET 4中调用GDAL库时遇到的问题及解决方法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/09/30/当Generic.xaml遇上BitmapImage：发现一个疑似WPF Bug而又不似Bug的问题/" rel="bookmark">当Generic.xaml遇上BitmapImage：发现一个疑似WPF Bug而又不似Bug的问题</a></div>
@@ -500,10 +395,13 @@
       <div class="popular-posts-title"><a href="/blog/2010/10/06/送给所有需要学英语的朋友—Words Via Subtitle/" rel="bookmark">送给所有需要学英语的朋友—Words Via Subtitle</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/04/18/[翻译]List为什么实现了那么多接口？/" rel="bookmark">[翻译]List为什么实现了那么多接口？</a></div>
+      <div class="popular-posts-title"><a href="/blog/2010/10/04/百度游戏 七彩鱼 自动喂鱼器/" rel="bookmark">百度游戏 七彩鱼 自动喂鱼器</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/05/31/美国生活第一个月见闻，有图有真相（1）/" rel="bookmark">美国生活第一个月见闻，有图有真相（1）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/04/18/[翻译]List为什么实现了那么多接口？/" rel="bookmark">[翻译]List为什么实现了那么多接口？</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/06/01/美国生活第一个月见闻，有图有真相（2）/" rel="bookmark">美国生活第一个月见闻，有图有真相（2）</a></div>
@@ -512,13 +410,13 @@
       <div class="popular-posts-title"><a href="/blog/2011/06/02/美国生活第一个月见闻，有图有真相（3）/" rel="bookmark">美国生活第一个月见闻，有图有真相（3）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/06/25/美国生活第二个月照片（2）/" rel="bookmark">美国生活第二个月照片（2）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/06/22/美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡/" rel="bookmark">美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/07/06/WP7 Tip: 禁用Pivot控件的切换手势/" rel="bookmark">WP7 Tip: 禁用Pivot控件的切换手势</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/06/22/美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡/" rel="bookmark">美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/06/25/美国生活第二个月照片（2）/" rel="bookmark">美国生活第二个月照片（2）</a></div>
     </li>
   </ul>
 
@@ -616,7 +514,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -676,13 +574,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">285k</span>
+    <span title="站点总字数">289k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:19</span>
+    <span title="站点阅读时长">4:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

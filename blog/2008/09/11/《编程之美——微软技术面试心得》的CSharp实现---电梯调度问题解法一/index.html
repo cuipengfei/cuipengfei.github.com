@@ -47,15 +47,15 @@
   };
 </script>
 
-  <meta name="description" content="class  Program  {  static  void  Main(  string  [] args)  {  int  [] person &#x3D; { 0,1,1,1,1,1,15};  &#x2F;&#x2F;总共六层楼，没有0层  int  needed &#x3D; 0;  int  min &#x3D; 0;  int  target &#x3D; 0;  for  (  int  i &#x3D; 1; i &amp;lt;&#x3D; 6; i++)">
+  <meta name="description" content="1class Program2&amp;#123;3    static void Main(string[] args)4    &amp;#123;5        int[] person &#x3D; &amp;#123;0, 1, 1, 1, 1, 1, 15&amp;#125;; &#x2F;&#x2F;总共六层楼，没有0层6        int needed &#x3D; 0;7        int min &#x3D; 0;8        int targ">
 <meta name="keywords" content="《编程之美——微软技术面试心得》的C#实现">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《编程之美——微软技术面试心得》的C#实现---电梯调度问题解法一">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2008&#x2F;09&#x2F;11&#x2F;%E3%80%8A%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E2%80%94%E2%80%94%E5%BE%AE%E8%BD%AF%E6%8A%80%E6%9C%AF%E9%9D%A2%E8%AF%95%E5%BF%83%E5%BE%97%E3%80%8B%E7%9A%84CSharp%E5%AE%9E%E7%8E%B0---%E7%94%B5%E6%A2%AF%E8%B0%83%E5%BA%A6%E9%97%AE%E9%A2%98%E8%A7%A3%E6%B3%95%E4%B8%80&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="class  Program  {  static  void  Main(  string  [] args)  {  int  [] person &#x3D; { 0,1,1,1,1,1,15};  &#x2F;&#x2F;总共六层楼，没有0层  int  needed &#x3D; 0;  int  min &#x3D; 0;  int  target &#x3D; 0;  for  (  int  i &#x3D; 1; i &amp;lt;&#x3D; 6; i++)">
+<meta property="og:description" content="1class Program2&amp;#123;3    static void Main(string[] args)4    &amp;#123;5        int[] person &#x3D; &amp;#123;0, 1, 1, 1, 1, 1, 15&amp;#125;; &#x2F;&#x2F;总共六层楼，没有0层6        int needed &#x3D; 0;7        int min &#x3D; 0;8        int targ">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-10T09:33:06.663Z">
+<meta property="og:updated_time" content="2019-12-11T03:49:08.739Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2008/09/11/%E3%80%8A%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E2%80%94%E2%80%94%E5%BE%AE%E8%BD%AF%E6%8A%80%E6%9C%AF%E9%9D%A2%E8%AF%95%E5%BF%83%E5%BE%97%E3%80%8B%E7%9A%84CSharp%E5%AE%9E%E7%8E%B0---%E7%94%B5%E6%A2%AF%E8%B0%83%E5%BA%A6%E9%97%AE%E9%A2%98%E8%A7%A3%E6%B3%95%E4%B8%80/">
@@ -261,7 +261,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>359</span>
+              <span>481</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -280,47 +280,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <ol>
-<li>class  Program </li>
-<li>{ </li>
-<li>static  void  Main(  string  [] args) </li>
-<li>{ </li>
-<li>int  [] person = { 0,1,1,1,1,1,15};  //总共六层楼，没有0层 </li>
-<li>int  needed = 0; </li>
-<li>int  min = 0; </li>
-<li>int  target = 0; </li>
-<li>for  (  int  i = 1; i &lt;= 6; i++) </li>
-<li>{ </li>
-<li>needed = 0; </li>
-<li>for  (  int  j = 1; j &lt; i; j++) </li>
-<li>{ </li>
-<li>//目的在i层以下的 </li>
-<li>needed+=person[j]*(i-j); </li>
-<li>} </li>
-<li>for  (  int  j = i + 1; j &lt;= 6; j++) </li>
-<li>{ </li>
-<li>//目的在i层上面的 </li>
-<li>needed+=person[j]*(j-i); </li>
-<li>} </li>
-<li><ol start="23">
-<li>if  (min==0||min &gt;= needed) </li>
-</ol>
-</li>
-<li>{ </li>
-<li>min = needed; </li>
-<li>target = i; </li>
-<li>} </li>
-<li><ol start="29">
-<li><ol start="30">
-<li>} </li>
-</ol>
-</li>
-</ol>
-</li>
-<li>Console.WriteLine(target); </li>
-<li>Console.Read(); </li>
-<li>} </li>
-</ol>
+        <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="symbol">Program</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    static <span class="built_in">void</span> Main(<span class="built_in">string</span>[] args)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">int</span>[] person = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">15</span>&#125;; <span class="comment">//总共六层楼，没有0层</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">int</span> needed = <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">int</span> min = <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">int</span> target = <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">6</span>; i++)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">            needed = <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> j = <span class="number">1</span>; j &lt; i; j++)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">            &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">                <span class="comment">//目的在i层以下的</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">                needed += person[j] * (i - j);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> j = i + <span class="number">1</span>; j &lt;= <span class="number">6</span>; j++)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">            &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">                <span class="comment">//目的在i层上面的</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">                needed += person[j] * (j - i);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">if</span> (min == <span class="number">0</span> || min &gt;= needed)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">            &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">                min = needed;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">                target = i;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">        Console.WriteLine(target);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">        Console.Read();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr></table></figure>
+
+
 
     </div>
 
@@ -334,19 +296,19 @@
       <div class="popular-posts-title"><a href="/blog/2008/07/02/《编程之美——微软技术面试心得》“中国象棋的将帅问题”CSharp实现/" rel="bookmark">《编程之美——微软技术面试心得》“中国象棋的将帅问题”C#实现</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/07/02/编程之美 CSharp实现 1/" rel="bookmark">编程之美 C#实现 1</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/07/03/《编程之美——微软技术面试心得》一摞烧饼的排序 （不会做，看不懂）/" rel="bookmark">《编程之美——微软技术面试心得》一摞烧饼的排序 （不会做，看不懂）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/07/03/《编程之美——微软技术面试心得》一摞烧饼的排序 （不会做，看不懂）/" rel="bookmark">《编程之美——微软技术面试心得》一摞烧饼的排序 （不会做，看不懂）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/07/02/编程之美 CSharp实现 1/" rel="bookmark">编程之美 C#实现 1</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/09/18/编程之美---1的个数CSharp笨（效率低）方法实现/" rel="bookmark">编程之美---1的个数C#笨（效率低）方法实现</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/09/17/cpu占用率为正弦曲线（CSharp实现）基本照抄书上的C++/" rel="bookmark">cpu占用率为正弦曲线（C#实现）基本照抄书上的C++</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/09/18/编程之美---阶乘末尾有几个"零"?(CSharp实现)/" rel="bookmark">编程之美---阶乘末尾有几个"零"?(C#实现)</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/09/18/编程之美---阶乘末尾有几个"零"?(CSharp实现)/" rel="bookmark">编程之美---阶乘末尾有几个"零"?(C#实现)</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/09/17/cpu占用率为正弦曲线（CSharp实现）基本照抄书上的C++/" rel="bookmark">cpu占用率为正弦曲线（C#实现）基本照抄书上的C++</a></div>
     </li>
   </ul>
 
@@ -444,7 +406,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -504,13 +466,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">285k</span>
+    <span title="站点总字数">289k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:19</span>
+    <span title="站点阅读时长">4:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

@@ -47,15 +47,15 @@
   };
 </script>
 
-  <meta name="description" content="遍历只做了先序,递归实现的,中序和后序都类似.代码比较简单,就不写注释,直接贴出来了 代码: TreeNode:结点类  using  System;   using  System.Collections.Generic;   using  System.Text;    namespace  二叉树的建立和遍历    {   class  TreeNode   {   public  char">
+  <meta name="description" content="遍历只做了先序,递归实现的,中序和后序都类似.代码比较简单,就不写注释,直接贴出来了 代码: TreeNode:结点类 1using System;2using System.Collections.Generic;3using System.Text;45namespace 二叉树的建立和遍历6&amp;#123;7    class TreeNode8    &amp;#123;9        public">
 <meta name="keywords" content="杂7杂8">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据结构:二叉树的建立和遍历(C#实现)">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2008&#x2F;12&#x2F;12&#x2F;%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84:%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BB%BA%E7%AB%8B%E5%92%8C%E9%81%8D%E5%8E%86(CSharp%E5%AE%9E%E7%8E%B0)&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="遍历只做了先序,递归实现的,中序和后序都类似.代码比较简单,就不写注释,直接贴出来了 代码: TreeNode:结点类  using  System;   using  System.Collections.Generic;   using  System.Text;    namespace  二叉树的建立和遍历    {   class  TreeNode   {   public  char">
+<meta property="og:description" content="遍历只做了先序,递归实现的,中序和后序都类似.代码比较简单,就不写注释,直接贴出来了 代码: TreeNode:结点类 1using System;2using System.Collections.Generic;3using System.Text;45namespace 二叉树的建立和遍历6&amp;#123;7    class TreeNode8    &amp;#123;9        public">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-10T09:33:06.817Z">
+<meta property="og:updated_time" content="2019-12-11T04:01:14.671Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2008/12/12/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84:%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BB%BA%E7%AB%8B%E5%92%8C%E9%81%8D%E5%8E%86(CSharp%E5%AE%9E%E7%8E%B0)/">
@@ -261,14 +261,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
+              <span>1.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -283,274 +283,14 @@
         <p>遍历只做了先序,递归实现的,中序和后序都类似.代码比较简单,就不写注释,直接贴出来了</p>
 <p>代码:</p>
 <p>TreeNode:结点类</p>
-<ol>
-<li><p>using  System; </p>
-</li>
-<li><p>using  System.Collections.Generic; </p>
-</li>
-<li><p>using  System.Text; </p>
-</li>
-<li><ol start="5">
-<li>namespace  二叉树的建立和遍历 </li>
-</ol>
-</li>
-<li><p>{ </p>
-</li>
-<li><p>class  TreeNode </p>
-</li>
-<li><p>{ </p>
-</li>
-<li><p>public  char  data; </p>
-</li>
-<li><p>public  TreeNode left, right; </p>
-</li>
-<li><ol start="12">
-<li>public  TreeNode(  char  c,TreeNode l,TreeNode r) </li>
-</ol>
-</li>
-<li><p>{ </p>
-</li>
-<li><p>data = c; </p>
-</li>
-<li><p>left = l; </p>
-</li>
-<li><p>right = r; </p>
-</li>
-<li><p>} </p>
-</li>
-<li><p>public  TreeNode() { left = right =  null  ; } </p>
-</li>
-<li><p>} </p>
-</li>
-<li><p>} </p>
-</li>
-<li><p>Tree:树类 </p>
-</li>
-<li><p>using  System; </p>
-</li>
-<li><p>using  System.Collections.Generic; </p>
-</li>
-<li><p>using  System.Text; </p>
-</li>
-<li><ol start="5">
-<li>namespace  二叉树的建立和遍历 </li>
-</ol>
-</li>
-<li><p>{ </p>
-</li>
-<li><p>class  Tree </p>
-</li>
-<li><p>{ </p>
-</li>
-<li><p>public  TreeNode root; </p>
-</li>
-<li><ol start="11">
-<li>Stack<treenode> stack =  new  Stack<treenode>(); </treenode></treenode></li>
-</ol>
-</li>
-<li><ol start="13">
-<li>public  void  CreateTree(String description) </li>
-</ol>
-</li>
-<li><p>{ </p>
-</li>
-<li><p>bool  left=  true  ; </p>
-</li>
-<li><ol start="17">
-<li>char  [] descriptionarray = description.ToCharArray(); </li>
-</ol>
-</li>
-<li><ol start="19">
-<li><ol start="20">
-<li><ol start="21">
-<li>root =  new  TreeNode(); </li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><p>root.data = descriptionarray[0]; </p>
-</li>
-<li><ol start="24">
-<li>TreeNode temp=root; </li>
-</ol>
-</li>
-<li><ol start="26">
-<li><ol start="27">
-<li>for  (  int  i = 1; i &lt;=descriptionarray.Length-1; i++) </li>
-</ol>
-</li>
-</ol>
-</li>
-<li><p>{ </p>
-</li>
-<li><ol start="30">
-<li><ol start="31">
-<li>if  (descriptionarray[i] ==  ‘(‘  ) </li>
-</ol>
-</li>
-</ol>
-</li>
-<li><p>{ </p>
-</li>
-<li><p>left =  true  ; stack.Push(temp); </p>
-</li>
-<li><p>} </p>
-</li>
-<li><ol start="36">
-<li>else  if  (descriptionarray[i] ==  ‘,’  ) </li>
-</ol>
-</li>
-<li><p>{ </p>
-</li>
-<li><p>left =  false  ; </p>
-</li>
-<li><p>} </p>
-</li>
-<li><ol start="41">
-<li>else  if  (descriptionarray[i] ==  ‘)’  ) { stack.Pop(); } </li>
-</ol>
-</li>
-<li><ol start="43">
-<li>else </li>
-</ol>
-</li>
-<li><p>{ </p>
-</li>
-<li><p>temp =  new  TreeNode(); </p>
-</li>
-<li><p>temp.data = descriptionarray[i]; </p>
-</li>
-<li><p>if  (left ==  true  ) </p>
-</li>
-<li><p>{ </p>
-</li>
-<li><p>stack.Peek().left = temp; </p>
-</li>
-<li><p>} </p>
-</li>
-<li><p>else </p>
-</li>
-<li><p>{ </p>
-</li>
-<li><p>stack.Peek().right = temp; </p>
-</li>
-<li><p>} </p>
-</li>
-<li><p>} </p>
-</li>
-<li><ol start="57">
-<li><ol start="58">
-<li>} </li>
-</ol>
-</li>
-</ol>
-</li>
-<li><p>} </p>
-</li>
-<li><ol start="61">
-<li><ol start="62">
-<li>public  void  PreOrder(TreeNode t,String sign) </li>
-</ol>
-</li>
-</ol>
-</li>
-<li><p>{ </p>
-</li>
-<li><ol start="65">
-<li>if  (t!=  null  ) </li>
-</ol>
-</li>
-<li><p>{ </p>
-</li>
-<li><p>Console.WriteLine(sign+t.data); </p>
-</li>
-<li><ol start="69">
-<li>sign += sign; </li>
-</ol>
-</li>
-<li><ol start="71">
-<li>if  (t.left !=  null  ) </li>
-</ol>
-</li>
-<li><p>{ </p>
-</li>
-<li><ol start="74">
-<li>PreOrder(t.left,sign); </li>
-</ol>
-</li>
-<li><p>} </p>
-</li>
-<li><p>if  (t.right !=  null  ) </p>
-</li>
-<li><p>{ </p>
-</li>
-<li><ol start="79">
-<li>PreOrder(t.right,sign); </li>
-</ol>
-</li>
-<li><p>} </p>
-</li>
-<li><p>} </p>
-</li>
-<li><p>} </p>
-</li>
-<li><ol start="84">
-<li><ol start="85">
-<li>} </li>
-</ol>
-</li>
-</ol>
-</li>
-<li><p>} </p>
-</li>
-<li><p>Program:调用者 </p>
-</li>
-<li><p>using  System; </p>
-</li>
-<li><p>using  System.Collections.Generic; </p>
-</li>
-<li><p>using  System.Text; </p>
-</li>
-<li><ol start="5">
-<li>namespace  二叉树的建立和遍历 </li>
-</ol>
-</li>
-<li><p>{ </p>
-</li>
-<li><p>class  Program </p>
-</li>
-<li><p>{ </p>
-</li>
-<li><p>static  void  Main(  string  [] args) </p>
-</li>
-<li><p>{ </p>
-</li>
-<li><p>//TreeNode t=null; </p>
-</li>
-<li><p>Tree tree =  new  Tree(); </p>
-</li>
-<li><p>Console.WriteLine(  “请输入用字符串表示的二叉树”  ); </p>
-</li>
-<li><p>string  input =Console.ReadLine(); </p>
-</li>
-<li><p>tree.CreateTree(input); </p>
-</li>
-<li><p>Console.WriteLine(  “遍历”  ); </p>
-</li>
-<li><p>tree.PreOrder(tree.root,  “–”  ); </p>
-</li>
-<li><p>Console.Read(); </p>
-</li>
-<li><p>} </p>
-</li>
-<li><p>} </p>
-</li>
-<li><p>} </p>
-</li>
-<li></li>
-</ol>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">System</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">System</span>.Collections.Generic;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">System</span>.Text;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">namespace 二叉树的建立和遍历</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">class</span> TreeNode</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">public</span> <span class="type">char</span> data;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">public</span> TreeNode left, right;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">public</span> TreeNode(<span class="type">char</span> c, TreeNode l, TreeNode r)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">            data = c;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">            left = l;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">            right = r;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">public</span> TreeNode()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">            left = right = <span class="keyword">null</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p> Tree:树类 </p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">System</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">System</span>.Collections.Generic;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">System</span>.Text;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">namespace 二叉树的建立和遍历</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">class</span> Tree</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">public</span> TreeNode root;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        Stack&lt;TreeNode&gt; stack = <span class="built_in">new</span> Stack&lt;TreeNode&gt;();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">public</span> <span class="type">void</span> CreateTree(String description)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">            <span class="type">bool</span> left = <span class="keyword">true</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">            <span class="type">char</span>[] descriptionarray = description.ToCharArray();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">            root = <span class="built_in">new</span> TreeNode();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">            root.data = descriptionarray[<span class="number">0</span>];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">            TreeNode <span class="keyword">temp</span> = root;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= descriptionarray.Length - <span class="number">1</span>; i++)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">            &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">                <span class="keyword">if</span> (descriptionarray[i] == <span class="string">'('</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">                &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">                    left = <span class="keyword">true</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">                    stack.Push(<span class="keyword">temp</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">                &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (descriptionarray[i] == <span class="string">','</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">                &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">                    left = <span class="keyword">false</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">                &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (descriptionarray[i] == <span class="string">')'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">                &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">                    stack.Pop();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">                &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">                <span class="keyword">else</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line">                &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line">                    <span class="keyword">temp</span> = <span class="built_in">new</span> TreeNode();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line">                    <span class="keyword">temp</span>.data = descriptionarray[i];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">                    <span class="keyword">if</span> (left == <span class="keyword">true</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line">                    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">                        stack.Peek().left = <span class="keyword">temp</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line">                    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line">                    <span class="keyword">else</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line">                    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">                        stack.Peek().right = <span class="keyword">temp</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">45</span></pre></td><td class="code"><pre><span class="line">                    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">46</span></pre></td><td class="code"><pre><span class="line">                &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">47</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">48</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">49</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">50</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">public</span> <span class="type">void</span> PreOrder(TreeNode t, String sign)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">51</span></pre></td><td class="code"><pre><span class="line">        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">52</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">if</span> (t != <span class="keyword">null</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">53</span></pre></td><td class="code"><pre><span class="line">            &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">54</span></pre></td><td class="code"><pre><span class="line">                Console.WriteLine(sign + t.data);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">55</span></pre></td><td class="code"><pre><span class="line">                sign += sign;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">56</span></pre></td><td class="code"><pre><span class="line">                <span class="keyword">if</span> (t.left != <span class="keyword">null</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">57</span></pre></td><td class="code"><pre><span class="line">                &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">58</span></pre></td><td class="code"><pre><span class="line">                    PreOrder(t.left, sign);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">59</span></pre></td><td class="code"><pre><span class="line">                &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">60</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">61</span></pre></td><td class="code"><pre><span class="line">                <span class="keyword">if</span> (t.right != <span class="keyword">null</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">62</span></pre></td><td class="code"><pre><span class="line">                &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">63</span></pre></td><td class="code"><pre><span class="line">                    PreOrder(t.right, sign);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">64</span></pre></td><td class="code"><pre><span class="line">                &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">65</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">66</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">67</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">68</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p> Program:调用者 </p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Text;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> 二叉树的建立和遍历</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Program</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="class">    &#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span><span class="params">(<span class="built_in">string</span>[] args)</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="function">        </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">            <span class="comment">//TreeNode t=null;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">            Tree tree = <span class="keyword">new</span> Tree();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">            <span class="built_in">Console</span>.WriteLine(<span class="string">"请输入用字符串表示的二叉树"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">            <span class="built_in">string</span> input = <span class="built_in">Console</span>.ReadLine();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">            tree.CreateTree(input);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">            <span class="built_in">Console</span>.WriteLine(<span class="string">"遍历"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">            tree.PreOrder(tree.root, <span class="string">"--"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">            <span class="built_in">Console</span>.Read();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -561,49 +301,37 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/09/25/IE7、Opera只能失败，FireFox3和Chrome却可以成功  访问的页面/" rel="bookmark">IE7、Opera只能失败，FireFox3和Chrome却可以成功  访问的页面</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/10/09/文字竖排工具BY烟锁重楼/" rel="bookmark">文字竖排工具BY烟锁重楼</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/10/12/文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码/" rel="bookmark">文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/10/13/感谢亲爱的Editor把我弄到首页上去了/" rel="bookmark">感谢亲爱的Editor把我弄到首页上去了</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/11/15/数据结构：用队列模拟理发店的排队情况（CSharp）/" rel="bookmark">数据结构：用队列模拟理发店的排队情况（C#）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/10/03/对Graphic的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME]/" rel="bookmark">对Graphic的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME]</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/10/20/用户被忽悠 微软黑屏计划推至21日0点实施/" rel="bookmark">用户被忽悠 微软黑屏计划推至21日0点实施</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/01/14/迅雷账号升级到24了，全球70000名。Oh~~Yeah~~~~/" rel="bookmark">迅雷账号升级到24了，全球70000名。Oh~~Yeah~~~~</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/01/16/西南石油大学--学分绩点计算器（用CSharp编写，需要有.NET 2.0）/" rel="bookmark">西南石油大学--学分绩点计算器（用C#编写，需要有.NET 2.0）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/11/15/数据结构：用队列模拟理发店的排队情况（CSharp）/" rel="bookmark">数据结构：用队列模拟理发店的排队情况（C#）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/02/06/SWPU学分绩点计算器女生版/" rel="bookmark">SWPU学分绩点计算器女生版</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/03/02/《计算机图形技术》练习--用GDI+模拟DDA算法/" rel="bookmark">《计算机图形技术》练习--用GDI+模拟DDA算法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/03/10/A double blessing has descended upon the house/" rel="bookmark">A double blessing has descended upon the house</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2009/02/06/SWPU学分绩点计算器女生版/" rel="bookmark">SWPU学分绩点计算器女生版</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2009/01/16/西南石油大学--学分绩点计算器（用CSharp编写，需要有.NET 2.0）/" rel="bookmark">西南石油大学--学分绩点计算器（用C#编写，需要有.NET 2.0）</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/05/15/CET口语证书，呕嘢~~~~~~~~~~~~/" rel="bookmark">CET口语证书，呕嘢~~~~~~~~~~~~</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/09/01/easyMule自动关机工具(可用于1.X和2.0版本)/" rel="bookmark">easyMule自动关机工具(可用于1.X和2.0版本)</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/03/02/《计算机图形技术》练习--用GDI+模拟DDA算法/" rel="bookmark">《计算机图形技术》练习--用GDI+模拟DDA算法</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/09/03/通过英文剧集、电影学单词的小工具/" rel="bookmark">通过英文剧集、电影学单词的小工具</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/09/01/easyMule自动关机工具(可用于1.X和2.0版本)/" rel="bookmark">easyMule自动关机工具(可用于1.X和2.0版本)</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/03/15/使用AvalonDock制作WPF多标签浏览器（一）/" rel="bookmark">使用AvalonDock制作WPF多标签浏览器（一）</a></div>
@@ -612,22 +340,22 @@
       <div class="popular-posts-title"><a href="/blog/2010/03/16/使用AvalonDock制作WPF多标签浏览器（二）/" rel="bookmark">使用AvalonDock制作WPF多标签浏览器（二）</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2009/09/03/通过英文剧集、电影学单词的小工具/" rel="bookmark">通过英文剧集、电影学单词的小工具</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/03/17/用AvalonDock制作WPF多标签浏览器（三）/" rel="bookmark">用AvalonDock制作WPF多标签浏览器（三）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/05/22/.NET 4.0 FAQ 第一部分—DLR/" rel="bookmark">.NET 4.0 FAQ 第一部分—DLR</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/05/22/MEF编程指南（前两节）/" rel="bookmark">MEF编程指南（前两节）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/07/31/在.NET 4中调用GDAL库时遇到的问题及解决方法/" rel="bookmark">在.NET 4中调用GDAL库时遇到的问题及解决方法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/09/13/WPF中ItemContainerStyle不适用的一种情况/" rel="bookmark">WPF中ItemContainerStyle不适用的一种情况</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/10/04/百度游戏 七彩鱼 自动喂鱼器/" rel="bookmark">百度游戏 七彩鱼 自动喂鱼器</a></div>
+      <div class="popular-posts-title"><a href="/blog/2010/05/22/MEF编程指南（前两节）/" rel="bookmark">MEF编程指南（前两节）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2010/05/22/.NET 4.0 FAQ 第一部分—DLR/" rel="bookmark">.NET 4.0 FAQ 第一部分—DLR</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2010/07/31/在.NET 4中调用GDAL库时遇到的问题及解决方法/" rel="bookmark">在.NET 4中调用GDAL库时遇到的问题及解决方法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/09/30/当Generic.xaml遇上BitmapImage：发现一个疑似WPF Bug而又不似Bug的问题/" rel="bookmark">当Generic.xaml遇上BitmapImage：发现一个疑似WPF Bug而又不似Bug的问题</a></div>
@@ -636,10 +364,13 @@
       <div class="popular-posts-title"><a href="/blog/2010/10/06/送给所有需要学英语的朋友—Words Via Subtitle/" rel="bookmark">送给所有需要学英语的朋友—Words Via Subtitle</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/04/18/[翻译]List为什么实现了那么多接口？/" rel="bookmark">[翻译]List为什么实现了那么多接口？</a></div>
+      <div class="popular-posts-title"><a href="/blog/2010/10/04/百度游戏 七彩鱼 自动喂鱼器/" rel="bookmark">百度游戏 七彩鱼 自动喂鱼器</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/05/31/美国生活第一个月见闻，有图有真相（1）/" rel="bookmark">美国生活第一个月见闻，有图有真相（1）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/04/18/[翻译]List为什么实现了那么多接口？/" rel="bookmark">[翻译]List为什么实现了那么多接口？</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/06/01/美国生活第一个月见闻，有图有真相（2）/" rel="bookmark">美国生活第一个月见闻，有图有真相（2）</a></div>
@@ -648,13 +379,13 @@
       <div class="popular-posts-title"><a href="/blog/2011/06/02/美国生活第一个月见闻，有图有真相（3）/" rel="bookmark">美国生活第一个月见闻，有图有真相（3）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/06/25/美国生活第二个月照片（2）/" rel="bookmark">美国生活第二个月照片（2）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/06/22/美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡/" rel="bookmark">美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/07/06/WP7 Tip: 禁用Pivot控件的切换手势/" rel="bookmark">WP7 Tip: 禁用Pivot控件的切换手势</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/06/22/美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡/" rel="bookmark">美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/06/25/美国生活第二个月照片（2）/" rel="bookmark">美国生活第二个月照片（2）</a></div>
     </li>
   </ul>
 
@@ -752,7 +483,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -812,13 +543,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">285k</span>
+    <span title="站点总字数">289k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:19</span>
+    <span title="站点阅读时长">4:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

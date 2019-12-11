@@ -47,16 +47,18 @@
   };
 </script>
 
-  <meta name="description" content="设计模式—备忘录模式（CSDN没有恢复迹象……） ![7f6bab1990e5495243a9ad1c.jpg](http:&#x2F;&#x2F;hiphotos.baidu.com&#x2F;yansuochonglou&#x2F;pic&#x2F;item&#x2F;7f6bab1990e5495243a9ad1c.jpg) using System;using System.Collections.Generic;using System.Text">
+  <meta name="description" content="设计模式—备忘录模式（CSDN没有恢复迹象……）  using System; using System.Collections.Generic; using System.Text;  namespace ConsoleApplication1 {     class 人物状态     {         private int _血;         private int _气;">
 <meta name="keywords" content="设计模式读书笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式---备忘录模式（CSDN没有恢复迹象......）">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2008&#x2F;08&#x2F;18&#x2F;%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F---%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F%EF%BC%88CSDN%E6%B2%A1%E6%9C%89%E6%81%A2%E5%A4%8D%E8%BF%B9%E8%B1%A1......%EF%BC%89&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="设计模式—备忘录模式（CSDN没有恢复迹象……） ![7f6bab1990e5495243a9ad1c.jpg](http:&#x2F;&#x2F;hiphotos.baidu.com&#x2F;yansuochonglou&#x2F;pic&#x2F;item&#x2F;7f6bab1990e5495243a9ad1c.jpg) using System;using System.Collections.Generic;using System.Text">
+<meta property="og:description" content="设计模式—备忘录模式（CSDN没有恢复迹象……）  using System; using System.Collections.Generic; using System.Text;  namespace ConsoleApplication1 {     class 人物状态     {         private int _血;         private int _气;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-10T09:33:07.243Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;hiphotos.baidu.com&#x2F;yansuochonglou&#x2F;pic&#x2F;item&#x2F;7f6bab1990e5495243a9ad1c.jpg">
+<meta property="og:updated_time" content="2019-12-11T03:42:41.534Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;hiphotos.baidu.com&#x2F;yansuochonglou&#x2F;pic&#x2F;item&#x2F;7f6bab1990e5495243a9ad1c.jpg">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2008/08/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F---%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F%EF%BC%88CSDN%E6%B2%A1%E6%9C%89%E6%81%A2%E5%A4%8D%E8%BF%B9%E8%B1%A1......%EF%BC%89/">
 
@@ -261,7 +263,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>977</span>
+              <span>878</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -281,31 +283,115 @@
 
       
         <p>设计模式—备忘录模式（CSDN没有恢复迹象……）</p>
-<p>![7f6bab1990e5495243a9ad1c.jpg](<a href="http://hiphotos.baidu.com/yansuochonglou/pic/i" target="_blank" rel="noopener">http://hiphotos.baidu.com/yansuochonglou/pic/i</a><br>tem/7f6bab1990e5495243a9ad1c.jpg)</p>
-<p>using System;<br>using System.Collections.Generic;<br>using System.Text;</p>
-<p>namespace ConsoleApplication1<br>{<br>class 人物状态<br>{<br>private int _血;<br>private int _气;</p>
-<p>public 人物状态()<br>{<br>_气 = 100;<br>_血 = 100;<br>}  </p>
-<p>public int 血<br>{<br>get<br>{<br>return _血;<br>}<br>set<br>{<br>_血 = value;<br>}<br>}</p>
-<p>public int 气<br>{<br>get<br>{<br>return _气;<br>}<br>set<br>{<br>_气 = value;<br>}<br>}</p>
-<p>public 存档 存档()<br>{<br>return new 存档(_血,_气);<br>}</p>
-<p>public void 读档(存档 c)<br>{<br>this.气 = c.气;<br>this.血 = c.血;<br>}</p>
-<p>public void 战斗()<br>{  </p>
-<p>System.Random r=new System.Random();</p>
-<p>this._血 = r.Next(100);<br>this._气 = r.Next(100);  </p>
-<p>}</p>
-<p>public void ShowState()<br>{<br>Console.WriteLine(this.气+” “+this.血);<br>}<br>}</p>
-<p>class 存档<br>{<br>private int _气;</p>
-<p>private int _血;</p>
-<p>public 存档(int x,int q)<br>{<br>this._气 = q;<br>this._血 = x;<br>}</p>
-<p>public int 气<br>{<br>get<br>{<br>return _气;<br>}  </p>
-<p>}</p>
-<p>public int 血<br>{<br>get<br>{<br>return _血;<br>}  </p>
-<p>}<br>}</p>
-<p>class 管理器<br>{<br>private 存档 savedfile;</p>
-<p>public 存档 SavedFile<br>{<br>get<br>{<br>return savedfile;<br>}<br>set<br>{<br>savedfile = value;<br>}<br>}<br>}</p>
-<p>class 调用者<br>{<br>public static void Main()<br>{<br>人物状态 r = new 人物状态();<br>r.ShowState();  </p>
-<p>管理器 g = new 管理器();<br>g.SavedFile = r.存档();<br>r.战斗();<br>r.ShowState();<br>r.读档(g.SavedFile);<br>r.ShowState();<br>Console.Read();<br>}<br>}<br>}  </p>
+<p><img alt="7f6bab1990e5495243a9ad1c.jpg" data-src="http://hiphotos.baidu.com/yansuochonglou/pic/item/7f6bab1990e5495243a9ad1c.jpg"></p>
+<pre><code>using System;
+using System.Collections.Generic;
+using System.Text;
 
+namespace ConsoleApplication1
+{
+    class 人物状态
+    {
+        private int _血;
+        private int _气;
+
+        public 人物状态()
+        {
+            _气 = 100;
+            _血 = 100;
+        }
+
+        public int 血
+        {
+            get { return _血; }
+            set { _血 = value; }
+        }
+
+        public int 气
+        {
+            get { return _气; }
+            set { _气 = value; }
+        }
+
+        public 存档 存档()
+        {
+            return new 存档(_血, _气);
+        }
+
+        public void 读档(存档 c)
+        {
+            this.气 = c.气;
+            this.血 = c.血;
+        }
+
+        public void 战斗()
+        {
+            System.Random r = new System.Random();
+
+            this._血 = r.Next(100);
+            this._气 = r.Next(100);
+        }
+
+        public void ShowState()
+        {
+            Console.WriteLine(this.气 + &quot; &quot; + this.血);
+        }
+    }
+
+    class 存档
+    {
+        private int _气;
+
+        private int _血;
+
+        public 存档(int x, int q)
+        {
+            this._气 = q;
+            this._血 = x;
+        }
+
+        public int 气
+        {
+            get { return _气; }
+        }
+
+        public int 血
+        {
+            get { return _血; }
+        }
+    }
+
+    class 管理器
+    {
+        private 存档 savedfile;
+
+        public 存档 SavedFile
+        {
+            get { return savedfile; }
+            set { savedfile = value; }
+        }
+    }
+
+    class 调用者
+    {
+        public static void Main()
+        {
+            人物状态 r = new 人物状态();
+            r.ShowState();
+
+            管理器 g = new 管理器();
+            g.SavedFile = r.存档();
+            r.战斗();
+            r.ShowState();
+            r.读档(g.SavedFile);
+            r.ShowState();
+            Console.Read();
+        }
+    }
+}
+``
+
+</code></pre>
     </div>
 
     
@@ -315,25 +401,31 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/07/30/策略模式的简单应用（CSharp）/" rel="bookmark">策略模式的简单应用（C#）</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/07/29/简单工厂的最最简单应用（CSharp）/" rel="bookmark">简单工厂的最最简单应用（C#）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/07/31/装饰模式的简单实现（CSharp）内有图一张,嘿嘿...../" rel="bookmark">装饰模式的简单实现（C#）内有图一张,嘿嘿.....</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/01/设计模式--代理模式的简单实现（CSharp）+类关系图/" rel="bookmark">设计模式--代理模式的简单实现（C#）+类关系图</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/04/设计模式--模板方法模式（照旧，有类关系图）/" rel="bookmark">设计模式--模板方法模式（照旧，有类关系图）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/03/设计模式--原型模式（附带类关系图一张）/" rel="bookmark">设计模式--原型模式（附带类关系图一张）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/02/设计模式--工厂模式/" rel="bookmark">设计模式--工厂模式</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/07/30/策略模式的简单应用（CSharp）/" rel="bookmark">策略模式的简单应用（C#）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/01/设计模式--代理模式的简单实现（CSharp）+类关系图/" rel="bookmark">设计模式--代理模式的简单实现（C#）+类关系图</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/03/设计模式--原型模式（附带类关系图一张）/" rel="bookmark">设计模式--原型模式（附带类关系图一张）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/07/31/装饰模式的简单实现（CSharp）内有图一张,嘿嘿...../" rel="bookmark">装饰模式的简单实现（C#）内有图一张,嘿嘿.....</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/06/设计模式---建造者（Builder）模式，有关系图/" rel="bookmark">设计模式---建造者（Builder）模式，有关系图</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/04/设计模式--模板方法模式（照旧，有类关系图）/" rel="bookmark">设计模式--模板方法模式（照旧，有类关系图）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/05/设计模式--外观模式/" rel="bookmark">设计模式--外观模式</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/07/设计模式---观察者模式（恐怖袭击、地震的例子，有类关系图）/" rel="bookmark">设计模式---观察者模式（恐怖袭击、地震的例子，有类关系图）</a></div>
@@ -342,37 +434,28 @@
       <div class="popular-posts-title"><a href="/blog/2008/08/08/设计模式---抽象工厂模式+反射+配置文件/" rel="bookmark">设计模式---抽象工厂模式+反射+配置文件</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/05/设计模式--外观模式/" rel="bookmark">设计模式--外观模式</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---中介者模式（打出来是“终结者.......”）/" rel="bookmark">设计模式---中介者模式（打出来是“终结者.......”）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/06/设计模式---建造者（Builder）模式，有关系图/" rel="bookmark">设计模式---建造者（Builder）模式，有关系图</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---桥接模式/" rel="bookmark">设计模式---桥接模式</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---状态模式（今天CSDN竟然上不去，暂时发在这里） (从百度空间转回来的)/" rel="bookmark">设计模式---状态模式（今天CSDN竟然上不去，暂时发在这里） (从百度空间转回来的)</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---单例模式（singleton）/" rel="bookmark">设计模式---单例模式（singleton）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---命令模式/" rel="bookmark">设计模式---命令模式</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---中介者模式（打出来是“终结者.......”）/" rel="bookmark">设计模式---中介者模式（打出来是“终结者.......”）</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---职责链模式/" rel="bookmark">设计模式---职责链模式</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---桥接模式/" rel="bookmark">设计模式---桥接模式</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---组合模式（CSDN依然没有恢复迹象......）/" rel="bookmark">设计模式---组合模式（CSDN依然没有恢复迹象......）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---迭代器模式（昨天停电了......）/" rel="bookmark">设计模式---迭代器模式（昨天停电了......）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---状态模式（今天CSDN竟然上不去，暂时发在这里） (从百度空间转回来的)/" rel="bookmark">设计模式---状态模式（今天CSDN竟然上不去，暂时发在这里） (从百度空间转回来的)</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---适配器模式（从百度转回来的）/" rel="bookmark">设计模式---适配器模式（从百度转回来的）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---迭代器模式（昨天停电了......）/" rel="bookmark">设计模式---迭代器模式（昨天停电了......）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/19/CSDN被和谐期间的Blog都发到百度空间去了/" rel="bookmark">CSDN被和谐期间的Blog都发到百度空间去了</a></div>
@@ -381,10 +464,13 @@
       <div class="popular-posts-title"><a href="/blog/2008/08/19/设计模式---享元模式/" rel="bookmark">设计模式---享元模式</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/20/设计模式---翻译器模式/" rel="bookmark">设计模式---翻译器模式</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---适配器模式（从百度转回来的）/" rel="bookmark">设计模式---适配器模式（从百度转回来的）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/21/设计模式---访问者模式（应该是最后一篇了）/" rel="bookmark">设计模式---访问者模式（应该是最后一篇了）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/20/设计模式---翻译器模式/" rel="bookmark">设计模式---翻译器模式</a></div>
     </li>
   </ul>
 
@@ -482,7 +568,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -542,13 +628,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">285k</span>
+    <span title="站点总字数">289k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:19</span>
+    <span title="站点阅读时长">4:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

@@ -47,16 +47,16 @@
   };
 </script>
 
-  <meta name="description" content="using  System;  using  System.Collections.Generic;  using  System.Text;   namespace  ConsoleApplication1    {  abstract  class  Builder  {  public  abstract  void  SetPrice();  public  abstract  void">
+  <meta name="description" content="1using System;2using System.Collections.Generic;3using System.Text;45namespace ConsoleApplication16&amp;#123;7    abstract class Builder8    &amp;#123;9        public abstract void SetPrice();10        public">
 <meta name="keywords" content="设计模式读书笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式---建造者（Builder）模式，有关系图">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2008&#x2F;08&#x2F;06&#x2F;%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F---%E5%BB%BA%E9%80%A0%E8%80%85%EF%BC%88Builder%EF%BC%89%E6%A8%A1%E5%BC%8F%EF%BC%8C%E6%9C%89%E5%85%B3%E7%B3%BB%E5%9B%BE&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="using  System;  using  System.Collections.Generic;  using  System.Text;   namespace  ConsoleApplication1    {  abstract  class  Builder  {  public  abstract  void  SetPrice();  public  abstract  void">
+<meta property="og:description" content="1using System;2using System.Collections.Generic;3using System.Text;45namespace ConsoleApplication16&amp;#123;7    abstract class Builder8    &amp;#123;9        public abstract void SetPrice();10        public">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;p-blog.csdn.net&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20080806&#x2F;ClassDiagram1.jpg">
-<meta property="og:updated_time" content="2019-12-10T09:33:06.727Z">
+<meta property="og:updated_time" content="2019-12-11T03:37:58.541Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;p-blog.csdn.net&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20080806&#x2F;ClassDiagram1.jpg">
 
@@ -263,14 +263,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -282,172 +282,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <ol>
-<li>using  System; </li>
-<li>using  System.Collections.Generic; </li>
-<li>using  System.Text; </li>
-<li><ol start="5">
-<li>namespace  ConsoleApplication1 </li>
-</ol>
-</li>
-<li>{ </li>
-<li>abstract  class  Builder </li>
-<li>{ </li>
-<li>public  abstract  void  SetPrice(); </li>
-<li>public  abstract  void  SetName(); </li>
-<li>} </li>
-<li><ol start="13">
-<li>class  TVBuilder:Builder </li>
-</ol>
-</li>
-<li>{ </li>
-<li>private  RawMateria rm; </li>
-<li>public  TVBuilder() </li>
-<li>{ </li>
-<li>rm =  new  RawMateria(); </li>
-<li>} </li>
-<li><ol start="21">
-<li>public  override  void  SetPrice() </li>
-</ol>
-</li>
-<li>{ </li>
-<li>rm.Price =  “1500”  ; </li>
-<li>} </li>
-<li><ol start="26">
-<li>public  override  void  SetName() </li>
-</ol>
-</li>
-<li>{ </li>
-<li>rm.Name =  “TV”  ; </li>
-<li>} </li>
-<li><ol start="31">
-<li>public  RawMateria GetTV() </li>
-</ol>
-</li>
-<li>{ </li>
-<li>return  rm; </li>
-<li>} </li>
-<li>} </li>
-<li><ol start="37">
-<li>class  PCBuilder:Builder </li>
-</ol>
-</li>
-<li>{ </li>
-<li>private  RawMateria rm; </li>
-<li><ol start="41">
-<li>public  PCBuilder() </li>
-</ol>
-</li>
-<li>{ </li>
-<li>rm =  new  RawMateria(); </li>
-<li>} </li>
-<li><ol start="46">
-<li>public  override  void  SetName() </li>
-</ol>
-</li>
-<li>{ </li>
-<li>rm.Name =  “PC”  ; </li>
-<li>} </li>
-<li><ol start="51">
-<li>public  override  void  SetPrice() </li>
-</ol>
-</li>
-<li>{ </li>
-<li>rm.Price =  “2000”  ; </li>
-<li>} </li>
-<li><ol start="56">
-<li>public  RawMateria GetPC() </li>
-</ol>
-</li>
-<li>{ </li>
-<li>return  rm; </li>
-<li>} </li>
-<li>} </li>
-<li><ol start="62">
-<li>class  RawMateria </li>
-</ol>
-</li>
-<li>{ </li>
-<li>String _name; </li>
-<li>String _price; </li>
-<li>public  String Name </li>
-<li>{ </li>
-<li>get </li>
-<li>{ </li>
-<li>return  _name; </li>
-<li>} </li>
-<li>set </li>
-<li>{ </li>
-<li>_name = value; </li>
-<li>} </li>
-<li>} </li>
-<li><ol start="78">
-<li>public  String Price </li>
-</ol>
-</li>
-<li>{ </li>
-<li>get </li>
-<li>{ </li>
-<li>return  _price; </li>
-<li>} </li>
-<li><ol start="85">
-<li>set </li>
-</ol>
-</li>
-<li>{ </li>
-<li>_price = value; </li>
-<li>} </li>
-<li>} </li>
-<li><ol start="91">
-<li>public  void  Show() </li>
-</ol>
-</li>
-<li>{ </li>
-<li>Console.WriteLine(  this  .Name +  “    “  +  this  .Price ); </li>
-<li>} </li>
-<li>} </li>
-<li><ol start="97">
-<li>class  Director </li>
-</ol>
-</li>
-<li>{ </li>
-<li>private  PCBuilder pcbuilder=  new  PCBuilder (); </li>
-<li>private  TVBuilder tvbuilder=  new  TVBuilder (); </li>
-<li><ol start="102">
-<li>public  RawMateria GiveMeTV() </li>
-</ol>
-</li>
-<li>{ </li>
-<li>tvbuilder.SetName(); </li>
-<li>tvbuilder.SetPrice(); </li>
-<li>return  tvbuilder.GetTV(); </li>
-<li>} </li>
-<li><ol start="109">
-<li>public  RawMateria GiveMePC() </li>
-</ol>
-</li>
-<li>{ </li>
-<li>pcbuilder.SetName(); </li>
-<li>pcbuilder.SetPrice(); </li>
-<li>return  pcbuilder.GetPC(); </li>
-<li>} </li>
-<li>} </li>
-<li><ol start="117">
-<li>class  Client </li>
-</ol>
-</li>
-<li>{ </li>
-<li>public  static  void  Main() </li>
-<li>{ </li>
-<li>Director d =  new  Director(); </li>
-<li>d.GiveMePC().Show(); </li>
-<li>d.GiveMeTV().Show(); </li>
-<li>Console.Read(); </li>
-<li>} </li>
-<li>} </li>
-<li>} </li>
-<li><img alt="设计模式---建造者（Builder）模式，有关系图" data-src="https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20080806/ClassDiagram1.jpg"></li>
-</ol>
+        <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Text;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">ConsoleApplication1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Builder</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">SetPrice</span>(<span class="params"></span>)</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">SetName</span>(<span class="params"></span>)</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">class</span> <span class="title">TVBuilder</span> : <span class="title">Builder</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">private</span> RawMateria rm;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">TVBuilder</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">            rm = <span class="keyword">new</span> RawMateria();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">SetPrice</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">            rm.Price = <span class="string">"1500"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">SetName</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">            rm.Name = <span class="string">"TV"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> RawMateria <span class="title">GetTV</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">return</span> rm;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">class</span> <span class="title">PCBuilder</span> : <span class="title">Builder</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">private</span> RawMateria rm;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">PCBuilder</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">            rm = <span class="keyword">new</span> RawMateria();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">45</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">46</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">47</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">SetName</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">48</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">49</span></pre></td><td class="code"><pre><span class="line">            rm.Name = <span class="string">"PC"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">50</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">51</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">52</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">SetPrice</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">53</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">54</span></pre></td><td class="code"><pre><span class="line">            rm.Price = <span class="string">"2000"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">55</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">56</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">57</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> RawMateria <span class="title">GetPC</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">58</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">59</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">return</span> rm;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">60</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">61</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">62</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">63</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">class</span> <span class="title">RawMateria</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">64</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">65</span></pre></td><td class="code"><pre><span class="line">        String _name;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">66</span></pre></td><td class="code"><pre><span class="line">        String _price;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">67</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">68</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">public</span> String Name</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">69</span></pre></td><td class="code"><pre><span class="line">        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">70</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">get</span> &#123; <span class="keyword">return</span> _name; &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">71</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">set</span> &#123; _name = <span class="keyword">value</span>; &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">72</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">73</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">74</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">public</span> String Price</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">75</span></pre></td><td class="code"><pre><span class="line">        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">76</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">get</span> &#123; <span class="keyword">return</span> _price; &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">77</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">set</span> &#123; _price = <span class="keyword">value</span>; &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">78</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">79</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">80</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Show</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">81</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">82</span></pre></td><td class="code"><pre><span class="line">            Console.WriteLine(<span class="keyword">this</span>.Name + <span class="string">"    "</span> \ + <span class="keyword">this</span>.Price );</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">83</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">84</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">85</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">86</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">class</span> <span class="title">Director</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">87</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">88</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">private</span> PCBuilder pcbuilder = <span class="keyword">new</span> PCBuilder();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">89</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">private</span> TVBuilder tvbuilder = <span class="keyword">new</span> TVBuilder();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">90</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">91</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> RawMateria <span class="title">GiveMeTV</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">92</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">93</span></pre></td><td class="code"><pre><span class="line">            tvbuilder.SetName();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">94</span></pre></td><td class="code"><pre><span class="line">            tvbuilder.SetPrice();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">95</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">return</span> tvbuilder.GetTV();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">96</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">97</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">98</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> RawMateria <span class="title">GiveMePC</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">99</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">100</span></pre></td><td class="code"><pre><span class="line">            pcbuilder.SetName();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">101</span></pre></td><td class="code"><pre><span class="line">            pcbuilder.SetPrice();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">102</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">return</span> pcbuilder.GetPC();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">103</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">104</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">105</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">106</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">class</span> <span class="title">Client</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">107</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">108</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">109</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">110</span></pre></td><td class="code"><pre><span class="line">            Director d = <span class="keyword">new</span> Director();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">111</span></pre></td><td class="code"><pre><span class="line">            d.GiveMePC().Show();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">112</span></pre></td><td class="code"><pre><span class="line">            d.GiveMeTV().Show();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">113</span></pre></td><td class="code"><pre><span class="line">            Console.Read();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">114</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">115</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">116</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p> <img alt="设计模式---建造者（Builder）模式，有关系图" data-src="https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20080806/ClassDiagram1.jpg"></p>
 
     </div>
 
@@ -458,25 +295,28 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/07/30/策略模式的简单应用（CSharp）/" rel="bookmark">策略模式的简单应用（C#）</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/07/29/简单工厂的最最简单应用（CSharp）/" rel="bookmark">简单工厂的最最简单应用（C#）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/07/31/装饰模式的简单实现（CSharp）内有图一张,嘿嘿...../" rel="bookmark">装饰模式的简单实现（C#）内有图一张,嘿嘿.....</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/01/设计模式--代理模式的简单实现（CSharp）+类关系图/" rel="bookmark">设计模式--代理模式的简单实现（C#）+类关系图</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/04/设计模式--模板方法模式（照旧，有类关系图）/" rel="bookmark">设计模式--模板方法模式（照旧，有类关系图）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/03/设计模式--原型模式（附带类关系图一张）/" rel="bookmark">设计模式--原型模式（附带类关系图一张）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/02/设计模式--工厂模式/" rel="bookmark">设计模式--工厂模式</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/07/30/策略模式的简单应用（CSharp）/" rel="bookmark">策略模式的简单应用（C#）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/01/设计模式--代理模式的简单实现（CSharp）+类关系图/" rel="bookmark">设计模式--代理模式的简单实现（C#）+类关系图</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/03/设计模式--原型模式（附带类关系图一张）/" rel="bookmark">设计模式--原型模式（附带类关系图一张）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/07/31/装饰模式的简单实现（CSharp）内有图一张,嘿嘿...../" rel="bookmark">装饰模式的简单实现（C#）内有图一张,嘿嘿.....</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/04/设计模式--模板方法模式（照旧，有类关系图）/" rel="bookmark">设计模式--模板方法模式（照旧，有类关系图）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/05/设计模式--外观模式/" rel="bookmark">设计模式--外观模式</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/07/设计模式---观察者模式（恐怖袭击、地震的例子，有类关系图）/" rel="bookmark">设计模式---观察者模式（恐怖袭击、地震的例子，有类关系图）</a></div>
@@ -485,37 +325,31 @@
       <div class="popular-posts-title"><a href="/blog/2008/08/08/设计模式---抽象工厂模式+反射+配置文件/" rel="bookmark">设计模式---抽象工厂模式+反射+配置文件</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/05/设计模式--外观模式/" rel="bookmark">设计模式--外观模式</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---中介者模式（打出来是“终结者.......”）/" rel="bookmark">设计模式---中介者模式（打出来是“终结者.......”）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---单例模式（singleton）/" rel="bookmark">设计模式---单例模式（singleton）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---备忘录模式（CSDN没有恢复迹象......）/" rel="bookmark">设计模式---备忘录模式（CSDN没有恢复迹象......）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---桥接模式/" rel="bookmark">设计模式---桥接模式</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---状态模式（今天CSDN竟然上不去，暂时发在这里） (从百度空间转回来的)/" rel="bookmark">设计模式---状态模式（今天CSDN竟然上不去，暂时发在这里） (从百度空间转回来的)</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---单例模式（singleton）/" rel="bookmark">设计模式---单例模式（singleton）</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---命令模式/" rel="bookmark">设计模式---命令模式</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---中介者模式（打出来是“终结者.......”）/" rel="bookmark">设计模式---中介者模式（打出来是“终结者.......”）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---职责链模式/" rel="bookmark">设计模式---职责链模式</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---桥接模式/" rel="bookmark">设计模式---桥接模式</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---组合模式（CSDN依然没有恢复迹象......）/" rel="bookmark">设计模式---组合模式（CSDN依然没有恢复迹象......）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---迭代器模式（昨天停电了......）/" rel="bookmark">设计模式---迭代器模式（昨天停电了......）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---状态模式（今天CSDN竟然上不去，暂时发在这里） (从百度空间转回来的)/" rel="bookmark">设计模式---状态模式（今天CSDN竟然上不去，暂时发在这里） (从百度空间转回来的)</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---适配器模式（从百度转回来的）/" rel="bookmark">设计模式---适配器模式（从百度转回来的）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---迭代器模式（昨天停电了......）/" rel="bookmark">设计模式---迭代器模式（昨天停电了......）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/19/CSDN被和谐期间的Blog都发到百度空间去了/" rel="bookmark">CSDN被和谐期间的Blog都发到百度空间去了</a></div>
@@ -524,10 +358,13 @@
       <div class="popular-posts-title"><a href="/blog/2008/08/19/设计模式---享元模式/" rel="bookmark">设计模式---享元模式</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/20/设计模式---翻译器模式/" rel="bookmark">设计模式---翻译器模式</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/18/设计模式---适配器模式（从百度转回来的）/" rel="bookmark">设计模式---适配器模式（从百度转回来的）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/21/设计模式---访问者模式（应该是最后一篇了）/" rel="bookmark">设计模式---访问者模式（应该是最后一篇了）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/20/设计模式---翻译器模式/" rel="bookmark">设计模式---翻译器模式</a></div>
     </li>
   </ul>
 
@@ -625,7 +462,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -685,13 +522,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">285k</span>
+    <span title="站点总字数">289k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:19</span>
+    <span title="站点阅读时长">4:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

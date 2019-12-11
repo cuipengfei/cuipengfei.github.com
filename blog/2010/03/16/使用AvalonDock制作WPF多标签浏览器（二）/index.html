@@ -57,7 +57,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;images.cnblogs.com&#x2F;cnblogs_com&#x2F;cuipengfei&#x2F;2010-03-16_20-50-08.jpg">
 <meta property="og:image" content="http:&#x2F;&#x2F;images.cnblogs.com&#x2F;cnblogs_com&#x2F;cuipengfei&#x2F;2010-03-16_20-51-40.jpg">
-<meta property="og:updated_time" content="2019-12-10T09:53:28.301Z">
+<meta property="og:updated_time" content="2019-12-11T05:15:28.818Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;images.cnblogs.com&#x2F;cnblogs_com&#x2F;cuipengfei&#x2F;2010-03-16_20-50-08.jpg">
 
@@ -264,7 +264,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.1k</span>
+              <span>3.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -286,31 +286,40 @@
         <p>闲话少叙，书接上文。</p>
 <p>现在我们已经通过  ReStyle  给  DocumentPane  加上了一个加号的按钮，并且可以通过点击该按钮给  DocumentPane  的<br>Items  添加一个  DocumentContent  了。</p>
 <p>不过每个新添加进来的  DocumentContent  内部都是空的，而我们需要的是每个新标签中都有一个  WebBrowser<br>，要实现这一点很简单，只要给  DocumentContent  的  Content  （  DocumentContent  是<br>ContentControl  的子类）属性赋值为一个  WebBrowser  的实例就  OK  了。</p>
-<p>但是这不应该是  AvalonDock  的默认行为，所以我们要把这部分写到客户端  --  也就是引用  AvalonDock.dll<br>文件或者直接引用  AvalonDock  工程的  Solution  中去。</p>
+<p>但是这不应该是  AvalonDock  的默认行为，所以我们要把这部分写到客户端  –  也就是引用  AvalonDock.dll<br>文件或者直接引用  AvalonDock  工程的  Solution  中去。</p>
 <p>如何可以在客户端得知有一个新的  DocumentContent  被添加进  DocumentPane  中去了呢？自然是用事件了。</p>
 <p>首先来写一个自定义的  EventArgs  吧：</p>
-<p>public class NewContentAddedEventArgs : EventArgs { public<br>NewContentAddedEventArgs(DocumentContent addedContent) { AddedContent =<br>addedContent; } public DocumentContent AddedContent { get; private set; } }</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NewContentAddedEventArgs</span> :</span> EventArgs</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        NewContentAddedEventArgs(DocumentContent addedContent)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        AddedContent =</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">            addedContent;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> DocumentContent AddedContent &#123; <span class="built_in">get</span>; <span class="keyword">private</span> <span class="built_in">set</span>; &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
 <p>这个名为  NewContentAddedEventArgs  的事件参数的构造方法会要求一个  DocumentContent<br>，其实也就是被添加的那个新标签了。</p>
 <p>这样订阅其对应事件的客户代码就可以得到一个指向新添加的标签的引用，当然就可以将其  Content  设置为一个新的  WebBrowser  的实例了。</p>
 <p>接下来在  DocumentPane  中定义一个使用刚写好的事件参数的事件：</p>
-<p>public event EventHandler<newcontentaddedeventargs> NewContentAdded;</newcontentaddedeventargs></p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">event</span> EventHandler&lt;NewContentAddedEventArgs&gt; NewContentAdded;</span></pre></td></tr></table></figure>
+
 <p>接下来，遵照规范写一个  OnNewContentAdded  方法，以免在没人订阅事件的时候试图触发事件而抛异常：</p>
-<p>private void OnNewContentAdded(NewContentAddedEventArgs args) { if<br>(NewContentAdded != null) { NewContentAdded(this, args); } }</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> void <span class="constructor">OnNewContentAdded(NewContentAddedEventArgs <span class="params">args</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        (NewContentAdded != null)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        <span class="constructor">NewContentAdded(<span class="params">this</span>, <span class="params">args</span>)</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
 <p>再然后在我们之前写的  AddNew  方法中调用  OnNewContentAdded  方法就  OK  了，修改后的  AddNew  方法是这样的：</p>
-<p>private void AddNew() { DocumentContent newContent = new DocumentContent();<br>newContent.Title = “new content”; newContent.IsFloatingAllowed = true;<br>Items.Add(newContent); OnNewContentAdded(new<br>NewContentAddedEventArgs(newContent)); }</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> void AddNew()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    DocumentContent <span class="keyword">new</span><span class="type">Content</span> = <span class="keyword">new</span> <span class="type">DocumentContent</span>();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">new</span><span class="type">Content</span>.Title = <span class="string">"new content"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">new</span><span class="type">Content</span>.IsFloatingAllowed = <span class="literal">true</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    Items.Add(<span class="keyword">new</span><span class="type">Content</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    OnNewContentAdded(<span class="keyword">new</span><span class="type"></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="type"></span>        NewContentAddedEventArgs(<span class="keyword">new</span><span class="type">Content</span>));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
 <p>然后就可以开始着手写客户代码了。</p>
 <p>首先在  XAML  中添加对  AvalonDock  的引用：</p>
-<p>xmlns:Avalon=”clr-namespace:AvalonDock;assembly=AvalonDock”</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="symbol">xmlns:</span>Avalon=<span class="string">"clr-namespace:AvalonDock;assembly=AvalonDock"</span></span></pre></td></tr></table></figure>
+
 <p>然后再在主体中添加如下代码：</p>
-<p><a href="Avalon:DockingManager" target="_blank" rel="noopener">Avalon:DockingManager</a> &lt;Avalon:DocumentPane Name=”mainPane”<br>NewContentAdded=”DocumentPane_NewContentAdded”&gt; &lt;Avalon:DocumentContent<br>Title=”Default Tab” GotFocus=”DocumentContent_GotFocus” IsCloseable=”False”<br>IsFloatingAllowed=”True”&gt; <webbrowser name="defaultBrowser" source="http://www.google.cn/webhp?hl=zh-CN"> </webbrowser><br>  </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Avalon:DockingManager</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">Avalon:DocumentPane</span> <span class="attr">Name</span>=<span class="string">"mainPane"</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="tag">                         <span class="attr">NewContentAdded</span>=<span class="string">"DocumentPane_NewContentAdded"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">Avalon:DocumentContent</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="tag">                <span class="attr">Title</span>=<span class="string">"Default Tab"</span> <span class="attr">GotFocus</span>=<span class="string">"DocumentContent_GotFocus"</span> <span class="attr">IsCloseable</span>=<span class="string">"False"</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="tag">                <span class="attr">IsFloatingAllowed</span>=<span class="string">"True"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">            <span class="tag">&lt;<span class="name">WebBrowser</span> <span class="attr">Name</span>=<span class="string">"defaultBrowser"</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="tag">                        <span class="attr">Source</span>=<span class="string">"http://www.google.cn/webhp?hl=zh-CN"</span>&gt;</span><span class="tag">&lt;/<span class="name">WebBrowser</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;/<span class="name">Avalon:DocumentContent</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;/<span class="name">Avalon:DocumentPane</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">Avalon:DockingManager</span>&gt;</span></span></pre></td></tr></table></figure>
+
 <p>其中的  DockingManager  是  AvalonDock  中的“总管”，其详细使用方法请看：  <a href="http://avalondock.codeplex.com/" target="_blank" rel="noopener"><br>http://avalondock.codeplex.com/  </a></p>
 <p>上面的代码中可以看到，我们给  DocumentPane  新加的  NewContentAdded  事件已经挂到了一个叫做<br>DocumentPane_NewContentAdded  的方法上。该方法的定义很简单：</p>
-<p>private void DocumentPane_NewContentAdded(object sender,<br>NewContentAddedEventArgs e) { DocumentContent newContent = e.AddedContent;<br>newContent.Title = “New Tab”; newContent.GotFocus += DocumentContent_GotFocus;<br>newContent.Content = new WebBrowser { Source = new<br>Uri(@”<a href="http://www.google.cn&quot;" target="_blank" rel="noopener">http://www.google.cn&quot;</a>) }; }</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> void DocumentPane_NewContentAdded(object sender,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    NewContentAddedEventArgs e)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    DocumentContent <span class="keyword">new</span><span class="type">Content</span> = e.AddedContent;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">new</span><span class="type">Content</span>.Title = <span class="string">"New Tab"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">new</span><span class="type">Content</span>.GotFocus += DocumentContent_GotFocus;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">new</span><span class="type">Content</span>.Content = <span class="keyword">new</span> <span class="type">WebBrowser</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="type"></span>    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        Source = <span class="keyword">new</span><span class="type"></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="type"></span>            Uri(@<span class="string">"http://www.google.cn"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
 <p>就是把一个打开  Google  首页的  WebBrowser  实例赋值给新添加的标签页的  Content  属性。</p>
 <p>里面还有一句：</p>
-<p>newContent.GotFocus += DocumentContent_GotFocus;</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span><span class="type">Content</span>.GotFocus += DocumentContent_GotFocus;</span></pre></td></tr></table></figure>
+
 <p>其中的  DocumentContent_GotFocus  定义如下：</p>
-<p>private void DocumentContent_GotFocus(object sender, RoutedEventArgs e) {<br>DocumentContent selectedOne = s as DocumentContent; if (selectedOne != null) {<br>WebBrowser browser = selectedOne.Content as WebBrowser; if (browser != null &amp;&amp;<br>browser.Source != null) { currentBrowser = browser; url.Text =<br>browser.Source.ToString(); } } }</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="symbol">private</span> void DocumentContent_GotFocus(object sender, RoutedEventArgs e)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    DocumentContent <span class="keyword">selectedOne </span>= s as DocumentContent<span class="comment">;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="meta">if</span> (<span class="keyword">selectedOne </span>!= null)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        WebBrowser <span class="keyword">browser </span>= <span class="keyword">selectedOne.Content </span>as WebBrowser<span class="comment">;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        <span class="meta">if</span> (<span class="keyword">browser </span>!= null &amp;&amp;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">browser.Source </span>!= null)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">            currentBrowser = <span class="keyword">browser;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="keyword"> </span>           url<span class="meta">.Text</span> =</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">                <span class="keyword">browser.Source.ToString();</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"><span class="keyword"> </span>       &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
 <p>这是做什么用的呢？</p>
 <p>我们用浏览器打开多个标签页的时候程序中就会存在多个  WebBrowser  的实例，这时如果在地址栏中输入一个地址并回车的话，怎么知道到底应该把哪个<br>WebBrowser  重定向到输入的地址呢？</p>
 <p>所以程序中应该有一个  WebBrowser  的引用，假设叫做  currentBrowser  吧，它始终指向当前选中标签中的  WebBrowser<br>实例。</p>
@@ -325,7 +334,7 @@
 <p><img alt data-src="http://images.cnblogs.com/cnblogs_com/cuipengfei/2010-03-16_20-51-40.jpg"></p>
 <p>新标签是空的，不是明明已经在每个新标签被添加时给其中加上一个  WebBrowser  了吗？咋没有捏？这究竟是哪儿来的  Bug  呢？</p>
 <p>再注意观察一下，这个新标签的标题是  new content  而不是  New Tab  ，呵呵，是不是已经猜到了呢？</p>
-<p>其实这是和  AvalonDock  中的另一个类  --  DocumentFloatingWindow  有关的问题。</p>
+<p>其实这是和  AvalonDock  中的另一个类  –  DocumentFloatingWindow  有关的问题。</p>
 <p>怎么解决这个问题明天再说吧。</p>
 <p>Over and out  ！</p>
 
@@ -338,73 +347,61 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/09/25/IE7、Opera只能失败，FireFox3和Chrome却可以成功  访问的页面/" rel="bookmark">IE7、Opera只能失败，FireFox3和Chrome却可以成功  访问的页面</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/10/09/文字竖排工具BY烟锁重楼/" rel="bookmark">文字竖排工具BY烟锁重楼</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/10/12/文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码/" rel="bookmark">文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/10/13/感谢亲爱的Editor把我弄到首页上去了/" rel="bookmark">感谢亲爱的Editor把我弄到首页上去了</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/11/15/数据结构：用队列模拟理发店的排队情况（CSharp）/" rel="bookmark">数据结构：用队列模拟理发店的排队情况（C#）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/10/03/对Graphic的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME]/" rel="bookmark">对Graphic的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME]</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/10/20/用户被忽悠 微软黑屏计划推至21日0点实施/" rel="bookmark">用户被忽悠 微软黑屏计划推至21日0点实施</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/12/12/数据结构:二叉树的建立和遍历(CSharp实现)/" rel="bookmark">数据结构:二叉树的建立和遍历(C#实现)</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/01/14/迅雷账号升级到24了，全球70000名。Oh~~Yeah~~~~/" rel="bookmark">迅雷账号升级到24了，全球70000名。Oh~~Yeah~~~~</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/01/16/西南石油大学--学分绩点计算器（用CSharp编写，需要有.NET 2.0）/" rel="bookmark">西南石油大学--学分绩点计算器（用C#编写，需要有.NET 2.0）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/12/12/数据结构:二叉树的建立和遍历(CSharp实现)/" rel="bookmark">数据结构:二叉树的建立和遍历(C#实现)</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/11/15/数据结构：用队列模拟理发店的排队情况（CSharp）/" rel="bookmark">数据结构：用队列模拟理发店的排队情况（C#）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/03/10/A double blessing has descended upon the house/" rel="bookmark">A double blessing has descended upon the house</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/02/06/SWPU学分绩点计算器女生版/" rel="bookmark">SWPU学分绩点计算器女生版</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/03/02/《计算机图形技术》练习--用GDI+模拟DDA算法/" rel="bookmark">《计算机图形技术》练习--用GDI+模拟DDA算法</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/03/10/A double blessing has descended upon the house/" rel="bookmark">A double blessing has descended upon the house</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/01/16/西南石油大学--学分绩点计算器（用CSharp编写，需要有.NET 2.0）/" rel="bookmark">西南石油大学--学分绩点计算器（用C#编写，需要有.NET 2.0）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/05/15/CET口语证书，呕嘢~~~~~~~~~~~~/" rel="bookmark">CET口语证书，呕嘢~~~~~~~~~~~~</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/09/01/easyMule自动关机工具(可用于1.X和2.0版本)/" rel="bookmark">easyMule自动关机工具(可用于1.X和2.0版本)</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/03/02/《计算机图形技术》练习--用GDI+模拟DDA算法/" rel="bookmark">《计算机图形技术》练习--用GDI+模拟DDA算法</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/09/03/通过英文剧集、电影学单词的小工具/" rel="bookmark">通过英文剧集、电影学单词的小工具</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/09/01/easyMule自动关机工具(可用于1.X和2.0版本)/" rel="bookmark">easyMule自动关机工具(可用于1.X和2.0版本)</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/03/15/使用AvalonDock制作WPF多标签浏览器（一）/" rel="bookmark">使用AvalonDock制作WPF多标签浏览器（一）</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2009/09/03/通过英文剧集、电影学单词的小工具/" rel="bookmark">通过英文剧集、电影学单词的小工具</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/03/17/用AvalonDock制作WPF多标签浏览器（三）/" rel="bookmark">用AvalonDock制作WPF多标签浏览器（三）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/05/22/.NET 4.0 FAQ 第一部分—DLR/" rel="bookmark">.NET 4.0 FAQ 第一部分—DLR</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/05/22/MEF编程指南（前两节）/" rel="bookmark">MEF编程指南（前两节）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/07/31/在.NET 4中调用GDAL库时遇到的问题及解决方法/" rel="bookmark">在.NET 4中调用GDAL库时遇到的问题及解决方法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/09/13/WPF中ItemContainerStyle不适用的一种情况/" rel="bookmark">WPF中ItemContainerStyle不适用的一种情况</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/10/04/百度游戏 七彩鱼 自动喂鱼器/" rel="bookmark">百度游戏 七彩鱼 自动喂鱼器</a></div>
+      <div class="popular-posts-title"><a href="/blog/2010/05/22/MEF编程指南（前两节）/" rel="bookmark">MEF编程指南（前两节）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2010/05/22/.NET 4.0 FAQ 第一部分—DLR/" rel="bookmark">.NET 4.0 FAQ 第一部分—DLR</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2010/07/31/在.NET 4中调用GDAL库时遇到的问题及解决方法/" rel="bookmark">在.NET 4中调用GDAL库时遇到的问题及解决方法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/09/30/当Generic.xaml遇上BitmapImage：发现一个疑似WPF Bug而又不似Bug的问题/" rel="bookmark">当Generic.xaml遇上BitmapImage：发现一个疑似WPF Bug而又不似Bug的问题</a></div>
@@ -413,10 +410,13 @@
       <div class="popular-posts-title"><a href="/blog/2010/10/06/送给所有需要学英语的朋友—Words Via Subtitle/" rel="bookmark">送给所有需要学英语的朋友—Words Via Subtitle</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/04/18/[翻译]List为什么实现了那么多接口？/" rel="bookmark">[翻译]List为什么实现了那么多接口？</a></div>
+      <div class="popular-posts-title"><a href="/blog/2010/10/04/百度游戏 七彩鱼 自动喂鱼器/" rel="bookmark">百度游戏 七彩鱼 自动喂鱼器</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/05/31/美国生活第一个月见闻，有图有真相（1）/" rel="bookmark">美国生活第一个月见闻，有图有真相（1）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/04/18/[翻译]List为什么实现了那么多接口？/" rel="bookmark">[翻译]List为什么实现了那么多接口？</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/06/01/美国生活第一个月见闻，有图有真相（2）/" rel="bookmark">美国生活第一个月见闻，有图有真相（2）</a></div>
@@ -425,13 +425,13 @@
       <div class="popular-posts-title"><a href="/blog/2011/06/02/美国生活第一个月见闻，有图有真相（3）/" rel="bookmark">美国生活第一个月见闻，有图有真相（3）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/06/25/美国生活第二个月照片（2）/" rel="bookmark">美国生活第二个月照片（2）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/06/22/美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡/" rel="bookmark">美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/07/06/WP7 Tip: 禁用Pivot控件的切换手势/" rel="bookmark">WP7 Tip: 禁用Pivot控件的切换手势</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/06/22/美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡/" rel="bookmark">美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/06/25/美国生活第二个月照片（2）/" rel="bookmark">美国生活第二个月照片（2）</a></div>
     </li>
   </ul>
 
@@ -529,7 +529,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -589,13 +589,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">285k</span>
+    <span title="站点总字数">289k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:19</span>
+    <span title="站点阅读时长">4:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
