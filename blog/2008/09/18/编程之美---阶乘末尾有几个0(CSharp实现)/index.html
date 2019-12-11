@@ -47,20 +47,18 @@
   };
 </script>
 
-  <meta name="description" content="也不知道会不会快一些……">
-<meta name="keywords" content="杂7杂8">
+  <meta name="description" content="1using System;2using System.Collections.Generic;3using System.Linq;4using System.Text;56namespace ConsoleApplication17&amp;#123;8    class Program9    &amp;#123;10        delegate long DoMath(long num);1112">
+<meta name="keywords" content="《编程之美——微软技术面试心得》的C#实现">
 <meta property="og:type" content="article">
-<meta property="og:title" content="迅雷账号升级到24了，全球70000名。Oh~~Yeah~~~~">
-<meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2009&#x2F;01&#x2F;14&#x2F;%E8%BF%85%E9%9B%B7%E8%B4%A6%E5%8F%B7%E5%8D%87%E7%BA%A7%E5%88%B024%E4%BA%86%EF%BC%8C%E5%85%A8%E7%90%8370000%E5%90%8D%E3%80%82Oh~~Yeah~~~~&#x2F;index.html">
+<meta property="og:title" content="编程之美---阶乘末尾有几个&quot;零&quot;?(C#实现)">
+<meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2008&#x2F;09&#x2F;18&#x2F;%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E---%E9%98%B6%E4%B9%98%E6%9C%AB%E5%B0%BE%E6%9C%89%E5%87%A0%E4%B8%AA0(CSharp%E5%AE%9E%E7%8E%B0)&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="也不知道会不会快一些……">
+<meta property="og:description" content="1using System;2using System.Collections.Generic;3using System.Linq;4using System.Text;56namespace ConsoleApplication17&amp;#123;8    class Program9    &amp;#123;10        delegate long DoMath(long num);1112">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;p-blog.csdn.net&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20090114&#x2F;2009-01-14_21-32-08.jpg">
-<meta property="og:updated_time" content="2019-12-11T03:04:59.316Z">
+<meta property="og:updated_time" content="2019-12-11T03:50:08.741Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;p-blog.csdn.net&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20090114&#x2F;2009-01-14_21-32-08.jpg">
 
-<link rel="canonical" href="https://cuipengfei.github.com/blog/2009/01/14/%E8%BF%85%E9%9B%B7%E8%B4%A6%E5%8F%B7%E5%8D%87%E7%BA%A7%E5%88%B024%E4%BA%86%EF%BC%8C%E5%85%A8%E7%90%8370000%E5%90%8D%E3%80%82Oh~~Yeah~~~~/">
+<link rel="canonical" href="https://cuipengfei.github.com/blog/2008/09/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E---%E9%98%B6%E4%B9%98%E6%9C%AB%E5%B0%BE%E6%9C%89%E5%87%A0%E4%B8%AA0(CSharp%E5%AE%9E%E7%8E%B0)/">
 
 
 <script id="page-configurations">
@@ -74,7 +72,7 @@
   };
 </script>
 
-  <title>迅雷账号升级到24了，全球70000名。Oh~~Yeah~~~~</title>
+  <title>编程之美---阶乘末尾有几个"零"?(C#实现)</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
     <script pjax>
@@ -217,7 +215,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cuipengfei.github.com/blog/2009/01/14/%E8%BF%85%E9%9B%B7%E8%B4%A6%E5%8F%B7%E5%8D%87%E7%BA%A7%E5%88%B024%E4%BA%86%EF%BC%8C%E5%85%A8%E7%90%8370000%E5%90%8D%E3%80%82Oh~~Yeah~~~~/">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.github.com/blog/2008/09/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E---%E9%98%B6%E4%B9%98%E6%9C%AB%E5%B0%BE%E6%9C%89%E5%87%A0%E4%B8%AA0(CSharp%E5%AE%9E%E7%8E%B0)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -230,7 +228,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          迅雷账号升级到24了，全球70000名。Oh~~Yeah~~~~
+          编程之美---阶乘末尾有几个"零"?(C#实现)
         </h2>
 
         <div class="post-meta">
@@ -240,7 +238,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2009-01-14 21:33:00" itemprop="dateCreated datePublished" datetime="2009-01-14T21:33:00+08:00">2009-01-14</time>
+              <time title="创建时间：2008-09-18 21:57:00" itemprop="dateCreated datePublished" datetime="2008-09-18T21:57:00+08:00">2008-09-18</time>
             </span>
 
           
@@ -252,8 +250,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/2009/01/14/%E8%BF%85%E9%9B%B7%E8%B4%A6%E5%8F%B7%E5%8D%87%E7%BA%A7%E5%88%B024%E4%BA%86%EF%BC%8C%E5%85%A8%E7%90%8370000%E5%90%8D%E3%80%82Oh~~Yeah~~~~/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2009/01/14/迅雷账号升级到24了，全球70000名。Oh~~Yeah~~~~/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/2008/09/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E---%E9%98%B6%E4%B9%98%E6%9C%AB%E5%B0%BE%E6%9C%89%E5%87%A0%E4%B8%AA0(CSharp%E5%AE%9E%E7%8E%B0)/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2008/09/18/编程之美---阶乘末尾有几个0(CSharp实现)/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -263,7 +261,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>12</span>
+              <span>1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -282,8 +280,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><img alt data-src="https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090114/2009-01-14_21-32-08.jpg"></p>
-<p>也不知道会不会快一些……</p>
+        <figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Linq;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Text;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> ConsoleApplication1</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Program</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="class">    &#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        <span class="function">delegate <span class="keyword">long</span> <span class="title">DoMath</span><span class="params">(<span class="keyword">long</span> num)</span></span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span><span class="params">(<span class="built_in">string</span>[] args)</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"><span class="function">        </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">            Program p = <span class="keyword">new</span> Program();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">            p.GetFactorial(<span class="number">26</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">            DoMath d = <span class="keyword">new</span> DoMath(p.HowManyZero);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">            d += p.HowManyZero2;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">            d(<span class="number">26</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">            <span class="built_in">Console</span>.Read();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">HowManyZero</span><span class="params">(<span class="keyword">long</span> num)</span> <span class="comment">//第一种解法</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line"><span class="function">        </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">long</span> result = <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">for</span> (<span class="keyword">long</span> i = <span class="number">1</span>; i &lt;= num; i++)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">            &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">                <span class="keyword">long</span> j = i;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">                <span class="keyword">while</span> (j % <span class="number">5</span> == <span class="number">0</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">                &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">                    result++; <span class="comment">//检查每一个数可以分解因式出多少个5</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">                    j /= <span class="number">5</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">                &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line">            <span class="built_in">Console</span>.WriteLine(result);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">return</span> result;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">HowManyZero2</span><span class="params">(<span class="keyword">long</span> num)</span> <span class="comment">//第二种</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line"><span class="function">        </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">long</span> ret = <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">while</span> (num != <span class="number">0</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line">            &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">                ret += num / <span class="number">5</span>; <span class="comment">//可以被5整除，然后是25、125、625......</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">45</span></pre></td><td class="code"><pre><span class="line">                num /= <span class="number">5</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">46</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">47</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">48</span></pre></td><td class="code"><pre><span class="line">            <span class="built_in">Console</span>.WriteLine(ret);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">49</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">return</span> ret;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">50</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">51</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">52</span></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">public</span> decimal <span class="title">GetFactorial</span><span class="params">(<span class="keyword">long</span> num)</span> <span class="comment">//获得阶乘</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">53</span></pre></td><td class="code"><pre><span class="line"><span class="function">        </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">54</span></pre></td><td class="code"><pre><span class="line">            decimal ret = <span class="number">1</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">55</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">for</span> (<span class="keyword">long</span> i = <span class="number">1</span>; i &lt;= num; i++)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">56</span></pre></td><td class="code"><pre><span class="line">            &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">57</span></pre></td><td class="code"><pre><span class="line">                ret *= i;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">58</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">59</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">60</span></pre></td><td class="code"><pre><span class="line">            <span class="built_in">Console</span>.WriteLine(ret);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">61</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">return</span> ret;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">62</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">63</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">64</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p> 书上只标了2颗星，我怎么觉得这么费劲….<br>PS：decimal都算不到30的阶乘啊……</p>
+<p>具体讲解书上有</p>
+<p>顺便复习一下delegate<del>~</del></p>
 
     </div>
 
@@ -294,91 +295,22 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/10/09/文字竖排工具BY烟锁重楼/" rel="bookmark">文字竖排工具BY烟锁重楼</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/07/02/编程之美 CSharp实现 1/" rel="bookmark">编程之美 C#实现 1</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/10/12/文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码/" rel="bookmark">文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/07/02/《编程之美——微软技术面试心得》“中国象棋的将帅问题”CSharp实现/" rel="bookmark">《编程之美——微软技术面试心得》“中国象棋的将帅问题”C#实现</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/11/15/数据结构：用队列模拟理发店的排队情况（CSharp）/" rel="bookmark">数据结构：用队列模拟理发店的排队情况（C#）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/07/03/《编程之美——微软技术面试心得》一摞烧饼的排序 （不会做，看不懂）/" rel="bookmark">《编程之美——微软技术面试心得》一摞烧饼的排序 （不会做，看不懂）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/10/03/对Graphic的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME]/" rel="bookmark">对Graphic的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME]</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/09/11/《编程之美——微软技术面试心得》的CSharp实现---电梯调度问题解法一/" rel="bookmark">《编程之美——微软技术面试心得》的C#实现---电梯调度问题解法一</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/12/12/数据结构:二叉树的建立和遍历(CSharp实现)/" rel="bookmark">数据结构:二叉树的建立和遍历(C#实现)</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/09/17/cpu占用率为正弦曲线（CSharp实现）基本照抄书上的C++/" rel="bookmark">cpu占用率为正弦曲线（C#实现）基本照抄书上的C++</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/03/10/A double blessing has descended upon the house/" rel="bookmark">A double blessing has descended upon the house</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/02/06/SWPU学分绩点计算器女生版/" rel="bookmark">SWPU学分绩点计算器女生版</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/01/16/西南石油大学--学分绩点计算器（用CSharp编写，需要有.NET 2.0）/" rel="bookmark">西南石油大学--学分绩点计算器（用C#编写，需要有.NET 2.0）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/05/15/CET口语证书，呕嘢~~~~~~~~~~~~/" rel="bookmark">CET口语证书，呕嘢~~~~~~~~~~~~</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/03/02/《计算机图形技术》练习--用GDI+模拟DDA算法/" rel="bookmark">《计算机图形技术》练习--用GDI+模拟DDA算法</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/09/01/easyMule自动关机工具(可用于1.X和2.0版本)/" rel="bookmark">easyMule自动关机工具(可用于1.X和2.0版本)</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/03/15/使用AvalonDock制作WPF多标签浏览器（一）/" rel="bookmark">使用AvalonDock制作WPF多标签浏览器（一）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/03/16/使用AvalonDock制作WPF多标签浏览器（二）/" rel="bookmark">使用AvalonDock制作WPF多标签浏览器（二）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/09/03/通过英文剧集、电影学单词的小工具/" rel="bookmark">通过英文剧集、电影学单词的小工具</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/03/17/用AvalonDock制作WPF多标签浏览器（三）/" rel="bookmark">用AvalonDock制作WPF多标签浏览器（三）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/09/13/WPF中ItemContainerStyle不适用的一种情况/" rel="bookmark">WPF中ItemContainerStyle不适用的一种情况</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/05/22/MEF编程指南（前两节）/" rel="bookmark">MEF编程指南（前两节）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/05/22/.NET 4.0 FAQ 第一部分—DLR/" rel="bookmark">.NET 4.0 FAQ 第一部分—DLR</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/07/31/在.NET 4中调用GDAL库时遇到的问题及解决方法/" rel="bookmark">在.NET 4中调用GDAL库时遇到的问题及解决方法</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/09/30/当Generic.xaml遇上BitmapImage：发现一个疑似WPF Bug而又不似Bug的问题/" rel="bookmark">当Generic.xaml遇上BitmapImage：发现一个疑似WPF Bug而又不似Bug的问题</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/10/06/送给所有需要学英语的朋友—Words Via Subtitle/" rel="bookmark">送给所有需要学英语的朋友—Words Via Subtitle</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/10/04/百度游戏 七彩鱼 自动喂鱼器/" rel="bookmark">百度游戏 七彩鱼 自动喂鱼器</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/05/31/美国生活第一个月见闻，有图有真相（1）/" rel="bookmark">美国生活第一个月见闻，有图有真相（1）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/04/18/[翻译]List为什么实现了那么多接口？/" rel="bookmark">[翻译]List为什么实现了那么多接口？</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/06/01/美国生活第一个月见闻，有图有真相（2）/" rel="bookmark">美国生活第一个月见闻，有图有真相（2）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/06/02/美国生活第一个月见闻，有图有真相（3）/" rel="bookmark">美国生活第一个月见闻，有图有真相（3）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/06/22/美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡/" rel="bookmark">美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/07/06/WP7 Tip: 禁用Pivot控件的切换手势/" rel="bookmark">WP7 Tip: 禁用Pivot控件的切换手势</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/06/25/美国生活第二个月照片（2）/" rel="bookmark">美国生活第二个月照片（2）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/09/18/编程之美---1的个数CSharp笨（效率低）方法实现/" rel="bookmark">编程之美---1的个数C#笨（效率低）方法实现</a></div>
     </li>
   </ul>
 
@@ -391,7 +323,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="/https:/cuipengfei.github.com/blog/2009/01/14/%E8%BF%85%E9%9B%B7%E8%B4%A6%E5%8F%B7%E5%8D%87%E7%BA%A7%E5%88%B024%E4%BA%86%EF%BC%8C%E5%85%A8%E7%90%8370000%E5%90%8D%E3%80%82Oh~~Yeah~~~~/" title="迅雷账号升级到24了，全球70000名。Oh~~Yeah~~~~">https://cuipengfei.github.com/blog/2009/01/14/迅雷账号升级到24了，全球70000名。Oh~~Yeah~~~~/</a>
+    <a href="/https:/cuipengfei.github.com/blog/2008/09/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E---%E9%98%B6%E4%B9%98%E6%9C%AB%E5%B0%BE%E6%9C%89%E5%87%A0%E4%B8%AA0(CSharp%E5%AE%9E%E7%8E%B0)/" title="编程之美---阶乘末尾有几个&quot;零&quot;?(C#实现)">https://cuipengfei.github.com/blog/2008/09/18/编程之美---阶乘末尾有几个0(CSharp实现)/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -403,7 +335,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/%E6%9D%827%E6%9D%828/" rel="tag"><i class="fa fa-tag"></i> 杂7杂8</a>
+              <a href="/tags/%E3%80%8A%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E2%80%94%E2%80%94%E5%BE%AE%E8%BD%AF%E6%8A%80%E6%9C%AF%E9%9D%A2%E8%AF%95%E5%BF%83%E5%BE%97%E3%80%8B%E7%9A%84C-%E5%AE%9E%E7%8E%B0/" rel="tag"><i class="fa fa-tag"></i> 《编程之美——微软技术面试心得》的C#实现</a>
           </div>
 
         
@@ -412,12 +344,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/blog/2008/12/12/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84:%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BB%BA%E7%AB%8B%E5%92%8C%E9%81%8D%E5%8E%86(CSharp%E5%AE%9E%E7%8E%B0)/" rel="prev" title="数据结构:二叉树的建立和遍历(C#实现)">
-      <i class="fa fa-chevron-left"></i> 数据结构:二叉树的建立和遍历(C#实现)
+    <a href="/blog/2008/09/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E---1%E7%9A%84%E4%B8%AA%E6%95%B0CSharp%E7%AC%A8%EF%BC%88%E6%95%88%E7%8E%87%E4%BD%8E%EF%BC%89%E6%96%B9%E6%B3%95%E5%AE%9E%E7%8E%B0/" rel="prev" title="编程之美---1的个数C#笨（效率低）方法实现">
+      <i class="fa fa-chevron-left"></i> 编程之美---1的个数C#笨（效率低）方法实现
     </a></div>
       <div class="post-nav-item">
-    <a href="/blog/2009/01/16/%E8%A5%BF%E5%8D%97%E7%9F%B3%E6%B2%B9%E5%A4%A7%E5%AD%A6--%E5%AD%A6%E5%88%86%E7%BB%A9%E7%82%B9%E8%AE%A1%E7%AE%97%E5%99%A8%EF%BC%88%E7%94%A8CSharp%E7%BC%96%E5%86%99%EF%BC%8C%E9%9C%80%E8%A6%81%E6%9C%89.NET%202.0%EF%BC%89/" rel="next" title="西南石油大学--学分绩点计算器（用C#编写，需要有.NET 2.0）">
-      西南石油大学--学分绩点计算器（用C#编写，需要有.NET 2.0） <i class="fa fa-chevron-right"></i>
+    <a href="/blog/2008/10/03/%E5%AF%B9Graphic%E7%9A%84%E5%BA%94%E7%94%A8%EF%BC%8C%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E4%B9%9D%E5%AE%AB%E6%A0%BC%E7%9A%84%E7%BB%98%E5%88%B6%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81%E5%88%B6%E5%AE%9A%E5%9C%86%E5%BF%83%EF%BC%8C%E5%8D%8A%E5%BE%84%E7%BB%98%E5%88%B6%E5%9C%86%E5%BD%A2%E3%80%81%E7%94%A8%E7%81%AB%E6%9F%B4%E6%A3%8D%E6%8B%BC%E5%AD%97%5BJava%20ME%5D/" rel="next" title="对Graphic的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME]">
+      对Graphic的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME] <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -686,9 +618,9 @@ window.addEventListener('pjax:success', () => {
       DISQUS.reset({
         reload: true,
         config: {page: {
-            url: "https://cuipengfei.github.com/blog/2009/01/14/%E8%BF%85%E9%9B%B7%E8%B4%A6%E5%8F%B7%E5%8D%87%E7%BA%A7%E5%88%B024%E4%BA%86%EF%BC%8C%E5%85%A8%E7%90%8370000%E5%90%8D%E3%80%82Oh~~Yeah~~~~/",
-            identifier: "blog/2009/01/14/迅雷账号升级到24了，全球70000名。Oh~~Yeah~~~~/",
-            title: "迅雷账号升级到24了，全球70000名。Oh~~Yeah~~~~"
+            url: "https://cuipengfei.github.com/blog/2008/09/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E---%E9%98%B6%E4%B9%98%E6%9C%AB%E5%B0%BE%E6%9C%89%E5%87%A0%E4%B8%AA0(CSharp%E5%AE%9E%E7%8E%B0)/",
+            identifier: "blog/2008/09/18/编程之美---阶乘末尾有几个0(CSharp实现)/",
+            title: "编程之美---阶乘末尾有几个\"零\"?(C#实现)"
           }
         }
       });

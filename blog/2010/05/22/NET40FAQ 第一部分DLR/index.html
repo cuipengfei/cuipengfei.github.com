@@ -47,21 +47,26 @@
   };
 </script>
 
-  <meta name="description" content="功能全面的文字竖排工具。 实现功能：截图、设置字体、繁体转换、文字竖排、设置行列数实现分页、输入原文的时候同步显示竖排文字、一键复制到剪切板等。 注意：C#编写，需要.net framework 2.0 下载地址：  http:&#x2F;&#x2F;download.csdn.net&#x2F;source&#x2F;686787  发现缺陷、不足、bug，请告知我，我会尽快修改 ps：没有混淆，可以用reflector看代码">
+  <meta name="description" content=".NET 4.0 FAQ 第一部分—DLR 简介 本篇文章中我们将讨论.NET FrameWork 4.0提供了哪些新特性。然后再探讨DLR特性  中的动态对象和Expando对象。我们也将会创建一个Expando对象来看我们可以从中获得哪些益处。很多的开发人员误以为动态对象是用来替代反射和object类型的，我们也将会纠正这种错误的概念。 .NET 4.0中有哪些重要的新特性？ 与其去浏览.NE">
 <meta name="keywords" content="杂7杂8">
 <meta property="og:type" content="article">
-<meta property="og:title" content="文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码">
-<meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2008&#x2F;10&#x2F;12&#x2F;%E6%96%87%E5%AD%97%E7%AB%96%E6%8E%92%E5%B7%A5%E5%85%B7%20By%20%E5%B4%94%E9%B9%8F%E9%A3%9E%20%E6%B2%A1%E6%9C%89%E6%B7%B7%E6%B7%86%EF%BC%8C%E5%8F%AF%E4%BB%A5%E7%94%A8reflector%E7%9C%8B%E4%BB%A3%E7%A0%81&#x2F;index.html">
+<meta property="og:title" content=".NET 4.0 FAQ 第一部分—DLR">
+<meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2010&#x2F;05&#x2F;22&#x2F;NET40FAQ%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86DLR&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="功能全面的文字竖排工具。 实现功能：截图、设置字体、繁体转换、文字竖排、设置行列数实现分页、输入原文的时候同步显示竖排文字、一键复制到剪切板等。 注意：C#编写，需要.net framework 2.0 下载地址：  http:&#x2F;&#x2F;download.csdn.net&#x2F;source&#x2F;686787  发现缺陷、不足、bug，请告知我，我会尽快修改 ps：没有混淆，可以用reflector看代码">
+<meta property="og:description" content=".NET 4.0 FAQ 第一部分—DLR 简介 本篇文章中我们将讨论.NET FrameWork 4.0提供了哪些新特性。然后再探讨DLR特性  中的动态对象和Expando对象。我们也将会创建一个Expando对象来看我们可以从中获得哪些益处。很多的开发人员误以为动态对象是用来替代反射和object类型的，我们也将会纠正这种错误的概念。 .NET 4.0中有哪些重要的新特性？ 与其去浏览.NE">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;p-blog.csdn.net&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20081012&#x2F;%E6%88%AA%E5%9B%BE00.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;p-blog.csdn.net&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20090210&#x2F;%E6%88%AA%E5%9B%BE05.jpg">
-<meta property="og:updated_time" content="2019-12-11T03:04:59.307Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.codeproject.com&#x2F;KB&#x2F;dotnet&#x2F;DOTNETre4pt0&#x2F;1.JPG">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.codeproject.com&#x2F;KB&#x2F;dotnet&#x2F;DOTNETre4pt0&#x2F;2.JPG">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.codeproject.com&#x2F;KB&#x2F;dotnet&#x2F;DOTNETre4pt0&#x2F;3.JPG">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.codeproject.com&#x2F;KB&#x2F;dotnet&#x2F;DOTNETre4pt0&#x2F;4.JPG">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.codeproject.com&#x2F;KB&#x2F;dotnet&#x2F;DOTNETre4pt0&#x2F;41.JPG">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.codeproject.com&#x2F;KB&#x2F;dotnet&#x2F;DOTNETre4pt0&#x2F;5.JPG">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.codeproject.com&#x2F;KB&#x2F;dotnet&#x2F;DOTNETre4pt0&#x2F;6.JPG">
+<meta property="og:updated_time" content="2019-12-11T05:07:22.062Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;p-blog.csdn.net&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20081012&#x2F;%E6%88%AA%E5%9B%BE00.jpg">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;www.codeproject.com&#x2F;KB&#x2F;dotnet&#x2F;DOTNETre4pt0&#x2F;1.JPG">
 
-<link rel="canonical" href="https://cuipengfei.github.com/blog/2008/10/12/%E6%96%87%E5%AD%97%E7%AB%96%E6%8E%92%E5%B7%A5%E5%85%B7%20By%20%E5%B4%94%E9%B9%8F%E9%A3%9E%20%E6%B2%A1%E6%9C%89%E6%B7%B7%E6%B7%86%EF%BC%8C%E5%8F%AF%E4%BB%A5%E7%94%A8reflector%E7%9C%8B%E4%BB%A3%E7%A0%81/">
+<link rel="canonical" href="https://cuipengfei.github.com/blog/2010/05/22/NET40FAQ%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86DLR/">
 
 
 <script id="page-configurations">
@@ -75,7 +80,7 @@
   };
 </script>
 
-  <title>文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码</title>
+  <title>.NET 4.0 FAQ 第一部分—DLR</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
     <script pjax>
@@ -218,7 +223,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cuipengfei.github.com/blog/2008/10/12/%E6%96%87%E5%AD%97%E7%AB%96%E6%8E%92%E5%B7%A5%E5%85%B7%20By%20%E5%B4%94%E9%B9%8F%E9%A3%9E%20%E6%B2%A1%E6%9C%89%E6%B7%B7%E6%B7%86%EF%BC%8C%E5%8F%AF%E4%BB%A5%E7%94%A8reflector%E7%9C%8B%E4%BB%A3%E7%A0%81/">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.github.com/blog/2010/05/22/NET40FAQ%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86DLR/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -231,7 +236,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码
+          .NET 4.0 FAQ 第一部分—DLR
         </h2>
 
         <div class="post-meta">
@@ -241,7 +246,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2008-10-12 15:49:00" itemprop="dateCreated datePublished" datetime="2008-10-12T15:49:00+08:00">2008-10-12</time>
+              <time title="创建时间：2010-05-22 10:03:00" itemprop="dateCreated datePublished" datetime="2010-05-22T10:03:00+08:00">2010-05-22</time>
             </span>
 
           
@@ -253,8 +258,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/2008/10/12/%E6%96%87%E5%AD%97%E7%AB%96%E6%8E%92%E5%B7%A5%E5%85%B7%20By%20%E5%B4%94%E9%B9%8F%E9%A3%9E%20%E6%B2%A1%E6%9C%89%E6%B7%B7%E6%B7%86%EF%BC%8C%E5%8F%AF%E4%BB%A5%E7%94%A8reflector%E7%9C%8B%E4%BB%A3%E7%A0%81/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2008/10/12/文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/2010/05/22/NET40FAQ%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86DLR/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2010/05/22/NET40FAQ 第一部分DLR/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -264,14 +269,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>189</span>
+              <span>4.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -283,15 +288,92 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>功能全面的文字竖排工具。</p>
-<p>实现功能：截图、设置字体、繁体转换、文字竖排、设置行列数实现分页、输入原文的时候同步显示竖排文字、一键复制到剪切板等。</p>
-<p>注意：C#编写，需要.net framework 2.0</p>
-<p>下载地址： <a href="http://download.csdn.net/source/686787" target="_blank" rel="noopener"> http://download.csdn.net/source/686787
-</a></p>
-<p>发现缺陷、不足、bug，请告知我，我会尽快修改</p>
-<p>ps：没有混淆，可以用reflector看代码</p>
-<p>图片：<br><img alt data-src="https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081012/%E6%88%AA%E5%9B%BE00.jpg"></p>
-<p><img alt data-src="https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090210/%E6%88%AA%E5%9B%BE05.jpg"></p>
+        <p>.NET 4.0 FAQ 第一部分—DLR</p>
+<p>简介</p>
+<p>本篇文章中我们将讨论.NET FrameWork 4.0提供了哪些新特性。然后再探讨DLR特性  中的动态对象和Expando对象。我们也将会创建一个Exp<br>ando对象来看我们可以从中获得哪些益处。很多的开发人员误以为动态对象是用来替代反射和object类型的，我们也将会纠正这种错误的概念。</p>
+<p>.NET 4.0中有哪些重要的新特性？</p>
+<p>与其去浏览.NET 4.0冗长的新特性列表，我们还是专注于我们认为最重要的三项新特性上吧。</p>
+<p>•  WF和WCF 4.0：这是.NET<br>4.0中的一个重大改变。WCF中引入了简化的配置、发现和路由服务。WF的核心编程模型也得到了改变，变得更加简易和健壮。最重大事件的就是WCF和WF的整合。</p>
+<p>•  动态语言运行时：DLR给.NET 4.0的CLR赋予了动态编程的能力。我们将会在文章接下来的部分探讨这一点。</p>
+<p>•  并行扩展：这有助于多核系统中的并行计算。.NET 4.0的LinQ中添加了PLinQ来支持并行执行。.NET 4.0引入了TPL（Task<br>parallel library），其中暴露了像并行的“For”和“ForEach”等并行构造，它们可以调用普通方法或者委托。</p>
+<p>接下来我们将详细讲述以上提到新特性。</p>
+<p>DLR在.NET 4.0中扮演何种角色呢？</p>
+<p>DLR（Dynamic language<br>runtime）是一组服务，它给CLR赋予了动态编程的能力。DLR使得像LISP、JavaScript、PHP、Ruby一样的动态语言可以运行在.NET<br>FrameWork上。</p>
+<p><img alt data-src="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/1.JPG"></p>
+<p>编程语言分为动态类型语言和静态类型语言。在静态类型语言中，你需要在编译时或者说是设计时指明对象的类型。而动态类型语言可以在运行时识别对象的类型。DLR使得C<br>LR能够作为动态语言代码运行的宿主环境。</p>
+<p><img alt data-src="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/2.JPG"></p>
+<p>有了DLR，Ruby、Python、JavaScript等动态语言就可以无缝的运行在CLR之上了。DLR还有助于为你最喜欢的动态语言来构建最佳体验。这样，你<br>的与动态语言交互的代码就会变得更加简洁。</p>
+<p><img alt data-src="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/3.JPG"></p>
+<p>DLR并不仅限于动态语言。你也可以通过使用COM Interop Binder来以一种更加简洁的方式去调用MS Office组件。</p>
+<p>DLR的一大优势就是它为动态语言提供了一个子系统。</p>
+<p>可以讲讲DLR子系统的细节吗？</p>
+<p>DLR有三个基本子系统：</p>
+<p>•  表达式树：我们可以用它来以AST（抽象语法树）的方式表达语义。DLR会动态生成使用AST的代码，这些代码可以在CLR之上执行。JavaScript和R<br>uby等动态语言可以运行在CLR之上很大程度上得是益于表达式树的助力。</p>
+<p>•  调用栈缓存：当你调用动态对象的方法时，DLR会把那些方法调用的信息都缓存起来。在后续的调用中，DLR就会使用这些缓存起来的信息来完成快速调度。</p>
+<p>•  动态对象互操作性（DOI）：DOI系统中包含一组用来创建动态对象的类。开发人员可以使用这些类来创建可以在动态语言或者静态语言中使用的动态对象。</p>
+<p>接下来我们会对上述的新特性做详细讲解。</p>
+<p><img alt data-src="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/4.JPG"></p>
+<p>我们该如何使用动态语言的对象，又该如何向动态语言暴露一个类呢？</p>
+<p>要使用一个DLR支持的语言创建的对象，我们可以使用dynamic关键字。而要向动态语言暴露一个类，我们可以使用Expando类。</p>
+<p>所以如果你想要使用一个诸如由Python、Ruby或者JavaScript等动态语言创建的对象的话，你就可以使用dynamic的引用来指向该对象。如果你想要<br>让你的类可以被动态语言使用，你的类就需要继承自Expando类。我们稍后就会看到这两种例子。</p>
+<p><img alt data-src="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/41.JPG"></p>
+<p>（上图中文字：Dynamic对象有助于使用动态语言创建的对象。Expando对象有助于向动态语言暴露一个类。）</p>
+<p>有什么Dynamic对象的例子吗？</p>
+<p>我们已经讲过Dynamic对象有助于去访问由受DLR支持的动态语言创建的对象。dynamic关键字是DOI子系统的一部分。</p>
+<p>如果你把一个对象赋值给一个dynamic类型的变量的话（dynamic x = new<br>SomeClass（）），所有对x的方法的调用，对x的属性的访问，以及对x的运算符操作都会被延迟到运行时去，而且编译器在编译时不会对x做任何的类型检查。</p>
+<p>考虑下面的代码片段，我们在其中试着去调用excel的方法。</p>
+<p>// Get the running object of the excel application object objApp =<br>System.Runtime.InteropServices.Marshal.GetActiveObject(“Excel.Application”);<br>// Invoke the member dynamically object x =<br>objApp.GetType().InvokeMember(“Name”,<br>System.Reflection.BindingFlags.GetProperty, null, objApp, null); // Finally<br>get the value by type casting MessageBox.Show(x.ToString());</p>
+<p>使用dynamic关键字来完成相同功能的代码。</p>
+<p>// Get the object using dynamic objApp1 =<br>System.Runtime.InteropServices.Marshal.GetActiveObject(“Excel.Application”);<br>// Call the MessageBox.Show(objApp1.Name);</p>
+<p>你可以很清楚地发现访问属性的语法的简化。InvokeMember这个方法含义模糊而且容易出错。使用dynamic关键字，我们可以看到代码得到了简化。</p>
+<p><img alt data-src="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/5.JPG"></p>
+<p>如果你试着在Visual Studio中查看x的属性，你将会得到提示说此表达式的值只有在运行时才可以被断定。</p>
+<p><img alt data-src="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/6.JPG"></p>
+<p>Dynamic、Object和反射这三者之间有何关系？</p>
+<p>很多的开发人员认为引入Dynamic的目的就是要替换掉反射或者Object这种类型。其实dynamic的主要目的是在静态类型的语言中去无缝的访问动态语言创建<br>的对象。也正是由于这一点，它的部分目的与反射和object类型重合了。</p>
+<p>由于dynamic可以简化代码并具有缓存的优势，它最终会替换掉反射和object类型。但是引入dynamic的初衷绝对不是要去代替反射和object类型，只<br>是它们的目的重合了而已。</p>
+<p>Dynamic</p>
+<p>Object /  反射</p>
+<p>Dynamic对象是DLR引擎提供的一个小特性，我们可以通过使用它来访问动态语言创建的对象。而DLR不仅使得动态语言创建的对象可以被访问，它还使得你的类可以<br>被暴露给动态语言。</p>
+<p>反射和object类型只是用来引用未知类型。反射和object类型无法帮你把你的类暴露给其他语言。它们只是用来访问那些直到运行时才得知具体类型的对象的。</p>
+<p>语法相当简单。</p>
+<p>语法有点难。</p>
+<p>因为有了方法访问的缓存，性能得以提升。</p>
+<p>目前还没有对访问方法的缓存。</p>
+<p>dynamic关键字有什么优缺点？</p>
+<p>差的程序员即使使用最好的语言也会写出很差的代码，而好的程序员即使使用最差的编程语言也可以健步如飞。Dynamic关键字是一个减少复杂性的好工具，但是如果使用<br>不当的话，它就是个诅咒。</p>
+<p>Dynamic关键字的优势有：</p>
+<p>•  帮你与动态语言相交互。</p>
+<p>•  消除混乱的反射代码并可以简化代码复杂度。</p>
+<p>•  有方法访问的缓存，可以提升性能。</p>
+<p>缺点：</p>
+<p>•  当与强类型的类一起使用的时候可能会损害性能。</p>
+<p>Expando对象是什么呢？</p>
+<p>Expando对象是为交互性的另一端服务的，比如说它使得你的自定义类型可以在动态语言中被访问。所以你可以创建一个Expando类的实例并把它传递给像Ruby<br>、JavaScript、Python之类的动态语言。Expando对象有助于在运行时添加属性。它是动态属性包的一种高效实现。要想使用Expando对象，我们<br>首先要引入System.Dynamic命名空间。然后创建一个ExpandoObject的对象并把它赋值给一个用dynamic声明的引用。</p>
+<p>dynamic obj = new ExpandoObject();</p>
+<p>要创建动态属性，我们只需要写出属性名并给它赋值。</p>
+<p>obj.Customername = “Some Customer Name”;</p>
+<p>最后我们显示该值。</p>
+<p>MessageBox.Show(obj.Customername);</p>
+<p>我们可以实现自己的Expando对象吗？</p>
+<p>Expando对象在内部只是向一个集合中添加属性。所以你可以创建自己的Expando对象。</p>
+<p>我们首先需要继承DynamicObject类。</p>
+<p>public class clsMyExpando : DynamicObject</p>
+<p>{</p>
+<p>}</p>
+<p>如前所述，我们需要定义一个集合来存储属性。所以第二步我们就要创建一个字典对象来维护集合中的属性。</p>
+<p>public class clsMyExpando : DynamicObject { Dictionary items= new<br>Dictionary(); }</p>
+<p>我们现在可以使用TryGetMember和SetGetMember来定义我们的属性访问器。</p>
+<p>public class clsMyExpando : DynamicObject { Dictionary items = new<br>Dictionary(); public override bool TryGetMember(GetMemberBinder binder, out<br>object result) { return items.TryGetValue(binder.Name, out result); } public<br>override bool TrySetMember(SetMemberBinder binder, object value) {<br>items[binder.Name] = value; return true; }}</p>
+<p>现在我们可以创建我们自己的Expando类的对象并把它赋值给dynamic类的引用。下面的代码片断中我们给一个叫做Name的动态属性赋了值。</p>
+<p>dynamic obj = new clsMyExpando();</p>
+<p>obj.Name = “Dynamic Property”;</p>
+<p>使用自定义Expando对象有什么益处呢？</p>
+<p>使用Expando对象可以提升性能。如果你的类有静态属性也有动态属性的话，你可以像如下代码一样的在自定义Expando类中创建静态属性。当该对象的静态属性被<br>访问的时候，它不会去调用字典的成员方法，这样也就增进了性能。DLR引擎会首先试着去访问属性名而不是去调用TryGetMember和SetGetMember。</p>
+<p>如果你不需要动态属性也不需要和动态语言交互的话，就要避免使用自定义Expando类型。而如果你需要使用动态属性的话，一定要确保你是继承了DynamicObj<br>ect类的。</p>
+<p>public class clsMyExpando : DynamicObject { Dictionary items = new<br>Dictionary(); private string _Name; public string Name { get { return _Name; }<br>set { _Name = value; } } public override bool TryGetMember( GetMemberBinder<br>binder, out object result) { return items.TryGetValue(binder.Name, out<br>result); } public override bool TrySetMember( SetMemberBinder binder, object<br>value) { items[binder.Name] = value; return true; } }</p>
+<p>IDynamicMetaObjectProvider和DynamicMetaObject是什么呢？</p>
+<p>动态对象实现IDynamicMetaObjectProvider并返回DynamicMetaObject。这两个类型都是实现动态语言之间交互性的核心部分。</p>
 
     </div>
 
@@ -303,6 +385,9 @@
   <ul class="popular-posts">
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/10/09/文字竖排工具BY烟锁重楼/" rel="bookmark">文字竖排工具BY烟锁重楼</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/10/12/文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码/" rel="bookmark">文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/10/03/对Graphic的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME]/" rel="bookmark">对Graphic的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME]</a></div>
@@ -348,9 +433,6 @@
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/03/16/使用AvalonDock制作WPF多标签浏览器（二）/" rel="bookmark">使用AvalonDock制作WPF多标签浏览器（二）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/05/22/NET40FAQ 第一部分DLR/" rel="bookmark">.NET 4.0 FAQ 第一部分—DLR</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2010/07/31/在.NET 4中调用GDAL库时遇到的问题及解决方法/" rel="bookmark">在.NET 4中调用GDAL库时遇到的问题及解决方法</a></div>
@@ -399,7 +481,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="/https:/cuipengfei.github.com/blog/2008/10/12/%E6%96%87%E5%AD%97%E7%AB%96%E6%8E%92%E5%B7%A5%E5%85%B7%20By%20%E5%B4%94%E9%B9%8F%E9%A3%9E%20%E6%B2%A1%E6%9C%89%E6%B7%B7%E6%B7%86%EF%BC%8C%E5%8F%AF%E4%BB%A5%E7%94%A8reflector%E7%9C%8B%E4%BB%A3%E7%A0%81/" title="文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码">https://cuipengfei.github.com/blog/2008/10/12/文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码/</a>
+    <a href="/https:/cuipengfei.github.com/blog/2010/05/22/NET40FAQ%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86DLR/" title=".NET 4.0 FAQ 第一部分—DLR">https://cuipengfei.github.com/blog/2010/05/22/NET40FAQ 第一部分DLR/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -420,12 +502,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/blog/2008/10/09/%E6%96%87%E5%AD%97%E7%AB%96%E6%8E%92%E5%B7%A5%E5%85%B7BY%E7%83%9F%E9%94%81%E9%87%8D%E6%A5%BC/" rel="prev" title="文字竖排工具BY烟锁重楼">
-      <i class="fa fa-chevron-left"></i> 文字竖排工具BY烟锁重楼
+    <a href="/blog/2010/03/17/%E7%94%A8AvalonDock%E5%88%B6%E4%BD%9CWPF%E5%A4%9A%E6%A0%87%E7%AD%BE%E6%B5%8F%E8%A7%88%E5%99%A8%EF%BC%88%E4%B8%89%EF%BC%89/" rel="prev" title="用AvalonDock制作WPF多标签浏览器（三）">
+      <i class="fa fa-chevron-left"></i> 用AvalonDock制作WPF多标签浏览器（三）
     </a></div>
       <div class="post-nav-item">
-    <a href="/blog/2008/10/30/Good%20news%20from%20O'Reilly's%20Chinese%20website/" rel="next" title="Good news from O'Reilly's Chinese website">
-      Good news from O'Reilly's Chinese website <i class="fa fa-chevron-right"></i>
+    <a href="/blog/2010/05/22/MEF%E7%BC%96%E7%A8%8B%E6%8C%87%E5%8D%97%EF%BC%88%E5%89%8D%E4%B8%A4%E8%8A%82%EF%BC%89/" rel="next" title="MEF编程指南（前两节）">
+      MEF编程指南（前两节） <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -694,9 +776,9 @@ window.addEventListener('pjax:success', () => {
       DISQUS.reset({
         reload: true,
         config: {page: {
-            url: "https://cuipengfei.github.com/blog/2008/10/12/%E6%96%87%E5%AD%97%E7%AB%96%E6%8E%92%E5%B7%A5%E5%85%B7%20By%20%E5%B4%94%E9%B9%8F%E9%A3%9E%20%E6%B2%A1%E6%9C%89%E6%B7%B7%E6%B7%86%EF%BC%8C%E5%8F%AF%E4%BB%A5%E7%94%A8reflector%E7%9C%8B%E4%BB%A3%E7%A0%81/",
-            identifier: "blog/2008/10/12/文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码/",
-            title: "文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码"
+            url: "https://cuipengfei.github.com/blog/2010/05/22/NET40FAQ%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86DLR/",
+            identifier: "blog/2010/05/22/NET40FAQ 第一部分DLR/",
+            title: ".NET 4.0 FAQ 第一部分—DLR"
           }
         }
       });
