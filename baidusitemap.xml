@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://cuipengfei.github.com/blog/2011/12/15/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%209%20-%20SelectMany/</loc>
+    <lastmod>2019-12-11</lastmod>
+  </url>  <url>
+    <loc>https://cuipengfei.github.com/blog/2011/08/21/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%202%20-%20Where/</loc>
+    <lastmod>2019-12-11</lastmod>
+  </url>  <url>
+    <loc>https://cuipengfei.github.com/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%203%20-%20Select/</loc>
+    <lastmod>2019-12-11</lastmod>
+  </url>  <url>
+    <loc>https://cuipengfei.github.com/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%204%20-%20Range/</loc>
+    <lastmod>2019-12-11</lastmod>
+  </url>  <url>
+    <loc>https://cuipengfei.github.com/blog/2011/09/14/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%208%20-%20Concat/</loc>
+    <lastmod>2019-12-11</lastmod>
+  </url>  <url>
+    <loc>https://cuipengfei.github.com/blog/2012/02/15/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%2010%20-%20Any%E5%92%8CAll/</loc>
+    <lastmod>2019-12-11</lastmod>
+  </url>  <url>
+    <loc>https://cuipengfei.github.com/blog/2011/08/24/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%206%20-%20Repeat/</loc>
+    <lastmod>2019-12-11</lastmod>
+  </url>  <url>
+    <loc>https://cuipengfei.github.com/blog/2011/09/05/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%207%20-%20Count%E5%92%8CLongCount/</loc>
+    <lastmod>2019-12-11</lastmod>
+  </url>  <url>
+    <loc>https://cuipengfei.github.com/blog/2012/04/10/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%2012%20-%20DefaultIfEmpty/</loc>
+    <lastmod>2019-12-11</lastmod>
+  </url>  <url>
+    <loc>https://cuipengfei.github.com/blog/2012/04/09/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%2011%20-%20First%EF%BC%8CLast%EF%BC%8CSingle%E4%BB%A5%E5%8F%8A%E5%AE%83%E4%BB%AC%E5%B8%A6%E6%9C%89OrDefault%E7%9A%84%E9%87%8D%E8%BD%BD/</loc>
+    <lastmod>2019-12-11</lastmod>
+  </url>  <url>
+    <loc>https://cuipengfei.github.com/blog/2011/08/23/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%205%20-%20Empty/</loc>
+    <lastmod>2019-12-11</lastmod>
+  </url>  <url>
+    <loc>https://cuipengfei.github.com/blog/2011/08/19/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%201%20-%20%E5%BC%95%E8%A8%80/</loc>
+    <lastmod>2019-12-11</lastmod>
+  </url>  <url>
     <loc>https://cuipengfei.github.com/blog/2019/11/03/fp-vs-oo/</loc>
     <lastmod>2019-12-11</lastmod>
   </url>  <url>
@@ -166,43 +202,7 @@
     <loc>https://cuipengfei.github.com/blog/2018/10/14/zb-bank/</loc>
     <lastmod>2019-12-11</lastmod>
   </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2012/04/10/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%2012%20-%20DefaultIfEmpty/</loc>
-    <lastmod>2019-12-11</lastmod>
-  </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2012/04/09/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%2011%20-%20First%EF%BC%8CLast%EF%BC%8CSingle%E4%BB%A5%E5%8F%8A%E5%AE%83%E4%BB%AC%E5%B8%A6%E6%9C%89OrDefault%E7%9A%84%E9%87%8D%E8%BD%BD/</loc>
-    <lastmod>2019-12-11</lastmod>
-  </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2011/12/15/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%209%20-%20SelectMany/</loc>
-    <lastmod>2019-12-11</lastmod>
-  </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2012/02/15/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%2010%20-%20Any%E5%92%8CAll/</loc>
-    <lastmod>2019-12-11</lastmod>
-  </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2011/09/14/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%208%20-%20Concat/</loc>
-    <lastmod>2019-12-11</lastmod>
-  </url>  <url>
     <loc>https://cuipengfei.github.com/blog/2011/08/31/%E6%B5%85%E6%9E%90%E5%BB%B6%E8%BF%9F%E6%89%A7%E8%A1%8C--%E5%AE%9E%E7%8E%B0%EF%BC%8C%E4%BC%98%E7%82%B9%EF%BC%8C%E9%99%B7%E9%98%B1%E4%BB%A5%E5%8F%8A%E9%A2%98%E5%A4%96%E8%AF%9D/</loc>
-    <lastmod>2019-12-11</lastmod>
-  </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2011/09/05/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%207%20-%20Count%E5%92%8CLongCount/</loc>
-    <lastmod>2019-12-11</lastmod>
-  </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2011/08/24/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%206%20-%20Repeat/</loc>
-    <lastmod>2019-12-11</lastmod>
-  </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2011/08/23/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%205%20-%20Empty/</loc>
-    <lastmod>2019-12-11</lastmod>
-  </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%204%20-%20Range/</loc>
-    <lastmod>2019-12-11</lastmod>
-  </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%203%20-%20Select/</loc>
-    <lastmod>2019-12-11</lastmod>
-  </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2011/08/21/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%202%20-%20Where/</loc>
-    <lastmod>2019-12-11</lastmod>
-  </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2011/08/19/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%201%20-%20%E5%BC%95%E8%A8%80/</loc>
     <lastmod>2019-12-11</lastmod>
   </url>  <url>
     <loc>https://cuipengfei.github.com/blog/2011/04/13/%E2%80%9C%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0%E2%80%9D%E8%B6%A3%E4%BA%8B%E6%8E%A2%E8%BD%B6/</loc>
@@ -328,10 +328,10 @@
     <loc>https://cuipengfei.github.com/blog/2009/01/14/%E8%BF%85%E9%9B%B7%E8%B4%A6%E5%8F%B7%E5%8D%87%E7%BA%A7%E5%88%B024%E4%BA%86%EF%BC%8C%E5%85%A8%E7%90%8370000%E5%90%8D/</loc>
     <lastmod>2019-12-11</lastmod>
   </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2008/11/14/Head.First.CSharp.%E4%B8%AD%E6%96%87%E7%89%88.%E5%9B%BE%E6%96%87%E7%9A%86%E8%AF%91.%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0.%E4%BA%8B%E4%BB%B6%E5%92%8C%E5%A7%94%E6%89%98.%E7%BF%BB%E8%AF%91%E5%AE%8C%E6%AF%95.PDF%E4%B8%8B%E8%BD%BD/</loc>
+    <loc>https://cuipengfei.github.com/blog/2008/10/30/Good%20news%20from%20O'Reilly's%20Chinese%20website/</loc>
     <lastmod>2019-12-11</lastmod>
   </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2008/10/30/Good%20news%20from%20O'Reilly's%20Chinese%20website/</loc>
+    <loc>https://cuipengfei.github.com/blog/2008/11/14/Head.First.CSharp.%E4%B8%AD%E6%96%87%E7%89%88.%E5%9B%BE%E6%96%87%E7%9A%86%E8%AF%91.%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0.%E4%BA%8B%E4%BB%B6%E5%92%8C%E5%A7%94%E6%89%98.%E7%BF%BB%E8%AF%91%E5%AE%8C%E6%AF%95.PDF%E4%B8%8B%E8%BD%BD/</loc>
     <lastmod>2019-12-11</lastmod>
   </url>  <url>
     <loc>https://cuipengfei.github.com/blog/2008/09/09/%E5%8F%AF%E4%BB%A5%E4%B8%BAnull%E7%9A%84%E5%80%BC%E7%B1%BB%E5%9E%8B/</loc>
@@ -370,13 +370,16 @@
     <loc>https://cuipengfei.github.com/blog/2015/06/13/observers-pattern-fp/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2015/06/23/template-method-pattern/</loc>
-    <lastmod>2019-12-07</lastmod>
-  </url>  <url>
     <loc>https://cuipengfei.github.com/blog/2015/06/16/visitor-pattern-pattern-match/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
+    <loc>https://cuipengfei.github.com/blog/2015/06/23/template-method-pattern/</loc>
+    <lastmod>2019-12-07</lastmod>
+  </url>  <url>
     <loc>https://cuipengfei.github.com/blog/2015/07/04/2015-second-season/</loc>
+    <lastmod>2019-12-07</lastmod>
+  </url>  <url>
+    <loc>https://cuipengfei.github.com/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
     <loc>https://cuipengfei.github.com/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/</loc>
@@ -388,19 +391,16 @@
     <loc>https://cuipengfei.github.com/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/</loc>
-    <lastmod>2019-12-07</lastmod>
-  </url>  <url>
     <loc>https://cuipengfei.github.com/blog/2015/04/19/principles-of-reactive-programming-week-one/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
     <loc>https://cuipengfei.github.com/blog/2015/04/26/principles-of-reactive-programming-week-2/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2015/03/29/2015-first-season/</loc>
+    <loc>https://cuipengfei.github.com/blog/2014/12/27/2014/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2014/12/27/2014/</loc>
+    <loc>https://cuipengfei.github.com/blog/2015/03/29/2015-first-season/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
     <loc>https://cuipengfei.github.com/blog/2014/09/06/solving-regular-problems-in-scala/</loc>
@@ -412,10 +412,10 @@
     <loc>https://cuipengfei.github.com/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2014/08/30/options-for/</loc>
+    <loc>https://cuipengfei.github.com/blog/2014/07/18/play-evolutions-to-liquibase/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2014/07/18/play-evolutions-to-liquibase/</loc>
+    <loc>https://cuipengfei.github.com/blog/2014/08/30/options-for/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
     <loc>https://cuipengfei.github.com/blog/2014/06/12/scala-update-method/</loc>
@@ -427,16 +427,16 @@
     <loc>https://cuipengfei.github.com/blog/2014/06/21/desugar-scala-lower-bound/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2014/01/02/desugar-scala-11/</loc>
-    <lastmod>2019-12-07</lastmod>
-  </url>  <url>
     <loc>https://cuipengfei.github.com/blog/2014/01/01/my-2013/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2014/06/09/desugar-scala-default-parameter-value/</loc>
+    <loc>https://cuipengfei.github.com/blog/2014/01/02/desugar-scala-11/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
     <loc>https://cuipengfei.github.com/blog/2014/01/05/more-on-scala-implicit-function/</loc>
+    <lastmod>2019-12-07</lastmod>
+  </url>  <url>
+    <loc>https://cuipengfei.github.com/blog/2014/06/09/desugar-scala-default-parameter-value/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
     <loc>https://cuipengfei.github.com/blog/2013/12/29/desugar-scala-7/</loc>
@@ -445,31 +445,31 @@
     <loc>https://cuipengfei.github.com/blog/2013/12/30/desugar-scala-9/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2013/12/29/desugar-scala-8/</loc>
-    <lastmod>2019-12-07</lastmod>
-  </url>  <url>
     <loc>https://cuipengfei.github.com/blog/2014/01/01/desugar-scala-10/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2013/12/24/desugar-scala-5/</loc>
-    <lastmod>2019-12-07</lastmod>
-  </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2013/12/23/desugar-scala-4/</loc>
-    <lastmod>2019-12-07</lastmod>
-  </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2013/12/25/desugar-scala-6/</loc>
+    <loc>https://cuipengfei.github.com/blog/2013/12/29/desugar-scala-8/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
     <loc>https://cuipengfei.github.com/blog/2013/10/13/scala-trait/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
+    <loc>https://cuipengfei.github.com/blog/2013/12/23/desugar-scala-4/</loc>
+    <lastmod>2019-12-07</lastmod>
+  </url>  <url>
+    <loc>https://cuipengfei.github.com/blog/2013/12/24/desugar-scala-5/</loc>
+    <lastmod>2019-12-07</lastmod>
+  </url>  <url>
+    <loc>https://cuipengfei.github.com/blog/2013/12/25/desugar-scala-6/</loc>
+    <lastmod>2019-12-07</lastmod>
+  </url>  <url>
     <loc>https://cuipengfei.github.com/blog/2013/05/05/how-are-scala-language-features-implemented/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2013/05/11/scala-language-features-2/</loc>
+    <loc>https://cuipengfei.github.com/blog/2013/06/22/why-does-it-have-to-be-final/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
-    <loc>https://cuipengfei.github.com/blog/2013/06/22/why-does-it-have-to-be-final/</loc>
+    <loc>https://cuipengfei.github.com/blog/2013/05/11/scala-language-features-2/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
     <loc>https://cuipengfei.github.com/blog/2013/03/04/ce-shi/</loc>

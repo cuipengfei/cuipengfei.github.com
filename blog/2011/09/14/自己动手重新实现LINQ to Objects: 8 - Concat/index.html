@@ -48,14 +48,14 @@
 </script>
 
   <meta name="description" content="本文翻译自   Jon Skeet   的系列博文“Edulinq  ”。 本篇原文地址： [ _ http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;27&#x2F;reimplementing-linq-to-objects-part-8-concat.aspx _](http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;20">
-<meta name="keywords" content="linq">
+<meta name="keywords" content="LinQ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自己动手重新实现LINQ to Objects 8 - Concat">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2011&#x2F;09&#x2F;14&#x2F;%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%208%20-%20Concat&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="本文翻译自   Jon Skeet   的系列博文“Edulinq  ”。 本篇原文地址： [ _ http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;27&#x2F;reimplementing-linq-to-objects-part-8-concat.aspx _](http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;20">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-11T05:08:51.410Z">
+<meta property="og:updated_time" content="2019-12-11T08:27:39.844Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2011/09/14/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%208%20-%20Concat/">
@@ -411,10 +411,13 @@
       <div class="popular-posts-title"><a href="/blog/2011/08/19/自己动手重新实现LINQ to Objects: 1 - 引言/" rel="bookmark">自己动手重新实现LINQ to Objects 1 - 引言</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/08/21/自己动手重新实现LINQ to Objects: 2 - Where/" rel="bookmark">自己动手重新实现LINQ to Objects 2 - Where</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 3 - Select/" rel="bookmark">自己动手重新实现LINQ to Objects 3 - Select</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/08/21/自己动手重新实现LINQ to Objects: 2 - Where/" rel="bookmark">自己动手重新实现LINQ to Objects 2 - Where</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/08/24/自己动手重新实现LINQ to Objects: 6 - Repeat/" rel="bookmark">自己动手重新实现LINQ to Objects 6 - Repeat</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 4 - Range/" rel="bookmark">自己动手重新实现LINQ to Objects 4 - Range</a></div>
@@ -423,22 +426,19 @@
       <div class="popular-posts-title"><a href="/blog/2011/08/23/自己动手重新实现LINQ to Objects: 5 - Empty/" rel="bookmark">自己动手重新实现LINQ to Objects 5 - Empty</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/08/24/自己动手重新实现LINQ to Objects: 6 - Repeat/" rel="bookmark">自己动手重新实现LINQ to Objects 6 - Repeat</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/12/15/自己动手重新实现LINQ to Objects: 9 - SelectMany/" rel="bookmark">自己动手重新实现LINQ to Objects 9 - SelectMany</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/09/05/自己动手重新实现LINQ to Objects: 7 - Count和LongCount/" rel="bookmark">自己动手重新实现LINQ to Objects 7 - Count和LongCount</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2012/04/09/自己动手重新实现LINQ to Objects: 11 - First，Last，Single以及它们带有OrDefault的重载/" rel="bookmark">自己动手重新实现LINQ to Objects 11 - First，Last，Single以及它们带有OrDefault的重载</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2012/02/15/自己动手重新实现LINQ to Objects: 10 - Any和All/" rel="bookmark">自己动手重新实现LINQ to Objects 10 - Any和All</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/12/15/自己动手重新实现LINQ to Objects: 9 - SelectMany/" rel="bookmark">自己动手重新实现LINQ to Objects 9 - SelectMany</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2012/04/10/自己动手重新实现LINQ to Objects: 12 - DefaultIfEmpty/" rel="bookmark">自己动手重新实现LINQ to Objects 12 - DefaultIfEmpty</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2012/04/09/自己动手重新实现LINQ to Objects: 11 - First，Last，Single以及它们带有OrDefault的重载/" rel="bookmark">自己动手重新实现LINQ to Objects 11 - First，Last，Single以及它们带有OrDefault的重载</a></div>
     </li>
   </ul>
 
@@ -463,7 +463,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/linq/" rel="tag"><i class="fa fa-tag"></i> linq</a>
+              <a href="/tags/LinQ/" rel="tag"><i class="fa fa-tag"></i> LinQ</a>
           </div>
 
         
