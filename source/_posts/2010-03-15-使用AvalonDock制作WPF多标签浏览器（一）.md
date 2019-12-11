@@ -33,8 +33,7 @@ FireFox  ：
 
 ![](http://images.cnblogs.com/cnblogs_com/cuipengfei/2010-03-15_21-06-25.jpg)
 
-它们都有一个添加新标签的按钮，但是  AvalonDock  的  DocumentPane  默认并没有新建一个  DocumentContent
-的按钮。
+它们都有一个添加新标签的按钮，但是  AvalonDock  的  DocumentPane  默认并没有新建一个  DocumentContent的按钮。
 
 DocumentPane  和  DocumentContent  是  AvalonDock  中众多类型中的两个，  DocumentPane  是
 DocumentContent  的父级容器，  DocumentContent  中则可以置入任何  UI  元素，比如说一个  WebBrowser
@@ -44,22 +43,32 @@ DocumentContent  的父级容器，  DocumentContent  中则可以置入任何  
 
 首先  ReStyle  ，从  AvalonDock  的源码中找到  DocumentPaneStyles.xaml  这个文件，定位到
 
+```
 <Button x:Name="PART_ShowContextMenuButton" DockPanel.Dock="Right" Width="18"
-Height="18" Style="{StaticResource PaneHeaderCommandStyle}"
-mce_Style="{StaticResource PaneHeaderCommandStyle}"
-Command="ad:DocumentPane.ShowDocumentsListMenuCommand"> <ad:AlignedImage>
-<Image x:Name="ShowContextMenuIcon" Source="Images/PinMenu.png" Width="13"
-Height="13" Stretch="Uniform"/> </ad:AlignedImage> </Button>
+        Height="18" Style="{StaticResource PaneHeaderCommandStyle}"
+        mce_Style="{StaticResource PaneHeaderCommandStyle}"
+        Command="ad:DocumentPane.ShowDocumentsListMenuCommand">
+    <ad:AlignedImage>
+        <Image x:Name="ShowContextMenuIcon" Source="Images/PinMenu.png" Width="13"
+               Height="13" Stretch="Uniform"/>
+    </ad:AlignedImage>
+</Button>
+```
 
 这段代码
 
 紧接着这段代码添加如下代码：
 
+```
 <Button DockPanel.Dock="Right" Width="18" Height="18" Style="{StaticResource
 PaneHeaderCommandStyle}" mce_Style="{StaticResource PaneHeaderCommandStyle}"
-Command="ad:DocumentPane.AddNewCommand"> <ad:AlignedImage> <Image
-Source="Images/add.png" Width="13" Height="13" Stretch="Uniform"/>
-</ad:AlignedImage> </Button>
+        Command="ad:DocumentPane.AddNewCommand">
+    <ad:AlignedImage>
+        <Image
+                Source="Images/add.png" Width="13" Height="13" Stretch="Uniform"/>
+    </ad:AlignedImage>
+</Button>
+```
 
 其中的  add.png  是我从网上随便找的一个加号的图片；
 
@@ -67,17 +76,36 @@ Source="Images/add.png" Width="13" Height="13" Stretch="Uniform"/>
 
 找到  DocumentPane.cs  文件并添加代码：
 
-public static RoutedCommand AddNewCommand = new RoutedCommand(); private void
-ExecutedAddNewCommand(object sender, ExecutedRoutedEventArgs e) { AddNew(); }
-private void AddNew() { DocumentContent newContent = new DocumentContent();
-newContent.Title = "new content"; newContent.IsFloatingAllowed = true;
-Items.Add(newContent); } private void CanExecuteAddNewCommand(object sender,
-CanExecuteRoutedEventArgs e) { e.CanExecute = true; }
+```
+        public static RoutedCommand AddNewCommand = new RoutedCommand();
+
+        private void
+            ExecutedAddNewCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            AddNew();
+        }
+
+        private void AddNew()
+        {
+            DocumentContent newContent = new DocumentContent();
+            newContent.Title = "new content";
+            newContent.IsFloatingAllowed = true;
+            Items.Add(newContent);
+        }
+
+        private void CanExecuteAddNewCommand(object sender,
+            CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+```
 
 然后再在其  OnInitialized  方法中添加如下一句：
 
+```
 this  .CommandBindings.Add(  new  CommandBinding(AddNewCommand,
 ExecutedAddNewCommand, CanExecuteAddNewCommand));
+```
 
 这样我们就给  DocumentPane  添加了一个加号按钮并把它和  AddNewCommand  这个命令联系了起来，点击按钮时我们添加的
 AddNew  方法就会执行。由于  DocumentPane  是  WPF  中  Selector  的子类，而  Selector  又继承自
