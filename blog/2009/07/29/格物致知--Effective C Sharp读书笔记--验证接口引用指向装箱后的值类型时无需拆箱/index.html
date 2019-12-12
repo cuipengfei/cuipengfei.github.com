@@ -55,13 +55,11 @@
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="欲验证的结论：  接口引用指向装箱后的值类型时无需拆箱  。 代码如下： 1interface SomeInterface23&amp;#123;4    void MethodInInterface();5&amp;#125;67struct OneValueType : SomeInterface89&amp;#123;10    public void MethodInInterface()1112    &amp;#12">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;p-blog.csdn.net&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20090729&#x2F;2009-07-29_08-47-04.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;p-blog.csdn.net&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20090729&#x2F;2009-07-29_08-47-18.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;profile.csdnimg.cn&#x2F;5&#x2F;2&#x2F;5&#x2F;3_cuipengfei1">
-<meta property="og:image" content="https:&#x2F;&#x2F;g.csdnimg.cn&#x2F;static&#x2F;user-reg-year&#x2F;1x&#x2F;11.png">
-<meta property="og:updated_time" content="2019-12-11T04:58:10.559Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;images&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20090729&#x2F;2009-07-29_08-47-04.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;images&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20090729&#x2F;2009-07-29_08-47-18.jpg">
+<meta property="og:updated_time" content="2019-12-12T08:58:07.046Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;p-blog.csdn.net&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20090729&#x2F;2009-07-29_08-47-04.jpg">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;images&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20090729&#x2F;2009-07-29_08-47-04.jpg">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2009/07/29/%E6%A0%BC%E7%89%A9%E8%87%B4%E7%9F%A5--Effective%20C%20Sharp%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E9%AA%8C%E8%AF%81%E6%8E%A5%E5%8F%A3%E5%BC%95%E7%94%A8%E6%8C%87%E5%90%91%E8%A3%85%E7%AE%B1%E5%90%8E%E7%9A%84%E5%80%BC%E7%B1%BB%E5%9E%8B%E6%97%B6%E6%97%A0%E9%9C%80%E6%8B%86%E7%AE%B1/">
 
@@ -292,13 +290,11 @@
 <p>其中  OneValueType  是值类型，它实现了  SomeInterface  。</p>
 <p>两个方法  CastStruct  和  CastInterface  分别把装箱之后的值类型转型为  OneValueType  和<br>SomeInterface  。预计的结果是第二个方法无需拆箱，查看  IL  来验证：</p>
 <p>这是  CastStruct  （）：</p>
-<p><img alt data-src="https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090729/2009-07-29_08-47-04.jpg"></p>
+<p><img alt data-src="/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090729/2009-07-29_08-47-04.jpg"></p>
 <p>这是  CastInterface  （）：</p>
-<p><img alt data-src="https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090729/2009-07-29_08-47-18.jpg"></p>
+<p><img alt data-src="/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090729/2009-07-29_08-47-18.jpg"></p>
 <p>可见，第二个方法中没有  unbox  指令，结论得证。</p>
 <p>2009  年  7  月  29  日</p>
-<p><a href="https://blog.csdn.net/cuipengfei1" target="_blank" rel="noopener"> <img alt data-src="https://profile.csdnimg.cn/5/2/5/3_cuipengfei1"><br><img alt data-src="https://g.csdnimg.cn/static/user-reg-year/1x/11.png">
-</a></p>
 
     </div>
 
@@ -413,7 +409,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">158</span>
+          <span class="site-state-item-count">157</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -473,13 +469,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">309k</span>
+    <span title="站点总字数">311k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:41</span>
+    <span title="站点阅读时长">4:42</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

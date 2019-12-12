@@ -47,15 +47,15 @@
   };
 </script>
 
-  <meta name="description" content="本文翻译自  Jon Skeet  的系列博文“Edulinq  ”。 本篇原文地址： [ http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;27&#x2F;reimplementing-linq-to-objects-part-9-selectmany.aspx](http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010">
+  <meta name="description" content="本文翻译自  Jon Skeet  的系列博文“Edulinq  ”。 本篇原文地址：  http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;27&#x2F;reimplementing-linq-to-objects-part-9-selectmany.aspx 我们接下来要实现的这个操作符是LINQ  中最重要的操作符。大多数（或者是全部？）其他的返回一个">
 <meta name="keywords" content="LinQ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自己动手重新实现LINQ to Objects 9 - SelectMany">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2011&#x2F;12&#x2F;15&#x2F;%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%209%20-%20SelectMany&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="本文翻译自  Jon Skeet  的系列博文“Edulinq  ”。 本篇原文地址： [ http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;27&#x2F;reimplementing-linq-to-objects-part-9-selectmany.aspx](http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010">
+<meta property="og:description" content="本文翻译自  Jon Skeet  的系列博文“Edulinq  ”。 本篇原文地址：  http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;27&#x2F;reimplementing-linq-to-objects-part-9-selectmany.aspx 我们接下来要实现的这个操作符是LINQ  中最重要的操作符。大多数（或者是全部？）其他的返回一个">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-11T08:27:39.868Z">
+<meta property="og:updated_time" content="2019-12-12T06:43:15.219Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2011/12/15/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%209%20-%20SelectMany/">
@@ -261,7 +261,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.3k</span>
+              <span>7.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -282,47 +282,30 @@
       
         <p>本文翻译自 <a href="http://stackoverflow.com/users/22656/jon-skeet" target="_blank" rel="noopener"> Jon Skeet </a> 的系列博文“<br>Edulinq  ”。</p>
 <p>本篇原文地址：</p>
-<p>[ <a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/27/reimplementing-linq-to-" target="_blank" rel="noopener">http://msmvps.com/blogs/jon_skeet/archive/2010/12/27/reimplementing-linq-to-</a><br>objects-part-9-selectmany.aspx<br>](<a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/27/reimplementing-linq-to-" target="_blank" rel="noopener">http://msmvps.com/blogs/jon_skeet/archive/2010/12/27/reimplementing-linq-to-</a><br>objects-part-9-selectmany.aspx)</p>
+<p><a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/27/reimplementing-linq-to-objects-part-9-selectmany.aspx" target="_blank" rel="noopener"> http://msmvps.com/blogs/jon_skeet/archive/2010/12/27/reimplementing-linq-to-objects-part-9-selectmany.aspx</a></p>
 <p>我们接下来要实现的这个操作符是LINQ  中最重要的操作符。大多数（或者是全部？）其他的返回一个序列的操作符都可以通过调用  SelectMany<br>来实现，这是后话按下不表。现在我们首先来实现它吧。</p>
 <p>SelectMany  是什么？</p>
 <p>SelectMany  有四个重载，看起来一个比一个吓人：</p>
-<p>public static IEnumerable<tresult> SelectMany&lt;TSource, TResult&gt;(</tresult></p>
-<p>this IEnumerable<tsource> source,</tsource></p>
-<p>Func&lt;TSource, IEnumerable<tresult>&gt; selector)</tresult></p>
-<p>public static IEnumerable<tresult> SelectMany&lt;TSource, TResult&gt;(</tresult></p>
-<p>this IEnumerable<tsource> source,</tsource></p>
-<p>Func&lt;TSource, int, IEnumerable<tresult>&gt; selector)</tresult></p>
-<p>public static IEnumerable<tresult> SelectMany&lt;TSource, TCollection, TResult&gt;(</tresult></p>
-<p>this IEnumerable<tsource> source,</tsource></p>
-<p>Func&lt;TSource, IEnumerable<tcollection>&gt; collectionSelector,</tcollection></p>
-<p>Func&lt;TSource, TCollection, TResult&gt; resultSelector)</p>
-<p>public static IEnumerable<tresult> SelectMany&lt;TSource, TCollection, TResult&gt;(</tresult></p>
-<p>this IEnumerable<tsource> source,</tsource></p>
-<p>Func&lt;TSource, int, IEnumerable<tcollection>&gt; collectionSelector,</tcollection></p>
-<p>Func&lt;TSource, TCollection, TResult&gt; resultSelector)</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">public static IEnumerable <span class="variable">&lt; TResult &gt;</span> SelectM<span class="literal">any</span> <span class="variable">&lt; TSource, TResult &gt;</span> (</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"> this IEnumerable <span class="variable">&lt; TSource &gt;</span> source,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"> Func <span class="variable">&lt; TSource, IEnumerable &lt; TResult &gt;</span>&gt; selector)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">public static IEnumerable <span class="variable">&lt; TResult &gt;</span> SelectM<span class="literal">any</span> <span class="variable">&lt; TSource, TResult &gt;</span> (</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"> this IEnumerable <span class="variable">&lt; TSource &gt;</span> source,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"> Func <span class="variable">&lt; TSource, int, IEnumerable &lt; TResult &gt;</span>&gt; selector)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">public static IEnumerable <span class="variable">&lt; TResult &gt;</span> SelectM<span class="literal">any</span> <span class="variable">&lt; TSource, TCollection, TResult &gt;</span> (</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"> this IEnumerable <span class="variable">&lt; TSource &gt;</span> source,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"> Func <span class="variable">&lt; TSource, IEnumerable &lt; TCollection &gt;</span>&gt; collectionSelector,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"> Func <span class="variable">&lt; TSource, TCollection, TResult &gt;</span> resultSelector)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">public static IEnumerable <span class="variable">&lt; TResult &gt;</span> SelectM<span class="literal">any</span> <span class="variable">&lt; TSource, TCollection, TResult &gt;</span> (</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"> this IEnumerable <span class="variable">&lt; TSource &gt;</span> source,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"> Func <span class="variable">&lt; TSource, int, IEnumerable &lt; TCollection &gt;</span>&gt; collectionSelector,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"> Func <span class="variable">&lt; TSource, TCollection, TResult &gt;</span> resultSelector)</span></pre></td></tr></table></figure>
+
 <p>其实还不算太坏，这些重载只是同一个操作的不同形式而已。</p>
 <p>无论是哪个重载，都需要一个输入序列。然后用一个委托来处理输入序列中的每个元素以生成一个子序列，这个委托可能会接受一个代表元素  index  的参数。</p>
 <p>再然后，我们或者把每个子序列中的元素直接返回，或者再用另一个委托来做处理，这个委托接受输入序列中的元素并接受其对应的子序列中的元素。</p>
 <p>以我的经验来说，使用  index  两个重载不太常用，而另外两个重载（上面列出的第一个和第三个）则比较常用。还有，当  C#  编译器处理一个含有多个<br>from  子句的查询表达式的时候，它会把出第一个  from  之外的其他  from  子句转译为上面的第三个重载。</p>
 <p>为了把上面的说法放入实例中理解，我们假设有这样一个查询表达式：</p>
-<p>var query = from file in Directory.GetFiles(“logs”)</p>
-<p>from line in File.ReadLines(file)</p>
-<p>select Path.GetFileName(file) + “: “ + line;</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">var query = <span class="meta">from</span> <span class="meta">file</span> <span class="meta">in</span> Directory.GetFiles(<span class="string">"logs"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="meta">from</span> line <span class="meta">in</span> <span class="meta">File</span>.ReadLines(<span class="meta">file</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="meta">select</span> Path.Ge<span class="meta">tFileName(</span><span class="meta">file</span>) + <span class="string">": "</span> + line;</span></pre></td></tr></table></figure>
+
 <p>上面的查询表达式会被转译为下面的“正常”调用：</p>
-<p>var query = Directory.GetFiles(“logs”)</p>
-<p>.SelectMany(file =&gt; File.ReadLines(file),</p>
-<p>(file, line) =&gt; Path.GetFileName(file) + “: “ + line);</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="keyword">query</span> = Directory.GetFiles(<span class="string">"logs"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">.SelectMany(<span class="keyword">file</span> =&gt; <span class="keyword">File</span>.ReadLines(<span class="keyword">file</span>),</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">(<span class="keyword">file</span>, <span class="keyword">line</span>) =&gt; Path.GetFileName(<span class="keyword">file</span>) + <span class="string">": "</span> + <span class="keyword">line</span>);</span></pre></td></tr></table></figure>
+
 <p>这个例子中，编译器会把表达式中的  select  子句转译为投影操作；如果表达式后面还跟有  where  子句或其他子句，编译器会把  file  和<br>line  包装在一个匿名类型中传递给投影操作。这是查询表达式转译中最令人难理解的一点，因为这涉及到了透明标识符（  transparent<br>identifiers  ）。就现在来说，我们只分析上面给出的简单例子。</p>
 <p>上例中的  SelectMany  接受三个参数：</p>
 <p>l 输入序列，也就是一个字符串序列（  Directory.GetFiles  所返回的文件名）</p>
 <p>l 一个初始投影操作，它把一个文件名转化为该文件中包含的一行行的字符串</p>
 <p>l 一个结束投影操作，它把一个文件名和一行文件内容转化为一个由冒号分隔的字符串</p>
 <p>表达式的最后结果会是一个字符串的序列，其中包含所有  log  文件的每一行，每一行会以文件名作为前缀。如果把结果打印出来，大概会是这样的：</p>
-<p>test1.log: foo</p>
-<p>test1.log: bar</p>
-<p>test1.log: baz</p>
-<p>test2.log: Second log file</p>
-<p>test2.log: Another line from the second log file</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">test1.<span class="keyword">lo</span><span class="variable">g:</span> foo</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">test1.<span class="keyword">lo</span><span class="variable">g:</span> bar</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">test1.<span class="keyword">lo</span><span class="variable">g:</span> baz</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">test2.<span class="keyword">lo</span><span class="variable">g:</span> Second <span class="built_in">log</span> <span class="keyword">file</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">test2.<span class="keyword">lo</span><span class="variable">g:</span> Another <span class="built_in">line</span> from the second <span class="built_in">log</span> <span class="keyword">file</span></span></pre></td></tr></table></figure>
+
 <p>要理解  SelectMany  可能会费点脑子，我当时理解它就费了点力，不过理解它是很重要的。</p>
 <p>在讲测试之前，还有几点关于  SelectMany  的行为细节需要说明：</p>
 <p>l 参数校验是立即执行的，每个参数都不能是  null</p>
@@ -330,18 +313,8 @@
 <p>l 每个迭代器在使用完之后都会被关闭，正如你会预期的一样。</p>
 <p>我们要测试什么呢？</p>
 <p>我有一点变懒了，我不想再写参数为  null  的测试了。我给  SelectMany<br>的每一个重载都写了一个测试。我发现我无法把这些测试写得很清晰，不过还是拿出一个例子来，下面的代码是针对  SelectMany  的最复杂的重载的测试：</p>
-<p>[Test]</p>
-<p>public void FlattenWithProjectionAndIndex()</p>
-<p>{</p>
-<p>int[] numbers = { 3, 5, 20, 15 };</p>
-<p>var query = numbers.SelectMany((x, index) =&gt; (x +<br>index).ToString().ToCharArray(),</p>
-<p>(x, c) =&gt; x + “: “ + c);</p>
-<p>// 3 =&gt; “3: 3”</p>
-<p>// 5 =&gt; “5: 6”</p>
-<p>// 20 =&gt; “20: 2”, “20: 2”</p>
-<p>// 15 =&gt; “15: 1”, “15: 8”</p>
-<p>query.AssertSequenceEqual(“3: 3”, “5: 6”, “20: 2”, “20: 2”, “15: 1”, “15: 8”);</p>
-<p>}</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">[<span class="keyword">Test</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">public void FlattenWithProjectionAndIndex() &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"> int[] numbers = &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  <span class="number">3</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  <span class="number">5</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">  <span class="number">20</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">  <span class="number">15</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"> &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"> var query = numbers.SelectMany((x, index) =&gt; (x +</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">   index).ToString().ToCharArray(),</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">  (x, c) =&gt; x + <span class="string">": "</span> + c);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"> // <span class="number">3</span> =&gt; <span class="string">"3: 3"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"> // <span class="number">5</span> =&gt; <span class="string">"5: 6"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"> // <span class="number">20</span> =&gt; <span class="string">"20: 2"</span>, <span class="string">"20: 2"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"> // <span class="number">15</span> =&gt; <span class="string">"15: 1"</span>, <span class="string">"15: 8"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"> query.AssertSequenceEqual(<span class="string">"3: 3"</span>, <span class="string">"5: 6"</span>, <span class="string">"20: 2"</span>, <span class="string">"20: 2"</span>, <span class="string">"15: 1"</span>, <span class="string">"15: 8"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
 <p>给这个测试做一点解释：</p>
 <p>l 每一个数字都和它的序号相加  (3+0, 5+1, 20+2, 15+3)</p>
 <p>l 相加的结果转成字符串，然后转成字符数组。（我们原本不需要调用  ToCharArray  的，因为  String  本身就实现了<br>IEnumerable<char> ，不过现在这样写比较清晰。）</char></p>
@@ -350,104 +323,22 @@
 <p>是不是一团乱麻？希望你看了上面逐步分解的解释很清楚一点。好了，现在想办法让测试可以通过吧。</p>
 <p>开始动手实现吧！</p>
 <p>我们可以通过实现一个最复杂的重载并让其他的重载都调用它来实现  SelectMany  ，或者也可以写一个没有参数校验的“  Impl<br>”方法，然后让四个重载都调用它。比如说，最简单重载可以这样实现：</p>
-<p>public static IEnumerable<tresult> SelectMany&lt;TSource, TResult&gt;(</tresult></p>
-<p>this IEnumerable<tsource> source,</tsource></p>
-<p>Func&lt;TSource, IEnumerable<tresult>&gt; selector)</tresult></p>
-<p>{</p>
-<p>if (source == null)</p>
-<p>{</p>
-<p>throw new ArgumentNullException(“source”);</p>
-<p>}</p>
-<p>if (selector == null)</p>
-<p>{</p>
-<p>throw new ArgumentNullException(“selector”);</p>
-<p>}</p>
-<p>return SelectManyImpl(source,</p>
-<p>(value, index) =&gt; selector(value),</p>
-<p>(originalElement, subsequenceElement) =&gt; subsequenceElement);</p>
-<p>}</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">public static IEnumerable &lt; TResult &gt; SelectMany &lt; TSource, TResult &gt; (</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">this</span> IEnumerable &lt; TSource &gt; source,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"> Func &lt; TSource, IEnumerable &lt; TResult &gt;&gt; selector) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">if</span> (source == <span class="literal">null</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="string">"source"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">if</span> (selector == <span class="literal">null</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="string">"selector"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">return</span> SelectManyImpl(source,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">  (value, index) =&gt; selector(value),</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">  (originalElement, subsequenceElement) =&gt; subsequenceElement);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
 <p>不过我还是选择为每一重载写一个签名相同的“  SelectManyImpl  ”方法。我觉得这样做可以让以后单步调试时更简单一些  …<br>而且这样让我们可以注意到不同重载之间的区别，代码是这样的：</p>
-<p>// Simplest overload</p>
-<p>private static IEnumerable<tresult> SelectManyImpl&lt;TSource, TResult&gt;(</tresult></p>
-<p>IEnumerable<tsource> source,</tsource></p>
-<p>Func&lt;TSource, IEnumerable<tresult>&gt; selector)</tresult></p>
-<p>{</p>
-<p>foreach (TSource item in source)</p>
-<p>{</p>
-<p>foreach (TResult result in selector(item))</p>
-<p>{</p>
-<p>yield return result;</p>
-<p>}</p>
-<p>}</p>
-<p>}</p>
-<p>// Most complicated overload:</p>
-<p>// - Original projection takes index as well as value</p>
-<p>// - There’s a second projection for each original/subsequence element pair</p>
-<p>private static IEnumerable<tresult> SelectManyImpl&lt;TSource, TCollection,<br>TResult&gt;(</tresult></p>
-<p>IEnumerable<tsource> source,</tsource></p>
-<p>Func&lt;TSource, int, IEnumerable<tcollection>&gt; collectionSelector,</tcollection></p>
-<p>Func&lt;TSource, TCollection, TResult&gt; resultSelector)</p>
-<p>{</p>
-<p>int index = 0;</p>
-<p>foreach (TSource item in source)</p>
-<p>{</p>
-<p>foreach (TCollection collectionItem in collectionSelector(item, index++))</p>
-<p>{</p>
-<p>yield return resultSelector(item, collectionItem);</p>
-<p>}</p>
-<p>}</p>
-<p>}</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Simplest overload</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> IEnumerable &lt; TResult &gt; SelectManyImpl &lt; TSource, TResult &gt; (</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"> IEnumerable &lt; TSource &gt; source,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"> Func &lt; TSource, IEnumerable &lt; TResult &gt;&gt; selector) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">foreach</span>(TSource item <span class="keyword">in</span> source) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">foreach</span>(<span class="function">TResult result <span class="keyword">in</span> <span class="title">selector</span>(<span class="params">item</span>))</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">   <span class="keyword">yield</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">   <span class="keyword">return</span> result;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Most complicated overload:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// - Original projection takes index as well as value</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// - There's a second projection for each original/subsequence element pair</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> IEnumerable &lt; TResult &gt; SelectManyImpl &lt; TSource, TCollection, TResult &gt; (</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line"> IEnumerable &lt; TSource &gt; source,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line"> Func &lt; TSource, <span class="keyword">int</span>, IEnumerable &lt; TCollection &gt;&gt; collectionSelector,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line"> Func &lt; TSource, TCollection, TResult &gt; resultSelector) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">int</span> index = <span class="number">0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">foreach</span>(TSource item <span class="keyword">in</span> source) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">foreach</span>(<span class="function">TCollection collectionItem <span class="keyword">in</span> <span class="title">collectionSelector</span>(<span class="params">item, index++</span>))</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line">   <span class="keyword">yield</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">   <span class="keyword">return</span> resultSelector(item, collectionItem);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
 <p>这两个方法之间的相似性很是明显  …  不过我还是觉得保留着第一种形式很有用，如果我搞不清楚  SelectMany<br>的作用的话，通过第一种最简单的重载就可以很容易的弄懂。以此为基础再去理解余下的重载，跳跃性就不会那么大了。第一个重载在一定程度上起到了一个理解<br>SelectMany  的概念的垫脚石的作用。</p>
 <p>有两点需要指出：</p>
 <p>如果  C#  中可以使用“  yield foreach selector(item)<br>”这种表达式的话，上面的第一个方法就可以实现的稍简单一点。如果要在第二个方法中使用这种做法的话就会难一些，而且可能还要涉及到对  Select<br>的调用，这样的话就有点得不偿失了。</p>
 <p>在第二个方法中，我没有显式的使用“  checked  ”代码块，虽然说“  index  ”是有可能溢出的。我没有看过  BCL<br>的实现是什么样的，但是我认为他们不会写“  checked  ”的。考虑到前后一致性，我或许应该在每一个处理  index  的方法中都是用“<br>checked  ”代码块，或者给整个程序集开启“  checked  ”。</p>
 <p>通过调用  SelectMany  来实现其他操作符</p>
 <p>之前我提到过很多的  LINQ  操作符都可以通过调用  SelectMany  来实现。下面的代码就是这一观点的实例，我们通过调用  SelectMany<br>实现了  Select  ，  Where  和  Concat  ：</p>
-<p>public static IEnumerable<tresult> Select&lt;TSource, TResult&gt;(</tresult></p>
-<p>this IEnumerable<tsource> source,</tsource></p>
-<p>Func&lt;TSource, TResult&gt; selector)</p>
-<p>{</p>
-<p>if (source == null)</p>
-<p>{</p>
-<p>throw new ArgumentNullException(“source”);</p>
-<p>}</p>
-<p>if (selector == null)</p>
-<p>{</p>
-<p>throw new ArgumentNullException(“selector”);</p>
-<p>}</p>
-<p>return source.SelectMany(x =&gt; Enumerable.Repeat(selector(x), 1));</p>
-<p>}</p>
-<p>public static IEnumerable<tsource> Where<tsource>(</tsource></tsource></p>
-<p>this IEnumerable<tsource> source,</tsource></p>
-<p>Func&lt;TSource, bool&gt; predicate)</p>
-<p>{</p>
-<p>if (source == null)</p>
-<p>{</p>
-<p>throw new ArgumentNullException(“source”);</p>
-<p>}</p>
-<p>if (predicate == null)</p>
-<p>{</p>
-<p>throw new ArgumentNullException(“predicate”);</p>
-<p>}</p>
-<p>return source.SelectMany(x =&gt; Enumerable.Repeat(x, predicate(x) ? 1 : 0));</p>
-<p>}</p>
-<p>public static IEnumerable<tsource> Concat<tsource>(</tsource></tsource></p>
-<p>this IEnumerable<tsource> first,</tsource></p>
-<p>IEnumerable<tsource> second)</tsource></p>
-<p>{</p>
-<p>if (first == null)</p>
-<p>{</p>
-<p>throw new ArgumentNullException(“first”);</p>
-<p>}</p>
-<p>if (second == null)</p>
-<p>{</p>
-<p>throw new ArgumentNullException(“second”);</p>
-<p>}</p>
-<p>return new[] { first, second }.SelectMany(x =&gt; x);</p>
-<p>}</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> IEnumerable &lt; TResult &gt; Select &lt; TSource, TResult &gt; (</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"> <span class="built_in">this</span> IEnumerable &lt; TSource &gt; source,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"> Func &lt; TSource, TResult &gt; selector) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">if</span> (source == <span class="literal">null</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">ArgumentNullException</span>(<span class="string">"source"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">if</span> (selector == <span class="literal">null</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">ArgumentNullException</span>(<span class="string">"selector"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">return</span> source.SelectMany(x =&gt; Enumerable.Repeat(selector(x), <span class="number">1</span>));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> IEnumerable &lt; TSource &gt; Where &lt; TSource &gt; (</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"> <span class="built_in">this</span> IEnumerable &lt; TSource &gt; source,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line"> Func &lt; TSource, bool &gt; predicate) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">if</span> (source == <span class="literal">null</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">ArgumentNullException</span>(<span class="string">"source"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">if</span> (predicate == <span class="literal">null</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">ArgumentNullException</span>(<span class="string">"predicate"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">return</span> source.SelectMany(x =&gt; Enumerable.Repeat(x, predicate(x) ? <span class="number">1</span> : <span class="type">0</span>));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> IEnumerable &lt; TSource &gt; Concat &lt; TSource &gt; (</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line"> <span class="built_in">this</span> IEnumerable &lt; TSource &gt; first,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line"> IEnumerable &lt; TSource &gt; second) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">45</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">if</span> (first == <span class="literal">null</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">46</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">47</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">ArgumentNullException</span>(<span class="string">"first"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">48</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">49</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">50</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">51</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">if</span> (second == <span class="literal">null</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">52</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">53</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">ArgumentNullException</span>(<span class="string">"second"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">54</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">55</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">56</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">57</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">return</span> <span class="keyword">new</span> <span class="type"></span>[] &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">58</span></pre></td><td class="code"><pre><span class="line">  first,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">59</span></pre></td><td class="code"><pre><span class="line">  second</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">60</span></pre></td><td class="code"><pre><span class="line"> &#125;.SelectMany(x =&gt; x);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">61</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">62</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
 <p>Select  和  SelectMany  使用  Enumerable.Repeat<br>来很方便的创建含有一个元素或不包含任何元素的序列。你也可以通过创建一个数组来代替使用  Repeat  的这种做法。  Concat<br>直接使用了一个数组：如果你理解了  SelectMany  的作用就是把多个序列组合为一个序列这一点的话，  Concat<br>这样实现看起来就很自然了。我估计  Empty  和  Repeat  可以通过递归来实现，尽管这样的话性能会很差。</p>
 <p>现在，上面的代码是放在条件编译块里面的。如果大家希望我多写一些借助于  SelectMany<br>来实现的操作符的话，我可能会考虑把它单独分离一个项目出来。不过我感觉以上的代码已经足以显示  SelectMany  的灵活性了，再利用<br>SelectMany  来实现更多的其他操作符也未必能更加充分的说明这一点。</p>
-<p>在理论的意义上，  SelectMany  也很重要，因为它为  LINQ  提供了  monadic  的特性。我不想在这一话题上说的更多，你可以读一读<br>[ Wes Dyer  的博客  ](<a href="http://blogs.msdn.com/b/wesdyer/archive/2008/01/11/the-" target="_blank" rel="noopener">http://blogs.msdn.com/b/wesdyer/archive/2008/01/11/the-</a><br>marvels-of-monads.aspx) ，或者直接搜索“  bind monad SelectMany  ”就可以找到很多比我更聪明的人写的文章。</p>
+<p>在理论的意义上，  SelectMany  也很重要，因为它为  LINQ  提供了  monadic  的特性。我不想在这一话题上说的更多，你可以读一读<br><a href="http://blogs.msdn.com/b/wesdyer/archive/2008/01/11/the-marvels-of-monads.aspx" target="_blank" rel="noopener"> Wes Dyer  的博客  </a> ，或者直接搜索“  bind monad SelectMany  ”就可以找到很多比我更聪明的人写的文章。</p>
 <p>结论</p>
 <p>SelectMany  是  LINQ  中的基础之一，初看上去它很是令人生畏。但是一旦你理解了  SelectMany<br>的作用就是把多个序列组合起来这一点之后，它就很容易搞懂了。</p>
 <p>下一次我们讨论  All  和  Any  ，这两个操作符很适合放在一起来讲解。</p>
@@ -470,19 +361,16 @@
       <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 3 - Select/" rel="bookmark">自己动手重新实现LINQ to Objects 3 - Select</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/08/24/自己动手重新实现LINQ to Objects: 6 - Repeat/" rel="bookmark">自己动手重新实现LINQ to Objects 6 - Repeat</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 4 - Range/" rel="bookmark">自己动手重新实现LINQ to Objects 4 - Range</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 4 - Range/" rel="bookmark">自己动手重新实现LINQ to Objects 4 - Range</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/08/24/自己动手重新实现LINQ to Objects: 6 - Repeat/" rel="bookmark">自己动手重新实现LINQ to Objects 6 - Repeat</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/08/23/自己动手重新实现LINQ to Objects: 5 - Empty/" rel="bookmark">自己动手重新实现LINQ to Objects 5 - Empty</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/09/05/自己动手重新实现LINQ to Objects: 7 - Count和LongCount/" rel="bookmark">自己动手重新实现LINQ to Objects 7 - Count和LongCount</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" rel="bookmark">自己动手重新实现LINQ to Objects 8 - Concat</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2012/02/15/自己动手重新实现LINQ to Objects: 10 - Any和All/" rel="bookmark">自己动手重新实现LINQ to Objects 10 - Any和All</a></div>
@@ -492,6 +380,9 @@
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2012/04/09/自己动手重新实现LINQ to Objects: 11 - First，Last，Single以及它们带有OrDefault的重载/" rel="bookmark">自己动手重新实现LINQ to Objects 11 - First，Last，Single以及它们带有OrDefault的重载</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" rel="bookmark">自己动手重新实现LINQ to Objects 8 - Concat</a></div>
     </li>
   </ul>
 
@@ -589,7 +480,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">158</span>
+          <span class="site-state-item-count">157</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -649,13 +540,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">309k</span>
+    <span title="站点总字数">311k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:41</span>
+    <span title="站点阅读时长">4:42</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

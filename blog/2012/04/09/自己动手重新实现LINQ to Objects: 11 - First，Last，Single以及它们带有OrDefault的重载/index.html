@@ -47,19 +47,16 @@
   };
 </script>
 
-  <meta name="description" content="本文翻译自  Jon Skeet  的系列博文“Edulinq  ”。 本篇原文地址： [ http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;29&#x2F;reimplementing-linq-to-objects-part-11-first-single-last-and-the-ordefault-versions.aspx](http:&#x2F;&#x2F;msmv">
+  <meta name="description" content="本文翻译自  Jon Skeet  的系列博文“Edulinq  ”。 本篇原文地址：  http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;29&#x2F;reimplementing-linq-to-objects-part-11-first-single-last-and-the-ordefault-versions.aspx 今天我实现了六个操作符，每">
 <meta name="keywords" content="LinQ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自己动手重新实现LINQ to Objects 11 - First，Last，Single以及它们带有OrDefault的重载">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2012&#x2F;04&#x2F;09&#x2F;%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%2011%20-%20First%EF%BC%8CLast%EF%BC%8CSingle%E4%BB%A5%E5%8F%8A%E5%AE%83%E4%BB%AC%E5%B8%A6%E6%9C%89OrDefault%E7%9A%84%E9%87%8D%E8%BD%BD&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="本文翻译自  Jon Skeet  的系列博文“Edulinq  ”。 本篇原文地址： [ http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;29&#x2F;reimplementing-linq-to-objects-part-11-first-single-last-and-the-ordefault-versions.aspx](http:&#x2F;&#x2F;msmv">
+<meta property="og:description" content="本文翻译自  Jon Skeet  的系列博文“Edulinq  ”。 本篇原文地址：  http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;29&#x2F;reimplementing-linq-to-objects-part-11-first-single-last-and-the-ordefault-versions.aspx 今天我实现了六个操作符，每">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;profile.csdnimg.cn&#x2F;5&#x2F;2&#x2F;5&#x2F;3_cuipengfei1">
-<meta property="og:image" content="https:&#x2F;&#x2F;g.csdnimg.cn&#x2F;static&#x2F;user-reg-year&#x2F;1x&#x2F;11.png">
-<meta property="og:updated_time" content="2019-12-11T08:27:39.826Z">
+<meta property="og:updated_time" content="2019-12-12T06:43:15.232Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;profile.csdnimg.cn&#x2F;5&#x2F;2&#x2F;5&#x2F;3_cuipengfei1">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2012/04/09/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%2011%20-%20First%EF%BC%8CLast%EF%BC%8CSingle%E4%BB%A5%E5%8F%8A%E5%AE%83%E4%BB%AC%E5%B8%A6%E6%9C%89OrDefault%E7%9A%84%E9%87%8D%E8%BD%BD/">
 
@@ -285,7 +282,7 @@
       
         <p>本文翻译自 <a href="http://stackoverflow.com/users/22656/jon-skeet" target="_blank" rel="noopener"> Jon Skeet </a> 的系列博文“<br>Edulinq  ”。</p>
 <p>本篇原文地址：</p>
-<p>[ <a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/29/reimplementing-linq-to-" target="_blank" rel="noopener">http://msmvps.com/blogs/jon_skeet/archive/2010/12/29/reimplementing-linq-to-</a><br>objects-part-11-first-single-last-and-the-ordefault-versions.aspx<br>](<a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/29/reimplementing-linq-to-" target="_blank" rel="noopener">http://msmvps.com/blogs/jon_skeet/archive/2010/12/29/reimplementing-linq-to-</a><br>objects-part-11-first-single-last-and-the-ordefault-versions.aspx)</p>
+<p><a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/29/reimplementing-linq-to-objects-part-11-first-single-last-and-the-ordefault-versions.aspx" target="_blank" rel="noopener"> http://msmvps.com/blogs/jon_skeet/archive/2010/12/29/reimplementing-linq-to-objects-part-11-first-single-last-and-the-ordefault-versions.aspx</a></p>
 <p>今天我实现了六个操作符，每个操作符都有两个重载。我一开始以为这些操作符的实现会很相似，但是最后发现每个都稍微有些不同…</p>
 <p>今天实现了哪些操作符？</p>
 <p>以下三个集合的排列  {First, Last, Single}, {  带有  /  不带有  OrDefault }, {  带有  /  不带有谓词<br>}  ，其结果是十二个不同的方法签名：</p>
@@ -621,10 +618,7 @@ public static TSource LastOrDefault&lt;TSource&gt;(
 <p>我今早起床时没料到这篇博文会写的这么长，不过我希望上述的各个实现之间的差异和”Last/LastOrDefault”没有优化的怪事能够值得这么多的辛苦。</p>
 <p>虽然前面提到了  DefaultIfEmpty  ，但是我准备下次再实现它。虽然说如果今晚抓紧的话，还是可以做完的  …</p>
 <p>附录</p>
-<p>我发现在  LINQ to Objects  （官方实现）中，  Single  和  SingleOrDefault<br>没有谓词的重载在遇到第二个元素时马上就会抛出异常。但是有谓词的重载即使遇到了第二个元素，还是会继续遍历。这看起来很是荒唐，没有连贯性。我发了一个  <a href="https://connect.microsoft.com/VisualStudio/feedback/details/639955" target="_blank" rel="noopener"><br>Connect issue
-</a><br>，我们看看会有怎样的答复。</p>
-<p><a href="https://blog.csdn.net/cuipengfei1" target="_blank" rel="noopener"> <img alt data-src="https://profile.csdnimg.cn/5/2/5/3_cuipengfei1"><br><img alt data-src="https://g.csdnimg.cn/static/user-reg-year/1x/11.png">
-</a></p>
+<p>我发现在  LINQ to Objects  （官方实现）中，  Single  和  SingleOrDefault<br>没有谓词的重载在遇到第二个元素时马上就会抛出异常。但是有谓词的重载即使遇到了第二个元素，还是会继续遍历。这看起来很是荒唐，没有连贯性。我发了一个  <a href="https://connect.microsoft.com/VisualStudio/feedback/details/639955" target="_blank" rel="noopener">Connect issue</a><br>，我们看看会有怎样的答复。</p>
 
     </div>
 
@@ -644,10 +638,10 @@ public static TSource LastOrDefault&lt;TSource&gt;(
       <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 3 - Select/" rel="bookmark">自己动手重新实现LINQ to Objects 3 - Select</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/08/24/自己动手重新实现LINQ to Objects: 6 - Repeat/" rel="bookmark">自己动手重新实现LINQ to Objects 6 - Repeat</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 4 - Range/" rel="bookmark">自己动手重新实现LINQ to Objects 4 - Range</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 4 - Range/" rel="bookmark">自己动手重新实现LINQ to Objects 4 - Range</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/08/24/自己动手重新实现LINQ to Objects: 6 - Repeat/" rel="bookmark">自己动手重新实现LINQ to Objects 6 - Repeat</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/08/23/自己动手重新实现LINQ to Objects: 5 - Empty/" rel="bookmark">自己动手重新实现LINQ to Objects 5 - Empty</a></div>
@@ -656,16 +650,16 @@ public static TSource LastOrDefault&lt;TSource&gt;(
       <div class="popular-posts-title"><a href="/blog/2011/09/05/自己动手重新实现LINQ to Objects: 7 - Count和LongCount/" rel="bookmark">自己动手重新实现LINQ to Objects 7 - Count和LongCount</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" rel="bookmark">自己动手重新实现LINQ to Objects 8 - Concat</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/12/15/自己动手重新实现LINQ to Objects: 9 - SelectMany/" rel="bookmark">自己动手重新实现LINQ to Objects 9 - SelectMany</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2012/02/15/自己动手重新实现LINQ to Objects: 10 - Any和All/" rel="bookmark">自己动手重新实现LINQ to Objects 10 - Any和All</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/12/15/自己动手重新实现LINQ to Objects: 9 - SelectMany/" rel="bookmark">自己动手重新实现LINQ to Objects 9 - SelectMany</a></div>
+      <div class="popular-posts-title"><a href="/blog/2012/04/10/自己动手重新实现LINQ to Objects: 12 - DefaultIfEmpty/" rel="bookmark">自己动手重新实现LINQ to Objects 12 - DefaultIfEmpty</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2012/04/10/自己动手重新实现LINQ to Objects: 12 - DefaultIfEmpty/" rel="bookmark">自己动手重新实现LINQ to Objects 12 - DefaultIfEmpty</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" rel="bookmark">自己动手重新实现LINQ to Objects 8 - Concat</a></div>
     </li>
   </ul>
 
@@ -763,7 +757,7 @@ public static TSource LastOrDefault&lt;TSource&gt;(
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">158</span>
+          <span class="site-state-item-count">157</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -823,13 +817,13 @@ public static TSource LastOrDefault&lt;TSource&gt;(
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">309k</span>
+    <span title="站点总字数">311k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:41</span>
+    <span title="站点阅读时长">4:42</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

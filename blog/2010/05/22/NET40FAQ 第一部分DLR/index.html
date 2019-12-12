@@ -62,7 +62,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;www.codeproject.com&#x2F;KB&#x2F;dotnet&#x2F;DOTNETre4pt0&#x2F;41.JPG">
 <meta property="og:image" content="http:&#x2F;&#x2F;www.codeproject.com&#x2F;KB&#x2F;dotnet&#x2F;DOTNETre4pt0&#x2F;5.JPG">
 <meta property="og:image" content="http:&#x2F;&#x2F;www.codeproject.com&#x2F;KB&#x2F;dotnet&#x2F;DOTNETre4pt0&#x2F;6.JPG">
-<meta property="og:updated_time" content="2019-12-11T08:15:53.068Z">
+<meta property="og:updated_time" content="2019-12-12T02:49:22.496Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;www.codeproject.com&#x2F;KB&#x2F;dotnet&#x2F;DOTNETre4pt0&#x2F;1.JPG">
 
@@ -269,14 +269,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.8k</span>
+              <span>5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -293,12 +293,13 @@
 <p>本篇文章中我们将讨论.NET FrameWork 4.0提供了哪些新特性。然后再探讨DLR特性  中的动态对象和Expando对象。我们也将会创建一个Exp<br>ando对象来看我们可以从中获得哪些益处。很多的开发人员误以为动态对象是用来替代反射和object类型的，我们也将会纠正这种错误的概念。</p>
 <p>.NET 4.0中有哪些重要的新特性？</p>
 <p>与其去浏览.NET 4.0冗长的新特性列表，我们还是专注于我们认为最重要的三项新特性上吧。</p>
-<p>•  WF和WCF 4.0：这是.NET<br>4.0中的一个重大改变。WCF中引入了简化的配置、发现和路由服务。WF的核心编程模型也得到了改变，变得更加简易和健壮。最重大事件的就是WCF和WF的整合。</p>
+<p>•  WF和WCF 4.0：这是.NET</p>
+<p>4.0中的一个重大改变。WCF中引入了简化的配置、发现和路由服务。WF的核心编程模型也得到了改变，变得更加简易和健壮。最重大事件的就是WCF和WF的整合。</p>
 <p>•  动态语言运行时：DLR给.NET 4.0的CLR赋予了动态编程的能力。我们将会在文章接下来的部分探讨这一点。</p>
 <p>•  并行扩展：这有助于多核系统中的并行计算。.NET 4.0的LinQ中添加了PLinQ来支持并行执行。.NET 4.0引入了TPL（Task<br>parallel library），其中暴露了像并行的“For”和“ForEach”等并行构造，它们可以调用普通方法或者委托。</p>
 <p>接下来我们将详细讲述以上提到新特性。</p>
 <p>DLR在.NET 4.0中扮演何种角色呢？</p>
-<p>DLR（Dynamic language<br>runtime）是一组服务，它给CLR赋予了动态编程的能力。DLR使得像LISP、JavaScript、PHP、Ruby一样的动态语言可以运行在.NET<br>FrameWork上。</p>
+<p>DLR（Dynamic language runtime）是一组服务，它给CLR赋予了动态编程的能力。DLR使得像LISP、JavaScript、PHP、Ruby一样的动态语言可以运行在.NET<br>FrameWork上。</p>
 <p><img alt data-src="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/1.JPG"></p>
 <p>编程语言分为动态类型语言和静态类型语言。在静态类型语言中，你需要在编译时或者说是设计时指明对象的类型。而动态类型语言可以在运行时识别对象的类型。DLR使得C<br>LR能够作为动态语言代码运行的宿主环境。</p>
 <p><img alt data-src="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/2.JPG"></p>
@@ -322,9 +323,11 @@
 <p>我们已经讲过Dynamic对象有助于去访问由受DLR支持的动态语言创建的对象。dynamic关键字是DOI子系统的一部分。</p>
 <p>如果你把一个对象赋值给一个dynamic类型的变量的话（dynamic x = new<br>SomeClass（）），所有对x的方法的调用，对x的属性的访问，以及对x的运算符操作都会被延迟到运行时去，而且编译器在编译时不会对x做任何的类型检查。</p>
 <p>考虑下面的代码片段，我们在其中试着去调用excel的方法。</p>
-<p>// Get the running object of the excel application object objApp =<br>System.Runtime.InteropServices.Marshal.GetActiveObject(“Excel.Application”);<br>// Invoke the member dynamically object x =<br>objApp.GetType().InvokeMember(“Name”,<br>System.Reflection.BindingFlags.GetProperty, null, objApp, null); // Finally<br>get the value by type casting MessageBox.Show(x.ToString());</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get the running object of the excel application</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">object objApp = System.Runtime.InteropServices.Marshal.<span class="constructor">GetActiveObject(<span class="string">"Excel.Application"</span>)</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Invoke the member dynamically</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">object x = objApp.<span class="constructor">GetType()</span>.<span class="constructor">InvokeMember(<span class="string">"Name"</span>, System.Reflection.BindingFlags.GetProperty, <span class="params">null</span>, <span class="params">objApp</span>, <span class="params">null</span>)</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Finally get the value by type casting</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">MessageBox.<span class="constructor">Show(<span class="params">x</span>.ToString()</span>);</span></pre></td></tr></table></figure>
+
 <p>使用dynamic关键字来完成相同功能的代码。</p>
-<p>// Get the object using dynamic objApp1 =<br>System.Runtime.InteropServices.Marshal.GetActiveObject(“Excel.Application”);<br>// Call the MessageBox.Show(objApp1.Name);</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">// <span class="keyword">Get</span> the <span class="keyword">object</span> <span class="keyword">using</span> dynamic objApp1 =</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">System</span>.Runtime.InteropServices.Marshal.GetActiveObject("Excel.Application");</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">// <span class="keyword">Call</span> the MessageBox.<span class="keyword">Show</span>(objApp1.Name);</span></pre></td></tr></table></figure>
+
 <p>你可以很清楚地发现访问属性的语法的简化。InvokeMember这个方法含义模糊而且容易出错。使用dynamic关键字，我们可以看到代码得到了简化。</p>
 <p><img alt data-src="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/5.JPG"></p>
 <p>如果你试着在Visual Studio中查看x的属性，你将会得到提示说此表达式的值只有在运行时才可以被断定。</p>
@@ -350,28 +353,33 @@
 <p>•  当与强类型的类一起使用的时候可能会损害性能。</p>
 <p>Expando对象是什么呢？</p>
 <p>Expando对象是为交互性的另一端服务的，比如说它使得你的自定义类型可以在动态语言中被访问。所以你可以创建一个Expando类的实例并把它传递给像Ruby<br>、JavaScript、Python之类的动态语言。Expando对象有助于在运行时添加属性。它是动态属性包的一种高效实现。要想使用Expando对象，我们<br>首先要引入System.Dynamic命名空间。然后创建一个ExpandoObject的对象并把它赋值给一个用dynamic声明的引用。</p>
-<p>dynamic obj = new ExpandoObject();</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">dynamic</span> obj = <span class="keyword">new</span><span class="type"></span> ExpandoObject();</span></pre></td></tr></table></figure>
+
 <p>要创建动态属性，我们只需要写出属性名并给它赋值。</p>
-<p>obj.Customername = “Some Customer Name”;</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="attr">obj.Customername</span> = <span class="string">"Some Customer Name"</span><span class="comment">;</span></span></pre></td></tr></table></figure>
+
 <p>最后我们显示该值。</p>
-<p>MessageBox.Show(obj.Customername);</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">MessageBox</span><span class="selector-class">.Show</span>(<span class="selector-tag">obj</span><span class="selector-class">.Customername</span>);</span></pre></td></tr></table></figure>
+
 <p>我们可以实现自己的Expando对象吗？</p>
 <p>Expando对象在内部只是向一个集合中添加属性。所以你可以创建自己的Expando对象。</p>
 <p>我们首先需要继承DynamicObject类。</p>
-<p>public class clsMyExpando : DynamicObject</p>
-<p>{</p>
-<p>}</p>
+<figure class="highlight golo"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">public class clsMyExpando : <span class="keyword">DynamicObject</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
 <p>如前所述，我们需要定义一个集合来存储属性。所以第二步我们就要创建一个字典对象来维护集合中的属性。</p>
-<p>public class clsMyExpando : DynamicObject { Dictionary items= new<br>Dictionary(); }</p>
+<figure class="highlight golo"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">public class clsMyExpando : <span class="keyword">DynamicObject</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    Dictionary items= new Dictionary();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
 <p>我们现在可以使用TryGetMember和SetGetMember来定义我们的属性访问器。</p>
-<p>public class clsMyExpando : DynamicObject { Dictionary items = new<br>Dictionary(); public override bool TryGetMember(GetMemberBinder binder, out<br>object result) { return items.TryGetValue(binder.Name, out result); } public<br>override bool TrySetMember(SetMemberBinder binder, object value) {<br>items[binder.Name] = value; return true; }}</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">clsMyExpando</span>: <span class="title">DynamicObject</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"> Dictionary items = <span class="keyword">new</span> Dictionary();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">TryGetMember</span>(<span class="params">GetMemberBinder binder, <span class="keyword">out</span> <span class="keyword">object</span> result</span>)</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">return</span> items.TryGetValue(binder.Name, <span class="keyword">out</span> result);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">TrySetMember</span>(<span class="params">SetMemberBinder binder, <span class="keyword">object</span> <span class="keyword">value</span></span>)</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">  items[binder.Name] = <span class="keyword">value</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
 <p>现在我们可以创建我们自己的Expando类的对象并把它赋值给dynamic类的引用。下面的代码片断中我们给一个叫做Name的动态属性赋了值。</p>
-<p>dynamic obj = new clsMyExpando();</p>
-<p>obj.Name = “Dynamic Property”;</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">dynamic</span> obj = <span class="keyword">new</span><span class="type"></span> clsMyExpando();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">obj.Name = <span class="string">"Dynamic Property"</span>;</span></pre></td></tr></table></figure>
+
 <p>使用自定义Expando对象有什么益处呢？</p>
 <p>使用Expando对象可以提升性能。如果你的类有静态属性也有动态属性的话，你可以像如下代码一样的在自定义Expando类中创建静态属性。当该对象的静态属性被<br>访问的时候，它不会去调用字典的成员方法，这样也就增进了性能。DLR引擎会首先试着去访问属性名而不是去调用TryGetMember和SetGetMember。</p>
 <p>如果你不需要动态属性也不需要和动态语言交互的话，就要避免使用自定义Expando类型。而如果你需要使用动态属性的话，一定要确保你是继承了DynamicObj<br>ect类的。</p>
-<p>public class clsMyExpando : DynamicObject { Dictionary items = new<br>Dictionary(); private string _Name; public string Name { get { return _Name; }<br>set { _Name = value; } } public override bool TryGetMember( GetMemberBinder<br>binder, out object result) { return items.TryGetValue(binder.Name, out<br>result); } public override bool TrySetMember( SetMemberBinder binder, object<br>value) { items[binder.Name] = value; return true; } }</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">clsMyExpando</span>: <span class="title">DynamicObject</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"> Dictionary items = <span class="keyword">new</span> Dictionary();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">private</span> <span class="keyword">string</span> _Name;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">public</span> <span class="keyword">string</span> Name &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">get</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">   <span class="keyword">return</span> _Name;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">set</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">   _Name = <span class="keyword">value</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">TryGetMember</span>(<span class="params">GetMemberBinder binder, <span class="keyword">out</span> <span class="keyword">object</span> result</span>)</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">return</span> items.TryGetValue(binder.Name, <span class="keyword">out</span> result);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">TrySetMember</span>(<span class="params">SetMemberBinder binder, <span class="keyword">object</span> <span class="keyword">value</span></span>)</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">  items[binder.Name] = <span class="keyword">value</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
 <p>IDynamicMetaObjectProvider和DynamicMetaObject是什么呢？</p>
 <p>动态对象实现IDynamicMetaObjectProvider并返回DynamicMetaObject。这两个类型都是实现动态语言之间交互性的核心部分。</p>
 
@@ -488,7 +496,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">158</span>
+          <span class="site-state-item-count">157</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -548,13 +556,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">309k</span>
+    <span title="站点总字数">311k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:41</span>
+    <span title="站点阅读时长">4:42</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

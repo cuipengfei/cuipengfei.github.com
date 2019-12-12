@@ -47,15 +47,15 @@
   };
 </script>
 
-  <meta name="description" content="本文翻译自   Jon Skeet   的系列博文“Edulinq  ”。 本篇原文地址： [ _ http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;24&#x2F;reimplementing-linq-to-objects-part-4-range.aspx _](http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;201">
+  <meta name="description" content="本文翻译自   Jon Skeet   的系列博文“Edulinq  ”。 本篇原文地址：  _ http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;24&#x2F;reimplementing-linq-to-objects-part-4-range.aspx _  本篇博文较短，接下来的几篇估计也会比较短。我觉得只有  _ 很相似 _ 的几个  LINQ">
 <meta name="keywords" content="LinQ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自己动手重新实现LINQ to Objects 4 - Range">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2011&#x2F;08&#x2F;22&#x2F;%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%204%20-%20Range&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="本文翻译自   Jon Skeet   的系列博文“Edulinq  ”。 本篇原文地址： [ _ http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;24&#x2F;reimplementing-linq-to-objects-part-4-range.aspx _](http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;201">
+<meta property="og:description" content="本文翻译自   Jon Skeet   的系列博文“Edulinq  ”。 本篇原文地址：  _ http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;24&#x2F;reimplementing-linq-to-objects-part-4-range.aspx _  本篇博文较短，接下来的几篇估计也会比较短。我觉得只有  _ 很相似 _ 的几个  LINQ">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-11T08:27:39.848Z">
+<meta property="og:updated_time" content="2019-12-12T06:43:15.281Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%204%20-%20Range/">
@@ -261,14 +261,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.9k</span>
+              <span>3.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -282,15 +282,14 @@
       
         <p>本文翻译自  <a href="http://stackoverflow.com/users/22656/jon-skeet" target="_blank" rel="noopener"> Jon Skeet  </a> 的系列博文“<br>Edulinq  ”。</p>
 <p>本篇原文地址：</p>
-<p>[ _ <a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-" target="_blank" rel="noopener">http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-</a><br>to-objects-part-4-range.aspx _<br>](<a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-" target="_blank" rel="noopener">http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-</a><br>objects-part-4-range.aspx)  </p>
+<p><a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-objects-part-4-range.aspx" target="_blank" rel="noopener"> _ http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-objects-part-4-range.aspx _</a></p>
 <hr>
 <p>本篇博文较短，接下来的几篇估计也会比较短。我觉得只有  _ 很相似 _ 的几个  LINQ  操作符才适合放到同一篇博文里面，比如  Count  和<br>LongCount  就比较适合放在一起讲。不过我也要采纳读者的意见，如果你喜欢“肥胖”一点的博文的话，请留言说明。</p>
 <p>本文将要讲解  Range  操作符。  </p>
 <p>** Range  操作符是什么？<br>**</p>
-<p>[ Range  ](<a href="http://msdn.microsoft.com/en-" target="_blank" rel="noopener">http://msdn.microsoft.com/en-</a><br>us/library/system.linq.enumerable.range.aspx) 只有一种方法签名：</p>
-<p>public  static  IEnumerable&lt; int  &gt; Range(</p>
-<p>int  start,</p>
-<p>int  count)</p>
+<p><a href="http://msdn.microsoft.com/en-us/library/system.linq.enumerable.range.aspx" target="_blank" rel="noopener"> Range  </a> 只有一种方法签名：</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>  <span class="keyword">static</span>  IEnumerable&lt; <span class="keyword">int</span>  &gt; Range(<span class="keyword">int</span>  start, <span class="keyword">int</span>  <span class="keyword">count</span>)</span></pre></td></tr></table></figure>
+
 <p>和  LINQ  中的其他操作符不同，  Range  不是扩展方法，它就是一个普通的静态方法。  Range  返回一个可枚举的对象，该对象会<br>yield  返回“  count  ”个整数，返回的整数序列从“  start  ”开始，逐次加一。举例来说，<br>Enumerable.Range(6,3)  会返回  6  ，  7  ，  8  。</p>
 <p>由于  Range  不会接受输入序列，所以也就无所谓对输入的流式处理和缓冲了。不过它有以下几点行为：  </p>
 <p>l  参数的校验需要立即执行；参数  count  不可以为负数，也不可以让输出值中包含超出  Int32  范围的值。</p>
@@ -298,11 +297,8 @@
 <p>** 我们要如何测试呢？<br>**</p>
 <p>要测试普通的静态方法就给我们带来了一个新的挑战，因为我们要在原版的  LINQ  实现和  Edulinq<br>的实现之间做切换。这是由我所使用的命名空间所带来的缺陷，单元测试写在  Edulinq.Tests  这个命名空间内，我们的实现写在  Edulinq<br>这个命名空间中。在编译器寻找一个类型的时候，父级命名空间会比其他的通过  using  引入的命名空间拥有更高的优先级，即使是使用  using<br>来显式引入一个类型的别名时也是如此。</p>
 <p>我选择的解决方式是用一个  using  指令来引入一个叫做  RangeClass  的别名。  using  指令要么指向<br>System.Linq.Enumerable  要么指向  Edulinq.Enumerable  。测试代码中用到  Range  时都是这样写：<br>RangeClass.Range  。为此我创建了两个项目配置，其中一个定义了叫做  NORMAL_LINQ<br>的预处理符号，另一个则没有定义任何预处理符号，这样就可以在两种  LINQ  实现之间做切换了。  RangeTest.cs  中会包含如下的代码：  </p>
-<p>#if NORMAL_LINQ</p>
-<p>using  RangeClass =  System  .Linq.Enumerable;</p>
-<p>#else</p>
-<p>using  RangeClass = Edulinq.Enumerable;</p>
-<p>#endif  </p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#if NORMAL_LINQ</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">using  RangeClass = <span class="built_in"> System </span> .Linq.Enumerable;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#else</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">using  RangeClass = Edulinq.Enumerable;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#endif</span></span></pre></td></tr></table></figure>
+
 <p>当然了，也有别的办法可以替代以上的方式：  </p>
 <p>l  可以把单元测试代码换到另外一个命名空间中去。</p>
 <p>l  也可以让项目的引用项依赖于不同的项目配置，用于测试原版  LINQ  的项目配置不包含对  Edulinq  的引用，而用于测试  Edulinq<br>的项目配置则不引用  System.Core  。这样就可以在  NORMAL_LINQ  的预处理符号下直接使用  using System.Linq<br>，并直接使用  Enumerable.Range  。测试默认的  LINQ  实现时亦是如此。  </p>
@@ -322,27 +318,8 @@
 <p>** 开始实现吧！<br>**</p>
 <p>你肯定早就猜到了，我们将会用分隔开的两个方法来实现  Range  。一个  public  的方法用来立即执行参数校验，还有一个  private<br>的方法用来做核心部分的工作，其中包含迭代器代码块。</p>
 <p>由于一开始就确定了参数不会超过  Int32  的上下限，我们在实现的主体部分就可以随意一点了。  </p>
-<p>public  static  IEnumerable&lt; int  &gt; Range(  int  start,  int  count)</p>
-<p>{</p>
-<p>if  (count &lt; 0  )</p>
-<p>{</p>
-<p>throw  new  ArgumentOutOfRangeException(  “count”  );</p>
-<p>}</p>
-<p>_ // Convert everything to long to avoid overflows. There are other ways of<br>checking _</p>
-<p>_ // for overflow, but this way make the code correct in the most obvious way.<br>_</p>
-<p>if  ((  long  )start + (  long  )count -  1L  &gt; int  .MaxValue)</p>
-<p>{</p>
-<p>throw  new  ArgumentOutOfRangeException(  “count”  );</p>
-<p>}</p>
-<p>return  RangeImpl(start, count);</p>
-<p>}</p>
-<p>private  static  IEnumerable&lt; int  &gt; RangeImpl(  int  start,  int  count)</p>
-<p>{</p>
-<p>for  (  int  i =  0  ; i &lt; count; i++)</p>
-<p>{</p>
-<p>yield  return  start + i;</p>
-<p>}</p>
-<p>}  </p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> IEnumerable &lt; <span class="keyword">int</span> &gt; Range(<span class="keyword">int</span> start, <span class="keyword">int</span> <span class="keyword">count</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">if</span> (<span class="keyword">count</span> &lt; <span class="number">0</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentOutOfRangeException(<span class="string">"count"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"> _ <span class="comment">// Convert everything to long to avoid overflows. There are other ways of checking _</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"> _ <span class="comment">// for overflow, but this way make the code correct in the most obvious way._</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">if</span> ((<span class="keyword">long</span>) start + (<span class="keyword">long</span>) <span class="keyword">count</span> - <span class="number">1</span> L &gt; <span class="keyword">int</span>.MaxValue) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentOutOfRangeException(<span class="string">"count"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">return</span> RangeImpl(start, <span class="keyword">count</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> IEnumerable &lt; <span class="keyword">int</span> &gt; RangeImpl(<span class="keyword">int</span> start, <span class="keyword">int</span> <span class="keyword">count</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">count</span>; i++) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">  yield</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">return</span> start + i;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
 <p>有几点需要说明：  </p>
 <p>l  第二段参数校验的代码检查的是“  start  ”和“  count  ”这二者的合法性，而不是仅仅检查“  count  ”。如果能给<br>ArgumentOutOfRangeException  （或者是  ArgumentException<br>）传入多个参数名就好了，这样就能在异常信息中指出多个参数不合法。话虽这么说，  .NET Framework  的实现也是只会指出“  count<br>”不合法。</p>
 <p>l  第二段参数校验的代码还可以有很多其他的写法，把所有的操作数都转换成  long<br>并不是我们仅有的选择。不过我觉得我选择的这个方法是最简单的，而且也是正确的。采取这种方式，我无须考虑多种情况并保证每一种都是正确的。使用  Int64<br>可以确保不会有溢出，也无需去考虑  checked  或  unchecked  。</p>
@@ -384,19 +361,19 @@
       <div class="popular-posts-title"><a href="/blog/2011/09/05/自己动手重新实现LINQ to Objects: 7 - Count和LongCount/" rel="bookmark">自己动手重新实现LINQ to Objects 7 - Count和LongCount</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" rel="bookmark">自己动手重新实现LINQ to Objects 8 - Concat</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/12/15/自己动手重新实现LINQ to Objects: 9 - SelectMany/" rel="bookmark">自己动手重新实现LINQ to Objects 9 - SelectMany</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2012/02/15/自己动手重新实现LINQ to Objects: 10 - Any和All/" rel="bookmark">自己动手重新实现LINQ to Objects 10 - Any和All</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/12/15/自己动手重新实现LINQ to Objects: 9 - SelectMany/" rel="bookmark">自己动手重新实现LINQ to Objects 9 - SelectMany</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2012/04/10/自己动手重新实现LINQ to Objects: 12 - DefaultIfEmpty/" rel="bookmark">自己动手重新实现LINQ to Objects 12 - DefaultIfEmpty</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2012/04/09/自己动手重新实现LINQ to Objects: 11 - First，Last，Single以及它们带有OrDefault的重载/" rel="bookmark">自己动手重新实现LINQ to Objects 11 - First，Last，Single以及它们带有OrDefault的重载</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" rel="bookmark">自己动手重新实现LINQ to Objects 8 - Concat</a></div>
     </li>
   </ul>
 
@@ -494,7 +471,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">158</span>
+          <span class="site-state-item-count">157</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -554,13 +531,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">309k</span>
+    <span title="站点总字数">311k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:41</span>
+    <span title="站点阅读时长">4:42</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

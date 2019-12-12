@@ -47,19 +47,16 @@
   };
 </script>
 
-  <meta name="description" content="[翻译]List为什么实现了那么多接口？ 原文地址： [ http:&#x2F;&#x2F;blogs.msdn.com&#x2F;b&#x2F;ericlippert&#x2F;archive&#x2F;2011&#x2F;04&#x2F;04&#x2F;so-many-interfaces.aspx ](http:&#x2F;&#x2F;blogs.msdn.com&#x2F;b&#x2F;ericlippert&#x2F;archive&#x2F;2011&#x2F;04&#x2F;04&#x2F;so-many-interfaces.aspx) 原作者：  Eric">
+  <meta name="description" content="[翻译]List为什么实现了那么多接口？ 原文地址：  http:&#x2F;&#x2F;blogs.msdn.com&#x2F;b&#x2F;ericlippert&#x2F;archive&#x2F;2011&#x2F;04&#x2F;04&#x2F;so-many-interfaces.aspx  原作者：  Eric Lippert Eric Lippert是微软员工，C#编译器的主要开发人员之一。 今天，我在  StackOverflow 上回答了一个问题。按照以往的习惯，我">
 <meta name="keywords" content="C#">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[翻译]List为什么实现了那么多接口？">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2011&#x2F;04&#x2F;18&#x2F;[%E7%BF%BB%E8%AF%91]List%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%9E%E7%8E%B0%E4%BA%86%E9%82%A3%E4%B9%88%E5%A4%9A%E6%8E%A5%E5%8F%A3%EF%BC%9F&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="[翻译]List为什么实现了那么多接口？ 原文地址： [ http:&#x2F;&#x2F;blogs.msdn.com&#x2F;b&#x2F;ericlippert&#x2F;archive&#x2F;2011&#x2F;04&#x2F;04&#x2F;so-many-interfaces.aspx ](http:&#x2F;&#x2F;blogs.msdn.com&#x2F;b&#x2F;ericlippert&#x2F;archive&#x2F;2011&#x2F;04&#x2F;04&#x2F;so-many-interfaces.aspx) 原作者：  Eric">
+<meta property="og:description" content="[翻译]List为什么实现了那么多接口？ 原文地址：  http:&#x2F;&#x2F;blogs.msdn.com&#x2F;b&#x2F;ericlippert&#x2F;archive&#x2F;2011&#x2F;04&#x2F;04&#x2F;so-many-interfaces.aspx  原作者：  Eric Lippert Eric Lippert是微软员工，C#编译器的主要开发人员之一。 今天，我在  StackOverflow 上回答了一个问题。按照以往的习惯，我">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;profile.csdnimg.cn&#x2F;5&#x2F;2&#x2F;5&#x2F;3_cuipengfei1">
-<meta property="og:image" content="https:&#x2F;&#x2F;g.csdnimg.cn&#x2F;static&#x2F;user-reg-year&#x2F;1x&#x2F;11.png">
-<meta property="og:updated_time" content="2019-12-11T08:16:33.540Z">
+<meta property="og:updated_time" content="2019-12-12T06:43:15.278Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;profile.csdnimg.cn&#x2F;5&#x2F;2&#x2F;5&#x2F;3_cuipengfei1">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2011/04/18/[%E7%BF%BB%E8%AF%91]List%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%9E%E7%8E%B0%E4%BA%86%E9%82%A3%E4%B9%88%E5%A4%9A%E6%8E%A5%E5%8F%A3%EF%BC%9F/">
 
@@ -264,7 +261,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.5k</span>
+              <span>2.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -284,9 +281,8 @@
 
       
         <p>[翻译]List<t>为什么实现了那么多接口？</t></p>
-<p>原文地址： [ <a href="http://blogs.msdn.com/b/ericlippert/archive/2011/04/04/so-many-" target="_blank" rel="noopener">http://blogs.msdn.com/b/ericlippert/archive/2011/04/04/so-many-</a><br>interfaces.aspx ](<a href="http://blogs.msdn.com/b/ericlippert/archive/2011/04/04/so-" target="_blank" rel="noopener">http://blogs.msdn.com/b/ericlippert/archive/2011/04/04/so-</a><br>many-interfaces.aspx)</p>
-<p>原作者： <a href="http://blogs.msdn.com/EricLippert/ProfileUrlRedirect.ashx" target="_blank" rel="noopener"> Eric Lippert
-</a></p>
+<p>原文地址： <a href="http://blogs.msdn.com/b/ericlippert/archive/2011/04/04/so-many-interfaces.aspx" target="_blank" rel="noopener"> http://blogs.msdn.com/b/ericlippert/archive/2011/04/04/so-many-interfaces.aspx </a></p>
+<p>原作者： <a href="http://blogs.msdn.com/EricLippert/ProfileUrlRedirect.ashx" target="_blank" rel="noopener"> Eric Lippert</a></p>
 <p>Eric Lippert是微软员工，C#编译器的主要开发人员之一。</p>
 <p>今天，我在 <a href="http://stackoverflow.com/questions/4817369/" target="_blank" rel="noopener"> StackOverflow </a><br>上回答了一个问题。按照以往的习惯，我把它以对话体的形式整理成一篇博客。</p>
 <p>MSDN的文档中说List<t>是这样声明的：</t></p>
@@ -335,8 +331,6 @@ interface I3 : I1, I2 {}</code></pre><p>然后他突然发觉I2应该继承自I1
 <p>这和IEnumerable<t>是协变的而IList<t>不是协变的是一个原因。通过装箱，我们可以把一个整数序列当做一个object的序列来对待。但是一个可<br>读可写的整数列表却不可以被当做一个可读可写的object的列表来对待，因为你有可能给可读可写的object列表中加入一个String。一个实现IEnumer<br>able<t>的类型可以很容易的满足IEnumerable，只要加一个装箱的helper方法就行了。但是实现IList<t>的类型却不一定能够满足IList<br>，所以IList没有继承自IList。</t></t></t></t></p>
 <p>那为什么List<t>又去实现了IList呢？</t></p>
 <p>这个有点奇怪，因为除了T为object时之外，其他情况下List<t>都不满足的IList的要求。这有可能是因为想要给升级老的C# 1.0代码的人行个方便吧<br>，好让他们更容易的用到泛型。那些想要升级代码的人可能已经确保了只向列表中加入正确类型的对象。而且多数情况下，当你把一个IList当做参数传递出去的时候，被调<br>用的方法也只是会去按索引访问列表，而不是去向列表中加入一些任意类型的对象。</t></p>
-<p><a href="https://blog.csdn.net/cuipengfei1" target="_blank" rel="noopener"> <img alt data-src="https://profile.csdnimg.cn/5/2/5/3_cuipengfei1"><br><img alt data-src="https://g.csdnimg.cn/static/user-reg-year/1x/11.png">
-</a></p>
 
     </div>
 
@@ -451,7 +445,7 @@ interface I3 : I1, I2 {}</code></pre><p>然后他突然发觉I2应该继承自I1
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">158</span>
+          <span class="site-state-item-count">157</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -511,13 +505,13 @@ interface I3 : I1, I2 {}</code></pre><p>然后他突然发觉I2应该继承自I1
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">309k</span>
+    <span title="站点总字数">311k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:41</span>
+    <span title="站点阅读时长">4:42</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

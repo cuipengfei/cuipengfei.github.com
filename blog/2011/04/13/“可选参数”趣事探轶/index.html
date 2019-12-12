@@ -47,15 +47,15 @@
   };
 </script>
 
-  <meta name="description" content="上一篇博文 中提到了“可选参数”这个C# 4.0中新增的语言特性，但是写过之后还是不满足，心里还是有一些疑问没有得到解释。于是又做了一些探索，过程中竟然发现这么一个小小的语言特性背后隐藏着的有趣问题还真不少。这次就把探索过程中的发现和疑问记录下来。 “可选参数”的实现Cnblogs上有一篇  蒋金楠的文章 中提到一句：“缺省参数最终体现为两个特殊的自定义特性OptionalAttribute和D">
+  <meta name="description" content="上一篇博文 中提到了“可选参数”这个C# 4.0中新增的语言特性，但是写过之后还是不满足，心里还是有一些疑问没有得到解释。于是又做了一些探索，过程中竟然发现这么一个小小的语言特性背后隐藏着的有趣问题还真不少。这次就把探索过程中的发现和疑问记录下来。 “可选参数”的实现Cnblogs上有一篇  蒋金楠的文章中提到一句：“缺省参数最终体现为两个特殊的自定义特性OptionalAttribute和De">
 <meta name="keywords" content="《你必须知道的.NET》">
 <meta property="og:type" content="article">
 <meta property="og:title" content="“可选参数”趣事探轶">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2011&#x2F;04&#x2F;13&#x2F;%E2%80%9C%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0%E2%80%9D%E8%B6%A3%E4%BA%8B%E6%8E%A2%E8%BD%B6&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="上一篇博文 中提到了“可选参数”这个C# 4.0中新增的语言特性，但是写过之后还是不满足，心里还是有一些疑问没有得到解释。于是又做了一些探索，过程中竟然发现这么一个小小的语言特性背后隐藏着的有趣问题还真不少。这次就把探索过程中的发现和疑问记录下来。 “可选参数”的实现Cnblogs上有一篇  蒋金楠的文章 中提到一句：“缺省参数最终体现为两个特殊的自定义特性OptionalAttribute和D">
+<meta property="og:description" content="上一篇博文 中提到了“可选参数”这个C# 4.0中新增的语言特性，但是写过之后还是不满足，心里还是有一些疑问没有得到解释。于是又做了一些探索，过程中竟然发现这么一个小小的语言特性背后隐藏着的有趣问题还真不少。这次就把探索过程中的发现和疑问记录下来。 “可选参数”的实现Cnblogs上有一篇  蒋金楠的文章中提到一句：“缺省参数最终体现为两个特殊的自定义特性OptionalAttribute和De">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-11T05:07:57.332Z">
+<meta property="og:updated_time" content="2019-12-12T06:43:15.228Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2011/04/13/%E2%80%9C%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0%E2%80%9D%E8%B6%A3%E4%BA%8B%E6%8E%A2%E8%BD%B6/">
@@ -261,7 +261,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.9k</span>
+              <span>5.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -281,8 +281,7 @@
 
       
         <p><a href="http://blog.csdn.net/cuipengfei1/archive/2011/03/06/6227119.aspx" target="_blank" rel="noopener"> 上一篇博文 </a><br>中提到了“可选参数”这个C# 4.0中新增的语言特性，但是写过之后还是不满足，心里还是有一些疑问没有得到解释。于是又做了一些探索，过程中竟然发现这么一个小小<br>的语言特性背后隐藏着的有趣问题还真不少。这次就把探索过程中的发现和疑问记录下来。</p>
-<h1 id="“可选参数”的实现"><a href="#“可选参数”的实现" class="headerlink" title="“可选参数”的实现"></a>“可选参数”的实现</h1><p>Cnblogs上有一篇 <a href="http://www.cnblogs.com/artech/archive/2011/01/12/optionalparameter.html" target="_blank" rel="noopener"> 蒋金楠的文章
-</a><br>中提到一句：“缺省参数最终体现为两个特殊的自定义特性OptionalAttribute和DefaultParameterValueAttribute<br>”。为了验证这个说法的正确性，我自己做了一些试验。</p>
+<h1 id="“可选参数”的实现"><a href="#“可选参数”的实现" class="headerlink" title="“可选参数”的实现"></a>“可选参数”的实现</h1><p>Cnblogs上有一篇 <a href="http://www.cnblogs.com/artech/archive/2011/01/12/optionalparameter.html" target="_blank" rel="noopener"> 蒋金楠的文章</a><br>中提到一句：“缺省参数最终体现为两个特殊的自定义特性OptionalAttribute和DefaultParameterValueAttribute<br>”。为了验证这个说法的正确性，我自己做了一些试验。</p>
 <p>要研究语言特性的实现原理最好的方法莫过于反编译出IL代码来一探究竟了。所以，那就顺着这条线索走吧。</p>
 <p>首先用C#代码写一个很简单的测试方法：</p>
 <pre><code>public void TestMethod(string str = &quot;A&quot;)
@@ -345,7 +344,7 @@ ReturnType: Void
                 Length: 4
                 Value : 01 00 00 00                                      &gt;                &lt;
                 ctor args: ()</code></pre><p>这个方法的Metadata的最后多了一段CustomAttribute的描述，其flags也为空，不像TestMethod的flags后面跟有[Option<br>al] [HasDefault]这样的标志。</p>
-<p>因为我没有读过 [ ECMA 335 ](<a href="http://www.ecma-" target="_blank" rel="noopener">http://www.ecma-</a><br>international.org/publications/standards/Ecma-335.htm) 的文档，所以下面只是做一个不太谨慎的推测：Op<br>tionalAttribute和DefaultParameterValueAttribute这两个attribute和其他的attribute不同，他们有自<br>己对应的专有的flags。调用TestMethod的代码在被编译时，编译器会去读取存储于元数据中的默认值，并把读取到的值嵌入到IL中去。</p>
+<p>因为我没有读过 <a href="http://www.ecma-international.org/publications/standards/Ecma-335.htm" target="_blank" rel="noopener"> ECMA 335 </a> 的文档，所以下面只是做一个不太谨慎的推测：Op<br>tionalAttribute和DefaultParameterValueAttribute这两个attribute和其他的attribute不同，他们有自<br>己对应的专有的flags。调用TestMethod的代码在被编译时，编译器会去读取存储于元数据中的默认值，并把读取到的值嵌入到IL中去。</p>
 <p>由于在TestMethod的C#代码中、编译出的IL代码中，及其元数据中都不见OptionalAttribute和DefaultParameterValue<br>Attribute<br>的踪迹，所以我认为“缺省参数最终体现为两个特殊的自定义特性OptionalAttribute和DefaultParameterValueAttribute<br>”这种说法是有待商榷的。</p>
 <h1 id="背后的陷阱"><a href="#背后的陷阱" class="headerlink" title="背后的陷阱"></a>背后的陷阱</h1><p>“可选参数”看起来方便又好用，但是使用它是不是真的是多快好省的绝佳选择呢？实际上不是的，它的背后隐藏着至少两个陷阱（我只发现了两个）。</p>
 <p>** 第一个陷阱：版本更迭的问题 **</p>
@@ -379,14 +378,13 @@ ReturnType: Void
 <h1 id="Reflector中可能的Bug"><a href="#Reflector中可能的Bug" class="headerlink" title="Reflector中可能的Bug"></a>Reflector中可能的Bug</h1><p>以上所有反编译都是用IL Dasm来做的，而如果用最新版的Reflector（就是只能试用14天的那个版本）来查看反编译出的C#(把版本设为任何非None的<br>值)代码的话，会发现它会把TestMethod解释为使用了OptionalAttribute和DefaultParameterValueAttribute。<br>我怀疑这是因为无论是使用“可选参数”还是直接使用OptionalAttribute和DefaultParameterValueAttribute，编译出的结<br>果都是一样的，Reflector无从判断源代码中使用的是哪一种，索性就假定为是第二种了。</p>
 <h1 id="存疑"><a href="#存疑" class="headerlink" title="存疑"></a>存疑</h1><p>虽然OptionalAttribute没有出现在TestMethod的C#代码中，在编译出来的IL和元数据中也不见踪影，但是它还是出现在了编译出的程序集的T<br>ypeRefs中，而DefaultValueAttribute却没有出现。这是为什么呢？</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>MSDN上的：</p>
-<p>[ <a href="http://social.msdn.microsoft.com/Forums/en-" target="_blank" rel="noopener">http://social.msdn.microsoft.com/Forums/en-</a><br>US/csharplanguage/thread/d1be12e0-6325-427a-8e25-02fbd8396b1b/#18b08278-28a9<br>-43dc-b3d4-e4694ca0260d ](<a href="http://social.msdn.microsoft.com/Forums/en-" target="_blank" rel="noopener">http://social.msdn.microsoft.com/Forums/en-</a><br>US/csharplanguage/thread/d1be12e0-6325-427a-8e25-02fbd8396b1b/#18b08278-28a9<br>-43dc-b3d4-e4694ca0260d)</p>
-<p>[ <a href="http://social.msdn.microsoft.com/Forums/en-" target="_blank" rel="noopener">http://social.msdn.microsoft.com/Forums/en-</a><br>US/csharplanguage/thread/31731806-dd83-4483-89b4-30001af14ab7/#352d019c-950c-<br>42de-88f6-b0fecdf34351 ](<a href="http://social.msdn.microsoft.com/Forums/en-" target="_blank" rel="noopener">http://social.msdn.microsoft.com/Forums/en-</a><br>US/csharplanguage/thread/31731806-dd83-4483-89b4-30001af14ab7/#352d019c-950c-<br>42de-88f6-b0fecdf34351)</p>
-<p>[ <a href="http://social.msdn.microsoft.com/Forums/en-" target="_blank" rel="noopener">http://social.msdn.microsoft.com/Forums/en-</a><br>US/csharplanguage/thread/86f6d205-21b8-45e3-b5ec-3e9d5c1f9feb/<br>](<a href="http://social.msdn.microsoft.com/Forums/en-" target="_blank" rel="noopener">http://social.msdn.microsoft.com/Forums/en-</a><br>US/csharplanguage/thread/86f6d205-21b8-45e3-b5ec-3e9d5c1f9feb/)</p>
+<p><a href="http://social.msdn.microsoft.com/Forums/en-US/csharplanguage/thread/d1be12e0-6325-427a-8e25-02fbd8396b1b/#18b08278-28a9-43dc-b3d4-e4694ca0260d" target="_blank" rel="noopener"> http://social.msdn.microsoft.com/Forums/en-US/csharplanguage/thread/d1be12e0-6325-427a-8e25-02fbd8396b1b/#18b08278-28a9-43dc-b3d4-e4694ca0260d </a></p>
+<p><a href="http://social.msdn.microsoft.com/Forums/en-US/csharplanguage/thread/31731806-dd83-4483-89b4-30001af14ab7/#352d019c-950c-42de-88f6-b0fecdf34351" target="_blank" rel="noopener"> http://social.msdn.microsoft.com/Forums/en-US/csharplanguage/thread/31731806-dd83-4483-89b4-30001af14ab7/#352d019c-950c-42de-88f6-b0fecdf34351 </a></p>
+<p><a href="http://social.msdn.microsoft.com/Forums/en-US/csharplanguage/thread/86f6d205-21b8-45e3-b5ec-3e9d5c1f9feb/" target="_blank" rel="noopener"> http://social.msdn.microsoft.com/Forums/en-US/csharplanguage/thread/86f6d205-21b8-45e3-b5ec-3e9d5c1f9feb/</a></p>
 <p>StackOverflow上的：</p>
-<p>[ <a href="http://stackoverflow.com/questions/5456989/is-the-new-feature-of-c-4-0" target="_blank" rel="noopener">http://stackoverflow.com/questions/5456989/is-the-new-feature-of-c-4-0</a><br>-optional-parameters-cls-compliant<br>](<a href="http://stackoverflow.com/questions/5456989/is-the-new-feature-of-c-4-0" target="_blank" rel="noopener">http://stackoverflow.com/questions/5456989/is-the-new-feature-of-c-4-0</a><br>-optional-parameters-cls-compliant)</p>
-<p><a href="http://stackoverflow.com/questions/5497514/what-does-opt-mean-in-msil" target="_blank" rel="noopener"> http://stackoverflow.com/questions/5497514/what-does-opt-mean-in-msil
-</a></p>
-<p>[ <a href="http://stackoverflow.com/questions/5522438/why-does-a-custom-attribute-" target="_blank" rel="noopener">http://stackoverflow.com/questions/5522438/why-does-a-custom-attribute-</a><br>appear-both-in-il-and-metadata ](<a href="http://stackoverflow.com/questions/5522438" target="_blank" rel="noopener">http://stackoverflow.com/questions/5522438</a><br>/why-does-a-custom-attribute-appear-both-in-il-and-metadata)</p>
+<p><a href="http://stackoverflow.com/questions/5456989/is-the-new-feature-of-c-4-0-optional-parameters-cls-compliant" target="_blank" rel="noopener"> http://stackoverflow.com/questions/5456989/is-the-new-feature-of-c-4-0-optional-parameters-cls-compliant</a></p>
+<p><a href="http://stackoverflow.com/questions/5497514/what-does-opt-mean-in-msil" target="_blank" rel="noopener"> http://stackoverflow.com/questions/5497514/what-does-opt-mean-in-msil</a></p>
+<p><a href="http://stackoverflow.com/questions/5522438/why-does-a-custom-attribute-appear-both-in-il-and-metadata" target="_blank" rel="noopener"> http://stackoverflow.com/questions/5522438/why-does-a-custom-attribute-appear-both-in-il-and-metadata </a></p>
 <p>请问CSDN的工作人员一个问题，为什么用Live Writer发布的文章一开始排版，格式都是正确的，只要在CSDN的Web<br>Editor里面编辑一次就全乱了呢？</p>
 
     </div>
@@ -398,22 +396,22 @@ ReturnType: Void
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/20/关于显式接口实现/" rel="bookmark">关于显式接口实现</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/24/MSIL的条件跳转（不知道正确与否）/" rel="bookmark">MSIL的条件跳转（不知道正确与否）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/28/引用类型参数的按值传递/" rel="bookmark">引用类型参数的按值传递</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/20/关于显式接口实现/" rel="bookmark">关于显式接口实现</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/09/04/一个关于深层拷贝的问题（迷惑在私有构造函数）/" rel="bookmark">一个关于深层拷贝的问题（迷惑在私有构造函数）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/28/new关键字用作修饰符/" rel="bookmark">new关键字用作修饰符</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/09/09/可以为null的值类型/" rel="bookmark">可以为null的值类型</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/09/09/可以为null的值类型/" rel="bookmark">可以为null的值类型</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/28/new关键字用作修饰符/" rel="bookmark">new关键字用作修饰符</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/03/06/CSharp中的语言特性都是从何而来？/" rel="bookmark">C#中的语言特性都是从何而来？</a></div>
@@ -515,7 +513,7 @@ ReturnType: Void
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">158</span>
+          <span class="site-state-item-count">157</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -575,13 +573,13 @@ ReturnType: Void
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">309k</span>
+    <span title="站点总字数">311k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:41</span>
+    <span title="站点阅读时长">4:42</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

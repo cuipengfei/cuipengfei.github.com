@@ -47,19 +47,16 @@
   };
 </script>
 
-  <meta name="description" content="本文翻译自  Jon Skeet 的系列博文“Edulinq”。 本篇原文地址： [ http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;09&#x2F;03&#x2F;reimplementing-linq-to-objects-part-1-introduction.aspx](http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;">
+  <meta name="description" content="本文翻译自  Jon Skeet 的系列博文“Edulinq”。 本篇原文地址：  http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;09&#x2F;03&#x2F;reimplementing-linq-to-objects-part-1-introduction.aspx 大约一年半之前，我在  DDD 的活动日上做了一次演讲。我当时试图去重新实现LINQ toObje">
 <meta name="keywords" content="LinQ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自己动手重新实现LINQ to Objects 1 - 引言">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2011&#x2F;08&#x2F;19&#x2F;%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%201%20-%20%E5%BC%95%E8%A8%80&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="本文翻译自  Jon Skeet 的系列博文“Edulinq”。 本篇原文地址： [ http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;09&#x2F;03&#x2F;reimplementing-linq-to-objects-part-1-introduction.aspx](http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;">
+<meta property="og:description" content="本文翻译自  Jon Skeet 的系列博文“Edulinq”。 本篇原文地址：  http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;09&#x2F;03&#x2F;reimplementing-linq-to-objects-part-1-introduction.aspx 大约一年半之前，我在  DDD 的活动日上做了一次演讲。我当时试图去重新实现LINQ toObje">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;profile.csdnimg.cn&#x2F;5&#x2F;2&#x2F;5&#x2F;3_cuipengfei1">
-<meta property="og:image" content="https:&#x2F;&#x2F;g.csdnimg.cn&#x2F;static&#x2F;user-reg-year&#x2F;1x&#x2F;11.png">
-<meta property="og:updated_time" content="2019-12-11T08:27:39.815Z">
+<meta property="og:updated_time" content="2019-12-12T06:43:15.147Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;profile.csdnimg.cn&#x2F;5&#x2F;2&#x2F;5&#x2F;3_cuipengfei1">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2011/08/19/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%201%20-%20%E5%BC%95%E8%A8%80/">
 
@@ -264,7 +261,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.3k</span>
+              <span>2.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -284,13 +281,12 @@
 
       
         <p>本文翻译自 <a href="http://stackoverflow.com/users/22656/jon-skeet" target="_blank" rel="noopener"> Jon Skeet </a><br>的系列博文“Edulinq”。</p>
-<p>本篇原文地址： [ <a href="http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-" target="_blank" rel="noopener">http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-</a><br>linq-to-objects-part-1-introduction.aspx<br>](<a href="http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-to-" target="_blank" rel="noopener">http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-to-</a><br>objects-part-1-introduction.aspx)</p>
+<p>本篇原文地址： <a href="http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-to-objects-part-1-introduction.aspx" target="_blank" rel="noopener"> http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-to-objects-part-1-introduction.aspx</a></p>
 <p>大约一年半之前，我在 <a href="http://developerdeveloperdeveloper.com/" target="_blank" rel="noopener"> DDD </a><br>的活动日上做了一次演讲。我当时试图去重新实现LINQ to<br>Objects，在一小时内能实现多少算多少。根据会后的反馈信息来看，我当时做得太快了…而且我还是远远没有实现完整。不过无论如何我还是觉得重新实现LINQ<br>to Objects是一个很有趣的练习，所以我觉得我应该用且行且博、不徐不疾方式来再做一遍。</p>
-<p>这一系列的博文都会标上 <a href="http://msmvps.com/blogs/jon_skeet/archive/tags/Edulinq/default.aspx" target="_blank" rel="noopener"> “Edulinq”的标签
-</a><br>，你可以用这种方式过滤出这一系列博文。</p>
+<p>这一系列的博文都会标上 <a href="http://msmvps.com/blogs/jon_skeet/archive/tags/Edulinq/default.aspx" target="_blank" rel="noopener"> “Edulinq”的标签</a><br>，你可以用这种方式过滤出这一系列博文。</p>
 <p>** 总体思路 **</p>
 <hr>
-<p>我的计划是要完整的重新实现LINQ to<br>Objects，用每篇博客来解释一个方法（或者是一组方法）。我将会尽力把代码写的达到生产质量，但是我不会写任何XML文档注释 -<br>既然我已经在写博客来解释了，那我就不想在代码中再重复一次了。我将在适当的情况下做一些优化，但愿会 [ 比LINQ to Objects本身的实现做得更好<br>](<a href="http://msmvps.com/blogs/jon_skeet/archive/2010/02/10/optimisations-in-linq-" target="_blank" rel="noopener">http://msmvps.com/blogs/jon_skeet/archive/2010/02/10/optimisations-in-linq-</a><br>to-objects.aspx) 。</p>
+<p>我的计划是要完整的重新实现LINQ to<br>Objects，用每篇博客来解释一个方法（或者是一组方法）。我将会尽力把代码写的达到生产质量，但是我不会写任何XML文档注释 -<br>既然我已经在写博客来解释了，那我就不想在代码中再重复一次了。我将在适当的情况下做一些优化，但愿会 <a href="http://msmvps.com/blogs/jon_skeet/archive/2010/02/10/optimisations-in-linq-to-objects.aspx" target="_blank" rel="noopener"> 比LINQ to Objects本身的实现做得更好</a> 。</p>
 <p>我将采取一种相当简单的方式：我将为每一个LINQ方法写一些单元测试（这些单元测试中的大部分不会出现在接下来的博文中），确保.NET的LINQ实现可以通过这些<br>单元测试。然后我会注释掉对System.Linq的引用并引入JonSkeet.Linq。这时单元测试会无法通过，我将会实现测试所针对的方法，最终让单元测试可<br>以绿灯通过。这和通常的TDD做法不太一样，但还是蛮好用的。</p>
 <p>我将为每个LINQ操作符写一篇博文，其中将包含几乎所有的成品代码，不过测试代码的话我只会把有趣的部分贴出来。遇到重要的模式的时候我会把它重点标示出来，这也正<br>是本次练习的一半意义之所在。</p>
 <p>在每篇博文的最后，我会附上一个下载最新代码的链接。为以后的读者考虑，我会给这些下载文件分别编号，而不是不断更新同一个文件，不过我敢说以后肯定会有对这些下载文<br>件做修改的。</p>
@@ -298,9 +294,8 @@
 <hr>
 <p>** 测试 **</p>
 <p>**<br>**</p>
-<p>我将使用 <a href="http://nunit.org/" target="_blank" rel="noopener"> NUnit </a><br>来写单元测试（仅仅是因为我本人对它更熟悉）。很明显，我们将会很频繁的需要测试两个序列是否等价。我们将通过使用 [<br>MoreLINQ中的TestExtensions类型 ](<a href="http://code.google.com/p/morelinq/source/browse/t" target="_blank" rel="noopener">http://code.google.com/p/morelinq/source/browse/t</a><br>runk/MoreLinq.Test/TestExtensions.cs)<br>来做到这一点（我把这个类型复制到了项目中了）。我将用来写作这一系列博文的上网本上只安装了C# Express<br>2010，所以我将使用NUnit的外部GUI程序。我把项目的启动项设置为了NUnit的GUI程序…在C#<br>Express中无法直接做此设置，但是修改项目文件也是很简单的：</p>
-<p><startaction>Program</startaction></p>
-<p><startprogram>C:\Program<br>Files\NUnit-2.5.7.10213\bin\net-2.0\nunit-x86.exe</startprogram></p>
+<p>我将使用 <a href="http://nunit.org/" target="_blank" rel="noopener"> NUnit </a><br>来写单元测试（仅仅是因为我本人对它更熟悉）。很明显，我们将会很频繁的需要测试两个序列是否等价。我们将通过使用 <a href="http://code.google.com/p/morelinq/source/browse/trunk/MoreLinq.Test/TestExtensions.cs" target="_blank" rel="noopener">MoreLINQ中的TestExtensions类型 </a><br>来做到这一点（我把这个类型复制到了项目中了）。我将用来写作这一系列博文的上网本上只安装了C# Express<br>2010，所以我将使用NUnit的外部GUI程序。我把项目的启动项设置为了NUnit的GUI程序…在C#<br>Express中无法直接做此设置，但是修改项目文件也是很简单的：</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&lt;StartAction&gt;Program&lt;/StartAction&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&lt;StartProgram&gt;C:<span class="symbol">\P</span>rogramFiles<span class="symbol">\N</span>Unit-2.5.7.10213<span class="symbol">\b</span>in<span class="symbol">\n</span>et-2.0<span class="symbol">\n</span>unit-x86.exe&lt;/StartProgram&gt;</span></pre></td></tr></table></figure>
 <p>这种方法虽然有点不太正当，但是完全可用。然后把”additional command line<br>parameters”设置为JonSkeet.Linq.Tests.dll - 当前目录默认就是bin/debug，这样就算做好准备了。很明显，如果你安装了<br>ReSharper或之类的工具，并且自己运行这些单元测试的话，你将发现测试结果会被集成到Visual Studio中。</p>
 <p>尽管我想要写出合理的工业级质量的代码来，但是我觉得自己在真的生产环境中都未必会写那么多的单元测试。虽是如此，我还是完全有理由相信测试代码量将会超过成品代码量<br>。因为边边角角的需要测试的情况实在太多了…而且有时重载也不少。不过请记住，我们此举的目的在于研究LINQ中有趣的特性。</p>
 <hr>
@@ -310,15 +305,7 @@
 <hr>
 <p>** 第一次代码下载 **</p>
 <p>**<br>**</p>
-<p>代码在这儿下载： <a href="http://pobox.com/~skeet/blogfiles/csharp/l2o/Linq-To-Objects-1.zip" target="_blank" rel="noopener"> Linq-To-Objects-1.zip
-</a><br>。其中暂时还没有任何的成品代码，只有四个Where方法的单元测试，主要目的在于检查NUnit可以正常工作。下一步…实现Where方法。</p>
-<ul>
-<li><a href="javascript:;" target="_blank" rel="noopener"> 点赞  1  </a></li>
-<li><a href="javascript:;" target="_blank" rel="noopener"> 收藏  </a></li>
-<li><a href="javascript:;" target="_blank" rel="noopener"> 分享 </a></li>
-</ul>
-<p><a href="https://blog.csdn.net/cuipengfei1" target="_blank" rel="noopener"> <img alt data-src="https://profile.csdnimg.cn/5/2/5/3_cuipengfei1"><br><img alt data-src="https://g.csdnimg.cn/static/user-reg-year/1x/11.png">
-</a></p>
+<p>代码在这儿下载： <a href="http://pobox.com/~skeet/blogfiles/csharp/l2o/Linq-To-Objects-1.zip" target="_blank" rel="noopener"> Linq-To-Objects-1.zip</a><br>。其中暂时还没有任何的成品代码，只有四个Where方法的单元测试，主要目的在于检查NUnit可以正常工作。下一步…实现Where方法。</p>
 
     </div>
 
@@ -335,10 +322,10 @@
       <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 3 - Select/" rel="bookmark">自己动手重新实现LINQ to Objects 3 - Select</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/08/24/自己动手重新实现LINQ to Objects: 6 - Repeat/" rel="bookmark">自己动手重新实现LINQ to Objects 6 - Repeat</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 4 - Range/" rel="bookmark">自己动手重新实现LINQ to Objects 4 - Range</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 4 - Range/" rel="bookmark">自己动手重新实现LINQ to Objects 4 - Range</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/08/24/自己动手重新实现LINQ to Objects: 6 - Repeat/" rel="bookmark">自己动手重新实现LINQ to Objects 6 - Repeat</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/08/23/自己动手重新实现LINQ to Objects: 5 - Empty/" rel="bookmark">自己动手重新实现LINQ to Objects 5 - Empty</a></div>
@@ -347,19 +334,19 @@
       <div class="popular-posts-title"><a href="/blog/2011/09/05/自己动手重新实现LINQ to Objects: 7 - Count和LongCount/" rel="bookmark">自己动手重新实现LINQ to Objects 7 - Count和LongCount</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" rel="bookmark">自己动手重新实现LINQ to Objects 8 - Concat</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/12/15/自己动手重新实现LINQ to Objects: 9 - SelectMany/" rel="bookmark">自己动手重新实现LINQ to Objects 9 - SelectMany</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2012/02/15/自己动手重新实现LINQ to Objects: 10 - Any和All/" rel="bookmark">自己动手重新实现LINQ to Objects 10 - Any和All</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/12/15/自己动手重新实现LINQ to Objects: 9 - SelectMany/" rel="bookmark">自己动手重新实现LINQ to Objects 9 - SelectMany</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2012/04/10/自己动手重新实现LINQ to Objects: 12 - DefaultIfEmpty/" rel="bookmark">自己动手重新实现LINQ to Objects 12 - DefaultIfEmpty</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2012/04/09/自己动手重新实现LINQ to Objects: 11 - First，Last，Single以及它们带有OrDefault的重载/" rel="bookmark">自己动手重新实现LINQ to Objects 11 - First，Last，Single以及它们带有OrDefault的重载</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" rel="bookmark">自己动手重新实现LINQ to Objects 8 - Concat</a></div>
     </li>
   </ul>
 
@@ -457,7 +444,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">158</span>
+          <span class="site-state-item-count">157</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -517,13 +504,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">309k</span>
+    <span title="站点总字数">311k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:41</span>
+    <span title="站点阅读时长">4:42</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

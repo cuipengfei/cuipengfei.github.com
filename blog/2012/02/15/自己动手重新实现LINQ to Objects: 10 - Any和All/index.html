@@ -47,15 +47,15 @@
   };
 </script>
 
-  <meta name="description" content="本文翻译自  Jon Skeet  的系列博文“Edulinq  ”。 本篇原文地址： [ http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;28&#x2F;reimplementing-linq-to-objects-part-10-any-and-all.aspx](http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;20">
+  <meta name="description" content="本文翻译自  Jon Skeet  的系列博文“Edulinq  ”。 本篇原文地址：  http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;28&#x2F;reimplementing-linq-to-objects-part-10-any-and-all.aspx 今天我们介绍两个操作符：Any  和  All  。 Any  和  All  做什么？ A">
 <meta name="keywords" content="LinQ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自己动手重新实现LINQ to Objects 10 - Any和All">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2012&#x2F;02&#x2F;15&#x2F;%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%2010%20-%20Any%E5%92%8CAll&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="本文翻译自  Jon Skeet  的系列博文“Edulinq  ”。 本篇原文地址： [ http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;28&#x2F;reimplementing-linq-to-objects-part-10-any-and-all.aspx](http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;20">
+<meta property="og:description" content="本文翻译自  Jon Skeet  的系列博文“Edulinq  ”。 本篇原文地址：  http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;28&#x2F;reimplementing-linq-to-objects-part-10-any-and-all.aspx 今天我们介绍两个操作符：Any  和  All  。 Any  和  All  做什么？ A">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-11T08:27:39.841Z">
+<meta property="og:updated_time" content="2019-12-12T06:43:15.191Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2012/02/15/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%2010%20-%20Any%E5%92%8CAll/">
@@ -261,7 +261,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.8k</span>
+              <span>3.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -282,7 +282,7 @@
       
         <p>本文翻译自 <a href="http://stackoverflow.com/users/22656/jon-skeet" target="_blank" rel="noopener"> Jon Skeet </a> 的系列博文“<br>Edulinq  ”。</p>
 <p>本篇原文地址：</p>
-<p>[ <a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/28/reimplementing-linq-to-" target="_blank" rel="noopener">http://msmvps.com/blogs/jon_skeet/archive/2010/12/28/reimplementing-linq-to-</a><br>objects-part-10-any-and-all.aspx<br>](<a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/28/reimplementing-linq-to-" target="_blank" rel="noopener">http://msmvps.com/blogs/jon_skeet/archive/2010/12/28/reimplementing-linq-to-</a><br>objects-part-10-any-and-all.aspx)</p>
+<p><a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/28/reimplementing-linq-to-objects-part-10-any-and-all.aspx" target="_blank" rel="noopener"> http://msmvps.com/blogs/jon_skeet/archive/2010/12/28/reimplementing-linq-to-objects-part-10-any-and-all.aspx</a></p>
 <p>今天我们介绍两个操作符：Any  和  All  。</p>
 <p>Any  和  All  做什么？</p>
 <p>Any  有两个重载，而  All  只有一个：</p>
@@ -381,8 +381,7 @@ public static bool Any&lt;TSource&gt;(
 
 }</code></pre><p><a href="http://www.cnblogs.com/cuipengfei/archive/2012/02/15/2352444.html" target="_blank" rel="noopener"> 复制代码 </a></p>
 <p>基于接受谓词的的  Any  来实现不接受谓词的  Any  是最简单的，我们使用了一个对任何元素都会返回  true<br>的谓词，这就意味着只要输出序列中含有元素就会返回  true  ，这正是我们想要的行为。</p>
-<p>上面调用  All  时的两次否操作会让你费点脑筋，不过这其实就是  <a href="http://zh.wikipedia.org/wiki/%E5%BE%B7%E6%91%A9%E6%A0%B9%E5%AE%9A%E5%BE%8B" target="_blank" rel="noopener"> 德摩根定律
-</a><br>在  LINQ  中的表现形式：我们对谓词做否操作，来检验是否所有的元素都不能通过谓词，得到结果后，再次做否操作并返回。由于否操作的原因，这种实现方式仍然会<br>在合适的情况下提前返回。</p>
+<p>上面调用  All  时的两次否操作会让你费点脑筋，不过这其实就是  <a href="http://zh.wikipedia.org/wiki/%E5%BE%B7%E6%91%A9%E6%A0%B9%E5%AE%9A%E5%BE%8B" target="_blank" rel="noopener"> 德摩根定律</a><br>在  LINQ  中的表现形式：我们对谓词做否操作，来检验是否所有的元素都不能通过谓词，得到结果后，再次做否操作并返回。由于否操作的原因，这种实现方式仍然会<br>在合适的情况下提前返回。</p>
 <p>虽然以上的方式可行，但是我更喜欢给每个方法一个单独的实现，这样做简单明了：</p>
 <pre><code>public static bool Any&lt;TSource&gt;( 
 
@@ -527,19 +526,16 @@ public static bool All&lt;TSource&gt;(
       <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 3 - Select/" rel="bookmark">自己动手重新实现LINQ to Objects 3 - Select</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/08/24/自己动手重新实现LINQ to Objects: 6 - Repeat/" rel="bookmark">自己动手重新实现LINQ to Objects 6 - Repeat</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 4 - Range/" rel="bookmark">自己动手重新实现LINQ to Objects 4 - Range</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 4 - Range/" rel="bookmark">自己动手重新实现LINQ to Objects 4 - Range</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/08/24/自己动手重新实现LINQ to Objects: 6 - Repeat/" rel="bookmark">自己动手重新实现LINQ to Objects 6 - Repeat</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/08/23/自己动手重新实现LINQ to Objects: 5 - Empty/" rel="bookmark">自己动手重新实现LINQ to Objects 5 - Empty</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/09/05/自己动手重新实现LINQ to Objects: 7 - Count和LongCount/" rel="bookmark">自己动手重新实现LINQ to Objects 7 - Count和LongCount</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" rel="bookmark">自己动手重新实现LINQ to Objects 8 - Concat</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/12/15/自己动手重新实现LINQ to Objects: 9 - SelectMany/" rel="bookmark">自己动手重新实现LINQ to Objects 9 - SelectMany</a></div>
@@ -549,6 +545,9 @@ public static bool All&lt;TSource&gt;(
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2012/04/09/自己动手重新实现LINQ to Objects: 11 - First，Last，Single以及它们带有OrDefault的重载/" rel="bookmark">自己动手重新实现LINQ to Objects 11 - First，Last，Single以及它们带有OrDefault的重载</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" rel="bookmark">自己动手重新实现LINQ to Objects 8 - Concat</a></div>
     </li>
   </ul>
 
@@ -646,7 +645,7 @@ public static bool All&lt;TSource&gt;(
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">158</span>
+          <span class="site-state-item-count">157</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -706,13 +705,13 @@ public static bool All&lt;TSource&gt;(
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">309k</span>
+    <span title="站点总字数">311k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:41</span>
+    <span title="站点阅读时长">4:42</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

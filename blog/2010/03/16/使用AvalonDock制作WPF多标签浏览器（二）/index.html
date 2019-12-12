@@ -57,7 +57,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;images.cnblogs.com&#x2F;cnblogs_com&#x2F;cuipengfei&#x2F;2010-03-16_20-50-08.jpg">
 <meta property="og:image" content="http:&#x2F;&#x2F;images.cnblogs.com&#x2F;cnblogs_com&#x2F;cuipengfei&#x2F;2010-03-16_20-51-40.jpg">
-<meta property="og:updated_time" content="2019-12-11T08:15:28.363Z">
+<meta property="og:updated_time" content="2019-12-12T06:43:15.179Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;images.cnblogs.com&#x2F;cnblogs_com&#x2F;cuipengfei&#x2F;2010-03-16_20-50-08.jpg">
 
@@ -309,7 +309,7 @@
 <p>然后再在主体中添加如下代码：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Avalon:DockingManager</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">Avalon:DocumentPane</span> <span class="attr">Name</span>=<span class="string">"mainPane"</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="tag">                         <span class="attr">NewContentAdded</span>=<span class="string">"DocumentPane_NewContentAdded"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">Avalon:DocumentContent</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="tag">                <span class="attr">Title</span>=<span class="string">"Default Tab"</span> <span class="attr">GotFocus</span>=<span class="string">"DocumentContent_GotFocus"</span> <span class="attr">IsCloseable</span>=<span class="string">"False"</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="tag">                <span class="attr">IsFloatingAllowed</span>=<span class="string">"True"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">            <span class="tag">&lt;<span class="name">WebBrowser</span> <span class="attr">Name</span>=<span class="string">"defaultBrowser"</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="tag">                        <span class="attr">Source</span>=<span class="string">"http://www.google.cn/webhp?hl=zh-CN"</span>&gt;</span><span class="tag">&lt;/<span class="name">WebBrowser</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;/<span class="name">Avalon:DocumentContent</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;/<span class="name">Avalon:DocumentPane</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">Avalon:DockingManager</span>&gt;</span></span></pre></td></tr></table></figure>
 
-<p>其中的  DockingManager  是  AvalonDock  中的“总管”，其详细使用方法请看：  <a href="http://avalondock.codeplex.com/" target="_blank" rel="noopener"><br>http://avalondock.codeplex.com/  </a></p>
+<p>其中的  DockingManager  是  AvalonDock  中的“总管”，其详细使用方法请看：<br><a href="http://avalondock.codeplex.com/" target="_blank" rel="noopener">http://avalondock.codeplex.com/  </a></p>
 <p>上面的代码中可以看到，我们给  DocumentPane  新加的  NewContentAdded  事件已经挂到了一个叫做<br>DocumentPane_NewContentAdded  的方法上。该方法的定义很简单：</p>
 <figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> void DocumentPane_NewContentAdded(object sender,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    NewContentAddedEventArgs e)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    DocumentContent <span class="keyword">new</span><span class="type">Content</span> = e.AddedContent;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">new</span><span class="type">Content</span>.Title = <span class="string">"New Tab"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">new</span><span class="type">Content</span>.GotFocus += DocumentContent_GotFocus;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">new</span><span class="type">Content</span>.Content = <span class="keyword">new</span> <span class="type">WebBrowser</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="type"></span>    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        Source = <span class="keyword">new</span><span class="type"></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="type"></span>            Uri(@<span class="string">"http://www.google.cn"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
 
@@ -350,10 +350,10 @@
       <div class="popular-posts-title"><a href="/blog/2010/03/15/使用AvalonDock制作WPF多标签浏览器（一）/" rel="bookmark">使用AvalonDock制作WPF多标签浏览器（一）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/03/17/用AvalonDock制作WPF多标签浏览器（三）/" rel="bookmark">用AvalonDock制作WPF多标签浏览器（三）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2010/09/13/WPF中ItemContainerStyle不适用的一种情况/" rel="bookmark">WPF中ItemContainerStyle不适用的一种情况</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2010/09/13/WPF中ItemContainerStyle不适用的一种情况/" rel="bookmark">WPF中ItemContainerStyle不适用的一种情况</a></div>
+      <div class="popular-posts-title"><a href="/blog/2010/03/17/用AvalonDock制作WPF多标签浏览器（三）/" rel="bookmark">用AvalonDock制作WPF多标签浏览器（三）</a></div>
     </li>
   </ul>
 
@@ -451,7 +451,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">158</span>
+          <span class="site-state-item-count">157</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -511,13 +511,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">309k</span>
+    <span title="站点总字数">311k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:41</span>
+    <span title="站点阅读时长">4:42</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
