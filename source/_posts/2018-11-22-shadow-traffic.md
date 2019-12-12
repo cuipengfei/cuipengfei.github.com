@@ -26,21 +26,17 @@ Shadow traffic通常有两种实现方式：服务端实现，客户端实现。
 
 下图描述的是服务端实现的简化示例。
 
-<figure data-size="normal">
+![](https://pic1.zhimg.com/v2-49cb80cd0d2e1b2d6731d9e459e1fab0_b.jpg)
 
-<noscript>![](https://pic1.zhimg.com/v2-49cb80cd0d2e1b2d6731d9e459e1fab0_b.jpg)</noscript>
-
-![](https://pic1.zhimg.com/80/v2-49cb80cd0d2e1b2d6731d9e459e1fab0_hd.jpg)</figure>
+![](https://pic1.zhimg.com/80/v2-49cb80cd0d2e1b2d6731d9e459e1fab0_hd.jpg)
 
 生产环境接收到来自于用户**或者**是上游系统的请求，在响应该请求的同时，将这个请求原封不动的也发送给类生产环境。
 
 下图描述的是客户端的实现。
 
-<figure data-size="normal">
+![](https://pic4.zhimg.com/v2-b5c81fcbbacd543e508e161578f892eb_b.jpg)
 
-<noscript>![](https://pic4.zhimg.com/v2-b5c81fcbbacd543e508e161578f892eb_b.jpg)</noscript>
-
-![](https://pic4.zhimg.com/80/v2-b5c81fcbbacd543e508e161578f892eb_hd.jpg)</figure>
+![](https://pic4.zhimg.com/80/v2-b5c81fcbbacd543e508e161578f892eb_hd.jpg)
 
 客户设备**或者**上游系统在发给生产环境请求的同时，给类生产环境也发送一个一模一样的请求。
 

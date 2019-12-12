@@ -8,10 +8,7 @@ Edulinq  ”。
 
 本篇原文地址：
 
-[ http://msmvps.com/blogs/jon_skeet/archive/2010/12/28/reimplementing-linq-to-
-objects-part-10-any-and-all.aspx
-](http://msmvps.com/blogs/jon_skeet/archive/2010/12/28/reimplementing-linq-to-
-objects-part-10-any-and-all.aspx)
+[ http://msmvps.com/blogs/jon_skeet/archive/2010/12/28/reimplementing-linq-to-objects-part-10-any-and-all.aspx](http://msmvps.com/blogs/jon_skeet/archive/2010/12/28/reimplementing-linq-to-objects-part-10-any-and-all.aspx)
 
 今天我们介绍两个操作符：Any  和  All  。
 
@@ -167,8 +164,7 @@ Select  中会把每一个元素除以某个常数。以下的测试用例中，
 基于接受谓词的的  Any  来实现不接受谓词的  Any  是最简单的，我们使用了一个对任何元素都会返回  true
 的谓词，这就意味着只要输出序列中含有元素就会返回  true  ，这正是我们想要的行为。
 
-上面调用  All  时的两次否操作会让你费点脑筋，不过这其实就是  [ 德摩根定律
-](http://zh.wikipedia.org/wiki/%E5%BE%B7%E6%91%A9%E6%A0%B9%E5%AE%9A%E5%BE%8B)
+上面调用  All  时的两次否操作会让你费点脑筋，不过这其实就是  [ 德摩根定律](http://zh.wikipedia.org/wiki/%E5%BE%B7%E6%91%A9%E6%A0%B9%E5%AE%9A%E5%BE%8B)
 在  LINQ  中的表现形式：我们对谓词做否操作，来检验是否所有的元素都不能通过谓词，得到结果后，再次做否操作并返回。由于否操作的原因，这种实现方式仍然会
 在合适的情况下提前返回。
 

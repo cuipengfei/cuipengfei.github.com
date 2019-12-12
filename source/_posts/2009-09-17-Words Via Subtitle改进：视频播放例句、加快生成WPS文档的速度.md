@@ -8,11 +8,11 @@ Words Via Subtitle  改进：视频播放例句、加快生成  WPS  文档的
 
 关于  Words Via Subtitle  的介绍：
 
-1  [ http://blog.csdn.net/cuipengfei1/archive/2009/09/03/4516588.aspx
-](http://blog.csdn.net/cuipengfei1/archive/2009/09/03/4516588.aspx)
+1
+[ http://blog.csdn.net/cuipengfei1/archive/2009/09/03/4516588.aspx](http://blog.csdn.net/cuipengfei1/archive/2009/09/03/4516588.aspx)
 
-2  [ http://blog.csdn.net/cuipengfei1/archive/2009/09/10/4539180.aspx
-](http://blog.csdn.net/cuipengfei1/archive/2009/09/10/4539180.aspx)
+2
+[ http://blog.csdn.net/cuipengfei1/archive/2009/09/10/4539180.aspx](http://blog.csdn.net/cuipengfei1/archive/2009/09/10/4539180.aspx)
 
 最近给这个小程序添加了视频播放例句的功能，使用方法如下：
 
@@ -27,5 +27,5 @@ Words Via Subtitle  改进：视频播放例句、加快生成  WPS  文档的
 线程去把单词的解释从网上获取来，把语境从文件中读取来，这样生成文档这个操作所耗的时间就主要在于在文档中找到关键字并把关键字变色了（这个过程还是耗
 时不少，不过比原来快多了）。
 
-程序下载地址：  [ http://cuipengfei1.download.csdn.net/
-](http://cuipengfei1.download.csdn.net/)
+程序下载地址：
+[ http://cuipengfei1.download.csdn.net/](http://cuipengfei1.download.csdn.net/)

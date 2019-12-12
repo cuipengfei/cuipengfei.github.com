@@ -8,10 +8,7 @@ Edulinq  ”。
 
 本篇原文地址：
 
-[ http://msmvps.com/blogs/jon_skeet/archive/2010/12/29/reimplementing-linq-to-
-objects-part-11-first-single-last-and-the-ordefault-versions.aspx
-](http://msmvps.com/blogs/jon_skeet/archive/2010/12/29/reimplementing-linq-to-
-objects-part-11-first-single-last-and-the-ordefault-versions.aspx)
+[ http://msmvps.com/blogs/jon_skeet/archive/2010/12/29/reimplementing-linq-to-objects-part-11-first-single-last-and-the-ordefault-versions.aspx](http://msmvps.com/blogs/jon_skeet/archive/2010/12/29/reimplementing-linq-to-objects-part-11-first-single-last-and-the-ordefault-versions.aspx)
 
 今天我实现了六个操作符，每个操作符都有两个重载。我一开始以为这些操作符的实现会很相似，但是最后发现每个都稍微有些不同...
 
@@ -518,9 +515,7 @@ default  (TSource)，然后遍历整个序列，并更新返回值，如果有�
 附录
 
 我发现在  LINQ to Objects  （官方实现）中，  Single  和  SingleOrDefault
-没有谓词的重载在遇到第二个元素时马上就会抛出异常。但是有谓词的重载即使遇到了第二个元素，还是会继续遍历。这看起来很是荒唐，没有连贯性。我发了一个  [
-Connect issue
-](https://connect.microsoft.com/VisualStudio/feedback/details/639955)
+没有谓词的重载在遇到第二个元素时马上就会抛出异常。但是有谓词的重载即使遇到了第二个元素，还是会继续遍历。这看起来很是荒唐，没有连贯性。我发了一个  [Connect issue](https://connect.microsoft.com/VisualStudio/feedback/details/639955)
 ，我们看看会有怎样的答复。
 
 

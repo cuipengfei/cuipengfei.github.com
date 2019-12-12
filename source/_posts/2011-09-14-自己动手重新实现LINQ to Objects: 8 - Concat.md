@@ -8,10 +8,7 @@ Edulinq  ”。
 
 本篇原文地址：
 
-[ _ http://msmvps.com/blogs/jon_skeet/archive/2010/12/27/reimplementing-linq-
-to-objects-part-8-concat.aspx _
-](http://msmvps.com/blogs/jon_skeet/archive/2010/12/27/reimplementing-linq-to-
-objects-part-8-concat.aspx)
+[ _ http://msmvps.com/blogs/jon_skeet/archive/2010/12/27/reimplementing-linq-to-objects-part-8-concat.aspx _](http://msmvps.com/blogs/jon_skeet/archive/2010/12/27/reimplementing-linq-to-objects-part-8-concat.aspx)
 
 ** **
 
@@ -19,8 +16,7 @@ objects-part-8-concat.aspx)
 
 ** Concat  是什么？  **
 
-[  
-Concat  ](http://msdn.microsoft.com/en-us/library/bb302894.aspx)
+[  Concat  ](http://msdn.microsoft.com/en-us/library/bb302894.aspx)
 只有一种签名形式，这让它使用起来很简单：
 
 ```
@@ -33,9 +29,7 @@ Concat  的返回值依次包含了两个序列中的元素，也就是说把两
 我有时会觉得  .NET  没有提供  Prepend/Append  这样的方法是个遗憾，这两个方法应该可以和  Concat
 做类似的事情，只不过它们把一个序列和一个单个的元素串联起来。如果要做一个填充着国家名和一个“  None
 ”值的下拉列表的话，这两个方法是很有用的。当然，向  Concat
-中传入一个单元素的数组也可以达到同样的目的，但是我个人认为用特定的方法名做特定的事会让代码的可读性更高。  [ MoreLINQ
-](http://code.google.com/p/morelinq/) 中的  [ Concat  方法  ](http://code.google.c
-om/p/morelinq/source/browse/trunk/MoreLinq/Concat.cs?r=171) 可以做这件事，不过  Edulinq
+中传入一个单元素的数组也可以达到同样的目的，但是我个人认为用特定的方法名做特定的事会让代码的可读性更高。  [ MoreLINQ](http://code.google.com/p/morelinq/) 中的  [ Concat  方法  ](http://code.google.com/p/morelinq/source/browse/trunk/MoreLinq/Concat.cs?r=171) 可以做这件事，不过  Edulinq
 的目的只是要实现  LINQ to Objects  中已有的方法。
 
 和往常一样，我们列出  Concat  的行为：
@@ -172,8 +166,7 @@ private static IEnumerable < TSource > ConcatImpl < TSource > (
 如果是在用  F#  的话，我们可以使用  yield!  表达式来把它实现的更简单，  yield!
 表达式作用于一整个序列而不是单个的元素。必需得承认在这种场景下使用  yield!
 并不会带来什么性能上的提升（如果是在递归的场景下就很可能会有性能提升），但是能够用一个语句来  yield  返回整个序列确实是一种更优雅的风格。（
-Spec#  中也有一个类似的结构叫做嵌套迭代器，用  [ yield foreach  ](http://research.microsoft.com
-/en-us/projects/specsharp/iterators.pdf) 来表示。）我对  F#  和  Spec#
+Spec#  中也有一个类似的结构叫做嵌套迭代器，用  [ yield foreach  ](http://research.microsoft.com/en-us/projects/specsharp/iterators.pdf) 来表示。）我对  F#  和  Spec#
 了解的都不够深入，所以就不做更深入的比较了。不过我们在以后实现  Edulinq  的过程中还会遇到好几次“  yield
 返回一个序列中的每个元素”的模式。请记住，我们不能把  yield  返回的代码抽取到一个单独的方法中去，因为“  yield  ”表达式需要  C#
 编译器的特殊处理。

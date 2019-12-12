@@ -92,8 +92,8 @@ xmlns:Avalon="clr-namespace:AvalonDock;assembly=AvalonDock"
 </Avalon:DockingManager>
 ```
 
-其中的  DockingManager  是  AvalonDock  中的“总管”，其详细使用方法请看：  [
-http://avalondock.codeplex.com/  ](http://avalondock.codeplex.com/)
+其中的  DockingManager  是  AvalonDock  中的“总管”，其详细使用方法请看：
+[http://avalondock.codeplex.com/  ](http://avalondock.codeplex.com/)
 
 上面的代码中可以看到，我们给  DocumentPane  新加的  NewContentAdded  事件已经挂到了一个叫做
 DocumentPane_NewContentAdded  的方法上。该方法的定义很简单：

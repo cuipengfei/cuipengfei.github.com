@@ -8,10 +8,7 @@ Edulinq  ”。
 
 本篇原文地址：
 
-[ _ http://msmvps.com/blogs/jon_skeet/archive/2010/12/26/reimplementing-linq-
-to-objects-part-7-count-and-longcount.aspx _
-](http://msmvps.com/blogs/jon_skeet/archive/2010/12/26/reimplementing-linq-to-
-objects-part-7-count-and-longcount.aspx)  
+[ _ http://msmvps.com/blogs/jon_skeet/archive/2010/12/26/reimplementing-linq-to-objects-part-7-count-and-longcount.aspx _](http://msmvps.com/blogs/jon_skeet/archive/2010/12/26/reimplementing-linq-to-objects-part-7-count-and-longcount.aspx)
   
   
 
@@ -21,11 +18,7 @@ objects-part-7-count-and-longcount.aspx)
 **   
 Count  和  LongCount  是什么呢？  **
 
-[  
-Count  ](http://msdn.microsoft.com/en-
-us/library/system.linq.enumerable.count.aspx) 和  [ LongCount
-](http://msdn.microsoft.com/en-
-us/library/system.linq.enumerable.longcount.aspx)
+[  Count  ](http://msdn.microsoft.com/en-us/library/system.linq.enumerable.count.aspx) 和  [ LongCount](http://msdn.microsoft.com/en-us/library/system.linq.enumerable.longcount.aspx)
 各自有两个重载：一个重载接受谓词，另一个不接受。下面是这四个方法的签名：
 
 ```
@@ -233,8 +226,7 @@ LongCount  的实现和  Count  的实现几乎完全一样，只是  LongCount 
 我对  ICollection  和  ICollection<T> 做了优化，但是我不认为  .NET  是如此实现的。（只要创建一个很大的  byte
 数组，并比较一下  Count  和  LongCount  应用到这个数组上的耗时差距就可以了。）
 
-关于  [ Array.GetLongCount  ](http://msdn.microsoft.com/en-
-us/library/system.array.getlonglength.aspx) 的使用存在一些争议，但是我觉得既然现在的  CLR
+关于  [ Array.GetLongCount  ](http://msdn.microsoft.com/en-us/library/system.array.getlonglength.aspx) 的使用存在一些争议，但是我觉得既然现在的  CLR
 并不支持长度超过  Int32.MaxValue  的数组，那么这个问题现在就没什么好争议的，只有留待以后证明。除此之外，我不知道  .NET
 的实现为什么没有优化。对一个实现了  ICollection  或  ICollection<T> 接口的类型来说，如果该集合中包含了超过
 Int32.MaxValue  个元素的话，它的  Count  属性应该返回什么值呢？这一点并不明确。

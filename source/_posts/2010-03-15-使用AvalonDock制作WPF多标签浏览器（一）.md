@@ -125,8 +125,7 @@ AvalonDock  的源码，毕竟  AvalonDock  是一个控件库，添加一个新
 
 给每个新添加的空标签中置入一个  WebBrowser  应该是在客户代码中做的事儿。
 
-这部分明天再写吧，洗洗去看  10-4 show  了。（挺好看的视频，讲  VS2010  和  .Net 4 new features  的：  [
-http://channel9.msdn.com/shows/10-4/  ](http://channel9.msdn.com/shows/10-4/)
-）
+这部分明天再写吧，洗洗去看  10-4 show  了。（挺好看的视频，讲  VS2010  和  .Net 4 new features  的：
+[http://channel9.msdn.com/shows/10-4/  ](http://channel9.msdn.com/shows/10-4/)
 
 Over and out  ！  Ciao  ！

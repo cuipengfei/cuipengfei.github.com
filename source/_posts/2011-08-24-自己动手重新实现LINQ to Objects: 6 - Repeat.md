@@ -8,10 +8,7 @@ Edulinq  ”。
 
 本篇原文地址：
 
-[ _ http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-
-to-objects-part-6-repeat.aspx _
-](http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-
-objects-part-6-repeat.aspx)  
+[ _ http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-objects-part-6-repeat.aspx _](http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-objects-part-6-repeat.aspx)
   
 
 **   

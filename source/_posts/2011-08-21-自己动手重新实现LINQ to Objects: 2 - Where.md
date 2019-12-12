@@ -8,10 +8,7 @@ Edulinq  ”。
 
 本篇原文地址：
 
-[ _ http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-
-to-objects-part-2-quot-where-quot.aspx _
-](http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-to-
-objects-part-2-quot-where-quot.aspx)  
+[ _ http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-to-objects-part-2-quot-where-quot.aspx _](http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-to-objects-part-2-quot-where-quot.aspx)
 
 ** **
 
@@ -34,21 +31,16 @@ public static IEnumerable < TSource > Where(this IEnumerable < TSource > source,
 
 在开始讲述  Where  方法到底做什么之前，我先指出几点  LINQ  操作符的常识，这些常识适用于几乎所有的  LINQ  操作符：  
 
-l  LINQ  操作符都是  [ 扩展方法  ](http://msdn.microsoft.com/en-
-us/library/bb383977.aspx) -  扩展方法要定义在顶层的，非嵌套的静态类型中而且其第一个参数要带有“  this
+l  LINQ  操作符都是  [ 扩展方法  ](http://msdn.microsoft.com/en-us/library/bb383977.aspx) -  扩展方法要定义在顶层的，非嵌套的静态类型中而且其第一个参数要带有“  this
 ”修饰符。简单来说，扩展方法可以被其第一个参数的实例调用，就好像它是该参数类型的实例方法一样。
 
-l  LINQ  操作符是  [ 泛型方法  ](http://msdn.microsoft.com/en-
-us/library/twcad0zb.aspx) -  我们要讲的  Where  操作符只有一个叫做  TSource
+l  LINQ  操作符是  [ 泛型方法  ](http://msdn.microsoft.com/en-us/library/twcad0zb.aspx) -  我们要讲的  Where  操作符只有一个叫做  TSource
 的类型参数，该类型参数指明了要处理的序列的类型。比如说，如果要处理一个  string  的序列，  TSource  就是  string  。
 
-l  LINQ  操作符接受  Func<...> 这一族的泛型委托作为参数，通常以  [ lamdba  表达式
-](http://msdn.microsoft.com/en-us/library/bb397687.aspx)
+l  LINQ  操作符接受  Func<...> 这一族的泛型委托作为参数，通常以  [ lamdba  表达式](http://msdn.microsoft.com/en-us/library/bb397687.aspx)
 的方式提供，不过委托的其他表现形式也都可以作为其参数。
 
-l  LINQ  操作符处理序列。序列以  [ IEnumerable<T> ](http://msdn.microsoft.com/en-
-us/library/9eekhta0.aspx) 的形式出现，  IEnumerable<T> 中含有一个类型为  [ IEnumerator<T>
-](http://msdn.microsoft.com/en-us/library/78dfe2yb.aspx) 的迭代器。
+l  LINQ  操作符处理序列。序列以  [ IEnumerable<T> ](http://msdn.microsoft.com/en-us/library/9eekhta0.aspx) 的形式出现，  IEnumerable<T> 中含有一个类型为  [ IEnumerator<T>](http://msdn.microsoft.com/en-us/library/78dfe2yb.aspx) 的迭代器。
 
 
 我希望本文的读者对以上提及的概念有所了解，所以我就不再深入解释了。如果您对上述内容不够熟悉的话，请在继续读下去之前先去做些功课，否则接下来的内容将让您很难理
@@ -61,8 +53,7 @@ Where  的目的是去过滤一个序列。它接受一个输入序列及一个 
 
 下面是关于  Where  的几个重要的细节：  
 
-l  Where  不会对输入序列做任何修改：它和  [ List<T>.RemoveAll  ](http://msdn.microsoft.com
-/en-us/library/wdka673a.aspx) 之类的方法不一样。
+l  Where  不会对输入序列做任何修改：它和  [ List<T>.RemoveAll  ](http://msdn.microsoft.com/en-us/library/wdka673a.aspx) 之类的方法不一样。
 
 l  Where  是延迟执行的  -  在你开始读取输出序列中的元素之前，  Where  不会去输入序列中取元素。
 
@@ -183,11 +174,8 @@ public  void  ExecutionIsDeferred()
 ** 来动手实现吧！   
 **
 
-原版的  LINQ to Objects  能够通过所有这些测试，现在来实现我们自己的代码吧。我们将会用到  [ 迭代器代码块
-](http://msdn.microsoft.com/en-us/library/dscyy5s0.aspx) ，它在  C# 2  中被引入来简化
-IEnumerable<T> 的实现。如果你想了解更多的背景知识的话，我有  [ 几篇
-](http://csharpindepth.com/Articles/Chapter11/StreamingAndIterators.aspx) [ 文章
-](http://csharpindepth.com/Articles/Chapter6/IteratorBlockImplementation.aspx)
+原版的  LINQ to Objects  能够通过所有这些测试，现在来实现我们自己的代码吧。我们将会用到  [ 迭代器代码块](http://msdn.microsoft.com/en-us/library/dscyy5s0.aspx) ，它在  C# 2  中被引入来简化
+IEnumerable<T> 的实现。如果你想了解更多的背景知识的话，我有  [ 几篇](http://csharpindepth.com/Articles/Chapter11/StreamingAndIterators.aspx) [ 文章](http://csharpindepth.com/Articles/Chapter6/IteratorBlockImplementation.aspx)
 你可以去读一下  ...  或者读  C# in Depth  （第一或第二版都可以）的第六章也可以。迭代器代码块让我们可以很简单的实现延迟执行  ...
 不过它也是一把双刃剑，我们马上就会体会到了。
 
@@ -362,17 +350,6 @@ l  ...  但是它也使得需要立即执行的参数校验变得很难搞。
 ** 代码下载   
 **
 
-[ Linq-To-Objects-2.zip  ](http://yoda.arachsys.com/blogfiles/csharp/l2o/Linq-
-To-Objects-2.zip)
+[ Linq-To-Objects-2.zip  ](http://yoda.arachsys.com/blogfiles/csharp/l2o/Linq-To-Objects-2.zip)
 
 很多人要求给本项目建一个源码管理服务器，这件事正在进行中；大概下一篇博文之前就可以完成。
-
-  * [ 点赞  1  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
-
-
-
-
-
-

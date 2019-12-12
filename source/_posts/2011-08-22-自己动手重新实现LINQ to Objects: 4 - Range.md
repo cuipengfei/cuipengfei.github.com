@@ -8,10 +8,7 @@ Edulinq  ”。
 
 本篇原文地址：
 
-[ _ http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-
-to-objects-part-4-range.aspx _
-](http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-
-objects-part-4-range.aspx)  
+[ _ http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-objects-part-4-range.aspx _](http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-objects-part-4-range.aspx)
 
 ** **
 
@@ -23,8 +20,7 @@ LongCount  就比较适合放在一起讲。不过我也要采纳读者的意见
 ** Range  操作符是什么？   
 **
 
-[ Range  ](http://msdn.microsoft.com/en-
-us/library/system.linq.enumerable.range.aspx) 只有一种方法签名：
+[ Range  ](http://msdn.microsoft.com/en-us/library/system.linq.enumerable.range.aspx) 只有一种方法签名：
 
 ```
 public  static  IEnumerable< int  > Range(int  start, int  count)

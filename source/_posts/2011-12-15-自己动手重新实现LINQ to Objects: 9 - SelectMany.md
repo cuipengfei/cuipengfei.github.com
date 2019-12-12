@@ -8,10 +8,7 @@ Edulinq  ”。
 
 本篇原文地址：
 
-[ http://msmvps.com/blogs/jon_skeet/archive/2010/12/27/reimplementing-linq-to-
-objects-part-9-selectmany.aspx
-](http://msmvps.com/blogs/jon_skeet/archive/2010/12/27/reimplementing-linq-to-
-objects-part-9-selectmany.aspx)
+[ http://msmvps.com/blogs/jon_skeet/archive/2010/12/27/reimplementing-linq-to-objects-part-9-selectmany.aspx](http://msmvps.com/blogs/jon_skeet/archive/2010/12/27/reimplementing-linq-to-objects-part-9-selectmany.aspx)
 
 我们接下来要实现的这个操作符是LINQ  中最重要的操作符。大多数（或者是全部？）其他的返回一个序列的操作符都可以通过调用  SelectMany
 来实现，这是后话按下不表。现在我们首先来实现它吧。
@@ -323,8 +320,7 @@ Select  和  SelectMany  使用  Enumerable.Repeat
 SelectMany  来实现更多的其他操作符也未必能更加充分的说明这一点。
 
 在理论的意义上，  SelectMany  也很重要，因为它为  LINQ  提供了  monadic  的特性。我不想在这一话题上说的更多，你可以读一读
-[ Wes Dyer  的博客  ](http://blogs.msdn.com/b/wesdyer/archive/2008/01/11/the-
-marvels-of-monads.aspx) ，或者直接搜索“  bind monad SelectMany  ”就可以找到很多比我更聪明的人写的文章。
+[ Wes Dyer  的博客  ](http://blogs.msdn.com/b/wesdyer/archive/2008/01/11/the-marvels-of-monads.aspx) ，或者直接搜索“  bind monad SelectMany  ”就可以找到很多比我更聪明的人写的文章。
 
 结论
 

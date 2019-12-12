@@ -8,27 +8,19 @@ Edulinq  ”。
 
 本篇原文地址：
 
-[ _ http://msmvps.com/blogs/jon_skeet/archive/2010/12/23/reimplementing-linq-
-to-objects-part-3-quot-select-quot-and-a-rename.aspx _
-](http://msmvps.com/blogs/jon_skeet/archive/2010/12/23/reimplementing-linq-to-
-objects-part-3-quot-select-quot-and-a-rename.aspx)
+[ _ http://msmvps.com/blogs/jon_skeet/archive/2010/12/23/reimplementing-linq-to-objects-part-3-quot-select-quot-and-a-rename.aspx _](http://msmvps.com/blogs/jon_skeet/archive/2010/12/23/reimplementing-linq-to-objects-part-3-quot-select-quot-and-a-rename.aspx)
 
 
-距离上次写完本系列博文的  [ 第一篇  ](http://msmvps.com/blogs/jon_skeet/archive/2010/09/03
-/reimplementing-linq-to-objects-part-1-introduction.aspx) 和  [ 第二篇
-](http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-to-
-objects-part-2-quot-where-quot.aspx) 已经有一段日子了，希望接下来的进度会快一些。
+距离上次写完本系列博文的  [ 第一篇  ](http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-to-objects-part-1-introduction.aspx) 和  [ 第二篇](http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-to-objects-part-2-quot-where-quot.aspx) 已经有一段日子了，希望接下来的进度会快一些。
 
 现在我给本项目在  [ Google Code  上建立了源码管理  ](http://edulinq.googlecode.com/)
 ，现在就无需每篇博文包含一个  zip  文件了。创建项目时，我给它取了个显而易见的名字，叫做  Edulinq  。我修改了代码中的命名空间，而且现在
-[ 这一系列博文的  tag
-](http://msmvps.com/blogs/jon_skeet/archive/tags/Edulinq/default.aspx) 也修改为了
+[ 这一系列博文的  tag](http://msmvps.com/blogs/jon_skeet/archive/tags/Edulinq/default.aspx) 也修改为了
 Edulinq  了。好了，闲话少叙  ...  我们来开始重新实现  LINQ  吧，这次要实现  Select  操作符。  
 
 **Select  操作符是什么？**
 
-和  Where  类似，  [ Select  也有两个重载  ](http://msdn.microsoft.com/en-
-us/library/bb357126.aspx) ：
+和  Where  类似，  [ Select  也有两个重载  ](http://msdn.microsoft.com/en-us/library/bb357126.aspx) ：
 
 ```
 public static IEnumerable < TResult > Select < TSource, TResult > (this IEnumerable < TSource > source, Func < TSource, TResult > selector)

@@ -8,17 +8,13 @@ Edulinq  ”。
 
 本篇原文地址：
 
-[ http://msmvps.com/blogs/jon_skeet/archive/2010/12/29/reimplementing-linq-to-
-objects-part-12-defaultifempty.aspx
-](http://msmvps.com/blogs/jon_skeet/archive/2010/12/29/reimplementing-linq-to-
-objects-part-12-defaultifempty.aspx)
+[ http://msmvps.com/blogs/jon_skeet/archive/2010/12/29/reimplementing-linq-to-objects-part-12-defaultifempty.aspx](http://msmvps.com/blogs/jon_skeet/archive/2010/12/29/reimplementing-linq-to-objects-part-12-defaultifempty.aspx)
 
 上次实现  First  /  Last的时候写了大量的代码，相比起来，今天要讲的  DefaultIfEmpty  就轻松多了。
 
 ** DefaultIfEmpty是什么？ **
 
-这个操作符虽然简单，但是还是有  [ 两个重载  ](http://msdn.microsoft.com/en-
-us/library/bb360530.aspx) ：
+这个操作符虽然简单，但是还是有  [ 两个重载  ](http://msdn.microsoft.com/en-us/library/bb360530.aspx) ：
 
 ```
 public static IEnumerable < TSource > DefaultIfEmpty < TSource > (this IEnumerable < TSource > source)

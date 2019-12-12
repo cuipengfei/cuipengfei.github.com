@@ -3,13 +3,9 @@ title: "WP7 Tip: 禁用Pivot控件的切换手势"
 date: 2011-07-06 13:26:26
 tags: C#
 ---
-原文地址： [ http://www.imaginativeuniversal.com/blog/post/2010/12/09/WP7-Tip-
-disabling-the-Pivot-Control-swipe-gesture.aspx
-](http://www.imaginativeuniversal.com/blog/post/2010/12/09/WP7-Tip-disabling-
-the-Pivot-Control-swipe-gesture.aspx)
+原文地址： [ http://www.imaginativeuniversal.com/blog/post/2010/12/09/WP7-Tip-disabling-the-Pivot-Control-swipe-gesture.aspx](http://www.imaginativeuniversal.com/blog/post/2010/12/09/WP7-Tip-disabling-the-Pivot-Control-swipe-gesture.aspx)
 
-原文作者： [ James Ashley
-](http://www.imaginativeuniversal.com/blog/page/about.aspx)
+原文作者： [ James Ashley](http://www.imaginativeuniversal.com/blog/page/about.aspx)
 
 在WP7社区中一个经常被问到的问题就是：在Pivot中放置了可以接受滑动手势的控件（比如说一个Slider）时，如何禁用Pivot控件本身内置的“用手指滑动
 来切换视图”的功能呢？
