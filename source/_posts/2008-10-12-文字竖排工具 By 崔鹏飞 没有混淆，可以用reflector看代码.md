@@ -17,6 +17,6 @@ tags: utils
 ps：没有混淆，可以用reflector看代码
 
 图片：
-![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081012/截图00.jpg)
+![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081012/jietu00.jpg)
 
-![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090210/截图05.jpg)
+![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090210/jietu05.jpg)

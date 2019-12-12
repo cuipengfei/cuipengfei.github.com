@@ -3,13 +3,13 @@ title: 对Graphic的应用，实现类似九宫格的绘制字符串、制定圆
 date: 2008-10-03 10:26:00
 tags: graphics
 ---
-![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081003/截图03.jpg)
+![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081003/jietu03.jpg)
 
-![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081003/截图02.jpg)
+![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081003/jietu02.jpg)
 
-![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081003/截图01.jpg)
+![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081003/jietu01.jpg)
 
-![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081003/截图00.jpg)
+![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081003/jietu00.jpg)
 
 ```
 import  javax.microedition.midlet.*;
