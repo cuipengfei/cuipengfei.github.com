@@ -5,7 +5,7 @@ tags: 我翻译的Head First C#（习作）
 ---
 官方即将出版中文版，看图：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081030/%E6%88%AA%E5%9B%BE06.jpg)
+![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20081030/%E6%88%AA%E5%9B%BE06.jpg)
 
 本系列预计将在官方中文版available之后停止翻译
 

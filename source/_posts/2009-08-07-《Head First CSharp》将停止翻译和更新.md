@@ -8,7 +8,7 @@ tags: 我翻译的Head First C#（习作）
 
 从去年  10  月开始利用课余时间翻译这本书，到现在翻译完了将近  13  章，总计  12  万余字。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090807/2009-08-07_16-33-29.jpg)
+![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090807/2009-08-07_16-33-29.jpg)
 
 剩余的正文内容已不足百页，无法做到有始有终，颇为遗憾。
 

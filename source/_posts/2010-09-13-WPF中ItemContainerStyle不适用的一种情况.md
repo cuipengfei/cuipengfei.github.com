@@ -59,7 +59,7 @@ public partial class ComboBoxTest: Window {
 
 运行一下，结果和预期的一样，第五项被选中了。
 
-![](http://hi.csdn.net/attachment/201009/13/858_12843928840kEB.jpg)
+![](/images/attachment/201009/13/858_12843928840kEB.jpg)
 
 试试把XAML中的ListBox换成TabControl，更换之后的XAML如下：
 ```
@@ -84,7 +84,7 @@ public partial class ComboBoxTest: Window {
 仅仅是把ListBox换成了TabControl，把ListBoxItem换成了TabItem而已，C#代码没有改。试着运行一下，结果还是和预期的一样，第五
 项会被选中。
 
-![](http://hi.csdn.net/attachment/201009/13/858_12843928849j3S.jpg)
+![](/images/attachment/201009/13/858_12843928849j3S.jpg)
 
 ListBox和TabControl都是间接继承自ItemsControl而直接继承自Selector的，那是不是所有Selector的子类都会有如上的行为
 呢？
@@ -114,7 +114,7 @@ ListBox和TabControl都是间接继承自ItemsControl而直接继承自Selector�
 
 运行之后的效果如下：
 
-![](http://hi.csdn.net/attachment/201009/13/858_1284392885MblZ.jpg)
+![](/images/attachment/201009/13/858_1284392885MblZ.jpg)
 
 可见启动后没有任何选中项。而只有当用鼠标将ComboBox展开时第五项才会被选中。对这种现象，我的猜测是因为  ItemContainerStyle
 只有在所有  Item加载之后才会生效，而ComboBox默认情况下并不会把其Items展示出来，所以直到用鼠标将ComboBox展开时才会有选中效果。
@@ -158,7 +158,7 @@ a属性。修改后的XAML如下：
 
 再运行，启动效果如下：
 
-![](http://hi.csdn.net/attachment/201009/13/858_1284393201CUCr.jpg)
+![](/images/attachment/201009/13/858_1284393201CUCr.jpg)
 
 
 

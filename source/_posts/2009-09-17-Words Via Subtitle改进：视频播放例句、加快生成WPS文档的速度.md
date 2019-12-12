@@ -19,7 +19,7 @@ Words Via Subtitle  改进：视频播放例句、加快生成  WPS  文档的
 载入字幕文件并指定了与之对应的视频文件之后，选中某个感觉生疏的单词，然后点击播放例句按钮，该单词所在句子就会以视频的方式开始播放，播完该句子视频暂停。其实这
 个功能写起来也挺简单的，就是在字幕中找到一个单词所在句子对应的时间信息，然后依照该时间段播放视频。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090917/%E6%88%AA%E5%9B%BE00.jpg)
+![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090917/%E6%88%AA%E5%9B%BE00.jpg)
 
 加快生成  WPS  文档的速度：
 

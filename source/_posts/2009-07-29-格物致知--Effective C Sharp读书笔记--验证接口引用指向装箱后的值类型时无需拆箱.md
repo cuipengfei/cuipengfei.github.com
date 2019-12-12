@@ -62,11 +62,11 @@ SomeInterface  。预计的结果是第二个方法无需拆箱，查看  IL  �
 
 这是  CastStruct  （）：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090729/2009-07-29_08-47-04.jpg)
+![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090729/2009-07-29_08-47-04.jpg)
 
 这是  CastInterface  （）：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090729/2009-07-29_08-47-18.jpg)
+![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090729/2009-07-29_08-47-18.jpg)
 
 可见，第二个方法中没有  unbox  指令，结论得证。
 

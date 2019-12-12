@@ -50,7 +50,7 @@ public partial class TheForm : Form
 运行，点击按钮，效果如下：
 
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090218/2009-02-18_13-07-45.jpg)
+![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090218/2009-02-18_13-07-45.jpg)
 
 
 然后修改  TheDLL  的代码为如下：
@@ -74,7 +74,7 @@ public class DataHolder
 
 重新生成dll，把新生成的dll复制到TheForm的debug文件夹下去覆盖原来的dll文件。然后双击运行TheForm.exe。结果如下：
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090218/2009-02-18_13-11-29.jpg)
+![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090218/2009-02-18_13-11-29.jpg)
 
 提示找不到TheDLL.DataHolder.Data。没错!这就是因为访问字段和访问属性的C#代码虽然一样，都是
 

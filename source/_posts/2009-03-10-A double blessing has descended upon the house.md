@@ -5,7 +5,7 @@ tags: 杂7杂8
 ---
 今天公布了CET-SET（口语）的成绩，在去上课的路上用手机查询。得了一个A。
 
-![](https://p-blog.csdn.net/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090310/2009-03-10_13-52-19.jpg)
+![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090310/2009-03-10_13-52-19.jpg)
 
 到教室，没过几分钟收到一封邮包。是O‘reilly寄来的笔记本（是真的笔记本，不是laptop......）
 
