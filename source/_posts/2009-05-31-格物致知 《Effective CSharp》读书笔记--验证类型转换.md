@@ -115,6 +115,4 @@ ct = co  as  ClassTwo  ;
 就会报告一个  InvalidCastException  ，原因就是  IEnumerator.Current  （）返回的是  Object
 类型，而在  foreach  中试图将  Object  转化为  ClassTwo  就会出错。
 
-[ ![](https://profile.csdnimg.cn/5/2/5/3_cuipengfei1)
-![](https://g.csdnimg.cn/static/user-reg-year/1x/11.png)
-](https://blog.csdn.net/cuipengfei1)
+
