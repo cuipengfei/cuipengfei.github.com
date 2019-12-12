@@ -13,11 +13,6 @@ to-objects-part-3-quot-select-quot-and-a-rename.aspx _
 ](http://msmvps.com/blogs/jon_skeet/archive/2010/12/23/reimplementing-linq-to-
 objects-part-3-quot-select-quot-and-a-rename.aspx)
 
-** **
-
-**   
-  
-**
 
 距离上次写完本系列博文的  [ 第一篇  ](http://msmvps.com/blogs/jon_skeet/archive/2010/09/03
 /reimplementing-linq-to-objects-part-1-introduction.aspx) 和  [ 第二篇
@@ -30,23 +25,16 @@ objects-part-2-quot-where-quot.aspx) 已经有一段日子了，希望接下来�
 ](http://msmvps.com/blogs/jon_skeet/archive/tags/Edulinq/default.aspx) 也修改为了
 Edulinq  了。好了，闲话少叙  ...  我们来开始重新实现  LINQ  吧，这次要实现  Select  操作符。  
 
-** Select  操作符是什么？   
-**
+**Select  操作符是什么？**
 
 和  Where  类似，  [ Select  也有两个重载  ](http://msdn.microsoft.com/en-
 us/library/bb357126.aspx) ：
 
-public  static  IEnumerable<TResult> Select<TSource, TResult>(
+```
+public static IEnumerable < TResult > Select < TSource, TResult > (this IEnumerable < TSource > source, Func < TSource, TResult > selector)
 
-this  IEnumerable<TSource> source,
-
-Func<TSource, TResult> selector)
-
-public  static  IEnumerable<TResult> Select<TSource, TResult>(
-
-this  IEnumerable<TSource> source,
-
-Func<TSource,  int  , TResult> selector)
+public static IEnumerable < TResult > Select < TSource, TResult > (this IEnumerable < TSource > source, Func < TSource, int, TResult > selector)
+```
 
 其第二个重载让投影操作可以访问到序列元素的  index  。
 
@@ -56,7 +44,7 @@ Func<TSource,  int  , TResult> selector)
 
 l  Select  不会对输入序列做任何修改。
 
-l  Select  是延迟执行的  \-  在你开始读取输出序列中的元素之前，  Select  不会去输入序列中取元素。
+l  Select  是延迟执行的  -  在你开始读取输出序列中的元素之前，  Select  不会去输入序列中取元素。
 
 l  不过也有一点不是延迟执行的，它会立即检查参数是否为  null  。
 
@@ -78,67 +66,68 @@ l  如果输出序列的迭代器被  Dispose  掉的话，对应的输入序列
 。虽然这两个参数的含义不言自明，不过还是得写一个单元测试来测一下  TSource  和  TResult  分别为不同类型的情况，比如说把  int
 转换成  string  的情况。  
 
+```
 [Test]
+public void SimpleProjectionToDifferentType() {
+ int[] source = {
+  1,
+  5,
+  2
+ };
 
-public  void  SimpleProjectionToDifferentType()
+ var result = source.Select(x => x.ToString());
 
-{
-
-int  [] source = {  1  ,  5  ,  2  };
-
-var result = source.Select(x => x.ToString());
-
-result.AssertSequenceEqual(  "1"  ,  "5"  ,  "2"  );
-
+ result.AssertSequenceEqual("1", "5", "2");
 }  
+```
 
 然后我们看另一个测试，这个测试给我们展示了使用  LINQ  有可能会遇到的奇怪的副作用。其实我们本可以在  Where
 的单元测试中做这个例子的，不过针对  Select  做起来更清晰一些：  
-
+```
 [Test]
+public void SideEffectsInProjection() {
+ int[] source = new int[3];
+ _ // Actual values won't be relevant _
 
-public  void  SideEffectsInProjection()
+ int count = 0;
 
-{
+ var query = source.Select(x => count++);
 
-int  [] source =  new  int  [  3  ];  _ // Actual values won't be relevant _
+ query.AssertSequenceEqual(0, 1, 2);
 
-int  count =  0  ;
+ query.AssertSequenceEqual(3, 4, 5);
 
-var query = source.Select(x => count++);
+ count = 10;
 
-query.AssertSequenceEqual(  0  ,  1  ,  2  );
-
-query.AssertSequenceEqual(  3  ,  4  ,  5  );
-
-count =  10  ;
-
-query.AssertSequenceEqual(  10  ,  11  ,  12  );
-
+ query.AssertSequenceEqual(10, 11, 12);
 }  
+```
 
 请注意我们只调用了  Select  一次，但是对  Select  方法返回值的多次迭代结果都不同，这是因为“  count
 ”这个变量的值被保留住了并在每一次的投影过程中都会被修改。希望您不要写出这种代码。
 
 再然后，我们可以写一些同时包含“  select  ”和“  where  ”的查询表达式：  
-
+```
 [Test]
+public void WhereAndSelect() {
+ int[] source = {
+  1,
+  3,
+  4,
+  2,
+  8,
+  1
+ };
 
-public  void  WhereAndSelect()
+ var result = from x in source
 
-{
+ where x < 4
 
-int  [] source = {  1  ,  3  ,  4  ,  2  ,  8  ,  1  };
+ select x * 2;
 
-var result = from x in source
-
-where x < 4
-
-select x *  2  ;
-
-result.AssertSequenceEqual(  2  ,  6  ,  4  ,  2  );
-
-}  
+ result.AssertSequenceEqual(2, 6, 4, 2);
+}
+```
 
 如果你用过  LINQ to Objects  的话，那么上面这些东西对你来说应该是很熟悉很亲切的，没有什么令人惊讶的。  
 
@@ -158,52 +147,30 @@ l  我们在迭代器代码块中使用  foreach  ，这样就可以保证在输
 
 由于  Select  的实现和  Where  的实现实在是太类似了，下面我直接给出代码。  Select  方法的重载（含有  index
 的那一个）的实现代码就不展示了，因为它和下面的代码差别实在太小了。  
-
-public  static  IEnumerable<TResult> Select<TSource, TResult>(
-
-this  IEnumerable<TSource> source,
-
-Func<TSource, TResult> selector)
+```
+public static IEnumerable < TResult > Select < TSource, TResult > (this IEnumerable < TSource > source, Func < TSource, TResult > selector)
 
 {
+ if (source == null) {
+  throw new ArgumentNullException("source");
+ }
 
-if  (source == null)
+ if (selector == null) {
+  throw new ArgumentNullException("selector");
+ }
 
-{
-
-throw  new  ArgumentNullException(  "source"  );
-
+ return SelectImpl(source, selector);
 }
 
-if  (selector == null)
+private static IEnumerable < TResult > SelectImpl < TSource, TResult > (this IEnumerable < TSource > source, Func < TSource, TResult > selector) {
 
-{
-
-throw  new  ArgumentNullException(  "selector"  );
-
-}
-
-return  SelectImpl(source, selector);
+ foreach(TSource item in source) {
+  yield
+  return selector(item);
+ }
 
 }
-
-private  static  IEnumerable<TResult> SelectImpl<TSource, TResult>(
-
-this  IEnumerable<TSource> source,
-
-Func<TSource, TResult> selector)
-
-{
-
-foreach (TSource item in source)
-
-{
-
-yield  return  selector(item);
-
-}
-
-}  
+```
 
 很简单，对吧？真正用来实现功能的代码还没有参数校验的代码长呢。  
 

@@ -26,28 +26,20 @@ Where  方法是泛型的，不过只有一个类型参数（在我看来这很�
 **
 
 Where  有两个重载：  
+```
+public static IEnumerable < TSource > Where(this IEnumerable < TSource > source, Func < TSource, bool > predicate)
 
-public  static  IEnumerable<TSource> Where(
-
-this  IEnumerable<TSource> source,
-
-Func<TSource,  bool  > predicate)
-
-public  static  IEnumerable<TSource> Where(
-
-this  IEnumerable<TSource> source,
-
-Func<TSource,  int  ,  bool  > predicate)
-
+public static IEnumerable < TSource > Where(this IEnumerable < TSource > source, Func < TSource, int, bool > predicate)
+```
 
 在开始讲述  Where  方法到底做什么之前，我先指出几点  LINQ  操作符的常识，这些常识适用于几乎所有的  LINQ  操作符：  
 
 l  LINQ  操作符都是  [ 扩展方法  ](http://msdn.microsoft.com/en-
-us/library/bb383977.aspx) \-  扩展方法要定义在顶层的，非嵌套的静态类型中而且其第一个参数要带有“  this
+us/library/bb383977.aspx) -  扩展方法要定义在顶层的，非嵌套的静态类型中而且其第一个参数要带有“  this
 ”修饰符。简单来说，扩展方法可以被其第一个参数的实例调用，就好像它是该参数类型的实例方法一样。
 
 l  LINQ  操作符是  [ 泛型方法  ](http://msdn.microsoft.com/en-
-us/library/twcad0zb.aspx) \-  我们要讲的  Where  操作符只有一个叫做  TSource
+us/library/twcad0zb.aspx) -  我们要讲的  Where  操作符只有一个叫做  TSource
 的类型参数，该类型参数指明了要处理的序列的类型。比如说，如果要处理一个  string  的序列，  TSource  就是  string  。
 
 l  LINQ  操作符接受  Func<...> 这一族的泛型委托作为参数，通常以  [ lamdba  表达式
@@ -72,7 +64,7 @@ Where  的目的是去过滤一个序列。它接受一个输入序列及一个 
 l  Where  不会对输入序列做任何修改：它和  [ List<T>.RemoveAll  ](http://msdn.microsoft.com
 /en-us/library/wdka673a.aspx) 之类的方法不一样。
 
-l  Where  是延迟执行的  \-  在你开始读取输出序列中的元素之前，  Where  不会去输入序列中取元素。
+l  Where  是延迟执行的  -  在你开始读取输出序列中的元素之前，  Where  不会去输入序列中取元素。
 
 l  不过也有一点不是延迟执行的，它会立即检查参数是否为  null  。
 
@@ -95,22 +87,26 @@ index  。  Index  总是从  0  开始并且每次递增  1  ，无论之前谓
 
 理想情况下，我们要测试上述所有的东西。但是不幸的是，流式处理和序列被迭代多少次的细节测试起来很是麻烦。考虑到我们还要实现那么多的东西，我们以后再去测试那些。
 
-我们来看看一些测试。首先，看一个“正向”测试  \-  有一个整数数组，我们用一个  lambda  表达式来使得输出结果中仅包含小于  4
+我们来看看一些测试。首先，看一个“正向”测试  -  有一个整数数组，我们用一个  lambda  表达式来使得输出结果中仅包含小于  4
 的元素。（“过滤”这个词无处不在，这真是很不幸。“过滤掉”这个说法比“包含”要好理解得多，但是实际上谓词就是以“正向”的方式来处理的。）  
-
+```
 [Test]
-
-public  void  SimpleFiltering()
-
+public void SimpleFiltering()
 {
+ int[] source = {
+  1,
+  3,
+  4,
+  2,
+  8,
+  1
+ };
 
-int  [] source = {  1  ,  3  ,  4  ,  2  ,  8  ,  1  };
+ var result = source.Where(x => x < 4);
 
-var result = source.Where(x => x < 4  );
-
-result.AssertSequenceEqual(  1  ,  3  ,  2  ,  1  );
-
-}  
+ result.AssertSequenceEqual(1, 3, 2, 1);
+}
+```
 
 虽然  NUnit  中已经有了  CollectionAssert  ，我还是在用  MoreLINQ  中的  TestExtension
 。有三个原因让我觉得  MoreLINQ  的扩展方法更好用：  
@@ -125,32 +121,29 @@ AssertSequenceEqual  所做的事情看名字就可以猜出来，它检查输�
 方法时所使用的那个变量）和期望的序列（通常就是作为参数传入的变长数组）是否匹配。
 
 目前为止进行的还不错。现在来看看参数校验吧：  
-
+```
 [Test]
+public void NullSourceThrowsNullArgumentException() {
+ IEnumerable < int > source = null;
 
-public  void  NullSourceThrowsNullArgumentException()
-
-{
-
-IEnumerable< int  > source = null;
-
-Assert.Throws<ArgumentNullException>(() => source.Where(x => x > 5  ));
-
+ Assert.Throws < ArgumentNullException > (() => source.Where(x => x > 5));
 }
 
 [Test]
+public void NullPredicateThrowsNullArgumentException() {
+ int[] source = {
+  1,
+  3,
+  7,
+  9,
+  10
+ };
 
-public  void  NullPredicateThrowsNullArgumentException()
+ Func < int, bool > predicate = null;
 
-{
-
-int  [] source = {  1  ,  3  ,  7  ,  9  ,  10  };
-
-Func< int  ,  bool  > predicate = null;
-
-Assert.Throws<ArgumentNullException>(()=> source.Where(predicate));
-
+ Assert.Throws < ArgumentNullException > (() => source.Where(predicate));
 }  
+```
 
 我就不再费劲去检查  ArgumentNullException
 里面的参数名字了，但是我要测试参数是不是立即被校验的，这一点很重要的。我没有迭代输出结果，所以如果参数校验是延迟执行的，这两个测试将不能通过。
@@ -163,38 +156,26 @@ l  仅仅调用  Where  不会开始迭代输入序列。
 l  调用  GetEnumerator()  来获取迭代器，然后再调用迭代器的  MoveNext()  的话，就开始迭代了，这就会导致一个异常被抛出。  
 
 对其它的操作符我们也需要做类似的测试，所以我在  ThrowingEnumerable  里写了一个  helper  方法：  
+```
+internal static void AssertDeferred < T > (Func < IEnumerable < int > , IEnumerable < T >> deferredFunction) {
+ ThrowingEnumerable source = new ThrowingEnumerable();
 
-internal  static  void  AssertDeferred<T>(
+ var result = deferredFunction(source);
 
-Func<IEnumerable< int  >, IEnumerable<T>> deferredFunction)
-
-{
-
-ThrowingEnumerable source =  new  ThrowingEnumerable();
-
-var result = deferredFunction(source);
-
-using  (var iterator = result.GetEnumerator())
-
-{
-
-Assert.Throws<InvalidOperationException>(() => iterator.MoveNext());
-
-}
-
+ using(var iterator = result.GetEnumerator()) {
+  Assert.Throws < InvalidOperationException > (() => iterator.MoveNext());
+ }
 }  
+```
 
 现在我们就可以测试  Where  是不是延迟执行的了：  
-
+```
 [Test]
-
 public  void  ExecutionIsDeferred()
-
 {
-
-ThrowingEnumerable.AssertDeferred(src => src.Where(x => x > 0  ));
-
+    ThrowingEnumerable.AssertDeferred(src => src.Where(x => x > 0  ));
 }  
+```
 
 以上所示的都是对  Where  的简单重载的测试，也就是那个谓词只能访问元素值而不能访问元素  index  的重载。能够访问  index
 的那个重载的测试与上述测试非常类似。  
@@ -211,79 +192,44 @@ IEnumerable<T> 的实现。如果你想了解更多的背景知识的话，我�
 不过它也是一把双刃剑，我们马上就会体会到了。
 
 Where  的核心部分是这样的：  
-
+```
 // Naive implementation
 
-public  static  IEnumerable<TSource> Where<TSource>(
-
-this  IEnumerable<TSource> source,
-
-Func<TSource,  bool  > predicate)
-
-{
-
-foreach (TSource item in source)
-
-{
-
-if  (predicate(item))
-
-{
-
-yield  return  item;
-
-}
-
-}
-
+public static IEnumerable < TSource > Where < TSource > (this IEnumerable < TSource > source, Func < TSource, bool > predicate) {
+ foreach(TSource item in source) {
+  if (predicate(item)) {
+   yield
+   return item;
+  }
+ }
 }  
+```
 
 很简单，是吧？用迭代器代码块写出来的代码就和用自然语言描述起来差不多：迭代输入序列中的每一个元素，如果谓词在一个元素上返回  true
 的话，这个元素就可以被  yield  （也就是包含）到输出序列中去。
 
 诸位请看，有一些单元测试已经可以通过了。现在我们只需要参数校验了。参数校验很简单的，对吧？我们来试试看：  
-
+```
 // Naive validation - broken!
 
-public  static  IEnumerable<TSource> Where<TSource>(
-
-this  IEnumerable<TSource> source,
-
-Func<TSource,  bool  > predicate)
-
+public static IEnumerable < TSource > Where < TSource > (this IEnumerable < TSource > source, Func < TSource, bool > predicate)
 {
+ if (source == null) {
+  throw new ArgumentNullException("source");
+ }
 
-if  (source == null)
+ if (predicate == null) {
+  throw new ArgumentNullException("predicate");
+ }
 
-{
-
-throw  new  ArgumentNullException(  "source"  );
-
-}
-
-if  (predicate == null)
-
-{
-
-throw  new  ArgumentNullException(  "predicate"  );
-
-}
-
-foreach (TSource item in source)
-
-{
-
-if  (predicate(item))
-
-{
-
-yield  return  item;
-
-}
-
-}
-
+ foreach(TSource item in source) {
+  if (predicate(item)) {
+   yield
+   return item;
+  }
+ }
 }  
+```
 
 呃。测试亮起了红灯，通不过，在“  throw  ”的那一句上设断点也没用  ...  断点根本就执行不到。怎么回事儿？
 
@@ -292,117 +238,65 @@ yield  return  item;
 
 我们遇到了一个  C#  设计上的缺陷。  C#  中的迭代器代码块不能很好的对“立即执行”（通常用来做参数校验）和“延迟执行”作出分离。我们必须得把我们上
 述的实现分为两个方法：第一个方法做参数校验，第二个方法含有迭代器代码块，用来实现延迟执行，第一个方法会调用第二个方法：  
+```
+public static IEnumerable < TSource > Where < TSource > (this IEnumerable < TSource > source, Func < TSource, bool > predicate) {
+ if (source == null) {
+  throw new ArgumentNullException("source");
+ }
 
-public  static  IEnumerable<TSource> Where<TSource>(
+ if (predicate == null) {
+  throw new ArgumentNullException("predicate");
+ }
 
-this  IEnumerable<TSource> source,
-
-Func<TSource,  bool  > predicate)
-
-{
-
-if  (source == null)
-
-{
-
-throw  new  ArgumentNullException(  "source"  );
-
+ return WhereImpl(source, predicate);
 }
 
-if  (predicate == null)
+private static IEnumerable < TSource > WhereImpl < TSource > (
+ this IEnumerable < TSource > source,
+ Func < TSource, bool > predicate) {
 
-{
-
-throw  new  ArgumentNullException(  "predicate"  );
-
+ foreach(TSource item in source) {
+  if (predicate(item)) {
+   yield
+   return item;
+  }
+ }
 }
-
-return  WhereImpl(source, predicate);
-
-}
-
-private  static  IEnumerable<TSource> WhereImpl<TSource>(
-
-this  IEnumerable<TSource> source,
-
-Func<TSource,  bool  > predicate)
-
-{
-
-foreach (TSource item in source)
-
-{
-
-if  (predicate(item))
-
-{
-
-yield  return  item;
-
-}
-
-}
-
-}  
+```
 
 这样的代码很丑陋，但是能用：所有的针对于  Where  的简单重载（不含有  index  ）的测试都可以通过了。有了现在的基础，要实现  Where
 的含有  index  的重载也就很简单了：  
+```
+public static IEnumerable < TSource > Where < TSource > (
+ this IEnumerable < TSource > source,
+ Func < T, int, bool > predicate) {
+ if (source == null) {
+  throw new ArgumentNullException("source");
+ }
 
-public  static  IEnumerable<TSource> Where<TSource>(
+ if (predicate == null) {
+  throw new ArgumentNullException("predicate");
+ }
 
-this  IEnumerable<TSource> source,
-
-Func<T,  int  ,  bool  > predicate)
-
-{
-
-if  (source == null)
-
-{
-
-throw  new  ArgumentNullException(  "source"  );
-
+ return WhereImpl(source, predicate);
 }
 
-if  (predicate == null)
+private static IEnumerable < TSource > WhereImpl < TSource > (
+ this IEnumerable < TSource > source,
+ Func < TSource, int, bool > predicate) {
 
-{
+ int index = 0;
 
-throw  new  ArgumentNullException(  "predicate"  );
+ foreach(TSource item in source) {
+  if (predicate(item, index)) {
+   yield
+   return item;
+  }
 
-}
-
-return  WhereImpl(source, predicate);
-
-}
-
-private  static  IEnumerable<TSource> WhereImpl<TSource>(
-
-this  IEnumerable<TSource> source,
-
-Func<TSource,  int  ,  bool  > predicate)
-
-{
-
-int  index =  0  ;
-
-foreach (TSource item in source)
-
-{
-
-if  (predicate(item, index))
-
-{
-
-yield  return  item;
-
-}
-
-index++;
-
-}
-
+  index++;
+ }
 }  
+```
 
 现在所有单元测试都通过了，我们的实现完成了。不过等一下  ...  我们还没有无所不用其极的使用  Where  呢。  
 
@@ -412,23 +306,27 @@ index++;
 到目前为止，我们都是在直接的调用  Where  方法（尽管是以扩展方法的形式出现的），不过  LINQ  可是还给我们提供了查询表达式的。下面是“
 SimpleFiltering  ”那个测试的重写版本，其中用到了查询表达式：  
 
+```
 [Test]
+public void QueryExpressionSimpleFiltering() {
+ int[] source = {
+  1,
+  3,
+  4,
+  2,
+  8,
+  1
+ };
 
-public  void  QueryExpressionSimpleFiltering()
+ var result = from x in source
 
-{
+ where x < 4
 
-int  [] source = {  1  ,  3  ,  4  ,  2  ,  8  ,  1  };
+ select x;
 
-var result = from x in source
-
-where x < 4
-
-select x;
-
-result.AssertSequenceEqual(  1  ,  3  ,  2  ,  1  );
-
-}  
+ result.AssertSequenceEqual(1, 3, 2, 1);
+}
+```
 
 （本博文中出现的方法名和下载到的代码中的不同，因为方法名中含有博客服务器的敏感词。呃。）
 

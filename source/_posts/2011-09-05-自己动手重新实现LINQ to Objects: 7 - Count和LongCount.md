@@ -28,29 +28,17 @@ us/library/system.linq.enumerable.count.aspx) 和  [ LongCount
 us/library/system.linq.enumerable.longcount.aspx)
 各自有两个重载：一个重载接受谓词，另一个不接受。下面是这四个方法的签名：
 
-  
-public  static  int  Count<TSource>(
+```
+public static int Count < TSource > (this IEnumerable < TSource > source)
 
-this  IEnumerable<TSource> source)
+public static int Count < TSource > (this IEnumerable < TSource > source, Func < TSource, bool > predicate)
 
-public  static  int  Count<TSource>(
+public static long LongCount < TSource > (this IEnumerable < TSource > source)
 
-this  IEnumerable<TSource> source,
+public static long LongCount < TSource > (this IEnumerable < TSource > source, Func < TSource, bool > predicate)
+```
 
-Func<TSource,  bool  > predicate)
-
-public  static  long  LongCount<TSource>(
-
-this  IEnumerable<TSource> source)
-
-public  static  long  LongCount<TSource>(
-
-this  IEnumerable<TSource> source,
-
-Func<TSource,  bool  > predicate)  
-
-可以看到，  Count  和  LongCount  的方法签名的差别仅在于返回值类型，一个是  int  （  Int32  ），一个是  long
-（  Int64  ）。
+可以看到，  Count  和  LongCount  的方法签名的差别仅在于返回值类型，一个是  int  （  Int32  ），一个是  long（  Int64  ）。
 
 不接受谓词的重载返回输入序列中元素的个数；而接受谓词的重载则返回能够通过谓词验证的元素的个数。
 
@@ -99,23 +87,17 @@ SemiGenericCollection  的类。
 创建了一个检验溢出行为的单元测试。很不幸，我们现在还不能在  Edulinq  的环境里运行它，因为我们还没有实现  Concat
 。不过我还是把它写在这里：
 
-  
+```
 [Test]
+[Ignore("Takes an enormous amount of time!")]
+public void Overflow() {
 
-[Ignore(  "Takes an enormous amount of time!"  )]
+ var largeSequence = Enumerable.Range(0, int.MaxValue).Concat(Enumerable.Range(0, 1));
 
-public  void  Overflow()
-
-{
-
-var largeSequence = Enumerable.Range(  0  ,  int  .MaxValue)
-
-.Concat(Enumerable.Range(  0  ,  1  ));
-
-Assert.Throws<OverflowException>(() => largeSequence.Count());
+ Assert.Throws < OverflowException > (() => largeSequence.Count());
 
 }
-
+```
   
 如果  Count  的实现在应该抛出异常的时候把返回值溢出到了  Int.MinValue  的话，这个测试可以发现到它。
 
@@ -130,57 +112,39 @@ Assert.Throws<OverflowException>(() => largeSequence.Count());
   
 我们来看看接受谓词的那个重载的实现吧，它其实挺简单的：
 
-  
-public  static  int  Count<TSource>(  this  IEnumerable<TSource> source,
+```
+public static int Count < TSource > (this IEnumerable < TSource > source, Func < TSource, bool > predicate) {
 
-Func<TSource,  bool  > predicate)
+ if (source == null) {
 
-{
+  throw new ArgumentNullException("source");
+ }
 
-if  (source == null)
+ if (predicate == null) {
 
-{
+  throw new ArgumentNullException("predicate");
+ }
 
-throw  new  ArgumentNullException(  "source"  );
+ // No way of optimizing this _
 
-}
+ checked {
 
-if  (predicate == null)
+  int count = 0;
 
-{
+  foreach(TSource item in source) {
 
-throw  new  ArgumentNullException(  "predicate"  );
+   if (predicate(item)) {
 
-}
+    count++;
+   }
 
-_ // No way of optimizing this _
+  }
 
-checked
-
-{
-
-int  count =  0  ;
-
-foreach (TSource item in source)
-
-{
-
-if  (predicate(item))
-
-{
-
-count++;
+  return count;
+ }
 
 }
-
-}
-
-return  count;
-
-}
-
-}
-
+```
   
 请注意，在这里我们不需要返回一个序列，所以就没有用到迭代器代码块，因而也就无需把实现拆分到两个方法中去。
 
@@ -200,71 +164,59 @@ count++  这一句代码放在  checked  代码块中，不过我个人觉得现
 
 除了与谓词有关的部分，上面的代码会全部出现在  Count  的优化过的实现中，我们就不再讲解了，直接写出代码：
 
-  
-public  static  int  Count<TSource>(  this  IEnumerable<TSource> source)
+```
+public static int Count < TSource > (this IEnumerable < TSource > source) {
 
-{
+ if (source == null) {
 
-if  (source == null)
+  throw new ArgumentNullException("source");
 
-{
+ }
 
-throw  new  ArgumentNullException(  "source"  );
+ // Optimization for ICollection<T> _
 
-}
+ ICollection < TSource > genericCollection = source as ICollection < TSource > ;
 
-_ // Optimization for ICollection<T> _
+ if (genericCollection != null) {
 
-ICollection<TSource> genericCollection = source as ICollection<TSource>;
+  return genericCollection.Count;
 
-if  (genericCollection != null)
+ }
 
-{
+ _ // Optimization for ICollection _
 
-return  genericCollection.Count;
+ ICollection nonGenericCollection = source as ICollection;
 
-}
+ if (nonGenericCollection != null) {
 
-_ // Optimization for ICollection _
+  return nonGenericCollection.Count;
 
-ICollection nonGenericCollection = source as ICollection;
+ }
 
-if  (nonGenericCollection != null)
+ _ // Do it the slow way - and make sure we overflow appropriately _
 
-{
+ checked {
 
-return  nonGenericCollection.Count;
+  int count = 0;
 
-}
+  using(var iterator = source.GetEnumerator()) {
 
-_ // Do it the slow way - and make sure we overflow appropriately _
+   while (iterator.MoveNext())
 
-checked
+   {
 
-{
+    count++;
 
-int  count =  0  ;
+   }
 
-using  (var iterator = source.GetEnumerator())
+  }
 
-{
+  return count;
 
-while  (iterator.MoveNext())
-
-{
-
-count++;
+ }
 
 }
-
-}
-
-return  count;
-
-}
-
-}
-
+```
   
 这个实现里面唯一的“新”代码就是关于优化的那段。优化代码中的两段基本是一样的，它们检查不同的集合接口类型，哪个检查通过就返回哪个的  Count
 属性。我不知道  .NET Framework  的实现中是先检查  ICollection  还是先检查  ICollection<T>
@@ -299,6 +251,3 @@ Int32.MaxValue  个元素的话，它的  Count  属性应该返回什么值呢�
 
 下一次我想我会去实现  Concat  ，主要是因为实现了  Concat  就可以把对  Count  进行溢出测试的代码反注释了。  Concat
 是一个会返回一个序列的操作符，不过它很简单。
-
-
-

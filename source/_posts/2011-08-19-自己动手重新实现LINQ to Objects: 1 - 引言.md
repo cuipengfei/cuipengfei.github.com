@@ -11,10 +11,6 @@ linq-to-objects-part-1-introduction.aspx
 ](http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-to-
 objects-part-1-introduction.aspx)
 
-
-
-
-
 大约一年半之前，我在 [ DDD ](http://developerdeveloperdeveloper.com/)
 的活动日上做了一次演讲。我当时试图去重新实现LINQ to
 Objects，在一小时内能实现多少算多少。根据会后的反馈信息来看，我当时做得太快了...而且我还是远远没有实现完整。不过无论如何我还是觉得重新实现LINQ
@@ -23,9 +19,6 @@ to Objects是一个很有趣的练习，所以我觉得我应该用且行且博�
 这一系列的博文都会标上 [ "Edulinq"的标签
 ](http://msmvps.com/blogs/jon_skeet/archive/tags/Edulinq/default.aspx)
 ，你可以用这种方式过滤出这一系列博文。
-
-
-
 
 ** 总体思路 **
 

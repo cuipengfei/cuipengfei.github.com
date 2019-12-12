@@ -42,41 +42,31 @@ l  对每个类型参数来说，返回值会被缓存起来。
 
 和测试  Range  的时候的方法一样，我们用一个叫做  EmptyClass  的别名来引用包含  Empty  的类型。下面是测试代码：  
 
+```
 [Test]
-
-public  void  EmptyContainsNoElements()
-
-{
-
-using  (var empty = EmptyClass.Empty< int  >().GetEnumerator())
-
-{
-
-Assert.IsFalse(empty.MoveNext());
-
-}
-
+public void EmptyContainsNoElements() {
+ using(var empty = EmptyClass.Empty < int > ().GetEnumerator()) {
+  Assert.IsFalse(empty.MoveNext());
+ }
 }
 
 [Test]
+public void EmptyIsASingletonPerElementType() {
 
-public  void  EmptyIsASingletonPerElementType()
+ Assert.AreSame(EmptyClass.Empty < int > (), EmptyClass.Empty < int > ());
 
-{
+ Assert.AreSame(EmptyClass.Empty < long > (), EmptyClass.Empty < long > ());
 
-Assert.AreSame(EmptyClass.Empty< int  >(), EmptyClass.Empty< int  >());
+ Assert.AreSame(EmptyClass.Empty < string > (), EmptyClass.Empty < string > ());
 
-Assert.AreSame(EmptyClass.Empty< long  >(), EmptyClass.Empty< long  >());
+ Assert.AreSame(EmptyClass.Empty < object > (), EmptyClass.Empty < object > ());
 
-Assert.AreSame(EmptyClass.Empty< string  >(), EmptyClass.Empty< string  >());
+ Assert.AreNotSame(EmptyClass.Empty < long > (), EmptyClass.Empty < int > ());
 
-Assert.AreSame(EmptyClass.Empty<object>(), EmptyClass.Empty<object>());
+ Assert.AreNotSame(EmptyClass.Empty < string > (), EmptyClass.Empty < object > ());
 
-Assert.AreNotSame(EmptyClass.Empty< long  >(), EmptyClass.Empty< int  >());
-
-Assert.AreNotSame(EmptyClass.Empty< string  >(), EmptyClass.Empty<object>());
-
-}  
+}
+```
 
 当然，以上代码并不能证明缓存不是每个线程一份。不过，这些测试也够了。  
 
@@ -85,15 +75,17 @@ Assert.AreNotSame(EmptyClass.Empty< string  >(), EmptyClass.Empty<object>());
 
 现在看来，  Empty  的实现要比它的描述更有趣。如果不是要做缓存，我们可以这样实现  Empty  ：  
 
-_ // Doesn't cache the empty sequence _
+```
+// Doesn't cache the empty sequence _
 
-public  static  IEnumerable<TResult> Empty<TResult>()
-
+public static IEnumerable < TResult > Empty < TResult > ()
 {
 
-yield  break  ;
+ yield
+ break;
 
 }  
+```
 
 不过我们需要遵守关于缓存的文档。要实现缓存其实也不难。有一个很方便的事实可以为我们所用，  ** 空数组是不可变的 ** 。数组的长度是固定的，通常无法使一
 个数组是只读的。数组中的任何一个元素都是可以改变的。不过一个空数组是不包含任何元素的，所以也就没有什么可被改变的。这样，我们就可以反复的重用同一个数组了。
@@ -103,22 +95,18 @@ yield  break  ;
 
 很不幸，  Empty  是一个非泛型类型中的方法。所以我们需要创建另一个泛型类型来包含缓存。这很容易做到，而且  CLR
 还帮我们做到了线程安全的类型初始化。所以，我们最后的实现会是这样的：  
+```
+public static IEnumerable < TResult > Empty < TResult > () {
 
-public  static  IEnumerable<TResult> Empty<TResult>()
-
-{
-
-return  EmptyHolder<TResult>.Array;
-
+ return EmptyHolder < TResult > .Array;
 }
 
-private  static  class  EmptyHolder<T>
+private static class EmptyHolder < T > {
 
-{
+ internal static readonly T[] Array = new T[0];
 
-internal  static  readonly T[] Array =  new  T[  0  ];
-
-}  
+}
+```
 
 以上的实现遵守了所有的关于缓存的文档，而且代码行数也很少。不过这个实现方式需要你很好的了解  .NET  中泛型的工作方式。这种做法和我们上一篇采取的策略相
 反，我们选择了一种比较难懂的方式，而没有选择使用字典的易懂的方式。不过我很满意这种方案，因为一旦你了解了泛型类型和静态变量的工作方式，这段代码就很简单了。  
@@ -132,100 +120,94 @@ Empty  的实现就是这样的。下一个操作符  Repeat  有可能会更简
 **
 
 因为以上讲解的方法有点难懂，所以下面再提供另一种实现：  
-
-public  static  IEnumerable<TResult> Empty<TResult>()
-
+```
+public static IEnumerable < TResult > Empty < TResult > ()
 {
 
-return  EmptyEnumerable<TResult>.Instance;
-
+ return EmptyEnumerable < TResult > .Instance;
 }
 
-#if AVOID_RETURNING_ARRAYS
+# if AVOID_RETURNING_ARRAYS
 
-private  class  EmptyEnumerable<T> : IEnumerable<T>, IEnumerator<T>
+private class EmptyEnumerable < T >: IEnumerable < T > , IEnumerator < T >
+ {
 
-{
+  internal static IEnumerable < T > Instance = new EmptyEnumerable < T > ();
 
-internal  static  IEnumerable<T> Instance =  new  EmptyEnumerable<T>();
+  _ // Prevent construction elsewhere _
 
-_ // Prevent construction elsewhere _
+  private EmptyEnumerable()
+  {
 
-private  EmptyEnumerable()
+  }
 
-{
+  public IEnumerator < T > GetEnumerator()
+  {
 
-}
+   return this;
 
-public  IEnumerator<T> GetEnumerator()
+  }
 
-{
+  IEnumerator IEnumerable.GetEnumerator()
+  {
 
-return  this  ;
+   return this;
+  }
 
-}
+  public T Current
+  {
 
-IEnumerator IEnumerable.GetEnumerator()
+   get {
+    throw new InvalidOperationException();
+   }
 
-{
+  }
 
-return  this  ;
+  object IEnumerator.Current
+  {
 
-}
+   get {
+    throw new InvalidOperationException();
+   }
 
-public  T Current
+  }
 
-{
+  public void Dispose()
+  {
 
-get { throw  new  InvalidOperationException(); }
+   _ // No-op _
 
-}
+  }
 
-object IEnumerator.Current
+  public bool MoveNext()
+  {
 
-{
+   return false;
+   _ // There's never a next entry _
 
-get { throw  new  InvalidOperationException(); }
+  }
 
-}
+  public void Reset()
+  {
 
-public  void  Dispose()
+   _ // No-op _
 
-{
+  }
 
-_ // No-op _
+ }
 
-}
+# else
 
-public  bool  MoveNext()
+ private static class EmptyEnumerable < T >
 
-{
+ {
 
-return  false  ;  _ // There's never a next entry _
+  internal static readonly T[] Instance = new T[0];
 
-}
+ }
 
-public  void  Reset()
-
-{
-
-_ // No-op _
-
-}
-
-}
-
-#else
-
-private  static  class  EmptyEnumerable<T>
-
-{
-
-internal  static  readonly T[] Instance =  new  T[  0  ];
-
-}
-
-#endif  
+# endif
+```
 
 这下大家都满足了吧：）
 

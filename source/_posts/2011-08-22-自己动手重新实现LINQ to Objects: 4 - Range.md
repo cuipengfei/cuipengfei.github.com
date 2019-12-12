@@ -26,11 +26,9 @@ LongCount  就比较适合放在一起讲。不过我也要采纳读者的意见
 [ Range  ](http://msdn.microsoft.com/en-
 us/library/system.linq.enumerable.range.aspx) 只有一种方法签名：
 
-public  static  IEnumerable< int  > Range(
-
-int  start,
-
-int  count)
+```
+public  static  IEnumerable< int  > Range(int  start, int  count)
+```
 
 和  LINQ  中的其他操作符不同，  Range  不是扩展方法，它就是一个普通的静态方法。  Range  返回一个可枚举的对象，该对象会
 yield  返回“  count  ”个整数，返回的整数序列从“  start  ”开始，逐次加一。举例来说，
@@ -55,6 +53,7 @@ System.Linq.Enumerable  要么指向  Edulinq.Enumerable  。测试代码中用�
 RangeClass.Range  。为此我创建了两个项目配置，其中一个定义了叫做  NORMAL_LINQ
 的预处理符号，另一个则没有定义任何预处理符号，这样就可以在两种  LINQ  实现之间做切换了。  RangeTest.cs  中会包含如下的代码：  
 
+```
 #if NORMAL_LINQ
 
 using  RangeClass =  System  .Linq.Enumerable;
@@ -64,6 +63,7 @@ using  RangeClass =  System  .Linq.Enumerable;
 using  RangeClass = Edulinq.Enumerable;
 
 #endif  
+```
 
 当然了，也有别的办法可以替代以上的方式：  
 
@@ -113,49 +113,33 @@ l  start+count-1  可以等于  Int32.MaxValue  （所以  Range(Int32.MaxValue,
 
 由于一开始就确定了参数不会超过  Int32  的上下限，我们在实现的主体部分就可以随意一点了。  
 
-public  static  IEnumerable< int  > Range(  int  start,  int  count)
+```
+public static IEnumerable < int > Range(int start, int count) {
 
-{
+ if (count < 0) {
+  throw new ArgumentOutOfRangeException("count");
+ }
 
-if  (count < 0  )
+ _ // Convert everything to long to avoid overflows. There are other ways of checking _
 
-{
+ _ // for overflow, but this way make the code correct in the most obvious way._
 
-throw  new  ArgumentOutOfRangeException(  "count"  );
+ if ((long) start + (long) count - 1 L > int.MaxValue) {
+  throw new ArgumentOutOfRangeException("count");
+ }
 
+ return RangeImpl(start, count);
 }
 
-_ // Convert everything to long to avoid overflows. There are other ways of
-checking _
+private static IEnumerable < int > RangeImpl(int start, int count) {
 
-_ // for overflow, but this way make the code correct in the most obvious way.
-_
-
-if  ((  long  )start + (  long  )count -  1L  > int  .MaxValue)
-
-{
-
-throw  new  ArgumentOutOfRangeException(  "count"  );
-
-}
-
-return  RangeImpl(start, count);
-
-}
-
-private  static  IEnumerable< int  > RangeImpl(  int  start,  int  count)
-
-{
-
-for  (  int  i =  0  ; i < count; i++)
-
-{
-
-yield  return  start + i;
-
-}
+ for (int i = 0; i < count; i++) {
+  yield
+  return start + i;
+ }
 
 }  
+```
 
 有几点需要说明：  
 

@@ -13,10 +13,6 @@ to-objects-part-8-concat.aspx _
 ](http://msmvps.com/blogs/jon_skeet/archive/2010/12/27/reimplementing-linq-to-
 objects-part-8-concat.aspx)
 
-  
-
-  
-
 ** **
 
 上文讲的  Count  和  LongCount  返回的是数值类型，本文我们讲的  Concat  返回的是一个序列。  
@@ -27,13 +23,9 @@ objects-part-8-concat.aspx)
 Concat  ](http://msdn.microsoft.com/en-us/library/bb302894.aspx)
 只有一种签名形式，这让它使用起来很简单：
 
-  
-public  static  IEnumerable<TSource> Concat<TSource>(
-
-this  IEnumerable<TSource> first,
-
-IEnumerable<TSource> second)
-
+```
+public  static  IEnumerable<TSource> Concat<TSource>(this  IEnumerable<TSource> first, IEnumerable<TSource> second)
+```
   
 Concat  的返回值依次包含了两个序列中的元素，也就是说把两个序列串联起来了。
 
@@ -68,69 +60,63 @@ Concat  的串联行为很容易被测试，只需要一个用例就够了。我
 
 最后，还有一个单元测试用来测试两个输入序列被迭代的时机。这个测试中用到了我们在测试  Where  时用过的  ThrowingEnumerable  ：
 
-  
+```
 [Test]
+public void FirstSequenceIsntAccessedBeforeFirstUse() {
 
-public  void  FirstSequenceIsntAccessedBeforeFirstUse()
+ IEnumerable < int > first = new ThrowingEnumerable();
 
-{
+ IEnumerable < int > second = new int[] {
+  5
+ };
 
-IEnumerable< int  > first =  new  ThrowingEnumerable();
+ // No exception yet... _
 
-IEnumerable< int  > second =  new  int  [] {  5  };
+ var query = first.Concat(second);
 
-_ // No exception yet... _
+ // Still no exception... _
 
-var query = first.Concat(second);
+ using(var iterator = query.GetEnumerator()) {
 
-_ // Still no exception... _
+  // Now it will go bang _
 
-using  (var iterator = query.GetEnumerator())
+  Assert.Throws < InvalidOperationException > (() => iterator.MoveNext());
 
-{
-
-_ // Now it will go bang _
-
-Assert.Throws<InvalidOperationException>(() => iterator.MoveNext());
-
-}
+ }
 
 }
 
 [Test]
+public void SecondSequenceIsntAccessedBeforeFirstUse() {
 
-public  void  SecondSequenceIsntAccessedBeforeFirstUse()
+ IEnumerable < int > first = new int[] {
+  5
+ };
 
-{
+ IEnumerable < int > second = new ThrowingEnumerable();
 
-IEnumerable< int  > first =  new  int  [] {  5  };
+ // No exception yet... _
 
-IEnumerable< int  > second =  new  ThrowingEnumerable();
+ var query = first.Concat(second);
 
-_ // No exception yet... _
+ // Still no exception... _
 
-var query = first.Concat(second);
+ using(var iterator = query.GetEnumerator()) {
 
-_ // Still no exception... _
+  // First element is fine... _
 
-using  (var iterator = query.GetEnumerator())
+  Assert.IsTrue(iterator.MoveNext());
 
-{
+  Assert.AreEqual(5, iterator.Current);
 
-_ // First element is fine... _
+  // Now it will go bang, as we move into the second sequence _
 
-Assert.IsTrue(iterator.MoveNext());
+  Assert.Throws < InvalidOperationException > (() => iterator.MoveNext());
 
-Assert.AreEqual(  5  , iterator.Current);
-
-_ // Now it will go bang, as we move into the second sequence _
-
-Assert.Throws<InvalidOperationException>(() => iterator.MoveNext());
-
-}
+ }
 
 }
-
+```
   
 我们写测试来检查迭代器是否被  Dispose  掉了。但是我们可以预测到输入序列的迭代器应该会被合理的  Dispose
 掉。实际上，第一个序列的迭代器会在第二个序列开始被迭代之前就被  Dispose  掉。
@@ -141,61 +127,45 @@ Assert.Throws<InvalidOperationException>(() => iterator.MoveNext());
   
 Concat  的实现虽然比较简单，但是我写完之后还是觉得  F#  更值得拥有  ...  实现分为参数校验和迭代器代码块两部分，每一部分都不复杂：
 
-  
-public  static  IEnumerable<TSource> Concat<TSource>(
+```
+public static IEnumerable < TSource > Concat < TSource > (this IEnumerable < TSource > first, IEnumerable < TSource > second) {
 
-this  IEnumerable<TSource> first,
+ if (first == null) {
 
-IEnumerable<TSource> second)
+  throw new ArgumentNullException("first");
 
-{
+ }
 
-if  (first == null)
+ if (second == null) {
 
-{
+  throw new ArgumentNullException("second");
 
-throw  new  ArgumentNullException(  "first"  );
+ }
 
-}
-
-if  (second == null)
-
-{
-
-throw  new  ArgumentNullException(  "second"  );
+ return ConcatImpl(first, second);
 
 }
 
-return  ConcatImpl(first, second);
+private static IEnumerable < TSource > ConcatImpl < TSource > (
+ IEnumerable < TSource > first,
+ IEnumerable < TSource > second) {
+
+ foreach(TSource item in first) {
+
+  yield
+  return item;
+
+ }
+
+ foreach(TSource item in second) {
+
+  yield
+  return item;
+
+ }
 
 }
-
-private  static  IEnumerable<TSource> ConcatImpl<TSource>(
-
-IEnumerable<TSource> first,
-
-IEnumerable<TSource> second)
-
-{
-
-foreach (TSource item in first)
-
-{
-
-yield  return  item;
-
-}
-
-foreach (TSource item in second)
-
-{
-
-yield  return  item;
-
-}
-
-}
-
+```
   
 如果不能利用迭代器代码块的话，这个实现会变得很麻烦。虽然不会特别难，但是我们需要记住当前正在迭代的是哪个序列。
 
@@ -224,35 +194,31 @@ SelectMany  则可以把很多个序列连接成一个序列，而且  SelectMan
   
 有一条留言建议说要在遍历完第一个序列后把它设为  null  。这样，在遍历完第一个序列后，它就可以被垃圾回收了。如果采取这个建议，那么实现起来会是这样的：
 
-private  static  IEnumerable<TSource> ConcatImpl<TSource>(
+```
+private static IEnumerable < TSource > ConcatImpl < TSource > (
+ IEnumerable < TSource > first,
+ IEnumerable < TSource > second) {
 
-IEnumerable<TSource> first,
+ foreach(TSource item in first) {
 
-IEnumerable<TSource> second)
+  yield
+  return item;
 
-{
+ }
 
-foreach (TSource item in first)
+ // Avoid hanging onto a reference we don't really need _
 
-{
+ first = null;
 
-yield  return  item;
+ foreach(TSource item in second) {
 
-}
+  yield
+  return item;
 
-_ // Avoid hanging onto a reference we don't really need _
-
-first = null;
-
-foreach (TSource item in second)
-
-{
-
-yield  return  item;
+ }
 
 }
-
-}
+```
 
 在普通情况下，把一个不再使用的局部变量设为  null  这种做法是没用的。因为当  CLR
 在执行优化过的代码，并且没有挂上调试器时，垃圾收集器只关心在方法内部可能还会被访问的变量。
@@ -262,21 +228,20 @@ yield  return  item;
 
 或许我们可以在调用  GetEnumerator  之前清空掉我们对“  first  ”这个参数的唯一引用。我们可以写一个这样的方法：
 
-public  static  T ReturnAndSetToNull<T>(ref T value) where T :  class
+```
+public static T ReturnAndSetToNull < T > (ref T value) where T: class {
+ T tmp = value;
 
-{
+ value = null;
 
-T tmp = value;
-
-value = null;
-
-return  tmp;
-
+ return tmp;
 }
+```
 
 然后这样调用它：
-
+```
 foreach (TSource item in ReturnAndSetToNull(ref first))
+```
 
 我认为这样做绝对是有点过了，因为迭代器有可能还会持有对集合的引用。不过在遍历之后把“  first  ”这个参数设为  null  在我看来是说得通的。
 

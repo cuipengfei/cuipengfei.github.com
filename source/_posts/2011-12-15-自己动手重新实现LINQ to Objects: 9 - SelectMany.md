@@ -20,33 +20,25 @@ SelectMany  是什么？
 
 SelectMany  有四个重载，看起来一个比一个吓人：
 
-public static IEnumerable<TResult> SelectMany<TSource, TResult>(
+```
+public static IEnumerable < TResult > SelectMany < TSource, TResult > (
+ this IEnumerable < TSource > source,
+ Func < TSource, IEnumerable < TResult >> selector)
 
-this IEnumerable<TSource> source,
+public static IEnumerable < TResult > SelectMany < TSource, TResult > (
+ this IEnumerable < TSource > source,
+ Func < TSource, int, IEnumerable < TResult >> selector)
 
-Func<TSource, IEnumerable<TResult>> selector)
+public static IEnumerable < TResult > SelectMany < TSource, TCollection, TResult > (
+ this IEnumerable < TSource > source,
+ Func < TSource, IEnumerable < TCollection >> collectionSelector,
+ Func < TSource, TCollection, TResult > resultSelector)
 
-public static IEnumerable<TResult> SelectMany<TSource, TResult>(
-
-this IEnumerable<TSource> source,
-
-Func<TSource, int, IEnumerable<TResult>> selector)
-
-public static IEnumerable<TResult> SelectMany<TSource, TCollection, TResult>(
-
-this IEnumerable<TSource> source,
-
-Func<TSource, IEnumerable<TCollection>> collectionSelector,
-
-Func<TSource, TCollection, TResult> resultSelector)
-
-public static IEnumerable<TResult> SelectMany<TSource, TCollection, TResult>(
-
-this IEnumerable<TSource> source,
-
-Func<TSource, int, IEnumerable<TCollection>> collectionSelector,
-
-Func<TSource, TCollection, TResult> resultSelector)
+public static IEnumerable < TResult > SelectMany < TSource, TCollection, TResult > (
+ this IEnumerable < TSource > source,
+ Func < TSource, int, IEnumerable < TCollection >> collectionSelector,
+ Func < TSource, TCollection, TResult > resultSelector)
+```
 
 其实还不算太坏，这些重载只是同一个操作的不同形式而已。
 
@@ -59,19 +51,21 @@ from  子句的查询表达式的时候，它会把出第一个  from  之外的
 
 为了把上面的说法放入实例中理解，我们假设有这样一个查询表达式：
 
-var query = from file in Directory.GetFiles("logs")
+```
+var query = from file in Directory.GetFiles("logs")
 
-from line in File.ReadLines(file)
+from line in File.ReadLines(file)
 
-select Path.GetFileName(file) + ": " + line;
+select Path.GetFileName(file) + ": " + line;
+```
 
 上面的查询表达式会被转译为下面的“正常”调用：
 
+```
 var query = Directory.GetFiles("logs")
-
 .SelectMany(file => File.ReadLines(file),
-
 (file, line) => Path.GetFileName(file) + ": " + line);
+```
 
 这个例子中，编译器会把表达式中的  select  子句转译为投影操作；如果表达式后面还跟有  where  子句或其他子句，编译器会把  file  和
 line  包装在一个匿名类型中传递给投影操作。这是查询表达式转译中最令人难理解的一点，因为这涉及到了透明标识符（  transparent
@@ -86,7 +80,7 @@ l 一个初始投影操作，它把一个文件名转化为该文件中包含�
 l 一个结束投影操作，它把一个文件名和一行文件内容转化为一个由冒号分隔的字符串
 
 表达式的最后结果会是一个字符串的序列，其中包含所有  log  文件的每一行，每一行会以文件名作为前缀。如果把结果打印出来，大概会是这样的：
-
+```
 test1.log: foo
 
 test1.log: bar
@@ -96,6 +90,7 @@ test1.log: baz
 test2.log: Second log file
 
 test2.log: Another line from the second log file
+```
 
 要理解  SelectMany  可能会费点脑子，我当时理解它就费了点力，不过理解它是很重要的。
 
@@ -113,30 +108,34 @@ l 每个迭代器在使用完之后都会被关闭，正如你会预期的一�
 我有一点变懒了，我不想再写参数为  null  的测试了。我给  SelectMany
 的每一个重载都写了一个测试。我发现我无法把这些测试写得很清晰，不过还是拿出一个例子来，下面的代码是针对  SelectMany  的最复杂的重载的测试：
 
+```
 [Test]
+public void FlattenWithProjectionAndIndex() {
 
-public void FlattenWithProjectionAndIndex()
+ int[] numbers = {
+  3,
+  5,
+  20,
+  15
+ };
 
-{
+ var query = numbers.SelectMany((x, index) => (x +
+   index).ToString().ToCharArray(),
 
-int[] numbers = { 3, 5, 20, 15 };
+  (x, c) => x + ": " + c);
 
-var query = numbers.SelectMany((x, index) => (x +
-index).ToString().ToCharArray(),
+ // 3 => "3: 3"
 
-(x, c) => x + ": " + c);
+ // 5 => "5: 6"
 
-// 3 => "3: 3"
+ // 20 => "20: 2", "20: 2"
 
-// 5 => "5: 6"
+ // 15 => "15: 1", "15: 8"
 
-// 20 => "20: 2", "20: 2"
-
-// 15 => "15: 1", "15: 8"
-
-query.AssertSequenceEqual("3: 3", "5: 6", "20: 2", "20: 2", "15: 1", "15: 8");
+ query.AssertSequenceEqual("3: 3", "5: 6", "20: 2", "20: 2", "15: 1", "15: 8");
 
 }
+```
 
 给这个测试做一点解释：
 
@@ -156,64 +155,50 @@ l 然后把子序列中的每一个字符和原元素以“原元素：子序�
 我们可以通过实现一个最复杂的重载并让其他的重载都调用它来实现  SelectMany  ，或者也可以写一个没有参数校验的“  Impl
 ”方法，然后让四个重载都调用它。比如说，最简单重载可以这样实现：
 
-public static IEnumerable<TResult> SelectMany<TSource, TResult>(
+```
+public static IEnumerable < TResult > SelectMany < TSource, TResult > (
+ this IEnumerable < TSource > source,
+ Func < TSource, IEnumerable < TResult >> selector) {
 
-this IEnumerable<TSource> source,
+ if (source == null) {
 
-Func<TSource, IEnumerable<TResult>> selector)
+  throw new ArgumentNullException("source");
 
-{
+ }
 
-if (source == null)
+ if (selector == null) {
 
-{
+  throw new ArgumentNullException("selector");
 
-throw new ArgumentNullException("source");
+ }
 
-}
-
-if (selector == null)
-
-{
-
-throw new ArgumentNullException("selector");
-
-}
-
-return SelectManyImpl(source,
-
-(value, index) => selector(value),
-
-(originalElement, subsequenceElement) => subsequenceElement);
+ return SelectManyImpl(source,
+  (value, index) => selector(value),
+  (originalElement, subsequenceElement) => subsequenceElement);
 
 }
+```
 
 不过我还是选择为每一重载写一个签名相同的“  SelectManyImpl  ”方法。我觉得这样做可以让以后单步调试时更简单一些  ...
 而且这样让我们可以注意到不同重载之间的区别，代码是这样的：
 
+```
 // Simplest overload
 
-private static IEnumerable<TResult> SelectManyImpl<TSource, TResult>(
+private static IEnumerable < TResult > SelectManyImpl < TSource, TResult > (
+ IEnumerable < TSource > source,
+ Func < TSource, IEnumerable < TResult >> selector) {
 
-IEnumerable<TSource> source,
+ foreach(TSource item in source) {
 
-Func<TSource, IEnumerable<TResult>> selector)
+  foreach(TResult result in selector(item)) {
 
-{
+   yield
+   return result;
 
-foreach (TSource item in source)
+  }
 
-{
-
-foreach (TResult result in selector(item))
-
-{
-
-yield return result;
-
-}
-
-}
+ }
 
 }
 
@@ -223,34 +208,26 @@ yield return result;
 
 // - There's a second projection for each original/subsequence element pair
 
-private static IEnumerable<TResult> SelectManyImpl<TSource, TCollection,
-TResult>(
+private static IEnumerable < TResult > SelectManyImpl < TSource, TCollection, TResult > (
+ IEnumerable < TSource > source,
+ Func < TSource, int, IEnumerable < TCollection >> collectionSelector,
+ Func < TSource, TCollection, TResult > resultSelector) {
 
-IEnumerable<TSource> source,
+ int index = 0;
 
-Func<TSource, int, IEnumerable<TCollection>> collectionSelector,
+ foreach(TSource item in source) {
 
-Func<TSource, TCollection, TResult> resultSelector)
+  foreach(TCollection collectionItem in collectionSelector(item, index++)) {
 
-{
+   yield
+   return resultSelector(item, collectionItem);
 
-int index = 0;
+  }
 
-foreach (TSource item in source)
-
-{
-
-foreach (TCollection collectionItem in collectionSelector(item, index++))
-
-{
-
-yield return resultSelector(item, collectionItem);
+ }
 
 }
-
-}
-
-}
+```
 
 这两个方法之间的相似性很是明显  ...  不过我还是觉得保留着第一种形式很有用，如果我搞不清楚  SelectMany
 的作用的话，通过第一种最简单的重载就可以很容易的弄懂。以此为基础再去理解余下的重载，跳跃性就不会那么大了。第一个重载在一定程度上起到了一个理解
@@ -271,89 +248,70 @@ checked  ”代码块，或者给整个程序集开启“  checked  ”。
 之前我提到过很多的  LINQ  操作符都可以通过调用  SelectMany  来实现。下面的代码就是这一观点的实例，我们通过调用  SelectMany
 实现了  Select  ，  Where  和  Concat  ：
 
-public static IEnumerable<TResult> Select<TSource, TResult>(
+```
+public static IEnumerable < TResult > Select < TSource, TResult > (
+ this IEnumerable < TSource > source,
+ Func < TSource, TResult > selector) {
 
-this IEnumerable<TSource> source,
+ if (source == null) {
 
-Func<TSource, TResult> selector)
+  throw new ArgumentNullException("source");
 
-{
+ }
 
-if (source == null)
+ if (selector == null) {
 
-{
+  throw new ArgumentNullException("selector");
 
-throw new ArgumentNullException("source");
+ }
 
-}
-
-if (selector == null)
-
-{
-
-throw new ArgumentNullException("selector");
+ return source.SelectMany(x => Enumerable.Repeat(selector(x), 1));
 
 }
 
-return source.SelectMany(x => Enumerable.Repeat(selector(x), 1));
+public static IEnumerable < TSource > Where < TSource > (
+ this IEnumerable < TSource > source,
+ Func < TSource, bool > predicate) {
+
+ if (source == null) {
+
+  throw new ArgumentNullException("source");
+
+ }
+
+ if (predicate == null) {
+
+  throw new ArgumentNullException("predicate");
+
+ }
+
+ return source.SelectMany(x => Enumerable.Repeat(x, predicate(x) ? 1 : 0));
 
 }
 
-public static IEnumerable<TSource> Where<TSource>(
+public static IEnumerable < TSource > Concat < TSource > (
+ this IEnumerable < TSource > first,
+ IEnumerable < TSource > second) {
 
-this IEnumerable<TSource> source,
+ if (first == null) {
 
-Func<TSource, bool> predicate)
+  throw new ArgumentNullException("first");
 
-{
+ }
 
-if (source == null)
+ if (second == null) {
 
-{
+  throw new ArgumentNullException("second");
 
-throw new ArgumentNullException("source");
+ }
 
-}
-
-if (predicate == null)
-
-{
-
-throw new ArgumentNullException("predicate");
-
-}
-
-return source.SelectMany(x => Enumerable.Repeat(x, predicate(x) ? 1 : 0));
+ return new [] {
+  first,
+  second
+ }.SelectMany(x => x);
 
 }
-
-public static IEnumerable<TSource> Concat<TSource>(
-
-this IEnumerable<TSource> first,
-
-IEnumerable<TSource> second)
-
-{
-
-if (first == null)
-
-{
-
-throw new ArgumentNullException("first");
-
-}
-
-if (second == null)
-
-{
-
-throw new ArgumentNullException("second");
-
-}
-
-return new[] { first, second }.SelectMany(x => x);
-
-}
+```
 
 Select  和  SelectMany  使用  Enumerable.Repeat
 来很方便的创建含有一个元素或不包含任何元素的序列。你也可以通过创建一个数组来代替使用  Repeat  的这种做法。  Concat
