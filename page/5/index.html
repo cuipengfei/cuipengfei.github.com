@@ -377,13 +377,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>as  看起来很好用的样子，不会抛出异常，只要根据返回值是否为  null  来做不同的处理就可以了。但是它也不是万金油，以下的情况  as  就不适用：</p>
+          <p>as  看起来很好用的样子，不会抛出异常，只要根据返回值是否为  null来做不同的处理就可以了。但是它也不是万金油，以下的情况  as  就不适用：</p>
 <p>①值类型</p>
 <p>比如：</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">double</span>  d = <span class="number">100.0</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span>  valueType = d  as  <span class="built_in">int</span>  ;</span></pre></td></tr></table></figure>
 
-<p>这两句代码就直接通不过编译，给出的原因是：  as  运算符必须用于引用类型或可以为  null  类型  (“int”  是一种不可以为  null<br>值的类型  )</p>
-<p>想一下也合理，  as  在失败时会返回  null  ，而值类型是不可以为  null  的（  INullable  除外）。</p>
+<p>这两句代码就直接通不过编译，给出的原因是：  as  运算符必须用于引用类型或可以为  null类型  (“int”  是一种不可以为  null<br>值的类型  )</p>
+<p>想一下也合理，  as  在失败时会返回  null，而值类型是不可以为  null的（  INullable  除外）。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/blog/2009/05/31/%E6%A0%BC%E7%89%A9%E8%87%B4%E7%9F%A5%20%E3%80%8AEffective%20CSharp%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E9%AA%8C%E8%AF%81%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/#more" rel="contents">
@@ -2667,7 +2667,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">311k</span>
+    <span title="站点总字数">310k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>

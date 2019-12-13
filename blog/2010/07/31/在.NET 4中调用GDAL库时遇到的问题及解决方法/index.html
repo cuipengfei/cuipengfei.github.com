@@ -47,15 +47,15 @@
   };
 </script>
 
-  <meta name="description" content="最近需要在  .NET 4  的环境中调用  GDAL  库。  GDAL  本身是一套非托管类库，不过还好提供了托管的  Wrapper  。 这些托管的程序集被包含在了  FWTools  的安装包中，  FWTools  中带的版本依赖于  gdal_fw.dll  ，  gdal_fw.dll是  GDAL  核心类库的修改版，而它依赖的其他非托管程序集太多了，加起来有  18M  左右。">
+  <meta name="description" content="最近需要在  .NET 4  的环境中调用  GDAL  库。  GDAL  本身是一套非托管类库，不过还好提供了托管的  Wrapper  。 这些托管的程序集被包含在了  FWTools  的安装包中，  FWTools  中带的版本依赖于  gdal_fw.dll，  gdal_fw.dll是  GDAL  核心类库的修改版，而它依赖的其他非托管程序集太多了，加起来有  18M  左右。所以">
 <meta name="keywords" content="疑难">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在.NET 4中调用GDAL库时遇到的问题及解决方法">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2010&#x2F;07&#x2F;31&#x2F;%E5%9C%A8.NET%204%E4%B8%AD%E8%B0%83%E7%94%A8GDAL%E5%BA%93%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="最近需要在  .NET 4  的环境中调用  GDAL  库。  GDAL  本身是一套非托管类库，不过还好提供了托管的  Wrapper  。 这些托管的程序集被包含在了  FWTools  的安装包中，  FWTools  中带的版本依赖于  gdal_fw.dll  ，  gdal_fw.dll是  GDAL  核心类库的修改版，而它依赖的其他非托管程序集太多了，加起来有  18M  左右。">
+<meta property="og:description" content="最近需要在  .NET 4  的环境中调用  GDAL  库。  GDAL  本身是一套非托管类库，不过还好提供了托管的  Wrapper  。 这些托管的程序集被包含在了  FWTools  的安装包中，  FWTools  中带的版本依赖于  gdal_fw.dll，  gdal_fw.dll是  GDAL  核心类库的修改版，而它依赖的其他非托管程序集太多了，加起来有  18M  左右。所以">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-12T06:43:15.235Z">
+<meta property="og:updated_time" content="2019-12-13T03:33:51.969Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2010/07/31/%E5%9C%A8.NET%204%E4%B8%AD%E8%B0%83%E7%94%A8GDAL%E5%BA%93%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">
@@ -281,7 +281,7 @@
 
       
         <p>最近需要在  .NET 4  的环境中调用  GDAL  库。  GDAL  本身是一套非托管类库，不过还好提供了托管的  Wrapper  。</p>
-<p>这些托管的程序集被包含在了  FWTools  的安装包中，  FWTools  中带的版本依赖于  gdal_fw.dll  ，  gdal_fw.dll<br>是  GDAL  核心类库的修改版，而它依赖的其他非托管程序集太多了，加起来有  18M  左右。所以还是自己下载代码编译的好。</p>
+<p>这些托管的程序集被包含在了  FWTools  的安装包中，  FWTools  中带的版本依赖于  gdal_fw.dll，  gdal_fw.dll<br>是  GDAL  核心类库的修改版，而它依赖的其他非托管程序集太多了，加起来有  18M  左右。所以还是自己下载代码编译的好。</p>
 <p><a href="http://www.cnblogs.com/nudtchengguo/archive/2008/09/01/1281622.html" target="_blank" rel="noopener"> 这篇文章  </a><br>介绍了  1.4  版本的编译方法，该方法同样适用于现在的  1.7  版本。</p>
 <p>编译好之后引用、调用、  Debug  都没问题，一切正常，但是如果用  Release  编译并在  VS  之外运行的话则会报出<br>AccessViolationException  ，异常信息提示说访问了受保护的内存。我的第一反应就是托管的  Wrapper  中用  P/Invoke<br>调用了非托管程序集，而非托管程序集导致了这个问题。但是这个猜测并不能解释为什么只有在  .NET 4+Release+IDE<br>外运行的情况下才会出错的现象。</p>
 <p>猜来猜去，找来找去找到了问题的所在：</p>
@@ -479,7 +479,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">311k</span>
+    <span title="站点总字数">310k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>

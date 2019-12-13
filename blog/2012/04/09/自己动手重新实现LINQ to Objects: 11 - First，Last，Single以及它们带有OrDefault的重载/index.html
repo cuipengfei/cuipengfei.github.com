@@ -47,15 +47,15 @@
   };
 </script>
 
-  <meta name="description" content="本文翻译自  Jon Skeet  的系列博文“Edulinq  ”。 本篇原文地址：  http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;29&#x2F;reimplementing-linq-to-objects-part-11-first-single-last-and-the-ordefault-versions.aspx 今天我实现了六个操作符，每">
+  <meta name="description" content="本文翻译自  Jon Skeet  的系列博文”Edulinq”。 本篇原文地址：  http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;29&#x2F;reimplementing-linq-to-objects-part-11-first-single-last-and-the-ordefault-versions.aspx 今天我实现了六个操作符，每个操">
 <meta name="keywords" content="LinQ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自己动手重新实现LINQ to Objects 11 - First，Last，Single以及它们带有OrDefault的重载">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2012&#x2F;04&#x2F;09&#x2F;%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%2011%20-%20First%EF%BC%8CLast%EF%BC%8CSingle%E4%BB%A5%E5%8F%8A%E5%AE%83%E4%BB%AC%E5%B8%A6%E6%9C%89OrDefault%E7%9A%84%E9%87%8D%E8%BD%BD&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="本文翻译自  Jon Skeet  的系列博文“Edulinq  ”。 本篇原文地址：  http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;29&#x2F;reimplementing-linq-to-objects-part-11-first-single-last-and-the-ordefault-versions.aspx 今天我实现了六个操作符，每">
+<meta property="og:description" content="本文翻译自  Jon Skeet  的系列博文”Edulinq”。 本篇原文地址：  http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;29&#x2F;reimplementing-linq-to-objects-part-11-first-single-last-and-the-ordefault-versions.aspx 今天我实现了六个操作符，每个操">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-12T06:43:15.232Z">
+<meta property="og:updated_time" content="2019-12-13T03:26:43.924Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2012/04/09/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%2011%20-%20First%EF%BC%8CLast%EF%BC%8CSingle%E4%BB%A5%E5%8F%8A%E5%AE%83%E4%BB%AC%E5%B8%A6%E6%9C%89OrDefault%E7%9A%84%E9%87%8D%E8%BD%BD/">
@@ -261,7 +261,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>10k</span>
+              <span>9.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -280,7 +280,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文翻译自 <a href="http://stackoverflow.com/users/22656/jon-skeet" target="_blank" rel="noopener"> Jon Skeet </a> 的系列博文“<br>Edulinq  ”。</p>
+        <p>本文翻译自 <a href="http://stackoverflow.com/users/22656/jon-skeet" target="_blank" rel="noopener"> Jon Skeet </a> 的系列博文”Edulinq”。</p>
 <p>本篇原文地址：</p>
 <p><a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/29/reimplementing-linq-to-objects-part-11-first-single-last-and-the-ordefault-versions.aspx" target="_blank" rel="noopener"> http://msmvps.com/blogs/jon_skeet/archive/2010/12/29/reimplementing-linq-to-objects-part-11-first-single-last-and-the-ordefault-versions.aspx</a></p>
 <p>今天我实现了六个操作符，每个操作符都有两个重载。我一开始以为这些操作符的实现会很相似，但是最后发现每个都稍微有些不同…</p>
@@ -327,64 +327,105 @@ public static TSource SingleOrDefault&lt;TSource&gt;(
 public static TSource SingleOrDefault&lt;TSource&gt;(
     this IEnumerable&lt;TSource&gt; source,
     Func&lt;TSource, bool&gt; predicate)</code></pre><p>这些操作符有以下的共同点：</p>
-<p>l 它们都是接受一个泛型参数的扩展方法</p>
-<p>l 它们都是立即执行的</p>
-<p>l 他们都会检查参数是否为  null</p>
-<p>l 这些操作符的接受谓词的重载和以下形式等价：source.Where(谓词).该操作符()。换句话说，这些接受谓词的重载就是在执行操作符之前过滤一下</p>
+<ul>
+<li><p>它们都是接受一个泛型参数的扩展方法</p>
+</li>
+<li><p>它们都是立即执行的</p>
+</li>
+<li><p>他们都会检查参数是否为  null</p>
+</li>
+<li><p>这些操作符的接受谓词的重载和以下形式等价：source.Where(谓词).该操作符()。换句话说，这些接受谓词的重载就是在执行操作符之前过滤一下</p>
+</li>
+</ul>
 <p>了解了上面这几点之后，对于每个操作符就只需考虑三种可能性：在谓词执行之后（如果有谓词的话），如果源序列是空的怎么处理？源序列只包含一个元素怎么处理？如果源序<br>列包含多个元素如何处理？我们可以用一个简单的表来描述上述问题的结果：</p>
-<p>操作符</p>
-<p>如果源序列是空的</p>
-<p>源序列只包含一个元素</p>
-<p>源序列包含多个元素</p>
-<p>First</p>
-<p>抛异常</p>
-<p>返回该元素</p>
-<p>返回第一个元素</p>
-<p>FirstOrDefault</p>
-<p>返回default(TSource)</p>
-<p>返回该元素</p>
-<p>返回第一个元素</p>
-<p>Last</p>
-<p>抛异常</p>
-<p>返回该元素</p>
-<p>返回最后一个元素</p>
-<p>LastOrDefault</p>
-<p>返回default(TSource)</p>
-<p>返回该元素</p>
-<p>返回最后一个元素</p>
-<p>Single</p>
-<p>抛异常</p>
-<p>返回该元素</p>
-<p>抛异常</p>
-<p>SingleOrDefault</p>
-<p>返回default(TSource)</p>
-<p>返回该元素</p>
-<p>抛异常</p>
-<p>很明显，如果输入序列只有一个元素的话，这几个操作符的执行结果是非常一致的:) 类似的，如果输入的序列是空的的话，那么没有“  OrDefault<br>”的操作符会抛异常（  InvalidOperationException  ），而带有“  OrDefault<br>”的操作符则会返回元素类型的默认值（引用类型的默认值为  null  ，  int  的默认值为  0  ，等等）。</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>如果源序列是空的</th>
+<th>源序列只包含一个元素</th>
+<th>源序列包含多个元素</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>First</td>
+<td>抛异常</td>
+<td>返回该元素</td>
+<td>返回第一个元素</td>
+</tr>
+<tr>
+<td>FirstOrDefault</td>
+<td>返回default(TSource)</td>
+<td>返回该元素</td>
+<td>返回第一个元素</td>
+</tr>
+<tr>
+<td>Last</td>
+<td>抛异常</td>
+<td>返回该元素</td>
+<td>返回最后一个元素</td>
+</tr>
+<tr>
+<td>LastOrDefault</td>
+<td>返回default(TSource)</td>
+<td>返回该元素</td>
+<td>返回最后一个元素</td>
+</tr>
+<tr>
+<td>Single</td>
+<td>抛异常</td>
+<td>返回该元素</td>
+<td>抛异常</td>
+</tr>
+<tr>
+<td>SingleOrDefault</td>
+<td>返回default(TSource)</td>
+<td>返回该元素</td>
+<td>抛异常</td>
+</tr>
+</tbody></table>
+<p>很明显，如果输入序列只有一个元素的话，这几个操作符的执行结果是非常一致的:) 类似的，如果输入的序列是空的的话，那么没有“  OrDefault<br>”的操作符会抛异常（  InvalidOperationException  ），而带有“  OrDefault<br>”的操作符则会返回元素类型的默认值（引用类型的默认值为  null，  int  的默认值为  0  ，等等）。</p>
 <p>如果（可能是被过滤过的）输入序列含有多个元素的话，那这些操作符的执行结果的差异是很大的，First和  Last  的结果是顾名思义的，而  Single<br>抛出异常。值得注意的是，  SingleOrDefault<br>也会抛出异常，因为它要做的事又不是像这样：如果输入序列只有一个元素的话，返回该元素，否则的话返回默认值。如果你需要能够处理多元素序列的操作符的话，用<br>First  或  Last  。如果你需要处理可能为空的序列的话，使用  FirstOrDefault  或  LastOrDefault<br>。请注意，如果使用带有“  OrDefault  ”的操作符的话，那么一个空的序列和一个仅包含默认值的序列的执行结果会是完全一样的。我们稍后会提到<br>DefaultIfEmpty。</p>
 <p>现在我们知道这些操作符做什么了，我们来开始测试吧。</p>
-<p>我们要测试什么？</p>
-<p>今天早晨，我发了一条推文说我在开始实现之前就写了  72  个测试用例。实际上，我最终写了  80  个，为什么写了  80<br>我们稍后会说。对每一个操作符，我测试了  12  个用例：</p>
-<p>l 源序列是否为  null  的测试（没有谓词的重载）</p>
-<p>l 源序列是否为  null  的测试（有谓词的重载）</p>
-<p>l 谓词是否为  null  的测试</p>
-<p>l 源序列不包含元素的测试（没有谓词的重载）</p>
-<p>l 源序列不包含元素的测试（有谓词的重载）</p>
-<p>l 源序列只包含一个元素的测试（没有谓词的重载）</p>
-<p>l 源序列只包含一个元素，且该元素符合谓词的测试</p>
-<p>l 源序列只包含一个元素，且该元素不符合谓词的测试</p>
-<p>l 源序列包含多个元素的测试（没有谓词的重载）</p>
-<p>l 源序列包含多个元素且只有一个元素符合谓词的测试</p>
-<p>l 源序列包含多个元素且多个元素符合谓词的测试</p>
+<h1 id="我们要测试什么？"><a href="#我们要测试什么？" class="headerlink" title="我们要测试什么？"></a>我们要测试什么？</h1><p>今天早晨，我发了一条推文说我在开始实现之前就写了  72  个测试用例。实际上，我最终写了  80  个，为什么写了  80<br>我们稍后会说。对每一个操作符，我测试了  12  个用例：</p>
+<ul>
+<li><p>源序列是否为  null的测试（没有谓词的重载）</p>
+</li>
+<li><p>源序列是否为  null的测试（有谓词的重载）</p>
+</li>
+<li><p>谓词是否为  null的测试</p>
+</li>
+<li><p>源序列不包含元素的测试（没有谓词的重载）</p>
+</li>
+<li><p>源序列不包含元素的测试（有谓词的重载）</p>
+</li>
+<li><p>源序列只包含一个元素的测试（没有谓词的重载）</p>
+</li>
+<li><p>源序列只包含一个元素，且该元素符合谓词的测试</p>
+</li>
+<li><p>源序列只包含一个元素，且该元素不符合谓词的测试</p>
+</li>
+<li><p>源序列包含多个元素的测试（没有谓词的重载）</p>
+</li>
+<li><p>源序列包含多个元素且只有一个元素符合谓词的测试</p>
+</li>
+<li><p>源序列包含多个元素且多个元素符合谓词的测试</p>
+</li>
+</ul>
 <p>实现这些测试用例时，我做了很多复制粘贴，每个操作符的测试用例用的都是同一组数据，只是预期的结果值不同。</p>
 <p>另外，First和  FirstOrDefault  分别有两个额外的测试，  Last和LastOrDefault也分别有两个：</p>
-<p>l First和FirstOrDefault：当没有谓词的时候，这两个方法应该在遇到第一个元素时就立刻返回，不应该继续遍历序列的剩余部分</p>
-<p>l First  和  FirstOrDefault  ：当有谓词的时候，应该在找到第一个符合谓词的元素时就立刻返回</p>
-<p>l Last和  LastOrDefault  ：当源序列实现了  IList<t>且没有谓词时，这两个方法使用源序列的  Count<br>属性和索引器去访问最后一个元素，这是一个特殊优化</t></p>
-<p>l Last和LastOrDefault：当源序列实现了  IList  <t>且有谓词的时候，则没有上述的优化。这种情况下，这两个方法要彻底遍历整个源序列</t></p>
+<ul>
+<li><p>First和FirstOrDefault：当没有谓词的时候，这两个方法应该在遇到第一个元素时就立刻返回，不应该继续遍历序列的剩余部分</p>
+</li>
+<li><p>First  和  FirstOrDefault  ：当有谓词的时候，应该在找到第一个符合谓词的元素时就立刻返回</p>
+</li>
+<li><p>Last和  LastOrDefault  ：当源序列实现了  IList<t>且没有谓词时，这两个方法使用源序列的  Count属性和索引器去访问最后一个元素，这是一个特殊优化</t></p>
+</li>
+<li><p>Last和LastOrDefault：当源序列实现了  IList  <t>且有谓词的时候，则没有上述的优化。这种情况下，这两个方法要彻底遍历整个源序列</t></p>
+</li>
+</ul>
 <p>上面提到的后两个测试用到了一个叫做  NonEnumerableList  的新集合类型，这个类型的所有方法实现都依赖于一个  List  <t>，除了<br>GetEnumerator  方法（泛型的和非泛型的）之外，这两个方法仅仅是抛出<br>NotSupportedException异常。这一点对于测试上述的优化很有帮助，有关优化的问题我们说到的时候再谈。</t></p>
-<p>来动手实现吧！</p>
-<p>这几个操作符的实现比我预期的要有趣，所以我下面要把十二个方法实现都列出来。这些方法可不是复制粘贴一下了事的，参数验证的部分除外。</p>
+<h1 id="来动手实现吧！"><a href="#来动手实现吧！" class="headerlink" title="来动手实现吧！"></a>来动手实现吧！</h1><p>这几个操作符的实现比我预期的要有趣，所以我下面要把十二个方法实现都列出来。这些方法可不是复制粘贴一下了事的，参数验证的部分除外。</p>
 <p>如果我们基于  Where  和没有谓词的重载来实现有谓词的重载，并且基于  DefaultIfEmpty  和名字中不含  Default<br>的重载来实现名字中含有  Default  的重载的话，那么我们就只需要实现三个没有谓词和名字里没有  Default<br>的方法。但是，就像我之前说过的那样，单独的实现每个操作符会有一些好处。</p>
 <p>为了避免看起来冗余，我把每个方法中的参数检验的部分省略掉了。不过在真实的代码中是含有参数检验的。我们从  First  开始吧：</p>
 <pre><code>public static TSource First&lt;TSource&gt;(
@@ -578,9 +619,9 @@ public static TSource Last&lt;TSource&gt;(
     }
     return last;
 }</code></pre><p>我们从没有谓词的方法开头的优化谈起吧。如果输入序列是个列表的话，我们可以获取列表的元素数量，然后根据元素数量的不同，或者是抛出异常或者是返回索引最大的元素。<br>如果还要再优化一点的话，我可以把  Count  值存到一个局部变量里，但是我假设获取  IList<t>的  Count<br>的代价是很低的。如果有哪位对这一点持反对意见，我很愿意做出修改：）请注意，我还假设了另一个情况，实现<br>IList<t>的类型含有的元素不会超过Int32.MaxValue，否则的话，这个优化就会失败。</t></t></p>
-<p>如果不做优化的话，我们可以遍历整个序列，每次迭代都用最新访问到的元素来更新一个局部变量的值。我在这里没有用  foreach  ，但是并没有什么特别的原因<br>--  我们其实也可以用  foreach  ，每次的迭代都把一个叫做  foundAny  的变量设为  true  ，然后在最后测试<br>foundAny  的值。实际上，上面所描述的就正是有谓词的方法所采用的方式。不许得承认，采用这个方式在一定程度上是不得已而为之  --  我们不能调用<br>MoveNext  然后把获取到的值存起来，因为这个值有可能不符合谓词的约束。</p>
-<p>Last  的有谓词的重载没有优化，这是  LINQ to Objects  （官方实现）的做法，但是我不知道这么做的原因。我们可以利用索引器来从后向前反向<br>遍历。有一个可能的解释是：谓词在处理某些值时有可能会抛出异常，如果我们在处理实现了<br>IList<t>的序列的时候直接跳到序列尾部的话，就会造成可观察的差别。我很想知道这是不是真的原因  --<br>如果哪位能够提供内部信息的话，我会更新这篇博文。</t></p>
-<p>现在，我们就只有一个操作符需要实现了  --LastOrDefault  ：</p>
+<p>如果不做优化的话，我们可以遍历整个序列，每次迭代都用最新访问到的元素来更新一个局部变量的值。我在这里没有用  foreach  ，但是并没有什么特别的原因<br>–  我们其实也可以用  foreach  ，每次的迭代都把一个叫做  foundAny  的变量设为  true  ，然后在最后测试<br>foundAny  的值。实际上，上面所描述的就正是有谓词的方法所采用的方式。不许得承认，采用这个方式在一定程度上是不得已而为之  –  我们不能调用<br>MoveNext  然后把获取到的值存起来，因为这个值有可能不符合谓词的约束。</p>
+<p>Last  的有谓词的重载没有优化，这是  LINQ to Objects  （官方实现）的做法，但是我不知道这么做的原因。我们可以利用索引器来从后向前反向<br>遍历。有一个可能的解释是：谓词在处理某些值时有可能会抛出异常，如果我们在处理实现了<br>IList<t>的序列的时候直接跳到序列尾部的话，就会造成可观察的差别。我很想知道这是不是真的原因  –<br>如果哪位能够提供内部信息的话，我会更新这篇博文。</t></p>
+<p>现在，我们就只有一个操作符需要实现了  –LastOrDefault  ：</p>
 <pre><code>public static TSource LastOrDefault&lt;TSource&gt;(
     this IEnumerable&lt;TSource&gt; source)
 {
@@ -614,11 +655,9 @@ public static TSource LastOrDefault&lt;TSource&gt;(
     }
     return last;
 }</code></pre><p>除了优化的部分，有谓词的和没有谓词的方法看起来很相似…比其他操作符的两个重载之间的差异要小。两个重载中，我们都是先定义一个返回值，并赋值为<br>default  (TSource)，然后遍历整个序列，并更新返回值，如果有谓词的话，就仅当元素符合谓词时才更新返回值。</p>
-<p>结论</p>
-<p>我今早起床时没料到这篇博文会写的这么长，不过我希望上述的各个实现之间的差异和”Last/LastOrDefault”没有优化的怪事能够值得这么多的辛苦。</p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>我今早起床时没料到这篇博文会写的这么长，不过我希望上述的各个实现之间的差异和”Last/LastOrDefault”没有优化的怪事能够值得这么多的辛苦。</p>
 <p>虽然前面提到了  DefaultIfEmpty  ，但是我准备下次再实现它。虽然说如果今晚抓紧的话，还是可以做完的  …</p>
-<p>附录</p>
-<p>我发现在  LINQ to Objects  （官方实现）中，  Single  和  SingleOrDefault<br>没有谓词的重载在遇到第二个元素时马上就会抛出异常。但是有谓词的重载即使遇到了第二个元素，还是会继续遍历。这看起来很是荒唐，没有连贯性。我发了一个  <a href="https://connect.microsoft.com/VisualStudio/feedback/details/639955" target="_blank" rel="noopener">Connect issue</a><br>，我们看看会有怎样的答复。</p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p>我发现在  LINQ to Objects  （官方实现）中，  Single  和  SingleOrDefault<br>没有谓词的重载在遇到第二个元素时马上就会抛出异常。但是有谓词的重载即使遇到了第二个元素，还是会继续遍历。这看起来很是荒唐，没有连贯性。我发了一个  <a href="https://connect.microsoft.com/VisualStudio/feedback/details/639955" target="_blank" rel="noopener">Connect issue</a><br>，我们看看会有怎样的答复。</p>
 
     </div>
 
@@ -629,9 +668,6 @@ public static TSource LastOrDefault&lt;TSource&gt;(
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/08/19/自己动手重新实现LINQ to Objects: 1 - 引言/" rel="bookmark">自己动手重新实现LINQ to Objects 1 - 引言</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/08/21/自己动手重新实现LINQ to Objects: 2 - Where/" rel="bookmark">自己动手重新实现LINQ to Objects 2 - Where</a></div>
     </li>
     <li class="popular-posts-item">
@@ -641,25 +677,28 @@ public static TSource LastOrDefault&lt;TSource&gt;(
       <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 4 - Range/" rel="bookmark">自己动手重新实现LINQ to Objects 4 - Range</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/08/23/自己动手重新实现LINQ to Objects: 5 - Empty/" rel="bookmark">自己动手重新实现LINQ to Objects 5 - Empty</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/08/19/自己动手重新实现LINQ to Objects: 1 - 引言/" rel="bookmark">自己动手重新实现LINQ to Objects 1 - 引言</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/08/24/自己动手重新实现LINQ to Objects: 6 - Repeat/" rel="bookmark">自己动手重新实现LINQ to Objects 6 - Repeat</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/09/05/自己动手重新实现LINQ to Objects: 7 - Count和LongCount/" rel="bookmark">自己动手重新实现LINQ to Objects 7 - Count和LongCount</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/08/23/自己动手重新实现LINQ to Objects: 5 - Empty/" rel="bookmark">自己动手重新实现LINQ to Objects 5 - Empty</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/12/15/自己动手重新实现LINQ to Objects: 9 - SelectMany/" rel="bookmark">自己动手重新实现LINQ to Objects 9 - SelectMany</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" rel="bookmark">自己动手重新实现LINQ to Objects 8 - Concat</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/09/05/自己动手重新实现LINQ to Objects: 7 - Count和LongCount/" rel="bookmark">自己动手重新实现LINQ to Objects 7 - Count和LongCount</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2012/02/15/自己动手重新实现LINQ to Objects: 10 - Any和All/" rel="bookmark">自己动手重新实现LINQ to Objects 10 - Any和All</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2012/04/10/自己动手重新实现LINQ to Objects: 12 - DefaultIfEmpty/" rel="bookmark">自己动手重新实现LINQ to Objects 12 - DefaultIfEmpty</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/12/15/自己动手重新实现LINQ to Objects: 9 - SelectMany/" rel="bookmark">自己动手重新实现LINQ to Objects 9 - SelectMany</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" rel="bookmark">自己动手重新实现LINQ to Objects 8 - Concat</a></div>
+      <div class="popular-posts-title"><a href="/blog/2012/04/10/自己动手重新实现LINQ to Objects: 12 - DefaultIfEmpty/" rel="bookmark">自己动手重新实现LINQ to Objects 12 - DefaultIfEmpty</a></div>
     </li>
   </ul>
 
@@ -744,6 +783,7 @@ public static TSource LastOrDefault&lt;TSource&gt;(
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#我们要测试什么？"><span class="nav-number">1.</span> <span class="nav-text">我们要测试什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#来动手实现吧！"><span class="nav-number">2.</span> <span class="nav-text">来动手实现吧！</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结论"><span class="nav-number">3.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number">4.</span> <span class="nav-text">附录</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -817,7 +857,7 @@ public static TSource LastOrDefault&lt;TSource&gt;(
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">311k</span>
+    <span title="站点总字数">310k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>

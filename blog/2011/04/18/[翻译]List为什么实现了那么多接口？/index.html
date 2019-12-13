@@ -55,7 +55,7 @@
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="[翻译]List为什么实现了那么多接口？ 原文地址：  http:&#x2F;&#x2F;blogs.msdn.com&#x2F;b&#x2F;ericlippert&#x2F;archive&#x2F;2011&#x2F;04&#x2F;04&#x2F;so-many-interfaces.aspx  原作者：  Eric Lippert Eric Lippert是微软员工，C#编译器的主要开发人员之一。 今天，我在  StackOverflow 上回答了一个问题。按照以往的习惯，我">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-12T06:43:15.278Z">
+<meta property="og:updated_time" content="2019-12-13T03:33:51.975Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2011/04/18/[%E7%BF%BB%E8%AF%91]List%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%9E%E7%8E%B0%E4%BA%86%E9%82%A3%E4%B9%88%E5%A4%9A%E6%8E%A5%E5%8F%A3%EF%BC%9F/">
@@ -319,14 +319,14 @@ partial class E {}</code></pre><p>类型E的第二部分可以声明它实现了
 <pre><code>interface I1 {}
 interface I2 {}
 interface I3 : I1, I2 {}</code></pre><p>然后他突然发觉I2应该继承自I1。 ** 干嘛非得要求开发者在把I2修改为继承自I1之后再回头去在I3的声明中删除掉对I1的继承呢？ **<br>我找不到任何理由去强制开发人员删除掉冗余的声明信息。</p>
-<p>除了易读性和易懂性之外，在基类列表中显式声明一个接口和虽不声明但实现这个接口会有什么 ** 技术上 ** 的区别吗？</p>
-<p>通常没有，但是有一种情况下会有一点细微的差别。假设有个类型D，它的基类B实现了某些接口。D通过B也就自动实现了那些接口。如果你在D的基类列表中显式声明了这些<br>接口的话，那么C#编译器将会做一次 ** 接口重新实现 ** 。其细节有些隐晦；如果你对此有兴趣的话那我建议你去仔细阅读C#<br>4语言规范的13.4.6。基本上来说，编译器会“重新开始”并找出哪个方法实现了哪个接口。</p>
+<p>除了易读性和易懂性之外，在基类列表中显式声明一个接口和虽不声明但实现这个接口会有什么 *<em>技术上 *</em>的区别吗？</p>
+<p>通常没有，但是有一种情况下会有一点细微的差别。假设有个类型D，它的基类B实现了某些接口。D通过B也就自动实现了那些接口。如果你在D的基类列表中显式声明了这些<br>接口的话，那么C#编译器将会做一次 *<em>接口重新实现 *</em>。其细节有些隐晦；如果你对此有兴趣的话那我建议你去仔细阅读C#<br>4语言规范的13.4.6。基本上来说，编译器会“重新开始”并找出哪个方法实现了哪个接口。</p>
 <p>List<t>的源代码中真的显式声明了那么多接口吗？</t></p>
 <p>不是的。真正的源代码是这样的：</p>
 <pre><code>public class List&lt;T&gt; : IList&lt;T&gt;, System.Collections.IList</code></pre><p>为什么虽然源代码没有显式声明所有接口，但是MSDN还是把所有的接口都列出来了呢？</p>
 <p>因为MSDN是文档，它应该提供尽可能多的信息。在一页文档中给出完整的信息总比让你去翻阅十页文档才能找到一个类型实现的全部接口好一些。</p>
 <p>为什么有些工具，比如说Reflector或者对象浏览器会把所有接口都显示出来呢？</p>
-<p>这些工具不知道源代码是什么样子的。它们只能从元数据入手。因为显式声明全部接口只是可选的，所以这些工具根本就无从得知源代码到底有没有显式声明所有接口。反正怎么<br>显示都有可能是错的，那这些工具还不如就把信息罗列的全面一些。这些工具给你显示了 _ 有可能比实际情况更多的信息 _ ，而不是向你 _<br>隐藏一些你有可能会需要的信息 _ 是因为它们想要帮助你。</p>
+<p>这些工具不知道源代码是什么样子的。它们只能从元数据入手。因为显式声明全部接口只是可选的，所以这些工具根本就无从得知源代码到底有没有显式声明所有接口。反正怎么<br>显示都有可能是错的，那这些工具还不如就把信息罗列的全面一些。这些工具给你显示了有可能比实际情况更多的信息，而不是向你 _<br>隐藏一些你有可能会需要的信息是因为它们想要帮助你。</p>
 <p>我发现IEnumerable<t>继承自IEnumerable，但是IList<t>并没有继承自IList，这是怎么回事呢？</t></t></p>
 <p>这和IEnumerable<t>是协变的而IList<t>不是协变的是一个原因。通过装箱，我们可以把一个整数序列当做一个object的序列来对待。但是一个可<br>读可写的整数列表却不可以被当做一个可读可写的object的列表来对待，因为你有可能给可读可写的object列表中加入一个String。一个实现IEnumer<br>able<t>的类型可以很容易的满足IEnumerable，只要加一个装箱的helper方法就行了。但是实现IList<t>的类型却不一定能够满足IList<br>，所以IList没有继承自IList。</t></t></t></t></p>
 <p>那为什么List<t>又去实现了IList呢？</t></p>
@@ -505,7 +505,7 @@ interface I3 : I1, I2 {}</code></pre><p>然后他突然发觉I2应该继承自I1
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">311k</span>
+    <span title="站点总字数">310k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>

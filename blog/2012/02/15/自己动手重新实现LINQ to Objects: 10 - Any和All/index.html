@@ -47,15 +47,15 @@
   };
 </script>
 
-  <meta name="description" content="本文翻译自  Jon Skeet  的系列博文“Edulinq  ”。 本篇原文地址：  http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;28&#x2F;reimplementing-linq-to-objects-part-10-any-and-all.aspx 今天我们介绍两个操作符：Any  和  All  。 Any  和  All  做什么？ A">
+  <meta name="description" content="本文翻译自  Jon Skeet  的系列博文”Edulinq”。 本篇原文地址：  http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;28&#x2F;reimplementing-linq-to-objects-part-10-any-and-all.aspx 今天我们介绍两个操作符：Any  和  All。 Any  和  All做什么？ Any  有两">
 <meta name="keywords" content="LinQ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自己动手重新实现LINQ to Objects 10 - Any和All">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2012&#x2F;02&#x2F;15&#x2F;%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%2010%20-%20Any%E5%92%8CAll&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="本文翻译自  Jon Skeet  的系列博文“Edulinq  ”。 本篇原文地址：  http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;28&#x2F;reimplementing-linq-to-objects-part-10-any-and-all.aspx 今天我们介绍两个操作符：Any  和  All  。 Any  和  All  做什么？ A">
+<meta property="og:description" content="本文翻译自  Jon Skeet  的系列博文”Edulinq”。 本篇原文地址：  http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;28&#x2F;reimplementing-linq-to-objects-part-10-any-and-all.aspx 今天我们介绍两个操作符：Any  和  All。 Any  和  All做什么？ Any  有两">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-12T06:43:15.191Z">
+<meta property="og:updated_time" content="2019-12-13T03:26:43.918Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2012/02/15/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%2010%20-%20Any%E5%92%8CAll/">
@@ -280,12 +280,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文翻译自 <a href="http://stackoverflow.com/users/22656/jon-skeet" target="_blank" rel="noopener"> Jon Skeet </a> 的系列博文“<br>Edulinq  ”。</p>
+        <p>本文翻译自 <a href="http://stackoverflow.com/users/22656/jon-skeet" target="_blank" rel="noopener"> Jon Skeet </a> 的系列博文”Edulinq”。</p>
 <p>本篇原文地址：</p>
 <p><a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/28/reimplementing-linq-to-objects-part-10-any-and-all.aspx" target="_blank" rel="noopener"> http://msmvps.com/blogs/jon_skeet/archive/2010/12/28/reimplementing-linq-to-objects-part-10-any-and-all.aspx</a></p>
-<p>今天我们介绍两个操作符：Any  和  All  。</p>
-<p>Any  和  All  做什么？</p>
-<p>Any  有两个重载，而  All  只有一个：</p>
+<p>今天我们介绍两个操作符：Any  和  All。</p>
+<p>Any  和  All做什么？</p>
+<p>Any  有两个重载，而  All只有一个：</p>
 <pre><code>public static bool Any&lt;TSource&gt;( 
 
     this IEnumerable&lt;TSource&gt; source) 
@@ -306,11 +306,16 @@ public static bool All&lt;TSource&gt;(
 
     Func&lt;TSource, bool&gt; predicate)</code></pre><p><a href="http://www.cnblogs.com/cuipengfei/archive/2012/02/15/2352444.html" target="_blank" rel="noopener"> 复制代码 </a></p>
 <p>这两个方法所做的事情完全可以顾名思义：</p>
-<p>l 不接受谓词的  Any  用于判断输入序列中是否存在任何元素</p>
-<p>l 接受谓词的  Any  用于判断输入序列中是否存在能够通过谓词检验的元素</p>
-<p>l All  用于判断输入序列中的元素是否全部都能通过谓词的检验</p>
+<ul>
+<li><p>不接受谓词的  Any  用于判断输入序列中是否存在任何元素</p>
+</li>
+<li><p>接受谓词的  Any  用于判断输入序列中是否存在能够通过谓词检验的元素</p>
+</li>
+<li><p>All用于判断输入序列中的元素是否全部都能通过谓词的检验</p>
+</li>
+</ul>
 <p>这两个操作符都是立即执行的，它们在得出最终结果之前不会返回。</p>
-<p>很重要的一点，  All  必须要迭代整个输入序列才能返回  true  ，但是它只要遇到一个不能通过谓词检验的元素就会返回  false  ；而  Any<br>只要找到一个可以通过谓词检验的元素就会返回  true  ，但是必须要迭代整个输入序列才能返回  false  。这就引出了一个很简单的  LINQ<br>性能小窍门，下面这种用法几乎在所有情况下都是不可取的：</p>
+<p>很重要的一点，  All必须要迭代整个输入序列才能返回  true  ，但是它只要遇到一个不能通过谓词检验的元素就会返回  false  ；而  Any<br>只要找到一个可以通过谓词检验的元素就会返回  true  ，但是必须要迭代整个输入序列才能返回  false  。这就引出了一个很简单的  LINQ<br>性能小窍门，下面这种用法几乎在所有情况下都是不可取的：</p>
 <pre><code>// Don&apos;t use this 
 
 if (query.Count() != 0)</code></pre><p><a href="http://www.cnblogs.com/cuipengfei/archive/2012/02/15/2352444.html" target="_blank" rel="noopener"> 复制代码 </a></p>
@@ -318,15 +323,22 @@ if (query.Count() != 0)</code></pre><p><a href="http://www.cnblogs.com/cuipengfe
 <pre><code>// Use this instead 
 
 if (query.Any())</code></pre><p><a href="http://www.cnblogs.com/cuipengfei/archive/2012/02/15/2352444.html" target="_blank" rel="noopener"> 复制代码 </a></p>
-<p>如果这是一个较大的  LINQ to SQL  查询中的一部分，那么这两种做法的区别可能不大，但是对于  LINQ to Objects  来说，区别很大。</p>
+<p>如果这是一个较大的  LINQ to SQ+ 查询中的一部分，那么这两种做法的区别可能不大，但是对于  LINQ to Objects  来说，区别很大。</p>
 <p>我们需要测试什么？</p>
 <p>我今晚感觉不错，我甚至把参数校验都做了  …  虽然说参数校验在这个立即执行的特例下并不困难。</p>
 <p>除此之外，我还测试了以下一些场景：</p>
-<p>l Any  作用于空序列应该返回  false  ，而  All  则应该返回  true  。（因为无论谓词是什么样的，没有任何一个元素会通不过检验。）</p>
-<p>l 一个序列，只要它含有元素，不接受谓词的  Any  就应该返回  true  。</p>
-<p>l 如果所有元素都不能通过谓词，那么  Any  和  All  都应该返回  false  。</p>
-<p>l 如果部分元素能够通过谓词，  Any  将会返回  true  而  All  会返回  false  。</p>
-<p>l 如果所有元素都能够通过谓词，那么  All  会返回  true  。</p>
+<ul>
+<li><p>Any  作用于空序列应该返回  false  ，而  All则应该返回  true  。（因为无论谓词是什么样的，没有任何一个元素会通不过检验。）</p>
+</li>
+<li><p>一个序列，只要它含有元素，不接受谓词的  Any  就应该返回  true  。</p>
+</li>
+<li><p>如果所有元素都不能通过谓词，那么  Any  和  All都应该返回  false  。</p>
+</li>
+<li><p>如果部分元素能够通过谓词，  Any  将会返回  true  而  All会返回  false  。</p>
+</li>
+<li><p>如果所有元素都能够通过谓词，那么  All会返回  true  。</p>
+</li>
+</ul>
 <p>以上测试都很简洁明了，我就不给出代码了。还有最后一个测试很有趣：我们要证明  Any  会在找到第一个符合条件的元素之后立即返回，证明的手段是通过把<br>Any  作用在一个被完整迭代时会抛出异常的查询结果上。最简单的方式就是创建一个包含有  0  的整数序列，然后对其做  Select  操作，<br>Select  中会把每一个元素除以某个常数。以下的测试用例中，序列中会导致异常的元素之前存在一个能够通过谓词的元素：</p>
 <pre><code>[Test] 
 
@@ -345,10 +357,9 @@ public void SequenceIsNotEvaluatedAfterFirstMatch()
     Assert.IsTrue(query.Any(y =&gt; y &gt; 2)); 
 
 }</code></pre><p><a href="http://www.cnblogs.com/cuipengfei/archive/2012/02/15/2352444.html" target="_blank" rel="noopener"> 复制代码 </a></p>
-<p>对于  All  ，也有一个类似的测试用例，其中会导致异常的元素前面存在一个不能通过谓词检验的元素。</p>
+<p>对于  All，也有一个类似的测试用例，其中会导致异常的元素前面存在一个不能通过谓词检验的元素。</p>
 <p>现在所有测试都有了，下面开始有趣的部分了：</p>
-<p>来动手实现吧！</p>
-<p>有一点需要提醒，我们可以基于接受谓词的  Any  或者基于  All  来实现另外两个方法。比如说，如果已经实现了  All  的话，那么  Any<br>就可以这样实现：</p>
+<h1 id="来动手实现吧！"><a href="#来动手实现吧！" class="headerlink" title="来动手实现吧！"></a>来动手实现吧！</h1><p>有一点需要提醒，我们可以基于接受谓词的  Any  或者基于  All来实现另外两个方法。比如说，如果已经实现了  All的话，那么  Any<br>就可以这样实现：</p>
 <pre><code>public static bool Any&lt;TSource&gt;( 
 
     this IEnumerable&lt;TSource&gt; source) 
@@ -381,7 +392,7 @@ public static bool Any&lt;TSource&gt;(
 
 }</code></pre><p><a href="http://www.cnblogs.com/cuipengfei/archive/2012/02/15/2352444.html" target="_blank" rel="noopener"> 复制代码 </a></p>
 <p>基于接受谓词的的  Any  来实现不接受谓词的  Any  是最简单的，我们使用了一个对任何元素都会返回  true<br>的谓词，这就意味着只要输出序列中含有元素就会返回  true  ，这正是我们想要的行为。</p>
-<p>上面调用  All  时的两次否操作会让你费点脑筋，不过这其实就是  <a href="http://zh.wikipedia.org/wiki/%E5%BE%B7%E6%91%A9%E6%A0%B9%E5%AE%9A%E5%BE%8B" target="_blank" rel="noopener"> 德摩根定律</a><br>在  LINQ  中的表现形式：我们对谓词做否操作，来检验是否所有的元素都不能通过谓词，得到结果后，再次做否操作并返回。由于否操作的原因，这种实现方式仍然会<br>在合适的情况下提前返回。</p>
+<p>上面调用  All时的两次否操作会让你费点脑筋，不过这其实就是  <a href="http://zh.wikipedia.org/wiki/%E5%BE%B7%E6%91%A9%E6%A0%B9%E5%AE%9A%E5%BE%8B" target="_blank" rel="noopener"> 德摩根定律</a><br>在  LINQ  中的表现形式：我们对谓词做否操作，来检验是否所有的元素都不能通过谓词，得到结果后，再次做否操作并返回。由于否操作的原因，这种实现方式仍然会<br>在合适的情况下提前返回。</p>
 <p>虽然以上的方式可行，但是我更喜欢给每个方法一个单独的实现，这样做简单明了：</p>
 <pre><code>public static bool Any&lt;TSource&gt;( 
 
@@ -502,10 +513,9 @@ public static bool All&lt;TSource&gt;(
     return true; 
 
 }</code></pre><p><a href="http://www.cnblogs.com/cuipengfei/archive/2012/02/15/2352444.html" target="_blank" rel="noopener"> 复制代码 </a></p>
-<p>这样的实现方式很明显的凸显了“提前返回”这一特性。而且，这样做也可以使得堆栈跟踪记录更易读。对于一个下游开发者来说，如果调试  Any<br>时在堆栈跟踪记录中看到了调用  All  的记录会显得很奇怪；调用  All  时看到了  Any  也会很奇怪。</p>
+<p>这样的实现方式很明显的凸显了“提前返回”这一特性。而且，这样做也可以使得堆栈跟踪记录更易读。对于一个下游开发者来说，如果调试  Any<br>时在堆栈跟踪记录中看到了调用  All的记录会显得很奇怪；调用  All时看到了  Any  也会很奇怪。</p>
 <p>有一点很有趣，不接受谓词的  Any  中我们没用到  foreach  。而是用了迭代器第一次调用  MoveNext<br>方法时的返回值来表示序列中是否存在元素。读这个方法可以很明显的（至少对我来说很明显）看出我们根本不关心第一个元素的值是什么，因为我们根本就没有去访问它。</p>
-<p>结论</p>
-<p>尽量使用  Any  而不是  Count  的建议或许是这篇文章中最重要的一点，余下的部分都比较简单，不过能基于一个操作符来实现另一个操作符总是很有趣的。</p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>尽量使用  Any  而不是  Count  的建议或许是这篇文章中最重要的一点，余下的部分都比较简单，不过能基于一个操作符来实现另一个操作符总是很有趣的。</p>
 <p>下一篇讲什么呢？或许是  Single  、  SingleOrDefault  、  First  、  FirstOrDefault  、  Last<br>或者  LastOrDefault  。也或许我会把它们都放到一篇文章中来阐释它们的相似同时也强调它们之间的差别。</p>
 
     </div>
@@ -517,9 +527,6 @@ public static bool All&lt;TSource&gt;(
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/08/19/自己动手重新实现LINQ to Objects: 1 - 引言/" rel="bookmark">自己动手重新实现LINQ to Objects 1 - 引言</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/08/21/自己动手重新实现LINQ to Objects: 2 - Where/" rel="bookmark">自己动手重新实现LINQ to Objects 2 - Where</a></div>
     </li>
     <li class="popular-posts-item">
@@ -529,10 +536,16 @@ public static bool All&lt;TSource&gt;(
       <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 4 - Range/" rel="bookmark">自己动手重新实现LINQ to Objects 4 - Range</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/08/23/自己动手重新实现LINQ to Objects: 5 - Empty/" rel="bookmark">自己动手重新实现LINQ to Objects 5 - Empty</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/08/19/自己动手重新实现LINQ to Objects: 1 - 引言/" rel="bookmark">自己动手重新实现LINQ to Objects 1 - 引言</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/08/24/自己动手重新实现LINQ to Objects: 6 - Repeat/" rel="bookmark">自己动手重新实现LINQ to Objects 6 - Repeat</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/08/23/自己动手重新实现LINQ to Objects: 5 - Empty/" rel="bookmark">自己动手重新实现LINQ to Objects 5 - Empty</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" rel="bookmark">自己动手重新实现LINQ to Objects 8 - Concat</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/09/05/自己动手重新实现LINQ to Objects: 7 - Count和LongCount/" rel="bookmark">自己动手重新实现LINQ to Objects 7 - Count和LongCount</a></div>
@@ -541,13 +554,10 @@ public static bool All&lt;TSource&gt;(
       <div class="popular-posts-title"><a href="/blog/2011/12/15/自己动手重新实现LINQ to Objects: 9 - SelectMany/" rel="bookmark">自己动手重新实现LINQ to Objects 9 - SelectMany</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2012/04/09/自己动手重新实现LINQ to Objects: 11 - First，Last，Single以及它们带有OrDefault的重载/" rel="bookmark">自己动手重新实现LINQ to Objects 11 - First，Last，Single以及它们带有OrDefault的重载</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2012/04/10/自己动手重新实现LINQ to Objects: 12 - DefaultIfEmpty/" rel="bookmark">自己动手重新实现LINQ to Objects 12 - DefaultIfEmpty</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" rel="bookmark">自己动手重新实现LINQ to Objects 8 - Concat</a></div>
+      <div class="popular-posts-title"><a href="/blog/2012/04/09/自己动手重新实现LINQ to Objects: 11 - First，Last，Single以及它们带有OrDefault的重载/" rel="bookmark">自己动手重新实现LINQ to Objects 11 - First，Last，Single以及它们带有OrDefault的重载</a></div>
     </li>
   </ul>
 
@@ -632,6 +642,7 @@ public static bool All&lt;TSource&gt;(
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#来动手实现吧！"><span class="nav-number">1.</span> <span class="nav-text">来动手实现吧！</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结论"><span class="nav-number">2.</span> <span class="nav-text">结论</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -705,7 +716,7 @@ public static bool All&lt;TSource&gt;(
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">311k</span>
+    <span title="站点总字数">310k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>

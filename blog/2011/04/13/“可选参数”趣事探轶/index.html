@@ -55,7 +55,7 @@
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="上一篇博文 中提到了“可选参数”这个C# 4.0中新增的语言特性，但是写过之后还是不满足，心里还是有一些疑问没有得到解释。于是又做了一些探索，过程中竟然发现这么一个小小的语言特性背后隐藏着的有趣问题还真不少。这次就把探索过程中的发现和疑问记录下来。 “可选参数”的实现Cnblogs上有一篇  蒋金楠的文章中提到一句：“缺省参数最终体现为两个特殊的自定义特性OptionalAttribute和De">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-12T06:43:15.228Z">
+<meta property="og:updated_time" content="2019-12-13T03:33:51.963Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2011/04/13/%E2%80%9C%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0%E2%80%9D%E8%B6%A3%E4%BA%8B%E6%8E%A2%E8%BD%B6/">
@@ -347,8 +347,7 @@ ReturnType: Void
 <p>因为我没有读过 <a href="http://www.ecma-international.org/publications/standards/Ecma-335.htm" target="_blank" rel="noopener"> ECMA 335 </a> 的文档，所以下面只是做一个不太谨慎的推测：Op<br>tionalAttribute和DefaultParameterValueAttribute这两个attribute和其他的attribute不同，他们有自<br>己对应的专有的flags。调用TestMethod的代码在被编译时，编译器会去读取存储于元数据中的默认值，并把读取到的值嵌入到IL中去。</p>
 <p>由于在TestMethod的C#代码中、编译出的IL代码中，及其元数据中都不见OptionalAttribute和DefaultParameterValue<br>Attribute<br>的踪迹，所以我认为“缺省参数最终体现为两个特殊的自定义特性OptionalAttribute和DefaultParameterValueAttribute<br>”这种说法是有待商榷的。</p>
 <h1 id="背后的陷阱"><a href="#背后的陷阱" class="headerlink" title="背后的陷阱"></a>背后的陷阱</h1><p>“可选参数”看起来方便又好用，但是使用它是不是真的是多快好省的绝佳选择呢？实际上不是的，它的背后隐藏着至少两个陷阱（我只发现了两个）。</p>
-<p>** 第一个陷阱：版本更迭的问题 **</p>
-<p>就以上面提到的TestMethod为例，写一个方法来调用它：</p>
+<h1 id="第一个陷阱：版本更迭的问题"><a href="#第一个陷阱：版本更迭的问题" class="headerlink" title="第一个陷阱：版本更迭的问题"></a>第一个陷阱：版本更迭的问题</h1><p>就以上面提到的TestMethod为例，写一个方法来调用它：</p>
 <pre><code>public void Caller()
 {
     TestMethod();
@@ -360,12 +359,11 @@ ReturnType: Void
   IL_0000:  nop
   IL_0001:  ldarg.0
   IL_0002:  ldstr      &quot;A&quot;
-  IL_0007:  call       instance void HowDidTheyImplementOptionalParameters.Program::TestMethod(string)
+  IL_0007:  call     instance void HowDidTheyImplementOptionalParameters.Program::TestMethod(string)
   IL_000c:  nop
   IL_000d:  ret
 } // end of method Program::Caller</code></pre><p>请注意标红的两行，Caller的IL中实际是把“A”这个值写死了的。也就是说如果有一个包含“可选参数”的非强命名程序集在版本升级时修改了参数的默认值，其他引<br>用它的程序集如果没有重新编译就无法获得到新的默认参数值，在运行时仍然会传入老版本中定义的值。</p>
-<p>** 第二个陷阱：跨语言调用 **</p>
-<p>并不是所有的语言都被强制要求支持“可选参数”这一特性。对于不支持这一特性的语言来说，完全可以忽略掉元数据中包含的默认值而强制要求这一语言的用户去显式的提供参<br>数值。而这样就会导致代码的运行时行为不一致。</p>
+<h1 id="第二个陷阱：跨语言调用"><a href="#第二个陷阱：跨语言调用" class="headerlink" title="第二个陷阱：跨语言调用"></a>第二个陷阱：跨语言调用</h1><p>并不是所有的语言都被强制要求支持“可选参数”这一特性。对于不支持这一特性的语言来说，完全可以忽略掉元数据中包含的默认值而强制要求这一语言的用户去显式的提供参<br>数值。而这样就会导致代码的运行时行为不一致。</p>
 <p>C#4.0之前都所有版本都是不支持“可选参数”的。也就是说如果在VS2010中用C#4.0的语法和.NET Framework<br>2.0的框架编一个含有“可选参数”的程序集，然后在VS2008中的项目中引用这个程序集的话，则只能显式的提供参数值。</p>
 <p>针对以上两点，我觉得在使用“可选参数”时应该遵循以下的原则：在public API（包括公开类型的公开成员和公开类型的受保护成员）中尽量不要用“可选参数”，<br>而是使用方法重载，以避免API行为不一致。在程序集内部的私有API中，尽情享用吧。</p>
 <h1 id="关于CLS-Compliant"><a href="#关于CLS-Compliant" class="headerlink" title="关于CLS-Compliant"></a>关于CLS-Compliant</h1><p><a href="http://1codechs.codeplex.com/" target="_blank" rel="noopener"> 微软一站式示例代码库 </a> 的文档中提到说“可选参数”不是CLS-<br>Compliant的。我觉得这种说法是错误的。最简单的验证方式就是加上CLSCompliantAttribute来试试看。</p>
@@ -396,22 +394,22 @@ ReturnType: Void
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/28/引用类型参数的按值传递/" rel="bookmark">引用类型参数的按值传递</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/20/关于显式接口实现/" rel="bookmark">关于显式接口实现</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/28/new关键字用作修饰符/" rel="bookmark">new关键字用作修饰符</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/24/MSIL的条件跳转（不知道正确与否）/" rel="bookmark">MSIL的条件跳转（不知道正确与否）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/28/引用类型参数的按值传递/" rel="bookmark">引用类型参数的按值传递</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/09/04/一个关于深层拷贝的问题（迷惑在私有构造函数）/" rel="bookmark">一个关于深层拷贝的问题（迷惑在私有构造函数）</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/28/new关键字用作修饰符/" rel="bookmark">new关键字用作修饰符</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/09/09/可以为null的值类型/" rel="bookmark">可以为null的值类型</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/08/24/MSIL的条件跳转（不知道正确与否）/" rel="bookmark">MSIL的条件跳转（不知道正确与否）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/03/06/CSharp中的语言特性都是从何而来？/" rel="bookmark">C#中的语言特性都是从何而来？</a></div>
@@ -499,7 +497,7 @@ ReturnType: Void
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#“可选参数”的实现"><span class="nav-number">1.</span> <span class="nav-text">“可选参数”的实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#背后的陷阱"><span class="nav-number">2.</span> <span class="nav-text">背后的陷阱</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于CLS-Compliant"><span class="nav-number">3.</span> <span class="nav-text">关于CLS-Compliant</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reflector中可能的Bug"><span class="nav-number">4.</span> <span class="nav-text">Reflector中可能的Bug</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#存疑"><span class="nav-number">5.</span> <span class="nav-text">存疑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#“可选参数”的实现"><span class="nav-number">1.</span> <span class="nav-text">“可选参数”的实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#背后的陷阱"><span class="nav-number">2.</span> <span class="nav-text">背后的陷阱</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第一个陷阱：版本更迭的问题"><span class="nav-number">3.</span> <span class="nav-text">第一个陷阱：版本更迭的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二个陷阱：跨语言调用"><span class="nav-number">4.</span> <span class="nav-text">第二个陷阱：跨语言调用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于CLS-Compliant"><span class="nav-number">5.</span> <span class="nav-text">关于CLS-Compliant</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reflector中可能的Bug"><span class="nav-number">6.</span> <span class="nav-text">Reflector中可能的Bug</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#存疑"><span class="nav-number">7.</span> <span class="nav-text">存疑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -573,7 +571,7 @@ ReturnType: Void
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">311k</span>
+    <span title="站点总字数">310k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>

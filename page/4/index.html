@@ -1512,7 +1512,7 @@ public static void TestMethod(int parameter = 5)
 
       
           <p>最近需要在  .NET 4  的环境中调用  GDAL  库。  GDAL  本身是一套非托管类库，不过还好提供了托管的  Wrapper  。</p>
-<p>这些托管的程序集被包含在了  FWTools  的安装包中，  FWTools  中带的版本依赖于  gdal_fw.dll  ，  gdal_fw.dll<br>是  GDAL  核心类库的修改版，而它依赖的其他非托管程序集太多了，加起来有  18M  左右。所以还是自己下载代码编译的好。</p>
+<p>这些托管的程序集被包含在了  FWTools  的安装包中，  FWTools  中带的版本依赖于  gdal_fw.dll，  gdal_fw.dll<br>是  GDAL  核心类库的修改版，而它依赖的其他非托管程序集太多了，加起来有  18M  左右。所以还是自己下载代码编译的好。</p>
 <p><a href="http://www.cnblogs.com/nudtchengguo/archive/2008/09/01/1281622.html" target="_blank" rel="noopener"> 这篇文章  </a><br>介绍了  1.4  版本的编译方法，该方法同样适用于现在的  1.7  版本。</p>
 <p>编译好之后引用、调用、  Debug  都没问题，一切正常，但是如果用  Release  编译并在  VS  之外运行的话则会报出<br>AccessViolationException  ，异常信息提示说访问了受保护的内存。我的第一反应就是托管的  Wrapper  中用  P/Invoke<br>调用了非托管程序集，而非托管程序集导致了这个问题。但是这个猜测并不能解释为什么只有在  .NET 4+Release+IDE<br>外运行的情况下才会出错的现象。</p>
 <p>猜来猜去，找来找去找到了问题的所在：</p>
@@ -1792,7 +1792,7 @@ public static void TestMethod(int parameter = 5)
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.4k</span>
+              <span>2.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -2854,7 +2854,7 @@ public static void TestMethod(int parameter = 5)
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">311k</span>
+    <span title="站点总字数">310k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
