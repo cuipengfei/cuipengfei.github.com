@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -48,17 +48,19 @@
 </script>
 
   <meta name="description" content="昨天遇到了一个  Bug  ，如果在浏览器中打开多个标签，并把其中一个标签拖拽到主窗口的一侧来划分出独立的一个区域，然后在新区域中通过点击加号键添加的新标签内不会被添加上  WebBrowser  。    说得好绕嘴啊，截张图吧：      而且没有加上  WebBrowser  的标签的标题是  new content  （我们在  AvalonDock  中给新标签的默认标题）而不是  N">
-<meta name="keywords" content="WPF">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用AvalonDock制作WPF多标签浏览器（三）">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2010&#x2F;03&#x2F;17&#x2F;%E7%94%A8AvalonDock%E5%88%B6%E4%BD%9CWPF%E5%A4%9A%E6%A0%87%E7%AD%BE%E6%B5%8F%E8%A7%88%E5%99%A8%EF%BC%88%E4%B8%89%EF%BC%89&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="昨天遇到了一个  Bug  ，如果在浏览器中打开多个标签，并把其中一个标签拖拽到主窗口的一侧来划分出独立的一个区域，然后在新区域中通过点击加号键添加的新标签内不会被添加上  WebBrowser  。    说得好绕嘴啊，截张图吧：      而且没有加上  WebBrowser  的标签的标题是  new content  （我们在  AvalonDock  中给新标签的默认标题）而不是  N">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;images.cnblogs.com&#x2F;cnblogs_com&#x2F;cuipengfei&#x2F;2010-03-17_21-21-44.jpg">
 <meta property="og:image" content="http:&#x2F;&#x2F;images.cnblogs.com&#x2F;cnblogs_com&#x2F;cuipengfei&#x2F;2010-03-17_21-58-17.jpg">
 <meta property="og:image" content="http:&#x2F;&#x2F;images.cnblogs.com&#x2F;cnblogs_com&#x2F;cuipengfei&#x2F;2010-03-17_21-59-16.jpg">
-<meta property="og:updated_time" content="2019-12-13T03:33:51.952Z">
+<meta property="article:published_time" content="2010-03-17T14:37:00.000Z">
+<meta property="article:modified_time" content="2019-12-13T03:33:51.952Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="WPF">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;images.cnblogs.com&#x2F;cnblogs_com&#x2F;cuipengfei&#x2F;2010-03-17_21-21-44.jpg">
 
@@ -297,18 +299,18 @@
 <p> 在DocumentFloatingWindow中添加如下事件：  </p>
 <p> public static event EventHandler<newdocumentpaneaddedbymouseeventargs> NewDocumentPaneAddedByMouse;</newdocumentpaneaddedbymouseeventargs></p>
 <p> 其中用到的事件参数定义如下：  </p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NewDocumentPaneAddedByMouseEventArgs</span> :</span> EventArgs &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">NewDocumentPaneAddedByMouseEventArgs</span><span class="params">(DocumentPane addedPane)</span> </span>&#123; AddedPane = addedPane; &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">   <span class="keyword">public</span> DocumentPane AddedPane &#123; <span class="built_in">get</span>; <span class="keyword">private</span> <span class="built_in">set</span>; &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr></table></figure>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NewDocumentPaneAddedByMouseEventArgs</span> :</span> EventArgs &#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">NewDocumentPaneAddedByMouseEventArgs</span><span class="params">(DocumentPane addedPane)</span> </span>&#123; AddedPane = addedPane; &#125;</span><br><span class="line">   <span class="keyword">public</span> DocumentPane AddedPane &#123; <span class="built_in">get</span>; <span class="keyword">private</span> <span class="built_in">set</span>; &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 
 <p> 依然尊规范在DocumentFloatingWindow中定义如下方法来触发事件：  </p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> void <span class="constructor">OnNewDocumentPaneAddedByMouse(NewDocumentPaneAddedByMouseEventArgs <span class="params">args</span>)</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">   <span class="keyword">if</span> (NewDocumentPaneAddedByMouse != null) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">       <span class="constructor">NewDocumentPaneAddedByMouse(<span class="params">this</span>, <span class="params">args</span>)</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">   &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> void <span class="constructor">OnNewDocumentPaneAddedByMouse(NewDocumentPaneAddedByMouseEventArgs <span class="params">args</span>)</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (NewDocumentPaneAddedByMouse != null) &#123;</span><br><span class="line">       <span class="constructor">NewDocumentPaneAddedByMouse(<span class="params">this</span>, <span class="params">args</span>)</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p> 并在DocumentFloatingWindow中的ClonePane方法（鼠标拖拽时创建新  DocumentPane  的工作就是在这个方法中做的）中调用该方法来触发事件，修改后的  ClonePane方法是这样的：  </p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">public override Pane <span class="constructor">ClonePane()</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"> DocumentPane paneToAnchor = <span class="keyword">new</span> <span class="constructor">DocumentPane()</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"> <span class="constructor">OnNewDocumentPaneAddedByMouse(<span class="params">new</span> NewDocumentPaneAddedByMouseEventArgs(<span class="params">paneToAnchor</span>)</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"> ResizingPanel.<span class="constructor">SetEffectiveSize(<span class="params">paneToAnchor</span>, <span class="params">new</span> Size(Width, Height)</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">while</span> (HostedPane.Items.Count &gt; <span class="number">0</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  paneToAnchor.Items.<span class="constructor">Add(HostedPane.RemoveContent(0)</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"> return paneToAnchor;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public override Pane <span class="constructor">ClonePane()</span> &#123;</span><br><span class="line"> DocumentPane paneToAnchor = <span class="keyword">new</span> <span class="constructor">DocumentPane()</span>;</span><br><span class="line"> <span class="constructor">OnNewDocumentPaneAddedByMouse(<span class="params">new</span> NewDocumentPaneAddedByMouseEventArgs(<span class="params">paneToAnchor</span>)</span>);</span><br><span class="line"> ResizingPanel.<span class="constructor">SetEffectiveSize(<span class="params">paneToAnchor</span>, <span class="params">new</span> Size(Width, Height)</span>);</span><br><span class="line"> <span class="keyword">while</span> (HostedPane.Items.Count &gt; <span class="number">0</span>) &#123;</span><br><span class="line">  paneToAnchor.Items.<span class="constructor">Add(HostedPane.RemoveContent(0)</span>);</span><br><span class="line"> &#125;</span><br><span class="line"> return paneToAnchor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p> 我们只关心其中的OnNewDocumentPaneAddedByMouse(new NewDocumentPaneAddedByMouseEventArgs(paneToAnchor));  这一句就OK了。  </p>
 <p> 好了，现在每当因鼠标拖拽而创建出一个新的  DocumentPane  时，都有一个事件会被触发，而且其传递的事件参数中还含有对新添加的  DocumentPane  实例的引用。这样订阅事件的地方（比如说我们的客户代码中）就可以通过该引用来把新添加的  DocumentPane  的  NewContentAdded事件挂到某个方法上了（当然就是我们的DocumentPane_NewContentAdded方法了）。  </p>
 <p> 接下来修改客户代码吧：  </p>
 <p> 在浏览器窗口的构造方法中添加下面一句：  </p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">DocumentFloatingWindow.NewDocumentPaneAddedByMouse += <span class="function"><span class="params">(object sender, NewDocumentPaneAddedByMouseEventArgs e)</span> =&gt;</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"> e.AddedPane.NewContentAdded += DocumentPane_NewContentAdded;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;;</span></pre></td></tr></table></figure>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DocumentFloatingWindow.NewDocumentPaneAddedByMouse += <span class="function"><span class="params">(object sender, NewDocumentPaneAddedByMouseEventArgs e)</span> =&gt;</span> &#123;</span><br><span class="line"> e.AddedPane.NewContentAdded += DocumentPane_NewContentAdded;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p> 用了  lambda  表达式，有点长，不过的确还只是一句啊。  </p>
 <p> 这样每个通过鼠标拖拽出来的  DocumentPane  就和我们在  XAML  中声明的  DocumentPane  没什么两样了，它们的  NewContentAdded 事件都挂到了DocumentPane_NewContentAdded方法上，这个方法做什么的来着？它做的就是给每一个新标签中置入一个新的  WebBrowser  。</p>
@@ -351,7 +353,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="/https:/cuipengfei.github.com/blog/2010/03/17/%E7%94%A8AvalonDock%E5%88%B6%E4%BD%9CWPF%E5%A4%9A%E6%A0%87%E7%AD%BE%E6%B5%8F%E8%A7%88%E5%99%A8%EF%BC%88%E4%B8%89%EF%BC%89/" title="用AvalonDock制作WPF多标签浏览器（三）">https://cuipengfei.github.com/blog/2010/03/17/用AvalonDock制作WPF多标签浏览器（三）/</a>
+    <a href="https://cuipengfei.github.com/blog/2010/03/17/%E7%94%A8AvalonDock%E5%88%B6%E4%BD%9CWPF%E5%A4%9A%E6%A0%87%E7%AD%BE%E6%B5%8F%E8%A7%88%E5%99%A8%EF%BC%88%E4%B8%89%EF%BC%89/" title="用AvalonDock制作WPF多标签浏览器（三）">https://cuipengfei.github.com/blog/2010/03/17/用AvalonDock制作WPF多标签浏览器（三）/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -504,7 +506,7 @@
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">4:42</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
@@ -530,9 +532,17 @@
   <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -611,7 +621,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

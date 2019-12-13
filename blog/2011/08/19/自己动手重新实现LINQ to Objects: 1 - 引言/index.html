@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -48,14 +48,16 @@
 </script>
 
   <meta name="description" content="本文翻译自  Jon Skeet 的系列博文“Edulinq”。 本篇原文地址：  http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;09&#x2F;03&#x2F;reimplementing-linq-to-objects-part-1-introduction.aspx 大约一年半之前，我在  DDD 的活动日上做了一次演讲。我当时试图去重新实现LINQ toObje">
-<meta name="keywords" content="LinQ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自己动手重新实现LINQ to Objects 1 - 引言">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2011&#x2F;08&#x2F;19&#x2F;%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%201%20-%20%E5%BC%95%E8%A8%80&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="本文翻译自  Jon Skeet 的系列博文“Edulinq”。 本篇原文地址：  http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;09&#x2F;03&#x2F;reimplementing-linq-to-objects-part-1-introduction.aspx 大约一年半之前，我在  DDD 的活动日上做了一次演讲。我当时试图去重新实现LINQ toObje">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-13T03:21:37.283Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2011-08-18T18:03:08.000Z">
+<meta property="article:modified_time" content="2019-12-13T03:21:37.283Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="LinQ">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2011/08/19/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%201%20-%20%E5%BC%95%E8%A8%80/">
@@ -290,7 +292,7 @@
 <p>在每篇博文的最后，我会附上一个下载最新代码的链接。为以后的读者考虑，我会给这些下载文件分别编号，而不是不断更新同一个文件，不过我敢说以后肯定会有对这些下载文<br>件做修改的。</p>
 <p>我们的目标不是要做出一个类似于 <a href="http://linqbridge.googlecode.com/" target="_blank" rel="noopener"> LINQBridge </a><br>的项目来：我将使用.NET 3.5（主要是因为这样我可以直接使用扩展方法，而无需创建自定义Attribute），而且我肯定也不会去担心安装包之类的事儿。这系<br>列博文纯粹是教育性质的：如果你逐一读完这一系列，只要运气不是太差，你会对LINQ有更深的总体的了解，尤其是对LINQ to<br>Objects有更深刻的、细致的认识。比如说，像延迟执行一类的事，人们总是有很多误解：但是如果你看过代码的话，就能够很好的理清头绪了。</p>
 <h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>我将使用 <a href="http://nunit.org/" target="_blank" rel="noopener"> NUnit </a><br>来写单元测试（仅仅是因为我本人对它更熟悉）。很明显，我们将会很频繁的需要测试两个序列是否等价。我们将通过使用 <a href="http://code.google.com/p/morelinq/source/browse/trunk/MoreLinq.Test/TestExtensions.cs" target="_blank" rel="noopener">MoreLINQ中的TestExtensions类型 </a><br>来做到这一点（我把这个类型复制到了项目中了）。我将用来写作这一系列博文的上网本上只安装了C# Express<br>2010，所以我将使用NUnit的外部GUI程序。我把项目的启动项设置为了NUnit的GUI程序…在C#<br>Express中无法直接做此设置，但是修改项目文件也是很简单的：</p>
-<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&lt;StartAction&gt;Program&lt;/StartAction&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&lt;StartProgram&gt;C:<span class="symbol">\P</span>rogramFiles<span class="symbol">\N</span>Unit-2.5.7.10213<span class="symbol">\b</span>in<span class="symbol">\n</span>et-2.0<span class="symbol">\n</span>unit-x86.exe&lt;/StartProgram&gt;</span></pre></td></tr></table></figure>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;StartAction&gt;Program&lt;/StartAction&gt;</span><br><span class="line"></span><br><span class="line">&lt;StartProgram&gt;C:<span class="symbol">\P</span>rogramFiles<span class="symbol">\N</span>Unit-2.5.7.10213<span class="symbol">\b</span>in<span class="symbol">\n</span>et-2.0<span class="symbol">\n</span>unit-x86.exe&lt;/StartProgram&gt;</span><br></pre></td></tr></table></figure>
 <p>这种方法虽然有点不太正当，但是完全可用。然后把”additional command line<br>parameters”设置为JonSkeet.Linq.Tests.dll - 当前目录默认就是bin/debug，这样就算做好准备了。很明显，如果你安装了<br>ReSharper或之类的工具，并且自己运行这些单元测试的话，你将发现测试结果会被集成到Visual Studio中。</p>
 <p>尽管我想要写出合理的工业级质量的代码来，但是我觉得自己在真的生产环境中都未必会写那么多的单元测试。虽是如此，我还是完全有理由相信测试代码量将会超过成品代码量<br>。因为边边角角的需要测试的情况实在太多了…而且有时重载也不少。不过请记住，我们此举的目的在于研究LINQ中有趣的特性。</p>
 <h1 id="代码分布"><a href="#代码分布" class="headerlink" title="代码分布"></a>代码分布</h1><p>就像原版的LINQ to Object一样，我将会创建一个叫做Enumerable的静态类型…但是我会用到分部类，每个方法（包括其多个重载）占用一个代码<br>文件。举例来说：Where方法将会在Where.cs中来实现，而它的测试代码将会写在WhereTest.cs中。</p>
@@ -308,34 +310,34 @@
       <div class="popular-posts-title"><a href="/blog/2011/08/21/自己动手重新实现LINQ to Objects: 2 - Where/" rel="bookmark">自己动手重新实现LINQ to Objects 2 - Where</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 3 - Select/" rel="bookmark">自己动手重新实现LINQ to Objects 3 - Select</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 4 - Range/" rel="bookmark">自己动手重新实现LINQ to Objects 4 - Range</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/08/24/自己动手重新实现LINQ to Objects: 6 - Repeat/" rel="bookmark">自己动手重新实现LINQ to Objects 6 - Repeat</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 3 - Select/" rel="bookmark">自己动手重新实现LINQ to Objects 3 - Select</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/08/23/自己动手重新实现LINQ to Objects: 5 - Empty/" rel="bookmark">自己动手重新实现LINQ to Objects 5 - Empty</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" rel="bookmark">自己动手重新实现LINQ to Objects 8 - Concat</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/12/15/自己动手重新实现LINQ to Objects: 9 - SelectMany/" rel="bookmark">自己动手重新实现LINQ to Objects 9 - SelectMany</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/09/05/自己动手重新实现LINQ to Objects: 7 - Count和LongCount/" rel="bookmark">自己动手重新实现LINQ to Objects 7 - Count和LongCount</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" rel="bookmark">自己动手重新实现LINQ to Objects 8 - Concat</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/08/24/自己动手重新实现LINQ to Objects: 6 - Repeat/" rel="bookmark">自己动手重新实现LINQ to Objects 6 - Repeat</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2012/02/15/自己动手重新实现LINQ to Objects: 10 - Any和All/" rel="bookmark">自己动手重新实现LINQ to Objects 10 - Any和All</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/12/15/自己动手重新实现LINQ to Objects: 9 - SelectMany/" rel="bookmark">自己动手重新实现LINQ to Objects 9 - SelectMany</a></div>
+      <div class="popular-posts-title"><a href="/blog/2012/04/09/自己动手重新实现LINQ to Objects: 11 - First，Last，Single以及它们带有OrDefault的重载/" rel="bookmark">自己动手重新实现LINQ to Objects 11 - First，Last，Single以及它们带有OrDefault的重载</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2012/04/10/自己动手重新实现LINQ to Objects: 12 - DefaultIfEmpty/" rel="bookmark">自己动手重新实现LINQ to Objects 12 - DefaultIfEmpty</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2012/04/09/自己动手重新实现LINQ to Objects: 11 - First，Last，Single以及它们带有OrDefault的重载/" rel="bookmark">自己动手重新实现LINQ to Objects 11 - First，Last，Single以及它们带有OrDefault的重载</a></div>
     </li>
   </ul>
 
@@ -348,7 +350,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="/https:/cuipengfei.github.com/blog/2011/08/19/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%201%20-%20%E5%BC%95%E8%A8%80/" title="自己动手重新实现LINQ to Objects 1 - 引言">https://cuipengfei.github.com/blog/2011/08/19/自己动手重新实现LINQ to Objects: 1 - 引言/</a>
+    <a href="https://cuipengfei.github.com/blog/2011/08/19/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%201%20-%20%E5%BC%95%E8%A8%80/" title="自己动手重新实现LINQ to Objects 1 - 引言">https://cuipengfei.github.com/blog/2011/08/19/自己动手重新实现LINQ to Objects: 1 - 引言/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -502,7 +504,7 @@
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">4:42</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
@@ -528,9 +530,17 @@
   <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -609,7 +619,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

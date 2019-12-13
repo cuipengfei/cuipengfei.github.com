@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -48,14 +48,16 @@
 </script>
 
   <meta name="description" content="本文翻译自  Jon Skeet  的系列博文”Edulinq”。 本篇原文地址：  http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;29&#x2F;reimplementing-linq-to-objects-part-11-first-single-last-and-the-ordefault-versions.aspx 今天我实现了六个操作符，每个操">
-<meta name="keywords" content="LinQ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自己动手重新实现LINQ to Objects 11 - First，Last，Single以及它们带有OrDefault的重载">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2012&#x2F;04&#x2F;09&#x2F;%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%2011%20-%20First%EF%BC%8CLast%EF%BC%8CSingle%E4%BB%A5%E5%8F%8A%E5%AE%83%E4%BB%AC%E5%B8%A6%E6%9C%89OrDefault%E7%9A%84%E9%87%8D%E8%BD%BD&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="本文翻译自  Jon Skeet  的系列博文”Edulinq”。 本篇原文地址：  http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;29&#x2F;reimplementing-linq-to-objects-part-11-first-single-last-and-the-ordefault-versions.aspx 今天我实现了六个操作符，每个操">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-13T03:26:43.924Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2012-04-09T04:53:50.000Z">
+<meta property="article:modified_time" content="2019-12-13T03:26:43.924Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="LinQ">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2012/04/09/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%2011%20-%20First%EF%BC%8CLast%EF%BC%8CSingle%E4%BB%A5%E5%8F%8A%E5%AE%83%E4%BB%AC%E5%B8%A6%E6%9C%89OrDefault%E7%9A%84%E9%87%8D%E8%BD%BD/">
@@ -671,31 +673,31 @@ public static TSource LastOrDefault&lt;TSource&gt;(
       <div class="popular-posts-title"><a href="/blog/2011/08/21/自己动手重新实现LINQ to Objects: 2 - Where/" rel="bookmark">自己动手重新实现LINQ to Objects 2 - Where</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 3 - Select/" rel="bookmark">自己动手重新实现LINQ to Objects 3 - Select</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 4 - Range/" rel="bookmark">自己动手重新实现LINQ to Objects 4 - Range</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/08/19/自己动手重新实现LINQ to Objects: 1 - 引言/" rel="bookmark">自己动手重新实现LINQ to Objects 1 - 引言</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/08/24/自己动手重新实现LINQ to Objects: 6 - Repeat/" rel="bookmark">自己动手重新实现LINQ to Objects 6 - Repeat</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 3 - Select/" rel="bookmark">自己动手重新实现LINQ to Objects 3 - Select</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/08/23/自己动手重新实现LINQ to Objects: 5 - Empty/" rel="bookmark">自己动手重新实现LINQ to Objects 5 - Empty</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" rel="bookmark">自己动手重新实现LINQ to Objects 8 - Concat</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/12/15/自己动手重新实现LINQ to Objects: 9 - SelectMany/" rel="bookmark">自己动手重新实现LINQ to Objects 9 - SelectMany</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/09/05/自己动手重新实现LINQ to Objects: 7 - Count和LongCount/" rel="bookmark">自己动手重新实现LINQ to Objects 7 - Count和LongCount</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2012/02/15/自己动手重新实现LINQ to Objects: 10 - Any和All/" rel="bookmark">自己动手重新实现LINQ to Objects 10 - Any和All</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" rel="bookmark">自己动手重新实现LINQ to Objects 8 - Concat</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/12/15/自己动手重新实现LINQ to Objects: 9 - SelectMany/" rel="bookmark">自己动手重新实现LINQ to Objects 9 - SelectMany</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/08/24/自己动手重新实现LINQ to Objects: 6 - Repeat/" rel="bookmark">自己动手重新实现LINQ to Objects 6 - Repeat</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2012/02/15/自己动手重新实现LINQ to Objects: 10 - Any和All/" rel="bookmark">自己动手重新实现LINQ to Objects 10 - Any和All</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2012/04/10/自己动手重新实现LINQ to Objects: 12 - DefaultIfEmpty/" rel="bookmark">自己动手重新实现LINQ to Objects 12 - DefaultIfEmpty</a></div>
@@ -711,7 +713,7 @@ public static TSource LastOrDefault&lt;TSource&gt;(
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="/https:/cuipengfei.github.com/blog/2012/04/09/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%2011%20-%20First%EF%BC%8CLast%EF%BC%8CSingle%E4%BB%A5%E5%8F%8A%E5%AE%83%E4%BB%AC%E5%B8%A6%E6%9C%89OrDefault%E7%9A%84%E9%87%8D%E8%BD%BD/" title="自己动手重新实现LINQ to Objects 11 - First，Last，Single以及它们带有OrDefault的重载">https://cuipengfei.github.com/blog/2012/04/09/自己动手重新实现LINQ to Objects: 11 - First，Last，Single以及它们带有OrDefault的重载/</a>
+    <a href="https://cuipengfei.github.com/blog/2012/04/09/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%2011%20-%20First%EF%BC%8CLast%EF%BC%8CSingle%E4%BB%A5%E5%8F%8A%E5%AE%83%E4%BB%AC%E5%B8%A6%E6%9C%89OrDefault%E7%9A%84%E9%87%8D%E8%BD%BD/" title="自己动手重新实现LINQ to Objects 11 - First，Last，Single以及它们带有OrDefault的重载">https://cuipengfei.github.com/blog/2012/04/09/自己动手重新实现LINQ to Objects: 11 - First，Last，Single以及它们带有OrDefault的重载/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -865,7 +867,7 @@ public static TSource LastOrDefault&lt;TSource&gt;(
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">4:42</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
@@ -891,9 +893,17 @@ public static TSource LastOrDefault&lt;TSource&gt;(
   <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -972,7 +982,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

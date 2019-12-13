@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -48,14 +48,17 @@
 </script>
 
   <meta name="description" content="实在想不到什么动词可以当做脱衣服来讲了，所以从现在开始这系列博文就叫做Desugar Scala了。除非哪天才思泉涌，又想到了新词：） 开始正文。 名字叫做unapply和unapplySeq的方法在Scala里也是有特殊含义的。 我们前面说过case class在做pattern match时很好用，而除case class之外，有unapply或unapplySeq方法的对象在pattern">
-<meta name="keywords" content="Desugar_Scala,Scala">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Desugar Scala(15) -- unapply和unapplySeq方法">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2014&#x2F;06&#x2F;14&#x2F;scala-unapply-method&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="实在想不到什么动词可以当做脱衣服来讲了，所以从现在开始这系列博文就叫做Desugar Scala了。除非哪天才思泉涌，又想到了新词：） 开始正文。 名字叫做unapply和unapplySeq的方法在Scala里也是有特殊含义的。 我们前面说过case class在做pattern match时很好用，而除case class之外，有unapply或unapplySeq方法的对象在pattern">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-07T13:18:10.863Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2014-06-14T06:46:00.000Z">
+<meta property="article:modified_time" content="2019-12-07T13:18:10.863Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="Desugar_Scala">
+<meta property="article:tag" content="Scala">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2014/06/14/scala-unapply-method/">
@@ -285,14 +288,14 @@
 <p>名字叫做unapply和unapplySeq的方法在Scala里也是有特殊含义的。</p>
 <p>我们前面说过case class在做pattern match时很好用，而除case class之外，有unapply或unapplySeq方法的对象在pattern match时也有很好的应用场景。</p>
 <p>比如这段代码：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Square</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span></span>(z: <span class="type">Double</span>): <span class="type">Option</span>[<span class="type">Double</span>] = <span class="type">Some</span>(math.sqrt(z))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Square</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span></span>(z: <span class="type">Double</span>): <span class="type">Option</span>[<span class="type">Double</span>] = <span class="type">Some</span>(math.sqrt(z))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>我们定义了一个unapply方法，用来计算平方根。<br>我们可以像调用普通方法一样的调用它：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> number: <span class="type">Double</span> = <span class="number">36.0</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="type">Square</span>.unapply(number)</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> number: <span class="type">Double</span> = <span class="number">36.0</span></span><br><span class="line"><span class="type">Square</span>.unapply(number)</span><br></pre></td></tr></table></figure>
 
 <p>这样会得到36的平方根:6。实际上返回值是Some(6)。</p>
 <p>上面的方式是对unapply的浪费，unapply真正的好处是这样的：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> number: <span class="type">Double</span> = <span class="number">36.0</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">number <span class="keyword">match</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">case</span> <span class="type">Square</span>(n) =&gt; println(<span class="string">s"square root of <span class="subst">$number</span> is <span class="subst">$n</span>"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">case</span> _ =&gt; println(<span class="string">"nothing matched"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> number: <span class="type">Double</span> = <span class="number">36.0</span></span><br><span class="line">number <span class="keyword">match</span> &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="type">Square</span>(n) =&gt; println(<span class="string">s"square root of <span class="subst">$number</span> is <span class="subst">$n</span>"</span>)</span><br><span class="line">	<span class="keyword">case</span> _ =&gt; println(<span class="string">"nothing matched"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这样我们无需显式调用unapply方法，而把是它用在pattern match中，让编译器替我们调用它。</p>
 <p>当我们写下这段pattern match的代码时，编译器其实替我们做了好几件事：</p>
@@ -302,16 +305,16 @@
 <li>如果是Some，则将其解开，并将其中的值赋值给n（就是case Square(n)中的n）</li>
 </ol>
 <p>这段代码反编译出来是这个样子的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> number = <span class="number">36.0</span>D;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">   <span class="keyword">double</span> d1 = number;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">   Option localOption = Square..MODULE$.unapply(d1);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">   <span class="comment">//调用unapply，传入number</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">   BoxedUnit localBoxedUnit;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">   <span class="keyword">if</span> (localOption.isEmpty()) &#123;<span class="comment">//判断返回值是None</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">     Predef..MODULE$.println(<span class="string">"nothing matched"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">     localBoxedUnit = BoxedUnit.UNIT;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">   &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">   <span class="keyword">else</span> &#123;<span class="comment">//判断返回值是Some</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">     <span class="keyword">double</span> n = BoxesRunTime.unboxToDouble(localOption.get());</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">     <span class="comment">//将Some解开，并将其中的值赋值给n</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">     Predef..MODULE$.println(<span class="keyword">new</span> StringContext(Predef..MODULE$.wrapRefArray((Object[]) <span class="keyword">new</span> String[] &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">       <span class="string">"square root of "</span>, <span class="string">" is "</span>, <span class="string">""</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">     &#125;) ).s(Predef..MODULE$.genericWrapArray(<span class="keyword">new</span> Object[] &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">       BoxesRunTime.boxToDouble(number), BoxesRunTime.boxToDouble(n)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">     &#125;)));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">     localBoxedUnit = BoxedUnit.UNIT;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">   &#125;</span></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> number = <span class="number">36.0</span>D;</span><br><span class="line">   <span class="keyword">double</span> d1 = number;</span><br><span class="line">   Option localOption = Square..MODULE$.unapply(d1);</span><br><span class="line">   <span class="comment">//调用unapply，传入number</span></span><br><span class="line">   BoxedUnit localBoxedUnit;</span><br><span class="line">   <span class="keyword">if</span> (localOption.isEmpty()) &#123;<span class="comment">//判断返回值是None</span></span><br><span class="line">     Predef..MODULE$.println(<span class="string">"nothing matched"</span>);</span><br><span class="line">     localBoxedUnit = BoxedUnit.UNIT;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span> &#123;<span class="comment">//判断返回值是Some</span></span><br><span class="line">     <span class="keyword">double</span> n = BoxesRunTime.unboxToDouble(localOption.get());</span><br><span class="line">     <span class="comment">//将Some解开，并将其中的值赋值给n</span></span><br><span class="line">     Predef..MODULE$.println(<span class="keyword">new</span> StringContext(Predef..MODULE$.wrapRefArray((Object[]) <span class="keyword">new</span> String[] &#123;</span><br><span class="line">       <span class="string">"square root of "</span>, <span class="string">" is "</span>, <span class="string">""</span></span><br><span class="line">     &#125;) ).s(Predef..MODULE$.genericWrapArray(<span class="keyword">new</span> Object[] &#123;</span><br><span class="line">       BoxesRunTime.boxToDouble(number), BoxesRunTime.boxToDouble(n)</span><br><span class="line">     &#125;)));</span><br><span class="line">     localBoxedUnit = BoxedUnit.UNIT;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
 <p>如果没有unapply方法和pattern match语法之间的这种结合，我们自己写代码要写成什么样子呢？</p>
 <p>或许会比上面反编译的代码简单一些，但是显式地调用开平方的方法，用if else来判断Option，以及将真正的返回值从Option里面解出来这三件事是免不掉的。</p>
 <p>unapplySeq和unapply的作用很是类似，例如这样：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Names</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapplySeq</span></span>(str: <span class="type">String</span>): <span class="type">Option</span>[<span class="type">Seq</span>[<span class="type">String</span>]] = &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> (str.contains(<span class="string">","</span>)) <span class="type">Some</span>(str.split(<span class="string">","</span>))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">else</span> <span class="type">None</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Names</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapplySeq</span></span>(str: <span class="type">String</span>): <span class="type">Option</span>[<span class="type">Seq</span>[<span class="type">String</span>]] = &#123;</span><br><span class="line">    <span class="keyword">if</span> (str.contains(<span class="string">","</span>)) <span class="type">Some</span>(str.split(<span class="string">","</span>))</span><br><span class="line">    <span class="keyword">else</span> <span class="type">None</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>我们定义一个unapplySeq方法，用逗号作为分隔符来把字符串拆开。</p>
 <p>然后我们可以这样应用它：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> namesString = <span class="string">"xiao ming,xiao hong,tom"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">namesString <span class="keyword">match</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">case</span> <span class="type">Names</span>(first, second, third) =&gt; &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    println(<span class="string">"the string contains three people's names"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    println(<span class="string">s"<span class="subst">$first</span> <span class="subst">$second</span> <span class="subst">$third</span>"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">case</span> _ =&gt; println(<span class="string">"nothing matched"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> namesString = <span class="string">"xiao ming,xiao hong,tom"</span></span><br><span class="line">namesString <span class="keyword">match</span> &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="type">Names</span>(first, second, third) =&gt; &#123;</span><br><span class="line">    println(<span class="string">"the string contains three people's names"</span>)</span><br><span class="line">    println(<span class="string">s"<span class="subst">$first</span> <span class="subst">$second</span> <span class="subst">$third</span>"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">case</span> _ =&gt; println(<span class="string">"nothing matched"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>与上面的例子很是类似，不过编译器在这里替我们做的事情更多了：</p>
 <ol>
@@ -338,13 +341,22 @@
       <div class="popular-posts-title"><a href="/blog/2013/05/11/scala-language-features-2/" rel="bookmark">Scala中的语言特性是如何实现的(2)</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/24/desugar-scala-5/" rel="bookmark">剥开Scala的糖衣(5) -- lazy</a></div>
+      <div class="popular-posts-title"><a href="/blog/2013/12/23/desugar-scala-4/" rel="bookmark">去掉Scala的糖衣(4) -- type aliase</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/10/13/scala-trait/" rel="bookmark">Scala中的语言特性是如何实现的(3) -- trait</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/24/desugar-scala-5/" rel="bookmark">剥开Scala的糖衣(5) -- lazy</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/12/25/desugar-scala-6/" rel="bookmark">褪去Scala的糖衣(6) -- partial application</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-8/" rel="bookmark">揭开Scala的糖衣(8) -- pattern matching</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/30/desugar-scala-9/" rel="bookmark">掀开Scala的糖衣(9) -- function composition</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-7/" rel="bookmark">剥掉Scala的糖衣(7) -- apply method</a></div>
@@ -353,25 +365,16 @@
       <div class="popular-posts-title"><a href="/blog/2014/01/01/desugar-scala-10/" rel="bookmark">褪去Scala的糖衣(10) -- implicit function</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/23/desugar-scala-4/" rel="bookmark">去掉Scala的糖衣(4) -- type aliase</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/30/desugar-scala-9/" rel="bookmark">掀开Scala的糖衣(9) -- function composition</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/01/02/desugar-scala-11/" rel="bookmark">剥掉Scala的糖衣(11) -- structural types</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/01/05/more-on-scala-implicit-function/" rel="bookmark">褪去Scala的糖衣(12) -- implicit function（补）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-8/" rel="bookmark">揭开Scala的糖衣(8) -- pattern matching</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/01/02/desugar-scala-11/" rel="bookmark">剥掉Scala的糖衣(11) -- structural types</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/06/12/scala-update-method/" rel="bookmark">抹掉Scala的糖衣(14) -- update method</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/09/desugar-scala-default-parameter-value/" rel="bookmark">除去Scala的糖衣(13) -- default parameter value</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/12/scala-update-method/" rel="bookmark">抹掉Scala的糖衣(14) -- update method</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/21/desugar-scala-lower-bound/" rel="bookmark">Desugar Scala(16) -- lower bound</a></div>
@@ -383,13 +386,13 @@
       <div class="popular-posts-title"><a href="/blog/2017/06/14/desugar-scala-stackable-traits/" rel="bookmark">Desugar Scala(18) -- stackable traits</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/" rel="bookmark">Scala + Play + sbt + Protractor = one build</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/27/scala-java-interop-closure/" rel="bookmark">论“如果Scala类有方法接收闭包，这些方法在Java里就不可用，因为Java目前尚不支持闭包。”这句话是错的</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/28/scala-java-interop-trait-with-impl/" rel="bookmark">论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/" rel="bookmark">Scala + Play + sbt + Protractor = one build</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/07/18/play-evolutions-to-liquibase/" rel="bookmark">在使用play framework的evolutions？需要支持SQL Server？用Liquibase吧</a></div>
@@ -410,25 +413,25 @@
       <div class="popular-posts-title"><a href="/blog/2015/04/26/principles-of-reactive-programming-week-2/" rel="bookmark">Principles of Reactive Programming Week Two作业导学</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/13/observers-pattern-fp/" rel="bookmark">观察者模式 in FP：Mutation vs Transformation</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/" rel="bookmark">解释器模式：OOP versus Functional Decomposition</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/16/visitor-pattern-pattern-match/" rel="bookmark">访问者模式 in FP：Pattern Matching</a></div>
+      <div class="popular-posts-title"><a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/" rel="bookmark">策略模式的尴尬就像用菜刀开啤酒</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/" rel="bookmark">职责链模式的别扭就像用门框夹核桃</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/23/template-method-pattern/" rel="bookmark">模板方法模式：子类型多态和高阶函数</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/" rel="bookmark">策略模式的尴尬就像用菜刀开啤酒</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2015/06/01/command-pattern-fp-implementation/" rel="bookmark">命令模式的不爽就像用指甲刀刮胡子</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/" rel="bookmark">解释器模式：OOP versus Functional Decomposition</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/13/observers-pattern-fp/" rel="bookmark">观察者模式 in FP：Mutation vs Transformation</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/16/visitor-pattern-pattern-match/" rel="bookmark">访问者模式 in FP：Pattern Matching</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/23/template-method-pattern/" rel="bookmark">模板方法模式：子类型多态和高阶函数</a></div>
     </li>
   </ul>
 
@@ -441,7 +444,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="/https:/cuipengfei.github.com/blog/2014/06/14/scala-unapply-method/" title="Desugar Scala(15) -- unapply和unapplySeq方法">https://cuipengfei.github.com/blog/2014/06/14/scala-unapply-method/</a>
+    <a href="https://cuipengfei.github.com/blog/2014/06/14/scala-unapply-method/" title="Desugar Scala(15) -- unapply和unapplySeq方法">https://cuipengfei.github.com/blog/2014/06/14/scala-unapply-method/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -595,7 +598,7 @@
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">4:42</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
@@ -621,9 +624,17 @@
   <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -702,7 +713,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

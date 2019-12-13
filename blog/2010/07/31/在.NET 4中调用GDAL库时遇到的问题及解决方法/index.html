@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -48,14 +48,16 @@
 </script>
 
   <meta name="description" content="最近需要在  .NET 4  的环境中调用  GDAL  库。  GDAL  本身是一套非托管类库，不过还好提供了托管的  Wrapper  。 这些托管的程序集被包含在了  FWTools  的安装包中，  FWTools  中带的版本依赖于  gdal_fw.dll，  gdal_fw.dll是  GDAL  核心类库的修改版，而它依赖的其他非托管程序集太多了，加起来有  18M  左右。所以">
-<meta name="keywords" content="疑难">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在.NET 4中调用GDAL库时遇到的问题及解决方法">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2010&#x2F;07&#x2F;31&#x2F;%E5%9C%A8.NET%204%E4%B8%AD%E8%B0%83%E7%94%A8GDAL%E5%BA%93%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="最近需要在  .NET 4  的环境中调用  GDAL  库。  GDAL  本身是一套非托管类库，不过还好提供了托管的  Wrapper  。 这些托管的程序集被包含在了  FWTools  的安装包中，  FWTools  中带的版本依赖于  gdal_fw.dll，  gdal_fw.dll是  GDAL  核心类库的修改版，而它依赖的其他非托管程序集太多了，加起来有  18M  左右。所以">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-13T03:33:51.969Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2010-07-31T08:22:00.000Z">
+<meta property="article:modified_time" content="2019-12-13T03:33:51.969Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="疑难">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2010/07/31/%E5%9C%A8.NET%204%E4%B8%AD%E8%B0%83%E7%94%A8GDAL%E5%BA%93%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">
@@ -287,7 +289,7 @@
 <p>猜来猜去，找来找去找到了问题的所在：</p>
 <p>GDAL  的托管  Wrapper  中有一个叫做  SWIGStringHelper<br>的类型，该类型的静态构造方法中执行了一些比较重要的初始化操作。另外一个叫做  OsrPINVOKE  的类中声明了一个  SWIGStringHelper<br>类型的私有静态字段，并在声明时就初始化了该字段，而且  OsrPINVOKE  中没有显式声明的静态构造。</p>
 <p>把代码简化一下的话，大概是这样的：</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OsrPINVOKE</span> &#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">private</span> <span class="keyword">static</span> SWIGStringHelper helper = <span class="keyword">new</span> SWIGStringHelper();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">DoSomething</span><span class="params">()</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">Console</span>.WriteLine(<span class="string">"static method of OsrPINVOKE"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SWIGStringHelper</span> &#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">static</span> <span class="title">SWIGStringHelper</span><span class="params">()</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">//这里做了一些重要的初始化</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">  <span class="built_in">Console</span>.WriteLine(<span class="string">"SWIGStringHelper static constructor "</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OsrPINVOKE</span> &#123;</span></span><br><span class="line"> <span class="keyword">private</span> <span class="keyword">static</span> SWIGStringHelper helper = <span class="keyword">new</span> SWIGStringHelper();</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">DoSomething</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">Console</span>.WriteLine(<span class="string">"static method of OsrPINVOKE"</span>);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SWIGStringHelper</span> &#123;</span></span><br><span class="line"> <span class="function"><span class="keyword">static</span> <span class="title">SWIGStringHelper</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">//这里做了一些重要的初始化</span></span><br><span class="line">  <span class="built_in">Console</span>.WriteLine(<span class="string">"SWIGStringHelper static constructor "</span>);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>如果有代码调用  DoSomething  ，我对这段代码执行顺序的估计是这样的：</p>
 <p>OsrPINVOKE  的静态构造方法（里面初始化  helper  这个静态字段）；</p>
@@ -296,7 +298,7 @@
 <p>DoSomething  方法（输出字符串）。</p>
 <p>所以应该是先输出  SWIGStringHelper static constructor  而后输出  static method of OsrPINVOKE  。</p>
 <p>试着这样调用一下：</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span><span class="params">(<span class="built_in">string</span>[] args)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    OsrPINVOKE.DoSomething();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="built_in">Console</span>.ReadLine();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span><span class="params">(<span class="built_in">string</span>[] args)</span> </span>&#123;</span><br><span class="line">    OsrPINVOKE.DoSomething();</span><br><span class="line">    <span class="built_in">Console</span>.ReadLine();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>却发现如果用的  target framework  是  .net 4  ，用  release  编译并且在  VS  外运行的话，就会只输出<br>static method of OsrPINVOKE  ，感觉好像  SWIGStringHelper  的静态构造方法没有执行。而如果用的是  .net<br>2.0  、  3.5  ，或者是用  Debug  编译或是在  VS  里面运行的话都不会有问题。</p>
 <p>难道是静态字段的初始化在  .NET 4  中变成  Lazy  的了？</p>
@@ -334,7 +336,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="/https:/cuipengfei.github.com/blog/2010/07/31/%E5%9C%A8.NET%204%E4%B8%AD%E8%B0%83%E7%94%A8GDAL%E5%BA%93%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" title="在.NET 4中调用GDAL库时遇到的问题及解决方法">https://cuipengfei.github.com/blog/2010/07/31/在.NET 4中调用GDAL库时遇到的问题及解决方法/</a>
+    <a href="https://cuipengfei.github.com/blog/2010/07/31/%E5%9C%A8.NET%204%E4%B8%AD%E8%B0%83%E7%94%A8GDAL%E5%BA%93%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" title="在.NET 4中调用GDAL库时遇到的问题及解决方法">https://cuipengfei.github.com/blog/2010/07/31/在.NET 4中调用GDAL库时遇到的问题及解决方法/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -487,7 +489,7 @@
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">4:42</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
@@ -513,9 +515,17 @@
   <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -594,7 +604,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

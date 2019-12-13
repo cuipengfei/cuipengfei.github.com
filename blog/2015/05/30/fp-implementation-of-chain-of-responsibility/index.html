@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -48,14 +48,22 @@
 </script>
 
   <meta name="description" content="职责链模式 责任链模式在面向对象程式设计里是一种软件设计模式，它包含了一些命令对象和一系列的处理对象。每一个处理对象决定它能处理哪些命令对象，它也知道如何将它不能处理的命令对象传递给该链中的下一个处理对象。该模式还描述了往该处理链的末尾添加新的处理对象的方法。  以上是wiki对职责链模式的定义。 举个例子来说，我们的系统中需要记录日志的功能。日志需要根据优先级被发送到不同的地方。 低优先级的日志">
-<meta name="keywords" content="scala, java, design pattern, Chain Of Responsibility pattern, OO, FP, 设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="职责链模式的别扭就像用门框夹核桃">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2015&#x2F;05&#x2F;30&#x2F;fp-implementation-of-chain-of-responsibility&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="职责链模式 责任链模式在面向对象程式设计里是一种软件设计模式，它包含了一些命令对象和一系列的处理对象。每一个处理对象决定它能处理哪些命令对象，它也知道如何将它不能处理的命令对象传递给该链中的下一个处理对象。该模式还描述了往该处理链的末尾添加新的处理对象的方法。  以上是wiki对职责链模式的定义。 举个例子来说，我们的系统中需要记录日志的功能。日志需要根据优先级被发送到不同的地方。 低优先级的日志">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-07T13:18:10.868Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-05-30T01:40:00.000Z">
+<meta property="article:modified_time" content="2019-12-07T13:18:10.868Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content=" java">
+<meta property="article:tag" content=" design pattern">
+<meta property="article:tag" content=" Chain Of Responsibility pattern">
+<meta property="article:tag" content=" OO">
+<meta property="article:tag" content=" FP">
+<meta property="article:tag" content=" 设计模式">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/">
@@ -348,10 +356,16 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/13/observers-pattern-fp/" rel="bookmark">观察者模式 in FP：Mutation vs Transformation</a></div>
+      <div class="popular-posts-title"><a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/" rel="bookmark">策略模式的尴尬就像用菜刀开啤酒</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/01/command-pattern-fp-implementation/" rel="bookmark">命令模式的不爽就像用指甲刀刮胡子</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/" rel="bookmark">解释器模式：OOP versus Functional Decomposition</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/13/observers-pattern-fp/" rel="bookmark">观察者模式 in FP：Mutation vs Transformation</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2015/06/16/visitor-pattern-pattern-match/" rel="bookmark">访问者模式 in FP：Pattern Matching</a></div>
@@ -360,25 +374,28 @@
       <div class="popular-posts-title"><a href="/blog/2015/06/23/template-method-pattern/" rel="bookmark">模板方法模式：子类型多态和高阶函数</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/" rel="bookmark">策略模式的尴尬就像用菜刀开啤酒</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/01/command-pattern-fp-implementation/" rel="bookmark">命令模式的不爽就像用指甲刀刮胡子</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/05/05/how-are-scala-language-features-implemented/" rel="bookmark">Scala中的语言特性是如何实现的(1)</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/05/11/scala-language-features-2/" rel="bookmark">Scala中的语言特性是如何实现的(2)</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/24/desugar-scala-5/" rel="bookmark">剥开Scala的糖衣(5) -- lazy</a></div>
+      <div class="popular-posts-title"><a href="/blog/2013/12/23/desugar-scala-4/" rel="bookmark">去掉Scala的糖衣(4) -- type aliase</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/10/13/scala-trait/" rel="bookmark">Scala中的语言特性是如何实现的(3) -- trait</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/24/desugar-scala-5/" rel="bookmark">剥开Scala的糖衣(5) -- lazy</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/12/25/desugar-scala-6/" rel="bookmark">褪去Scala的糖衣(6) -- partial application</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-8/" rel="bookmark">揭开Scala的糖衣(8) -- pattern matching</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/30/desugar-scala-9/" rel="bookmark">掀开Scala的糖衣(9) -- function composition</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-7/" rel="bookmark">剥掉Scala的糖衣(7) -- apply method</a></div>
@@ -387,28 +404,25 @@
       <div class="popular-posts-title"><a href="/blog/2014/01/01/desugar-scala-10/" rel="bookmark">褪去Scala的糖衣(10) -- implicit function</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/23/desugar-scala-4/" rel="bookmark">去掉Scala的糖衣(4) -- type aliase</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/30/desugar-scala-9/" rel="bookmark">掀开Scala的糖衣(9) -- function composition</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/01/02/desugar-scala-11/" rel="bookmark">剥掉Scala的糖衣(11) -- structural types</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/01/05/more-on-scala-implicit-function/" rel="bookmark">褪去Scala的糖衣(12) -- implicit function（补）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-8/" rel="bookmark">揭开Scala的糖衣(8) -- pattern matching</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/01/02/desugar-scala-11/" rel="bookmark">剥掉Scala的糖衣(11) -- structural types</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/09/desugar-scala-default-parameter-value/" rel="bookmark">除去Scala的糖衣(13) -- default parameter value</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/06/14/scala-unapply-method/" rel="bookmark">Desugar Scala(15) -- unapply和unapplySeq方法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/12/scala-update-method/" rel="bookmark">抹掉Scala的糖衣(14) -- update method</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2014/06/09/desugar-scala-default-parameter-value/" rel="bookmark">除去Scala的糖衣(13) -- default parameter value</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/21/desugar-scala-lower-bound/" rel="bookmark">Desugar Scala(16) -- lower bound</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/" rel="bookmark">Scala + Play + sbt + Protractor = one build</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/27/scala-java-interop-closure/" rel="bookmark">论“如果Scala类有方法接收闭包，这些方法在Java里就不可用，因为Java目前尚不支持闭包。”这句话是错的</a></div>
@@ -417,13 +431,10 @@
       <div class="popular-posts-title"><a href="/blog/2014/06/28/scala-java-interop-trait-with-impl/" rel="bookmark">论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/" rel="bookmark">Scala + Play + sbt + Protractor = one build</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/07/18/play-evolutions-to-liquibase/" rel="bookmark">在使用play framework的evolutions？需要支持SQL Server？用Liquibase吧</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/14/scala-unapply-method/" rel="bookmark">Desugar Scala(15) -- unapply和unapplySeq方法</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/08/30/options-for/" rel="bookmark">Desugar Scala(17) -- Option和for，以及脑子里发生的事情</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/09/06/solving-regular-problems-in-scala/" rel="bookmark">solving regular problems in scala</a></div>
@@ -433,9 +444,6 @@
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/" rel="bookmark">Scala中Stream的应用场景及其实现原理</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/08/30/options-for/" rel="bookmark">Desugar Scala(17) -- Option和for，以及脑子里发生的事情</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2015/04/19/principles-of-reactive-programming-week-one/" rel="bookmark">Principles of Reactive Programming Week One作业导学</a></div>
@@ -457,7 +465,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="/https:/cuipengfei.github.com/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/" title="职责链模式的别扭就像用门框夹核桃">https://cuipengfei.github.com/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/</a>
+    <a href="https://cuipengfei.github.com/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/" title="职责链模式的别扭就像用门框夹核桃">https://cuipengfei.github.com/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -612,7 +620,7 @@
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">4:42</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
@@ -638,9 +646,17 @@
   <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -719,7 +735,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

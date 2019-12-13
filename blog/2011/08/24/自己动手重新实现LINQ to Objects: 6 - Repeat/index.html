@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -48,14 +48,16 @@
 </script>
 
   <meta name="description" content="本文翻译自   Jon Skeet   的系列博文”Edulinq”。 本篇原文地址： http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;24&#x2F;reimplementing-linq-to-objects-part-6-repeat.aspx本文的主题是个无关紧要的方法，  Repeat  。关于  Repeat  ，值得讨论的内容比  Empty">
-<meta name="keywords" content="LinQ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自己动手重新实现LINQ to Objects 6 - Repeat">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2011&#x2F;08&#x2F;24&#x2F;%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%206%20-%20Repeat&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="本文翻译自   Jon Skeet   的系列博文”Edulinq”。 本篇原文地址： http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;24&#x2F;reimplementing-linq-to-objects-part-6-repeat.aspx本文的主题是个无关紧要的方法，  Repeat  。关于  Repeat  ，值得讨论的内容比  Empty">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-13T03:26:43.927Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2011-08-24T14:27:15.000Z">
+<meta property="article:modified_time" content="2019-12-13T03:26:43.927Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="LinQ">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2011/08/24/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%206%20-%20Repeat/">
@@ -284,7 +286,7 @@
 <p>本篇原文地址：</p>
 <p><a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-objects-part-6-repeat.aspx" target="_blank" rel="noopener">http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-objects-part-6-repeat.aspx</a>本文的主题是个无关紧要的方法，  Repeat  。关于  Repeat  ，值得讨论的内容比  Empty<br>还要少。写这篇博文只是为了保证这个系列的完整性。</p>
 <p>Repeat  是什么？  Repeat  是一个静态的泛型方法，不是扩展方法，它只有一个签名形式：</p>
-<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>  <span class="keyword">static</span>  IEnumerable&lt;TResult&gt; Repeat&lt;TResult&gt;(TResult element,<span class="keyword">int</span>  <span class="keyword">count</span>)</span></pre></td></tr></table></figure>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>  <span class="keyword">static</span>  IEnumerable&lt;TResult&gt; Repeat&lt;TResult&gt;(TResult element,<span class="keyword">int</span>  <span class="keyword">count</span>)</span><br></pre></td></tr></table></figure>
 
 <p>它返回一个序列，该序列中反复的包含“  count  ”个指定的元素，。  Repeat  只需要一个参数校验：检验“  count  ”不是负数。</p>
 <p>我们要测试什么呢？ 需要测试的东西真的不多。我只想到了四个场景：</p>
@@ -300,7 +302,7 @@
 </ul>
 <p>以上这几点恐怕都不怎么令人兴起。</p>
 <h1 id="来动手实现吧！"><a href="#来动手实现吧！" class="headerlink" title="来动手实现吧！"></a>来动手实现吧！</h1><p>在实现的时候我们唯一有可能做错的事就是把参数校验的代码和迭代器代码块写到一起。不过我们已经多次的做过“分割实现”了，所以我们肯定不会犯这个错误的。下面的代码<br>就是乏善可陈的  Repeat  方法的全部了：</p>
-<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> IEnumerable &lt; TResult &gt; Repeat &lt; TResult &gt; (TResult element, <span class="keyword">int</span> <span class="keyword">count</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">if</span> (<span class="keyword">count</span> &lt; <span class="number">0</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentOutOfRangeException(<span class="string">"count"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">return</span> RepeatImpl(element, <span class="keyword">count</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> IEnumerable &lt; TResult &gt; RepeatImpl &lt; TResult &gt; (TResult element,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">int</span> <span class="keyword">count</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">count</span>; i++) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">  yield</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">return</span> element;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> IEnumerable &lt; TResult &gt; Repeat &lt; TResult &gt; (TResult element, <span class="keyword">int</span> <span class="keyword">count</span>) &#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">if</span> (<span class="keyword">count</span> &lt; <span class="number">0</span>) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentOutOfRangeException(<span class="string">"count"</span>);</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">return</span> RepeatImpl(element, <span class="keyword">count</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> IEnumerable &lt; TResult &gt; RepeatImpl &lt; TResult &gt; (TResult element,</span><br><span class="line"> <span class="keyword">int</span> <span class="keyword">count</span>) &#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">count</span>; i++) &#123;</span><br><span class="line"></span><br><span class="line">  yield</span><br><span class="line">  <span class="keyword">return</span> element;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这就是今天的全部内容了。其中值得指出的部分就是  …  没有什么值得指出的。</p>
 <h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>其实没有什么结论可写。下一次我们讲  Count  和  LongCount  ，那里面倒是有些有趣的东西可以细说。</p>
@@ -317,34 +319,34 @@
       <div class="popular-posts-title"><a href="/blog/2011/08/21/自己动手重新实现LINQ to Objects: 2 - Where/" rel="bookmark">自己动手重新实现LINQ to Objects 2 - Where</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 3 - Select/" rel="bookmark">自己动手重新实现LINQ to Objects 3 - Select</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 4 - Range/" rel="bookmark">自己动手重新实现LINQ to Objects 4 - Range</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/08/19/自己动手重新实现LINQ to Objects: 1 - 引言/" rel="bookmark">自己动手重新实现LINQ to Objects 1 - 引言</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/08/22/自己动手重新实现LINQ to Objects: 3 - Select/" rel="bookmark">自己动手重新实现LINQ to Objects 3 - Select</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/08/23/自己动手重新实现LINQ to Objects: 5 - Empty/" rel="bookmark">自己动手重新实现LINQ to Objects 5 - Empty</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" rel="bookmark">自己动手重新实现LINQ to Objects 8 - Concat</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2011/09/05/自己动手重新实现LINQ to Objects: 7 - Count和LongCount/" rel="bookmark">自己动手重新实现LINQ to Objects 7 - Count和LongCount</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2012/02/15/自己动手重新实现LINQ to Objects: 10 - Any和All/" rel="bookmark">自己动手重新实现LINQ to Objects 10 - Any和All</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/12/15/自己动手重新实现LINQ to Objects: 9 - SelectMany/" rel="bookmark">自己动手重新实现LINQ to Objects 9 - SelectMany</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2012/04/10/自己动手重新实现LINQ to Objects: 12 - DefaultIfEmpty/" rel="bookmark">自己动手重新实现LINQ to Objects 12 - DefaultIfEmpty</a></div>
+      <div class="popular-posts-title"><a href="/blog/2011/09/05/自己动手重新实现LINQ to Objects: 7 - Count和LongCount/" rel="bookmark">自己动手重新实现LINQ to Objects 7 - Count和LongCount</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2011/09/14/自己动手重新实现LINQ to Objects: 8 - Concat/" rel="bookmark">自己动手重新实现LINQ to Objects 8 - Concat</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2012/02/15/自己动手重新实现LINQ to Objects: 10 - Any和All/" rel="bookmark">自己动手重新实现LINQ to Objects 10 - Any和All</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2012/04/09/自己动手重新实现LINQ to Objects: 11 - First，Last，Single以及它们带有OrDefault的重载/" rel="bookmark">自己动手重新实现LINQ to Objects 11 - First，Last，Single以及它们带有OrDefault的重载</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2012/04/10/自己动手重新实现LINQ to Objects: 12 - DefaultIfEmpty/" rel="bookmark">自己动手重新实现LINQ to Objects 12 - DefaultIfEmpty</a></div>
     </li>
   </ul>
 
@@ -357,7 +359,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="/https:/cuipengfei.github.com/blog/2011/08/24/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%206%20-%20Repeat/" title="自己动手重新实现LINQ to Objects 6 - Repeat">https://cuipengfei.github.com/blog/2011/08/24/自己动手重新实现LINQ to Objects: 6 - Repeat/</a>
+    <a href="https://cuipengfei.github.com/blog/2011/08/24/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%206%20-%20Repeat/" title="自己动手重新实现LINQ to Objects 6 - Repeat">https://cuipengfei.github.com/blog/2011/08/24/自己动手重新实现LINQ to Objects: 6 - Repeat/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -511,7 +513,7 @@
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">4:42</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
@@ -537,9 +539,17 @@
   <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -618,7 +628,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

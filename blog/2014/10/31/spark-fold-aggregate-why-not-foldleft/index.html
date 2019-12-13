@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -48,14 +48,17 @@
 </script>
 
   <meta name="description" content="大家都知道Scala标准库的List有一个用来做聚合操作的foldLeft方法。 比如我定义一个公司类： 1case class Company(name:String, children:Seq[Company]&#x3D;Nil) 它有名字和子公司。然后定义几个公司： 1val companies &#x3D; List(Company(&quot;B&quot;),Company(&quot;A&quot;),Company(&quot;T&quot;))  三家大公司">
-<meta name="keywords" content="scala, spark">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark RDD的fold和aggregate为什么是两个API？为什么不是一个foldLeft？">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2014&#x2F;10&#x2F;31&#x2F;spark-fold-aggregate-why-not-foldleft&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="大家都知道Scala标准库的List有一个用来做聚合操作的foldLeft方法。 比如我定义一个公司类： 1case class Company(name:String, children:Seq[Company]&#x3D;Nil) 它有名字和子公司。然后定义几个公司： 1val companies &#x3D; List(Company(&quot;B&quot;),Company(&quot;A&quot;),Company(&quot;T&quot;))  三家大公司">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-07T13:18:10.865Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2014-10-31T07:29:00.000Z">
+<meta property="article:modified_time" content="2019-12-07T13:18:10.865Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content=" spark">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/">
@@ -282,23 +285,23 @@
       
         <p>大家都知道Scala标准库的List有一个用来做聚合操作的foldLeft方法。</p>
 <p>比如我定义一个公司类：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">Company</span>(<span class="params">name:<span class="type">String</span>, children:<span class="type">Seq</span>[<span class="type">Company</span>]=<span class="type">Nil</span></span>)</span></span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">Company</span>(<span class="params">name:<span class="type">String</span>, children:<span class="type">Seq</span>[<span class="type">Company</span>]=<span class="type">Nil</span></span>)</span></span><br></pre></td></tr></table></figure>
 <p>它有名字和子公司。<br>然后定义几个公司：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> companies = <span class="type">List</span>(<span class="type">Company</span>(<span class="string">"B"</span>),<span class="type">Company</span>(<span class="string">"A"</span>),<span class="type">Company</span>(<span class="string">"T"</span>))</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> companies = <span class="type">List</span>(<span class="type">Company</span>(<span class="string">"B"</span>),<span class="type">Company</span>(<span class="string">"A"</span>),<span class="type">Company</span>(<span class="string">"T"</span>))</span><br></pre></td></tr></table></figure>
 
 <p>三家大公司，然后呢，我假设有一家超牛逼的公司把它们给合并了：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">companies.foldLeft(<span class="type">Company</span>(<span class="string">"King"</span>))((king,company)=&gt;<span class="type">Company</span>(name=king.name,king.children:+company))</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">companies.foldLeft(<span class="type">Company</span>(<span class="string">"King"</span>))((king,company)=&gt;<span class="type">Company</span>(name=king.name,king.children:+company))</span><br></pre></td></tr></table></figure>
 
 <p>这个执行的结果是这样的：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">scala&gt; companies.foldLeft(<span class="type">Company</span>(<span class="string">"King"</span>))((king,company)=&gt;<span class="type">Company</span>(name=king.name,king.children:+company))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">res6: <span class="type">Company</span> = <span class="type">Company</span>(<span class="type">King</span>,<span class="type">List</span>(<span class="type">Company</span>(<span class="type">B</span>,<span class="type">List</span>()), <span class="type">Company</span>(<span class="type">A</span>,<span class="type">List</span>()), <span class="type">Company</span>(<span class="type">T</span>,<span class="type">List</span>())))</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; companies.foldLeft(<span class="type">Company</span>(<span class="string">"King"</span>))((king,company)=&gt;<span class="type">Company</span>(name=king.name,king.children:+company))</span><br><span class="line">res6: <span class="type">Company</span> = <span class="type">Company</span>(<span class="type">King</span>,<span class="type">List</span>(<span class="type">Company</span>(<span class="type">B</span>,<span class="type">List</span>()), <span class="type">Company</span>(<span class="type">A</span>,<span class="type">List</span>()), <span class="type">Company</span>(<span class="type">T</span>,<span class="type">List</span>())))</span><br></pre></td></tr></table></figure>
 
 <p>可见foldLeft的结果是一家包含了BAT三大家得新公司。</p>
 <p>由List[Company]聚合出一个新的Company，这种属于foldLeft的同构聚合操作。</p>
 <p>同时，foldLeft也可以做异构的聚合操作：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">companies.foldLeft(<span class="string">""</span>)((acc,company)=&gt;acc+company.name)</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">companies.foldLeft(<span class="string">""</span>)((acc,company)=&gt;acc+company.name)</span><br></pre></td></tr></table></figure>
 
 <p>它的执行结果是这样的：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">scala&gt; companies.foldLeft(<span class="string">""</span>)((acc,company)=&gt;acc+company.name)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">res7: <span class="type">String</span> = <span class="type">BAT</span></span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; companies.foldLeft(<span class="string">""</span>)((acc,company)=&gt;acc+company.name)</span><br><span class="line">res7: <span class="type">String</span> = <span class="type">BAT</span></span><br></pre></td></tr></table></figure>
 
 <p>由List[Company]聚合出一个String。</p>
 <p>这样的API感觉很方便，只要是聚合，无论同构异构，都可以用它来做。</p>
@@ -307,13 +310,13 @@
 <p>也就是说如果你有一个RDD[X]，通过fold，你只能构造出一个X。</p>
 <p>如果我想通过一个RDD[X]构造一个Y出来呢？</p>
 <p>那就得用aggregate这个API了，aggregate的签名是这样的：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">aggregate[<span class="type">U</span>](zeroValue: <span class="type">U</span>)(seqOp: (<span class="type">U</span>, <span class="type">T</span>) ⇒ <span class="type">U</span>, combOp: (<span class="type">U</span>, <span class="type">U</span>) ⇒ <span class="type">U</span>)(<span class="keyword">implicit</span> arg0: <span class="type">ClassTag</span>[<span class="type">U</span>]): <span class="type">U</span></span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aggregate[<span class="type">U</span>](zeroValue: <span class="type">U</span>)(seqOp: (<span class="type">U</span>, <span class="type">T</span>) ⇒ <span class="type">U</span>, combOp: (<span class="type">U</span>, <span class="type">U</span>) ⇒ <span class="type">U</span>)(<span class="keyword">implicit</span> arg0: <span class="type">ClassTag</span>[<span class="type">U</span>]): <span class="type">U</span></span><br></pre></td></tr></table></figure>
 
 <p>它比fold和foldLeft多需要一个combOp做参数。</p>
 <p>这让我很不解，同构和异构的API干嘛非得拆成两个呢？怎么不能学Scala的标准库，把它做成类似foldLeft的样子呢？</p>
 <p>后来想明白了，这是由于Spark需要分布运算造成的。</p>
 <p>先想一下Scala List的foldLeft是怎么工作的？</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">companies.foldLeft(<span class="type">Company</span>(<span class="string">"King"</span>))((king,company)=&gt;<span class="type">Company</span>(name=king.name,king.children:+company))</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">companies.foldLeft(<span class="type">Company</span>(<span class="string">"King"</span>))((king,company)=&gt;<span class="type">Company</span>(name=king.name,king.children:+company))</span><br></pre></td></tr></table></figure>
 
 <ol>
 <li>拿到初始值，即名字为king的公司，把它和list中的第一个公司合并，成为一个包含一家子公司的新公司</li>
@@ -321,7 +324,7 @@
 <li>把上一步中的新公司拿来和list中的第三个公司合并，成为一个包含三家子公司的新公司</li>
 </ol>
 <p>这是同构的过程。</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">companies.foldLeft(<span class="string">""</span>)((acc,company)=&gt;acc+company.name)</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">companies.foldLeft(<span class="string">""</span>)((acc,company)=&gt;acc+company.name)</span><br></pre></td></tr></table></figure>
 
 <ol>
 <li>拿到初始值，即空字符串，把它和list中的第一个公司的名字拼在一起，成为B</li>
@@ -365,13 +368,22 @@
       <div class="popular-posts-title"><a href="/blog/2013/05/11/scala-language-features-2/" rel="bookmark">Scala中的语言特性是如何实现的(2)</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/24/desugar-scala-5/" rel="bookmark">剥开Scala的糖衣(5) -- lazy</a></div>
+      <div class="popular-posts-title"><a href="/blog/2013/12/23/desugar-scala-4/" rel="bookmark">去掉Scala的糖衣(4) -- type aliase</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/10/13/scala-trait/" rel="bookmark">Scala中的语言特性是如何实现的(3) -- trait</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/24/desugar-scala-5/" rel="bookmark">剥开Scala的糖衣(5) -- lazy</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/12/25/desugar-scala-6/" rel="bookmark">褪去Scala的糖衣(6) -- partial application</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-8/" rel="bookmark">揭开Scala的糖衣(8) -- pattern matching</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/30/desugar-scala-9/" rel="bookmark">掀开Scala的糖衣(9) -- function composition</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-7/" rel="bookmark">剥掉Scala的糖衣(7) -- apply method</a></div>
@@ -380,40 +392,31 @@
       <div class="popular-posts-title"><a href="/blog/2014/01/01/desugar-scala-10/" rel="bookmark">褪去Scala的糖衣(10) -- implicit function</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/23/desugar-scala-4/" rel="bookmark">去掉Scala的糖衣(4) -- type aliase</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/30/desugar-scala-9/" rel="bookmark">掀开Scala的糖衣(9) -- function composition</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/01/02/desugar-scala-11/" rel="bookmark">剥掉Scala的糖衣(11) -- structural types</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/01/05/more-on-scala-implicit-function/" rel="bookmark">褪去Scala的糖衣(12) -- implicit function（补）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-8/" rel="bookmark">揭开Scala的糖衣(8) -- pattern matching</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/01/02/desugar-scala-11/" rel="bookmark">剥掉Scala的糖衣(11) -- structural types</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/09/desugar-scala-default-parameter-value/" rel="bookmark">除去Scala的糖衣(13) -- default parameter value</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/06/14/scala-unapply-method/" rel="bookmark">Desugar Scala(15) -- unapply和unapplySeq方法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/12/scala-update-method/" rel="bookmark">抹掉Scala的糖衣(14) -- update method</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2014/06/09/desugar-scala-default-parameter-value/" rel="bookmark">除去Scala的糖衣(13) -- default parameter value</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/21/desugar-scala-lower-bound/" rel="bookmark">Desugar Scala(16) -- lower bound</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/" rel="bookmark">Scala + Play + sbt + Protractor = one build</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/27/scala-java-interop-closure/" rel="bookmark">论“如果Scala类有方法接收闭包，这些方法在Java里就不可用，因为Java目前尚不支持闭包。”这句话是错的</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/28/scala-java-interop-trait-with-impl/" rel="bookmark">论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/" rel="bookmark">Scala + Play + sbt + Protractor = one build</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/14/scala-unapply-method/" rel="bookmark">Desugar Scala(15) -- unapply和unapplySeq方法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/08/30/options-for/" rel="bookmark">Desugar Scala(17) -- Option和for，以及脑子里发生的事情</a></div>
@@ -425,28 +428,28 @@
       <div class="popular-posts-title"><a href="/blog/2015/04/26/principles-of-reactive-programming-week-2/" rel="bookmark">Principles of Reactive Programming Week Two作业导学</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/13/observers-pattern-fp/" rel="bookmark">观察者模式 in FP：Mutation vs Transformation</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/" rel="bookmark">解释器模式：OOP versus Functional Decomposition</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/16/visitor-pattern-pattern-match/" rel="bookmark">访问者模式 in FP：Pattern Matching</a></div>
+      <div class="popular-posts-title"><a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/" rel="bookmark">策略模式的尴尬就像用菜刀开啤酒</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/" rel="bookmark">职责链模式的别扭就像用门框夹核桃</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/01/command-pattern-fp-implementation/" rel="bookmark">命令模式的不爽就像用指甲刀刮胡子</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/" rel="bookmark">解释器模式：OOP versus Functional Decomposition</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/13/observers-pattern-fp/" rel="bookmark">观察者模式 in FP：Mutation vs Transformation</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/16/visitor-pattern-pattern-match/" rel="bookmark">访问者模式 in FP：Pattern Matching</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2015/06/23/template-method-pattern/" rel="bookmark">模板方法模式：子类型多态和高阶函数</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/" rel="bookmark">策略模式的尴尬就像用菜刀开啤酒</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2017/06/14/desugar-scala-stackable-traits/" rel="bookmark">Desugar Scala(18) -- stackable traits</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/01/command-pattern-fp-implementation/" rel="bookmark">命令模式的不爽就像用指甲刀刮胡子</a></div>
     </li>
   </ul>
 
@@ -459,7 +462,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="/https:/cuipengfei.github.com/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/" title="Spark RDD的fold和aggregate为什么是两个API？为什么不是一个foldLeft？">https://cuipengfei.github.com/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/</a>
+    <a href="https://cuipengfei.github.com/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/" title="Spark RDD的fold和aggregate为什么是两个API？为什么不是一个foldLeft？">https://cuipengfei.github.com/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -614,7 +617,7 @@
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">4:42</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
@@ -640,9 +643,17 @@
   <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -721,7 +732,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

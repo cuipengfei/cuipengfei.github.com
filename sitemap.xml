@@ -842,14 +842,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.github.com/blog/2015/10/05/2015-3rd-season/</loc>
+    <loc>https://cuipengfei.github.com/blog/2016/01/03/2015/</loc>
     
     <lastmod>2019-12-07T13:18:10.870Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.github.com/blog/2016/01/03/2015/</loc>
+    <loc>https://cuipengfei.github.com/blog/2015/10/05/2015-3rd-season/</loc>
     
     <lastmod>2019-12-07T13:18:10.870Z</lastmod>
     
@@ -870,13 +870,6 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.github.com/blog/2015/06/23/template-method-pattern/</loc>
-    
-    <lastmod>2019-12-07T13:18:10.869Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://cuipengfei.github.com/blog/2015/07/04/2015-second-season/</loc>
     
     <lastmod>2019-12-07T13:18:10.869Z</lastmod>
@@ -884,7 +877,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.github.com/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/</loc>
+    <loc>https://cuipengfei.github.com/blog/2015/06/23/template-method-pattern/</loc>
+    
+    <lastmod>2019-12-07T13:18:10.869Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cuipengfei.github.com/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/</loc>
     
     <lastmod>2019-12-07T13:18:10.868Z</lastmod>
     
@@ -898,14 +898,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.github.com/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/</loc>
+    <loc>https://cuipengfei.github.com/blog/2015/06/01/command-pattern-fp-implementation/</loc>
     
     <lastmod>2019-12-07T13:18:10.868Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.github.com/blog/2015/06/01/command-pattern-fp-implementation/</loc>
+    <loc>https://cuipengfei.github.com/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/</loc>
     
     <lastmod>2019-12-07T13:18:10.868Z</lastmod>
     
@@ -975,6 +975,13 @@
   </url>
   
   <url>
+    <loc>https://cuipengfei.github.com/blog/2014/06/14/scala-unapply-method/</loc>
+    
+    <lastmod>2019-12-07T13:18:10.863Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cuipengfei.github.com/blog/2014/06/12/scala-update-method/</loc>
     
     <lastmod>2019-12-07T13:18:10.863Z</lastmod>
@@ -989,21 +996,7 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.github.com/blog/2014/06/14/scala-unapply-method/</loc>
-    
-    <lastmod>2019-12-07T13:18:10.863Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://cuipengfei.github.com/blog/2014/01/01/my-2013/</loc>
-    
-    <lastmod>2019-12-07T13:18:10.862Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cuipengfei.github.com/blog/2014/01/05/more-on-scala-implicit-function/</loc>
     
     <lastmod>2019-12-07T13:18:10.862Z</lastmod>
     
@@ -1017,9 +1010,30 @@
   </url>
   
   <url>
+    <loc>https://cuipengfei.github.com/blog/2014/01/05/more-on-scala-implicit-function/</loc>
+    
+    <lastmod>2019-12-07T13:18:10.862Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cuipengfei.github.com/blog/2014/06/09/desugar-scala-default-parameter-value/</loc>
     
     <lastmod>2019-12-07T13:18:10.862Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cuipengfei.github.com/blog/2013/12/29/desugar-scala-8/</loc>
+    
+    <lastmod>2019-12-07T13:18:10.861Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cuipengfei.github.com/blog/2013/12/30/desugar-scala-9/</loc>
+    
+    <lastmod>2019-12-07T13:18:10.861Z</lastmod>
     
   </url>
   
@@ -1038,21 +1052,7 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.github.com/blog/2013/12/30/desugar-scala-9/</loc>
-    
-    <lastmod>2019-12-07T13:18:10.861Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cuipengfei.github.com/blog/2013/12/29/desugar-scala-8/</loc>
-    
-    <lastmod>2019-12-07T13:18:10.861Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cuipengfei.github.com/blog/2013/12/24/desugar-scala-5/</loc>
+    <loc>https://cuipengfei.github.com/blog/2013/12/23/desugar-scala-4/</loc>
     
     <lastmod>2019-12-07T13:18:10.860Z</lastmod>
     
@@ -1066,14 +1066,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.github.com/blog/2013/12/25/desugar-scala-6/</loc>
+    <loc>https://cuipengfei.github.com/blog/2013/12/24/desugar-scala-5/</loc>
     
     <lastmod>2019-12-07T13:18:10.860Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.github.com/blog/2013/12/23/desugar-scala-4/</loc>
+    <loc>https://cuipengfei.github.com/blog/2013/12/25/desugar-scala-6/</loc>
     
     <lastmod>2019-12-07T13:18:10.860Z</lastmod>
     

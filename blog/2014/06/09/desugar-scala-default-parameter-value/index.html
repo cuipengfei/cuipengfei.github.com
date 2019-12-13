@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -48,14 +48,17 @@
 </script>
 
   <meta name="description" content="好久没有写博客了，上一次更新竟然是一月份。 说工作忙都是借口，咋有空看美剧呢。 这半年荒废掉博客说到底就是懒，惯性的懒惰。写博客这事儿，一丢掉就很久捡不起来。 闲话到此为止，下面进入正题。 Default parameter value，默认参数值。这个很容易理解，给参数一个默认值，如果调用者不显式指明参数值，则使用默认值。如果显式指明了，那就用显式指明的值。 举个例子：">
-<meta name="keywords" content="Desugar_Scala,Scala">
 <meta property="og:type" content="article">
 <meta property="og:title" content="除去Scala的糖衣(13) -- default parameter value">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2014&#x2F;06&#x2F;09&#x2F;desugar-scala-default-parameter-value&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="好久没有写博客了，上一次更新竟然是一月份。 说工作忙都是借口，咋有空看美剧呢。 这半年荒废掉博客说到底就是懒，惯性的懒惰。写博客这事儿，一丢掉就很久捡不起来。 闲话到此为止，下面进入正题。 Default parameter value，默认参数值。这个很容易理解，给参数一个默认值，如果调用者不显式指明参数值，则使用默认值。如果显式指明了，那就用显式指明的值。 举个例子：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-07T13:18:10.862Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2014-06-09T13:34:00.000Z">
+<meta property="article:modified_time" content="2019-12-07T13:18:10.862Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="Desugar_Scala">
+<meta property="article:tag" content="Scala">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2014/06/09/desugar-scala-default-parameter-value/">
@@ -286,13 +289,13 @@
 <p>闲话到此为止，下面进入正题。</p>
 <p>Default parameter value，默认参数值。<br>这个很容易理解，给参数一个默认值，如果调用者不显式指明参数值，则使用默认值。如果显式指明了，那就用显式指明的值。</p>
 <p>举个例子：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span></span>(name: <span class="type">String</span> = <span class="string">"world"</span>) = println(<span class="string">"hello "</span> + name)</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span></span>(name: <span class="type">String</span> = <span class="string">"world"</span>) = println(<span class="string">"hello "</span> + name)</span><br></pre></td></tr></table></figure>
 
 <p>这个函数，如果我们不给它传参数，它就会打印hello world。就像这样：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">hello()</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello()</span><br></pre></td></tr></table></figure>
 
 <p>如果给了参数：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">hello(<span class="string">"everybody"</span>)</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello(<span class="string">"everybody"</span>)</span><br></pre></td></tr></table></figure>
 
 <p>则打印hello everybody。</p>
 <p>这个语言特性都有哪些应用场景呢？</p>
@@ -300,11 +303,11 @@
 <p>在Java中，为了让调用者能够比较容易的创建某个类的实例，我们通常会提供几个参数列表比较短的构造函数。而这些构造函数存在的唯一意义就是为了写死某几个参数值。而在Scala中，有了这个语言特性，我们就无需那么麻烦了。</p>
 <p>那这个语言特性是如何实现的呢？实际上简单的一塌糊涂。</p>
 <p>这样一段代码：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Greeter</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">hello</span></span>(name: <span class="type">String</span> = <span class="string">"world"</span>) = println(<span class="string">"hello "</span> + name)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AnotherClass</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">new</span> <span class="type">Greeter</span>().hello()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Greeter</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">hello</span></span>(name: <span class="type">String</span> = <span class="string">"world"</span>) = println(<span class="string">"hello "</span> + name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AnotherClass</span> </span>&#123;</span><br><span class="line">  <span class="keyword">new</span> <span class="type">Greeter</span>().hello()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>我们的Greeter类含有前面提到过的hello方法。在AnotherClass里调用了hello，并且没有显式指明参数值。</p>
 <p>上面的Scala代码生成的bytecode反编译成Java是这样的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Greeter</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">(String name)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">        Predef..MODULE$.println(<span class="keyword">new</span> StringBuilder().append(<span class="string">"hello "</span>).append(name).toString());</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> String hello$<span class="keyword">default</span>$<span class="number">1</span>() &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> <span class="string">"world"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnotherClass</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AnotherClass</span><span class="params">()</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        Greeter qual$<span class="number">1</span> = <span class="keyword">new</span> Greeter();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">        String x$<span class="number">1</span> = qual$<span class="number">1</span>.hello$<span class="keyword">default</span>$<span class="number">1</span>();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">        qual$<span class="number">1</span>.hello(x$<span class="number">1</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Greeter</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        Predef..MODULE$.println(<span class="keyword">new</span> StringBuilder().append(<span class="string">"hello "</span>).append(name).toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String hello$<span class="keyword">default</span>$<span class="number">1</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"world"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnotherClass</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AnotherClass</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Greeter qual$<span class="number">1</span> = <span class="keyword">new</span> Greeter();</span><br><span class="line">        String x$<span class="number">1</span> = qual$<span class="number">1</span>.hello$<span class="keyword">default</span>$<span class="number">1</span>();</span><br><span class="line">        qual$<span class="number">1</span>.hello(x$<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>可以看到，我们所定义的hello方法反编译出来看起来很普通，就是个接受一个参数的方法。</p>
 <p>而在Greeter类中，编译器为我们加入了另一个方法hello$default$1，这个方法就是返回一个写死的字符串，其值为world。</p>
@@ -333,13 +336,22 @@
       <div class="popular-posts-title"><a href="/blog/2013/05/11/scala-language-features-2/" rel="bookmark">Scala中的语言特性是如何实现的(2)</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/24/desugar-scala-5/" rel="bookmark">剥开Scala的糖衣(5) -- lazy</a></div>
+      <div class="popular-posts-title"><a href="/blog/2013/12/23/desugar-scala-4/" rel="bookmark">去掉Scala的糖衣(4) -- type aliase</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/10/13/scala-trait/" rel="bookmark">Scala中的语言特性是如何实现的(3) -- trait</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/24/desugar-scala-5/" rel="bookmark">剥开Scala的糖衣(5) -- lazy</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/12/25/desugar-scala-6/" rel="bookmark">褪去Scala的糖衣(6) -- partial application</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-8/" rel="bookmark">揭开Scala的糖衣(8) -- pattern matching</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/30/desugar-scala-9/" rel="bookmark">掀开Scala的糖衣(9) -- function composition</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-7/" rel="bookmark">剥掉Scala的糖衣(7) -- apply method</a></div>
@@ -348,19 +360,13 @@
       <div class="popular-posts-title"><a href="/blog/2014/01/01/desugar-scala-10/" rel="bookmark">褪去Scala的糖衣(10) -- implicit function</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/23/desugar-scala-4/" rel="bookmark">去掉Scala的糖衣(4) -- type aliase</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/30/desugar-scala-9/" rel="bookmark">掀开Scala的糖衣(9) -- function composition</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/01/02/desugar-scala-11/" rel="bookmark">剥掉Scala的糖衣(11) -- structural types</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/01/05/more-on-scala-implicit-function/" rel="bookmark">褪去Scala的糖衣(12) -- implicit function（补）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-8/" rel="bookmark">揭开Scala的糖衣(8) -- pattern matching</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/01/02/desugar-scala-11/" rel="bookmark">剥掉Scala的糖衣(11) -- structural types</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/06/14/scala-unapply-method/" rel="bookmark">Desugar Scala(15) -- unapply和unapplySeq方法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/12/scala-update-method/" rel="bookmark">抹掉Scala的糖衣(14) -- update method</a></div>
@@ -369,22 +375,19 @@
       <div class="popular-posts-title"><a href="/blog/2014/06/21/desugar-scala-lower-bound/" rel="bookmark">Desugar Scala(16) -- lower bound</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/14/scala-unapply-method/" rel="bookmark">Desugar Scala(15) -- unapply和unapplySeq方法</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/08/30/options-for/" rel="bookmark">Desugar Scala(17) -- Option和for，以及脑子里发生的事情</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2017/06/14/desugar-scala-stackable-traits/" rel="bookmark">Desugar Scala(18) -- stackable traits</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/" rel="bookmark">Scala + Play + sbt + Protractor = one build</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/27/scala-java-interop-closure/" rel="bookmark">论“如果Scala类有方法接收闭包，这些方法在Java里就不可用，因为Java目前尚不支持闭包。”这句话是错的</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/28/scala-java-interop-trait-with-impl/" rel="bookmark">论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/" rel="bookmark">Scala + Play + sbt + Protractor = one build</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/07/18/play-evolutions-to-liquibase/" rel="bookmark">在使用play framework的evolutions？需要支持SQL Server？用Liquibase吧</a></div>
@@ -405,25 +408,25 @@
       <div class="popular-posts-title"><a href="/blog/2015/04/26/principles-of-reactive-programming-week-2/" rel="bookmark">Principles of Reactive Programming Week Two作业导学</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/13/observers-pattern-fp/" rel="bookmark">观察者模式 in FP：Mutation vs Transformation</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/" rel="bookmark">解释器模式：OOP versus Functional Decomposition</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/16/visitor-pattern-pattern-match/" rel="bookmark">访问者模式 in FP：Pattern Matching</a></div>
+      <div class="popular-posts-title"><a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/" rel="bookmark">策略模式的尴尬就像用菜刀开啤酒</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/" rel="bookmark">职责链模式的别扭就像用门框夹核桃</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/23/template-method-pattern/" rel="bookmark">模板方法模式：子类型多态和高阶函数</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/" rel="bookmark">策略模式的尴尬就像用菜刀开啤酒</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2015/06/01/command-pattern-fp-implementation/" rel="bookmark">命令模式的不爽就像用指甲刀刮胡子</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/" rel="bookmark">解释器模式：OOP versus Functional Decomposition</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/13/observers-pattern-fp/" rel="bookmark">观察者模式 in FP：Mutation vs Transformation</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/16/visitor-pattern-pattern-match/" rel="bookmark">访问者模式 in FP：Pattern Matching</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/23/template-method-pattern/" rel="bookmark">模板方法模式：子类型多态和高阶函数</a></div>
     </li>
   </ul>
 
@@ -436,7 +439,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="/https:/cuipengfei.github.com/blog/2014/06/09/desugar-scala-default-parameter-value/" title="除去Scala的糖衣(13) -- default parameter value">https://cuipengfei.github.com/blog/2014/06/09/desugar-scala-default-parameter-value/</a>
+    <a href="https://cuipengfei.github.com/blog/2014/06/09/desugar-scala-default-parameter-value/" title="除去Scala的糖衣(13) -- default parameter value">https://cuipengfei.github.com/blog/2014/06/09/desugar-scala-default-parameter-value/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -591,7 +594,7 @@
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">4:42</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
@@ -617,9 +620,17 @@
   <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -698,7 +709,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

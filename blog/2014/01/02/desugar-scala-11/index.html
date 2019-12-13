@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -48,14 +48,17 @@
 </script>
 
   <meta name="description" content="Structural types，中文怎么翻译不确定。我们可以用它来实现类似于鸭子类型的效果。为什么说是“类似”鸭子类型呢？稍后会说到它和鸭子类型的区别。 举一个例子，看看它都可以做什么： 1def makeNoise(quacker: &amp;#123;def quack(): String&amp;#125;) &#x3D; quacker.quack  声明一个方法，叫做makeNoise，接受什么类型的参数呢？不">
-<meta name="keywords" content="Desugar_Scala,Scala">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剥掉Scala的糖衣(11) -- structural types">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2014&#x2F;01&#x2F;02&#x2F;desugar-scala-11&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="Structural types，中文怎么翻译不确定。我们可以用它来实现类似于鸭子类型的效果。为什么说是“类似”鸭子类型呢？稍后会说到它和鸭子类型的区别。 举一个例子，看看它都可以做什么： 1def makeNoise(quacker: &amp;#123;def quack(): String&amp;#125;) &#x3D; quacker.quack  声明一个方法，叫做makeNoise，接受什么类型的参数呢？不">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-07T13:18:10.862Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2014-01-02T14:13:00.000Z">
+<meta property="article:modified_time" content="2019-12-07T13:18:10.862Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="Desugar_Scala">
+<meta property="article:tag" content="Scala">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2014/01/02/desugar-scala-11/">
@@ -282,43 +285,43 @@
       
         <p>Structural types，中文怎么翻译不确定。我们可以用它来实现类似于鸭子类型的效果。为什么说是“类似”鸭子类型呢？稍后会说到它和鸭子类型的区别。</p>
 <p>举一个例子，看看它都可以做什么：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">makeNoise</span></span>(quacker: &#123;<span class="function"><span class="keyword">def</span> <span class="title">quack</span></span>(): <span class="type">String</span>&#125;) = quacker.quack</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">makeNoise</span></span>(quacker: &#123;<span class="function"><span class="keyword">def</span> <span class="title">quack</span></span>(): <span class="type">String</span>&#125;) = quacker.quack</span><br></pre></td></tr></table></figure>
 
 <p>声明一个方法，叫做makeNoise，接受什么类型的参数呢？不做严格限制，我们只声明说参数必须有一个叫做quack的方法，该quack方法返回值类型为String。然后在makeNoise方法内调用quack方法。请注意我们并没有声明一个含有quack方法签名的接口或者类，我们仅仅是在声明参数的同时声明我们期待参数含有什么样的成员。</p>
 <p>然后我们声明一个Duck类：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Duck</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">quack</span></span>() = <span class="string">"real quack"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Duck</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">quack</span></span>() = <span class="string">"real quack"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这样就可以调用makeNoise方法了：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">makeNoise(<span class="keyword">new</span> <span class="type">Duck</span>)</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">makeNoise(<span class="keyword">new</span> <span class="type">Duck</span>)</span><br></pre></td></tr></table></figure>
 
 <p>或者再声明一个NotADuck类：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NotADuck</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">quack</span></span>() = <span class="string">"fake quack"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NotADuck</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">quack</span></span>() = <span class="string">"fake quack"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>也可以把它传给makeNoise方法：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">makeNoise(<span class="keyword">new</span> <span class="type">NotADuck</span>)</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">makeNoise(<span class="keyword">new</span> <span class="type">NotADuck</span>)</span><br></pre></td></tr></table></figure>
 
 <p>甚至是匿名对象也可以：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">makeNoise(<span class="keyword">new</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">quack</span></span>() = <span class="string">"anonymous quack"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;)</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">makeNoise(<span class="keyword">new</span> &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">quack</span></span>() = <span class="string">"anonymous quack"</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <p>如果我们把Duck的quack方法改个名字：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Duck</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">quackRenamed</span></span>() = <span class="string">"real quack"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Duck</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">quackRenamed</span></span>() = <span class="string">"real quack"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>那么编译器就会对下面这行代码给出错误：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">makeNoise(<span class="keyword">new</span> <span class="type">Duck</span>)</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">makeNoise(<span class="keyword">new</span> <span class="type">Duck</span>)</span><br></pre></td></tr></table></figure>
 
 <p>type mismatch, found : hello.Duck, required: AnyRef{def quack(): String}</p>
 <p>是做了编译时类型检查的。</p>
 <p>然后我们反编译代码，看看它是如何实现的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Class[] reflParams$Cache1;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> SoftReference reflPoly$Cache1;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    Hello.reflParams$Cache1 = <span class="keyword">new</span> Class[<span class="number">0</span>];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    Hello.reflPoly$Cache1 = <span class="keyword">new</span> SoftReference((T)<span class="keyword">new</span> EmptyMethodCache());</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Method reflMethod$Method1(<span class="keyword">final</span> Class x$<span class="number">1</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    MethodCache methodCache1 = Hello.reflPoly$Cache1.get();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> (methodCache1 == <span class="keyword">null</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        methodCache1 = (MethodCache)<span class="keyword">new</span> EmptyMethodCache();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        Hello.reflPoly$Cache1 = <span class="keyword">new</span> SoftReference((T)methodCache1);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    Method method1 = methodCache1.find(x$<span class="number">1</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> (method1 != <span class="keyword">null</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> method1;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">    method1 = ScalaRunTime$.MODULE$.ensureAccessible(x$<span class="number">1</span>.getMethod(<span class="string">"quack"</span>, Hello.reflParams$Cache1));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">    Hello.reflPoly$Cache1 = <span class="keyword">new</span> SoftReference((T)methodCache1.add(x$<span class="number">1</span>, method1));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> method1;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">makeNoise</span><span class="params">(<span class="keyword">final</span> Object quacker)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">final</span> Object invoke;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">try</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">        invoke = reflMethod$Method1(quacker.getClass()).invoke(quacker, <span class="keyword">new</span> Object[<span class="number">0</span>]);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">catch</span> (InvocationTargetException ex) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">throw</span> ex.getCause();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> (String)invoke;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Class[] reflParams$Cache1;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> SoftReference reflPoly$Cache1;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    Hello.reflParams$Cache1 = <span class="keyword">new</span> Class[<span class="number">0</span>];</span><br><span class="line">    Hello.reflPoly$Cache1 = <span class="keyword">new</span> SoftReference((T)<span class="keyword">new</span> EmptyMethodCache());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Method reflMethod$Method1(<span class="keyword">final</span> Class x$<span class="number">1</span>) &#123;</span><br><span class="line">    MethodCache methodCache1 = Hello.reflPoly$Cache1.get();</span><br><span class="line">    <span class="keyword">if</span> (methodCache1 == <span class="keyword">null</span>) &#123;</span><br><span class="line">        methodCache1 = (MethodCache)<span class="keyword">new</span> EmptyMethodCache();</span><br><span class="line">        Hello.reflPoly$Cache1 = <span class="keyword">new</span> SoftReference((T)methodCache1);</span><br><span class="line">    &#125;</span><br><span class="line">    Method method1 = methodCache1.find(x$<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (method1 != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> method1;</span><br><span class="line">    &#125;</span><br><span class="line">    method1 = ScalaRunTime$.MODULE$.ensureAccessible(x$<span class="number">1</span>.getMethod(<span class="string">"quack"</span>, Hello.reflParams$Cache1));</span><br><span class="line">    Hello.reflPoly$Cache1 = <span class="keyword">new</span> SoftReference((T)methodCache1.add(x$<span class="number">1</span>, method1));</span><br><span class="line">    <span class="keyword">return</span> method1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">makeNoise</span><span class="params">(<span class="keyword">final</span> Object quacker)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> Object invoke;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        invoke = reflMethod$Method1(quacker.getClass()).invoke(quacker, <span class="keyword">new</span> Object[<span class="number">0</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (InvocationTargetException ex) &#123;</span><br><span class="line">        <span class="keyword">throw</span> ex.getCause();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (String)invoke;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>我们可以看到，makeNoise方法的参数类型被编译成了Object。方法内部通过反射去调用quack方法。</p>
 <p>再仔细看一下，方法内做了个catch，如果找不到quack方法就把异常抛出来。我们刚才不是看到有编译时类型检查吗？怎么会找不到quack方法呢？</p>
 <p>其实找不到quack方法的情况还是会存在的。假如我们把以上代码打成jar包供别人调用，那别人看到的你这个方法要的是Object啊，随便传一个什么东西进来都可以。如果传入的参数没有quack方法，那自然就会有异常了。这也是一个很好的信号，告诉我们说这个语言特性不适合用在public API中。</p>
 <p>刚开始时提到过，这个语言特性不能叫做鸭子类型，为什么呢？我们看两个真正鸭子类型的例子：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeNoise</span>(<span class="params">quacker</span>)</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">return</span> quacker.quack()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">makeNoise(&#123;<span class="attr">quack</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="string">"quack quack"</span>&#125;&#125;)</span></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeNoise</span>(<span class="params">quacker</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> quacker.quack()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">makeNoise(&#123;<span class="attr">quack</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="string">"quack quack"</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
 
 <p>上面的是JavaScript的，下面的是C#的。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Duck</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">Quack</span> (<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>	&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">		<span class="keyword">return</span> <span class="string">"quack quack"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Hello</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">MakeNoise</span> (<span class="params"><span class="keyword">dynamic</span> quacker</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>	&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">		<span class="keyword">return</span> quacker.Quack ();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">MainClass</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span> (<span class="params"><span class="keyword">string</span>[] args</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>	&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">		Console.Out.WriteLine (<span class="keyword">new</span> Hello ().MakeNoise (<span class="keyword">new</span> Duck ()));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Duck</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">Quack</span> (<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>	&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"quack quack"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Hello</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">MakeNoise</span> (<span class="params"><span class="keyword">dynamic</span> quacker</span>)</span></span><br><span class="line"><span class="function"></span>	&#123;</span><br><span class="line">		<span class="keyword">return</span> quacker.Quack ();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">MainClass</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span> (<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>	&#123;</span><br><span class="line">		Console.Out.WriteLine (<span class="keyword">new</span> Hello ().MakeNoise (<span class="keyword">new</span> Duck ()));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>在上面两段代码中，如果我们把quack或者Quack改个名字的话，都会导致运行失败。而且在声明参数的时候也没有指明我们期待有一个quack或者Quack成员的存在。所以说Scala的这个语言特性不能称之为鸭子类型的原因在于两点：</p>
 <ul>
@@ -350,13 +353,22 @@
       <div class="popular-posts-title"><a href="/blog/2013/05/11/scala-language-features-2/" rel="bookmark">Scala中的语言特性是如何实现的(2)</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/24/desugar-scala-5/" rel="bookmark">剥开Scala的糖衣(5) -- lazy</a></div>
+      <div class="popular-posts-title"><a href="/blog/2013/12/23/desugar-scala-4/" rel="bookmark">去掉Scala的糖衣(4) -- type aliase</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/10/13/scala-trait/" rel="bookmark">Scala中的语言特性是如何实现的(3) -- trait</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/24/desugar-scala-5/" rel="bookmark">剥开Scala的糖衣(5) -- lazy</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/12/25/desugar-scala-6/" rel="bookmark">褪去Scala的糖衣(6) -- partial application</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-8/" rel="bookmark">揭开Scala的糖衣(8) -- pattern matching</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/30/desugar-scala-9/" rel="bookmark">掀开Scala的糖衣(9) -- function composition</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-7/" rel="bookmark">剥掉Scala的糖衣(7) -- apply method</a></div>
@@ -365,28 +377,19 @@
       <div class="popular-posts-title"><a href="/blog/2014/01/01/desugar-scala-10/" rel="bookmark">褪去Scala的糖衣(10) -- implicit function</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/23/desugar-scala-4/" rel="bookmark">去掉Scala的糖衣(4) -- type aliase</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/30/desugar-scala-9/" rel="bookmark">掀开Scala的糖衣(9) -- function composition</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/01/05/more-on-scala-implicit-function/" rel="bookmark">褪去Scala的糖衣(12) -- implicit function（补）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-8/" rel="bookmark">揭开Scala的糖衣(8) -- pattern matching</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/09/desugar-scala-default-parameter-value/" rel="bookmark">除去Scala的糖衣(13) -- default parameter value</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/06/14/scala-unapply-method/" rel="bookmark">Desugar Scala(15) -- unapply和unapplySeq方法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/12/scala-update-method/" rel="bookmark">抹掉Scala的糖衣(14) -- update method</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/21/desugar-scala-lower-bound/" rel="bookmark">Desugar Scala(16) -- lower bound</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/06/09/desugar-scala-default-parameter-value/" rel="bookmark">除去Scala的糖衣(13) -- default parameter value</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/14/scala-unapply-method/" rel="bookmark">Desugar Scala(15) -- unapply和unapplySeq方法</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/06/21/desugar-scala-lower-bound/" rel="bookmark">Desugar Scala(16) -- lower bound</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/08/30/options-for/" rel="bookmark">Desugar Scala(17) -- Option和for，以及脑子里发生的事情</a></div>
@@ -395,13 +398,13 @@
       <div class="popular-posts-title"><a href="/blog/2017/06/14/desugar-scala-stackable-traits/" rel="bookmark">Desugar Scala(18) -- stackable traits</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/" rel="bookmark">Scala + Play + sbt + Protractor = one build</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/27/scala-java-interop-closure/" rel="bookmark">论“如果Scala类有方法接收闭包，这些方法在Java里就不可用，因为Java目前尚不支持闭包。”这句话是错的</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/28/scala-java-interop-trait-with-impl/" rel="bookmark">论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/" rel="bookmark">Scala + Play + sbt + Protractor = one build</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/07/18/play-evolutions-to-liquibase/" rel="bookmark">在使用play framework的evolutions？需要支持SQL Server？用Liquibase吧</a></div>
@@ -422,25 +425,25 @@
       <div class="popular-posts-title"><a href="/blog/2015/04/26/principles-of-reactive-programming-week-2/" rel="bookmark">Principles of Reactive Programming Week Two作业导学</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/13/observers-pattern-fp/" rel="bookmark">观察者模式 in FP：Mutation vs Transformation</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/" rel="bookmark">解释器模式：OOP versus Functional Decomposition</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/16/visitor-pattern-pattern-match/" rel="bookmark">访问者模式 in FP：Pattern Matching</a></div>
+      <div class="popular-posts-title"><a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/" rel="bookmark">策略模式的尴尬就像用菜刀开啤酒</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/" rel="bookmark">职责链模式的别扭就像用门框夹核桃</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/23/template-method-pattern/" rel="bookmark">模板方法模式：子类型多态和高阶函数</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/" rel="bookmark">策略模式的尴尬就像用菜刀开啤酒</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2015/06/01/command-pattern-fp-implementation/" rel="bookmark">命令模式的不爽就像用指甲刀刮胡子</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/" rel="bookmark">解释器模式：OOP versus Functional Decomposition</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/13/observers-pattern-fp/" rel="bookmark">观察者模式 in FP：Mutation vs Transformation</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/16/visitor-pattern-pattern-match/" rel="bookmark">访问者模式 in FP：Pattern Matching</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/23/template-method-pattern/" rel="bookmark">模板方法模式：子类型多态和高阶函数</a></div>
     </li>
   </ul>
 
@@ -453,7 +456,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="/https:/cuipengfei.github.com/blog/2014/01/02/desugar-scala-11/" title="剥掉Scala的糖衣(11) -- structural types">https://cuipengfei.github.com/blog/2014/01/02/desugar-scala-11/</a>
+    <a href="https://cuipengfei.github.com/blog/2014/01/02/desugar-scala-11/" title="剥掉Scala的糖衣(11) -- structural types">https://cuipengfei.github.com/blog/2014/01/02/desugar-scala-11/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -607,7 +610,7 @@
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">4:42</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
@@ -633,9 +636,17 @@
   <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -714,7 +725,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

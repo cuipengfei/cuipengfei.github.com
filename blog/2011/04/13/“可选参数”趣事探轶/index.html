@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -48,14 +48,16 @@
 </script>
 
   <meta name="description" content="上一篇博文 中提到了“可选参数”这个C# 4.0中新增的语言特性，但是写过之后还是不满足，心里还是有一些疑问没有得到解释。于是又做了一些探索，过程中竟然发现这么一个小小的语言特性背后隐藏着的有趣问题还真不少。这次就把探索过程中的发现和疑问记录下来。 “可选参数”的实现Cnblogs上有一篇  蒋金楠的文章中提到一句：“缺省参数最终体现为两个特殊的自定义特性OptionalAttribute和De">
-<meta name="keywords" content="《你必须知道的.NET》">
 <meta property="og:type" content="article">
 <meta property="og:title" content="“可选参数”趣事探轶">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2011&#x2F;04&#x2F;13&#x2F;%E2%80%9C%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0%E2%80%9D%E8%B6%A3%E4%BA%8B%E6%8E%A2%E8%BD%B6&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="上一篇博文 中提到了“可选参数”这个C# 4.0中新增的语言特性，但是写过之后还是不满足，心里还是有一些疑问没有得到解释。于是又做了一些探索，过程中竟然发现这么一个小小的语言特性背后隐藏着的有趣问题还真不少。这次就把探索过程中的发现和疑问记录下来。 “可选参数”的实现Cnblogs上有一篇  蒋金楠的文章中提到一句：“缺省参数最终体现为两个特殊的自定义特性OptionalAttribute和De">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-13T03:33:51.963Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2011-04-12T16:39:00.000Z">
+<meta property="article:modified_time" content="2019-12-13T03:33:51.963Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="《你必须知道的.NET》">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2011/04/13/%E2%80%9C%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0%E2%80%9D%E8%B6%A3%E4%BA%8B%E6%8E%A2%E8%BD%B6/">
@@ -397,19 +399,19 @@ ReturnType: Void
       <div class="popular-posts-title"><a href="/blog/2008/08/20/关于显式接口实现/" rel="bookmark">关于显式接口实现</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/28/引用类型参数的按值传递/" rel="bookmark">引用类型参数的按值传递</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/09/04/一个关于深层拷贝的问题（迷惑在私有构造函数）/" rel="bookmark">一个关于深层拷贝的问题（迷惑在私有构造函数）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/24/MSIL的条件跳转（不知道正确与否）/" rel="bookmark">MSIL的条件跳转（不知道正确与否）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/08/28/new关键字用作修饰符/" rel="bookmark">new关键字用作修饰符</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/09/09/可以为null的值类型/" rel="bookmark">可以为null的值类型</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/09/04/一个关于深层拷贝的问题（迷惑在私有构造函数）/" rel="bookmark">一个关于深层拷贝的问题（迷惑在私有构造函数）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/24/MSIL的条件跳转（不知道正确与否）/" rel="bookmark">MSIL的条件跳转（不知道正确与否）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/28/引用类型参数的按值传递/" rel="bookmark">引用类型参数的按值传递</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2008/09/09/可以为null的值类型/" rel="bookmark">可以为null的值类型</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/03/06/CSharp中的语言特性都是从何而来？/" rel="bookmark">C#中的语言特性都是从何而来？</a></div>
@@ -425,7 +427,7 @@ ReturnType: Void
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="/https:/cuipengfei.github.com/blog/2011/04/13/%E2%80%9C%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0%E2%80%9D%E8%B6%A3%E4%BA%8B%E6%8E%A2%E8%BD%B6/" title="“可选参数”趣事探轶">https://cuipengfei.github.com/blog/2011/04/13/“可选参数”趣事探轶/</a>
+    <a href="https://cuipengfei.github.com/blog/2011/04/13/%E2%80%9C%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0%E2%80%9D%E8%B6%A3%E4%BA%8B%E6%8E%A2%E8%BD%B6/" title="“可选参数”趣事探轶">https://cuipengfei.github.com/blog/2011/04/13/“可选参数”趣事探轶/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -579,7 +581,7 @@ ReturnType: Void
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">4:42</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
@@ -605,9 +607,17 @@ ReturnType: Void
   <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -686,7 +696,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

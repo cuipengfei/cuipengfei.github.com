@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -48,14 +48,18 @@
 </script>
 
   <meta name="description" content="声明这系列博文的目标读者仅限于报名参加了这门课并且看完了视频，看完了作业的instruction之后仍有困难的同学。 这系列博文不会公布作业的答案，那是违反Coursera的code of honor的。 我只会试着解释作业中已有的代码，以及应该如何入手。 其实，写这个系列博文对我的帮助比对读者的帮助要大。 这周的作业不太难，主要就是一个观察者模式。">
-<meta name="keywords" content="Scala,MOOC,Reactive">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Principles of Reactive Programming Week Two作业导学">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2015&#x2F;04&#x2F;26&#x2F;principles-of-reactive-programming-week-2&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="声明这系列博文的目标读者仅限于报名参加了这门课并且看完了视频，看完了作业的instruction之后仍有困难的同学。 这系列博文不会公布作业的答案，那是违反Coursera的code of honor的。 我只会试着解释作业中已有的代码，以及应该如何入手。 其实，写这个系列博文对我的帮助比对读者的帮助要大。 这周的作业不太难，主要就是一个观察者模式。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-07T13:18:10.867Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-04-26T09:56:00.000Z">
+<meta property="article:modified_time" content="2019-12-07T13:18:10.867Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="Scala">
+<meta property="article:tag" content="MOOC">
+<meta property="article:tag" content="Reactive">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2015/04/26/principles-of-reactive-programming-week-2/">
@@ -285,7 +289,7 @@
 <p>我只会试着解释作业中已有的代码，以及应该如何入手。</p>
 <p>其实，写这个系列博文对我的帮助比对读者的帮助要大。</p>
 <p>这周的作业不太难，主要就是一个观察者模式。</p>
-<h1 id="Signal是怎么work的？"><a href="#Signal是怎么work的？" class="headerlink" title="Signal是怎么work的？"></a>Signal是怎么work的？</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> a = <span class="type">Var</span>(<span class="number">1</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">a: calculator.<span class="type">Var</span>[<span class="type">Int</span>] = calculator.<span class="type">Var</span>@<span class="number">7</span>ca6f5b9</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> b = <span class="type">Var</span>(<span class="number">2</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">b: calculator.<span class="type">Var</span>[<span class="type">Int</span>] = calculator.<span class="type">Var</span>@<span class="number">2286</span>d26</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> c = <span class="type">Signal</span>(a() + b())</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">c: calculator.<span class="type">Signal</span>[<span class="type">Int</span>] = calculator.<span class="type">Signal</span>@<span class="number">5</span>c60548d</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">scala&gt; c()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">res8: <span class="type">Int</span> = <span class="number">3</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">scala&gt; a()=<span class="number">10</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">scala&gt; c()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">res10: <span class="type">Int</span> = <span class="number">12</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">scala&gt; b()=<span class="number">20</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">scala&gt; c()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">res12: <span class="type">Int</span> = <span class="number">30</span></span></pre></td></tr></table></figure>
+<h1 id="Signal是怎么work的？"><a href="#Signal是怎么work的？" class="headerlink" title="Signal是怎么work的？"></a>Signal是怎么work的？</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> a = <span class="type">Var</span>(<span class="number">1</span>)</span><br><span class="line">a: calculator.<span class="type">Var</span>[<span class="type">Int</span>] = calculator.<span class="type">Var</span>@<span class="number">7</span>ca6f5b9</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> b = <span class="type">Var</span>(<span class="number">2</span>)</span><br><span class="line">b: calculator.<span class="type">Var</span>[<span class="type">Int</span>] = calculator.<span class="type">Var</span>@<span class="number">2286</span>d26</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> c = <span class="type">Signal</span>(a() + b())</span><br><span class="line">c: calculator.<span class="type">Signal</span>[<span class="type">Int</span>] = calculator.<span class="type">Signal</span>@<span class="number">5</span>c60548d</span><br><span class="line"></span><br><span class="line">scala&gt; c()</span><br><span class="line">res8: <span class="type">Int</span> = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">scala&gt; a()=<span class="number">10</span></span><br><span class="line"></span><br><span class="line">scala&gt; c()</span><br><span class="line">res10: <span class="type">Int</span> = <span class="number">12</span></span><br><span class="line"></span><br><span class="line">scala&gt; b()=<span class="number">20</span></span><br><span class="line"></span><br><span class="line">scala&gt; c()</span><br><span class="line">res12: <span class="type">Int</span> = <span class="number">30</span></span><br></pre></td></tr></table></figure>
 
 <p>如果能搞懂上面的代码是如何work的，作业题中需要用到Signal的地方就不会有太大问题了。</p>
 <p>a=1，b=2，c=a+b，所以c就是3。</p>
@@ -298,7 +302,7 @@
 <li>Signal的update方法</li>
 </ul>
 <p>先看Signal的constructor。</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Signal</span>[<span class="type">T</span>](<span class="params">expr: =&gt; <span class="type">T</span></span>) </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="comment">//......</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Signal</span>[<span class="type">T</span>](<span class="params">expr: =&gt; <span class="type">T</span></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>以上是它的签名，关键在于expr的类型签名，expr的类型不是T，而是=&gt;T。</p>
 <p>这就意味着expr可以是任何类型为T的表达式，可以是一个字面量，也可以是任意复杂的代码块。</p>
@@ -308,15 +312,15 @@
 <p>constructor的入口参数可以被反复求值是级联变化的基础，那是什么触发了真正的变化呢？</p>
 <p>那就是关键点之二：update方法。</p>
 <p>update方法的妙处在于，如果一个类A有update方法，那么：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> x = <span class="keyword">new</span> <span class="type">A</span>()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">x(y)=z</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> x = <span class="keyword">new</span> <span class="type">A</span>()</span><br><span class="line">x(y)=z</span><br></pre></td></tr></table></figure>
 
 <p>在编译之后会变成这样：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> x = <span class="keyword">new</span> <span class="type">A</span>()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">x.update(y,z)</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> x = <span class="keyword">new</span> <span class="type">A</span>()</span><br><span class="line">x.update(y,z)</span><br></pre></td></tr></table></figure>
 
 <p>详情请见我之前的一篇博客：<a href="http://cuipengfei.me/blog/2014/06/12/scala-update-method/" target="_blank" rel="noopener">http://cuipengfei.me/blog/2014/06/12/scala-update-method/</a></p>
 <p>Signal的update方法是protected的，不可访问，所以它只可以从变，不可自变。</p>
 <p>而Var把update方法public出来了，这样，在下面这样的代码执行时：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">a()=<span class="number">10</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">//a.update(10)</span></span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a()=<span class="number">10</span></span><br><span class="line"><span class="comment">//a.update(10)</span></span><br></pre></td></tr></table></figure>
 
 <p>a就会通知它的observers去重新求值。<br>这样就实现了a或者b这样的Var变化的时候，c这样的Signal跟着变化的效果。</p>
 <p>搞懂了上面的内容就足以去做作业了。</p>
@@ -343,13 +347,22 @@
       <div class="popular-posts-title"><a href="/blog/2013/05/11/scala-language-features-2/" rel="bookmark">Scala中的语言特性是如何实现的(2)</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/24/desugar-scala-5/" rel="bookmark">剥开Scala的糖衣(5) -- lazy</a></div>
+      <div class="popular-posts-title"><a href="/blog/2013/12/23/desugar-scala-4/" rel="bookmark">去掉Scala的糖衣(4) -- type aliase</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/10/13/scala-trait/" rel="bookmark">Scala中的语言特性是如何实现的(3) -- trait</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/24/desugar-scala-5/" rel="bookmark">剥开Scala的糖衣(5) -- lazy</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/12/25/desugar-scala-6/" rel="bookmark">褪去Scala的糖衣(6) -- partial application</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-8/" rel="bookmark">揭开Scala的糖衣(8) -- pattern matching</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/30/desugar-scala-9/" rel="bookmark">掀开Scala的糖衣(9) -- function composition</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-7/" rel="bookmark">剥掉Scala的糖衣(7) -- apply method</a></div>
@@ -358,28 +371,25 @@
       <div class="popular-posts-title"><a href="/blog/2014/01/01/desugar-scala-10/" rel="bookmark">褪去Scala的糖衣(10) -- implicit function</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/23/desugar-scala-4/" rel="bookmark">去掉Scala的糖衣(4) -- type aliase</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/30/desugar-scala-9/" rel="bookmark">掀开Scala的糖衣(9) -- function composition</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/01/02/desugar-scala-11/" rel="bookmark">剥掉Scala的糖衣(11) -- structural types</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/01/05/more-on-scala-implicit-function/" rel="bookmark">褪去Scala的糖衣(12) -- implicit function（补）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-8/" rel="bookmark">揭开Scala的糖衣(8) -- pattern matching</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/01/02/desugar-scala-11/" rel="bookmark">剥掉Scala的糖衣(11) -- structural types</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/09/desugar-scala-default-parameter-value/" rel="bookmark">除去Scala的糖衣(13) -- default parameter value</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/06/14/scala-unapply-method/" rel="bookmark">Desugar Scala(15) -- unapply和unapplySeq方法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/12/scala-update-method/" rel="bookmark">抹掉Scala的糖衣(14) -- update method</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2014/06/09/desugar-scala-default-parameter-value/" rel="bookmark">除去Scala的糖衣(13) -- default parameter value</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/21/desugar-scala-lower-bound/" rel="bookmark">Desugar Scala(16) -- lower bound</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/" rel="bookmark">Scala + Play + sbt + Protractor = one build</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/27/scala-java-interop-closure/" rel="bookmark">论“如果Scala类有方法接收闭包，这些方法在Java里就不可用，因为Java目前尚不支持闭包。”这句话是错的</a></div>
@@ -388,13 +398,10 @@
       <div class="popular-posts-title"><a href="/blog/2014/06/28/scala-java-interop-trait-with-impl/" rel="bookmark">论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/" rel="bookmark">Scala + Play + sbt + Protractor = one build</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/07/18/play-evolutions-to-liquibase/" rel="bookmark">在使用play framework的evolutions？需要支持SQL Server？用Liquibase吧</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/14/scala-unapply-method/" rel="bookmark">Desugar Scala(15) -- unapply和unapplySeq方法</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/08/30/options-for/" rel="bookmark">Desugar Scala(17) -- Option和for，以及脑子里发生的事情</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/09/06/solving-regular-problems-in-scala/" rel="bookmark">solving regular problems in scala</a></div>
@@ -406,31 +413,28 @@
       <div class="popular-posts-title"><a href="/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/" rel="bookmark">Scala中Stream的应用场景及其实现原理</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/08/30/options-for/" rel="bookmark">Desugar Scala(17) -- Option和for，以及脑子里发生的事情</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/13/observers-pattern-fp/" rel="bookmark">观察者模式 in FP：Mutation vs Transformation</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/" rel="bookmark">解释器模式：OOP versus Functional Decomposition</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/16/visitor-pattern-pattern-match/" rel="bookmark">访问者模式 in FP：Pattern Matching</a></div>
+      <div class="popular-posts-title"><a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/" rel="bookmark">策略模式的尴尬就像用菜刀开啤酒</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/" rel="bookmark">职责链模式的别扭就像用门框夹核桃</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/01/command-pattern-fp-implementation/" rel="bookmark">命令模式的不爽就像用指甲刀刮胡子</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/" rel="bookmark">解释器模式：OOP versus Functional Decomposition</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/13/observers-pattern-fp/" rel="bookmark">观察者模式 in FP：Mutation vs Transformation</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/16/visitor-pattern-pattern-match/" rel="bookmark">访问者模式 in FP：Pattern Matching</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2015/06/23/template-method-pattern/" rel="bookmark">模板方法模式：子类型多态和高阶函数</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/" rel="bookmark">策略模式的尴尬就像用菜刀开啤酒</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2017/06/14/desugar-scala-stackable-traits/" rel="bookmark">Desugar Scala(18) -- stackable traits</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/01/command-pattern-fp-implementation/" rel="bookmark">命令模式的不爽就像用指甲刀刮胡子</a></div>
     </li>
   </ul>
 
@@ -443,7 +447,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="/https:/cuipengfei.github.com/blog/2015/04/26/principles-of-reactive-programming-week-2/" title="Principles of Reactive Programming Week Two作业导学">https://cuipengfei.github.com/blog/2015/04/26/principles-of-reactive-programming-week-2/</a>
+    <a href="https://cuipengfei.github.com/blog/2015/04/26/principles-of-reactive-programming-week-2/" title="Principles of Reactive Programming Week Two作业导学">https://cuipengfei.github.com/blog/2015/04/26/principles-of-reactive-programming-week-2/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -599,7 +603,7 @@
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">4:42</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
@@ -625,9 +629,17 @@
   <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -706,7 +718,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

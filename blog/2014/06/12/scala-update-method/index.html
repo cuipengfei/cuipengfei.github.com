@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -47,15 +47,18 @@
   };
 </script>
 
-  <meta name="description" content="在Scala中，名字叫做update的方法是有特殊作用的。 比如： 1val scores &#x3D; new scala.collection.mutable.HashMap[String, Int]2scores(&quot;Bob&quot;) &#x3D; 1003val bobsScore &#x3D; scores(&quot;Bob&quot;)  以上三行代码，我们创建了一个可变的map来存储得分情况，然后我们记录了Bob的得分是100分，最后我们">
-<meta name="keywords" content="Desugar_Scala,Scala">
+  <meta name="description" content="在Scala中，名字叫做update的方法是有特殊作用的。 比如： 123val scores &#x3D; new scala.collection.mutable.HashMap[String, Int]scores(&quot;Bob&quot;) &#x3D; 100val bobsScore &#x3D; scores(&quot;Bob&quot;)  以上三行代码，我们创建了一个可变的map来存储得分情况，然后我们记录了Bob的得分是100分，最后我们">
 <meta property="og:type" content="article">
 <meta property="og:title" content="抹掉Scala的糖衣(14) -- update method">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2014&#x2F;06&#x2F;12&#x2F;scala-update-method&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="在Scala中，名字叫做update的方法是有特殊作用的。 比如： 1val scores &#x3D; new scala.collection.mutable.HashMap[String, Int]2scores(&quot;Bob&quot;) &#x3D; 1003val bobsScore &#x3D; scores(&quot;Bob&quot;)  以上三行代码，我们创建了一个可变的map来存储得分情况，然后我们记录了Bob的得分是100分，最后我们">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-07T13:18:10.863Z">
+<meta property="og:description" content="在Scala中，名字叫做update的方法是有特殊作用的。 比如： 123val scores &#x3D; new scala.collection.mutable.HashMap[String, Int]scores(&quot;Bob&quot;) &#x3D; 100val bobsScore &#x3D; scores(&quot;Bob&quot;)  以上三行代码，我们创建了一个可变的map来存储得分情况，然后我们记录了Bob的得分是100分，最后我们">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2014-06-12T10:42:00.000Z">
+<meta property="article:modified_time" content="2019-12-07T13:18:10.863Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="Desugar_Scala">
+<meta property="article:tag" content="Scala">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2014/06/12/scala-update-method/">
@@ -282,43 +285,43 @@
       
         <p>在Scala中，名字叫做update的方法是有特殊作用的。</p>
 <p>比如：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> scores = <span class="keyword">new</span> scala.collection.mutable.<span class="type">HashMap</span>[<span class="type">String</span>, <span class="type">Int</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">scores(<span class="string">"Bob"</span>) = <span class="number">100</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> bobsScore = scores(<span class="string">"Bob"</span>)</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> scores = <span class="keyword">new</span> scala.collection.mutable.<span class="type">HashMap</span>[<span class="type">String</span>, <span class="type">Int</span>]</span><br><span class="line">scores(<span class="string">"Bob"</span>) = <span class="number">100</span></span><br><span class="line"><span class="keyword">val</span> bobsScore = scores(<span class="string">"Bob"</span>)</span><br></pre></td></tr></table></figure>
 
 <p>以上三行代码，我们创建了一个可变的map来存储得分情况，然后我们记录了Bob的得分是100分，最后我们又把Bob的分数取出来了。</p>
 <p>这三行代码看似平淡无奇，实则暗藏了一点点玄机。</p>
 <p>第二行实际是调用了HashMap的update方法。</p>
 <p>第三行实际是调用了HashMap的apply方法。</p>
 <p>我们可以把上面的代码改写成下面的等价形式：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> scores = <span class="keyword">new</span> scala.collection.mutable.<span class="type">HashMap</span>[<span class="type">String</span>, <span class="type">Int</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">scores.update(<span class="string">"Bob"</span>, <span class="number">100</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> bobsScore = scores.apply(<span class="string">"Bob”)</span></span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> scores = <span class="keyword">new</span> scala.collection.mutable.<span class="type">HashMap</span>[<span class="type">String</span>, <span class="type">Int</span>]</span><br><span class="line">scores.update(<span class="string">"Bob"</span>, <span class="number">100</span>)</span><br><span class="line"><span class="keyword">val</span> bobsScore = scores.apply(<span class="string">"Bob”)</span></span><br></pre></td></tr></table></figure>
 
 <p>虽然等价，但是可读性却降低了一些。</p>
 <p>apply方法我们之前讲过，就不再赘述。</p>
 <p>update方法也不太复杂，它的规则就是：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">x(y) = z</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x(y) = z</span><br></pre></td></tr></table></figure>
 
 <p>这样的代码会被编译为：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">x.update(y, z)</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x.update(y, z)</span><br></pre></td></tr></table></figure>
 
 <p>这次博文名字虽然以抹掉糖衣开头，实则有点名不符实，因为这个语言特性过于简单，糖衣很薄，一抹就透。</p>
 <p>这次的目的主要是介绍一个update方法的适用场景。</p>
 <p>我们来看用来修改某个人地址的一段代码：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AddressChanger</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">update</span></span>(name: <span class="type">String</span>, age: <span class="type">Int</span>, newAddress: <span class="type">String</span>) = &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    println(<span class="string">s"changing address of <span class="subst">$name</span>, whose age is <span class="subst">$age</span> to <span class="subst">$newAddress</span>"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">//actually change the address</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AddressChanger</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">update</span></span>(name: <span class="type">String</span>, age: <span class="type">Int</span>, newAddress: <span class="type">String</span>) = &#123;</span><br><span class="line">    println(<span class="string">s"changing address of <span class="subst">$name</span>, whose age is <span class="subst">$age</span> to <span class="subst">$newAddress</span>"</span>)</span><br><span class="line">    <span class="comment">//actually change the address</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>我们可以这样来调用它：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> changer = <span class="keyword">new</span> <span class="type">AddressChanger</span>()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">changer.update(<span class="string">"xiao ming"</span>, <span class="number">23</span>, <span class="string">"beijing"</span>)</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> changer = <span class="keyword">new</span> <span class="type">AddressChanger</span>()</span><br><span class="line">changer.update(<span class="string">"xiao ming"</span>, <span class="number">23</span>, <span class="string">"beijing"</span>)</span><br></pre></td></tr></table></figure>
 
 <p>或者，我们也可以这样来调用它：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> addressOf = <span class="keyword">new</span> <span class="type">AddressChanger</span>()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">addressOf(name = <span class="string">"xiao ming"</span>, age = <span class="number">23</span>) = <span class="string">"beijing"</span></span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> addressOf = <span class="keyword">new</span> <span class="type">AddressChanger</span>()</span><br><span class="line">addressOf(name = <span class="string">"xiao ming"</span>, age = <span class="number">23</span>) = <span class="string">"beijing"</span></span><br></pre></td></tr></table></figure>
 
 <p>这两段代码是等价的。</p>
 <p>比较一下，前一种用法显得中规中矩，没什么特别好的，也没啥特大的毛病。</p>
 <p>可是后一种用法就不同了，读起来很通顺，有读英语语句的感觉：把名字叫做小明，年龄23岁的人的地址改为北京。</p>
 <p>如果再给AddressChanger加上一个apply方法，我们还可以写这样的代码：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> currentAddress = addressOf(name = <span class="string">"xiao ming"</span>, age = <span class="number">23</span>)</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> currentAddress = addressOf(name = <span class="string">"xiao ming"</span>, age = <span class="number">23</span>)</span><br></pre></td></tr></table></figure>
 
 <p>这样，读取和更新的代码都看起来非常自然。</p>
 <p>如果我们把这两段代码连起来看：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> currentAddress = addressOf(name = <span class="string">"xiao ming"</span>, age = <span class="number">23</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">addressOf(name = <span class="string">"xiao ming"</span>, age = <span class="number">23</span>) = <span class="string">"beijing"</span></span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> currentAddress = addressOf(name = <span class="string">"xiao ming"</span>, age = <span class="number">23</span>)</span><br><span class="line">addressOf(name = <span class="string">"xiao ming"</span>, age = <span class="number">23</span>) = <span class="string">"beijing"</span></span><br></pre></td></tr></table></figure>
 
 <p>感觉甚好。</p>
 <p>addressOf(name = “xiao ming”, age = 23)可以看做一个整体，它就如同一个可读可写的属性。</p>
@@ -341,13 +344,22 @@
       <div class="popular-posts-title"><a href="/blog/2013/05/11/scala-language-features-2/" rel="bookmark">Scala中的语言特性是如何实现的(2)</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/24/desugar-scala-5/" rel="bookmark">剥开Scala的糖衣(5) -- lazy</a></div>
+      <div class="popular-posts-title"><a href="/blog/2013/12/23/desugar-scala-4/" rel="bookmark">去掉Scala的糖衣(4) -- type aliase</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/10/13/scala-trait/" rel="bookmark">Scala中的语言特性是如何实现的(3) -- trait</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/24/desugar-scala-5/" rel="bookmark">剥开Scala的糖衣(5) -- lazy</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/12/25/desugar-scala-6/" rel="bookmark">褪去Scala的糖衣(6) -- partial application</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-8/" rel="bookmark">揭开Scala的糖衣(8) -- pattern matching</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/30/desugar-scala-9/" rel="bookmark">掀开Scala的糖衣(9) -- function composition</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-7/" rel="bookmark">剥掉Scala的糖衣(7) -- apply method</a></div>
@@ -356,19 +368,13 @@
       <div class="popular-posts-title"><a href="/blog/2014/01/01/desugar-scala-10/" rel="bookmark">褪去Scala的糖衣(10) -- implicit function</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/23/desugar-scala-4/" rel="bookmark">去掉Scala的糖衣(4) -- type aliase</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/30/desugar-scala-9/" rel="bookmark">掀开Scala的糖衣(9) -- function composition</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/01/02/desugar-scala-11/" rel="bookmark">剥掉Scala的糖衣(11) -- structural types</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/01/05/more-on-scala-implicit-function/" rel="bookmark">褪去Scala的糖衣(12) -- implicit function（补）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-8/" rel="bookmark">揭开Scala的糖衣(8) -- pattern matching</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/01/02/desugar-scala-11/" rel="bookmark">剥掉Scala的糖衣(11) -- structural types</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/06/14/scala-unapply-method/" rel="bookmark">Desugar Scala(15) -- unapply和unapplySeq方法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/09/desugar-scala-default-parameter-value/" rel="bookmark">除去Scala的糖衣(13) -- default parameter value</a></div>
@@ -377,22 +383,19 @@
       <div class="popular-posts-title"><a href="/blog/2014/06/21/desugar-scala-lower-bound/" rel="bookmark">Desugar Scala(16) -- lower bound</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/14/scala-unapply-method/" rel="bookmark">Desugar Scala(15) -- unapply和unapplySeq方法</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/08/30/options-for/" rel="bookmark">Desugar Scala(17) -- Option和for，以及脑子里发生的事情</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2017/06/14/desugar-scala-stackable-traits/" rel="bookmark">Desugar Scala(18) -- stackable traits</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/" rel="bookmark">Scala + Play + sbt + Protractor = one build</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/27/scala-java-interop-closure/" rel="bookmark">论“如果Scala类有方法接收闭包，这些方法在Java里就不可用，因为Java目前尚不支持闭包。”这句话是错的</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/28/scala-java-interop-trait-with-impl/" rel="bookmark">论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/" rel="bookmark">Scala + Play + sbt + Protractor = one build</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/07/18/play-evolutions-to-liquibase/" rel="bookmark">在使用play framework的evolutions？需要支持SQL Server？用Liquibase吧</a></div>
@@ -413,25 +416,25 @@
       <div class="popular-posts-title"><a href="/blog/2015/04/26/principles-of-reactive-programming-week-2/" rel="bookmark">Principles of Reactive Programming Week Two作业导学</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/13/observers-pattern-fp/" rel="bookmark">观察者模式 in FP：Mutation vs Transformation</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/" rel="bookmark">解释器模式：OOP versus Functional Decomposition</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/16/visitor-pattern-pattern-match/" rel="bookmark">访问者模式 in FP：Pattern Matching</a></div>
+      <div class="popular-posts-title"><a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/" rel="bookmark">策略模式的尴尬就像用菜刀开啤酒</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/" rel="bookmark">职责链模式的别扭就像用门框夹核桃</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/23/template-method-pattern/" rel="bookmark">模板方法模式：子类型多态和高阶函数</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/" rel="bookmark">策略模式的尴尬就像用菜刀开啤酒</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2015/06/01/command-pattern-fp-implementation/" rel="bookmark">命令模式的不爽就像用指甲刀刮胡子</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/" rel="bookmark">解释器模式：OOP versus Functional Decomposition</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/13/observers-pattern-fp/" rel="bookmark">观察者模式 in FP：Mutation vs Transformation</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/16/visitor-pattern-pattern-match/" rel="bookmark">访问者模式 in FP：Pattern Matching</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/23/template-method-pattern/" rel="bookmark">模板方法模式：子类型多态和高阶函数</a></div>
     </li>
   </ul>
 
@@ -444,7 +447,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="/https:/cuipengfei.github.com/blog/2014/06/12/scala-update-method/" title="抹掉Scala的糖衣(14) -- update method">https://cuipengfei.github.com/blog/2014/06/12/scala-update-method/</a>
+    <a href="https://cuipengfei.github.com/blog/2014/06/12/scala-update-method/" title="抹掉Scala的糖衣(14) -- update method">https://cuipengfei.github.com/blog/2014/06/12/scala-update-method/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -598,7 +601,7 @@
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">4:42</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
@@ -624,9 +627,17 @@
   <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -705,7 +716,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

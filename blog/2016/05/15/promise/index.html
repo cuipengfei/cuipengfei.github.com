@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -48,16 +48,18 @@
 </script>
 
   <meta name="description" content="Promise并不是一个新的概念,它已经有将近30年的历史. 其早期的雏形还有里氏替换原则的提出者Barbara Liskov的贡献在其中. https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Futures_and_promises#History 而Promises&#x2F;A+这个规范的出现,则为JavaScript世界中众多Promise实现库提供了一套统一的API和交互机制. Promi">
-<meta name="keywords" content="Promises&#x2F;A+">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自己动手实现Promises&#x2F;A+规范">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2016&#x2F;05&#x2F;15&#x2F;promise&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="Promise并不是一个新的概念,它已经有将近30年的历史. 其早期的雏形还有里氏替换原则的提出者Barbara Liskov的贡献在其中. https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Futures_and_promises#History 而Promises&#x2F;A+这个规范的出现,则为JavaScript世界中众多Promise实现库提供了一套统一的API和交互机制. Promi">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;i2.buimg.com&#x2F;425a951ceb32210c.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;i2.buimg.com&#x2F;83a315d738e7dc45.png">
-<meta property="og:updated_time" content="2019-12-11T08:22:15.360Z">
+<meta property="article:published_time" content="2016-05-15T07:42:00.000Z">
+<meta property="article:modified_time" content="2019-12-11T08:22:15.360Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="Promises&#x2F;A+">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;i2.buimg.com&#x2F;425a951ceb32210c.png">
 
@@ -299,32 +301,32 @@
 <p>但是一旦进入resolved或者rejected状态,就再也不能变了。</p>
 <p>用形象的语言来描述的话:一个promise就是一个关于未来的承诺,诺言一旦履行,不能反悔。</p>
 <p>假设有如下代码:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = ???();<span class="comment">//首先以某种方式拿到一个promise,假设这个promise现在是pending的</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">p.then(x,y);<span class="comment">//然后把你希望在成功和失败时执行的x,y通过then方法挂进去</span></span></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = ???();<span class="comment">//首先以某种方式拿到一个promise,假设这个promise现在是pending的</span></span><br><span class="line">p.then(x,y);<span class="comment">//然后把你希望在成功和失败时执行的x,y通过then方法挂进去</span></span><br></pre></td></tr></table></figure>
 
 <p>时间流逝,假设???()方法内部在未来某个不确定的时间执行了:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">p.resolve();</span></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p.resolve();</span><br></pre></td></tr></table></figure>
 
 <p>然后,你的x函数应该会被调用。</p>
 <p>再然后,<strong>无论p的resolve方法或者reject方法再怎么被调用,p的状态都不会再变更,x和y也再不会被执行了</strong>。</p>
 <h2 id="2-树状结构"><a href="#2-树状结构" class="headerlink" title="2. 树状结构"></a>2. 树状结构</h2><p>对then方法的多次调用会形成一个树状的数据结构。</p>
 <p>假设有如下代码:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = ???();<span class="comment">//首先以某种方式拿到一个promise</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">p</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    .then(a,b) <span class="comment">//假设这次then的调用返回的是一个新的promise实例,称之为p1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    .then(c,d);<span class="comment">//假设这次then的调用返回的是一个新的promise实例,称之为p2</span></span></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = ???();<span class="comment">//首先以某种方式拿到一个promise</span></span><br><span class="line">p</span><br><span class="line">    .then(a,b) <span class="comment">//假设这次then的调用返回的是一个新的promise实例,称之为p1</span></span><br><span class="line">    .then(c,d);<span class="comment">//假设这次then的调用返回的是一个新的promise实例,称之为p2</span></span><br></pre></td></tr></table></figure>
 
 <p>上述代码等价于:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = ???();<span class="comment">//首先以某种方式拿到一个promise</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p1 = p.then(a,b);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p2 = p1.then(c,d);</span></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = ???();<span class="comment">//首先以某种方式拿到一个promise</span></span><br><span class="line"><span class="keyword">var</span> p1 = p.then(a,b);</span><br><span class="line"><span class="keyword">var</span> p2 = p1.then(c,d);</span><br></pre></td></tr></table></figure>
 
 <img data-src="http://i2.buimg.com/425a951ceb32210c.png">
 
 <p>当然,这个代码形成的会是类似于一个链表的结构,可以把它<strong>看作是树状结构的一个特例</strong>,也就是树中每个节点都最多只有一个子节点。</p>
 <p>而如下的代码则会形成我们惯常看到的树:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = ???();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p1 = p.then(a,b);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p2 = p.then(c,d);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p3 = p.then(e,f);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p4 = p1.then(g,h);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p5 = p3.then(i,j);</span></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = ???();</span><br><span class="line"><span class="keyword">var</span> p1 = p.then(a,b);</span><br><span class="line"><span class="keyword">var</span> p2 = p.then(c,d);</span><br><span class="line"><span class="keyword">var</span> p3 = p.then(e,f);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p4 = p1.then(g,h);</span><br><span class="line"><span class="keyword">var</span> p5 = p3.then(i,j);</span><br></pre></td></tr></table></figure>
 
 <img data-src="http://i2.buimg.com/83a315d738e7dc45.png">
 
 <p>这时,树中每一个节点可以有任意多的子节点(取决于它的then被调用了多少次)。</p>
 <p>了解promise的树状结构,将有助于实现promise时在自己脑子里构造递归模型。</p>
 <h2 id="3-回调的执行时机"><a href="#3-回调的执行时机" class="headerlink" title="3. 回调的执行时机"></a>3. 回调的执行时机</h2><p>这是实现promise的时候,最容易把人搞晕的一点。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = ???();<span class="comment">//首先以某种方式拿到一个promise,假设这时p是pending的状态</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p1 = p.then(a,b);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p2 = p1.then(c,d);</span></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = ???();<span class="comment">//首先以某种方式拿到一个promise,假设这时p是pending的状态</span></span><br><span class="line"><span class="keyword">var</span> p1 = p.then(a,b);</span><br><span class="line"><span class="keyword">var</span> p2 = p1.then(c,d);</span><br></pre></td></tr></table></figure>
 
 <p>以上代码执行完之后,我们手里有3个promise:p,p1,p2.</p>
 <p>这时,a,b,c,d都还没有执行。</p>
@@ -389,7 +391,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="/https:/cuipengfei.github.com/blog/2016/05/15/promise/" title="自己动手实现Promises&#x2F;A+规范">https://cuipengfei.github.com/blog/2016/05/15/promise/</a>
+    <a href="https://cuipengfei.github.com/blog/2016/05/15/promise/" title="自己动手实现Promises&#x2F;A+规范">https://cuipengfei.github.com/blog/2016/05/15/promise/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -543,7 +545,7 @@
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">4:42</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
@@ -569,9 +571,17 @@
   <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -650,7 +660,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

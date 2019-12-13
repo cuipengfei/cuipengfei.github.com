@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -47,15 +47,18 @@
   };
 </script>
 
-  <meta name="description" content="Scala中有一个type关键字，用来给类型或者是操作起别名，用起来很是方便。 比如这样： 1type People &#x3D; List[Person]  这样就是给List[Person]（方括号是Scala的类型参数的写法）声明了一个别名，叫做People。 接下来就可以这样使用它： 1def teenagers(people: People): People &#x3D; &amp;#123;2  people.f">
-<meta name="keywords" content="Desugar_Scala,Scala">
+  <meta name="description" content="Scala中有一个type关键字，用来给类型或者是操作起别名，用起来很是方便。 比如这样： 1type People &#x3D; List[Person]  这样就是给List[Person]（方括号是Scala的类型参数的写法）声明了一个别名，叫做People。 接下来就可以这样使用它： 123def teenagers(people: People): People &#x3D; &amp;#123;  people.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="去掉Scala的糖衣(4) -- type aliase">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2013&#x2F;12&#x2F;23&#x2F;desugar-scala-4&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="Scala中有一个type关键字，用来给类型或者是操作起别名，用起来很是方便。 比如这样： 1type People &#x3D; List[Person]  这样就是给List[Person]（方括号是Scala的类型参数的写法）声明了一个别名，叫做People。 接下来就可以这样使用它： 1def teenagers(people: People): People &#x3D; &amp;#123;2  people.f">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-07T13:18:10.860Z">
+<meta property="og:description" content="Scala中有一个type关键字，用来给类型或者是操作起别名，用起来很是方便。 比如这样： 1type People &#x3D; List[Person]  这样就是给List[Person]（方括号是Scala的类型参数的写法）声明了一个别名，叫做People。 接下来就可以这样使用它： 123def teenagers(people: People): People &#x3D; &amp;#123;  people.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2013-12-23T07:48:00.000Z">
+<meta property="article:modified_time" content="2019-12-07T13:18:10.860Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="Desugar_Scala">
+<meta property="article:tag" content="Scala">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2013/12/23/desugar-scala-4/">
@@ -282,56 +285,56 @@
       
         <p>Scala中有一个type关键字，用来给类型或者是操作起别名，用起来很是方便。</p>
 <p>比如这样：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">People</span> </span>= <span class="type">List</span>[<span class="type">Person</span>]</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">People</span> </span>= <span class="type">List</span>[<span class="type">Person</span>]</span><br></pre></td></tr></table></figure>
 
 <p>这样就是给List[Person]（方括号是Scala的类型参数的写法）声明了一个别名，叫做People。</p>
 <p>接下来就可以这样使用它：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">teenagers</span></span>(people: <span class="type">People</span>): <span class="type">People</span> = &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  people.filter(person =&gt; person.age &lt; <span class="number">20</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">teenagers</span></span>(people: <span class="type">People</span>): <span class="type">People</span> = &#123;</span><br><span class="line">  people.filter(person =&gt; person.age &lt; <span class="number">20</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这个代码编译之后没有什么神奇的，仅仅是把所有出现People这个字眼的地方都用List of Person替代了。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Person&gt; <span class="title">teenagers</span><span class="params">(List&lt;Person&gt; people)</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">return</span> (List)people.filter(<span class="keyword">new</span> AbstractFunction1() &#123; <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">0L</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">apply</span><span class="params">(Person person)</span> </span>&#123; <span class="keyword">return</span> person.age() &lt; <span class="number">20</span>; &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Person&gt; <span class="title">teenagers</span><span class="params">(List&lt;Person&gt; people)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (List)people.filter(<span class="keyword">new</span> AbstractFunction1() &#123; <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">0L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">apply</span><span class="params">(Person person)</span> </span>&#123; <span class="keyword">return</span> person.age() &lt; <span class="number">20</span>; &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这种给类型一个别名的特性只是一个小糖豆，不太甜，真正有趣的是给一类操作命名（联想C#中定义delegate）。</p>
 <p>比如这样：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">PersonPredicate</span> </span>= <span class="type">Person</span> =&gt; <span class="type">Boolean</span></span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">PersonPredicate</span> </span>= <span class="type">Person</span> =&gt; <span class="type">Boolean</span></span><br></pre></td></tr></table></figure>
 
 <p>接受一个Person，返回一个Boolean，我们把这一类用来判断一个人是否符合某个条件的操作统称为PersonPredicate。</p>
 <p>然后我们可以定义以下predicate：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> teenagerPred: <span class="type">PersonPredicate</span> = person =&gt; person.age &lt; <span class="number">20</span></span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> teenagerPred: <span class="type">PersonPredicate</span> = person =&gt; person.age &lt; <span class="number">20</span></span><br></pre></td></tr></table></figure>
 
 <p>然后前面写过的teenagers方法就可以这样重新定义：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">teenagers</span></span>(people: <span class="type">People</span>): <span class="type">People</span> = &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  people.filter(teenagerPred)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">teenagers</span></span>(people: <span class="type">People</span>): <span class="type">People</span> = &#123;</span><br><span class="line">  people.filter(teenagerPred)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>按照这个思路下去，我们就可以开始composite functions了。比如说，我们跟人收税，就可以这么做：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">Tax</span> </span>= <span class="type">Person</span> =&gt; <span class="type">Double</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> incomeTax: <span class="type">Tax</span> = person =&gt; person.income * <span class="number">5</span> / <span class="number">100</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> kejuanzaTax: <span class="type">Tax</span> = person =&gt; person.income * <span class="number">20</span> / <span class="number">100</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">giveMeYourMoney</span></span>(p: <span class="type">Person</span>) = &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">  calculateTax(p, <span class="type">List</span>(incomeTax, kejuanzaTax))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calculateTax</span></span>(person: <span class="type">Person</span>, taxes: <span class="type">List</span>[<span class="type">Tax</span>]): <span class="type">Double</span> = &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">  taxes.foldLeft(<span class="number">0</span>d) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    (acc, curTax) =&gt; acc + curTax(person)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">Tax</span> </span>= <span class="type">Person</span> =&gt; <span class="type">Double</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> incomeTax: <span class="type">Tax</span> = person =&gt; person.income * <span class="number">5</span> / <span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> kejuanzaTax: <span class="type">Tax</span> = person =&gt; person.income * <span class="number">20</span> / <span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">giveMeYourMoney</span></span>(p: <span class="type">Person</span>) = &#123;</span><br><span class="line">  calculateTax(p, <span class="type">List</span>(incomeTax, kejuanzaTax))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calculateTax</span></span>(person: <span class="type">Person</span>, taxes: <span class="type">List</span>[<span class="type">Tax</span>]): <span class="type">Double</span> = &#123;</span><br><span class="line">  taxes.foldLeft(<span class="number">0</span>d) &#123;</span><br><span class="line">    (acc, curTax) =&gt; acc + curTax(person)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>从一个人那里拿到钱，这种操作，我们称之为Tax。然后定义个税和苛捐杂税，或者也可以有任意多的税种。</p>
 <p>然后就可以把任意的几个税种放在一个List里面，和calculateTax去composite了。</p>
 <p>当然，没有type这个关键字，我们也可以composite functions。只不过就得写成这样：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> teenagerPred: (<span class="type">Person</span>) =&gt; <span class="type">Boolean</span> = person =&gt; person.age &lt; <span class="number">20</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">incomeTax</span></span>: (<span class="type">Person</span>) =&gt; <span class="type">Double</span> = person =&gt; person.income * <span class="number">5</span> / <span class="number">100</span></span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> teenagerPred: (<span class="type">Person</span>) =&gt; <span class="type">Boolean</span> = person =&gt; person.age &lt; <span class="number">20</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">incomeTax</span></span>: (<span class="type">Person</span>) =&gt; <span class="type">Double</span> = person =&gt; person.income * <span class="number">5</span> / <span class="number">100</span></span><br></pre></td></tr></table></figure>
 
 <p>看着稍微有点眼花。</p>
 <p>这种用type关键字给一种操作命名的代码反编译之后是这样的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Function1&lt;Person, Object&gt; <span class="title">teenagerPred</span><span class="params">()</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> AbstractFunction1() &#123; <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">0L</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">apply</span><span class="params">(Person person)</span> </span>&#123; <span class="keyword">return</span> person.age() &lt; <span class="number">20</span>; &#125;  &#125; ;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Function1&lt;Person, Object&gt; <span class="title">incomeTax</span><span class="params">()</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> AbstractFunction1() &#123; <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">0L</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">double</span> <span class="title">apply</span><span class="params">(Person person)</span> </span>&#123; <span class="keyword">return</span> person.income() * <span class="number">5</span> / <span class="number">100</span>; &#125;  &#125; ;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Function1&lt;Person, Object&gt; <span class="title">kejuanzaTax</span><span class="params">()</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> AbstractFunction1() &#123; <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">0L</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">double</span> <span class="title">apply</span><span class="params">(Person person)</span> </span>&#123; <span class="keyword">return</span> person.income() * <span class="number">20</span> / <span class="number">100</span>; &#125; &#125; ;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Function1&lt;Person, Object&gt; <span class="title">teenagerPred</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> AbstractFunction1() &#123; <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">0L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">apply</span><span class="params">(Person person)</span> </span>&#123; <span class="keyword">return</span> person.age() &lt; <span class="number">20</span>; &#125;  &#125; ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> Function1&lt;Person, Object&gt; <span class="title">incomeTax</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> AbstractFunction1() &#123; <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">0L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">double</span> <span class="title">apply</span><span class="params">(Person person)</span> </span>&#123; <span class="keyword">return</span> person.income() * <span class="number">5</span> / <span class="number">100</span>; &#125;  &#125; ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> Function1&lt;Person, Object&gt; <span class="title">kejuanzaTax</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> AbstractFunction1() &#123; <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">0L</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">double</span> <span class="title">apply</span><span class="params">(Person person)</span> </span>&#123; <span class="keyword">return</span> person.income() * <span class="number">20</span> / <span class="number">100</span>; &#125; &#125; ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>可以看到所有这种接受一个参数，返回一个值的操作都是Function1&lt;Person, Object&gt;。</p>
 <p>推测一下，接受两个参数，返回一个值的是不是该叫做Function2呢？</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">TwoToOne</span> </span>= (<span class="type">String</span>, <span class="type">Int</span>) =&gt; <span class="type">Double</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">twoToOneImpl</span></span>: <span class="type">TwoToOne</span> = (str, i) =&gt; <span class="number">1</span></span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">TwoToOne</span> </span>= (<span class="type">String</span>, <span class="type">Int</span>) =&gt; <span class="type">Double</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">twoToOneImpl</span></span>: <span class="type">TwoToOne</span> = (str, i) =&gt; <span class="number">1</span></span><br></pre></td></tr></table></figure>
 
 <p>反编译之后，果不其然：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Function2&lt;String, Object, Object&gt; <span class="title">twoToOneImpl</span><span class="params">()</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Hello..anonfun.twoToOneImpl<span class="number">.1</span>(<span class="keyword">this</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Function2&lt;String, Object, Object&gt; <span class="title">twoToOneImpl</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Hello..anonfun.twoToOneImpl<span class="number">.1</span>(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>那不接收参数，只有返回值的呢？</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">NoInJustOut</span> </span>= () =&gt; <span class="type">String</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">noInJustOutImpl</span></span>: <span class="type">NoInJustOut</span> = () =&gt; <span class="string">"hello world"</span></span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">NoInJustOut</span> </span>= () =&gt; <span class="type">String</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">noInJustOutImpl</span></span>: <span class="type">NoInJustOut</span> = () =&gt; <span class="string">"hello world"</span></span><br></pre></td></tr></table></figure>
 
 <p>反编译之后，其实是变成了Function0 of String:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Function0&lt;String&gt; <span class="title">noInJustOutImpl</span><span class="params">()</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Hello..anonfun.noInJustOutImpl<span class="number">.1</span>(<span class="keyword">this</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Function0&lt;String&gt; <span class="title">noInJustOutImpl</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Hello..anonfun.noInJustOutImpl<span class="number">.1</span>(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>到这里，我们可以总结一下type alia这个糖衣：</p>
 <p>一个类型的type alias，类似于这样的：type t = x。编译器将在所有使用到t的地方把t替换为x。</p>
 <p>对于一种操作的type alias，编译器将会根据参数列表和返回值类型的不同将其替换为对应的Function0,Function1,Function2 …… 一直到Function22。</p>
 <p>如果我们真的定义一个超过二十二个参数的操作会如何呢？</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">twentyThree</span> </span>= (</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">  ) =&gt; <span class="type">String</span></span></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">twentyThree</span> </span>= (</span><br><span class="line">    <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>,</span><br><span class="line">    <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>,</span><br><span class="line">    <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>,</span><br><span class="line">    <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>,</span><br><span class="line">    <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>,</span><br><span class="line">    <span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span></span><br><span class="line">  ) =&gt; <span class="type">String</span></span><br></pre></td></tr></table></figure>
 
 <p>Scala编译器会直接告诉我们：<br>type Function23 is not a member of package scala</p>
 
@@ -350,13 +353,19 @@
       <div class="popular-posts-title"><a href="/blog/2013/05/11/scala-language-features-2/" rel="bookmark">Scala中的语言特性是如何实现的(2)</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/24/desugar-scala-5/" rel="bookmark">剥开Scala的糖衣(5) -- lazy</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/10/13/scala-trait/" rel="bookmark">Scala中的语言特性是如何实现的(3) -- trait</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/24/desugar-scala-5/" rel="bookmark">剥开Scala的糖衣(5) -- lazy</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/12/25/desugar-scala-6/" rel="bookmark">褪去Scala的糖衣(6) -- partial application</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-8/" rel="bookmark">揭开Scala的糖衣(8) -- pattern matching</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/30/desugar-scala-9/" rel="bookmark">掀开Scala的糖衣(9) -- function composition</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-7/" rel="bookmark">剥掉Scala的糖衣(7) -- apply method</a></div>
@@ -365,28 +374,22 @@
       <div class="popular-posts-title"><a href="/blog/2014/01/01/desugar-scala-10/" rel="bookmark">褪去Scala的糖衣(10) -- implicit function</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/30/desugar-scala-9/" rel="bookmark">掀开Scala的糖衣(9) -- function composition</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/01/02/desugar-scala-11/" rel="bookmark">剥掉Scala的糖衣(11) -- structural types</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/01/05/more-on-scala-implicit-function/" rel="bookmark">褪去Scala的糖衣(12) -- implicit function（补）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-8/" rel="bookmark">揭开Scala的糖衣(8) -- pattern matching</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/01/02/desugar-scala-11/" rel="bookmark">剥掉Scala的糖衣(11) -- structural types</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/09/desugar-scala-default-parameter-value/" rel="bookmark">除去Scala的糖衣(13) -- default parameter value</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/06/14/scala-unapply-method/" rel="bookmark">Desugar Scala(15) -- unapply和unapplySeq方法</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/12/scala-update-method/" rel="bookmark">抹掉Scala的糖衣(14) -- update method</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/21/desugar-scala-lower-bound/" rel="bookmark">Desugar Scala(16) -- lower bound</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/06/09/desugar-scala-default-parameter-value/" rel="bookmark">除去Scala的糖衣(13) -- default parameter value</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/14/scala-unapply-method/" rel="bookmark">Desugar Scala(15) -- unapply和unapplySeq方法</a></div>
+      <div class="popular-posts-title"><a href="/blog/2014/06/21/desugar-scala-lower-bound/" rel="bookmark">Desugar Scala(16) -- lower bound</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/08/30/options-for/" rel="bookmark">Desugar Scala(17) -- Option和for，以及脑子里发生的事情</a></div>
@@ -395,13 +398,13 @@
       <div class="popular-posts-title"><a href="/blog/2017/06/14/desugar-scala-stackable-traits/" rel="bookmark">Desugar Scala(18) -- stackable traits</a></div>
     </li>
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/" rel="bookmark">Scala + Play + sbt + Protractor = one build</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/27/scala-java-interop-closure/" rel="bookmark">论“如果Scala类有方法接收闭包，这些方法在Java里就不可用，因为Java目前尚不支持闭包。”这句话是错的</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/06/28/scala-java-interop-trait-with-impl/" rel="bookmark">论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2014/06/22/scala-plus-play-plus-sbt-plus-protractor-equals-one-build/" rel="bookmark">Scala + Play + sbt + Protractor = one build</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2014/07/18/play-evolutions-to-liquibase/" rel="bookmark">在使用play framework的evolutions？需要支持SQL Server？用Liquibase吧</a></div>
@@ -422,25 +425,25 @@
       <div class="popular-posts-title"><a href="/blog/2015/04/26/principles-of-reactive-programming-week-2/" rel="bookmark">Principles of Reactive Programming Week Two作业导学</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/13/observers-pattern-fp/" rel="bookmark">观察者模式 in FP：Mutation vs Transformation</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/" rel="bookmark">解释器模式：OOP versus Functional Decomposition</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/16/visitor-pattern-pattern-match/" rel="bookmark">访问者模式 in FP：Pattern Matching</a></div>
+      <div class="popular-posts-title"><a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/" rel="bookmark">策略模式的尴尬就像用菜刀开啤酒</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/" rel="bookmark">职责链模式的别扭就像用门框夹核桃</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/06/23/template-method-pattern/" rel="bookmark">模板方法模式：子类型多态和高阶函数</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/" rel="bookmark">策略模式的尴尬就像用菜刀开啤酒</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2015/06/01/command-pattern-fp-implementation/" rel="bookmark">命令模式的不爽就像用指甲刀刮胡子</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/" rel="bookmark">解释器模式：OOP versus Functional Decomposition</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/13/observers-pattern-fp/" rel="bookmark">观察者模式 in FP：Mutation vs Transformation</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/16/visitor-pattern-pattern-match/" rel="bookmark">访问者模式 in FP：Pattern Matching</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2015/06/23/template-method-pattern/" rel="bookmark">模板方法模式：子类型多态和高阶函数</a></div>
     </li>
   </ul>
 
@@ -453,7 +456,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="/https:/cuipengfei.github.com/blog/2013/12/23/desugar-scala-4/" title="去掉Scala的糖衣(4) -- type aliase">https://cuipengfei.github.com/blog/2013/12/23/desugar-scala-4/</a>
+    <a href="https://cuipengfei.github.com/blog/2013/12/23/desugar-scala-4/" title="去掉Scala的糖衣(4) -- type aliase">https://cuipengfei.github.com/blog/2013/12/23/desugar-scala-4/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -607,7 +610,7 @@
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">4:42</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
@@ -633,9 +636,17 @@
   <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -714,7 +725,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

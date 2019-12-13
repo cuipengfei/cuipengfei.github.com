@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -47,15 +47,17 @@
   };
 </script>
 
-  <meta name="description" content="用new修饰的方法,在编译期按变量类型调用 所以： Number number &#x3D; new IntNumber();number.ShowInfo(); 会显示”base class—“ 1class Number2&amp;#123;3    public static int i &#x3D; 123;45    public virtual void ShowInfo()6    &amp;#123;7">
-<meta name="keywords" content="《你必须知道的.NET》">
+  <meta name="description" content="用new修饰的方法,在编译期按变量类型调用 所以： Number number &#x3D; new IntNumber();number.ShowInfo(); 会显示”base class—“ 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748class Number&amp;#123;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="new关键字用作修饰符">
 <meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2008&#x2F;08&#x2F;28&#x2F;new%E5%85%B3%E9%94%AE%E5%AD%97%E7%94%A8%E4%BD%9C%E4%BF%AE%E9%A5%B0%E7%AC%A6&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="用new修饰的方法,在编译期按变量类型调用 所以： Number number &#x3D; new IntNumber();number.ShowInfo(); 会显示”base class—“ 1class Number2&amp;#123;3    public static int i &#x3D; 123;45    public virtual void ShowInfo()6    &amp;#123;7">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-11T03:48:09.971Z">
+<meta property="og:description" content="用new修饰的方法,在编译期按变量类型调用 所以： Number number &#x3D; new IntNumber();number.ShowInfo(); 会显示”base class—“ 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748class Number&amp;#123;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2008-08-28T12:16:00.000Z">
+<meta property="article:modified_time" content="2019-12-11T03:48:09.971Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="《你必须知道的.NET》">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://cuipengfei.github.com/blog/2008/08/28/new%E5%85%B3%E9%94%AE%E5%AD%97%E7%94%A8%E4%BD%9C%E4%BF%AE%E9%A5%B0%E7%AC%A6/">
@@ -284,7 +286,7 @@
 <p>所以：</p>
 <p>Number number = new IntNumber();<br>number.ShowInfo();</p>
 <p>会显示”base class—“</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Number</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="class">&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> i = <span class="number">123</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">ShowInfo</span><span class="params">()</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="function">    </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">Console</span>.WriteLine(<span class="string">"base class---"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">ShowNumber</span><span class="params">()</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="function">    </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">Console</span>.WriteLine(i.ToString());</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IntNumber</span> :</span> Number</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">new</span> <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> i = <span class="number">456</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">new</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">ShowInfo</span><span class="params">()</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"><span class="function">    </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">Console</span>.WriteLine(<span class="string">"Derived class---"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> override <span class="keyword">void</span> <span class="title">ShowNumber</span><span class="params">()</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line"><span class="function">    </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">Console</span>.WriteLine(<span class="string">"Base number is &#123;0&#125;"</span>, Number.i.ToString());</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">Console</span>.WriteLine(<span class="string">"New number is &#123;0&#125;"</span>, i.ToString());</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test_Number</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line"><span class="class">&#123;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span><span class="params">()</span> <span class="comment">//Main_6_1_1</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line"><span class="function">    </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line">        Number num = <span class="keyword">new</span> Number();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line">        num.ShowNumber();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">        IntNumber intNum = <span class="keyword">new</span> IntNumber();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line">        intNum.ShowNumber();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">        intNum.ShowInfo();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line">        Number number = <span class="keyword">new</span> IntNumber();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">//究竟调用了谁？</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line">        number.ShowInfo();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">//究竟调用了谁？</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">45</span></pre></td><td class="code"><pre><span class="line">        number.ShowNumber();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">46</span></pre></td><td class="code"><pre><span class="line">        <span class="built_in">Console</span>.Read();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">47</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">48</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Number</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> i = <span class="number">123</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">ShowInfo</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">Console</span>.WriteLine(<span class="string">"base class---"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">ShowNumber</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">Console</span>.WriteLine(i.ToString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IntNumber</span> :</span> Number</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">new</span> <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> i = <span class="number">456</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">new</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">ShowInfo</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">Console</span>.WriteLine(<span class="string">"Derived class---"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> override <span class="keyword">void</span> <span class="title">ShowNumber</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">Console</span>.WriteLine(<span class="string">"Base number is &#123;0&#125;"</span>, Number.i.ToString());</span><br><span class="line">        <span class="built_in">Console</span>.WriteLine(<span class="string">"New number is &#123;0&#125;"</span>, i.ToString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test_Number</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span><span class="params">()</span> <span class="comment">//Main_6_1_1</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Number num = <span class="keyword">new</span> Number();</span><br><span class="line">        num.ShowNumber();</span><br><span class="line">        IntNumber intNum = <span class="keyword">new</span> IntNumber();</span><br><span class="line">        intNum.ShowNumber();</span><br><span class="line">        intNum.ShowInfo();</span><br><span class="line">        Number number = <span class="keyword">new</span> IntNumber();</span><br><span class="line">        <span class="comment">//究竟调用了谁？</span></span><br><span class="line">        number.ShowInfo();</span><br><span class="line">        <span class="comment">//究竟调用了谁？</span></span><br><span class="line">        number.ShowNumber();</span><br><span class="line">        <span class="built_in">Console</span>.Read();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -300,16 +302,16 @@
       <div class="popular-posts-title"><a href="/blog/2008/08/20/关于显式接口实现/" rel="bookmark">关于显式接口实现</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/28/引用类型参数的按值传递/" rel="bookmark">引用类型参数的按值传递</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/24/MSIL的条件跳转（不知道正确与否）/" rel="bookmark">MSIL的条件跳转（不知道正确与否）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2008/09/04/一个关于深层拷贝的问题（迷惑在私有构造函数）/" rel="bookmark">一个关于深层拷贝的问题（迷惑在私有构造函数）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/09/09/可以为null的值类型/" rel="bookmark">可以为null的值类型</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/08/28/引用类型参数的按值传递/" rel="bookmark">引用类型参数的按值传递</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2008/08/24/MSIL的条件跳转（不知道正确与否）/" rel="bookmark">MSIL的条件跳转（不知道正确与否）</a></div>
+      <div class="popular-posts-title"><a href="/blog/2008/09/09/可以为null的值类型/" rel="bookmark">可以为null的值类型</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2011/04/13/“可选参数”趣事探轶/" rel="bookmark">“可选参数”趣事探轶</a></div>
@@ -328,7 +330,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="/https:/cuipengfei.github.com/blog/2008/08/28/new%E5%85%B3%E9%94%AE%E5%AD%97%E7%94%A8%E4%BD%9C%E4%BF%AE%E9%A5%B0%E7%AC%A6/" title="new关键字用作修饰符">https://cuipengfei.github.com/blog/2008/08/28/new关键字用作修饰符/</a>
+    <a href="https://cuipengfei.github.com/blog/2008/08/28/new%E5%85%B3%E9%94%AE%E5%AD%97%E7%94%A8%E4%BD%9C%E4%BF%AE%E9%A5%B0%E7%AC%A6/" title="new关键字用作修饰符">https://cuipengfei.github.com/blog/2008/08/28/new关键字用作修饰符/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -481,7 +483,7 @@
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">4:42</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
@@ -507,9 +509,17 @@
   <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/pisces.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -588,7 +598,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 
