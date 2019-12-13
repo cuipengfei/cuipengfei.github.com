@@ -3,12 +3,11 @@ title: 自己动手重新实现LINQ to Objects 3 - Select
 date: 2011-08-22 00:13:03
 tags: LinQ
 ---
-本文翻译自  [ Jon Skeet  ](http://stackoverflow.com/users/22656/jon-skeet) 的系列博文“
-Edulinq  ”。
+本文翻译自  [ Jon Skeet  ](http://stackoverflow.com/users/22656/jon-skeet) 的系列博文"Edulinq"。
 
 本篇原文地址：
 
-[ _ http://msmvps.com/blogs/jon_skeet/archive/2010/12/23/reimplementing-linq-to-objects-part-3-quot-select-quot-and-a-rename.aspx _](http://msmvps.com/blogs/jon_skeet/archive/2010/12/23/reimplementing-linq-to-objects-part-3-quot-select-quot-and-a-rename.aspx)
+[http://msmvps.com/blogs/jon_skeet/archive/2010/12/23/reimplementing-linq-to-objects-part-3-quot-select-quot-and-a-rename.aspx](http://msmvps.com/blogs/jon_skeet/archive/2010/12/23/reimplementing-linq-to-objects-part-3-quot-select-quot-and-a-rename.aspx)
 
 
 距离上次写完本系列博文的  [ 第一篇  ](http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-to-objects-part-1-introduction.aspx) 和  [ 第二篇](http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-to-objects-part-2-quot-where-quot.aspx) 已经有一段日子了，希望接下来的进度会快一些。
@@ -18,7 +17,7 @@ Edulinq  ”。
 [ 这一系列博文的  tag](http://msmvps.com/blogs/jon_skeet/archive/tags/Edulinq/default.aspx) 也修改为了
 Edulinq  了。好了，闲话少叙  ...  我们来开始重新实现  LINQ  吧，这次要实现  Select  操作符。  
 
-**Select  操作符是什么？**
+# Select  操作符是什么？
 
 和  Where  类似，  [ Select  也有两个重载  ](http://msdn.microsoft.com/en-us/library/bb357126.aspx) ：
 
@@ -30,26 +29,25 @@ public static IEnumerable < TResult > Select < TSource, TResult > (this IEnumera
 
 其第二个重载让投影操作可以访问到序列元素的  index  。
 
-先说简单的东西：  Select  方法把一个序列  _ 投影 _ 成为另一个序列：“  selector
+先说简单的东西：  Select  方法把一个序列 投影成为另一个序列：“  selector
 ”这个作为参数的委托会被依次应用到输入序列中的每一个元素上，并每次  yield  返回一个输出元素。  Select  的行为和  Where
 很类似（实在是太类似了，以至于下面一段文字都是从上一篇文章中复制过来的，只是稍加修改）：  
 
-l  Select  不会对输入序列做任何修改。
++ Select  不会对输入序列做任何修改。
 
-l  Select  是延迟执行的  -  在你开始读取输出序列中的元素之前，  Select  不会去输入序列中取元素。
++ Select  是延迟执行的  -  在你开始读取输出序列中的元素之前，  Select  不会去输入序列中取元素。
 
-l  不过也有一点不是延迟执行的，它会立即检查参数是否为  null  。
++ 不过也有一点不是延迟执行的，它会立即检查参数是否为  null 。
 
-l  它以流式处理结果：它每次只处理一个结果元素。
++ 它以流式处理结果：它每次只处理一个结果元素。
 
-l  你每在输出序列上迭代一次，  Select  方法就会在输入序列上迭代一次，这二者是严格对应的。
++ 你每在输出序列上迭代一次，  Select  方法就会在输入序列上迭代一次，这二者是严格对应的。
 
-l  每次  yield  返回结果值的时候，“  selector  ”这个委托就会被调用一次。
++ 每次  yield  返回结果值的时候，“  selector  ”这个委托就会被调用一次。
 
-l  如果输出序列的迭代器被  Dispose  掉的话，对应的输入序列的迭代器也会被  Dispose  掉。  
++ 如果输出序列的迭代器被  Dispose  掉的话，对应的输入序列的迭代器也会被  Dispose  掉。  
 
-** 我们要测试什么？   
-**
+# 我们要测试什么？
 
 对  Select  的测试和对  Where  的测试也是很类似的，之前我们是针对  Where  的过滤功能来做测试，现在我们是针对  Select
 的投影功能来做测试。
@@ -79,7 +77,7 @@ public void SimpleProjectionToDifferentType() {
 [Test]
 public void SideEffectsInProjection() {
  int[] source = new int[3];
- _ // Actual values won't be relevant _
+// Actual values won't be relevant _
 
  int count = 0;
 
@@ -123,18 +121,18 @@ public void WhereAndSelect() {
 
 如果你用过  LINQ to Objects  的话，那么上面这些东西对你来说应该是很熟悉很亲切的，没有什么令人惊讶的。  
 
-** 来动手实现吧！   
-**
+# 来动手实现吧！
+
 
 我们实现  Select  的方式和实现  Where  的方式差不多。我只是把  Where
 的实现的代码复制过来，稍加修改，这二者真的就是如此的相似。详细说来就是：  
 
-l  我们利用迭代器代码块来轻松实现序列的返回。
++ 我们利用迭代器代码块来轻松实现序列的返回。
 
-l  要用到迭代器代码块就意味着必须要把参数校验的代码和核心实现代码分离开。（我写完上一篇博文之后了解到  VB11
++ 要用到迭代器代码块就意味着必须要把参数校验的代码和核心实现代码分离开。（我写完上一篇博文之后了解到  VB11
 中将会有匿名迭代器，匿名迭代器可以解决这个问题。哎。羡慕  VB  用户的感觉怪怪的，但是我会学着接受现实的。）
 
-l  我们在迭代器代码块中使用  foreach  ，这样就可以保证在输出序列的迭代器被  Dispose
++ 我们在迭代器代码块中使用  foreach  ，这样就可以保证在输出序列的迭代器被  Dispose
 时或者输入序列的元素被迭代完时，输入序列的迭代器可以被妥当的  Dispose  掉。  
 
 由于  Select  的实现和  Where  的实现实在是太类似了，下面我直接给出代码。  Select  方法的重载（含有  index
@@ -166,15 +164,10 @@ private static IEnumerable < TResult > SelectImpl < TSource, TResult > (this IEn
 
 很简单，对吧？真正用来实现功能的代码还没有参数校验的代码长呢。  
 
-** 结论   
-**
+# 结论
 
-虽然说我不想让我的读者感到无聊（你们中的有些人  _ 可能 _ 会感到惊讶），但是我还是得承认本篇文章颇有些无趣。我重复的强调“和  Where
+
+虽然说我不想让我的读者感到无聊（你们中的有些人 可能会感到惊讶），但是我还是得承认本篇文章颇有些无趣。我重复的强调“和  Where
 很类似”，强调了那么多次，搞得都有点乏味了，不过这样才足以说明实现  Select  并没有你可能想象的那么复杂。
 
 下次（我希望就在几天之内）我会写点不一样的东西。我还不确定下次要写哪个方法，待选的方法还有很多  ...
-
-  * [ 点赞  1  ](javascript:;)
-  * [ 收藏  ](javascript:;)
-  * [ 分享 ](javascript:;)
-

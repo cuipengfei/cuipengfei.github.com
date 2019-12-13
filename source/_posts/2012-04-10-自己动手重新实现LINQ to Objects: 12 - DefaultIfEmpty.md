@@ -3,8 +3,7 @@ title: 自己动手重新实现LINQ to Objects 12 - DefaultIfEmpty
 date: 2012-04-10 11:57:25
 tags: LinQ
 ---
-本文翻译自  [ Jon Skeet  ](http://stackoverflow.com/users/22656/jon-skeet) 的系列博文“
-Edulinq  ”。
+本文翻译自  [ Jon Skeet  ](http://stackoverflow.com/users/22656/jon-skeet) 的系列博文"Edulinq"。
 
 本篇原文地址：
 
@@ -12,7 +11,7 @@ Edulinq  ”。
 
 上次实现  First  /  Last的时候写了大量的代码，相比起来，今天要讲的  DefaultIfEmpty  就轻松多了。
 
-** DefaultIfEmpty是什么？ **
+# DefaultIfEmpty是什么？
 
 这个操作符虽然简单，但是还是有  [ 两个重载  ](http://msdn.microsoft.com/en-us/library/bb360530.aspx) ：
 
@@ -20,40 +19,40 @@ Edulinq  ”。
 public static IEnumerable < TSource > DefaultIfEmpty < TSource > (this IEnumerable < TSource > source)
 
 public static IEnumerable < TSource > DefaultIfEmpty < TSource > (this IEnumerable < TSource > source, TSource defaultValue)
-``
+```
 
 这个操作符的行为很容易描述：
 
-l  如果输入序列是空序列的话，那么返回序列中仅包含一个默认值。这个默认值在第一个重载中是  default  (T)  ，在第二个重载中是第二个参数的值。
++ 如果输入序列是空序列的话，那么返回序列中仅包含一个默认值。这个默认值在第一个重载中是  default  (T)  ，在第二个重载中是第二个参数的值。
 
-l  如果输入序列不是空序列的话，那么输出序列和输入序列相同。
++ 如果输入序列不是空序列的话，那么输出序列和输入序列相同。
 
-l  输入序列不能为  null  ，这个参数检验是立即执行的。
++ 输入序列不能为  null，这个参数检验是立即执行的。
 
-l  输出序列是延迟执行的  --  除非读取输出序列，否则输入序列不会被读取。
++ 输出序列是延迟执行的  --  除非读取输出序列，否则输入序列不会被读取。
 
-l  输入序列是流式处理的；所有被读取的值都是立即  yield  返回的；没有缓存。
++ 输入序列是流式处理的；所有被读取的值都是立即  yield  返回的；没有缓存。
 
 非常简单。
 
-** 我们需要测试些什么？ **
+# 我们需要测试些什么？
 
 虽然天有点晚了，但是我还是决定要对参数检验进行测试  --
 这件事其实不可小视，我第一次试着把参数检验的代码和真正迭代的代码分开到两个方法的尝试就失败了！由此可见，疏忽是多么容易出现的事啊。
 
 除了参数检验外，我只找到四个值得测试的地方：
 
-l  不接受默认值参数的重载，输入序列为空序列的情况
++ 不接受默认值参数的重载，输入序列为空序列的情况
 
-l  接受默认值参数的重载，输入序列为空序列的情况
++ 接受默认值参数的重载，输入序列为空序列的情况
 
-l  不接受默认值参数的重载，输入序列不为空序列的情况
++ 不接受默认值参数的重载，输入序列不为空序列的情况
 
-l  接受默认值参数的重载，输入序列不为空序列的情况
++ 接受默认值参数的重载，输入序列不为空序列的情况
 
 这些就是所有的测试用例。我没有测试流式处理，惰性求值，等等。
 
-** 来动手实现吧！ **
+# 来动手实现吧！
 
 虽然我不愿意依赖于一个操作符来实现另一个操作符，但是这里这两个操作符之间的关系实在是太明显了，所以我决定就破例一次。我甚至给参数检验实施了  DRY
 的原则，但是实现还是只有这么简短：
@@ -123,11 +122,10 @@ break  这一句了，但是这种方法我也不是很喜欢。我们可以用 
 return iterator  .Current  ”的重复出现。但是我也不是很喜欢  do/while  循环。我很少用  do/while
 ，以至于我读  do/while  的代码时要稍微费点力。
 
-** 结论 **
+# 结论
 
 除了最后一部分缺少优雅性而让人有点不爽之外，其他地方都没什么有趣的。不过，我们现在可以通过  DefaultIfEmpty  来实现
-FirstOrDefault/LastOrDefault  和  SingleOrDefault  了。比如说，下面是  FirstOrDefault
-的实现：
+FirstOrDefault/LastOrDefault  和  SingleOrDefault  了。比如说，下面是  FirstOrDefault的实现：
 
 ```
 public static TSource FirstOrDefault < TSource > (

@@ -53,7 +53,7 @@ public partial class TheForm : Form
 ![](/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090218/2009-02-18_13-07-45.jpg)
 
 
-然后修改  TheDLL  的代码为如下：
+然后修改  TheDll的代码为如下：
 
 ```
 public class DataHolder

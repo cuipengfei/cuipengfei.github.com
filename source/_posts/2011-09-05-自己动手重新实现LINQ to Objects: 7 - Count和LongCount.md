@@ -3,22 +3,16 @@ title: 自己动手重新实现LINQ to Objects 7 - Count和LongCount
 date: 2011-09-05 12:25:38
 tags: LinQ
 ---
-本文翻译自  [ Jon Skeet  ](http://stackoverflow.com/users/22656/jon-skeet) 的系列博文“
-Edulinq  ”。
+本文翻译自  [ Jon Skeet  ](http://stackoverflow.com/users/22656/jon-skeet) 的系列博文"Edulinq"。
 
 本篇原文地址：
 
-[ _ http://msmvps.com/blogs/jon_skeet/archive/2010/12/26/reimplementing-linq-to-objects-part-7-count-and-longcount.aspx _](http://msmvps.com/blogs/jon_skeet/archive/2010/12/26/reimplementing-linq-to-objects-part-7-count-and-longcount.aspx)
-  
-  
+[http://msmvps.com/blogs/jon_skeet/archive/2010/12/26/reimplementing-linq-to-objects-part-7-count-and-longcount.aspx](http://msmvps.com/blogs/jon_skeet/archive/2010/12/26/reimplementing-linq-to-objects-part-7-count-and-longcount.aspx)
 
 今天的文章要介绍两个  LINQ  操作符，因为它们实在是太类似了，所以放到一起来讲。  Count  和  LongCount
 的实现非常相像，不同的只是方法名，返回值类型和几个变量。
 
-**   
-Count  和  LongCount  是什么呢？  **
-
-[  Count  ](http://msdn.microsoft.com/en-us/library/system.linq.enumerable.count.aspx) 和  [ LongCount](http://msdn.microsoft.com/en-us/library/system.linq.enumerable.longcount.aspx)
+Count  和  LongCount  是什么呢？  [  Count  ](http://msdn.microsoft.com/en-us/library/system.linq.enumerable.count.aspx) 和  [ LongCount](http://msdn.microsoft.com/en-us/library/system.linq.enumerable.longcount.aspx)
 各自有两个重载：一个重载接受谓词，另一个不接受。下面是这四个方法的签名：
 
 ```
@@ -37,34 +31,33 @@ public static long LongCount < TSource > (this IEnumerable < TSource > source, F
 
 这些方法有一些有趣的行为：  
 
-l  这四个方法都是扩展  IEnumerable<T> 的方法，你有可能会认为对于不接受谓词的那个重载来说，扩展  IEnumerable
++ 这四个方法都是扩展  IEnumerable<T> 的方法，你有可能会认为对于不接受谓词的那个重载来说，扩展  IEnumerable
 会来得更好，因为没有什么会限制元素的类型。
 
-l  Count  的不接受谓词的那个重载对于  ICollection<T> 和  ICollection  （  .NET4
++ Count  的不接受谓词的那个重载对于  ICollection<T> 和  ICollection  （  .NET4
 中的接口）做了优化，因为这两个接口都定义有  Count  这个属性，这个属性的实现应该比遍历整个集合要快。  LongCount
 则没有做优化，稍后的一节中我将会谈到这点。
 
-l  接受谓词的重载中没有做任何优化，因为不迭代每一个元素就无法知道到底有多少个元素可以通过谓词的检验。
++ 接受谓词的重载中没有做任何优化，因为不迭代每一个元素就无法知道到底有多少个元素可以通过谓词的检验。
 
-l  这四个方法都是立即执行的，都不涉及延迟执行。（仔细想想就明白了，这些方法仅仅返回一个  int  或  long  值，确实没什么可延迟执行的）。
++ 这四个方法都是立即执行的，都不涉及延迟执行。（仔细想想就明白了，这些方法仅仅返回一个  int  或  long  值，确实没什么可延迟执行的）。
 
-l  所有的参数都只做非  null  的校验。
++ 所有的参数都只做非  null的校验。
 
-l  当输入集合的元素个数超出了  int  或  long  的上限值时，应该抛出  OverflowException  。  
++ 当输入集合的元素个数超出了  int  或  long  的上限值时，应该抛出  OverflowException  。
 
-** 我们要测试什么呢？ **
+# 我们要测试什么呢？
 
-  
-我们需要对方法的优化做测试，这件事做起来比说起来难，因为我们需要测试以下四种情况：  
+我们需要对方法的优化做测试，这件事做起来比说起来难，因为我们需要测试以下四种情况：
 
-l  输入序列同时实现了  ICollection<T> 和  ICollection  （这个简单，直接用  List<T> ）
++ 输入序列同时实现了  ICollection<T> 和  ICollection  （这个简单，直接用  List<T> ）
 
-l  输入序列实现了  ICollection<T> 但没有实现  ICollection  （还算简单，可以用  HashSet<T> ）
++ 输入序列实现了  ICollection<T> 但没有实现  ICollection  （还算简单，可以用  HashSet<T> ）
 
-l  输入序列实现了  ICollection  但没有实现  ICollection<T> ，我还要要求这个类型实现了  IEnumerable<T>
++ 输入序列实现了  ICollection  但没有实现  ICollection<T> ，我还要要求这个类型实现了  IEnumerable<T>
 （这样才能用到我们的扩展方法）。
 
-l  输入序列既不实现  ICollection  也不实现  ICollection<T> （简单，用我们已经实现了的  Range  来生成）
++ 输入序列既不实现  ICollection  也不实现  ICollection<T> （简单，用我们已经实现了的  Range  来生成）
 
   
 其中第三点比较麻烦。虽然有很多类型是实现了  ICollection  但没有实现  ICollection<T> 的（比如  ArrayList
@@ -76,7 +69,7 @@ SemiGenericCollection  的类。
 
 对于接受谓词的重载来说，我们无需考虑那几个不同的集合接口，因为我们反正都不会优化这两个方法。
 
-参数值为  null  的几个测试都比较简单，但是有另一个测试比较重要：溢出。我给  Count
+参数值为  null的几个测试都比较简单，但是有另一个测试比较重要：溢出。我给  Count
 创建了一个检验溢出行为的单元测试。很不幸，我们现在还不能在  Edulinq  的环境里运行它，因为我们还没有实现  Concat
 。不过我还是把它写在这里：
 
@@ -99,10 +92,8 @@ public void Overflow() {
 方个元素呢。要生成那么长的序列并不难，难的是遍历它，那要花很长的时间。对于接受谓词的重载来说，我们也需要做溢出测试，直到写这篇文章之前我都忘记了要写这个测试
 ，而写测试的时候还发现了一个方法实现中的  bug :)
 
-**   
-来动手实现吧！ **
+# 来动手实现吧！
 
-  
 我们来看看接受谓词的那个重载的实现吧，它其实挺简单的：
 
 ```
@@ -144,11 +135,11 @@ public static int Count < TSource > (this IEnumerable < TSource > source, Func <
 参数校验之后的方法主体部分相当简单，只有一点需要注意：整个的迭代过程都在“  checked  ”代码块中。这样，如果  count
 值溢出的话，就会抛出异常，而不会令  count  值成为负数。也有其他的方式可以实现这点：  
 
-l  可以只把给  count  加一的代码放在  checked  代码块中。
++ 可以只把给  count  加一的代码放在  checked  代码块中。
 
-l  可以在每次给  count  加一之前检查  count==int.MaxValue  ，如果确实相等，则抛出异常
++ 可以在每次给  count  加一之前检查  count==int.MaxValue  ，如果确实相等，则抛出异常
 
-l  可以给整个程序集都应用  checked
++ 可以给整个程序集都应用  checked
 
   
 我觉得把这段代码显式的放在  checked  代码块中是很有益的，因为这样可以很明显的凸显出对溢出的检查是方法正确性的需求这一事实。你可能更倾向于只把
@@ -176,7 +167,7 @@ public static int Count < TSource > (this IEnumerable < TSource > source) {
 
  }
 
- _ // Optimization for ICollection _
+// Optimization for ICollection _
 
  ICollection nonGenericCollection = source as ICollection;
 
@@ -186,7 +177,7 @@ public static int Count < TSource > (this IEnumerable < TSource > source) {
 
  }
 
- _ // Do it the slow way - and make sure we overflow appropriately _
+// Do it the slow way - and make sure we overflow appropriately _
 
  checked {
 
@@ -217,11 +208,7 @@ public static int Count < TSource > (this IEnumerable < TSource > source) {
 属性中返回不同的值的类型来测试一下，但是那么做有点太过了。对于良好实现的集合来说，这点性能差异算不了什么，我们先检查“最有可能”的接口，也就是泛型的
 ICollection<T> 。
 
-**   
-优化还是不优化？ **
-
-  
-LongCount  的实现和  Count  的实现几乎完全一样，只是  LongCount  中使用  long  而不是  int  。
+优化还是不优化？ LongCount  的实现和  Count  的实现几乎完全一样，只是  LongCount  中使用  long  而不是  int  。
 
 我对  ICollection  和  ICollection<T> 做了优化，但是我不认为  .NET  是如此实现的。（只要创建一个很大的  byte
 数组，并比较一下  Count  和  LongCount  应用到这个数组上的耗时差距就可以了。）
@@ -234,10 +221,8 @@ Int32.MaxValue  个元素的话，它的  Count  属性应该返回什么值呢�
 欢迎提出各种建议。不过我还是要指出  LongCount  方法可能会更多的应用在  Queryable  中而不是  Enumerable
 中，获取一个数据库表的长度的场景会比较多见，而获取一个内存中的集合的长度的场景则不那么常见。
 
-**   
-结论 **
+# 结论
 
-  
 这是我们第一次接触返回数值而不是返回一个序列的  LINQ  操作符，很自然，这样的操作符更容易理解。这些方法很简单的执行，做一些优化，然后返回结果值。这些
 方法虽然简单，但是还是有一些东西很值得思考，比如说优化的问题，可惜优化的问题并没有一个确定的答案。
 

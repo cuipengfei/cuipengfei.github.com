@@ -3,21 +3,13 @@ title: 自己动手重新实现LINQ to Objects 5 - Empty
 date: 2011-08-23 23:41:53
 tags: LinQ
 ---
-本文翻译自  [ Jon Skeet  ](http://stackoverflow.com/users/22656/jon-skeet) 的系列博文“
-Edulinq  ”。
+本文翻译自  [ Jon Skeet  ](http://stackoverflow.com/users/22656/jon-skeet) 的系列博文"Edulinq"。
 
 本篇原文地址：
 
-[ _ http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-objects-part-5-empty.aspx _](http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-objects-part-5-empty.aspx)
-  
+[http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-objects-part-5-empty.aspx](http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-objects-part-5-empty.aspx)这一篇继续讲非扩展方法。这次我们要讲的是  Empty  ，它有可能是最简单的  LINQ  操作符了。
 
-**   
-**
-
-这一篇继续讲非扩展方法。这次我们要讲的是  Empty  ，它有可能是最简单的  LINQ  操作符了。  
-
-** Empty  是什么？   
-**
+# Empty  是什么？
 
 [ Empty  ](http://msdn.microsoft.com/en-us/library/bb341042.aspx)
 是一个泛型的，静态的方法，它只有一个签名形式，不接受任何参数：  
@@ -28,14 +20,12 @@ public  static  IEnumerable<TResult> Empty<TResult>()
 
 它的行为只有一点比较有趣：文档上说  Empty  会对空序列做缓存。换句话说，对于同一个类型参数来讲，它每次都会返回同一个空序列。  
 
-** 我们要测试什么？   
-**
+# 我们要测试什么？
+能够测试的东西也就只有两点：
 
-能够测试的东西也就只有两点：  
++ 返回序列为空。
 
-l  返回序列为空。
-
-l  对每个类型参数来说，返回值会被缓存起来。  
++ 对每个类型参数来说，返回值会被缓存起来。
 
 和测试  Range  的时候的方法一样，我们用一个叫做  EmptyClass  的别名来引用包含  Empty  的类型。下面是测试代码：  
 
@@ -67,10 +57,8 @@ public void EmptyIsASingletonPerElementType() {
 
 当然，以上代码并不能证明缓存不是每个线程一份。不过，这些测试也够了。  
 
-** 来动手实现吧！   
-**
-
-现在看来，  Empty  的实现要比它的描述更有趣。如果不是要做缓存，我们可以这样实现  Empty  ：  
+# 来动手实现吧！
+现在看来，  Empty  的实现要比它的描述更有趣。如果不是要做缓存，我们可以这样实现  Empty  ：
 
 ```
 // Doesn't cache the empty sequence _
@@ -84,7 +72,7 @@ public static IEnumerable < TResult > Empty < TResult > ()
 }  
 ```
 
-不过我们需要遵守关于缓存的文档。要实现缓存其实也不难。有一个很方便的事实可以为我们所用，  ** 空数组是不可变的 ** 。数组的长度是固定的，通常无法使一
+不过我们需要遵守关于缓存的文档。要实现缓存其实也不难。有一个很方便的事实可以为我们所用，  **空数组是不可变的 **。数组的长度是固定的，通常无法使一
 个数组是只读的。数组中的任何一个元素都是可以改变的。不过一个空数组是不包含任何元素的，所以也就没有什么可被改变的。这样，我们就可以反复的重用同一个数组了。
 
 现在你可能会猜我会用  Dictionary<Type, Array>
@@ -108,15 +96,11 @@ private static class EmptyHolder < T > {
 以上的实现遵守了所有的关于缓存的文档，而且代码行数也很少。不过这个实现方式需要你很好的了解  .NET  中泛型的工作方式。这种做法和我们上一篇采取的策略相
 反，我们选择了一种比较难懂的方式，而没有选择使用字典的易懂的方式。不过我很满意这种方案，因为一旦你了解了泛型类型和静态变量的工作方式，这段代码就很简单了。  
 
-** 结论   
-**
+# 结论
+Empty  的实现就是这样的。下一个操作符  Repeat  有可能会更简单，虽然它也要分成两个方法来实现。
 
-Empty  的实现就是这样的。下一个操作符  Repeat  有可能会更简单，虽然它也要分成两个方法来实现。  
-
-** 附录   
-**
-
-因为以上讲解的方法有点难懂，所以下面再提供另一种实现：  
+# 附录
+因为以上讲解的方法有点难懂，所以下面再提供另一种实现：
 ```
 public static IEnumerable < TResult > Empty < TResult > ()
 {
@@ -131,7 +115,7 @@ private class EmptyEnumerable < T >: IEnumerable < T > , IEnumerator < T >
 
   internal static IEnumerable < T > Instance = new EmptyEnumerable < T > ();
 
-  _ // Prevent construction elsewhere _
+ // Prevent construction elsewhere _
 
   private EmptyEnumerable()
   {
@@ -172,7 +156,7 @@ private class EmptyEnumerable < T >: IEnumerable < T > , IEnumerator < T >
   public void Dispose()
   {
 
-   _ // No-op _
+  // No-op _
 
   }
 
@@ -180,14 +164,14 @@ private class EmptyEnumerable < T >: IEnumerable < T > , IEnumerator < T >
   {
 
    return false;
-   _ // There's never a next entry _
+  // There's never a next entry _
 
   }
 
   public void Reset()
   {
 
-   _ // No-op _
+  // No-op _
 
   }
 
