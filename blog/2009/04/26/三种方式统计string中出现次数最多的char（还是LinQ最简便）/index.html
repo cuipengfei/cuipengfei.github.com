@@ -21,7 +21,7 @@
 <script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    hostname: new URL('https://cuipengfei.github.com').hostname,
+    hostname: new URL('https://cuipengfei.me').hostname,
     root: '/',
     scheme: 'Gemini',
     version: '7.6.0',
@@ -50,7 +50,7 @@
   <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
 <meta property="og:type" content="article">
 <meta property="og:title" content="三种方式统计string中出现次数最多的char（还是LinQ最简便）">
-<meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2009&#x2F;04&#x2F;26&#x2F;%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E7%BB%9F%E8%AE%A1string%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84char%EF%BC%88%E8%BF%98%E6%98%AFLinQ%E6%9C%80%E7%AE%80%E4%BE%BF%EF%BC%89&#x2F;index.html">
+<meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.me&#x2F;blog&#x2F;2009&#x2F;04&#x2F;26&#x2F;%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E7%BB%9F%E8%AE%A1string%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84char%EF%BC%88%E8%BF%98%E6%98%AFLinQ%E6%9C%80%E7%AE%80%E4%BE%BF%EF%BC%89&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
 <meta property="og:locale" content="zh_CN">
@@ -60,7 +60,7 @@
 <meta property="article:tag" content="Linq">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://cuipengfei.github.com/blog/2009/04/26/%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E7%BB%9F%E8%AE%A1string%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84char%EF%BC%88%E8%BF%98%E6%98%AFLinQ%E6%9C%80%E7%AE%80%E4%BE%BF%EF%BC%89/">
+<link rel="canonical" href="https://cuipengfei.me/blog/2009/04/26/%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E7%BB%9F%E8%AE%A1string%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84char%EF%BC%88%E8%BF%98%E6%98%AFLinQ%E6%9C%80%E7%AE%80%E4%BE%BF%EF%BC%89/">
 
 
 <script id="page-configurations">
@@ -217,7 +217,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cuipengfei.github.com/blog/2009/04/26/%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E7%BB%9F%E8%AE%A1string%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84char%EF%BC%88%E8%BF%98%E6%98%AFLinQ%E6%9C%80%E7%AE%80%E4%BE%BF%EF%BC%89/">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2009/04/26/%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E7%BB%9F%E8%AE%A1string%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84char%EF%BC%88%E8%BF%98%E6%98%AFLinQ%E6%9C%80%E7%AE%80%E4%BE%BF%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -303,7 +303,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://cuipengfei.github.com/blog/2009/04/26/%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E7%BB%9F%E8%AE%A1string%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84char%EF%BC%88%E8%BF%98%E6%98%AFLinQ%E6%9C%80%E7%AE%80%E4%BE%BF%EF%BC%89/" title="三种方式统计string中出现次数最多的char（还是LinQ最简便）">https://cuipengfei.github.com/blog/2009/04/26/三种方式统计string中出现次数最多的char（还是LinQ最简便）/</a>
+    <a href="https://cuipengfei.me/blog/2009/04/26/%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E7%BB%9F%E8%AE%A1string%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84char%EF%BC%88%E8%BF%98%E6%98%AFLinQ%E6%9C%80%E7%AE%80%E4%BE%BF%EF%BC%89/" title="三种方式统计string中出现次数最多的char（还是LinQ最简便）">https://cuipengfei.me/blog/2009/04/26/三种方式统计string中出现次数最多的char（还是LinQ最简便）/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -608,7 +608,7 @@ window.addEventListener('pjax:success', () => {
       DISQUS.reset({
         reload: true,
         config: {page: {
-            url: "https://cuipengfei.github.com/blog/2009/04/26/%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E7%BB%9F%E8%AE%A1string%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84char%EF%BC%88%E8%BF%98%E6%98%AFLinQ%E6%9C%80%E7%AE%80%E4%BE%BF%EF%BC%89/",
+            url: "https://cuipengfei.me/blog/2009/04/26/%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E7%BB%9F%E8%AE%A1string%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84char%EF%BC%88%E8%BF%98%E6%98%AFLinQ%E6%9C%80%E7%AE%80%E4%BE%BF%EF%BC%89/",
             identifier: "blog/2009/04/26/三种方式统计string中出现次数最多的char（还是LinQ最简便）/",
             title: "三种方式统计string中出现次数最多的char（还是LinQ最简便）"
           }

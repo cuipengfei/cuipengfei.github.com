@@ -831,7 +831,7 @@
     <content><![CDATA[<p><sub>此文标题党。更切题的标题应该叫做《如何用统计科学来黑星座》或者是《积极注册Facehub，促进统计科学蓬勃发展》 </sub></p>
 <h1 id="锤子-JS-Promise"><a href="#锤子-JS-Promise" class="headerlink" title="锤子　JS Promise"></a>锤子　JS Promise</h1><p>最近对JS社区里的Promises/A+规范产生了很浓的兴趣，感觉Promise这套东西确实蛮不错的，给异步算法的编写者和异步算法的消费者之间提供了一套统一的沟通手段，也为异步算法的消费者提供了更悦目易读的代码组织方式。</p>
 <p>自己把它实现了一遍:<a href="https://www.npmjs.com/package/RWPromise" target="_blank" rel="noopener">https://www.npmjs.com/package/RWPromise</a></p>
-<p>然后在武汉办公室run了3次workshop:<a href="http://cuipengfei.me/blog/2016/05/15/promise/" target="_blank" rel="noopener">http://cuipengfei.me/blog/2016/05/15/promise/</a>。</p>
+<p>然后在武汉办公室run了3次workshop:<a href="http://cuipengfei.me/blog/2016/05/15/promise/">http://cuipengfei.me/blog/2016/05/15/promise/</a>。</p>
 <p>手里有了这么一把锤子就总想找个钉子敲一敲。总在想能去哪里找N多异步操作来让我来组织一下呢?</p>
 <h1 id="钉子-《异类》"><a href="#钉子-《异类》" class="headerlink" title="钉子　《异类》"></a>钉子　《异类》</h1><p>无巧不成书，刚好最近在豆瓣上买了一本叫做《异类》的书在看:　<a href="https://read.douban.com/ebook/10580943/" target="_blank" rel="noopener">https://read.douban.com/ebook/10580943/</a></p>
 <p>书中一开篇就提到了加拿大冰球运动员选拔机制中很有趣的一件轶事:</p>
@@ -1286,7 +1286,7 @@
 
 <p>上面这一段定义了一个叫做Visitor的type，它只是一个函数签名。任何接受一个汽车部件作为参数并且没有返回值的函数都符合它的签名，也就可以被视作Visitor。</p>
 <p>接下来是两个符合Visitor签名的函数，都是用pattern match实现的。</p>
-<p>pattern match这种神奇的语言特性是如何实现的呢？背后的原因并不神奇，更多详情请参考我之前的另一篇博客：<a href="http://cuipengfei.me/blog/2013/12/29/desugar-scala-8/" target="_blank" rel="noopener">http://cuipengfei.me/blog/2013/12/29/desugar-scala-8/</a></p>
+<p>pattern match这种神奇的语言特性是如何实现的呢？背后的原因并不神奇，更多详情请参考我之前的另一篇博客：<a href="http://cuipengfei.me/blog/2013/12/29/desugar-scala-8/">http://cuipengfei.me/blog/2013/12/29/desugar-scala-8/</a></p>
 <figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">VisitorDemo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    <span class="keyword">val</span> car = <span class="type">Car</span>()</span><br><span class="line">    car.accept(printVisitor)</span><br><span class="line">    car.accept(doVisitor)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>最后定义一个main函数，与Java的main函数做的事情是等价的。</p>
@@ -1629,7 +1629,7 @@
 <p>然后便是三个函数实现，它们将mask通过闭包封进函数内。这三个函数共同依赖一个私有handleEvent函数，其作用和Java代码中的message类似，判断mask和正在发生的事件之间优先级大小关系，并以此决定当前logger是否需要处理该事件。</p>
 <p>哎？等一下，这个是职责链模式啊，那个啥，链在哪儿呢？就在main函数里。其中的andThen就可以把三个logger链在一起。</p>
 <p>这个andThen是个什么东西？何以如此神奇？</p>
-<p>欲知详情，请参考我之前的另一篇博客： <a href="http://cuipengfei.me/blog/2013/12/30/desugar-scala-9/" target="_blank" rel="noopener">http://cuipengfei.me/blog/2013/12/30/desugar-scala-9/</a></p>
+<p>欲知详情，请参考我之前的另一篇博客： <a href="http://cuipengfei.me/blog/2013/12/30/desugar-scala-9/">http://cuipengfei.me/blog/2013/12/30/desugar-scala-9/</a></p>
 <p>而链接之后的结果本身也是一个函数，于是我们就可以调用chain并传入Event了。</p>
 <p>这份代码和前面Java版的行为是等价的，输出是一致的。</p>
 <h1 id="门框夹核桃"><a href="#门框夹核桃" class="headerlink" title="门框夹核桃"></a>门框夹核桃</h1><p>最后回到标题上去：门框夹核桃，意即用不合适的工具解决问题。</p>
@@ -1708,7 +1708,7 @@
 <p>很好，很灵活，很强大，对吧？</p>
 <h2 id="不过再想一下"><a href="#不过再想一下" class="headerlink" title="不过再想一下"></a>不过再想一下</h2><p>我们想要的不过是把两个家族的不同行为塞到鸭子的子类里去。是否有更容易的办法来做到呢？</p>
 <h1 id="trait"><a href="#trait" class="headerlink" title="trait"></a>trait</h1><p>一说到把行为塞到某个类里，就会想到mix in，很自然就想到了Scala的trait。</p>
-<p>更多关于Scala的trait的详情请参考我的另一篇博客： <a href="http://cuipengfei.me/blog/2013/10/13/scala-trait/" target="_blank" rel="noopener">http://cuipengfei.me/blog/2013/10/13/scala-trait/</a></p>
+<p>更多关于Scala的trait的详情请参考我的另一篇博客： <a href="http://cuipengfei.me/blog/2013/10/13/scala-trait/">http://cuipengfei.me/blog/2013/10/13/scala-trait/</a></p>
 <script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/strategytrait/Fly.scala?slice=1:&footer=minimal">
 </script>
 
@@ -1734,7 +1734,7 @@
 
 <p>Fly和Quack不再是interface或者是trait。而是type aliase。</p>
 <p>Scala的type aliase就类似于C#的delegate，用来声明function signature。</p>
-<p>更多关于type aliase的更多详情请参考我的另一篇博客： <a href="http://cuipengfei.me/blog/2013/12/23/desugar-scala-4/" target="_blank" rel="noopener">http://cuipengfei.me/blog/2013/12/23/desugar-scala-4/</a></p>
+<p>更多关于type aliase的更多详情请参考我的另一篇博客： <a href="http://cuipengfei.me/blog/2013/12/23/desugar-scala-4/">http://cuipengfei.me/blog/2013/12/23/desugar-scala-4/</a></p>
 <p>这样，会飞不会飞，会叫不会叫就无需被class或者trait包裹着了，直接就是一个个的函数。</p>
 <p>鸭子的子类通过构造函数接收飞和叫的两个函数作为参数，就能够组合不同的行为了。</p>
 <p>如果说之前triat的实现方式与Java实现版相比偏重了inheritance而不是composition，这一版的实现则又回到了纯composition的路上了。</p>
@@ -1812,7 +1812,7 @@
 <p>在编译之后会变成这样：</p>
 <figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> x = <span class="keyword">new</span> <span class="type">A</span>()</span><br><span class="line">x.update(y,z)</span><br></pre></td></tr></table></figure>
 
-<p>详情请见我之前的一篇博客：<a href="http://cuipengfei.me/blog/2014/06/12/scala-update-method/" target="_blank" rel="noopener">http://cuipengfei.me/blog/2014/06/12/scala-update-method/</a></p>
+<p>详情请见我之前的一篇博客：<a href="http://cuipengfei.me/blog/2014/06/12/scala-update-method/">http://cuipengfei.me/blog/2014/06/12/scala-update-method/</a></p>
 <p>Signal的update方法是protected的，不可访问，所以它只可以从变，不可自变。</p>
 <p>而Var把update方法public出来了，这样，在下面这样的代码执行时：</p>
 <figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">a()=<span class="number">10</span></span><br><span class="line"><span class="comment">//a.update(10)</span></span><br></pre></td></tr></table></figure>
@@ -1891,7 +1891,7 @@
 <p>尼玛，方法调用后面怎么跟着一个等号啊？等号后面还有一个有返回值的表达式啊？</p>
 <p>这是啥啊？</p>
 <p>这是个乍一看很自然，但是仔细一想很费解的Scala语言特性-update方法。</p>
-<p>详情请见我之前的一篇博客：<a href="http://cuipengfei.me/blog/2014/06/12/scala-update-method/" target="_blank" rel="noopener">http://cuipengfei.me/blog/2014/06/12/scala-update-method/</a></p>
+<p>详情请见我之前的一篇博客：<a href="http://cuipengfei.me/blog/2014/06/12/scala-update-method/">http://cuipengfei.me/blog/2014/06/12/scala-update-method/</a></p>
 ]]></content>
       <tags>
         <tag>Scala</tag>
@@ -2580,7 +2580,7 @@
 <p>口说还是无凭，还是拍照为证：</p>
 <p><img alt data-src="http://ww1.sinaimg.cn/large/8b1ece2agw1ehtqjokutnj21kw23u7wh.jpg"></p>
 <p>我感觉这句话是错的，下面寻根究底地探索一下。</p>
-<p>trait这个语言特性<a href="http://cuipengfei.me/blog/2013/10/13/scala-trait/" target="_blank" rel="noopener">前面的博文</a>讲过。</p>
+<p>trait这个语言特性<a href="http://cuipengfei.me/blog/2013/10/13/scala-trait/">前面的博文</a>讲过。</p>
 <p>一个含有方法实现的trait会被编译成一个interface，还有一个含有实现的静态方法。</p>
 <p>所有extends或者是with这个trait的Scala类，实际上都是implements了这个interface，在具体实现中调用了静态方法。</p>
 <p>快速的简单回忆一下：</p>
@@ -2927,7 +2927,7 @@
   <entry>
     <title>褪去Scala的糖衣(12) -- implicit function（补）</title>
     <url>/blog/2014/01/05/more-on-scala-implicit-function/</url>
-    <content><![CDATA[<p>上次<a href="http://cuipengfei.me/blog/2014/01/01/desugar-scala-10/" target="_blank" rel="noopener">博客谈到了implicit function</a>，但是漏掉了一些东西，今天补上。</p>
+    <content><![CDATA[<p>上次<a href="http://cuipengfei.me/blog/2014/01/01/desugar-scala-10/">博客谈到了implicit function</a>，但是漏掉了一些东西，今天补上。</p>
 <p>由于上次已经讲过implicit function的实现细节，这次就不再重复了。今天只补充上次漏掉了的implicit function的一种很好的实践。</p>
 <p>先看一段specs2的测试代码：</p>
 <figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.specs2.mutable._</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorldSpec</span> <span class="keyword">extends</span> <span class="title">Specification</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="string">"The 'Hello world' string"</span> should &#123;</span><br><span class="line"></span><br><span class="line">    <span class="string">"contain 11 characters"</span> in &#123;</span><br><span class="line">      <span class="string">"Hello world"</span> must have size <span class="number">11</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -3452,7 +3452,7 @@
   <entry>
     <title>Scala中的语言特性是如何实现的(2)</title>
     <url>/blog/2013/05/11/scala-language-features-2/</url>
-    <content><![CDATA[<p><a href="http://cuipengfei.me/blog/2013/05/05/how-are-scala-language-features-implemented/" target="_blank" rel="noopener">上篇博文</a>的末尾留了三个问题，现在自问自答一下。</p>
+    <content><![CDATA[<p><a href="http://cuipengfei.me/blog/2013/05/05/how-are-scala-language-features-implemented/">上篇博文</a>的末尾留了三个问题，现在自问自答一下。</p>
 <h3 id="在Scala中被声明为val的v4为什么在反编译的Java中不是final的呢？"><a href="#在Scala中被声明为val的v4为什么在反编译的Java中不是final的呢？" class="headerlink" title="在Scala中被声明为val的v4为什么在反编译的Java中不是final的呢？"></a>在Scala中被声明为val的v4为什么在反编译的Java中不是final的呢？</h3><p>在方法中声明局部变量时，如果用Scala的val关键字（或者是Java中的final）来修饰变量，则代表着此变量在赋过初始值之后不可以再被重新赋值。这个val或者final只是给编译器用的，编译器如果发现你给此变量重新赋值会抛出错误。</p>
 <p>而bytecode不具备表达一个局部变量是immutable的能力，也就是说对于JVM来说，不存在不可变的局部变量这个概念。所以v4在反编译之后，就和普通的局部变量无异了。</p>
 <h3 id="在Scala中被声明为val的v2为什么在反编译的C-中不是readonly的呢？"><a href="#在Scala中被声明为val的v2为什么在反编译的C-中不是readonly的呢？" class="headerlink" title="在Scala中被声明为val的v2为什么在反编译的C#中不是readonly的呢？"></a>在Scala中被声明为val的v2为什么在反编译的C#中不是readonly的呢？</h3><p>这是个挺tricky的问题，我试着解释一下。Scala .NET是基于IKVM实现的，IKVM可以把Java bytecode翻译为CIL。<br>所以Scala编译为CIL的过程实际是这样的：</p>

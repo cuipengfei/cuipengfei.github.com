@@ -21,7 +21,7 @@
 <script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    hostname: new URL('https://cuipengfei.github.com').hostname,
+    hostname: new URL('https://cuipengfei.me').hostname,
     root: '/',
     scheme: 'Gemini',
     version: '7.6.0',
@@ -50,7 +50,7 @@
   <meta name="description" content="123456789101112131415161718192021222324252627282930313233class Program&amp;#123;    static void Main(string[] args)    &amp;#123;        int[] person &#x3D; &amp;#123;0, 1, 1, 1, 1, 1, 15&amp;#125;; &#x2F;&#x2F;总共六层楼，没有0层        in">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《编程之美——微软技术面试心得》的C#实现---电梯调度问题解法一">
-<meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.github.com&#x2F;blog&#x2F;2008&#x2F;09&#x2F;11&#x2F;%E3%80%8A%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E2%80%94%E2%80%94%E5%BE%AE%E8%BD%AF%E6%8A%80%E6%9C%AF%E9%9D%A2%E8%AF%95%E5%BF%83%E5%BE%97%E3%80%8B%E7%9A%84CSharp%E5%AE%9E%E7%8E%B0---%E7%94%B5%E6%A2%AF%E8%B0%83%E5%BA%A6%E9%97%AE%E9%A2%98%E8%A7%A3%E6%B3%95%E4%B8%80&#x2F;index.html">
+<meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.me&#x2F;blog&#x2F;2008&#x2F;09&#x2F;11&#x2F;%E3%80%8A%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E2%80%94%E2%80%94%E5%BE%AE%E8%BD%AF%E6%8A%80%E6%9C%AF%E9%9D%A2%E8%AF%95%E5%BF%83%E5%BE%97%E3%80%8B%E7%9A%84CSharp%E5%AE%9E%E7%8E%B0---%E7%94%B5%E6%A2%AF%E8%B0%83%E5%BA%A6%E9%97%AE%E9%A2%98%E8%A7%A3%E6%B3%95%E4%B8%80&#x2F;index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="123456789101112131415161718192021222324252627282930313233class Program&amp;#123;    static void Main(string[] args)    &amp;#123;        int[] person &#x3D; &amp;#123;0, 1, 1, 1, 1, 1, 15&amp;#125;; &#x2F;&#x2F;总共六层楼，没有0层        in">
 <meta property="og:locale" content="zh_CN">
@@ -60,7 +60,7 @@
 <meta property="article:tag" content="《编程之美——微软技术面试心得》的C#实现">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://cuipengfei.github.com/blog/2008/09/11/%E3%80%8A%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E2%80%94%E2%80%94%E5%BE%AE%E8%BD%AF%E6%8A%80%E6%9C%AF%E9%9D%A2%E8%AF%95%E5%BF%83%E5%BE%97%E3%80%8B%E7%9A%84CSharp%E5%AE%9E%E7%8E%B0---%E7%94%B5%E6%A2%AF%E8%B0%83%E5%BA%A6%E9%97%AE%E9%A2%98%E8%A7%A3%E6%B3%95%E4%B8%80/">
+<link rel="canonical" href="https://cuipengfei.me/blog/2008/09/11/%E3%80%8A%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E2%80%94%E2%80%94%E5%BE%AE%E8%BD%AF%E6%8A%80%E6%9C%AF%E9%9D%A2%E8%AF%95%E5%BF%83%E5%BE%97%E3%80%8B%E7%9A%84CSharp%E5%AE%9E%E7%8E%B0---%E7%94%B5%E6%A2%AF%E8%B0%83%E5%BA%A6%E9%97%AE%E9%A2%98%E8%A7%A3%E6%B3%95%E4%B8%80/">
 
 
 <script id="page-configurations">
@@ -217,7 +217,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cuipengfei.github.com/blog/2008/09/11/%E3%80%8A%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E2%80%94%E2%80%94%E5%BE%AE%E8%BD%AF%E6%8A%80%E6%9C%AF%E9%9D%A2%E8%AF%95%E5%BF%83%E5%BE%97%E3%80%8B%E7%9A%84CSharp%E5%AE%9E%E7%8E%B0---%E7%94%B5%E6%A2%AF%E8%B0%83%E5%BA%A6%E9%97%AE%E9%A2%98%E8%A7%A3%E6%B3%95%E4%B8%80/">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2008/09/11/%E3%80%8A%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E2%80%94%E2%80%94%E5%BE%AE%E8%BD%AF%E6%8A%80%E6%9C%AF%E9%9D%A2%E8%AF%95%E5%BF%83%E5%BE%97%E3%80%8B%E7%9A%84CSharp%E5%AE%9E%E7%8E%B0---%E7%94%B5%E6%A2%AF%E8%B0%83%E5%BA%A6%E9%97%AE%E9%A2%98%E8%A7%A3%E6%B3%95%E4%B8%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -323,7 +323,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://cuipengfei.github.com/blog/2008/09/11/%E3%80%8A%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E2%80%94%E2%80%94%E5%BE%AE%E8%BD%AF%E6%8A%80%E6%9C%AF%E9%9D%A2%E8%AF%95%E5%BF%83%E5%BE%97%E3%80%8B%E7%9A%84CSharp%E5%AE%9E%E7%8E%B0---%E7%94%B5%E6%A2%AF%E8%B0%83%E5%BA%A6%E9%97%AE%E9%A2%98%E8%A7%A3%E6%B3%95%E4%B8%80/" title="《编程之美——微软技术面试心得》的C#实现---电梯调度问题解法一">https://cuipengfei.github.com/blog/2008/09/11/《编程之美——微软技术面试心得》的CSharp实现---电梯调度问题解法一/</a>
+    <a href="https://cuipengfei.me/blog/2008/09/11/%E3%80%8A%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E2%80%94%E2%80%94%E5%BE%AE%E8%BD%AF%E6%8A%80%E6%9C%AF%E9%9D%A2%E8%AF%95%E5%BF%83%E5%BE%97%E3%80%8B%E7%9A%84CSharp%E5%AE%9E%E7%8E%B0---%E7%94%B5%E6%A2%AF%E8%B0%83%E5%BA%A6%E9%97%AE%E9%A2%98%E8%A7%A3%E6%B3%95%E4%B8%80/" title="《编程之美——微软技术面试心得》的C#实现---电梯调度问题解法一">https://cuipengfei.me/blog/2008/09/11/《编程之美——微软技术面试心得》的CSharp实现---电梯调度问题解法一/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -628,7 +628,7 @@ window.addEventListener('pjax:success', () => {
       DISQUS.reset({
         reload: true,
         config: {page: {
-            url: "https://cuipengfei.github.com/blog/2008/09/11/%E3%80%8A%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E2%80%94%E2%80%94%E5%BE%AE%E8%BD%AF%E6%8A%80%E6%9C%AF%E9%9D%A2%E8%AF%95%E5%BF%83%E5%BE%97%E3%80%8B%E7%9A%84CSharp%E5%AE%9E%E7%8E%B0---%E7%94%B5%E6%A2%AF%E8%B0%83%E5%BA%A6%E9%97%AE%E9%A2%98%E8%A7%A3%E6%B3%95%E4%B8%80/",
+            url: "https://cuipengfei.me/blog/2008/09/11/%E3%80%8A%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E2%80%94%E2%80%94%E5%BE%AE%E8%BD%AF%E6%8A%80%E6%9C%AF%E9%9D%A2%E8%AF%95%E5%BF%83%E5%BE%97%E3%80%8B%E7%9A%84CSharp%E5%AE%9E%E7%8E%B0---%E7%94%B5%E6%A2%AF%E8%B0%83%E5%BA%A6%E9%97%AE%E9%A2%98%E8%A7%A3%E6%B3%95%E4%B8%80/",
             identifier: "blog/2008/09/11/《编程之美——微软技术面试心得》的CSharp实现---电梯调度问题解法一/",
             title: "《编程之美——微软技术面试心得》的C#实现---电梯调度问题解法一"
           }

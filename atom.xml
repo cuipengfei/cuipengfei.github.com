@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://cuipengfei.github.com/"/>
+  <link href="https://cuipengfei.me/"/>
   <updated>2019-12-11T02:07:48.433Z</updated>
-  <id>https://cuipengfei.github.com/</id>
+  <id>https://cuipengfei.me/</id>
   
   <author>
     <name>崔鹏飞</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>「译」大规模敏捷</title>
-    <link href="https://cuipengfei.github.com/blog/2019/12/06/in-the-large/"/>
-    <id>https://cuipengfei.github.com/blog/2019/12/06/in-the-large/</id>
+    <link href="https://cuipengfei.me/blog/2019/12/06/in-the-large/"/>
+    <id>https://cuipengfei.me/blog/2019/12/06/in-the-large/</id>
     <published>2019-12-06T08:19:00.000Z</published>
     <updated>2019-12-11T02:07:48.433Z</updated>
     
@@ -38,14 +38,14 @@
     
     
     
-      <category term="Uncle Bob" scheme="https://cuipengfei.github.com/tags/Uncle-Bob/"/>
+      <category term="Uncle Bob" scheme="https://cuipengfei.me/tags/Uncle-Bob/"/>
     
   </entry>
   
   <entry>
     <title>[译] FP vs OO</title>
-    <link href="https://cuipengfei.github.com/blog/2019/11/03/fp-vs-oo/"/>
-    <id>https://cuipengfei.github.com/blog/2019/11/03/fp-vs-oo/</id>
+    <link href="https://cuipengfei.me/blog/2019/11/03/fp-vs-oo/"/>
+    <id>https://cuipengfei.me/blog/2019/11/03/fp-vs-oo/</id>
     <published>2019-11-03T04:39:00.000Z</published>
     <updated>2019-12-11T08:23:30.587Z</updated>
     
@@ -64,14 +64,14 @@
     
     
     
-      <category term="Uncle Bob" scheme="https://cuipengfei.github.com/tags/Uncle-Bob/"/>
+      <category term="Uncle Bob" scheme="https://cuipengfei.me/tags/Uncle-Bob/"/>
     
   </entry>
   
   <entry>
     <title>被诅咒的与被祝福的</title>
-    <link href="https://cuipengfei.github.com/blog/2019/06/20/zxz-swd/"/>
-    <id>https://cuipengfei.github.com/blog/2019/06/20/zxz-swd/</id>
+    <link href="https://cuipengfei.me/blog/2019/06/20/zxz-swd/"/>
+    <id>https://cuipengfei.me/blog/2019/06/20/zxz-swd/</id>
     <published>2019-06-20T14:06:00.000Z</published>
     <updated>2019-12-11T08:23:11.887Z</updated>
     
@@ -89,14 +89,14 @@
     
     
     
-      <category term="Uncle Bob" scheme="https://cuipengfei.github.com/tags/Uncle-Bob/"/>
+      <category term="Uncle Bob" scheme="https://cuipengfei.me/tags/Uncle-Bob/"/>
     
   </entry>
   
   <entry>
     <title>读屠龙术五卷，粗浅总结一下太祖的套路</title>
-    <link href="https://cuipengfei.github.com/blog/2019/04/11/tu-long-shu-mao/"/>
-    <id>https://cuipengfei.github.com/blog/2019/04/11/tu-long-shu-mao/</id>
+    <link href="https://cuipengfei.me/blog/2019/04/11/tu-long-shu-mao/"/>
+    <id>https://cuipengfei.me/blog/2019/04/11/tu-long-shu-mao/</id>
     <published>2019-04-11T08:08:00.000Z</published>
     <updated>2019-12-11T06:44:27.862Z</updated>
     
@@ -114,16 +114,16 @@
     
     
     
-      <category term="读书" scheme="https://cuipengfei.github.com/tags/%E8%AF%BB%E4%B9%A6/"/>
+      <category term="读书" scheme="https://cuipengfei.me/tags/%E8%AF%BB%E4%B9%A6/"/>
     
-      <category term="marx" scheme="https://cuipengfei.github.com/tags/marx/"/>
+      <category term="marx" scheme="https://cuipengfei.me/tags/marx/"/>
     
   </entry>
   
   <entry>
     <title>小岛经济学</title>
-    <link href="https://cuipengfei.github.com/blog/2019/01/06/2019-1-6-island-economy/"/>
-    <id>https://cuipengfei.github.com/blog/2019/01/06/2019-1-6-island-economy/</id>
+    <link href="https://cuipengfei.me/blog/2019/01/06/2019-1-6-island-economy/"/>
+    <id>https://cuipengfei.me/blog/2019/01/06/2019-1-6-island-economy/</id>
     <published>2019-01-06T02:03:00.000Z</published>
     <updated>2019-12-11T06:47:36.921Z</updated>
     
@@ -141,14 +141,14 @@
     
     
     
-      <category term="读书" scheme="https://cuipengfei.github.com/tags/%E8%AF%BB%E4%B9%A6/"/>
+      <category term="读书" scheme="https://cuipengfei.me/tags/%E8%AF%BB%E4%B9%A6/"/>
     
   </entry>
   
   <entry>
     <title>让你的系统在上线之前就接受炮火的洗礼-影子流量</title>
-    <link href="https://cuipengfei.github.com/blog/2018/11/22/shadow-traffic/"/>
-    <id>https://cuipengfei.github.com/blog/2018/11/22/shadow-traffic/</id>
+    <link href="https://cuipengfei.me/blog/2018/11/22/shadow-traffic/"/>
+    <id>https://cuipengfei.me/blog/2018/11/22/shadow-traffic/</id>
     <published>2018-11-22T02:03:00.000Z</published>
     <updated>2019-12-12T06:43:15.186Z</updated>
     
@@ -167,14 +167,14 @@
     
     
     
-      <category term="shadow traffic" scheme="https://cuipengfei.github.com/tags/shadow-traffic/"/>
+      <category term="shadow traffic" scheme="https://cuipengfei.me/tags/shadow-traffic/"/>
     
   </entry>
   
   <entry>
     <title>今日简史</title>
-    <link href="https://cuipengfei.github.com/blog/2018/10/21/JIN-RI-JIAN-SHI/"/>
-    <id>https://cuipengfei.github.com/blog/2018/10/21/JIN-RI-JIAN-SHI/</id>
+    <link href="https://cuipengfei.me/blog/2018/10/21/JIN-RI-JIAN-SHI/"/>
+    <id>https://cuipengfei.me/blog/2018/10/21/JIN-RI-JIAN-SHI/</id>
     <published>2018-10-21T02:03:00.000Z</published>
     <updated>2019-12-11T06:43:44.266Z</updated>
     
@@ -203,14 +203,14 @@
     
     
     
-      <category term="读书" scheme="https://cuipengfei.github.com/tags/%E8%AF%BB%E4%B9%A6/"/>
+      <category term="读书" scheme="https://cuipengfei.me/tags/%E8%AF%BB%E4%B9%A6/"/>
     
   </entry>
   
   <entry>
     <title>信息安全要做好，身份认证不能少。众邦银行胡乱搞，别人知我钱多少。</title>
-    <link href="https://cuipengfei.github.com/blog/2018/10/14/zb-bank/"/>
-    <id>https://cuipengfei.github.com/blog/2018/10/14/zb-bank/</id>
+    <link href="https://cuipengfei.me/blog/2018/10/14/zb-bank/"/>
+    <id>https://cuipengfei.me/blog/2018/10/14/zb-bank/</id>
     <published>2018-10-14T02:03:00.000Z</published>
     <updated>2019-12-11T06:35:46.047Z</updated>
     
@@ -231,14 +231,14 @@
     
     
     
-      <category term="🐸" scheme="https://cuipengfei.github.com/tags/%F0%9F%90%B8/"/>
+      <category term="🐸" scheme="https://cuipengfei.me/tags/%F0%9F%90%B8/"/>
     
   </entry>
   
   <entry>
     <title>Desugar Scala(18) -- stackable traits</title>
-    <link href="https://cuipengfei.github.com/blog/2017/06/14/desugar-scala-stackable-traits/"/>
-    <id>https://cuipengfei.github.com/blog/2017/06/14/desugar-scala-stackable-traits/</id>
+    <link href="https://cuipengfei.me/blog/2017/06/14/desugar-scala-stackable-traits/"/>
+    <id>https://cuipengfei.me/blog/2017/06/14/desugar-scala-stackable-traits/</id>
     <published>2017-06-14T06:00:00.000Z</published>
     <updated>2019-12-07T13:18:10.871Z</updated>
     
@@ -259,43 +259,43 @@
     
     
     
-      <category term="Desugar_Scala" scheme="https://cuipengfei.github.com/tags/Desugar-Scala/"/>
+      <category term="Desugar_Scala" scheme="https://cuipengfei.me/tags/Desugar-Scala/"/>
     
-      <category term="Scala" scheme="https://cuipengfei.github.com/tags/Scala/"/>
+      <category term="Scala" scheme="https://cuipengfei.me/tags/Scala/"/>
     
   </entry>
   
   <entry>
     <title>当锤子遇到钉子</title>
-    <link href="https://cuipengfei.github.com/blog/2016/06/04/when-hammer-meets-nail/"/>
-    <id>https://cuipengfei.github.com/blog/2016/06/04/when-hammer-meets-nail/</id>
+    <link href="https://cuipengfei.me/blog/2016/06/04/when-hammer-meets-nail/"/>
+    <id>https://cuipengfei.me/blog/2016/06/04/when-hammer-meets-nail/</id>
     <published>2016-06-04T08:58:00.000Z</published>
     <updated>2019-12-11T08:22:32.754Z</updated>
     
-    <content type="html"><![CDATA[<p><sub>此文标题党。更切题的标题应该叫做《如何用统计科学来黑星座》或者是《积极注册Facehub，促进统计科学蓬勃发展》 </sub></p><h1 id="锤子-JS-Promise"><a href="#锤子-JS-Promise" class="headerlink" title="锤子　JS Promise"></a>锤子　JS Promise</h1><p>最近对JS社区里的Promises/A+规范产生了很浓的兴趣，感觉Promise这套东西确实蛮不错的，给异步算法的编写者和异步算法的消费者之间提供了一套统一的沟通手段，也为异步算法的消费者提供了更悦目易读的代码组织方式。</p><p>自己把它实现了一遍:<a href="https://www.npmjs.com/package/RWPromise" target="_blank" rel="noopener">https://www.npmjs.com/package/RWPromise</a></p><p>然后在武汉办公室run了3次workshop:<a href="http://cuipengfei.me/blog/2016/05/15/promise/" target="_blank" rel="noopener">http://cuipengfei.me/blog/2016/05/15/promise/</a>。</p><p>手里有了这么一把锤子就总想找个钉子敲一敲。总在想能去哪里找N多异步操作来让我来组织一下呢?</p><h1 id="钉子-《异类》"><a href="#钉子-《异类》" class="headerlink" title="钉子　《异类》"></a>钉子　《异类》</h1><p>无巧不成书，刚好最近在豆瓣上买了一本叫做《异类》的书在看:　<a href="https://read.douban.com/ebook/10580943/" target="_blank" rel="noopener">https://read.douban.com/ebook/10580943/</a></p><p>书中一开篇就提到了加拿大冰球运动员选拔机制中很有趣的一件轶事:</p><blockquote><p>职业青年队绝大多数球员的生日集中在1月、2月和3月，这实在有点不可思议</p></blockquote><blockquote><p>加拿大冰球队按年龄分组所依据的分界线是1月1日，即从1月1日到当年12月31日之间出生的球员将会被分在同一组。也就是说，一个1月1日出生的选手，是在跟许多年纪比他小的队友争夺晋级权——在青春期到来之前，由于有将近12个月的年龄差距，球员之间在生理成熟度上将会表现出巨大的差异。</p></blockquote><blockquote><p>正如冰球队员的成长经历一样，因年龄大几个月而显现的微弱优势会在孩子的成长过程中不断积累，最终引导孩子走向成功或不成功，自信或不自信的轨道中，其影响会延伸许多年。</p></blockquote><p>能否进入加拿大职业青年冰球队竟然和出生月份有关系，实在是太有趣了。</p><p>假想如果你运动天赋非常好，但是不幸出生在12月，于是不得不从小和大你将近一岁的少年运动员一起训练。<br>表现难免显得不那么出色，不受教练待见，得不到正面反馈，出场坐冷板凳……逐渐逐渐，伤仲永。</p><p>由此就联想到了，到TW来工作的人其出生月份是否也存在什么神奇的规律呢？</p><h2 id="Facehub"><a href="#Facehub" class="headerlink" title="Facehub"></a>Facehub</h2><p>生日信息哪家强？<br>Facehub帮你忙，它可以查到每个注册用户的生日(只有月日，没有年)。</p><p>（注：Facehub是ThoughtWorks公司内部的一个社交网站，只对员工开放注册。用户可以在该网站了解其他同事的信息。）</p><p>作为一个内部推广的网站，FaceHub在公司内邮件组里总是铺天盖地、见缝插针地作广告宣传，每次看到觉得审美都疲劳了，不过到了需要的时候第一个就想到了它。<br>广告的作用，诚不我欺。</p><p>我先目测，Facehub用户不会超过500人。<br>并且用户的id是连续的自增数字，这就很好办了，我只要构造N多获取用户数据的GET请求就好了。<br>这N多的GET请求，肯定不能一个一个慢慢发送，那就需要异步请求了，这就是钉子啊！<br>这就是大量的需要被组织的异步操作啊！<br>钉锤终于有机会合体了。</p><p>于是我就写了这么个脚本:　<a href="https://github.com/cuipengfei/Spikes/blob/master/js/birth/birth.js" target="_blank" rel="noopener">https://github.com/cuipengfei/Spikes/blob/master/js/birth/birth.js</a></p><p>其中使用Promise把大量的异步Http请求组织起来，然后统计其结果。</p><p>(注:如果需要自己跑这个脚本，需要把第七行的token替换成你自己的合法值，如果您没有账号的话就无需尝试了哦)</p><p>以下是统计结果，获取到用户数量348：</p><iframe width="600" height="400" src="https://live.amcharts.com/FhYjd/embed/" frameborder="0"></iframe><p>由此可以看到，来TW工作的人，11月，10月，8月出生的最多，5月出生的最少。</p><p>由于样本量不够大(只有348人)，所以统计数据的含义还不太好说。</p><h2 id="下面是我胡乱猜测的、不科学的、不严谨的理论"><a href="#下面是我胡乱猜测的、不科学的、不严谨的理论" class="headerlink" title="下面是我胡乱猜测的、不科学的、不严谨的理论"></a>下面是我胡乱猜测的、不科学的、不严谨的理论</h2><blockquote><p>我们小学入学时卡生日印象中是用8月卡的，那么这就和加拿大的冰球挑队员卡1月类似。</p></blockquote><blockquote><p>那这样，小学入学后，优势的积累就应该会倾向于8，9，10这几月的学生(类比冰球青年职业队队员集中分布在1，2，3这几个月)。</p></blockquote><blockquote><p>这几个月生日的小学生从小积累优势，并在成年后把优势携带到了求职之中去。</p></blockquote><blockquote><p>那为什么我们统计出来是8，10，11月份的人份额多呢?怎么不是8，9，10这几个月呢?统计出来的数据为什么把9月给跳过去了呢？可怜的9月得罪谁了呢？</p></blockquote><blockquote><p>我猜是由于9月这群人会成为某种星座的几率实在是太高了，被命运之神无情的给镇压掉了。:(抱歉</p></blockquote><p>既然已经有了这份代码，可以统计出生月份，索性再统计些其他侧面的数据:</p><iframe width="600" height="400" src="https://live.amcharts.com/GI4ZG/embed/" frameborder="0"></iframe><p>可见天秤和狮子座的最多，金牛座的最少。和上面的月份排名差异不大。</p><p>仔细看下的话，发现我只得罪了7.4%的人，好欣慰:)</p><iframe width="600" height="400" src="https://live.amcharts.com/JjYjF/embed/" frameborder="0"></iframe><p>看入职日期，大学毕业和跳槽的高峰期很凸显。9，10月最少，这倒不算什么惊人的发现。</p><h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>由于只统计了348人的信息，所以以上猜测仅供娱乐，请勿当真。</p><p>请大家积极注册Facehub，并填写真实的生日信息，以促进统计科学的繁荣发展。<br>（如果您无法注册，可以考虑投一份简历，然后再来促进统计科学的繁荣发展哦）</p>]]></content>
+    <content type="html"><![CDATA[<p><sub>此文标题党。更切题的标题应该叫做《如何用统计科学来黑星座》或者是《积极注册Facehub，促进统计科学蓬勃发展》 </sub></p><h1 id="锤子-JS-Promise"><a href="#锤子-JS-Promise" class="headerlink" title="锤子　JS Promise"></a>锤子　JS Promise</h1><p>最近对JS社区里的Promises/A+规范产生了很浓的兴趣，感觉Promise这套东西确实蛮不错的，给异步算法的编写者和异步算法的消费者之间提供了一套统一的沟通手段，也为异步算法的消费者提供了更悦目易读的代码组织方式。</p><p>自己把它实现了一遍:<a href="https://www.npmjs.com/package/RWPromise" target="_blank" rel="noopener">https://www.npmjs.com/package/RWPromise</a></p><p>然后在武汉办公室run了3次workshop:<a href="http://cuipengfei.me/blog/2016/05/15/promise/">http://cuipengfei.me/blog/2016/05/15/promise/</a>。</p><p>手里有了这么一把锤子就总想找个钉子敲一敲。总在想能去哪里找N多异步操作来让我来组织一下呢?</p><h1 id="钉子-《异类》"><a href="#钉子-《异类》" class="headerlink" title="钉子　《异类》"></a>钉子　《异类》</h1><p>无巧不成书，刚好最近在豆瓣上买了一本叫做《异类》的书在看:　<a href="https://read.douban.com/ebook/10580943/" target="_blank" rel="noopener">https://read.douban.com/ebook/10580943/</a></p><p>书中一开篇就提到了加拿大冰球运动员选拔机制中很有趣的一件轶事:</p><blockquote><p>职业青年队绝大多数球员的生日集中在1月、2月和3月，这实在有点不可思议</p></blockquote><blockquote><p>加拿大冰球队按年龄分组所依据的分界线是1月1日，即从1月1日到当年12月31日之间出生的球员将会被分在同一组。也就是说，一个1月1日出生的选手，是在跟许多年纪比他小的队友争夺晋级权——在青春期到来之前，由于有将近12个月的年龄差距，球员之间在生理成熟度上将会表现出巨大的差异。</p></blockquote><blockquote><p>正如冰球队员的成长经历一样，因年龄大几个月而显现的微弱优势会在孩子的成长过程中不断积累，最终引导孩子走向成功或不成功，自信或不自信的轨道中，其影响会延伸许多年。</p></blockquote><p>能否进入加拿大职业青年冰球队竟然和出生月份有关系，实在是太有趣了。</p><p>假想如果你运动天赋非常好，但是不幸出生在12月，于是不得不从小和大你将近一岁的少年运动员一起训练。<br>表现难免显得不那么出色，不受教练待见，得不到正面反馈，出场坐冷板凳……逐渐逐渐，伤仲永。</p><p>由此就联想到了，到TW来工作的人其出生月份是否也存在什么神奇的规律呢？</p><h2 id="Facehub"><a href="#Facehub" class="headerlink" title="Facehub"></a>Facehub</h2><p>生日信息哪家强？<br>Facehub帮你忙，它可以查到每个注册用户的生日(只有月日，没有年)。</p><p>（注：Facehub是ThoughtWorks公司内部的一个社交网站，只对员工开放注册。用户可以在该网站了解其他同事的信息。）</p><p>作为一个内部推广的网站，FaceHub在公司内邮件组里总是铺天盖地、见缝插针地作广告宣传，每次看到觉得审美都疲劳了，不过到了需要的时候第一个就想到了它。<br>广告的作用，诚不我欺。</p><p>我先目测，Facehub用户不会超过500人。<br>并且用户的id是连续的自增数字，这就很好办了，我只要构造N多获取用户数据的GET请求就好了。<br>这N多的GET请求，肯定不能一个一个慢慢发送，那就需要异步请求了，这就是钉子啊！<br>这就是大量的需要被组织的异步操作啊！<br>钉锤终于有机会合体了。</p><p>于是我就写了这么个脚本:　<a href="https://github.com/cuipengfei/Spikes/blob/master/js/birth/birth.js" target="_blank" rel="noopener">https://github.com/cuipengfei/Spikes/blob/master/js/birth/birth.js</a></p><p>其中使用Promise把大量的异步Http请求组织起来，然后统计其结果。</p><p>(注:如果需要自己跑这个脚本，需要把第七行的token替换成你自己的合法值，如果您没有账号的话就无需尝试了哦)</p><p>以下是统计结果，获取到用户数量348：</p><iframe width="600" height="400" src="https://live.amcharts.com/FhYjd/embed/" frameborder="0"></iframe><p>由此可以看到，来TW工作的人，11月，10月，8月出生的最多，5月出生的最少。</p><p>由于样本量不够大(只有348人)，所以统计数据的含义还不太好说。</p><h2 id="下面是我胡乱猜测的、不科学的、不严谨的理论"><a href="#下面是我胡乱猜测的、不科学的、不严谨的理论" class="headerlink" title="下面是我胡乱猜测的、不科学的、不严谨的理论"></a>下面是我胡乱猜测的、不科学的、不严谨的理论</h2><blockquote><p>我们小学入学时卡生日印象中是用8月卡的，那么这就和加拿大的冰球挑队员卡1月类似。</p></blockquote><blockquote><p>那这样，小学入学后，优势的积累就应该会倾向于8，9，10这几月的学生(类比冰球青年职业队队员集中分布在1，2，3这几个月)。</p></blockquote><blockquote><p>这几个月生日的小学生从小积累优势，并在成年后把优势携带到了求职之中去。</p></blockquote><blockquote><p>那为什么我们统计出来是8，10，11月份的人份额多呢?怎么不是8，9，10这几个月呢?统计出来的数据为什么把9月给跳过去了呢？可怜的9月得罪谁了呢？</p></blockquote><blockquote><p>我猜是由于9月这群人会成为某种星座的几率实在是太高了，被命运之神无情的给镇压掉了。:(抱歉</p></blockquote><p>既然已经有了这份代码，可以统计出生月份，索性再统计些其他侧面的数据:</p><iframe width="600" height="400" src="https://live.amcharts.com/GI4ZG/embed/" frameborder="0"></iframe><p>可见天秤和狮子座的最多，金牛座的最少。和上面的月份排名差异不大。</p><p>仔细看下的话，发现我只得罪了7.4%的人，好欣慰:)</p><iframe width="600" height="400" src="https://live.amcharts.com/JjYjF/embed/" frameborder="0"></iframe><p>看入职日期，大学毕业和跳槽的高峰期很凸显。9，10月最少，这倒不算什么惊人的发现。</p><h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>由于只统计了348人的信息，所以以上猜测仅供娱乐，请勿当真。</p><p>请大家积极注册Facehub，并填写真实的生日信息，以促进统计科学的繁荣发展。<br>（如果您无法注册，可以考虑投一份简历，然后再来促进统计科学的繁荣发展哦）</p>]]></content>
     
     <summary type="html">
     
       &lt;p&gt;&lt;sub&gt;此文标题党。更切题的标题应该叫做《如何用统计科学来黑星座》或者是《积极注册Facehub，促进统计科学蓬勃发展》 &lt;/sub&gt;&lt;/p&gt;
 &lt;h1 id=&quot;锤子-JS-Promise&quot;&gt;&lt;a href=&quot;#锤子-JS-Promise&quot; class=&quot;headerlink&quot; title=&quot;锤子　JS Promise&quot;&gt;&lt;/a&gt;锤子　JS Promise&lt;/h1&gt;&lt;p&gt;最近对JS社区里的Promises/A+规范产生了很浓的兴趣，感觉Promise这套东西确实蛮不错的，给异步算法的编写者和异步算法的消费者之间提供了一套统一的沟通手段，也为异步算法的消费者提供了更悦目易读的代码组织方式。&lt;/p&gt;
 &lt;p&gt;自己把它实现了一遍:&lt;a href=&quot;https://www.npmjs.com/package/RWPromise&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.npmjs.com/package/RWPromise&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;然后在武汉办公室run了3次workshop:&lt;a href=&quot;http://cuipengfei.me/blog/2016/05/15/promise/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://cuipengfei.me/blog/2016/05/15/promise/&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;然后在武汉办公室run了3次workshop:&lt;a href=&quot;http://cuipengfei.me/blog/2016/05/15/promise/&quot;&gt;http://cuipengfei.me/blog/2016/05/15/promise/&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;手里有了这么一把锤子就总想找个钉子敲一敲。总在想能去哪里找N多异步操作来让我来组织一下呢?&lt;/p&gt;
     
     </summary>
     
     
     
-      <category term="TW" scheme="https://cuipengfei.github.com/tags/TW/"/>
+      <category term="TW" scheme="https://cuipengfei.me/tags/TW/"/>
     
-      <category term="星座" scheme="https://cuipengfei.github.com/tags/%E6%98%9F%E5%BA%A7/"/>
+      <category term="星座" scheme="https://cuipengfei.me/tags/%E6%98%9F%E5%BA%A7/"/>
     
   </entry>
   
   <entry>
     <title>自己动手实现Promises/A+规范</title>
-    <link href="https://cuipengfei.github.com/blog/2016/05/15/promise/"/>
-    <id>https://cuipengfei.github.com/blog/2016/05/15/promise/</id>
+    <link href="https://cuipengfei.me/blog/2016/05/15/promise/"/>
+    <id>https://cuipengfei.me/blog/2016/05/15/promise/</id>
     <published>2016-05-15T07:42:00.000Z</published>
     <updated>2019-12-11T08:22:15.360Z</updated>
     
@@ -314,14 +314,14 @@
     
     
     
-      <category term="Promises/A+" scheme="https://cuipengfei.github.com/tags/Promises-A/"/>
+      <category term="Promises/A+" scheme="https://cuipengfei.me/tags/Promises-A/"/>
     
   </entry>
   
   <entry>
     <title>利用CouchBase为弱网环境构建云同步Android应用</title>
-    <link href="https://cuipengfei.github.com/blog/2016/03/10/couchbase-android-sync/"/>
-    <id>https://cuipengfei.github.com/blog/2016/03/10/couchbase-android-sync/</id>
+    <link href="https://cuipengfei.me/blog/2016/03/10/couchbase-android-sync/"/>
+    <id>https://cuipengfei.me/blog/2016/03/10/couchbase-android-sync/</id>
     <published>2016-03-10T02:26:00.000Z</published>
     <updated>2019-12-11T08:22:03.982Z</updated>
     
@@ -346,14 +346,14 @@
     
     
     
-      <category term="Android" scheme="https://cuipengfei.github.com/tags/Android/"/>
+      <category term="Android" scheme="https://cuipengfei.me/tags/Android/"/>
     
   </entry>
   
   <entry>
     <title>2015</title>
-    <link href="https://cuipengfei.github.com/blog/2016/01/03/2015/"/>
-    <id>https://cuipengfei.github.com/blog/2016/01/03/2015/</id>
+    <link href="https://cuipengfei.me/blog/2016/01/03/2015/"/>
+    <id>https://cuipengfei.me/blog/2016/01/03/2015/</id>
     <published>2016-01-02T17:03:00.000Z</published>
     <updated>2019-12-07T13:18:10.870Z</updated>
     
@@ -373,14 +373,14 @@
     
     
     
-      <category term="me" scheme="https://cuipengfei.github.com/tags/me/"/>
+      <category term="me" scheme="https://cuipengfei.me/tags/me/"/>
     
   </entry>
   
   <entry>
     <title>2015第三季度</title>
-    <link href="https://cuipengfei.github.com/blog/2015/10/05/2015-3rd-season/"/>
-    <id>https://cuipengfei.github.com/blog/2015/10/05/2015-3rd-season/</id>
+    <link href="https://cuipengfei.me/blog/2015/10/05/2015-3rd-season/"/>
+    <id>https://cuipengfei.me/blog/2015/10/05/2015-3rd-season/</id>
     <published>2015-10-04T17:03:00.000Z</published>
     <updated>2019-12-07T13:18:10.870Z</updated>
     
@@ -397,14 +397,14 @@
     
     
     
-      <category term="me" scheme="https://cuipengfei.github.com/tags/me/"/>
+      <category term="me" scheme="https://cuipengfei.me/tags/me/"/>
     
   </entry>
   
   <entry>
     <title>2015第二季度</title>
-    <link href="https://cuipengfei.github.com/blog/2015/07/04/2015-second-season/"/>
-    <id>https://cuipengfei.github.com/blog/2015/07/04/2015-second-season/</id>
+    <link href="https://cuipengfei.me/blog/2015/07/04/2015-second-season/"/>
+    <id>https://cuipengfei.me/blog/2015/07/04/2015-second-season/</id>
     <published>2015-07-04T12:37:00.000Z</published>
     <updated>2019-12-07T13:18:10.869Z</updated>
     
@@ -424,14 +424,14 @@
     
     
     
-      <category term="me" scheme="https://cuipengfei.github.com/tags/me/"/>
+      <category term="me" scheme="https://cuipengfei.me/tags/me/"/>
     
   </entry>
   
   <entry>
     <title>模板方法模式：子类型多态和高阶函数</title>
-    <link href="https://cuipengfei.github.com/blog/2015/06/23/template-method-pattern/"/>
-    <id>https://cuipengfei.github.com/blog/2015/06/23/template-method-pattern/</id>
+    <link href="https://cuipengfei.me/blog/2015/06/23/template-method-pattern/"/>
+    <id>https://cuipengfei.me/blog/2015/06/23/template-method-pattern/</id>
     <published>2015-06-23T07:42:00.000Z</published>
     <updated>2019-12-07T13:18:10.869Z</updated>
     
@@ -452,20 +452,20 @@
     
     
     
-      <category term="Scala" scheme="https://cuipengfei.github.com/tags/Scala/"/>
+      <category term="Scala" scheme="https://cuipengfei.me/tags/Scala/"/>
     
-      <category term="OODP" scheme="https://cuipengfei.github.com/tags/OODP/"/>
+      <category term="OODP" scheme="https://cuipengfei.me/tags/OODP/"/>
     
   </entry>
   
   <entry>
     <title>访问者模式 in FP：Pattern Matching</title>
-    <link href="https://cuipengfei.github.com/blog/2015/06/16/visitor-pattern-pattern-match/"/>
-    <id>https://cuipengfei.github.com/blog/2015/06/16/visitor-pattern-pattern-match/</id>
+    <link href="https://cuipengfei.me/blog/2015/06/16/visitor-pattern-pattern-match/"/>
+    <id>https://cuipengfei.me/blog/2015/06/16/visitor-pattern-pattern-match/</id>
     <published>2015-06-16T11:11:00.000Z</published>
     <updated>2019-12-07T13:18:10.869Z</updated>
     
-    <content type="html"><![CDATA[<blockquote><p>访问者模式是一种将算法与对象结构分离的软件设计模式。</p></blockquote><blockquote><p>这个模式的基本想法如下：首先我们拥有一个由许多对象构成的对象结构，这些对象的类都拥有一个accept方法用来接受访问者对象；访问者是一个接口，它拥有一个visit方法，这个方法对访问到的对象结构中不同类型的元素作出不同的反应；在对象结构的一次访问过程中，我们遍历整个对象结构，对每一个元素都实施accept方法，在每一个元素的accept方法中回调访问者的visit方法，从而使访问者得以处理对象结构的每一个元素。我们可以针对对象结构设计不同的实在的访问者类来完成不同的操作。</p></blockquote><p>以上是wiki对访问者模式的定义。</p><p>这个定义着实难读。我们来看wiki给出的例子：</p><p>假设我们要为汽车建模，汽车有不同的组成部件，轮胎，车身，和引擎。</p><p>在开车之前需要先检查车辆每个部件的状况，然后依次启动所有部件以启动汽车。</p><p>在这里我们很容易识别出车的组件各自应该是一个实体。而对车辆组件进行检查和启动的代码应该分别处于不同的实体中。</p><p>这样就有了访问者的代码（来自wiki）：</p><h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ICarElement</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">accept</span><span class="params">(ICarElementVisitor visitor)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Wheel</span> <span class="keyword">implements</span> <span class="title">ICarElement</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Wheel</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(ICarElementVisitor visitor)</span> </span>&#123;</span><br><span class="line">        visitor.visit(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Engine</span> <span class="keyword">implements</span> <span class="title">ICarElement</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(ICarElementVisitor visitor)</span> </span>&#123;</span><br><span class="line">        visitor.visit(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Body</span> <span class="keyword">implements</span> <span class="title">ICarElement</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(ICarElementVisitor visitor)</span> </span>&#123;</span><br><span class="line">        visitor.visit(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> <span class="keyword">implements</span> <span class="title">ICarElement</span> </span>&#123;</span><br><span class="line">    ICarElement[] elements;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Car</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.elements = <span class="keyword">new</span> ICarElement[]&#123;<span class="keyword">new</span> Wheel(<span class="string">"front left"</span>),</span><br><span class="line">                <span class="keyword">new</span> Wheel(<span class="string">"front right"</span>), <span class="keyword">new</span> Wheel(<span class="string">"back left"</span>),</span><br><span class="line">                <span class="keyword">new</span> Wheel(<span class="string">"back right"</span>), <span class="keyword">new</span> Body(), <span class="keyword">new</span> Engine()&#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(ICarElementVisitor visitor)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (ICarElement elem : elements) &#123;</span><br><span class="line">            elem.accept(visitor);</span><br><span class="line">        &#125;</span><br><span class="line">        visitor.visit(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>首先是汽车部件的实体。它们都实现同一个ICarElement的接口。<br>该接口定义一个accept方法，用来接受访问者然后用访问者来访问所有汽车部件。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ICarElementVisitor</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">(Wheel wheel)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">(Engine engine)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">(Body body)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">(Car car)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CarElementPrintVisitor</span> <span class="keyword">implements</span> <span class="title">ICarElementVisitor</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(Wheel wheel)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Visiting "</span> + wheel.getName() + <span class="string">" wheel"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(Engine engine)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Visiting engine"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(Body body)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Visiting body"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(Car car)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Visiting car"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CarElementDoVisitor</span> <span class="keyword">implements</span> <span class="title">ICarElementVisitor</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(Wheel wheel)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Kicking my "</span> + wheel.getName() + <span class="string">" wheel"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(Engine engine)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Starting my engine"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(Body body)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Moving my body"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(Car car)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Starting my car"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>然后就是访问者的实体。它们都实现ICarElementVisitor接口。<br>这个接口里定义的方法有点多，分别对应每个汽车部件定义了一个visit方法的重载。</p><p>在实现的时候自然是做检查的实体实现每个部件的检查，启动的实体实现每个部件的启动。</p><p>这里就有一个陷阱，如果代码发展的趋势是汽车部件的种类会增加的话，那这个接口就很不稳定。每增加一种汽车部件就要修改接口并且修改每个实现类。</p><p>而如果代码发展的趋势是在自检和启动之外加一些保养啊，洗车啊之类的话就没问题，不需要对已有代码进行修改。</p><p>所以使用访问者模式的时候要注意识别被访问者是否是相对稳定而访问者是有扩展趋势的，这样用这个模式才合适。</p><p>接下来的代码把以上所有代码串起来执行：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VisitorDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ICarElement car = <span class="keyword">new</span> Car();</span><br><span class="line">        car.accept(<span class="keyword">new</span> CarElementPrintVisitor());</span><br><span class="line">        car.accept(<span class="keyword">new</span> CarElementDoVisitor());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>从最后的main函数来看，只要能确保汽车部件的数量不会增加，而只有访问者增加，那么客户代码只需要增加一行就能够增加对整车进行清洗或者保养的行为。</p><p>车的部件和对部件的操作相互分离，独立发展。很灵活，很巧妙，对吧？</p><h2 id="不过再想一下"><a href="#不过再想一下" class="headerlink" title="不过再想一下"></a>不过再想一下</h2><p>其实也不需要使劲想了，如果你看过这一系列博文前面的几篇的话，想必已经能够猜到我的用意了。</p><p>这些访问者存在的意义就在于承载对汽车部件的某些具体操作，操作是个好听的词儿，说白了就是函数啊。</p><p>那既然这些类只是承载函数而已，何不直接就用函数而不费劲去用类包裹一层呢？</p><h1 id="functions"><a href="#functions" class="headerlink" title="functions"></a>functions</h1><p>那接下来就是用Scala的实现：</p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">CarElement</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">accept</span></span>(visitor: <span class="type">Visitor</span>) = visitor(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">Body</span>(<span class="params"></span>) <span class="keyword">extends</span> <span class="title">CarElement</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">case</span> <span class="title">class</span> <span class="title">Engine</span>(<span class="params"></span>) <span class="keyword">extends</span> <span class="title">CarElement</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">case</span> <span class="title">class</span> <span class="title">Wheel</span>(<span class="params">name: <span class="type">String</span></span>) <span class="keyword">extends</span> <span class="title">CarElement</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">case</span> <span class="title">class</span> <span class="title">Car</span>(<span class="params"></span>) <span class="keyword">extends</span> <span class="title">CarElement</span> </span>&#123;</span><br><span class="line">  <span class="keyword">val</span> elements: <span class="type">Seq</span>[<span class="type">CarElement</span>] = <span class="type">Seq</span>(</span><br><span class="line">    <span class="type">Wheel</span>(<span class="string">"front left"</span>), <span class="type">Wheel</span>(<span class="string">"front right"</span>),</span><br><span class="line">    <span class="type">Wheel</span>(<span class="string">"back left"</span>), <span class="type">Wheel</span>(<span class="string">"back right"</span>),</span><br><span class="line">    <span class="type">Body</span>(), <span class="type">Engine</span>())</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">accept</span></span>(visitor: <span class="type">Visitor</span>) = &#123;</span><br><span class="line">    elements.foreach(_.accept(visitor))</span><br><span class="line">    visitor(<span class="keyword">this</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>以上是汽车各种部件的定义，和Java代码没有太大区别。</p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Visitors</span> </span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">type</span> <span class="title">Visitor</span> </span>= <span class="type">CarElement</span> =&gt; <span class="type">Unit</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> printVisitor: <span class="type">Visitor</span> = &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Wheel</span>(name) =&gt; println(<span class="string">s"Visiting <span class="subst">$name</span> wheel"</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Body</span>() =&gt; println(<span class="string">"Visiting Body"</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Engine</span>() =&gt; println(<span class="string">"Visiting Engine"</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Car</span>() =&gt; println(<span class="string">"Visiting Car"</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> doVisitor: <span class="type">Visitor</span> = &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Wheel</span>(name) =&gt; println(<span class="string">s"Kicking my <span class="subst">$name</span> wheel"</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Body</span>() =&gt; println(<span class="string">"Moving my body"</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Engine</span>() =&gt; println(<span class="string">"Starting my engine"</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Car</span>() =&gt; println(<span class="string">"Starting my car"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>上面这一段定义了一个叫做Visitor的type，它只是一个函数签名。任何接受一个汽车部件作为参数并且没有返回值的函数都符合它的签名，也就可以被视作Visitor。</p><p>接下来是两个符合Visitor签名的函数，都是用pattern match实现的。</p><p>pattern match这种神奇的语言特性是如何实现的呢？背后的原因并不神奇，更多详情请参考我之前的另一篇博客：<a href="http://cuipengfei.me/blog/2013/12/29/desugar-scala-8/" target="_blank" rel="noopener">http://cuipengfei.me/blog/2013/12/29/desugar-scala-8/</a></p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">VisitorDemo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    <span class="keyword">val</span> car = <span class="type">Car</span>()</span><br><span class="line">    car.accept(printVisitor)</span><br><span class="line">    car.accept(doVisitor)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>最后定义一个main函数，与Java的main函数做的事情是等价的。</p><p>这样，100行变成了45行。Visitor不再作为臃肿的实体存在，而只是函数。</p><p>而且如果遵照同样的假设，认为车的部件是稳定的，而访问者是会增多的，那这段Scala代码的增长趋势是每加一个访问者就加一个函数。与Java代码的增长趋势相同。</p><h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>这次分析的访问者模式和之前的一些模式很类似，当我们需要的实体仅仅是作为承载某种行为的一个载具，那就可以考虑将实体消去，而换用函数这种更简单，更轻量级的抽象方式来实现我们想要的东西。</p><p>当年OO模式出现的时候，FP并不盛行，原作者提出的方案无可厚非。不过我们今天有了FP这种更趁手的工具，就可以考虑在合适的时候将其与OO结合使用来达到更好的设计的目的。</p>]]></content>
+    <content type="html"><![CDATA[<blockquote><p>访问者模式是一种将算法与对象结构分离的软件设计模式。</p></blockquote><blockquote><p>这个模式的基本想法如下：首先我们拥有一个由许多对象构成的对象结构，这些对象的类都拥有一个accept方法用来接受访问者对象；访问者是一个接口，它拥有一个visit方法，这个方法对访问到的对象结构中不同类型的元素作出不同的反应；在对象结构的一次访问过程中，我们遍历整个对象结构，对每一个元素都实施accept方法，在每一个元素的accept方法中回调访问者的visit方法，从而使访问者得以处理对象结构的每一个元素。我们可以针对对象结构设计不同的实在的访问者类来完成不同的操作。</p></blockquote><p>以上是wiki对访问者模式的定义。</p><p>这个定义着实难读。我们来看wiki给出的例子：</p><p>假设我们要为汽车建模，汽车有不同的组成部件，轮胎，车身，和引擎。</p><p>在开车之前需要先检查车辆每个部件的状况，然后依次启动所有部件以启动汽车。</p><p>在这里我们很容易识别出车的组件各自应该是一个实体。而对车辆组件进行检查和启动的代码应该分别处于不同的实体中。</p><p>这样就有了访问者的代码（来自wiki）：</p><h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ICarElement</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">accept</span><span class="params">(ICarElementVisitor visitor)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Wheel</span> <span class="keyword">implements</span> <span class="title">ICarElement</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Wheel</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(ICarElementVisitor visitor)</span> </span>&#123;</span><br><span class="line">        visitor.visit(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Engine</span> <span class="keyword">implements</span> <span class="title">ICarElement</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(ICarElementVisitor visitor)</span> </span>&#123;</span><br><span class="line">        visitor.visit(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Body</span> <span class="keyword">implements</span> <span class="title">ICarElement</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(ICarElementVisitor visitor)</span> </span>&#123;</span><br><span class="line">        visitor.visit(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> <span class="keyword">implements</span> <span class="title">ICarElement</span> </span>&#123;</span><br><span class="line">    ICarElement[] elements;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Car</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.elements = <span class="keyword">new</span> ICarElement[]&#123;<span class="keyword">new</span> Wheel(<span class="string">"front left"</span>),</span><br><span class="line">                <span class="keyword">new</span> Wheel(<span class="string">"front right"</span>), <span class="keyword">new</span> Wheel(<span class="string">"back left"</span>),</span><br><span class="line">                <span class="keyword">new</span> Wheel(<span class="string">"back right"</span>), <span class="keyword">new</span> Body(), <span class="keyword">new</span> Engine()&#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(ICarElementVisitor visitor)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (ICarElement elem : elements) &#123;</span><br><span class="line">            elem.accept(visitor);</span><br><span class="line">        &#125;</span><br><span class="line">        visitor.visit(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>首先是汽车部件的实体。它们都实现同一个ICarElement的接口。<br>该接口定义一个accept方法，用来接受访问者然后用访问者来访问所有汽车部件。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ICarElementVisitor</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">(Wheel wheel)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">(Engine engine)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">(Body body)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">(Car car)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CarElementPrintVisitor</span> <span class="keyword">implements</span> <span class="title">ICarElementVisitor</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(Wheel wheel)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Visiting "</span> + wheel.getName() + <span class="string">" wheel"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(Engine engine)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Visiting engine"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(Body body)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Visiting body"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(Car car)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Visiting car"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CarElementDoVisitor</span> <span class="keyword">implements</span> <span class="title">ICarElementVisitor</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(Wheel wheel)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Kicking my "</span> + wheel.getName() + <span class="string">" wheel"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(Engine engine)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Starting my engine"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(Body body)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Moving my body"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(Car car)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Starting my car"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>然后就是访问者的实体。它们都实现ICarElementVisitor接口。<br>这个接口里定义的方法有点多，分别对应每个汽车部件定义了一个visit方法的重载。</p><p>在实现的时候自然是做检查的实体实现每个部件的检查，启动的实体实现每个部件的启动。</p><p>这里就有一个陷阱，如果代码发展的趋势是汽车部件的种类会增加的话，那这个接口就很不稳定。每增加一种汽车部件就要修改接口并且修改每个实现类。</p><p>而如果代码发展的趋势是在自检和启动之外加一些保养啊，洗车啊之类的话就没问题，不需要对已有代码进行修改。</p><p>所以使用访问者模式的时候要注意识别被访问者是否是相对稳定而访问者是有扩展趋势的，这样用这个模式才合适。</p><p>接下来的代码把以上所有代码串起来执行：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VisitorDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ICarElement car = <span class="keyword">new</span> Car();</span><br><span class="line">        car.accept(<span class="keyword">new</span> CarElementPrintVisitor());</span><br><span class="line">        car.accept(<span class="keyword">new</span> CarElementDoVisitor());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>从最后的main函数来看，只要能确保汽车部件的数量不会增加，而只有访问者增加，那么客户代码只需要增加一行就能够增加对整车进行清洗或者保养的行为。</p><p>车的部件和对部件的操作相互分离，独立发展。很灵活，很巧妙，对吧？</p><h2 id="不过再想一下"><a href="#不过再想一下" class="headerlink" title="不过再想一下"></a>不过再想一下</h2><p>其实也不需要使劲想了，如果你看过这一系列博文前面的几篇的话，想必已经能够猜到我的用意了。</p><p>这些访问者存在的意义就在于承载对汽车部件的某些具体操作，操作是个好听的词儿，说白了就是函数啊。</p><p>那既然这些类只是承载函数而已，何不直接就用函数而不费劲去用类包裹一层呢？</p><h1 id="functions"><a href="#functions" class="headerlink" title="functions"></a>functions</h1><p>那接下来就是用Scala的实现：</p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">CarElement</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">accept</span></span>(visitor: <span class="type">Visitor</span>) = visitor(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">Body</span>(<span class="params"></span>) <span class="keyword">extends</span> <span class="title">CarElement</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">case</span> <span class="title">class</span> <span class="title">Engine</span>(<span class="params"></span>) <span class="keyword">extends</span> <span class="title">CarElement</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">case</span> <span class="title">class</span> <span class="title">Wheel</span>(<span class="params">name: <span class="type">String</span></span>) <span class="keyword">extends</span> <span class="title">CarElement</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">case</span> <span class="title">class</span> <span class="title">Car</span>(<span class="params"></span>) <span class="keyword">extends</span> <span class="title">CarElement</span> </span>&#123;</span><br><span class="line">  <span class="keyword">val</span> elements: <span class="type">Seq</span>[<span class="type">CarElement</span>] = <span class="type">Seq</span>(</span><br><span class="line">    <span class="type">Wheel</span>(<span class="string">"front left"</span>), <span class="type">Wheel</span>(<span class="string">"front right"</span>),</span><br><span class="line">    <span class="type">Wheel</span>(<span class="string">"back left"</span>), <span class="type">Wheel</span>(<span class="string">"back right"</span>),</span><br><span class="line">    <span class="type">Body</span>(), <span class="type">Engine</span>())</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">accept</span></span>(visitor: <span class="type">Visitor</span>) = &#123;</span><br><span class="line">    elements.foreach(_.accept(visitor))</span><br><span class="line">    visitor(<span class="keyword">this</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>以上是汽车各种部件的定义，和Java代码没有太大区别。</p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Visitors</span> </span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">type</span> <span class="title">Visitor</span> </span>= <span class="type">CarElement</span> =&gt; <span class="type">Unit</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> printVisitor: <span class="type">Visitor</span> = &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Wheel</span>(name) =&gt; println(<span class="string">s"Visiting <span class="subst">$name</span> wheel"</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Body</span>() =&gt; println(<span class="string">"Visiting Body"</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Engine</span>() =&gt; println(<span class="string">"Visiting Engine"</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Car</span>() =&gt; println(<span class="string">"Visiting Car"</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> doVisitor: <span class="type">Visitor</span> = &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Wheel</span>(name) =&gt; println(<span class="string">s"Kicking my <span class="subst">$name</span> wheel"</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Body</span>() =&gt; println(<span class="string">"Moving my body"</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Engine</span>() =&gt; println(<span class="string">"Starting my engine"</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Car</span>() =&gt; println(<span class="string">"Starting my car"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>上面这一段定义了一个叫做Visitor的type，它只是一个函数签名。任何接受一个汽车部件作为参数并且没有返回值的函数都符合它的签名，也就可以被视作Visitor。</p><p>接下来是两个符合Visitor签名的函数，都是用pattern match实现的。</p><p>pattern match这种神奇的语言特性是如何实现的呢？背后的原因并不神奇，更多详情请参考我之前的另一篇博客：<a href="http://cuipengfei.me/blog/2013/12/29/desugar-scala-8/">http://cuipengfei.me/blog/2013/12/29/desugar-scala-8/</a></p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">VisitorDemo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    <span class="keyword">val</span> car = <span class="type">Car</span>()</span><br><span class="line">    car.accept(printVisitor)</span><br><span class="line">    car.accept(doVisitor)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>最后定义一个main函数，与Java的main函数做的事情是等价的。</p><p>这样，100行变成了45行。Visitor不再作为臃肿的实体存在，而只是函数。</p><p>而且如果遵照同样的假设，认为车的部件是稳定的，而访问者是会增多的，那这段Scala代码的增长趋势是每加一个访问者就加一个函数。与Java代码的增长趋势相同。</p><h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>这次分析的访问者模式和之前的一些模式很类似，当我们需要的实体仅仅是作为承载某种行为的一个载具，那就可以考虑将实体消去，而换用函数这种更简单，更轻量级的抽象方式来实现我们想要的东西。</p><p>当年OO模式出现的时候，FP并不盛行，原作者提出的方案无可厚非。不过我们今天有了FP这种更趁手的工具，就可以考虑在合适的时候将其与OO结合使用来达到更好的设计的目的。</p>]]></content>
     
     <summary type="html">
     
@@ -484,16 +484,16 @@
     
     
     
-      <category term="Scala" scheme="https://cuipengfei.github.com/tags/Scala/"/>
+      <category term="Scala" scheme="https://cuipengfei.me/tags/Scala/"/>
     
-      <category term="OODP" scheme="https://cuipengfei.github.com/tags/OODP/"/>
+      <category term="OODP" scheme="https://cuipengfei.me/tags/OODP/"/>
     
   </entry>
   
   <entry>
     <title>观察者模式 in FP：Mutation vs Transformation</title>
-    <link href="https://cuipengfei.github.com/blog/2015/06/13/observers-pattern-fp/"/>
-    <id>https://cuipengfei.github.com/blog/2015/06/13/observers-pattern-fp/</id>
+    <link href="https://cuipengfei.me/blog/2015/06/13/observers-pattern-fp/"/>
+    <id>https://cuipengfei.me/blog/2015/06/13/observers-pattern-fp/</id>
     <published>2015-06-13T14:49:00.000Z</published>
     <updated>2019-12-07T13:18:10.869Z</updated>
     
@@ -513,16 +513,16 @@
     
     
     
-      <category term="Scala" scheme="https://cuipengfei.github.com/tags/Scala/"/>
+      <category term="Scala" scheme="https://cuipengfei.me/tags/Scala/"/>
     
-      <category term="OODP" scheme="https://cuipengfei.github.com/tags/OODP/"/>
+      <category term="OODP" scheme="https://cuipengfei.me/tags/OODP/"/>
     
   </entry>
   
   <entry>
     <title>解释器模式：OOP versus Functional Decomposition</title>
-    <link href="https://cuipengfei.github.com/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/"/>
-    <id>https://cuipengfei.github.com/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/</id>
+    <link href="https://cuipengfei.me/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/"/>
+    <id>https://cuipengfei.me/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/</id>
     <published>2015-06-05T07:34:00.000Z</published>
     <updated>2019-12-07T13:18:10.868Z</updated>
     
@@ -542,16 +542,16 @@
     
     
     
-      <category term="Scala" scheme="https://cuipengfei.github.com/tags/Scala/"/>
+      <category term="Scala" scheme="https://cuipengfei.me/tags/Scala/"/>
     
-      <category term="OODP" scheme="https://cuipengfei.github.com/tags/OODP/"/>
+      <category term="OODP" scheme="https://cuipengfei.me/tags/OODP/"/>
     
   </entry>
   
   <entry>
     <title>命令模式的不爽就像用指甲刀刮胡子</title>
-    <link href="https://cuipengfei.github.com/blog/2015/06/01/command-pattern-fp-implementation/"/>
-    <id>https://cuipengfei.github.com/blog/2015/06/01/command-pattern-fp-implementation/</id>
+    <link href="https://cuipengfei.me/blog/2015/06/01/command-pattern-fp-implementation/"/>
+    <id>https://cuipengfei.me/blog/2015/06/01/command-pattern-fp-implementation/</id>
     <published>2015-06-01T13:51:00.000Z</published>
     <updated>2019-12-07T13:18:10.868Z</updated>
     
@@ -577,9 +577,9 @@
     
     
     
-      <category term="Scala" scheme="https://cuipengfei.github.com/tags/Scala/"/>
+      <category term="Scala" scheme="https://cuipengfei.me/tags/Scala/"/>
     
-      <category term="OODP" scheme="https://cuipengfei.github.com/tags/OODP/"/>
+      <category term="OODP" scheme="https://cuipengfei.me/tags/OODP/"/>
     
   </entry>
   
