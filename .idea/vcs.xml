@@ -2,11 +2,12 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/.deploy_git" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/themes/next/source/lib/canvas-nest" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/themes/next/source/lib/canvas-ribbon" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/themes/next/source/lib/pace" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/themes/next/source/lib/pjax" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/themes/next/source/lib/three" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../.." vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../.deploy_git" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../themes/next/source/lib/canvas-nest" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../themes/next/source/lib/canvas-ribbon" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../themes/next/source/lib/pace" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../themes/next/source/lib/pjax" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../themes/next/source/lib/three" vcs="Git" />
   </component>
 </project>
