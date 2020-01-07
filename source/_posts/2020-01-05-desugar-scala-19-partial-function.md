@@ -39,7 +39,7 @@ pf的具体类型是 `PartialFunction[Option[Int], Int]` 所以传递给它一�
 
 逐个反编译出来看一下。
 
-```scala
+```java
 public final class PFBlog
 {
     public static int usePF(final PartialFunction<Option<Object>, Object> pf) {
@@ -52,7 +52,7 @@ public final class PFBlog
 
 接下来，那就看下PFBlog$吧：
 
-```scala
+```java
 public final class PFBlog$
 {
     public static final PFBlog$ MODULE$;
@@ -78,7 +78,7 @@ public final class PFBlog$
 
 接下来看下`PFBlog$$anonfun$1.class` :
 
-```scala
+```java
 public final class PFBlog$$anonfun$1 extends AbstractPartialFunction<Option<Object>, Object> implements Serializable {
     private static final long serialVersionUID = 0L;
     
