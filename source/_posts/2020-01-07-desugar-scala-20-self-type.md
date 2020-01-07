@@ -43,7 +43,7 @@ VerifiedTweeter是一个很普通的class，别人new它的时候给什么字符
 然后就可以调用tweet方法了。
 
 而如果没有mixin User，直接试图mixin Tweeter，就会出一个编译错误：
-```
+```stdout
 Illegal inheritance, self-type VerifiedTweeter with Tweeter does not conform to User
 ```
 
@@ -133,7 +133,7 @@ public final class SelfTypeBlog$$anon$1 extends VerifiedTweeter implements User,
 
 如同前面推测的一样，在bytecode level上，没有神奇的东西，self type这个语言特性是仰赖于Scala compiler来做到的。
 
-不过，既然全靠Scala compiler来做到的，那就意味着如果我用别的compiler的话，这个限定就无法在**编译时**生效了。
+不过，既然是全靠Scala compiler来做到的，那就意味着如果我用别的compiler的话，这个限定就无法在**编译时**生效了。
 
 来试一下：
 
@@ -154,7 +154,7 @@ new JNotUser().tweet("hello");
 会怎样呢？
 
 结果是执行的时候出现一个类型转换异常：
-```
+```stdout
 Exception in thread "main" java.lang.ClassCastException: class TraitSelfTypeBlog.JNotUser cannot be cast to class TraitSelfTypeBlog.User
 ```
 
