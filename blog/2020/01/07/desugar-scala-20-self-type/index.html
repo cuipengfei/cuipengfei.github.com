@@ -47,21 +47,21 @@
   };
 </script>
 
-  <meta name="description" content="apply method是一个很简单的语言特性。如果一个class或者是object有一个主要的方法，那么与其每次显式的调用这个主要的方法，还不如隐式调用。举个例子： 123456class Kettle &amp;#123;  def boil(water: Water) &#x3D; &amp;#123;    water.isWarm &#x3D; true    water  &amp;#125;&amp;#125;  一个水壶的主要作用就">
+  <meta name="description" content="Scala里有一个很有趣的语言特性叫做Self Type，可以用来限定一个trait可以被mixin到哪里去。 看个例子： 12345678910111213141516171819trait User &amp;#123;  def username: String&amp;#125;trait Tweeter &amp;#123;  self: User &#x3D;&gt;  def tweet(tweetText: Str">
 <meta property="og:type" content="article">
-<meta property="og:title" content="剥掉Scala的糖衣(7) -- apply method">
-<meta property="og:url" content="https://cuipengfei.me/blog/2013/12/29/desugar-scala-7/index.html">
+<meta property="og:title" content="Desugar Scala 20 -- Self Type">
+<meta property="og:url" content="https://cuipengfei.me/blog/2020/01/07/desugar-scala-20-self-type/index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="apply method是一个很简单的语言特性。如果一个class或者是object有一个主要的方法，那么与其每次显式的调用这个主要的方法，还不如隐式调用。举个例子： 123456class Kettle &amp;#123;  def boil(water: Water) &#x3D; &amp;#123;    water.isWarm &#x3D; true    water  &amp;#125;&amp;#125;  一个水壶的主要作用就">
+<meta property="og:description" content="Scala里有一个很有趣的语言特性叫做Self Type，可以用来限定一个trait可以被mixin到哪里去。 看个例子： 12345678910111213141516171819trait User &amp;#123;  def username: String&amp;#125;trait Tweeter &amp;#123;  self: User &#x3D;&gt;  def tweet(tweetText: Str">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2013-12-29T11:20:00.000Z">
-<meta property="article:modified_time" content="2019-12-07T13:18:10.861Z">
+<meta property="article:published_time" content="2020-01-07T10:57:20.000Z">
+<meta property="article:modified_time" content="2020-01-08T09:32:50.759Z">
 <meta property="article:author" content="崔鹏飞">
 <meta property="article:tag" content="Desugar_Scala">
 <meta property="article:tag" content="Scala">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://cuipengfei.me/blog/2013/12/29/desugar-scala-7/">
+<link rel="canonical" href="https://cuipengfei.me/blog/2020/01/07/desugar-scala-20-self-type/">
 
 
 <script id="page-configurations">
@@ -75,7 +75,7 @@
   };
 </script>
 
-  <title>剥掉Scala的糖衣(7) -- apply method</title>
+  <title>Desugar Scala 20 -- Self Type</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
     <script pjax>
@@ -218,7 +218,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2013/12/29/desugar-scala-7/">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2020/01/07/desugar-scala-20-self-type/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -231,7 +231,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          剥掉Scala的糖衣(7) -- apply method
+          Desugar Scala 20 -- Self Type
         </h2>
 
         <div class="post-meta">
@@ -241,7 +241,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2013-12-29 19:20:00" itemprop="dateCreated datePublished" datetime="2013-12-29T19:20:00+08:00">2013-12-29</time>
+              <time title="创建时间：2020-01-07 18:57:20" itemprop="dateCreated datePublished" datetime="2020-01-07T18:57:20+08:00">2020-01-07</time>
             </span>
 
           
@@ -253,8 +253,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/2013/12/29/desugar-scala-7/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2013/12/29/desugar-scala-7/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/2020/01/07/desugar-scala-20-self-type/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2020/01/07/desugar-scala-20-self-type/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -264,14 +264,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
+              <span>3.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -283,40 +283,47 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>apply method是一个很简单的语言特性。如果一个class或者是object有一个主要的方法，那么与其每次显式的调用这个主要的方法，还不如隐式调用。举个例子：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Kettle</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">boil</span></span>(water: <span class="type">Water</span>) = &#123;</span><br><span class="line">    water.isWarm = <span class="literal">true</span></span><br><span class="line">    water</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>Scala里有一个很有趣的语言特性叫做Self Type，可以用来限定一个trait可以被mixin到哪里去。</p>
+<p>看个例子：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">username</span></span>: <span class="type">String</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">Tweeter</span> </span>&#123;</span><br><span class="line">  self: <span class="type">User</span> =&gt;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">tweet</span></span>(tweetText: <span class="type">String</span>) = println(<span class="string">s"<span class="subst">$username</span>: <span class="subst">$tweetText</span>"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">VerifiedTweeter</span>(<span class="params">val username_ : <span class="type">String</span></span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">username</span> </span>= <span class="string">s"real <span class="subst">$username_</span>"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">SelfTypeBlog</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> realBeyoncé = <span class="keyword">new</span> <span class="type">VerifiedTweeter</span>(<span class="string">"Beyoncé"</span>) <span class="keyword">with</span> <span class="type">User</span> <span class="keyword">with</span> <span class="type">Tweeter</span></span><br><span class="line">    realBeyoncé.tweet(<span class="string">"Just spilled my glass of lemonade"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>一个水壶的主要作用就是烧开水，于是我们每次都要调用boil方法来烧开水:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> kettle: <span class="type">Kettle</span> = <span class="keyword">new</span> <span class="type">Kettle</span>()</span><br><span class="line">kettle.boil(<span class="keyword">new</span> <span class="type">Water</span>())</span><br></pre></td></tr></table></figure>
+<p>User就仅仅相当于一个Interface，定义一个username。</p>
+<p>Tweeter内的第一行是重点 <code>self: User =&gt;</code> 就限定了Tweeter只能被mixin到实现了User的类里面去。<br>由于可以确定Tweeter只能被mixin到实现了User的类里面去，这样Tweeter的tweet方法内就可以放心大胆地用 <code>username</code> 了。</p>
+<p>VerifiedTweeter是一个很普通的class，别人new它的时候给什么字符串，它的username就是啥。</p>
+<p>最后，在main函数里new一个VerifiedTweeter，把User和Tweeter都mixin进去。<br>然后就可以调用tweet方法了。</p>
+<p>而如果没有mixin User，直接试图mixin Tweeter，就会出一个编译错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Illegal inheritance, self-type VerifiedTweeter with Tweeter does not conform to User</span><br></pre></td></tr></table></figure>
 
-<p>如果要把它改写成apply method的方式，只需要给boil改个名字就好了：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Kettle</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">apply</span></span>(water: <span class="type">Water</span>) = &#123;</span><br><span class="line">    water.isWarm = <span class="literal">true</span></span><br><span class="line">    water</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>到这里，其实就可以猜到了：<br>由于Self Type是在编译时限定一个trait可以被mixin到哪里去的，并且我们知道在bytecode level上没有限定一个Interface可以被谁实现的机制。<br>由此可知，反编译这段Scala对应的class文件是看不到任何神奇的东西的。</p>
+<p>不过，<strong>很久之前</strong>写过“Scala中的语言特性是如何实现的(3) – trait”：<br><a href="https://cuipengfei.me/blog/2013/10/13/scala-trait/">https://cuipengfei.me/blog/2013/10/13/scala-trait/</a></p>
+<p>其中对于Scala如何编译trait做了逆向工程的分析，当时的trait是编译成了一个抽象类加一个接口。这个信息已经过时了。<br>现在更新版的Scala可以编译出bytecode version 52，这一版是有interface default method的。</p>
+<p>所以，还是反编译一下吧。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">User</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function">String <span class="title">username</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Tweeter</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">default</span> <span class="comment">/* synthetic */</span> <span class="keyword">void</span> tweet$(<span class="keyword">final</span> Tweeter $<span class="keyword">this</span>, <span class="keyword">final</span> String tweetText) &#123;</span><br><span class="line">        $<span class="keyword">this</span>.tweet(tweetText);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">tweet</span><span class="params">(<span class="keyword">final</span> String tweetText)</span> </span>&#123;</span><br><span class="line">        Predef$.MODULE$.println((Object)<span class="keyword">new</span> StringBuilder(<span class="number">2</span>).append(((User)<span class="keyword">this</span>).username()).append(<span class="string">": "</span>).append(tweetText).toString());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">default</span> <span class="keyword">void</span> $init$(<span class="keyword">final</span> Tweeter $<span class="keyword">this</span>) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VerifiedTweeter</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String username_;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">username_</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.username_;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">username</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> StringBuilder(<span class="number">5</span>).append(<span class="string">"real "</span>).append(<span class="keyword">this</span>.username_()).toString();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">VerifiedTweeter</span><span class="params">(<span class="keyword">final</span> String username_)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.username_ = username_;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>然后需要烧开水时，就只需把水倒进壶里就好了：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> kettle: <span class="type">Kettle</span> = <span class="keyword">new</span> <span class="type">Kettle</span>()</span><br><span class="line">kettle(<span class="keyword">new</span> <span class="type">Water</span>())</span><br></pre></td></tr></table></figure>
+<p>上面是User Tweeter VerifiedTweeter他们三个的反编译结果，都比较单纯。<br>只是Tweeter这个含有一个实现方法的trait被编译成了有default method的Interface，而不像老版本的Scala要编译成一个抽象类加一个Interface。</p>
+<p>然后看一下main函数反编译出来的样子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(<span class="keyword">final</span> String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> VerifiedTweeter realBeyonc\u00e9 = (VerifiedTweeter)<span class="keyword">new</span> SelfTypeBlog$$anon.SelfTypeBlog$$anon$<span class="number">1</span>();</span><br><span class="line">    ((Tweeter)realBeyonc\u00e9).tweet(<span class="string">"Just spilled my glass of lemonade"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这个语言特性的实现很简单，不用说也可以猜到，无非就是把kettle(water)编译成kettle.apply(water)。反编译一下，Kettle class的定义毫无出奇之处：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Kettle</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> Water <span class="title">apply</span><span class="params">(Water water)</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    water.isWarm_$eq(<span class="keyword">true</span>);</span><br><span class="line">    <span class="keyword">return</span> water;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到这里new的是一个叫做SelfTypeBlog$$anon$1的类。这个类反编译出来是这样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">SelfTypeBlog</span>$$<span class="title">anon</span>$1 <span class="keyword">extends</span> <span class="title">VerifiedTweeter</span> <span class="keyword">implements</span> <span class="title">User</span>, <span class="title">Tweeter</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">tweet</span><span class="params">(<span class="keyword">final</span> String tweetText)</span> </span>&#123;</span><br><span class="line">        Tweeter.tweet$((Tweeter)<span class="keyword">this</span>, tweetText);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> SelfTypeBlog$$anon$<span class="number">1</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>(<span class="string">"Beyonc\u00e9"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    &#123;</span><br><span class="line">        Tweeter.$init$((Tweeter)<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>烧水的代码被编译成了这样：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Kettle kettle = <span class="keyword">new</span> Kettle();</span><br><span class="line">kettle.apply(<span class="keyword">new</span> Water());</span><br></pre></td></tr></table></figure>
+<p>它继承了VerifiedTweeter，实现了User和Tweeter。<br>由此可见Scala中在对象创建时才with trait的写法，Scala编译器会产出一个类来表达。</p>
+<p>如同前面推测的一样，在bytecode level上，没有神奇的东西，self type这个语言特性是仰赖于Scala compiler来做到的。</p>
+<p>不过，既然是全靠Scala compiler来做到的，那就意味着如果我用别的compiler的话，这个限定就无法在<strong>编译时</strong>生效了。</p>
+<p>来试一下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JNotUser</span> <span class="keyword">implements</span> <span class="title">Tweeter</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">abc</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"abc"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>我们刚开始说过apply method也可以用在object里。下面举个例子，我们把Kettle烧水的能力移到它的companion object里面去：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Kettle</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">apply</span></span>(water: <span class="type">Water</span>) = &#123;</span><br><span class="line">    water.isWarm = <span class="literal">true</span></span><br><span class="line">    water</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段Java代码编译起来完全没问题，没人强迫我去实现User，毕竟Tweeter对于Java来说就是个普通的Interface嘛。</p>
+<p>然后跑一下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> JNotUser().tweet(<span class="string">"hello"</span>);</span><br></pre></td></tr></table></figure>
+<p>会怎样呢？</p>
+<p>结果是执行的时候出现一个类型转换异常：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.ClassCastException: class TraitSelfTypeBlog.JNotUser cannot be cast to class TraitSelfTypeBlog.User</span><br></pre></td></tr></table></figure>
 
-<p>然后烧水的时候就可以这样调用：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Kettle</span>(<span class="keyword">new</span> <span class="type">Water</span>())</span><br></pre></td></tr></table></figure>
-
-<p>反编译出来的结果大同小异，就不再赘述了，唯一的区别就是apply变成了静态方法。</p>
-<p>上面这个水壶烧水的例子并不是最佳实践的作法。apply method的一个最佳实践是用来做工厂。比如Scala标准库中的List就提供了apply方法来给我们创建List：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">List</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="type">List</span>(<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>)</span><br></pre></td></tr></table></figure>
-
-<p>或者是Map也有类似的用法：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Map</span>(<span class="number">1</span> -&gt; <span class="string">"a"</span>, <span class="number">2</span> -&gt; <span class="string">"b"</span>, <span class="number">3</span> -&gt; <span class="string">"c"</span>)</span><br></pre></td></tr></table></figure>
-
-<p>以上的两段代码并不是在调用List和Map的constructor，而是在调用List和Map的companion objects的apply方法。</p>
-<p>Map的创建可以用apply method，而Map最常用的一个方法就是通过key来取得value，这个也有apply method来做：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> map = <span class="type">Map</span>(<span class="number">1</span> -&gt; <span class="string">"a"</span>, <span class="number">2</span> -&gt; <span class="string">"b"</span>, <span class="number">3</span> -&gt; <span class="string">"c"</span>)</span><br><span class="line">map(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>为啥会这样呢？仔细看下上面Tweeter反编译的结果中tweet方法的内容：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">tweet</span><span class="params">(<span class="keyword">final</span> String tweetText)</span> </span>&#123;</span><br><span class="line">    Predef$.MODULE$.println((Object)<span class="keyword">new</span> StringBuilder(<span class="number">2</span>).append(((User)<span class="keyword">this</span>).username()).append(<span class="string">": "</span>).append(tweetText).toString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关键就在这个 <code>(User)this</code> 了。</p>
+<p>虽然编译时限制不住，运行时终归逃不过。</p>
 
     </div>
 
@@ -343,6 +350,9 @@
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/12/25/desugar-scala-6/" rel="bookmark">褪去Scala的糖衣(6) -- partial application</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-7/" rel="bookmark">剥掉Scala的糖衣(7) -- apply method</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2013/12/29/desugar-scala-8/" rel="bookmark">揭开Scala的糖衣(8) -- pattern matching</a></div>
@@ -376,9 +386,6 @@
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2017/06/14/desugar-scala-stackable-traits/" rel="bookmark">Desugar Scala(18) -- stackable traits</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2020/01/07/desugar-scala-20-self-type/" rel="bookmark">Desugar Scala 20 -- Self Type</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2020/01/05/desugar-scala-19-partial-function/" rel="bookmark">Desugar Scala(19) -- Partial Function</a></div>
@@ -445,7 +452,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://cuipengfei.me/blog/2013/12/29/desugar-scala-7/" title="剥掉Scala的糖衣(7) -- apply method">https://cuipengfei.me/blog/2013/12/29/desugar-scala-7/</a>
+    <a href="https://cuipengfei.me/blog/2020/01/07/desugar-scala-20-self-type/" title="Desugar Scala 20 -- Self Type">https://cuipengfei.me/blog/2020/01/07/desugar-scala-20-self-type/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -467,13 +474,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/blog/2013/12/25/desugar-scala-6/" rel="prev" title="褪去Scala的糖衣(6) -- partial application">
-      <i class="fa fa-chevron-left"></i> 褪去Scala的糖衣(6) -- partial application
+    <a href="/blog/2020/01/05/desugar-scala-19-partial-function/" rel="prev" title="Desugar Scala(19) -- Partial Function">
+      <i class="fa fa-chevron-left"></i> Desugar Scala(19) -- Partial Function
     </a></div>
-      <div class="post-nav-item">
-    <a href="/blog/2013/12/29/desugar-scala-8/" rel="next" title="揭开Scala的糖衣(8) -- pattern matching">
-      揭开Scala的糖衣(8) -- pattern matching <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -751,9 +755,9 @@ window.addEventListener('pjax:success', () => {
       DISQUS.reset({
         reload: true,
         config: {page: {
-            url: "https://cuipengfei.me/blog/2013/12/29/desugar-scala-7/",
-            identifier: "blog/2013/12/29/desugar-scala-7/",
-            title: "剥掉Scala的糖衣(7) -- apply method"
+            url: "https://cuipengfei.me/blog/2020/01/07/desugar-scala-20-self-type/",
+            identifier: "blog/2020/01/07/desugar-scala-20-self-type/",
+            title: "Desugar Scala 20 -- Self Type"
           }
         }
       });
