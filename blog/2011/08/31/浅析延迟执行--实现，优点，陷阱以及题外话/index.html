@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.1.1">
+<meta name="generator" content="Hexo 4.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -50,7 +50,7 @@
   <meta name="description" content="上周五在公司内部做了一个小型的sharing，讨论了一些与延迟执行有关的东西。现在把ppt和代码分享出来。如有谬误，请不吝指教 :) 代码在这儿： http:&#x2F;&#x2F;codeformyblog.codeplex.com&#x2F;SourceControl&#x2F;changeset&#x2F;view&#x2F;62764#1095173  ppt在这儿：  Deferred execution  View more  presenta">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅析延迟执行--实现，优点，陷阱以及题外话">
-<meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.me&#x2F;blog&#x2F;2011&#x2F;08&#x2F;31&#x2F;%E6%B5%85%E6%9E%90%E5%BB%B6%E8%BF%9F%E6%89%A7%E8%A1%8C--%E5%AE%9E%E7%8E%B0%EF%BC%8C%E4%BC%98%E7%82%B9%EF%BC%8C%E9%99%B7%E9%98%B1%E4%BB%A5%E5%8F%8A%E9%A2%98%E5%A4%96%E8%AF%9D&#x2F;index.html">
+<meta property="og:url" content="https://cuipengfei.me/blog/2011/08/31/%E6%B5%85%E6%9E%90%E5%BB%B6%E8%BF%9F%E6%89%A7%E8%A1%8C--%E5%AE%9E%E7%8E%B0%EF%BC%8C%E4%BC%98%E7%82%B9%EF%BC%8C%E9%99%B7%E9%98%B1%E4%BB%A5%E5%8F%8A%E9%A2%98%E5%A4%96%E8%AF%9D/index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="上周五在公司内部做了一个小型的sharing，讨论了一些与延迟执行有关的东西。现在把ppt和代码分享出来。如有谬误，请不吝指教 :) 代码在这儿： http:&#x2F;&#x2F;codeformyblog.codeplex.com&#x2F;SourceControl&#x2F;changeset&#x2F;view&#x2F;62764#1095173  ppt在这儿：  Deferred execution  View more  presenta">
 <meta property="og:locale" content="zh_CN">
@@ -388,14 +388,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">159</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -438,7 +438,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -448,15 +448,15 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">310k</span>
+    <span title="站点总字数">319k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:42</span>
+    <span title="站点阅读时长">4:50</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0

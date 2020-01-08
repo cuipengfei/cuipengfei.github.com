@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.1.1">
+<meta name="generator" content="Hexo 4.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -50,18 +50,18 @@
   <meta name="description" content="背景Wifi，4G，3G，这些我们习以为常的东西，未必对所有人来说都是随时可用的。 以我当前所在项目为例，应用场景是某欠发达地区医疗服务机构的药品库存管理。 所谓欠发达，具体怎样呢？  没有台式电脑 没有笔记本 只能使用低端的安卓平板 4G，3G信号不要想 我们去过现场的一位同事甚至要爬到树上去，才能勉强收到2G信号 即便是2G信号，也是时断时续，非常不稳定  因此，需要随时保持连通的BS结构基本">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用CouchBase为弱网环境构建云同步Android应用">
-<meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.me&#x2F;blog&#x2F;2016&#x2F;03&#x2F;10&#x2F;couchbase-android-sync&#x2F;index.html">
+<meta property="og:url" content="https://cuipengfei.me/blog/2016/03/10/couchbase-android-sync/index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="背景Wifi，4G，3G，这些我们习以为常的东西，未必对所有人来说都是随时可用的。 以我当前所在项目为例，应用场景是某欠发达地区医疗服务机构的药品库存管理。 所谓欠发达，具体怎样呢？  没有台式电脑 没有笔记本 只能使用低端的安卓平板 4G，3G信号不要想 我们去过现场的一位同事甚至要爬到树上去，才能勉强收到2G信号 即便是2G信号，也是时断时续，非常不稳定  因此，需要随时保持连通的BS结构基本">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http:&#x2F;&#x2F;img2.cache.netease.com&#x2F;cnews&#x2F;2009&#x2F;2&#x2F;2&#x2F;20090202093425b68f3.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;camo.githubusercontent.com&#x2F;c1aa705fde3eb12245c06730d850c23e5a84ad8d&#x2F;687474703a2f2f746c657964656e2d6d6973632e73332e616d617a6f6e6177732e636f6d2f636f756368626173652d6c6974652f636f756368626173652d6c6974652d6172636869746563747572652e706e67">
+<meta property="og:image" content="http://img2.cache.netease.com/cnews/2009/2/2/20090202093425b68f3.jpg">
+<meta property="og:image" content="https://camo.githubusercontent.com/c1aa705fde3eb12245c06730d850c23e5a84ad8d/687474703a2f2f746c657964656e2d6d6973632e73332e616d617a6f6e6177732e636f6d2f636f756368626173652d6c6974652f636f756368626173652d6c6974652d6172636869746563747572652e706e67">
 <meta property="article:published_time" content="2016-03-10T02:26:00.000Z">
 <meta property="article:modified_time" content="2019-12-11T08:22:03.982Z">
 <meta property="article:author" content="崔鹏飞">
 <meta property="article:tag" content="Android">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;img2.cache.netease.com&#x2F;cnews&#x2F;2009&#x2F;2&#x2F;2&#x2F;20090202093425b68f3.jpg">
+<meta name="twitter:image" content="http://img2.cache.netease.com/cnews/2009/2/2/20090202093425b68f3.jpg">
 
 <link rel="canonical" href="https://cuipengfei.me/blog/2016/03/10/couchbase-android-sync/">
 
@@ -455,14 +455,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">159</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -505,7 +505,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -515,15 +515,15 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">310k</span>
+    <span title="站点总字数">319k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:42</span>
+    <span title="站点阅读时长">4:50</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0

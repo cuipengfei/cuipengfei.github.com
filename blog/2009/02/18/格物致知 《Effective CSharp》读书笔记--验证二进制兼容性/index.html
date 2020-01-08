@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.1.1">
+<meta name="generator" content="Hexo 4.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -50,18 +50,18 @@
   <meta name="description" content="昨天读了《Effective C#》的第一个条款“使用属性代替可访问的数据成员”，讲到要把公有字段修改为私有字段，并用公有属性把它封装起来。这一点不难理解，不过里面提到了一个关于二进制兼容性的问题，很是有趣，今天来验证一下。 验证思路：创建一个类库内有一个public的类，该类内有一个public的字段。另外创建一个WinForm程序去读区该字段并显示。然后修改类库中的字段为属性。再去运行WinF">
 <meta property="og:type" content="article">
 <meta property="og:title" content="格物致知 《Effective C#》读书笔记--验证二进制兼容性">
-<meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.me&#x2F;blog&#x2F;2009&#x2F;02&#x2F;18&#x2F;%E6%A0%BC%E7%89%A9%E8%87%B4%E7%9F%A5%20%E3%80%8AEffective%20CSharp%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E9%AA%8C%E8%AF%81%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%85%BC%E5%AE%B9%E6%80%A7&#x2F;index.html">
+<meta property="og:url" content="https://cuipengfei.me/blog/2009/02/18/%E6%A0%BC%E7%89%A9%E8%87%B4%E7%9F%A5%20%E3%80%8AEffective%20CSharp%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E9%AA%8C%E8%AF%81%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%85%BC%E5%AE%B9%E6%80%A7/index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="昨天读了《Effective C#》的第一个条款“使用属性代替可访问的数据成员”，讲到要把公有字段修改为私有字段，并用公有属性把它封装起来。这一点不难理解，不过里面提到了一个关于二进制兼容性的问题，很是有趣，今天来验证一下。 验证思路：创建一个类库内有一个public的类，该类内有一个public的字段。另外创建一个WinForm程序去读区该字段并显示。然后修改类库中的字段为属性。再去运行WinF">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;cuipengfei.me&#x2F;images&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20090218&#x2F;2009-02-18_13-07-45.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;cuipengfei.me&#x2F;images&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20090218&#x2F;2009-02-18_13-11-29.jpg">
+<meta property="og:image" content="https://cuipengfei.me/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090218/2009-02-18_13-07-45.jpg">
+<meta property="og:image" content="https://cuipengfei.me/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090218/2009-02-18_13-11-29.jpg">
 <meta property="article:published_time" content="2009-02-18T05:27:00.000Z">
 <meta property="article:modified_time" content="2019-12-13T02:57:42.073Z">
 <meta property="article:author" content="崔鹏飞">
 <meta property="article:tag" content="格物致知 《Effective C#》读书笔记">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;cuipengfei.me&#x2F;images&#x2F;images&#x2F;p_blog_csdn_net&#x2F;cuipengfei1&#x2F;EntryImages&#x2F;20090218&#x2F;2009-02-18_13-07-45.jpg">
+<meta name="twitter:image" content="https://cuipengfei.me/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090218/2009-02-18_13-07-45.jpg">
 
 <link rel="canonical" href="https://cuipengfei.me/blog/2009/02/18/%E6%A0%BC%E7%89%A9%E8%87%B4%E7%9F%A5%20%E3%80%8AEffective%20CSharp%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E9%AA%8C%E8%AF%81%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%85%BC%E5%AE%B9%E6%80%A7/">
 
@@ -324,13 +324,13 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/blog/2009/05/31/格物致知 《Effective CSharp》读书笔记--验证类型转换/" rel="bookmark">格物致知 《Effective C#》读书笔记--验证类型转换</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/07/19/格物致知--《Effective CSharp》读书笔记--验证四种判等方式/" rel="bookmark">格物致知--《Effective C#》读书笔记--验证四种判等方式</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/blog/2009/07/29/格物致知--Effective C Sharp读书笔记--验证接口引用指向装箱后的值类型时无需拆箱/" rel="bookmark">格物致知--《Effective C#》读书笔记--验证接口引用指向装箱后的值类型时无需拆箱</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/05/31/格物致知 《Effective CSharp》读书笔记--验证类型转换/" rel="bookmark">格物致知 《Effective C#》读书笔记--验证类型转换</a></div>
     </li>
   </ul>
 
@@ -428,14 +428,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">159</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -478,7 +478,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -488,15 +488,15 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">310k</span>
+    <span title="站点总字数">319k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:42</span>
+    <span title="站点阅读时长">4:50</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.1.1">
+<meta name="generator" content="Hexo 4.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -50,20 +50,20 @@
   <meta name="description" content="随着持续集成，持续交付等理念的传播，很多软件开发团队都搭建了自己的staging、UAT等类生产环境。这些环境的软硬件及网络配置会尽量贴近真实的生产环境，起到沙盘演练的作用。 类生产环境毕竟前面还有一个类字，沙盘毕竟不是真实的战场，尽量贴近毕竟还不是完全吻合。 类生产环境与真实生产环境的一个重要差异就是访问量。稍具规模的互联网应用每天几百万访问量是很正常的，而类生产环境的访问量一般都会相形见绌。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="让你的系统在上线之前就接受炮火的洗礼-影子流量">
-<meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.me&#x2F;blog&#x2F;2018&#x2F;11&#x2F;22&#x2F;shadow-traffic&#x2F;index.html">
+<meta property="og:url" content="https://cuipengfei.me/blog/2018/11/22/shadow-traffic/index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="随着持续集成，持续交付等理念的传播，很多软件开发团队都搭建了自己的staging、UAT等类生产环境。这些环境的软硬件及网络配置会尽量贴近真实的生产环境，起到沙盘演练的作用。 类生产环境毕竟前面还有一个类字，沙盘毕竟不是真实的战场，尽量贴近毕竟还不是完全吻合。 类生产环境与真实生产环境的一个重要差异就是访问量。稍具规模的互联网应用每天几百万访问量是很正常的，而类生产环境的访问量一般都会相形见绌。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;pic1.zhimg.com&#x2F;v2-49cb80cd0d2e1b2d6731d9e459e1fab0_b.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;pic1.zhimg.com&#x2F;80&#x2F;v2-49cb80cd0d2e1b2d6731d9e459e1fab0_hd.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;pic4.zhimg.com&#x2F;v2-b5c81fcbbacd543e508e161578f892eb_b.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;pic4.zhimg.com&#x2F;80&#x2F;v2-b5c81fcbbacd543e508e161578f892eb_hd.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/v2-49cb80cd0d2e1b2d6731d9e459e1fab0_b.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-49cb80cd0d2e1b2d6731d9e459e1fab0_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-b5c81fcbbacd543e508e161578f892eb_b.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-b5c81fcbbacd543e508e161578f892eb_hd.jpg">
 <meta property="article:published_time" content="2018-11-22T02:03:00.000Z">
 <meta property="article:modified_time" content="2019-12-12T06:43:15.186Z">
 <meta property="article:author" content="崔鹏飞">
 <meta property="article:tag" content="shadow traffic">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;pic1.zhimg.com&#x2F;v2-49cb80cd0d2e1b2d6731d9e459e1fab0_b.jpg">
+<meta name="twitter:image" content="https://pic1.zhimg.com/v2-49cb80cd0d2e1b2d6731d9e459e1fab0_b.jpg">
 
 <link rel="canonical" href="https://cuipengfei.me/blog/2018/11/22/shadow-traffic/">
 
@@ -438,14 +438,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">159</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -488,7 +488,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -498,15 +498,15 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">310k</span>
+    <span title="站点总字数">319k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:42</span>
+    <span title="站点阅读时长">4:50</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.1.1">
+<meta name="generator" content="Hexo 4.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -50,7 +50,7 @@
   <meta name="description" content="原地址在我的CSDNBlog：http:&#x2F;&#x2F;blog.csdn.net&#x2F;cuipengfei1&#x2F;archive&#x2F;2009&#x2F;07&#x2F;19&#x2F;4362245.aspx ①  Object  的静态方法  ReferenceEquals  ： 只适用于判断两个引用是否指向同一个实例，不适用于值类型（或者说用于值类型是没意义的，因为永远返回  false  ）。如下： 12345TestEqual  te &#x3D;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="格物致知--《Effective C#》读书笔记--验证四种判等方式">
-<meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.me&#x2F;blog&#x2F;2009&#x2F;07&#x2F;19&#x2F;%E6%A0%BC%E7%89%A9%E8%87%B4%E7%9F%A5--%E3%80%8AEffective%20CSharp%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E9%AA%8C%E8%AF%81%E5%9B%9B%E7%A7%8D%E5%88%A4%E7%AD%89%E6%96%B9%E5%BC%8F&#x2F;index.html">
+<meta property="og:url" content="https://cuipengfei.me/blog/2009/07/19/%E6%A0%BC%E7%89%A9%E8%87%B4%E7%9F%A5--%E3%80%8AEffective%20CSharp%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E9%AA%8C%E8%AF%81%E5%9B%9B%E7%A7%8D%E5%88%A4%E7%AD%89%E6%96%B9%E5%BC%8F/index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="原地址在我的CSDNBlog：http:&#x2F;&#x2F;blog.csdn.net&#x2F;cuipengfei1&#x2F;archive&#x2F;2009&#x2F;07&#x2F;19&#x2F;4362245.aspx ①  Object  的静态方法  ReferenceEquals  ： 只适用于判断两个引用是否指向同一个实例，不适用于值类型（或者说用于值类型是没意义的，因为永远返回  false  ）。如下： 12345TestEqual  te &#x3D;">
 <meta property="og:locale" content="zh_CN">
@@ -315,10 +315,10 @@
       <div class="popular-posts-title"><a href="/blog/2009/02/18/格物致知 《Effective CSharp》读书笔记--验证二进制兼容性/" rel="bookmark">格物致知 《Effective C#》读书笔记--验证二进制兼容性</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/07/29/格物致知--Effective C Sharp读书笔记--验证接口引用指向装箱后的值类型时无需拆箱/" rel="bookmark">格物致知--《Effective C#》读书笔记--验证接口引用指向装箱后的值类型时无需拆箱</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/05/31/格物致知 《Effective CSharp》读书笔记--验证类型转换/" rel="bookmark">格物致知 《Effective C#》读书笔记--验证类型转换</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/blog/2009/05/31/格物致知 《Effective CSharp》读书笔记--验证类型转换/" rel="bookmark">格物致知 《Effective C#》读书笔记--验证类型转换</a></div>
+      <div class="popular-posts-title"><a href="/blog/2009/07/29/格物致知--Effective C Sharp读书笔记--验证接口引用指向装箱后的值类型时无需拆箱/" rel="bookmark">格物致知--《Effective C#》读书笔记--验证接口引用指向装箱后的值类型时无需拆箱</a></div>
     </li>
   </ul>
 
@@ -416,14 +416,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">159</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -466,7 +466,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -476,15 +476,15 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">310k</span>
+    <span title="站点总字数">319k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:42</span>
+    <span title="站点阅读时长">4:50</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0

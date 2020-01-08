@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.1.1">
+<meta name="generator" content="Hexo 4.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -49,7 +49,7 @@
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="崔鹏飞的Blog">
-<meta property="og:url" content="https:&#x2F;&#x2F;cuipengfei.me&#x2F;page&#x2F;4&#x2F;index.html">
+<meta property="og:url" content="https://cuipengfei.me/page/4/index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="崔鹏飞">
@@ -208,6 +208,205 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2011/08/19/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%201%20-%20%E5%BC%95%E8%A8%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2011/08/19/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%201%20-%20%E5%BC%95%E8%A8%80/" class="post-title-link" itemprop="url">自己动手重新实现LINQ to Objects 1 - 引言</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2011-08-19 02:03:08" itemprop="dateCreated datePublished" datetime="2011-08-19T02:03:08+08:00">2011-08-19</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2011/08/19/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%201%20-%20%E5%BC%95%E8%A8%80/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2011/08/19/自己动手重新实现LINQ to Objects: 1 - 引言/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本文翻译自 <a href="http://stackoverflow.com/users/22656/jon-skeet" target="_blank" rel="noopener"> Jon Skeet </a><br>的系列博文“Edulinq”。</p>
+<p>本篇原文地址： <a href="http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-to-objects-part-1-introduction.aspx" target="_blank" rel="noopener"> http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-to-objects-part-1-introduction.aspx</a></p>
+<p>大约一年半之前，我在 <a href="http://developerdeveloperdeveloper.com/" target="_blank" rel="noopener"> DDD </a><br>的活动日上做了一次演讲。我当时试图去重新实现LINQ to<br>Objects，在一小时内能实现多少算多少。根据会后的反馈信息来看，我当时做得太快了…而且我还是远远没有实现完整。不过无论如何我还是觉得重新实现LINQ<br>to Objects是一个很有趣的练习，所以我觉得我应该用且行且博、不徐不疾方式来再做一遍。</p>
+<p>这一系列的博文都会标上 <a href="http://msmvps.com/blogs/jon_skeet/archive/tags/Edulinq/default.aspx" target="_blank" rel="noopener"> “Edulinq”的标签</a><br>，你可以用这种方式过滤出这一系列博文。</p>
+<h1 id="总体思路"><a href="#总体思路" class="headerlink" title="总体思路"></a>总体思路</h1><p>我的计划是要完整的重新实现LINQ to Objects，用每篇博客来解释一个方法（或者是一组方法）。我将会尽力把代码写的达到生产质量，但是我不会写任何XML文档注释 -<br>既然我已经在写博客来解释了，那我就不想在代码中再重复一次了。我将在适当的情况下做一些优化，但愿会 <a href="http://msmvps.com/blogs/jon_skeet/archive/2010/02/10/optimisations-in-linq-to-objects.aspx" target="_blank" rel="noopener"> 比LINQ to Objects本身的实现做得更好</a> 。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2011/08/19/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%201%20-%20%E5%BC%95%E8%A8%80/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2011/07/06/WP7%20Tip:%20%E7%A6%81%E7%94%A8Pivot%E6%8E%A7%E4%BB%B6%E7%9A%84%E5%88%87%E6%8D%A2%E6%89%8B%E5%8A%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2011/07/06/WP7%20Tip:%20%E7%A6%81%E7%94%A8Pivot%E6%8E%A7%E4%BB%B6%E7%9A%84%E5%88%87%E6%8D%A2%E6%89%8B%E5%8A%BF/" class="post-title-link" itemprop="url">WP7 Tip: 禁用Pivot控件的切换手势</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2011-07-06 13:26:26" itemprop="dateCreated datePublished" datetime="2011-07-06T13:26:26+08:00">2011-07-06</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2011/07/06/WP7%20Tip:%20%E7%A6%81%E7%94%A8Pivot%E6%8E%A7%E4%BB%B6%E7%9A%84%E5%88%87%E6%8D%A2%E6%89%8B%E5%8A%BF/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2011/07/06/WP7 Tip: 禁用Pivot控件的切换手势/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>原文地址： <a href="http://www.imaginativeuniversal.com/blog/post/2010/12/09/WP7-Tip-disabling-the-Pivot-Control-swipe-gesture.aspx" target="_blank" rel="noopener"> http://www.imaginativeuniversal.com/blog/post/2010/12/09/WP7-Tip-disabling-the-Pivot-Control-swipe-gesture.aspx</a></p>
+<p>原文作者： <a href="http://www.imaginativeuniversal.com/blog/page/about.aspx" target="_blank" rel="noopener"> James Ashley</a></p>
+<p>在WP7社区中一个经常被问到的问题就是：在Pivot中放置了可以接受滑动手势的控件（比如说一个Slider）时，如何禁用Pivot控件本身内置的“用手指滑动<br>来切换视图”的功能呢？</p>
+<p>对此问题，微软标准的答案是：你不应该这么做。这是“不好的做法”（Bad Practice），会造成用户体验的混淆。这种说法的前提是假设用户不会自己根据上下文<br>去思考，而总是预期“滑动”这一手势会在任何页面中都有一样的作用。这种答案听起来还不错，而且对于Pivot中内置Slider这种例子来说也很合理。况且，我们还<br>是可以把Slider纵向的放置在Pivot内的，那这个答案就显得更有道理了。</p>
+<p>话又说回来，在WP7的TextBox中，我们可以用“按住并滑动”这一手势来操作光标在文本框内的位置。那么在Pivot控件中放置TextBox算不算是造成了不<br>好的用户体验呢？算不算是“不好的做法”（Bad<br>Practice）呢？我是不是应该想办法把TextBox也纵向放置呢？还有，ToggleSwitch控件（此控件来自于Silverlight for<br>Windows Phone Toolkit ）又该怎么办呢？</p>
+<p>滑动这一手势对于手机来说是很常用的。很多针对WP7的新控件都会用到它。如果所有这些即将面世的新控件都不能放置在Pivot控件中的话，那就太可惜了。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2011/07/06/WP7%20Tip:%20%E7%A6%81%E7%94%A8Pivot%E6%8E%A7%E4%BB%B6%E7%9A%84%E5%88%87%E6%8D%A2%E6%89%8B%E5%8A%BF/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -2546,207 +2745,6 @@ public static void TestMethod(int parameter = 5)
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2009/08/07/%E3%80%8AHead%20First%20CSharp%E3%80%8B%E5%B0%86%E5%81%9C%E6%AD%A2%E7%BF%BB%E8%AF%91%E5%92%8C%E6%9B%B4%E6%96%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="崔鹏飞">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="崔鹏飞的Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2009/08/07/%E3%80%8AHead%20First%20CSharp%E3%80%8B%E5%B0%86%E5%81%9C%E6%AD%A2%E7%BF%BB%E8%AF%91%E5%92%8C%E6%9B%B4%E6%96%B0/" class="post-title-link" itemprop="url">《Head First C#》将停止翻译和更新</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2009-08-07 16:27:00" itemprop="dateCreated datePublished" datetime="2009-08-07T16:27:00+08:00">2009-08-07</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/2009/08/07/%E3%80%8AHead%20First%20CSharp%E3%80%8B%E5%B0%86%E5%81%9C%E6%AD%A2%E7%BF%BB%E8%AF%91%E5%92%8C%E6%9B%B4%E6%96%B0/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2009/08/07/《Head First CSharp》将停止翻译和更新/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>174</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>近日闻悉国内某出版社即将出版《  Head First C#  》的中文版，为避免版权纠纷，本“山寨”系列将停止翻译和更新。</p>
-<p>从去年  10  月开始利用课余时间翻译这本书，到现在翻译完了将近  13  章，总计  12  万余字。</p>
-<p><img alt data-src="/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090807/2009-08-07_16-33-29.jpg"></p>
-<p>剩余的正文内容已不足百页，无法做到有始有终，颇为遗憾。</p>
-<p>感谢  CSDN  和  VeryCD  各位朋友一直以来的关注、支持、鼓励和批评。</p>
-<p>2009  年  8  月  7  日</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/2009/08/07/%E3%80%8AHead%20First%20CSharp%E3%80%8B%E5%B0%86%E5%81%9C%E6%AD%A2%E7%BF%BB%E8%AF%91%E5%92%8C%E6%9B%B4%E6%96%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2009/07/29/%E6%A0%BC%E7%89%A9%E8%87%B4%E7%9F%A5--Effective%20C%20Sharp%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E9%AA%8C%E8%AF%81%E6%8E%A5%E5%8F%A3%E5%BC%95%E7%94%A8%E6%8C%87%E5%90%91%E8%A3%85%E7%AE%B1%E5%90%8E%E7%9A%84%E5%80%BC%E7%B1%BB%E5%9E%8B%E6%97%B6%E6%97%A0%E9%9C%80%E6%8B%86%E7%AE%B1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="崔鹏飞">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="崔鹏飞的Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2009/07/29/%E6%A0%BC%E7%89%A9%E8%87%B4%E7%9F%A5--Effective%20C%20Sharp%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E9%AA%8C%E8%AF%81%E6%8E%A5%E5%8F%A3%E5%BC%95%E7%94%A8%E6%8C%87%E5%90%91%E8%A3%85%E7%AE%B1%E5%90%8E%E7%9A%84%E5%80%BC%E7%B1%BB%E5%9E%8B%E6%97%B6%E6%97%A0%E9%9C%80%E6%8B%86%E7%AE%B1/" class="post-title-link" itemprop="url">格物致知--《Effective C#》读书笔记--验证接口引用指向装箱后的值类型时无需拆箱</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2009-07-29 09:01:00" itemprop="dateCreated datePublished" datetime="2009-07-29T09:01:00+08:00">2009-07-29</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/2009/07/29/%E6%A0%BC%E7%89%A9%E8%87%B4%E7%9F%A5--Effective%20C%20Sharp%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E9%AA%8C%E8%AF%81%E6%8E%A5%E5%8F%A3%E5%BC%95%E7%94%A8%E6%8C%87%E5%90%91%E8%A3%85%E7%AE%B1%E5%90%8E%E7%9A%84%E5%80%BC%E7%B1%BB%E5%9E%8B%E6%97%B6%E6%97%A0%E9%9C%80%E6%8B%86%E7%AE%B1/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2009/07/29/格物致知--Effective C Sharp读书笔记--验证接口引用指向装箱后的值类型时无需拆箱/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>805</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>欲验证的结论：  接口引用指向装箱后的值类型时无需拆箱  。</p>
-<p>代码如下：</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title">SomeInterface</span></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">MethodInInterface</span>(<span class="params"></span>)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> OneValueType : SomeInterface</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">MethodInInterface</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">"get called"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">TestUnBox</span></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">CastStruct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        OneValueType ovt = <span class="keyword">new</span> OneValueType();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">object</span> o = ovt; <span class="comment">//Box</span></span><br><span class="line"></span><br><span class="line">        ((OneValueType) o).MethodInInterface();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">CastInterface</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        OneValueType ovt = <span class="keyword">new</span> OneValueType();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">object</span> o = ovt; <span class="comment">//Box</span></span><br><span class="line"></span><br><span class="line">        ((SomeInterface) o).MethodInInterface();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其中  OneValueType  是值类型，它实现了  SomeInterface  。</p>
-<p>两个方法  CastStruct  和  CastInterface  分别把装箱之后的值类型转型为  OneValueType  和<br>SomeInterface  。预计的结果是第二个方法无需拆箱，查看  IL  来验证：</p>
-<p>这是  CastStruct  （）：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/2009/07/29/%E6%A0%BC%E7%89%A9%E8%87%B4%E7%9F%A5--Effective%20C%20Sharp%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E9%AA%8C%E8%AF%81%E6%8E%A5%E5%8F%A3%E5%BC%95%E7%94%A8%E6%8C%87%E5%90%91%E8%A3%85%E7%AE%B1%E5%90%8E%E7%9A%84%E5%80%BC%E7%B1%BB%E5%9E%8B%E6%97%B6%E6%97%A0%E9%9C%80%E6%8B%86%E7%AE%B1/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -2795,14 +2793,14 @@ public static void TestMethod(int parameter = 5)
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">159</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -2845,7 +2843,7 @@ public static void TestMethod(int parameter = 5)
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -2855,15 +2853,15 @@ public static void TestMethod(int parameter = 5)
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">310k</span>
+    <span title="站点总字数">319k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:42</span>
+    <span title="站点阅读时长">4:50</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
