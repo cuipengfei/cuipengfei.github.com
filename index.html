@@ -461,7 +461,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5k</span>
+              <span>5.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -480,17 +480,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在看Scala Reactive的一些内容<br>想起了很久之前写过一篇叫做<strong>自己动手实现Promises/A+规范</strong>的博客，用JS实现了一个简版的Promise:<br><a href="https://cuipengfei.me/blog/2016/05/15/promise/">https://cuipengfei.me/blog/2016/05/15/promise/</a></p>
-<p>我在当时的一段演示代码里面写了两句注释：</p>
-<blockquote>
-<p>Promise的作用在于</p>
-<ol>
-<li>给异步算法的编写者和使用者之间提供一种统一的交流手段</li>
-<li>给异步算法的使用者提供一种组织代码的手段,以便于将一层又一层嵌套的业务主流程变成一次一次的对then的调用</li>
-</ol>
-</blockquote>
-<p>不过当时的博客里只讲了实现Promise规范的事情,并没有详细解释过这两句话。</p>
-<p>既然又遇到了这个话题，不妨写点Scala来把当时没展开写到的内容补充一下吧。</p>
+          <p>我们来一起看一下两个程序员之间的故事。</p>
+<p>以下示例代码是用Scala写的，不过本文所讲的话题并不仅限于Scala，任何有Future/Promise支持的语言都是适用的。<br>下面这个wiki页面罗列了各个有Future/Promise支持的语言，已经涵盖了大多数的常用语言。<br><a href="https://zh.wikipedia.org/wiki/Future与promise#实现列表" target="_blank" rel="noopener">Future与promise实现列表</a></p>
+<h1 id="我是异步函数的编写者"><a href="#我是异步函数的编写者" class="headerlink" title="我是异步函数的编写者"></a>我是异步函数的编写者</h1><p>我写了两个异步函数,来提供给其他程序员同事使用。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">CallBack</span> </span>= <span class="type">Try</span>[<span class="type">String</span>] =&gt; <span class="type">Unit</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pretendCallAPI</span></span>(callBack: <span class="type">CallBack</span>, okMsg: <span class="type">String</span>, failedMsg: <span class="type">String</span>) = &#123;</span><br><span class="line">  <span class="keyword">val</span> task = <span class="keyword">new</span> <span class="type">TimerTask</span> &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">run</span></span>() = &#123;</span><br><span class="line">      <span class="keyword">val</span> percentage = <span class="type">Random</span>.between(<span class="number">1</span>, <span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (percentage &gt;= <span class="number">50</span>)</span><br><span class="line">        callBack(<span class="type">Success</span>(okMsg))</span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span> (percentage &lt;= <span class="number">30</span>)</span><br><span class="line">        callBack(<span class="type">Failure</span>(<span class="keyword">new</span> <span class="type">Exception</span>(failedMsg)))</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        callBack(<span class="type">Failure</span>(<span class="keyword">new</span> <span class="type">Exception</span>(<span class="string">"network problem"</span>)))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">new</span> <span class="type">Timer</span>().schedule(task, <span class="type">Random</span>.between(<span class="number">200</span>, <span class="number">500</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> searchTB = pretendCallAPI(_, <span class="string">"product price found"</span>, <span class="string">"product not listed"</span>)</span><br><span class="line"><span class="keyword">val</span> buyFromTB = pretendCallAPI(_, <span class="string">"product bought"</span>, <span class="string">"can not buy, no money left"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这两个异步函数: <code>searchTB</code>用来从淘宝搜索物品,另一个<code>buyFromTB</code>用来购买搜到的物品。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/blog/2019/12/29/future-from-two-perspectives/#more" rel="contents">
@@ -2864,7 +2859,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">322k</span>
+    <span title="站点总字数">323k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
