@@ -27,12 +27,13 @@
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;Scala里有一个很有趣的语言特性叫做Self Type，可以用来限定一个trait可以被mixin到哪里去。&lt;/p&gt;
+      &lt;p&gt;Scala里有一个很有趣的语言特性叫做Self Type，可以用来限定一个trait可以被mixin到哪里去。&lt;/p&gt;
 &lt;p&gt;看个例子：&lt;/p&gt;
-&lt;figure class=&quot;highlight scala&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;p
-      
+&lt;figure class=&quot;highlight scala&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;trait&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;User&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;username&lt;/span&gt;&lt;/span&gt;: &lt;span class=&quot;type&quot;&gt;String&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;trait&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Tweeter&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  self: &lt;span class=&quot;type&quot;&gt;User&lt;/span&gt; =&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;tweet&lt;/span&gt;&lt;/span&gt;(tweetText: &lt;span class=&quot;type&quot;&gt;String&lt;/span&gt;) = println(&lt;span class=&quot;string&quot;&gt;s&quot;&lt;span class=&quot;subst&quot;&gt;$username&lt;/span&gt;: &lt;span class=&quot;subst&quot;&gt;$tweetText&lt;/span&gt;&quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;VerifiedTweeter&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;val username_ : &lt;span class=&quot;type&quot;&gt;String&lt;/span&gt;&lt;/span&gt;) &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;username&lt;/span&gt; &lt;/span&gt;= &lt;span class=&quot;string&quot;&gt;s&quot;real &lt;span class=&quot;subst&quot;&gt;$username_&lt;/span&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;SelfTypeBlog&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;/span&gt;(args: &lt;span class=&quot;type&quot;&gt;Array&lt;/span&gt;[&lt;span class=&quot;type&quot;&gt;String&lt;/span&gt;]): &lt;span class=&quot;type&quot;&gt;Unit&lt;/span&gt; = &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;val&lt;/span&gt; realBeyoncé = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;type&quot;&gt;VerifiedTweeter&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;Beyoncé&quot;&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;type&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;type&quot;&gt;Tweeter&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    realBeyoncé.tweet(&lt;span class=&quot;string&quot;&gt;&quot;Just spilled my glass of lemonade&quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;User就仅仅相当于一个Interface，定义一个username。&lt;/p&gt;
+&lt;p&gt;Tweeter内的第一行是重点 &lt;code&gt;self: User =&amp;gt;&lt;/code&gt; 就限定了Tweeter只能被mixin到实现了User的类里面去。&lt;br&gt;由于可以确定Tweeter只能被mixin到实现了User的类里面去，这样Tweeter的tweet方法内就可以放心大胆地用 &lt;code&gt;username&lt;/code&gt; 了。&lt;/p&gt;
+&lt;p&gt;VerifiedTweeter是一个很普通的class，别人new它的时候给什么字符串，它的username就是啥。&lt;/p&gt;
     
     </summary>
     
@@ -55,11 +56,13 @@
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;先看这么一段Scala代码：&lt;/p&gt;
-&lt;figure class=&quot;highlight scala&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2
-      
+      &lt;p&gt;先看这么一段Scala代码：&lt;/p&gt;
+&lt;figure class=&quot;highlight scala&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;PFBlog&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;usePF&lt;/span&gt;&lt;/span&gt;(pf: &lt;span class=&quot;type&quot;&gt;PartialFunction&lt;/span&gt;[&lt;span class=&quot;type&quot;&gt;Option&lt;/span&gt;[&lt;span class=&quot;type&quot;&gt;Int&lt;/span&gt;], &lt;span class=&quot;type&quot;&gt;Int&lt;/span&gt;]) = &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    pf(&lt;span class=&quot;type&quot;&gt;Some&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;11&lt;/span&gt;))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  usePF &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;type&quot;&gt;Some&lt;/span&gt;(x) =&amp;gt; x + &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;type&quot;&gt;None&lt;/span&gt; =&amp;gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;声明一个usePF方法，接受一个PartialFunction作为参数，它的实现就是传一个 &lt;code&gt;Some(11)&lt;/code&gt; 给pf。&lt;br&gt;pf的具体类型是 &lt;code&gt;PartialFunction[Option[Int], Int]&lt;/code&gt; 所以传递给它一个&lt;code&gt;Some(11)&lt;/code&gt;可以期待它会返回一个Int。&lt;/p&gt;
+&lt;p&gt;然后调用usePF，传递给usePF的是一个pattern match表达式。给Some加一，给None返回0。&lt;/p&gt;
+&lt;p&gt;这时问题就来了，这个pattern match表达式是怎么能够符合usePF需要的参数类型的呢？&lt;br&gt;这么单纯的一个pattern match表达式怎么变成&lt;code&gt;PartialFunction[Option[Int], Int]&lt;/code&gt;的呢？&lt;/p&gt;
+&lt;p&gt;为了探寻答案，先把这几行Scala代码编译成class文件，然后把byte code反编译成Java来一探究竟吧。&lt;/p&gt;
     
     </summary>
     
@@ -82,11 +85,12 @@
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;我们来一起看一下两个程序员之间的故事。&lt;/p&gt;
-&lt;p&gt;以下示例代码是用Scala写的，不过本文所讲的话题并不仅限于Scala，任何有Future/Promise支持的语言都是适用的。&lt;br&gt;下面这个wiki页面罗列了各个有Future/Promise支持的语言，已经涵盖了大
-      
+      &lt;p&gt;我们来一起看一下两个程序员之间的故事。&lt;/p&gt;
+&lt;p&gt;以下示例代码是用Scala写的，不过本文所讲的话题并不仅限于Scala，任何有Future/Promise支持的语言都是适用的。&lt;br&gt;下面这个wiki页面罗列了各个有Future/Promise支持的语言，已经涵盖了大多数的常用语言。&lt;br&gt;&lt;a href=&quot;https://zh.wikipedia.org/wiki/Future与promise#实现列表&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Future与promise实现列表&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;我是异步函数的编写者&quot;&gt;&lt;a href=&quot;#我是异步函数的编写者&quot; class=&quot;headerlink&quot; title=&quot;我是异步函数的编写者&quot;&gt;&lt;/a&gt;我是异步函数的编写者&lt;/h1&gt;&lt;p&gt;我写了两个异步函数,来提供给其他程序员同事使用。&lt;/p&gt;
+&lt;figure class=&quot;highlight scala&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;CallBack&lt;/span&gt; &lt;/span&gt;= &lt;span class=&quot;type&quot;&gt;Try&lt;/span&gt;[&lt;span class=&quot;type&quot;&gt;String&lt;/span&gt;] =&amp;gt; &lt;span class=&quot;type&quot;&gt;Unit&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;pretendCallAPI&lt;/span&gt;&lt;/span&gt;(callBack: &lt;span class=&quot;type&quot;&gt;CallBack&lt;/span&gt;, okMsg: &lt;span class=&quot;type&quot;&gt;String&lt;/span&gt;, failedMsg: &lt;span class=&quot;type&quot;&gt;String&lt;/span&gt;) = &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;keyword&quot;&gt;val&lt;/span&gt; task = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;type&quot;&gt;TimerTask&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;override&lt;/span&gt; &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;run&lt;/span&gt;&lt;/span&gt;() = &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;keyword&quot;&gt;val&lt;/span&gt; percentage = &lt;span class=&quot;type&quot;&gt;Random&lt;/span&gt;.between(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (percentage &amp;gt;= &lt;span class=&quot;number&quot;&gt;50&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        callBack(&lt;span class=&quot;type&quot;&gt;Success&lt;/span&gt;(okMsg))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (percentage &amp;lt;= &lt;span class=&quot;number&quot;&gt;30&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        callBack(&lt;span class=&quot;type&quot;&gt;Failure&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;type&quot;&gt;Exception&lt;/span&gt;(failedMsg)))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        callBack(&lt;span class=&quot;type&quot;&gt;Failure&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;type&quot;&gt;Exception&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;network problem&quot;&lt;/span&gt;)))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;type&quot;&gt;Timer&lt;/span&gt;().schedule(task, &lt;span class=&quot;type&quot;&gt;Random&lt;/span&gt;.between(&lt;span class=&quot;number&quot;&gt;200&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;500&lt;/span&gt;))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;val&lt;/span&gt; searchTB = pretendCallAPI(_, &lt;span class=&quot;string&quot;&gt;&quot;product price found&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;product not listed&quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;val&lt;/span&gt; buyFromTB = pretendCallAPI(_, &lt;span class=&quot;string&quot;&gt;&quot;product bought&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;can not buy, no money left&quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;这两个异步函数: &lt;code&gt;searchTB&lt;/code&gt;用来从淘宝搜索物品,另一个&lt;code&gt;buyFromTB&lt;/code&gt;用来购买搜到的物品。&lt;/p&gt;
     
     </summary>
     
@@ -113,10 +117,12 @@
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;原文地址： &lt;a href=&quot;https://blog.cleancoder.com/uncle-bob/2018/04/02/InTheLarge.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.cleancoder.c
-      
+      &lt;p&gt;原文地址： &lt;a href=&quot;https://blog.cleancoder.com/uncle-bob/2018/04/02/InTheLarge.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.cleancoder.com/uncle-bob/2018/04/02/InTheLarge.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;原作者：Robert C. Martin (Uncle Bob)&lt;/p&gt;
+&lt;p&gt;自敏捷之开端始，我们就思考大规模敏捷的问题。我们是否能够把轻量级，迭代，增量，快速反馈等软件开发的原理应用于规模巨大的项目呢？&lt;/p&gt;
+&lt;p&gt;最初我们想到的答案是Scrum of Scrums之类的东西。这个想法是在更高的层次上递归地应用敏捷开发的原理。如果一个项目需要超过5-12个开发人员，那么可以组织两个这样的团队，以及一个更高级别的团队来“监督？”他们。&lt;/p&gt;
+&lt;p&gt;请注意上面的问号。当我们开始考虑大型项目时，我们不可避免地要谈及层级化的组织。但是敏捷似乎是厌恶组织层级的。毕竟，敏捷就是关于平等主义的。敏捷是拒绝命令和控制的。敏捷是拒绝计划和时间表的，还有…&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;无稽之谈！并不是这样的！&lt;/strong&gt;&lt;/p&gt;
     
     </summary>
     
@@ -137,10 +143,12 @@
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;原文地址：&lt;a href=&quot;https://blog.cleancoder.com/uncle-bob/2018/04/13/FPvsOO.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.cleancoder.com/un
-      
+      &lt;p&gt;原文地址：&lt;a href=&quot;https://blog.cleancoder.com/uncle-bob/2018/04/13/FPvsOO.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.cleancoder.com/uncle-bob/2018/04/13/FPvsOO.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;原作者：Robert C. Martin (Uncle Bob)&lt;/p&gt;
+&lt;p&gt;在过去的几年中，我通过与人结对来学习函数式编程，他们中的很多人表达了反对OO的偏见。他们经常会说：“啊，这太像对象了。”&lt;/p&gt;
+&lt;p&gt;他们会这样说是因为他们认为FP和OO在某种程度上是互斥的。许多人似乎认为程序FP的程度等同于其非OO的程度。我认为这种观点是学习新事物的自然结果。&lt;/p&gt;
+&lt;p&gt;当我们采用一种新技术时，我们通常倾向于避开以前使用的旧技术。这很自然，因为我们认为新技术“更好”，因此旧技术就一定是“更糟”的。&lt;/p&gt;
+&lt;p&gt;在此博客中，我将说明OO和FP是正交的，但它们并不互斥。一个好的函数式程序可以（并且应该）是面向对象的。而且一个好的面向对象程序可以（并且应该）是函数式的。在此之前，我们必须非常谨慎地给FP和OO这两个词语下个定义。&lt;/p&gt;
     
     </summary>
     
@@ -161,11 +169,11 @@
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;身陷南洋囹圄，心系故园风物，无以聊赖之中，撰文权作慰藉。&lt;/p&gt;
-&lt;h1 id=&quot;从Neal-Ford的一段话讲开去&quot;&gt;&lt;a href=&quot;#从Neal-Ford的一段话讲开去&quot; class=&quot;headerlink&quot; title=&quot;从Neal Ford的一段话讲开去&quot;&gt;&lt;/a
-      
+      &lt;p&gt;身陷南洋囹圄，心系故园风物，无以聊赖之中，撰文权作慰藉。&lt;/p&gt;
+&lt;h1 id=&quot;从Neal-Ford的一段话讲开去&quot;&gt;&lt;a href=&quot;#从Neal-Ford的一段话讲开去&quot; class=&quot;headerlink&quot; title=&quot;从Neal Ford的一段话讲开去&quot;&gt;&lt;/a&gt;从Neal Ford的一段话讲开去&lt;/h1&gt;&lt;p&gt;前段时间看了Neal Ford的一个演讲，&lt;a href=&quot;https://player.oreilly.com/videos/9781491901137&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;原视频&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;其中一段讲到了传统工程与软件工程的区别。&lt;/p&gt;
+&lt;p&gt;於我心甚有戚戚焉。&lt;/p&gt;
+&lt;p&gt;译如下：&lt;/p&gt;
     
     </summary>
     
@@ -186,11 +194,11 @@
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;最近快速浏览完了太祖的五卷选集。粗浅的尝试着总结一下太祖做事情和分析问题解决问题时都会运用一些什么样的套路。&lt;/p&gt;
-&lt;h1 id=&quot;性质决定形式&quot;&gt;&lt;a href=&quot;#性质决定形式&quot; class=&quot;headerlink&quot; title=&quot;性质决定形式&quot;&gt;&lt;/a&gt;性质决定形式
-      
+      &lt;p&gt;最近快速浏览完了太祖的五卷选集。粗浅的尝试着总结一下太祖做事情和分析问题解决问题时都会运用一些什么样的套路。&lt;/p&gt;
+&lt;h1 id=&quot;性质决定形式&quot;&gt;&lt;a href=&quot;#性质决定形式&quot; class=&quot;headerlink&quot; title=&quot;性质决定形式&quot;&gt;&lt;/a&gt;性质决定形式&lt;/h1&gt;&lt;p&gt;&lt;font size=&quot;3&quot;&gt;革命不是请客吃饭，不是做文章，不是绘画绣花，不能那样雅致，那样从容不迫，文质彬彬，那样温良恭俭让。革命是暴动，是一个阶级推翻一个阶级的暴烈的行动。&lt;/font&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;font size=&quot;3&quot;&gt;大家明白，不论做什么事，不懂得那件事的情形，它的性质，它和它以外的事情的关联，就不知道那件事的规律，就不知道如何去做，就不能做好那件事。&lt;/font&gt;&lt;/p&gt;
+&lt;hr&gt;
     
     </summary>
     
@@ -213,10 +221,11 @@
     
     <summary type="html">
     
-      
-      
-        &lt;h1 id=&quot;第一章一个好点子出炉了&quot;&gt;&lt;a href=&quot;#第一章一个好点子出炉了&quot; class=&quot;headerlink&quot; title=&quot;第一章一个好点子出炉了&quot;&gt;&lt;/a&gt;第一章一个好点子出炉了&lt;/h1&gt;&lt;p&gt;基本的经济原则，这个原则可以提高人们的生活水平：消费不足，敢于冒险！
-      
+      &lt;h1 id=&quot;第一章一个好点子出炉了&quot;&gt;&lt;a href=&quot;#第一章一个好点子出炉了&quot; class=&quot;headerlink&quot; title=&quot;第一章一个好点子出炉了&quot;&gt;&lt;/a&gt;第一章一个好点子出炉了&lt;/h1&gt;&lt;p&gt;基本的经济原则，这个原则可以提高人们的生活水平：消费不足，敢于冒险！&lt;/p&gt;
+&lt;p&gt;在经济学术语中，资本指的是一种设备，这种设备的建设和使用本身没有什么意义，其意义在于利用设备建设和制造其他需要的东西。艾伯想要的不是那张网，而是鱼。这张网或许可以给他带来更多的鱼。因此，这张网就是一种资本，是有价值的。&lt;/p&gt;
+&lt;p&gt;在艾伯孤注一掷去编织渔网之前，小岛上还没有什么储蓄之所。他决定冒险挨饿制造的这张网成了小岛上的第一件资本设备。这件设备接着会带来储蓄（为了让这个故事能够继续进行，我们假设这些鱼不会腐烂变质），而这种剩余产品就是健康经济的命脉。&lt;/p&gt;
+&lt;p&gt;工具改变了一切，使经济的出现成为可能。长矛帮助我们捕获猎物，铲子帮助我们种植庄稼，渔网帮助我们捕鱼。这些工具提高了我们的劳动效率。我们生产的东西越多，可以消费的东西就越多，我们的生活也就变得越美好。&lt;/p&gt;
+&lt;p&gt;努力使有限的资源（每种资源都是有限的）产生最大的效益以尽可能满足人类的需求，这就是经济这一概念最简单的定义。工具、资本以及创新是实现这一目标的关键。&lt;/p&gt;
     
     </summary>
     
@@ -237,11 +246,12 @@
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;随着持续集成，持续交付等理念的传播，很多软件开发团队都搭建了自己的staging、UAT等&lt;strong&gt;类生产环境&lt;/strong&gt;。这些环境的软硬件及网络配置会尽量贴近真实的生产环境，起到沙盘演练的作用。&lt;/p&gt;
-&lt;p&gt;类生产环境毕竟前面还有一个类字，沙盘毕竟不是真实的
-      
+      &lt;p&gt;随着持续集成，持续交付等理念的传播，很多软件开发团队都搭建了自己的staging、UAT等&lt;strong&gt;类生产环境&lt;/strong&gt;。这些环境的软硬件及网络配置会尽量贴近真实的生产环境，起到沙盘演练的作用。&lt;/p&gt;
+&lt;p&gt;类生产环境毕竟前面还有一个类字，沙盘毕竟不是真实的战场，尽量贴近毕竟还不是完全吻合。&lt;/p&gt;
+&lt;p&gt;类生产环境与真实生产环境的一个&lt;strong&gt;重要差异&lt;/strong&gt;就是访问量。稍具规模的互联网应用每天几百万访问量是很正常的，而类生产环境的访问量一般都会相形见绌。&lt;/p&gt;
+&lt;p&gt;有各种工具可以弥合这个差异，比如Apache JMeter，Gatling。测试人员可以和开发人员一起设计测试用例，以自动化或者半自动化的方式对类生产环境进行&lt;strong&gt;压力测试&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;不过&lt;/strong&gt;即便是精心设计出来的用例也还是用例，不是真实请求。真实请求具有&lt;strong&gt;多样性&lt;/strong&gt;，会随着昼夜交替而变化，会随着时事热点而波动，这是很难用工具模拟出来的。&lt;/p&gt;
+&lt;p&gt;这就引出了这篇文章的主角-影子流量（shadow traffic）。&lt;/p&gt;
     
     </summary>
     
@@ -262,11 +272,22 @@
     
     <summary type="html">
     
-      
-      
-        &lt;h1 id=&quot;第一部分科技颠覆&quot;&gt;&lt;a href=&quot;#第一部分科技颠覆&quot; class=&quot;headerlink&quot; title=&quot;第一部分科技颠覆&quot;&gt;&lt;/a&gt;第一部分科技颠覆&lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;20世纪，来自纽约、伦敦、柏林和莫斯科的全球精英讲述了三大故事，号
-      
+      &lt;h1 id=&quot;第一部分科技颠覆&quot;&gt;&lt;a href=&quot;#第一部分科技颠覆&quot; class=&quot;headerlink&quot; title=&quot;第一部分科技颠覆&quot;&gt;&lt;/a&gt;第一部分科技颠覆&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;20世纪，来自纽约、伦敦、柏林和莫斯科的全球精英讲述了三大故事，号称能够解释人类过去、预测全球未来。这三大故事是：法西斯主义故事、共产主义故事，以及自由主义故事。第二次世界大战打倒了法西斯主义故事，于是从20世纪40年代末到80年代末，世界成为共产主义故事和自由主义故事的战场。等到共产主义受挫，自由主义故事就成为人类了解过去的主要指南、未来无法取代的使用手册&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;1938年，人类有三种全球性的故事可以选择；1968年只剩下两个；1998年，似乎只有一个故事胜出；2018年，这个数字降到了0。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;过去推动俄国、中国和古巴革命的，是一群对经济至关重要但缺乏政治权力的人；而2016年，支持英国脱欧和特朗普的，却是一群虽然还享有政治权力却担心失去经济价值的人。&lt;/p&gt;
+&lt;p&gt;自由主义分别学习了帝国主义、法西斯主义和共产主义某些最优秀的概念。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;自由主义学习了共产主义，于是扩大了同理的范围，开始在重视自由之外也同时重视平等。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;即使在第二次世界大战之后，西方自由主义者还是很少将他们所谓的共通价值应用到非西方人民的身上。所以，荷兰人在自己的国土被纳粹残酷占领5年，于1945年重新站起来之后做的第一件事，就是召集军队横跨半个地球，希望重新占领前殖民地印度尼西亚。尽管在1940年，荷兰人只战斗了4天就举手投降放弃独立地位，但为了压制印度尼西亚的独立，他们却鏖战了4年之久。这也就难怪全球许多民族解放运动所寄望的都是苏联和中国，而不是自诩为自由主义领导者的西方国家。&lt;/p&gt;
+&lt;/blockquote&gt;
     
     </summary>
     
@@ -287,14 +308,14 @@
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;一首绝句作为定场诗，接下来开始正式的内容。&lt;/p&gt;
+      &lt;p&gt;一首绝句作为定场诗，接下来开始正式的内容。&lt;/p&gt;
 &lt;p&gt;最近，我在网上进行了一些稀奇古怪的操作，于是乎我莫名其妙的得到了一个“众邦银行”的账户。&lt;/p&gt;
 &lt;p&gt;这个名字并不是很熟悉，查了一下，看起来还算是有头有脸的样子。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;stro
-      
+&lt;p&gt;&lt;strong&gt;武汉众邦银行股份有限公司&lt;/strong&gt;（简称&lt;strong&gt;武汉众邦银行&lt;/strong&gt;，英语：&lt;strong&gt;Wuhan Zhongbang Bank Co., Ltd.&lt;/strong&gt;，&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E7%B8%AE%E5%AF%AB&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;缩写&lt;/a&gt;：&lt;strong&gt;Z-BANK&lt;/strong&gt;）是中华人民共和国境内第11家开业的民营银行，也是湖北省首家获批开业的民营银行。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;以上是wiki的信息。&lt;/p&gt;
+&lt;p&gt;&lt;img alt data-src=&quot;/images/zb-bank/zb-info.png&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -315,12 +336,14 @@
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;Stackable traits是一种怎样的特性呢？&lt;/p&gt;
+      &lt;p&gt;Stackable traits是一种怎样的特性呢？&lt;/p&gt;
 &lt;p&gt;来举一个🌰&lt;/p&gt;
-&lt;figure class=&quot;highlight scala&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/spa
-      
+&lt;figure class=&quot;highlight scala&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;abstract&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;IntQueue&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;get&lt;/span&gt;&lt;/span&gt;(): &lt;span class=&quot;type&quot;&gt;Int&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;put&lt;/span&gt;&lt;/span&gt;(x: &lt;span class=&quot;type&quot;&gt;Int&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;定义一个IntQueue，抽象类，定义了get和put，没有实现。&lt;/p&gt;
+&lt;figure class=&quot;highlight scala&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;BasicIntQueue&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;IntQueue&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;val&lt;/span&gt; buf = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;type&quot;&gt;ArrayBuffer&lt;/span&gt;[&lt;span class=&quot;type&quot;&gt;Int&lt;/span&gt;]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;get&lt;/span&gt;&lt;/span&gt;() = buf.remove(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;put&lt;/span&gt;&lt;/span&gt;(x: &lt;span class=&quot;type&quot;&gt;Int&lt;/span&gt;) = &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    buf += x&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;再定义一个BasicIntQueue，把上述IntQueue实现了。&lt;br&gt;它的实现没有什么花样，就是先进先出。&lt;/p&gt;
     
     </summary>
     
@@ -343,11 +366,11 @@
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;&lt;sub&gt;此文标题党。更切题的标题应该叫做《如何用统计科学来黑星座》或者是《积极注册Facehub，促进统计科学蓬勃发展》 &lt;/sub&gt;&lt;/p&gt;
-&lt;h1 id=&quot;锤子-JS-Promise&quot;&gt;&lt;a href=&quot;#锤子-JS-Promise&quot; class=&quot;headerlin
-      
+      &lt;p&gt;&lt;sub&gt;此文标题党。更切题的标题应该叫做《如何用统计科学来黑星座》或者是《积极注册Facehub，促进统计科学蓬勃发展》 &lt;/sub&gt;&lt;/p&gt;
+&lt;h1 id=&quot;锤子-JS-Promise&quot;&gt;&lt;a href=&quot;#锤子-JS-Promise&quot; class=&quot;headerlink&quot; title=&quot;锤子　JS Promise&quot;&gt;&lt;/a&gt;锤子　JS Promise&lt;/h1&gt;&lt;p&gt;最近对JS社区里的Promises/A+规范产生了很浓的兴趣，感觉Promise这套东西确实蛮不错的，给异步算法的编写者和异步算法的消费者之间提供了一套统一的沟通手段，也为异步算法的消费者提供了更悦目易读的代码组织方式。&lt;/p&gt;
+&lt;p&gt;自己把它实现了一遍:&lt;a href=&quot;https://www.npmjs.com/package/RWPromise&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.npmjs.com/package/RWPromise&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;然后在武汉办公室run了3次workshop:&lt;a href=&quot;http://cuipengfei.me/blog/2016/05/15/promise/&quot;&gt;http://cuipengfei.me/blog/2016/05/15/promise/&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;手里有了这么一把锤子就总想找个钉子敲一敲。总在想能去哪里找N多异步操作来让我来组织一下呢?&lt;/p&gt;
     
     </summary>
     
@@ -370,12 +393,12 @@
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;Promise并不是一个新的概念,它已经有将近30年的历史.&lt;/p&gt;
+      &lt;p&gt;Promise并不是一个新的概念,它已经有将近30年的历史.&lt;/p&gt;
 &lt;p&gt;其早期的雏形还有里氏替换原则的提出者Barbara Liskov的贡献在其中.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Futures_and_p
-      
+&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Futures_and_promises#History&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://en.wikipedia.org/wiki/Futures_and_promises#History&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;而Promises/A+这个规范的出现,则为JavaScript世界中众多Promise实现库提供了一套统一的API和交互机制.&lt;/p&gt;
+&lt;p&gt;Promises/A+提供了配套的测试集:&lt;a href=&quot;https://github.com/promises-aplus/promises-tests&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/promises-aplus/promises-tests&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;其中共有872个测试,如果你的实现能够让全部测试绿起来,则可以认为该实现符合了标准.&lt;/p&gt;
     
     </summary>
     
@@ -396,11 +419,18 @@
     
     <summary type="html">
     
-      
-      
-        &lt;h1 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h1&gt;&lt;p&gt;Wifi，4G，3G，这些我们习以为常的东西，未必对所有人来说都是随时可用的。&lt;/p&gt;
-&lt;p&gt;以我当前所在项目为例，应用场景是某欠发达地区医
-      
+      &lt;h1 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h1&gt;&lt;p&gt;Wifi，4G，3G，这些我们习以为常的东西，未必对所有人来说都是随时可用的。&lt;/p&gt;
+&lt;p&gt;以我当前所在项目为例，应用场景是某欠发达地区医疗服务机构的药品库存管理。&lt;/p&gt;
+&lt;p&gt;所谓欠发达，具体怎样呢？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;没有台式电脑&lt;/li&gt;
+&lt;li&gt;没有笔记本&lt;/li&gt;
+&lt;li&gt;只能使用低端的安卓平板&lt;/li&gt;
+&lt;li&gt;4G，3G信号不要想&lt;/li&gt;
+&lt;li&gt;我们去过现场的一位同事甚至要爬到树上去，才能勉强收到2G信号&lt;br&gt;&lt;img alt=&quot;tree&quot; data-src=&quot;http://img2.cache.netease.com/cnews/2009/2/2/20090202093425b68f3.jpg&quot;&gt;&lt;/li&gt;
+&lt;li&gt;即便是2G信号，也是时断时续，非常不稳定&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因此，需要随时保持连通的BS结构基本不可行，我们选择了重度依赖移动端设备本地存储的CS结构（胖客户端）。&lt;/p&gt;
     
     </summary>
     
@@ -421,12 +451,13 @@
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;2015年结束了，一如已经结束了的每一年，非常迅速。&lt;/p&gt;
+      &lt;p&gt;2015年结束了，一如已经结束了的每一年，非常迅速。&lt;/p&gt;
 &lt;p&gt;按惯例，从博客说起。&lt;/p&gt;
-&lt;h1 id=&quot;博客&quot;&gt;&lt;a href=&quot;#博客&quot; class=&quot;headerlink&quot; title=&quot;博客&quot;&gt;&lt;/a&gt;博客&lt;/h1&gt;&lt;p&gt;15年写了16篇博客，其中9篇是与S
-      
+&lt;h1 id=&quot;博客&quot;&gt;&lt;a href=&quot;#博客&quot; class=&quot;headerlink&quot; title=&quot;博客&quot;&gt;&lt;/a&gt;博客&lt;/h1&gt;&lt;p&gt;15年写了16篇博客，其中9篇是与Scala，Reactive，OODP相关的。这个数字倒还不算太坏。&lt;/p&gt;
+&lt;p&gt;14年总结的时候说：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;明年可以改进的是不要嫌话题小，不要嫌话题不够深。 有了有价值的想法就记下来，形成惯性。&lt;/p&gt;
+&lt;/blockquote&gt;
     
     </summary>
     
@@ -447,12 +478,10 @@
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;惨。&lt;/p&gt;
+      &lt;p&gt;惨。&lt;/p&gt;
 &lt;p&gt;八月份上了一个大客户的项目，到了晚上没力气也没心情做任何事情。&lt;/p&gt;
-&lt;h1 id=&quot;博客&quot;&gt;&lt;a href=&quot;#博客&quot; class=&quot;headerlink&quot; title=&quot;博客&quot;&gt;&lt;/a&gt;博客&lt;/h1&gt;&lt;p&gt;没写。上个季度六月的系列告一段落后7月没写
-      
+&lt;h1 id=&quot;博客&quot;&gt;&lt;a href=&quot;#博客&quot; class=&quot;headerlink&quot; title=&quot;博客&quot;&gt;&lt;/a&gt;博客&lt;/h1&gt;&lt;p&gt;没写。上个季度六月的系列告一段落后7月没写。到了8月就不用说了。&lt;/p&gt;
+&lt;h1 id=&quot;读书&quot;&gt;&lt;a href=&quot;#读书&quot; class=&quot;headerlink&quot; title=&quot;读书&quot;&gt;&lt;/a&gt;读书&lt;/h1&gt;&lt;p&gt;七月八月读了7本书，9月一本未读。&lt;/p&gt;
     
     </summary>
     
@@ -473,13 +502,13 @@
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;2015竟然这么快就过去一半了。逝者如斯夫。&lt;/p&gt;
+      &lt;p&gt;2015竟然这么快就过去一半了。逝者如斯夫。&lt;/p&gt;
 &lt;h1 id=&quot;博客&quot;&gt;&lt;a href=&quot;#博客&quot; class=&quot;headerlink&quot; title=&quot;博客&quot;&gt;&lt;/a&gt;博客&lt;/h1&gt;&lt;p&gt;第一季度总结的时候说：&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;今年的博客主线任
-      
+&lt;p&gt;今年的博客主线任务定为OO与FP的比较和结合应用吧。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这个任务完成的不错，这个主题写了7篇博客。&lt;/p&gt;
+&lt;p&gt;迭代器已经irrelevant了，中介者和备忘录太简单就没写，状态模式没找到好的FP实现方式。&lt;br&gt;这样11种行为模式除去上述4个，算是基本覆盖完了。&lt;/p&gt;
     
     </summary>
     
@@ -500,14 +529,14 @@
     
     <summary type="html">
     
-      
-      
-        &lt;blockquote&gt;
+      &lt;blockquote&gt;
 &lt;p&gt;模板方法模式定义了一个算法的步骤，并允许次类别为一个或多个步骤提供其实践方式。让次类别在不改变算法架构的情况下，重新定义算法中的某些步骤。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;以上是wiki对模板方法的定义。&lt;/p&gt;
-&lt;p&gt;比较容易理解，我们
-      
+&lt;p&gt;比较容易理解，我们有一个算法，其中某些步骤是确定的不太会变的代码。而另外一些步骤则需要变化并且自由组合。&lt;/p&gt;
+&lt;p&gt;《Head First Design Patterns》里有一个🌰：&lt;/p&gt;
+&lt;p&gt;假设我们需要制作咖啡因饮品，其实就是咖啡和茶。制作步骤有些类似，分为四步：1烧水，2泡，3装杯，4加调料。&lt;/p&gt;
+&lt;p&gt;其中第一步和第三步是稳定的代码，变化可能性不大，而第二步和第四步则每种饮品有自己的风味。&lt;/p&gt;
     
     </summary>
     
@@ -530,14 +559,16 @@
     
     <summary type="html">
     
-      
-      
-        &lt;blockquote&gt;
+      &lt;blockquote&gt;
 &lt;p&gt;访问者模式是一种将算法与对象结构分离的软件设计模式。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;blockquote&gt;
-&lt;p&gt;这个模式的基本想法如下：首先我们拥有一个由许多对象构成的对象结构，这些对象的类都拥有一个accept方法用来接受访问者对象；访
-      
+&lt;p&gt;这个模式的基本想法如下：首先我们拥有一个由许多对象构成的对象结构，这些对象的类都拥有一个accept方法用来接受访问者对象；访问者是一个接口，它拥有一个visit方法，这个方法对访问到的对象结构中不同类型的元素作出不同的反应；在对象结构的一次访问过程中，我们遍历整个对象结构，对每一个元素都实施accept方法，在每一个元素的accept方法中回调访问者的visit方法，从而使访问者得以处理对象结构的每一个元素。我们可以针对对象结构设计不同的实在的访问者类来完成不同的操作。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;以上是wiki对访问者模式的定义。&lt;/p&gt;
+&lt;p&gt;这个定义着实难读。我们来看wiki给出的例子：&lt;/p&gt;
+&lt;p&gt;假设我们要为汽车建模，汽车有不同的组成部件，轮胎，车身，和引擎。&lt;/p&gt;
+&lt;p&gt;在开车之前需要先检查车辆每个部件的状况，然后依次启动所有部件以启动汽车。&lt;/p&gt;
     
     </summary>
     
