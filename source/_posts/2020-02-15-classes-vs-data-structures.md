@@ -1,8 +1,13 @@
 ---
-title: 类 vs 数据结构
+layout: post
+title: "[译] 类 vs 数据结构"
 date: 2020-02-15 23:44:13
-tags:
+tags: Uncle Bob
 ---
+
+原文作者：Robert C. Martin (Uncle Bob)
+原文链接：https://blog.cleancoder.com/uncle-bob/2019/06/16/ObjectsAndDataStructures.html
+
 
 > 类是什么？
 
