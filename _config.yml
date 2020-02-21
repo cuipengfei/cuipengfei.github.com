@@ -106,9 +106,6 @@ excerpt:
   more_excludes: []
   hideWholePostExcerpts: true
 
-# mermaid chart
-mermaid: ## mermaid url https://github.com/knsv/mermaid
-  enable: true  # default true
-  version: "8.4.8" 
-  options:  # find more api options from https://github.com/knsv/mermaid/blob/master/src/mermaidAPI.js
-    #startOnload: true  // default true
+# hexo-graphviz
+graphviz:
+  enable: true

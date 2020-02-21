@@ -4,9 +4,22 @@ date: 2020-02-21 20:54:15
 tags:
 ---
 
-```sequence
-    Alice->John: Hello John, how are you?
-    loop every minute
-        John-->Alice: Great!
-    end
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+
+```graphviz
+digraph G {
+
+  a1 -> b3;
+  b2 -> a3;
+  a3 -> a0;
+  a3 -> end;
+  b3 -> end;
+
+}
 ```
