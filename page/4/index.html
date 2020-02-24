@@ -212,6 +212,206 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%204%20-%20Range/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%204%20-%20Range/" class="post-title-link" itemprop="url">自己动手重新实现LINQ to Objects 4 - Range</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2011-08-22 22:09:45" itemprop="dateCreated datePublished" datetime="2011-08-22T22:09:45+08:00">2011-08-22</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%204%20-%20Range/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2011/08/22/自己动手重新实现LINQ to Objects: 4 - Range/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本文翻译自  <a href="http://stackoverflow.com/users/22656/jon-skeet" target="_blank" rel="noopener"> Jon Skeet  </a> 的系列博文”Edulinq”。</p>
+<p>本篇原文地址：</p>
+<p><a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-objects-part-4-range.aspx" target="_blank" rel="noopener">http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-objects-part-4-range.aspx</a></p>
+<p>本篇博文较短，接下来的几篇估计也会比较短。我觉得只有 很相似的几个  LINQ  操作符才适合放到同一篇博文里面，比如  Count  和<br>LongCount  就比较适合放在一起讲。不过我也要采纳读者的意见，如果你喜欢“肥胖”一点的博文的话，请留言说明。</p>
+<p>本文将要讲解  Range  操作符。  </p>
+<h1 id="Range-操作符是什么？"><a href="#Range-操作符是什么？" class="headerlink" title="Range  操作符是什么？"></a>Range  操作符是什么？</h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%204%20-%20Range/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%203%20-%20Select/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%203%20-%20Select/" class="post-title-link" itemprop="url">自己动手重新实现LINQ to Objects 3 - Select</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2011-08-22 00:13:03" itemprop="dateCreated datePublished" datetime="2011-08-22T00:13:03+08:00">2011-08-22</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%203%20-%20Select/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2011/08/22/自己动手重新实现LINQ to Objects: 3 - Select/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本文翻译自  <a href="http://stackoverflow.com/users/22656/jon-skeet" target="_blank" rel="noopener"> Jon Skeet  </a> 的系列博文”Edulinq”。</p>
+<p>本篇原文地址：</p>
+<p><a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/23/reimplementing-linq-to-objects-part-3-quot-select-quot-and-a-rename.aspx" target="_blank" rel="noopener">http://msmvps.com/blogs/jon_skeet/archive/2010/12/23/reimplementing-linq-to-objects-part-3-quot-select-quot-and-a-rename.aspx</a></p>
+<p>距离上次写完本系列博文的  <a href="http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-to-objects-part-1-introduction.aspx" target="_blank" rel="noopener"> 第一篇  </a> 和  <a href="http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-to-objects-part-2-quot-where-quot.aspx" target="_blank" rel="noopener"> 第二篇</a> 已经有一段日子了，希望接下来的进度会快一些。</p>
+<p>现在我给本项目在  <a href="http://edulinq.googlecode.com/" target="_blank" rel="noopener"> Google Code  上建立了源码管理  </a><br>，现在就无需每篇博文包含一个  zip  文件了。创建项目时，我给它取了个显而易见的名字，叫做  Edulinq  。我修改了代码中的命名空间，而且现在<br><a href="http://msmvps.com/blogs/jon_skeet/archive/tags/Edulinq/default.aspx" target="_blank" rel="noopener"> 这一系列博文的  tag</a> 也修改为了<br>Edulinq  了。好了，闲话少叙  …  我们来开始重新实现  LINQ  吧，这次要实现  Select  操作符。  </p>
+<h1 id="Select-操作符是什么？"><a href="#Select-操作符是什么？" class="headerlink" title="Select  操作符是什么？"></a>Select  操作符是什么？</h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%203%20-%20Select/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2011/08/21/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%202%20-%20Where/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2545,206 +2745,6 @@ public static void TestMethod(int parameter = 5)
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2009/09/03/%E9%80%9A%E8%BF%87%E8%8B%B1%E6%96%87%E5%89%A7%E9%9B%86%E3%80%81%E7%94%B5%E5%BD%B1%E5%AD%A6%E5%8D%95%E8%AF%8D%E7%9A%84%E5%B0%8F%E5%B7%A5%E5%85%B7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="崔鹏飞">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="崔鹏飞的Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2009/09/03/%E9%80%9A%E8%BF%87%E8%8B%B1%E6%96%87%E5%89%A7%E9%9B%86%E3%80%81%E7%94%B5%E5%BD%B1%E5%AD%A6%E5%8D%95%E8%AF%8D%E7%9A%84%E5%B0%8F%E5%B7%A5%E5%85%B7/" class="post-title-link" itemprop="url">通过英文剧集、电影学单词的小工具</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2009-09-03 19:15:00" itemprop="dateCreated datePublished" datetime="2009-09-03T19:15:00+08:00">2009-09-03</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/2009/09/03/%E9%80%9A%E8%BF%87%E8%8B%B1%E6%96%87%E5%89%A7%E9%9B%86%E3%80%81%E7%94%B5%E5%BD%B1%E5%AD%A6%E5%8D%95%E8%AF%8D%E7%9A%84%E5%B0%8F%E5%B7%A5%E5%85%B7/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2009/09/03/通过英文剧集、电影学单词的小工具/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>712</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>我平时很喜欢看美剧和电影。而如果看中文字幕（看英文字幕也是一样）的话，注意力就会集中于阅读文字、理解剧情，练习听力的目的就落空了。而如果不看字幕的话，对话中<br>的很多生词就会随着对句子的大致理解而溜过去了，所以最好的办法就是看之前把对白中会出现的单词预览一次以为预习，看的过程中再熟悉一次，看完之后还可以针对用得到的<br>单词再记一次。为了实现这个目的，我写了一个小程序。</p>
-<p>使用方式如下：</p>
-<p>运行  WordsViaSubtitle.exe</p>
-<p><img alt data-src="/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090903/jietu01.jpg"></p>
-<p>可以通过程序中的搜索框搜索字幕文件（是射手网提供的，赞美射手  O(∩_∩)O哈！！）</p>
-<p><img alt data-src="/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090903/jietu03.jpg"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/2009/09/03/%E9%80%9A%E8%BF%87%E8%8B%B1%E6%96%87%E5%89%A7%E9%9B%86%E3%80%81%E7%94%B5%E5%BD%B1%E5%AD%A6%E5%8D%95%E8%AF%8D%E7%9A%84%E5%B0%8F%E5%B7%A5%E5%85%B7/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2009/09/01/easyMule%E8%87%AA%E5%8A%A8%E5%85%B3%E6%9C%BA%E5%B7%A5%E5%85%B7(%E5%8F%AF%E7%94%A8%E4%BA%8E1.X%E5%92%8C2.0%E7%89%88%E6%9C%AC)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="崔鹏飞">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="崔鹏飞的Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2009/09/01/easyMule%E8%87%AA%E5%8A%A8%E5%85%B3%E6%9C%BA%E5%B7%A5%E5%85%B7(%E5%8F%AF%E7%94%A8%E4%BA%8E1.X%E5%92%8C2.0%E7%89%88%E6%9C%AC)/" class="post-title-link" itemprop="url">easyMule自动关机工具(可用于1.X和2.0版本)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2009-09-01 17:30:00" itemprop="dateCreated datePublished" datetime="2009-09-01T17:30:00+08:00">2009-09-01</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/2009/09/01/easyMule%E8%87%AA%E5%8A%A8%E5%85%B3%E6%9C%BA%E5%B7%A5%E5%85%B7(%E5%8F%AF%E7%94%A8%E4%BA%8E1.X%E5%92%8C2.0%E7%89%88%E6%9C%AC)/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2009/09/01/easyMule自动关机工具(可用于1.X和2.0版本)/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>275</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>前几天发的程序只可以用于easyMule1.X版本，今天改写了一下，可以适用于2.0</p>
-<p>使用方法：</p>
-<p>运行  EasyMulePowerOff.exe</p>
-<p>会提示您设置电驴的安装路径，设置好之后会检查到有没有未完成的任务：</p>
-<p><img alt data-src="/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090901/jietu00.jpg"></p>
-<p>显示我有一个未完的任务，看一下电驴中</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/2009/09/01/easyMule%E8%87%AA%E5%8A%A8%E5%85%B3%E6%9C%BA%E5%B7%A5%E5%85%B7(%E5%8F%AF%E7%94%A8%E4%BA%8E1.X%E5%92%8C2.0%E7%89%88%E6%9C%AC)/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -2793,7 +2793,7 @@ public static void TestMethod(int parameter = 5)
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">160</span>
+          <span class="site-state-item-count">162</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2853,19 +2853,38 @@ public static void TestMethod(int parameter = 5)
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">323k</span>
+    <span title="站点总字数">330k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:53</span>
+    <span title="站点阅读时长">5:01</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
   </div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.7.1/viz.js'></script>
+<script>
+  String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+  };
+
+  let vizObjects = document.querySelectorAll('.graphviz')
+
+  for (let item of vizObjects) {
+    let svg = undefined
+    try {
+      svg = Viz(item.textContent.replaceAll('–', '--'), 'svg')
+    } catch(e) {
+      svg = `<pre class="error">${e}</pre>`
+    }
+    item.outerHTML = svg
+  }
+</script>
 
         
 
@@ -2989,6 +3008,19 @@ window.addEventListener('pjax:success', () => {
 
 
 
+<script pjax>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme: 'forest',
+      logLevel: 3,
+      flowchart: { curve: 'linear' },
+      gantt: { axisFormat: '%m/%d/%Y' },
+      sequence: { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
 
 
     <div id="pjax">

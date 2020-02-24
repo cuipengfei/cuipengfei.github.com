@@ -1,6 +1,323 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>分布式键值存储（Distributed Key-Value Store）</title>
+    <url>/blog/2020/02/21/distributed-key-value-store/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>分布式键值存储（Distributed Key-Value Store）并不是一个新鲜的玩意。<br>常见的Redis，Memcache等等都有很多人在用。</p>
+<p>不过如果要是说其中的细节，如replicate，读写，一致性，retry等等的话，又是经常会遇到混淆不清。<br>恰巧我最近在看的一门网课《Programming Reactive Systems》中有一道作业题就是要自己实现一个Distributed Key-Value Store，那就正好借此机会详细写下其中的关键点。</p>
+<h1 id="关键参与者"><a href="#关键参与者" class="headerlink" title="关键参与者"></a>关键参与者</h1><p>既然是分布式键值存储，那么肯定会有主从节点，每个结点又会有自己的持久化，而主从之间也需要协调，于是就得出了如下关键参与者：</p>
+<ul>
+<li><strong>Primary</strong>： 主节点。接受来自client的更新（写/删）操作，并把更新后的数据扩散到其它节点。当然，也可以接受来自于client的读操作。</li>
+<li><strong>Secondary</strong>： 从节点。接受来自主节点的更新操作。接受来自client的制度操作。</li>
+<li><strong>Arbiter</strong>： 仲裁者。任何节点，无论主从，都要把自己注册到arbiter上去。当有从节点加入或者离开集群的时候，arbiter负责告知主节点。</li>
+<li><strong>Persistence</strong>： 每个节点都拥有自己的独享的persistence。用于把节点上的数据持久化。</li>
+<li><strong>Clients</strong>： 客户端，可能与主或者从节点通信，进行各种读写操作。</li>
+</ul>
+<p>此外，还有另一个相对不那么关键的参与者：</p>
+<ul>
+<li><strong>Replicator</strong>： 复制器。主节点和从节点之间的桥梁。主节点扩散到从节点去的数据要经手Replicator。<br>（之所以需要它是为了把一部分维护内部状态的职责从Primary身上解除出去，具体来说是一个sequence number序列号，后面会提到）</li>
+</ul>
+<h2 id="参与者之间的大致关系"><a href="#参与者之间的大致关系" class="headerlink" title="参与者之间的大致关系"></a>参与者之间的大致关系</h2><p><a href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoiZ3JhcGggVERcbiAgUHJpbWFyeS0tPnxhc2sgdG8gcmVwbGljYXRlfFJlcGxpY2F0b3IxXG4gIFByaW1hcnktLT58YXNrIHRvIHJlcGxpY2F0ZXxSZXBsaWNhdG9yMlxuICBSZXBsaWNhdG9yMS0tPnxzbmFwc2hvdCB0b3xTZWNvbmRhcnkxXG4gIFJlcGxpY2F0b3IyLS0-fHNuYXBzaG90IHRvfFNlY29uZGFyeTJcbiAgUHJpbWFyeS0tPnxKb2lufEFyYml0ZXJcbiAgU2Vjb25kYXJ5MS0tPnxKb2lufEFyYml0ZXJcbiAgU2Vjb25kYXJ5Mi0tPnxKb2lufEFyYml0ZXJcbiAgUHJpbWFyeS0tPnxQZXJzaXN0IHRvfFBlcnNpc3RlbmNlMFxuICBTZWNvbmRhcnkxLS0-fFBlcnNpc3QgdG98UGVyc2lzdGVuY2UxXG4gIFNlY29uZGFyeTItLT58UGVyc2lzdCB0b3xQZXJzaXN0ZW5jZTJcbiAgXG4gIENsaWVudC0tPnxyZWFkL3dyaXRlfFByaW1hcnlcbiAgQ2xpZW50LS0-fHJlYWR8U2Vjb25kYXJ5MVxuICBDbGllbnQtLT58cmVhZHxTZWNvbmRhcnkyXG5cbiAgQXJiaXRlci0tPnxOb3RpZnkgam9pbi9sZWF2ZSBvZiBzZWNvbmRhcmllc3xQcmltYXJ5IiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ" target="_blank" rel="noopener"><img alt data-src="https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbiAgUHJpbWFyeS0tPnxhc2sgdG8gcmVwbGljYXRlfFJlcGxpY2F0b3IxXG4gIFByaW1hcnktLT58YXNrIHRvIHJlcGxpY2F0ZXxSZXBsaWNhdG9yMlxuICBSZXBsaWNhdG9yMS0tPnxzbmFwc2hvdCB0b3xTZWNvbmRhcnkxXG4gIFJlcGxpY2F0b3IyLS0-fHNuYXBzaG90IHRvfFNlY29uZGFyeTJcbiAgUHJpbWFyeS0tPnxKb2lufEFyYml0ZXJcbiAgU2Vjb25kYXJ5MS0tPnxKb2lufEFyYml0ZXJcbiAgU2Vjb25kYXJ5Mi0tPnxKb2lufEFyYml0ZXJcbiAgUHJpbWFyeS0tPnxQZXJzaXN0IHRvfFBlcnNpc3RlbmNlMFxuICBTZWNvbmRhcnkxLS0-fFBlcnNpc3QgdG98UGVyc2lzdGVuY2UxXG4gIFNlY29uZGFyeTItLT58UGVyc2lzdCB0b3xQZXJzaXN0ZW5jZTJcbiAgXG4gIENsaWVudC0tPnxyZWFkL3dyaXRlfFByaW1hcnlcbiAgQ2xpZW50LS0-fHJlYWR8U2Vjb25kYXJ5MVxuICBDbGllbnQtLT58cmVhZHxTZWNvbmRhcnkyXG5cbiAgQXJiaXRlci0tPnxOb3RpZnkgam9pbi9sZWF2ZSBvZiBzZWNvbmRhcmllc3xQcmltYXJ5IiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"></a></p>
+<p>可以看出，系统中有一个Primary，多个Secondary（虽然图中只画了两个，但是理论上可以有任意N个）。<br>Primary向Secondary扩散数据是通过Replicator进行的，并且是给每个Secondary配了一个单独的Replicator。<br>也就是说Replicator和Secondary是成双成对的。</p>
+<p><strong>（注：上图描述的是各个参与者之间的关系，上下左右并不代表先后顺序）</strong></p>
+<h1 id="一些限制"><a href="#一些限制" class="headerlink" title="一些限制"></a>一些限制</h1><p>我们并不是要做一个可以在Prod环境中使用的KV Store，而只是借助自己实现来厘清KV Store的一部分基础知识点，所以做出了如下的限制来简化实现：</p>
+<ul>
+<li>只有主节点可以写，所有从节点都只能读</li>
+<li>假设主节点是稳定可靠的，不会挂（不处理主节点身份转移）</li>
+<li>假设arbiter是可靠的，不会挂</li>
+<li>不处理背压（back pressure）</li>
+<li>客户端使用的请求id（稍后会提到）是不会重复的</li>
+</ul>
+<h1 id="各参与者的职责及相互交互"><a href="#各参与者的职责及相互交互" class="headerlink" title="各参与者的职责及相互交互"></a>各参与者的职责及相互交互</h1><p>以下的这些图，<strong>每一张都只关心系统中的一个局部</strong>。主要原因在于把整个系统的交互放到一张图里会导致<strong>要素太多而难以阅读</strong>。</p>
+<h2 id="Arbiter"><a href="#Arbiter" class="headerlink" title="Arbiter"></a>Arbiter</h2><p><a href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgTm9kZSAxLT4-K0FyYml0ZXI6IEpvaW5cbiAgICBOb2RlIDItPj4rQXJiaXRlcjpKb2luXG4gICAgTm9kZSAzLT4-K0FyYml0ZXI6Sm9pblxuICAgIEFyYml0ZXItLT4-K05vZGUgMTogSm9pbmVkUHJpbWFyeVxuICAgIEFyYml0ZXItLT4-K05vZGUgMjogSm9pbmVkU2Vjb25kYXJ5XG4gICAgQXJiaXRlci0tPj4rTm9kZSAxOiBSZXBsaWNhcyhOb2RlIDIpXG4gICAgQXJiaXRlci0tPj4rTm9kZSAzOiBKb2luZWRTZWNvbmRhcnlcbiAgICBBcmJpdGVyLS0-PitOb2RlIDE6IFJlcGxpY2FzKE5vZGUgMylcblxuIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ" target="_blank" rel="noopener"><img alt data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgTm9kZSAxLT4-K0FyYml0ZXI6IEpvaW5cbiAgICBOb2RlIDItPj4rQXJiaXRlcjpKb2luXG4gICAgTm9kZSAzLT4-K0FyYml0ZXI6Sm9pblxuICAgIEFyYml0ZXItLT4-K05vZGUgMTogSm9pbmVkUHJpbWFyeVxuICAgIEFyYml0ZXItLT4-K05vZGUgMjogSm9pbmVkU2Vjb25kYXJ5XG4gICAgQXJiaXRlci0tPj4rTm9kZSAxOiBSZXBsaWNhcyhOb2RlIDIpXG4gICAgQXJiaXRlci0tPj4rTm9kZSAzOiBKb2luZWRTZWNvbmRhcnlcbiAgICBBcmJpdGVyLS0-PitOb2RlIDE6IFJlcGxpY2FzKE5vZGUgMylcblxuIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"></a></p>
+<p>来的早的会被Arbiter当作Primary，来的晚的就是Secondary了。<br>并且，每一个来的晚的成为Secondary之后，Arbiter还会告知Primary说：来新节点了。以便Primary可以知道后续需要把数据扩散给谁。<br>如果有Secondary由于某种原因而离开了集群，Arbiter也会告知Primary。</p>
+<h2 id="Persistence"><a href="#Persistence" class="headerlink" title="Persistence"></a>Persistence</h2><p><a href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgTm9kZSAtPj4rUGVyc2lzdGVuY2U6IFBlcnNpc3Qoa2V5LHZhbHVlLGlkKVxuICAgIFBlcnNpc3RlbmNlLS0-PitOb2RlOiBQZXJzaXN0ZWQoa2V5LGlkKSBvciBub3RoaW5nIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ" target="_blank" rel="noopener"><img alt data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgTm9kZSAtPj4rUGVyc2lzdGVuY2U6IFBlcnNpc3Qoa2V5LHZhbHVlLGlkKVxuICAgIFBlcnNpc3RlbmNlLS0-PitOb2RlOiBQZXJzaXN0ZWQoa2V5LGlkKSBvciBub3RoaW5nIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"></a></p>
+<p>前面提到过，每个节点，无论主从，都有一个自己独享的persistence。所以上图中的Node兼指主或者从节点。<br>Persistence本身的职责很简单，把Node告诉它的数据持久化下来。<br>但是，此处我们并<strong>没有假设持久化总是可靠的</strong>，所以上图中的第二根线是<strong>未必总是能发生</strong>的。</p>
+<h2 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h2><p><a href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgTm9kZSAtPj4rQXJiaXRlcjpKb2luXG4gICAgTm9kZSAtPj4rTm9kZTogUmV0cnkgUGVyc2lzdCBldmVyeSAxMDBtc1xuICAgIEFyYml0ZXItLT4-K05vZGU6Sm9pbmVkIFByaW1hcnkgb3IgU2Vjb25kYXJ5XG4gICAgIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ" target="_blank" rel="noopener"><img alt data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgTm9kZSAtPj4rQXJiaXRlcjpKb2luXG4gICAgTm9kZSAtPj4rTm9kZTogUmV0cnkgUGVyc2lzdCBldmVyeSAxMDBtc1xuICAgIEFyYml0ZXItLT4-K05vZGU6Sm9pbmVkIFByaW1hcnkgb3IgU2Vjb25kYXJ5XG4gICAgIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"></a></p>
+<p>这里的Node兼指主或者从节点。也就是说上图中的事情是每个Node无论主从都要做的。<br>每一个Node，在它生命周期的最早开始作的第一件事就是告诉Arbiter：“我来了“。</p>
+<p>上面提到过，Persistence未必总是可靠的。所以每个Node一旦开始存活，就会给自己启动一个定时任务，每隔100ms就去retry persist，直到Persitence回话说Persisted为止才停止retry。</p>
+<h2 id="Secondary"><a href="#Secondary" class="headerlink" title="Secondary"></a>Secondary</h2><p><a href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUmVwbGljYXRvciAtPj4rU2Vjb25kYXJ5OlNuYXBzaG90KGtleSx2YWx1ZSxzZXEpXG4gICAgYWx0IHNlcT09ZXhwZWN0ZWRTZXFcbiAgICAgICAgU2Vjb25kYXJ5LT4-K1NlY29uZGFyeTogdXBkYXRlIGludGVybmFsIGt2IHN0b3JlXG4gICAgICAgIFNlY29uZGFyeS0-PitQZXJzaXN0ZW5jZTpQZXJzaXN0KGtleSx2YWx1ZSxzZXEpXG4gICAgICAgIFNlY29uZGFyeS0-PlNlY29uZGFyeTphZGQgb25lIGl0ZW0gdG8gaW50ZXJuYWwgcmV0cnkgcGVyc2lzdCBsaXN0XG4gICAgZWxzZSBzZXE8ZXhwZWN0ZWRTZXFcbiAgICAgICAgU2Vjb25kYXJ5LT4-K1JlcGxpY2F0b3I6U25hcHNob3RBY2soa2V5LHNlcSlcbiAgICBlbmRcbiAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0IiwiZmxvd2NoYXJ0Ijp7ImN1cnZlIjoiYmFzaXMifX0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9" target="_blank" rel="noopener"><img alt data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUmVwbGljYXRvciAtPj4rU2Vjb25kYXJ5OlNuYXBzaG90KGtleSx2YWx1ZSxzZXEpXG4gICAgYWx0IHNlcT09ZXhwZWN0ZWRTZXFcbiAgICAgICAgU2Vjb25kYXJ5LT4-K1NlY29uZGFyeTogdXBkYXRlIGludGVybmFsIGt2IHN0b3JlXG4gICAgICAgIFNlY29uZGFyeS0-PitQZXJzaXN0ZW5jZTpQZXJzaXN0KGtleSx2YWx1ZSxzZXEpXG4gICAgICAgIFNlY29uZGFyeS0-PlNlY29uZGFyeTphZGQgb25lIGl0ZW0gdG8gaW50ZXJuYWwgcmV0cnkgcGVyc2lzdCBsaXN0XG4gICAgZWxzZSBzZXE8ZXhwZWN0ZWRTZXFcbiAgICAgICAgU2Vjb25kYXJ5LT4-K1JlcGxpY2F0b3I6U25hcHNob3RBY2soa2V5LHNlcSlcbiAgICBlbmRcbiAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0IiwiZmxvd2NoYXJ0Ijp7ImN1cnZlIjoiYmFzaXMifX0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9"></a></p>
+<p>上图描述的是当Replicator向Secondary扩散数据的时候，Secondary如何处理。<br>一旦一个Replicator告诉Secondary去更新数据（增/删/改），Secondary先去更新自己内部的kv，然后去告知Persistence去做持久化。</p>
+<p>这里有一个细节，就是图中出现的seq（sequence number 序列号）。Replicator和Secondary之间就是靠这个seq来保证数据更新操作总是先来的先处理，后来的后处理。<br>据此来提供一定程度的consistency。避免老数据覆盖新数据（此处需要结合下文中replicator的retry snapshot来理解）。</p>
+<p><a href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUGVyc2lzdGVuY2UtPj5TZWNvbmRhcnk6UGVyc2lzdGVkKGtleSxzZXEpXG4gICAgU2Vjb25kYXJ5LT4-UmVwbGljYXRvcjpTbmFwc2hvdEFjayhrZXksc2VxKVxuICAgIFNlY29uZGFyeS0-PlNlY29uZGFyeTppbmNyZWFzZSBleHBlY3RlZFNlcVxuICAgIFNlY29uZGFyeS0-PlNlY29uZGFyeTpyZW1vdmUgc2VxIGZyb20gcmV0cnkgcGVyc2lzdCBsaXN0IiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ" target="_blank" rel="noopener"><img alt data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUGVyc2lzdGVuY2UtPj5TZWNvbmRhcnk6UGVyc2lzdGVkKGtleSxzZXEpXG4gICAgU2Vjb25kYXJ5LT4-UmVwbGljYXRvcjpTbmFwc2hvdEFjayhrZXksc2VxKVxuICAgIFNlY29uZGFyeS0-PlNlY29uZGFyeTppbmNyZWFzZSBleHBlY3RlZFNlcVxuICAgIFNlY29uZGFyeS0-PlNlY29uZGFyeTpyZW1vdmUgc2VxIGZyb20gcmV0cnkgcGVyc2lzdCBsaXN0IiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"></a></p>
+<p>上图描述的是，当Persistence告诉Secondary：“持久化好了“的时候，Secondary如何处理。<br>可以看出来，只有确认持久化完成之后，Secondary才会告诉Replicator：“扩散数据完成了“，并且在Secondary自己内部取消掉这一条数据的retry persist。</p>
+<p><a href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgQ2xpZW50LT4-U2Vjb25kYXJ5OkdldChrZXksaWQpXG4gICAgU2Vjb25kYXJ5LT4-U2Vjb25kYXJ5OnF1ZXJ5IGludGVybmFsIGt2XG4gICAgU2Vjb25kYXJ5LS0-PkNsaWVudDpHZXRSZXN1bHQoa2V5LHZhbHVlLGlkKSAodmFsdWXlj6_og73mmK_nqbopIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ" target="_blank" rel="noopener"><img alt data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgQ2xpZW50LT4-U2Vjb25kYXJ5OkdldChrZXksaWQpXG4gICAgU2Vjb25kYXJ5LT4-U2Vjb25kYXJ5OnF1ZXJ5IGludGVybmFsIGt2XG4gICAgU2Vjb25kYXJ5LS0-PkNsaWVudDpHZXRSZXN1bHQoa2V5LHZhbHVlLGlkKSAodmFsdWXlj6_og73mmK_nqbopIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"></a></p>
+<p>对于来自于Client的读取操作，Secondary总是心直口快，有就是有，没有就是没有。</p>
+<h2 id="Replicator"><a href="#Replicator" class="headerlink" title="Replicator"></a>Replicator</h2><p><a href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUmVwbGljYXRvci0-PlJlcGxpY2F0b3I6cmV0cnkgc25hcHNob3QgZXZlcnkgMTAwbXNcbiAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0IiwiZmxvd2NoYXJ0Ijp7ImN1cnZlIjoiYmFzaXMifX0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9" target="_blank" rel="noopener"><img alt data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUmVwbGljYXRvci0-PlJlcGxpY2F0b3I6cmV0cnkgc25hcHNob3QgZXZlcnkgMTAwbXNcbiAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0IiwiZmxvd2NoYXJ0Ijp7ImN1cnZlIjoiYmFzaXMifX0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9"></a></p>
+<p>上面提到过，Persistence未必总是可靠的，也就意味着数据扩散操作也未必总是成功，所以，Replicator一旦启动（被Primary创建出来），就要开始一个定时任务来不断retry尚未成功的数据扩散操作。</p>
+<p><a href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUHJpbWFyeS0-PlJlcGxpY2F0b3I6UmVwbGljYXRlKGtleSx2YWx1ZSxpZClcbiAgICBSZXBsaWNhdG9yLT4-U2Vjb25kYXJ5OlNuYXBzaG90KGtleSx2YWx1ZSxzZXEpXG4gICAgUmVwbGljYXRvci0-PlJlcGxpY2F0b3I6YWRkIGl0ZW0gdG8gaW50ZXJuYWwgcGVuZGluZyBhY2sgbGlzdFxuICAgIFJlcGxpY2F0b3ItPj5SZXBsaWNhdG9yOmluY3JlYXNlIGludGVybmFsIHNlcVxuICAgICIsIm1lcm1haWQiOnsidGhlbWUiOiJmb3Jlc3QiLCJmbG93Y2hhcnQiOnsiY3VydmUiOiJiYXNpcyJ9fSwidXBkYXRlRWRpdG9yIjpmYWxzZX0" target="_blank" rel="noopener"><img alt data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUHJpbWFyeS0-PlJlcGxpY2F0b3I6UmVwbGljYXRlKGtleSx2YWx1ZSxpZClcbiAgICBSZXBsaWNhdG9yLT4-U2Vjb25kYXJ5OlNuYXBzaG90KGtleSx2YWx1ZSxzZXEpXG4gICAgUmVwbGljYXRvci0-PlJlcGxpY2F0b3I6YWRkIGl0ZW0gdG8gaW50ZXJuYWwgcGVuZGluZyBhY2sgbGlzdFxuICAgIFJlcGxpY2F0b3ItPj5SZXBsaWNhdG9yOmluY3JlYXNlIGludGVybmFsIHNlcVxuICAgICIsIm1lcm1haWQiOnsidGhlbWUiOiJmb3Jlc3QiLCJmbG93Y2hhcnQiOnsiY3VydmUiOiJiYXNpcyJ9fSwidXBkYXRlRWRpdG9yIjpmYWxzZX0"></a></p>
+<p>上图描述的是当Primary要求Replicator去扩散数据到一个Secondary的时候Replicator如何处理。<br>那么Replicator首先告诉Secondary去更新数据，然后在自体内部把刚才的操作记下来，以便后续retry。并且把自己的seq加一，这里的seq就是Replicator和Secondary之间的信物，用来维持consistency。</p>
+<p><a href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgU2Vjb25kYXJ5LT4-UmVwbGljYXRvcjpTbmFwc2hvdEFjayhrZXksc2VxKVxuICAgIFJlcGxpY2F0b3ItPj5QcmltYXJ5OlJlcGxpY2F0ZWQoa2V5LGlkKVxuICAgIFJlcGxpY2F0b3ItPj5SZXBsaWNhdG9yOnJlbW92ZSBvbmUgaXRlbSBmcm9tIHBlbmRpbmcgYWNrIGxpc3QiLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0IiwiZmxvd2NoYXJ0Ijp7ImN1cnZlIjoiYmFzaXMifX0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9" target="_blank" rel="noopener"><img alt data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgU2Vjb25kYXJ5LT4-UmVwbGljYXRvcjpTbmFwc2hvdEFjayhrZXksc2VxKVxuICAgIFJlcGxpY2F0b3ItPj5QcmltYXJ5OlJlcGxpY2F0ZWQoa2V5LGlkKVxuICAgIFJlcGxpY2F0b3ItPj5SZXBsaWNhdG9yOnJlbW92ZSBvbmUgaXRlbSBmcm9tIHBlbmRpbmcgYWNrIGxpc3QiLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0IiwiZmxvd2NoYXJ0Ijp7ImN1cnZlIjoiYmFzaXMifX0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9"></a></p>
+<p>上图描述的是Replicator在被Secondary告知扩散数据成功后如何处理。<br>先把这个好消息告诉给Primary，然后在retry的列表里面去除掉刚刚成功的这次操作，这样后面就再也不会再去retry这次操作了。</p>
+<h2 id="Primary"><a href="#Primary" class="headerlink" title="Primary"></a>Primary</h2><p>最后是Primary。作为主节点，它的职责是最多最辛劳的。</p>
+<p><a href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgQ2xpZW50LT4-UHJpbWFyeTpJbnNlcnQoa2V5LHZhbHVlLGlkKSBvciBSZW1vdmUoa2V5LGlkKVxuICAgIFByaW1hcnktPj5QcmltYXJ5OnVwZGF0ZSBpbnRlcm5hbCBrdlxuICAgIFByaW1hcnktPj5QZXJzaXN0ZW5jZTpQZXJzaXN0KGtleSx2YWx1ZSxpZClcbiAgICBQcmltYXJ5LT4-UHJpbWFyeTphZGQgb25lIGl0ZW0gdG8gaW50ZXJuYWwgcmV0cnkgcGVyc2lzdCBsaXN0XG4gICAgUHJpbWFyeS0-PlJlcGxpY2F0b3IgMTpSZXBsaWNhdGUoa2V5LHZhbHVlLGlkKVxuICAgIFByaW1hcnktPj5QcmltYXJ5OmFkZCBvbmUgaXRlbSB0byBwZW5kaW5nIHJlcGxpY2F0ZXMgbGlzdFxuICAgIFByaW1hcnktPj5SZXBsaWNhdG9yIDI6UmVwbGljYXRlKGtleSx2YWx1ZSxpZClcbiAgICBQcmltYXJ5LT4-UHJpbWFyeTphZGQgb25lIGl0ZW0gdG8gcGVuZGluZyByZXBsaWNhdGVzIGxpc3RcbiAgICBQcmltYXJ5LT4-UHJpbWFyeTpzY2hlZHVsZSBmYWlsdXJlIGZvciBhZnRlciAxcyIsIm1lcm1haWQiOnsidGhlbWUiOiJmb3Jlc3QiLCJmbG93Y2hhcnQiOnsiY3VydmUiOiJiYXNpcyJ9fSwidXBkYXRlRWRpdG9yIjpmYWxzZX0" target="_blank" rel="noopener"><img alt data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgQ2xpZW50LT4-UHJpbWFyeTpJbnNlcnQoa2V5LHZhbHVlLGlkKSBvciBSZW1vdmUoa2V5LGlkKVxuICAgIFByaW1hcnktPj5QcmltYXJ5OnVwZGF0ZSBpbnRlcm5hbCBrdlxuICAgIFByaW1hcnktPj5QZXJzaXN0ZW5jZTpQZXJzaXN0KGtleSx2YWx1ZSxpZClcbiAgICBQcmltYXJ5LT4-UHJpbWFyeTphZGQgb25lIGl0ZW0gdG8gaW50ZXJuYWwgcmV0cnkgcGVyc2lzdCBsaXN0XG4gICAgUHJpbWFyeS0-PlJlcGxpY2F0b3IgMTpSZXBsaWNhdGUoa2V5LHZhbHVlLGlkKVxuICAgIFByaW1hcnktPj5QcmltYXJ5OmFkZCBvbmUgaXRlbSB0byBwZW5kaW5nIHJlcGxpY2F0ZXMgbGlzdFxuICAgIFByaW1hcnktPj5SZXBsaWNhdG9yIDI6UmVwbGljYXRlKGtleSx2YWx1ZSxpZClcbiAgICBQcmltYXJ5LT4-UHJpbWFyeTphZGQgb25lIGl0ZW0gdG8gcGVuZGluZyByZXBsaWNhdGVzIGxpc3RcbiAgICBQcmltYXJ5LT4-UHJpbWFyeTpzY2hlZHVsZSBmYWlsdXJlIGZvciBhZnRlciAxcyIsIm1lcm1haWQiOnsidGhlbWUiOiJmb3Jlc3QiLCJmbG93Y2hhcnQiOnsiY3VydmUiOiJiYXNpcyJ9fSwidXBkYXRlRWRpdG9yIjpmYWxzZX0"></a></p>
+<p>上图是Primary处理来自Client的Insert或者Remove请求。<br>前面一半和Secondary处理Snapshot方式基本一致。</p>
+<p>不同之处就在于：<br>Primary还要负责告诉所有现存的Replicator（图里只画了两个，理论上可以有任意N个）去扩散数据。并且把这个操作记在内部状态里。<br>以及设置一个定时任务，一秒钟之后，如果没有达成Primary自己persist成功并且每一个Replicator都扩散成功的状态，那就告诉Client这次操作是失败的。</p>
+<p>至于Primary处理来自于Client的Get请求的图就不画了，与Secondary完全一致。</p>
+<p><a href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUGVyc2lzdGVuY2UtPj5QcmltYXJ5OlBlcnNpc3RlZChrZXksaWQpXG4gICAgUHJpbWFyeS0-PlByaW1hcnk6IHJlbW92ZSBvbmUgaXRlbSBmcm9tIHBlbmRpbmcgcGVyc2lzdCBsaXN0XG4gICAgYWx0IFJlcGxpY2F0aW9ucyBhbGwgZmluaXNoZWRcbiAgICBQcmltYXJ5LT4-Q2xpZW50Ok9wZXJhdGlvbkFjayhpZClcbiAgICBlbmQiLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9" target="_blank" rel="noopener"><img alt data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUGVyc2lzdGVuY2UtPj5QcmltYXJ5OlBlcnNpc3RlZChrZXksaWQpXG4gICAgUHJpbWFyeS0-PlByaW1hcnk6IHJlbW92ZSBvbmUgaXRlbSBmcm9tIHBlbmRpbmcgcGVyc2lzdCBsaXN0XG4gICAgYWx0IFJlcGxpY2F0aW9ucyBhbGwgZmluaXNoZWRcbiAgICBQcmltYXJ5LT4-Q2xpZW50Ok9wZXJhdGlvbkFjayhpZClcbiAgICBlbmQiLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9"></a></p>
+<p>上图是Primary收到Persistence成功消息的时候要做的事情。<br>首先从pending persist列表中移除刚刚persist成功的一条。<br>然后检查下是不是所有Replications也都完成了，两个条件的都符合的话，就告诉Client说操作完成了。</p>
+<p><a href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUmVwbGljYXRvci0-PlByaW1hcnk6UmVwbGljYXRlZChrZXksaWQpXG4gICAgUHJpbWFyeS0-PlByaW1hcnk6IHJlbW92ZSBvbmUgaXRlbSBmcm9tIHBlbmRpbmcgcmVwbGlhdGVzXG4gICAgYWx0IEFsbCBSZXBsaWNhdGlvbnMgRmluaXNoZWRcbiAgICBhbHQgUGVyc2lzdCBmaW5pc2hlZFxuICAgIFByaW1hcnktPj5DbGllbnQ6T3BlcmF0aW9uQWNrKGlkKVxuICAgIGVuZFxuICAgIGVuZFxuIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ" target="_blank" rel="noopener"><img alt data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUmVwbGljYXRvci0-PlByaW1hcnk6UmVwbGljYXRlZChrZXksaWQpXG4gICAgUHJpbWFyeS0-PlByaW1hcnk6IHJlbW92ZSBvbmUgaXRlbSBmcm9tIHBlbmRpbmcgcmVwbGlhdGVzXG4gICAgYWx0IEFsbCBSZXBsaWNhdGlvbnMgRmluaXNoZWRcbiAgICBhbHQgUGVyc2lzdCBmaW5pc2hlZFxuICAgIFByaW1hcnktPj5DbGllbnQ6T3BlcmF0aW9uQWNrKGlkKVxuICAgIGVuZFxuICAgIGVuZFxuIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"></a></p>
+<p>上图是Primary收到来自Replicator的扩散成功消息时候的处理。<br>首先把刚成功的这一条从pending replicates中移除。<br>然后检查下是不是所有的replications都完成了（毕竟这里只是收到了一个replicator的消息），并且persist也完成了，如果两条都符合，就告诉Client说操作完成了。</p>
+<p>到这里就明显可以看出，pending replicates的作用就是primary用来记录尚未完成的replication。</p>
+<p><a href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgQXJiaXRlci0-PlByaW1hcnk6UmVwbGljYXMobm9kZXMpXG4gICAgbG9vcCBldmVyeSBuZXcgc2Vjb25kYXJ5XG4gICAgUHJpbWFyeS0-PlByaW1hcnk6Y3JlYXRlIG5ldyByZXBsaWNhdG9yIGZvciBuZXcgc2Vjb25kYXJ5XG4gICAgbG9vcCBldmVyeSBrdiBwYWlyXG4gICAgUHJpbWFyeS0-PlJlcGxpY2F0b3I6UmVwbGljYXRlKGtleSx2YWx1ZSxpZClcbiAgICBlbmRcbiAgICBlbmRcblxuICAgIGxvb3AgZXZlcnkgbGVmdCBzZWNvbmRhcnlcbiAgICBQcmltYXJ5LT4-UHJpbWFyeTpyZW1vdmUgaXRlbXMgZnJvbSBwZW5kaW5nIHJlcGxpY2F0ZXNcbiAgICBhbHQgYWxsIHJlcGxpY2F0aW9ucyBmaW5pc2hlZFxuICAgIGFsdCBwZXJzaXN0IGZpbmlzaGVkXG4gICAgUHJpbWFyeS0-PkNsaWVudDpPcGVyYXRpb25BY2soaWQpXG4gICAgZW5kXG4gICAgZW5kXG4gICAgUHJpbWFyeS0-PlByaW1hcnk6ZGVzdHJveSBpdHMgbWF0Y2hpbmcgcmVwbGljYXRvclxuICAgIFxuICAgIGVuZFxuIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ" target="_blank" rel="noopener"><img alt data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgQXJiaXRlci0-PlByaW1hcnk6UmVwbGljYXMobm9kZXMpXG4gICAgbG9vcCBldmVyeSBuZXcgc2Vjb25kYXJ5XG4gICAgUHJpbWFyeS0-PlByaW1hcnk6Y3JlYXRlIG5ldyByZXBsaWNhdG9yIGZvciBuZXcgc2Vjb25kYXJ5XG4gICAgbG9vcCBldmVyeSBrdiBwYWlyXG4gICAgUHJpbWFyeS0-PlJlcGxpY2F0b3I6UmVwbGljYXRlKGtleSx2YWx1ZSxpZClcbiAgICBlbmRcbiAgICBlbmRcblxuICAgIGxvb3AgZXZlcnkgbGVmdCBzZWNvbmRhcnlcbiAgICBQcmltYXJ5LT4-UHJpbWFyeTpyZW1vdmUgaXRlbXMgZnJvbSBwZW5kaW5nIHJlcGxpY2F0ZXNcbiAgICBhbHQgYWxsIHJlcGxpY2F0aW9ucyBmaW5pc2hlZFxuICAgIGFsdCBwZXJzaXN0IGZpbmlzaGVkXG4gICAgUHJpbWFyeS0-PkNsaWVudDpPcGVyYXRpb25BY2soaWQpXG4gICAgZW5kXG4gICAgZW5kXG4gICAgUHJpbWFyeS0-PlByaW1hcnk6ZGVzdHJveSBpdHMgbWF0Y2hpbmcgcmVwbGljYXRvclxuICAgIFxuICAgIGVuZFxuIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"></a></p>
+<p>最后一张图，描述的是当Arbiter告知Primary集群中有变动时，Primary的处理方式。</p>
+<p>对于新加入的Secondary，给它们每个都创建一个新的Replicator。然后通过Replicator把所有现存的kv数据都甩给新加入的Secondary。类似于给插班生<strong>补课</strong>。</p>
+<p>对于离开集群的Secondary，把和它们相关的pending replicates都删掉，既然它离开了，那就没必要等它了。删除掉之后马上检查一下是不是replications和persist都完了（因为有可能当前等的就是这个离开的Secondary，它一离开，没有别的需要等的了），如果是的话，那就告诉Client更新成功了。<br>最后，销毁掉对应的replicator。这个Secondary的历史使命就算终结了。如果后续这个Secondary又加入回来了，那走的就是上面一段<strong>补课</strong>的处理。</p>
+<h1 id="OK"><a href="#OK" class="headerlink" title="OK"></a>OK</h1><p>虽然讲的是一个加了若干限制的分布式键值存储，但是还是用了十四张图。</p>
+<p>这些图里没能体现到的一点是关于异步的问题，在最后补充一句：<br>除了Client之外，以上所有提到的参与者，每一个都是严格单线程的，不会在任何时候同时做两件事。实际的实现代码中，是用akka写的，这些参与者做的多数都是message passing的工作。<br>由于这是一门课的作业题，所以具体实现代码就不提及了。希望这些图表对于理解分布式键值存储（Distributed Key-Value Store）会有一些帮助。</p>
+]]></content>
+      <tags>
+        <tag>Reactive</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[译] 类 vs 数据结构</title>
+    <url>/blog/2020/02/15/classes-vs-data-structures/</url>
+    <content><![CDATA[<p>原文作者：Robert C. Martin (Uncle Bob)<br>原文链接：<a href="https://blog.cleancoder.com/uncle-bob/2019/06/16/ObjectsAndDataStructures.html" target="_blank" rel="noopener">https://blog.cleancoder.com/uncle-bob/2019/06/16/ObjectsAndDataStructures.html</a></p>
+<blockquote>
+<p>类是什么？</p>
+</blockquote>
+<p>类是一组相似对象的范本。</p>
+<blockquote>
+<p>对象又是什么呢？</p>
+</blockquote>
+<p>对象是对封装的数据进行操作的一组函数。</p>
+<blockquote>
+<p>不如这么说:对象是对隐含数据进行操作的一组函数。</p>
+</blockquote>
+<p>隐式数据？什么意思？</p>
+<blockquote>
+<p>对象的函数隐含意味着某些数据是存在的。但是该数据无法在对象外部直接访问或看到。</p>
+</blockquote>
+<p>数据不是对象内部的吗？</p>
+<blockquote>
+<p>可能是; 但没有规则说必须如此。从用户的角度来看，一个对象不过是一组函数。这些函数所需要的数据必须存在，但是用户不知道该数据的位置。</p>
+</blockquote>
+<p>嗯，好，我同意。</p>
+<blockquote>
+<p>好。现在说说，数据结构是什么？</p>
+</blockquote>
+<p>数据结构是一组内聚的数据。</p>
+<blockquote>
+<p>或者，换句话说，数据结构是由隐含函数操作的一组数据。</p>
+</blockquote>
+<p>好的，好的。我知道了。数据结构没有定义对数据结构进行操作的函数，但是数据结构的存在意味着某些函数必须存在。</p>
+<blockquote>
+<p>对。你有什么发现没有？</p>
+</blockquote>
+<p>对象和数据结构似乎是彼此相反的。</p>
+<blockquote>
+<p>确实。它们是彼此互补的。</p>
+<ul>
+<li>对象是对隐式数据进行操作的一组函数。</li>
+<li>数据结构是被隐式函数操作的一组数据。</li>
+</ul>
+</blockquote>
+<p>哇，所以对象不是数据结构了？</p>
+<blockquote>
+<p>说对了。对象与数据结构相反。</p>
+</blockquote>
+<p>那么DTO（Data Transfer Object）不是对象吗？</p>
+<blockquote>
+<p>DTO是数据结构。</p>
+</blockquote>
+<p>所以数据库表也不是对象吗？</p>
+<blockquote>
+<p>数据库包含数据结构，而不是对象。</p>
+</blockquote>
+<p>可是，等等。ORM(Object Relational Mapper)不是将数据库表映射到对象吗？</p>
+<blockquote>
+<p>当然不是。数据库表和对象之间没有映射。数据库表是数据结构，而不是对象。</p>
+</blockquote>
+<p>那么，ORM算是干嘛的呢？</p>
+<blockquote>
+<p>在数据结构之间传输数据。</p>
+</blockquote>
+<p>ORM与对象无关是吗？</p>
+<blockquote>
+<p>完全无关，ORM其实是不存在的。因为数据库表和对象之间没有映射。</p>
+</blockquote>
+<p>但是我还以为ORM为我们创建了业务对象呢。</p>
+<blockquote>
+<p>不对，ORM会提取业务对象所操作的数据。该数据包含在ORM加载的数据结构中。</p>
+</blockquote>
+<p>但是，业务对象是不是会包含该数据结构啊？</p>
+<blockquote>
+<p>它可能包含，也可能不包含。但是这不关ORM的事。</p>
+</blockquote>
+<p>这种说法似乎是咬文嚼字，不太重要。</p>
+<blockquote>
+<p>不，这具有重大意义。</p>
+</blockquote>
+<p>怎么讲？</p>
+<blockquote>
+<p>例如数据库schema的设计与业务对象的设计。业务对象定义业务行为的结构。数据库schema定义业务数据的结构。这两个结构受到非常不同的力的约束。业务数据的结构不一定是业务行为的最佳结构。</p>
+</blockquote>
+<p>嗯？令人困惑。</p>
+<blockquote>
+<p>这样想吧。数据库schema不仅为一个应用程序服务；它必须服务于整个企业。因此，该数据的结构是许多不同应用程序之间的折衷方案。</p>
+</blockquote>
+<p>好，我知道了。</p>
+<blockquote>
+<p>好。但是现在来说单独的应用程序。每个应用程序的对象模型描述了该应用程序的行为的构造方式。每个应用程序将具有不同的对象模型，并根据该应用程序的行为进行调整。</p>
+</blockquote>
+<p>哦，我懂了。由于数据库schema是各种应用程序的折衷方案，因此该schema将不符合任何特定应用程序的对象模型。</p>
+<blockquote>
+<p>对！对象和数据结构受到非常不同的作用力的约束。他们很少能对齐。人们习惯称其为对象/关系阻抗失衡（Object/Relational impedance mismatch）。</p>
+</blockquote>
+<p>我听说过，但是我认为阻抗失衡是由ORM解决的。</p>
+<blockquote>
+<p>现在你知道不是这样的了。因为对象和数据结构是互补的，而不是同构的，所以没有阻抗失配。</p>
+</blockquote>
+<p>什么？</p>
+<blockquote>
+<p>它们是对立的，不是相似的实体。</p>
+</blockquote>
+<p>相反吗?</p>
+<blockquote>
+<p>是的，以一种非常有趣的方式。你会看到，对象和数据结构意味着相反的控制结构。</p>
+</blockquote>
+<p>等一下，什么?</p>
+<blockquote>
+<p>考虑一组符合公共接口的类。例如，想象一下表示二维形状的类，这些类都具有计算area面积和perimeter周长的函数。</p>
+</blockquote>
+<p>为什么每个软件示例都总是提到形状？</p>
+<blockquote>
+<p>让我们只考虑两种不同的类型：Square和Circle。应该很容易看清楚的是，这两个类的area和permimeter函数在不同的隐式数据结构上运行。还应该清楚的是，调用这些函数的方式是通过动态多态性进行的。</p>
+</blockquote>
+<p>等下，慢一点，什么？</p>
+<blockquote>
+<p>有两种不同的area函数；一个是Square的，另一个是Circle的。当调用者在特定对象上调用area函数时，只有该对象才知道要调用哪个函数。我们称之为动态多态性。</p>
+</blockquote>
+<p>好。当然。该对象知道其方法的实现。当然。</p>
+<blockquote>
+<p>现在，让我们将这些对象换成数据结构。我们将使用标签联合（discriminated union）。</p>
+</blockquote>
+<p>标签联合是什么？</p>
+<blockquote>
+<p>标签联合。在我们当前讨论的情况下，这只是两个不同的数据结构。一个是Square另一个是Circle。Circle数据结构有一个圆心和半径。它还有一个将其标识为Circle的类型码。</p>
+</blockquote>
+<p>你是说像枚举？</p>
+<blockquote>
+<p>当然。Square数据结构有左顶点，和边长。它还有类型区分符(type discriminator)–枚举。</p>
+</blockquote>
+<p>好。具有类型码的两个数据结构。</p>
+<blockquote>
+<p>对。现在考虑area函数。它要有一个switch语句，不是吗？</p>
+</blockquote>
+<p>嗯，当然，对应两种不同的情况。一个用于Square另一个用于Circle。并且perimeter函数也需要类似的switch语句。</p>
+<blockquote>
+<p>对。现在考虑这两种场景的结构。在对象场景中，area函数的两个实现彼此独立，并且（在某种意义上）从属于类型。Square的area函数属于Square，Circle的area函数属于Circle。</p>
+</blockquote>
+<p>好的，我知道您的意思了。在数据结构场景中，area的两个实现在同一个函数中，它们并不“从属于”类型。</p>
+<blockquote>
+<p>接下来会更有趣。如果要将Triangle类型添加到对象方案中，必须更改哪些代码？</p>
+</blockquote>
+<p>无需更改代码。您只需创建新Triangle类。哦，我想必须更改实例的创建者。</p>
+<blockquote>
+<p>对。因此，当添加新类型时，几乎没有什么变化。现在，假设您要添加一个新函数-比如center函数。</p>
+</blockquote>
+<p>那么，你就必须在Circle，Square，和Triangle这三个类里面都去添加center函数。</p>
+<blockquote>
+<p>好。因此添加新函数很困难，必须更改每个类。</p>
+</blockquote>
+<p>但是在数据结构上却有所不同。为了添加Triangle，必须更改每个函数以将Triangle的case添加到switch语句里面去。</p>
+<blockquote>
+<p>对。添加新类型很困难，必须更改每个函数。</p>
+</blockquote>
+<p>但是，当您添加新center函数时，无需更改任何现存代码。</p>
+<blockquote>
+<p>对。添加新函数很容易。</p>
+</blockquote>
+<p>哇。恰恰相反。</p>
+<blockquote>
+<p>对。我们来复习：</p>
+<ul>
+<li>向一组类中添加新函数很困难，必须更改每个类。</li>
+<li>向一组数据结构中添加新函数很容易，只需添加函数，无需其他改变。</li>
+<li>向一组类中添加新类型很容易，只需添加新类即可。</li>
+<li>向一组数据结构中添加新类型很困难，必须更改每个函数。</li>
+</ul>
+</blockquote>
+<p>是的，相反。以一种有趣的方式对立。我的意思是，如果您知道要向一组类型中添加新函数，则应该使用数据结构。但是，如果您知道要添加新的类型，则可以使用类。</p>
+<blockquote>
+<p>说得好！但是，今天我们还有最后一件事要考虑。数据结构和类的对立还有另一种方式，与依赖关系有关。</p>
+</blockquote>
+<p>依赖关系？</p>
+<blockquote>
+<p>是的，源代码的依赖方向。</p>
+</blockquote>
+<p>具体来说呢？</p>
+<blockquote>
+<p>考虑数据结构的情况。每个函数都有一个switch语句，该语句根据类型码选择适当的实现。</p>
+</blockquote>
+<p>对，然后？</p>
+<blockquote>
+<p>考虑对area函数的调用。调用者依赖于area函数，而area函数依赖于每个特定的实现。</p>
+</blockquote>
+<p>您所说的“依赖”是什么意思？</p>
+<blockquote>
+<p>想象一下，area的每个实现都被写入了单独的函数中。所以有circleArea，squareArea和triangleArea。</p>
+</blockquote>
+<p>OK，switch语句会调用这几个函数。</p>
+<blockquote>
+<p>想象一下这几个函数在不同的源文件中。</p>
+</blockquote>
+<p>那么，包含有switch语句的源文件就必须import，use或include这些源文件。</p>
+<blockquote>
+<p>对。这就是源代码依赖性。一个源文件依赖于另一个源文件。这种依赖的方向是什么？</p>
+</blockquote>
+<p>带有switch语句的源文件依赖于包含实现的源文件。</p>
+<blockquote>
+<p>那area函数的调用者呢？</p>
+</blockquote>
+<p>area函数的调用者依赖于包含switch语句的源文件，该文件的switch语句依赖于各个实现。</p>
+<blockquote>
+<p>正确。从调用者到实现，所有源文件依赖性都指向调用的方向。因此，如果您对其中的一种实现进行了微小的更改……</p>
+</blockquote>
+<p>好的，我知道您的意思。对任何一种实现的更改将导致重新编译带有switch语句的源文件，从而导致每个调用switch语句的人重新编译。</p>
+<blockquote>
+<p>对。至少对于依赖于源文件的更改日期来确定应编译哪些模块的语言系统而言，这么说是正确的。</p>
+</blockquote>
+<p>几乎所有使用静态类型的语言，对吗？</p>
+<blockquote>
+<p>是的，有些非静态的也会。</p>
+</blockquote>
+<p>大量的重新编译。</p>
+<blockquote>
+<p>还有大量的重新部署。</p>
+</blockquote>
+<p>是的，但是在类的情况下这是相反的吗？</p>
+<blockquote>
+<p>是的，因为area函数的调用者依赖于接口，而函数实现也依赖于该接口。</p>
+</blockquote>
+<p>我明白你的意思了。Square类的源文件将import，use或include Shape接口的源文件。</p>
+<blockquote>
+<p>对。实现的源文件指向调用的相反方向。他们从实现指向调用者。至少对于静态类型的语言来说是这样。对于动态类型的语言，area函数的调用者完全不依赖任何内容。链接在运行时确定。</p>
+</blockquote>
+<p>对，因此，如果您更改其中一种实现方式…</p>
+<blockquote>
+<p>仅更改的文件需要重新编译或重新部署。</p>
+</blockquote>
+<p>那是因为源文件之间的依赖关系指向调用方向的反方向。</p>
+<blockquote>
+<p>对。我们称之为依赖倒置。</p>
+</blockquote>
+<p>好，让我看看我是否可以总结一下。类和数据结构在至少三种不同的方式上是相反的。</p>
+<ul>
+<li>类使函数可见，隐藏数据。数据结构使数据可见，隐藏函数。</li>
+<li>类使添加类型变得容易，但是却难以添加函数。数据结构使添加函数变得容易，但难以添加类型。</li>
+<li>数据结构导致调用者重新编译和重新部署。类将调用者与重新编译和重新部署隔离开。</li>
+</ul>
+<blockquote>
+<p>你说对了。这些都是每个优秀的软件设计人员和架构师都需要牢记的问题。</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>Uncle Bob</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Desugar Scala 20 -- Self Type</title>
     <url>/blog/2020/01/07/desugar-scala-20-self-type/</url>
     <content><![CDATA[<p>Scala里有一个很有趣的语言特性叫做Self Type，可以用来限定一个trait可以被mixin到哪里去。</p>
