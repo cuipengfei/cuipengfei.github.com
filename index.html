@@ -259,14 +259,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.8k</span>
+              <span>4.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -279,13 +279,13 @@
 
       
           <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>分布式键值存储（Distributed Key-Value Store）并不是一个新鲜的玩意。<br>常见的Redis，Memcache等等都有很多人在用。</p>
-<p>不过如果要是说其中的细节，如replicate，读写，一致性，retry等等的话，又是经常会遇到混淆不清。<br>恰巧我最近在看的一门网课《Programming Reactive Systems》中有一道作业题就是要自己实现一个Distributed Key-Value Store，那就正好借此机会详细写下其中的关键点。</p>
-<h1 id="关键参与者"><a href="#关键参与者" class="headerlink" title="关键参与者"></a>关键参与者</h1><p>既然是分布式键值存储，那么肯定会有主从节点，每个结点又会有自己的持久化，而主从之间也需要协调，于是就得出了如下关键参与者：</p>
+<p>不过如果要是说其中的细节，如replicate，读写，一致性，retry等等的话，又是经常会遇到把自己绕的混淆不清的情况。。<br>恰巧我最近在看的一门网课《Programming Reactive Systems》中有一道作业题就是要自己实现一个Distributed Key-Value Store，那就正好借此机会详细写下其中的关键点。</p>
+<h1 id="组成系统的参与者"><a href="#组成系统的参与者" class="headerlink" title="组成系统的参与者"></a>组成系统的参与者</h1><p>既然是分布式键值存储，那么肯定会有主从节点，每个结点又会有自己的持久化，而主从之间也需要协调，于是就得出了如下关键参与者：</p>
 <ul>
-<li><strong>Primary</strong>： 主节点。接受来自client的更新（写/删）操作，并把更新后的数据扩散到其它节点。当然，也可以接受来自于client的读操作。</li>
-<li><strong>Secondary</strong>： 从节点。接受来自主节点的更新操作。接受来自client的制度操作。</li>
-<li><strong>Arbiter</strong>： 仲裁者。任何节点，无论主从，都要把自己注册到arbiter上去。当有从节点加入或者离开集群的时候，arbiter负责告知主节点。</li>
-<li><strong>Persistence</strong>： 每个节点都拥有自己的独享的persistence。用于把节点上的数据持久化。</li>
+<li><strong>Primary</strong>： 主节点。接受来自client的更新（增/删/改）操作，并把更新后的数据扩散到其它节点。当然，也可以接受来自于client的读操作。</li>
+<li><strong>Secondary</strong>： 从节点。接受来自主节点的更新操作。接受来自client的只读操作。</li>
+<li><strong>Arbiter</strong>： 仲裁者。任何节点，无论主从，都要把自己注册到Arbiter上去。当有从节点加入或者离开集群的时候，Arbiter负责告知主节点。</li>
+<li><strong>Persistence</strong>： 每个节点都拥有自己的独享的Persistence。用于把节点上的数据持久化。</li>
 <li><strong>Clients</strong>： 客户端，可能与主或者从节点通信，进行各种读写操作。</li>
 </ul>
           <!--noindex-->
@@ -2859,7 +2859,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">330k</span>
+    <span title="站点总字数">331k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
