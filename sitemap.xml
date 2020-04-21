@@ -891,13 +891,6 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2015/06/13/observers-pattern-fp/</loc>
-    
-    <lastmod>2019-12-07T13:18:10.869Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://cuipengfei.me/blog/2015/06/16/visitor-pattern-pattern-match/</loc>
     
     <lastmod>2019-12-07T13:18:10.869Z</lastmod>
@@ -905,7 +898,7 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2015/07/04/2015-second-season/</loc>
+    <loc>https://cuipengfei.me/blog/2015/06/13/observers-pattern-fp/</loc>
     
     <lastmod>2019-12-07T13:18:10.869Z</lastmod>
     
@@ -919,9 +912,9 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/</loc>
+    <loc>https://cuipengfei.me/blog/2015/07/04/2015-second-season/</loc>
     
-    <lastmod>2019-12-07T13:18:10.868Z</lastmod>
+    <lastmod>2019-12-07T13:18:10.869Z</lastmod>
     
   </url>
   
@@ -947,14 +940,21 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2015/04/26/principles-of-reactive-programming-week-2/</loc>
+    <loc>https://cuipengfei.me/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/</loc>
+    
+    <lastmod>2019-12-07T13:18:10.868Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cuipengfei.me/blog/2015/04/19/principles-of-reactive-programming-week-one/</loc>
     
     <lastmod>2019-12-07T13:18:10.867Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2015/04/19/principles-of-reactive-programming-week-one/</loc>
+    <loc>https://cuipengfei.me/blog/2015/04/26/principles-of-reactive-programming-week-2/</loc>
     
     <lastmod>2019-12-07T13:18:10.867Z</lastmod>
     
@@ -975,14 +975,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/</loc>
+    <loc>https://cuipengfei.me/blog/2014/09/06/solving-regular-problems-in-scala/</loc>
     
     <lastmod>2019-12-07T13:18:10.865Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2014/09/06/solving-regular-problems-in-scala/</loc>
+    <loc>https://cuipengfei.me/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/</loc>
     
     <lastmod>2019-12-07T13:18:10.865Z</lastmod>
     
@@ -1010,13 +1010,6 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2014/06/14/scala-unapply-method/</loc>
-    
-    <lastmod>2019-12-07T13:18:10.863Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://cuipengfei.me/blog/2014/06/12/scala-update-method/</loc>
     
     <lastmod>2019-12-07T13:18:10.863Z</lastmod>
@@ -1031,6 +1024,13 @@
   </url>
   
   <url>
+    <loc>https://cuipengfei.me/blog/2014/06/14/scala-unapply-method/</loc>
+    
+    <lastmod>2019-12-07T13:18:10.863Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cuipengfei.me/blog/2014/01/01/my-2013/</loc>
     
     <lastmod>2019-12-07T13:18:10.862Z</lastmod>
@@ -1038,7 +1038,7 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2014/06/09/desugar-scala-default-parameter-value/</loc>
+    <loc>https://cuipengfei.me/blog/2014/01/02/desugar-scala-11/</loc>
     
     <lastmod>2019-12-07T13:18:10.862Z</lastmod>
     
@@ -1052,7 +1052,7 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2014/01/02/desugar-scala-11/</loc>
+    <loc>https://cuipengfei.me/blog/2014/06/09/desugar-scala-default-parameter-value/</loc>
     
     <lastmod>2019-12-07T13:18:10.862Z</lastmod>
     
@@ -1073,14 +1073,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2014/01/01/desugar-scala-10/</loc>
+    <loc>https://cuipengfei.me/blog/2013/12/29/desugar-scala-8/</loc>
     
     <lastmod>2019-12-07T13:18:10.861Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2013/12/29/desugar-scala-8/</loc>
+    <loc>https://cuipengfei.me/blog/2014/01/01/desugar-scala-10/</loc>
     
     <lastmod>2019-12-07T13:18:10.861Z</lastmod>
     
@@ -1115,14 +1115,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2013/05/11/scala-language-features-2/</loc>
+    <loc>https://cuipengfei.me/blog/2013/05/05/how-are-scala-language-features-implemented/</loc>
     
     <lastmod>2019-12-07T13:18:10.859Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2013/05/05/how-are-scala-language-features-implemented/</loc>
+    <loc>https://cuipengfei.me/blog/2013/05/11/scala-language-features-2/</loc>
     
     <lastmod>2019-12-07T13:18:10.859Z</lastmod>
     
