@@ -877,13 +877,6 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2016/01/03/2015/</loc>
-    
-    <lastmod>2019-12-07T13:18:10.870Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://cuipengfei.me/blog/2015/10/05/2015-3rd-season/</loc>
     
     <lastmod>2019-12-07T13:18:10.870Z</lastmod>
@@ -891,14 +884,21 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2015/06/16/visitor-pattern-pattern-match/</loc>
+    <loc>https://cuipengfei.me/blog/2016/01/03/2015/</loc>
+    
+    <lastmod>2019-12-07T13:18:10.870Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cuipengfei.me/blog/2015/06/13/observers-pattern-fp/</loc>
     
     <lastmod>2019-12-07T13:18:10.869Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2015/06/13/observers-pattern-fp/</loc>
+    <loc>https://cuipengfei.me/blog/2015/06/16/visitor-pattern-pattern-match/</loc>
     
     <lastmod>2019-12-07T13:18:10.869Z</lastmod>
     
@@ -919,14 +919,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/</loc>
+    <loc>https://cuipengfei.me/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/</loc>
     
     <lastmod>2019-12-07T13:18:10.868Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/</loc>
+    <loc>https://cuipengfei.me/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/</loc>
     
     <lastmod>2019-12-07T13:18:10.868Z</lastmod>
     
@@ -982,14 +982,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/</loc>
+    <loc>https://cuipengfei.me/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/</loc>
     
     <lastmod>2019-12-07T13:18:10.865Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/</loc>
+    <loc>https://cuipengfei.me/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/</loc>
     
     <lastmod>2019-12-07T13:18:10.865Z</lastmod>
     
@@ -1017,14 +1017,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2014/06/21/desugar-scala-lower-bound/</loc>
+    <loc>https://cuipengfei.me/blog/2014/06/14/scala-unapply-method/</loc>
     
     <lastmod>2019-12-07T13:18:10.863Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2014/06/14/scala-unapply-method/</loc>
+    <loc>https://cuipengfei.me/blog/2014/06/21/desugar-scala-lower-bound/</loc>
     
     <lastmod>2019-12-07T13:18:10.863Z</lastmod>
     
@@ -1066,14 +1066,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2013/12/30/desugar-scala-9/</loc>
+    <loc>https://cuipengfei.me/blog/2013/12/29/desugar-scala-8/</loc>
     
     <lastmod>2019-12-07T13:18:10.861Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2013/12/29/desugar-scala-8/</loc>
+    <loc>https://cuipengfei.me/blog/2013/12/30/desugar-scala-9/</loc>
     
     <lastmod>2019-12-07T13:18:10.861Z</lastmod>
     
