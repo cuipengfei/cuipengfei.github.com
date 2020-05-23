@@ -4,7 +4,7 @@
   <url>
     <loc>https://cuipengfei.me/blog/2020/05/22/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%86%A8%E8%83%80/</loc>
     
-    <lastmod>2020-05-23T06:04:05.279Z</lastmod>
+    <lastmod>2020-05-23T14:45:10.281Z</lastmod>
     
   </url>
   
@@ -905,13 +905,6 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2015/06/23/template-method-pattern/</loc>
-    
-    <lastmod>2019-12-07T13:18:10.869Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://cuipengfei.me/blog/2015/06/16/visitor-pattern-pattern-match/</loc>
     
     <lastmod>2019-12-07T13:18:10.869Z</lastmod>
@@ -926,7 +919,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/</loc>
+    <loc>https://cuipengfei.me/blog/2015/06/23/template-method-pattern/</loc>
+    
+    <lastmod>2019-12-07T13:18:10.869Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cuipengfei.me/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/</loc>
     
     <lastmod>2019-12-07T13:18:10.868Z</lastmod>
     
@@ -940,14 +940,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2015/06/01/command-pattern-fp-implementation/</loc>
+    <loc>https://cuipengfei.me/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/</loc>
     
     <lastmod>2019-12-07T13:18:10.868Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/</loc>
+    <loc>https://cuipengfei.me/blog/2015/06/01/command-pattern-fp-implementation/</loc>
     
     <lastmod>2019-12-07T13:18:10.868Z</lastmod>
     
@@ -968,13 +968,6 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2015/03/29/2015-first-season/</loc>
-    
-    <lastmod>2019-12-07T13:18:10.866Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://cuipengfei.me/blog/2014/12/27/2014/</loc>
     
     <lastmod>2019-12-07T13:18:10.866Z</lastmod>
@@ -982,14 +975,21 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2014/09/06/solving-regular-problems-in-scala/</loc>
+    <loc>https://cuipengfei.me/blog/2015/03/29/2015-first-season/</loc>
+    
+    <lastmod>2019-12-07T13:18:10.866Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cuipengfei.me/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/</loc>
     
     <lastmod>2019-12-07T13:18:10.865Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/</loc>
+    <loc>https://cuipengfei.me/blog/2014/09/06/solving-regular-problems-in-scala/</loc>
     
     <lastmod>2019-12-07T13:18:10.865Z</lastmod>
     
@@ -1066,13 +1066,6 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2013/12/29/desugar-scala-7/</loc>
-    
-    <lastmod>2019-12-07T13:18:10.861Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://cuipengfei.me/blog/2013/12/30/desugar-scala-9/</loc>
     
     <lastmod>2019-12-07T13:18:10.861Z</lastmod>
@@ -1080,14 +1073,21 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2013/12/29/desugar-scala-8/</loc>
+    <loc>https://cuipengfei.me/blog/2014/01/01/desugar-scala-10/</loc>
     
     <lastmod>2019-12-07T13:18:10.861Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2014/01/01/desugar-scala-10/</loc>
+    <loc>https://cuipengfei.me/blog/2013/12/29/desugar-scala-7/</loc>
+    
+    <lastmod>2019-12-07T13:18:10.861Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cuipengfei.me/blog/2013/12/29/desugar-scala-8/</loc>
     
     <lastmod>2019-12-07T13:18:10.861Z</lastmod>
     

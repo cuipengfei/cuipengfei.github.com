@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://cuipengfei.me/"/>
-  <updated>2020-05-23T06:04:05.279Z</updated>
+  <updated>2020-05-23T14:45:10.281Z</updated>
   <id>https://cuipengfei.me/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://cuipengfei.me/blog/2020/05/22/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%86%A8%E8%83%80/"/>
     <id>https://cuipengfei.me/blog/2020/05/22/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%86%A8%E8%83%80/</id>
     <published>2020-05-22T04:32:38.000Z</published>
-    <updated>2020-05-23T06:04:05.279Z</updated>
+    <updated>2020-05-23T14:45:10.281Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="泡水膨胀球"><a href="#泡水膨胀球" class="headerlink" title="泡水膨胀球"></a>泡水膨胀球</h1><img alt="drawing" width="500" data-src="/images/需求膨胀/膨胀球.jpg"><p>这是一种小玩具，干燥时拿在手里，小巧紧致。</p><p>泡在水里，一段时间之后，浑圆饱满，一只手都未必能捧的住。</p><h1 id="软件需求"><a href="#软件需求" class="headerlink" title="软件需求"></a>软件需求</h1><p>软件需求与膨胀球也有类似之处，一开始时看似完备正交，做起来发现<strong>越做越大，越做越多</strong>。</p><p>原本一只手能抓好几个的小球，后来变成两只手都抓不住。</p><h1 id="膨胀系数"><a href="#膨胀系数" class="headerlink" title="膨胀系数"></a>膨胀系数</h1><p>把膨胀的原理做一个简化模型：</p><figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">膨胀系数 ≈ 吸水力 - 斥水力</span><br><span class="line">小球体积 ≈ 膨胀系数 <span class="symbol">x</span> 时间</span><br></pre></td></tr></table></figure><p>吸水力与斥水力同时存在，有时东风压倒西风，有时西风压倒东风。</p><p>当两个力相互平衡时，膨胀系数变为零，小球体积在时间的轴线上也趋于<strong>稳定</strong>。</p><h1 id="力的阶段性施加策略"><a href="#力的阶段性施加策略" class="headerlink" title="力的阶段性施加策略"></a>力的阶段性施加策略</h1><p>我们希望的小球体积怎样变化呢？应该是如下图所示：</p><img alt="drawing" width="500" data-src="/images/需求膨胀/体积变化.png"><p>调研阶段积极创造<strong>环境</strong>来允许吸水力的<strong>释放</strong>，让小球变肥。</p><p>到了研发阶段，由于吸水力在之前就已经得到了有效的<strong>疏散</strong>，我们只需要施加适量的斥水力来平衡<strong>所剩无几</strong>的吸水力就能让小球体积的波动维持在<strong>可控</strong>的范围内。</p><p>先允许小球肥胖起来，以免后面出现始料未及的“惊喜”。</p><p>在不同的阶段有策略地利用这两种力，则可以达到前期需求收集充分考虑到各方诉求，后续研发稳定<strong>不坐过山车</strong>的目的。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="泡水膨胀球"><a href="#泡水膨胀球" class="headerlink" title="泡水膨胀球"></a>泡水膨胀球</h1><img alt="drawing" width="500" data-src="/images/需求膨胀/膨胀球.jpg"><p>这是一种小玩具，干燥时拿在手里，小巧紧致。</p><p>泡在水里，一段时间之后，浑圆饱满，一只手都未必能捧的住。</p><h1 id="软件需求"><a href="#软件需求" class="headerlink" title="软件需求"></a>软件需求</h1><p>软件需求与泡水膨胀球也有类似之处。<br>一开始时看似完备正交，做起来发现<strong>越做越大，越做越多</strong>。<br>原本一只手能抓好几个的小球，后来变成两只手都抓不住。</p><p>然后的结果要么是超预算多花钱做完，要么是转嫁成本给乙方要求对方做完，要么是延期，要么是痛苦地去压缩需求。<br>无论哪种，都是不健康的。</p><h1 id="膨胀系数"><a href="#膨胀系数" class="headerlink" title="膨胀系数"></a>膨胀系数</h1><p>把膨胀的原理做一个简化模型：</p><figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">膨胀系数 ≈ 吸水力 - 斥水力</span><br><span class="line">小球体积 ≈ 膨胀系数 <span class="symbol">x</span> 时间</span><br></pre></td></tr></table></figure><p>吸水力与斥水力同时存在，有时东风压倒西风，有时西风压倒东风。</p><p>当两个力接近相互<strong>平衡</strong>时，膨胀系数变为零，小球体积在时间的轴线上也趋于<strong>稳定</strong>。</p><h1 id="力的阶段性施加策略"><a href="#力的阶段性施加策略" class="headerlink" title="力的阶段性施加策略"></a>力的阶段性施加策略</h1><p>我们希望的小球体积怎样变化呢？应该是如下图所示：</p><img data-src="/images/需求膨胀/体积变化.png"><p>调研阶段积极创造<strong>环境</strong>来让吸水力得以<strong>释放</strong>，先允许小球变肥。然后施加一定的斥水力，让小球苗条下来。</p><p>到了研发阶段，由于吸水力在之前就已经得到了有效的<strong>释放</strong>，这时施加适量的斥水力来平衡<strong>所剩无几</strong>的吸水力就能让小球体积的波动维持在<strong>可控</strong>的范围内。</p><p>先允许小球肥胖起来，以免后面出现始料未及的“惊喜”。</p><p>在不同的阶段有策略地利用这两种力，则可以趋近<strong>前期需求收集充分考虑各方诉求</strong>不留大的隐患，后续研发稳定<strong>不坐过山车</strong>的目的。</p>]]></content>
     
     <summary type="html">
     
@@ -31,7 +31,7 @@
 
 &lt;p&gt;这是一种小玩具，干燥时拿在手里，小巧紧致。&lt;/p&gt;
 &lt;p&gt;泡在水里，一段时间之后，浑圆饱满，一只手都未必能捧的住。&lt;/p&gt;
-&lt;h1 id=&quot;软件需求&quot;&gt;&lt;a href=&quot;#软件需求&quot; class=&quot;headerlink&quot; title=&quot;软件需求&quot;&gt;&lt;/a&gt;软件需求&lt;/h1&gt;&lt;p&gt;软件需求与膨胀球也有类似之处，一开始时看似完备正交，做起来发现&lt;strong&gt;越做越大，越做越多&lt;/strong&gt;。&lt;/p&gt;
+&lt;h1 id=&quot;软件需求&quot;&gt;&lt;a href=&quot;#软件需求&quot; class=&quot;headerlink&quot; title=&quot;软件需求&quot;&gt;&lt;/a&gt;软件需求&lt;/h1&gt;&lt;p&gt;软件需求与泡水膨胀球也有类似之处。&lt;br&gt;一开始时看似完备正交，做起来发现&lt;strong&gt;越做越大，越做越多&lt;/strong&gt;。&lt;br&gt;原本一只手能抓好几个的小球，后来变成两只手都抓不住。&lt;/p&gt;
     
     </summary>
     
