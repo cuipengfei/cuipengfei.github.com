@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://cuipengfei.me/"/>
-  <updated>2020-03-02T08:19:35.433Z</updated>
+  <updated>2020-05-23T06:04:05.279Z</updated>
   <id>https://cuipengfei.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>软件需求膨胀系数</title>
+    <link href="https://cuipengfei.me/blog/2020/05/22/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%86%A8%E8%83%80/"/>
+    <id>https://cuipengfei.me/blog/2020/05/22/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%86%A8%E8%83%80/</id>
+    <published>2020-05-22T04:32:38.000Z</published>
+    <updated>2020-05-23T06:04:05.279Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="泡水膨胀球"><a href="#泡水膨胀球" class="headerlink" title="泡水膨胀球"></a>泡水膨胀球</h1><img alt="drawing" width="500" data-src="/images/需求膨胀/膨胀球.jpg"><p>这是一种小玩具，干燥时拿在手里，小巧紧致。</p><p>泡在水里，一段时间之后，浑圆饱满，一只手都未必能捧的住。</p><h1 id="软件需求"><a href="#软件需求" class="headerlink" title="软件需求"></a>软件需求</h1><p>软件需求与膨胀球也有类似之处，一开始时看似完备正交，做起来发现<strong>越做越大，越做越多</strong>。</p><p>原本一只手能抓好几个的小球，后来变成两只手都抓不住。</p><h1 id="膨胀系数"><a href="#膨胀系数" class="headerlink" title="膨胀系数"></a>膨胀系数</h1><p>把膨胀的原理做一个简化模型：</p><figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">膨胀系数 ≈ 吸水力 - 斥水力</span><br><span class="line">小球体积 ≈ 膨胀系数 <span class="symbol">x</span> 时间</span><br></pre></td></tr></table></figure><p>吸水力与斥水力同时存在，有时东风压倒西风，有时西风压倒东风。</p><p>当两个力相互平衡时，膨胀系数变为零，小球体积在时间的轴线上也趋于<strong>稳定</strong>。</p><h1 id="力的阶段性施加策略"><a href="#力的阶段性施加策略" class="headerlink" title="力的阶段性施加策略"></a>力的阶段性施加策略</h1><p>我们希望的小球体积怎样变化呢？应该是如下图所示：</p><img alt="drawing" width="500" data-src="/images/需求膨胀/体积变化.png"><p>调研阶段积极创造<strong>环境</strong>来允许吸水力的<strong>释放</strong>，让小球变肥。</p><p>到了研发阶段，由于吸水力在之前就已经得到了有效的<strong>疏散</strong>，我们只需要施加适量的斥水力来平衡<strong>所剩无几</strong>的吸水力就能让小球体积的波动维持在<strong>可控</strong>的范围内。</p><p>先允许小球肥胖起来，以免后面出现始料未及的“惊喜”。</p><p>在不同的阶段有策略地利用这两种力，则可以达到前期需求收集充分考虑到各方诉求，后续研发稳定<strong>不坐过山车</strong>的目的。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;泡水膨胀球&quot;&gt;&lt;a href=&quot;#泡水膨胀球&quot; class=&quot;headerlink&quot; title=&quot;泡水膨胀球&quot;&gt;&lt;/a&gt;泡水膨胀球&lt;/h1&gt;&lt;img alt=&quot;drawing&quot; width=&quot;500&quot; data-src=&quot;/images/需求膨胀/膨胀球.jpg&quot;&gt;
+
+&lt;p&gt;这是一种小玩具，干燥时拿在手里，小巧紧致。&lt;/p&gt;
+&lt;p&gt;泡在水里，一段时间之后，浑圆饱满，一只手都未必能捧的住。&lt;/p&gt;
+&lt;h1 id=&quot;软件需求&quot;&gt;&lt;a href=&quot;#软件需求&quot; class=&quot;headerlink&quot; title=&quot;软件需求&quot;&gt;&lt;/a&gt;软件需求&lt;/h1&gt;&lt;p&gt;软件需求与膨胀球也有类似之处，一开始时看似完备正交，做起来发现&lt;strong&gt;越做越大，越做越多&lt;/strong&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="需求" scheme="https://cuipengfei.me/tags/%E9%9C%80%E6%B1%82/"/>
+    
+  </entry>
   
   <entry>
     <title>分布式键值存储（Distributed Key-Value Store）</title>
@@ -544,33 +569,6 @@
 &lt;p&gt;八月份上了一个大客户的项目，到了晚上没力气也没心情做任何事情。&lt;/p&gt;
 &lt;h1 id=&quot;博客&quot;&gt;&lt;a href=&quot;#博客&quot; class=&quot;headerlink&quot; title=&quot;博客&quot;&gt;&lt;/a&gt;博客&lt;/h1&gt;&lt;p&gt;没写。上个季度六月的系列告一段落后7月没写。到了8月就不用说了。&lt;/p&gt;
 &lt;h1 id=&quot;读书&quot;&gt;&lt;a href=&quot;#读书&quot; class=&quot;headerlink&quot; title=&quot;读书&quot;&gt;&lt;/a&gt;读书&lt;/h1&gt;&lt;p&gt;七月八月读了7本书，9月一本未读。&lt;/p&gt;
-    
-    </summary>
-    
-    
-    
-      <category term="me" scheme="https://cuipengfei.me/tags/me/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2015第二季度</title>
-    <link href="https://cuipengfei.me/blog/2015/07/04/2015-second-season/"/>
-    <id>https://cuipengfei.me/blog/2015/07/04/2015-second-season/</id>
-    <published>2015-07-04T12:37:00.000Z</published>
-    <updated>2019-12-07T13:18:10.869Z</updated>
-    
-    <content type="html"><![CDATA[<p>2015竟然这么快就过去一半了。逝者如斯夫。</p><h1 id="博客"><a href="#博客" class="headerlink" title="博客"></a>博客</h1><p>第一季度总结的时候说：</p><blockquote><p>今年的博客主线任务定为OO与FP的比较和结合应用吧。</p></blockquote><p>这个任务完成的不错，这个主题写了7篇博客。</p><p>迭代器已经irrelevant了，中介者和备忘录太简单就没写，状态模式没找到好的FP实现方式。<br>这样11种行为模式除去上述4个，算是基本覆盖完了。</p><p>Principles of Reactive Programming作业导学写了两篇，后面的有点难，写不出来了。。。<br>这一点后面MOOC再说。</p><p>还有一篇gender pay gap的博客，算是今年到目前为止阅读量最多的得意之作。</p><p>在武汉做了一次学英语的workshop，在TWU做了pecha kucha，总结成了两篇。</p><p>这样，不算季度总结的博客，写了12篇，数量和内容自己都满意。和技术相关的还可以充当复习和刷新记忆的资料。</p><p>不错，博客这方面达标了。</p><h1 id="读书"><a href="#读书" class="headerlink" title="读书"></a>读书</h1><p>这个季度比较惨。这一季度只读了五本书。</p><p>一部分原因在于TWU的日程太紧，一部分原因在于博客，MOOC和翻译占用的时间很多，不可兼得。</p><p>还好第一季度看书比较多，所以到目前为止这半年一共读过16本书，总体数量还不算太惨。</p><p>这十六本书里有7本有笔记，可以充当复习和刷新记忆的资料，而且效果很好。自己写的笔记，瞄一眼，整本书的内容和重点就全部复活。</p><p>不过看书的领域方面有点杂，2014总结的时候说：</p><blockquote><p>明年需要看一些轻量级的经济、哲学和社会心理学的书。</p></blockquote><p>这方面执行的不好。</p><p><img alt="http://i1.tietuku.com/26b6dd870a313983.png" data-src="http://i1.tietuku.com/26b6dd870a313983.png"></p><p>于是建了一个trello，把2015下半年要读的书预先plan出来。每个月plan两三本，一部分符合上述他山之石的领域，一部分符合OOP和FP的技术主线。</p><p><img alt="http://i1.tietuku.com/09607b3bd8c47d1d.png" data-src="http://i1.tietuku.com/09607b3bd8c47d1d.png"></p><p>这样plan的数量并不大，如果突然出现兴趣很高，或者优先级很高的书的话，可以随时插入计划中。</p><p>另外，pipeline定义清晰，每本书要读完，有笔记，有复习，有某种形式的产出（笔记也算）。</p><h1 id="MOOC"><a href="#MOOC" class="headerlink" title="MOOC"></a>MOOC</h1><p>把Principles of Reactive Programming跟完了，证书拿到了。</p><p><img alt="http://i1.tietuku.com/cff384ac4788e10b.png" data-src="http://i1.tietuku.com/cff384ac4788e10b.png"></p><p>但是照实说，这门课没学懂，只是应付过了。后四周的作业导学没写出来。</p><p>主要原因在于事先对课程难度估计过低，投入时间不够。下次开课，需要再跟一遍。</p><p>除此之外，下半年对于MOOC这方面不做过多预期，有特别好的特别感兴趣的就跟，没有就算了。</p><p>算是对年初说过的话彻底食言了。。。</p><h1 id="体重"><a href="#体重" class="headerlink" title="体重"></a>体重</h1><p>在印度这段时间健身房出勤率74%左右，还挺好。</p><p>现在，60.5公斤，第一季度结束时是61。基本算是没变。充分说明了没有改进目标就不会有成绩。</p><p>不过鉴于我现在已经不算胖子了，这方面仍然不做过多奢求，维持就好。</p><p>另外，腹肌的轮廓开始出现了，我很开心：）</p><img style="width: 300px;" data-src="http://i1.tietuku.com/4866dc89e0ffac6a.jpg"><img style="width: 300px;" data-src="http://i1.tietuku.com/6b5710437ae31c2f.jpg"><h1 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h1><p>接了出版社一个翻译的活儿，《Seven more languages in seven weeks》，是本蛮不错的书。这个额外的任务投入时间较多也是读书方面有欠缺的原因之一。</p><p>对出版充满期待。</p><h1 id="时间管理与统计"><a href="#时间管理与统计" class="headerlink" title="时间管理与统计"></a>时间管理与统计</h1><p>从四月一号开始，开始使用pomotodo这款超赞的番茄钟软件。从开始的第一天开始，到现在为止，凡是需要坐下来专心执行的事情都有记录。</p><p><img alt="http://i1.tietuku.com/50d083b12ab39342.png" data-src="http://i1.tietuku.com/50d083b12ab39342.png"></p><p>这款软件的统计分析功能很好用，每个番茄钟还可以加tag。可以看到，这三个月做多的时间放在了TWU的备课上（26%），其次是翻译书（16%），mooc和blog紧跟其后（13%和10%），然后还有读书和写TWU需要的总结反馈（都是7%）。</p><p>这样，有数据，为什么读书少就一目了然了。</p><p>另外，可以看到这三个月平均日完成7.55个番茄钟。这个数量很说明问题，工作的效率靠感觉是感觉不出来的，要靠统计数据和分析。<br>7.55个番茄钟，相当于四个小时左右。每天平均专心工作，执行任务的时间只有四个小时啊！</p><p>这里面有一部分原因是TWU过程中需要听别的讲师的很多sessions，如果没有这个因素，日均数量应该是9个左右。</p><p>下个季度这方面的数据会是什么样的很难说，如果做的工作中有很大部分涉及沟通和协调的话，这个数字或许会走低。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;2015竟然这么快就过去一半了。逝者如斯夫。&lt;/p&gt;
-&lt;h1 id=&quot;博客&quot;&gt;&lt;a href=&quot;#博客&quot; class=&quot;headerlink&quot; title=&quot;博客&quot;&gt;&lt;/a&gt;博客&lt;/h1&gt;&lt;p&gt;第一季度总结的时候说：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;今年的博客主线任务定为OO与FP的比较和结合应用吧。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;这个任务完成的不错，这个主题写了7篇博客。&lt;/p&gt;
-&lt;p&gt;迭代器已经irrelevant了，中介者和备忘录太简单就没写，状态模式没找到好的FP实现方式。&lt;br&gt;这样11种行为模式除去上述4个，算是基本覆盖完了。&lt;/p&gt;
     
     </summary>
     

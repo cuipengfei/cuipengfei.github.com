@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cuipengfei.me/blog/2020/05/22/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%86%A8%E8%83%80/</loc>
+    
+    <lastmod>2020-05-23T06:04:05.279Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cuipengfei.me/blog/2020/02/21/distributed-key-value-store/</loc>
     
     <lastmod>2020-03-02T08:19:35.433Z</lastmod>
@@ -898,14 +905,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2015/06/16/visitor-pattern-pattern-match/</loc>
+    <loc>https://cuipengfei.me/blog/2015/06/23/template-method-pattern/</loc>
     
     <lastmod>2019-12-07T13:18:10.869Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2015/06/23/template-method-pattern/</loc>
+    <loc>https://cuipengfei.me/blog/2015/06/16/visitor-pattern-pattern-match/</loc>
     
     <lastmod>2019-12-07T13:18:10.869Z</lastmod>
     
@@ -961,14 +968,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2014/12/27/2014/</loc>
+    <loc>https://cuipengfei.me/blog/2015/03/29/2015-first-season/</loc>
     
     <lastmod>2019-12-07T13:18:10.866Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2015/03/29/2015-first-season/</loc>
+    <loc>https://cuipengfei.me/blog/2014/12/27/2014/</loc>
     
     <lastmod>2019-12-07T13:18:10.866Z</lastmod>
     
@@ -982,14 +989,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/</loc>
+    <loc>https://cuipengfei.me/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/</loc>
     
     <lastmod>2019-12-07T13:18:10.865Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/</loc>
+    <loc>https://cuipengfei.me/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/</loc>
     
     <lastmod>2019-12-07T13:18:10.865Z</lastmod>
     
@@ -1038,14 +1045,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2014/01/02/desugar-scala-11/</loc>
+    <loc>https://cuipengfei.me/blog/2014/01/05/more-on-scala-implicit-function/</loc>
     
     <lastmod>2019-12-07T13:18:10.862Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2014/01/05/more-on-scala-implicit-function/</loc>
+    <loc>https://cuipengfei.me/blog/2014/01/02/desugar-scala-11/</loc>
     
     <lastmod>2019-12-07T13:18:10.862Z</lastmod>
     
@@ -1066,14 +1073,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2013/12/29/desugar-scala-8/</loc>
+    <loc>https://cuipengfei.me/blog/2013/12/30/desugar-scala-9/</loc>
     
     <lastmod>2019-12-07T13:18:10.861Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2013/12/30/desugar-scala-9/</loc>
+    <loc>https://cuipengfei.me/blog/2013/12/29/desugar-scala-8/</loc>
     
     <lastmod>2019-12-07T13:18:10.861Z</lastmod>
     
@@ -1094,13 +1101,6 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2013/12/23/desugar-scala-4/</loc>
-    
-    <lastmod>2019-12-07T13:18:10.860Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://cuipengfei.me/blog/2013/12/24/desugar-scala-5/</loc>
     
     <lastmod>2019-12-07T13:18:10.860Z</lastmod>
@@ -1109,6 +1109,13 @@
   
   <url>
     <loc>https://cuipengfei.me/blog/2013/12/25/desugar-scala-6/</loc>
+    
+    <lastmod>2019-12-07T13:18:10.860Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cuipengfei.me/blog/2013/12/23/desugar-scala-4/</loc>
     
     <lastmod>2019-12-07T13:18:10.860Z</lastmod>
     

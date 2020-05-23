@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -208,6 +208,107 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2014/01/05/more-on-scala-implicit-function/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2014/01/05/more-on-scala-implicit-function/" class="post-title-link" itemprop="url">褪去Scala的糖衣(12) -- implicit function（补）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2014-01-05 00:42:00" itemprop="dateCreated datePublished" datetime="2014-01-05T00:42:00+08:00">2014-01-05</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2014/01/05/more-on-scala-implicit-function/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2014/01/05/more-on-scala-implicit-function/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>上次<a href="http://cuipengfei.me/blog/2014/01/01/desugar-scala-10/">博客谈到了implicit function</a>，但是漏掉了一些东西，今天补上。</p>
+<p>由于上次已经讲过implicit function的实现细节，这次就不再重复了。今天只补充上次漏掉了的implicit function的一种很好的实践。</p>
+<p>先看一段specs2的测试代码：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.specs2.mutable._</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorldSpec</span> <span class="keyword">extends</span> <span class="title">Specification</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="string">"The 'Hello world' string"</span> should &#123;</span><br><span class="line"></span><br><span class="line">    <span class="string">"contain 11 characters"</span> in &#123;</span><br><span class="line">      <span class="string">"Hello world"</span> must have size <span class="number">11</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们试着理解这个测试代码在做什么的时候，无须多少思考，因为它和人类语言一样的亲近和自然。但是如果我们想知道specs2如何做到这一点时，就有点费解了。</p>
+<p>我们知道xObject yMethod zParameter的写法是一个语法糖，它和xObject.yMethod(zParameter)是一样的。也就是说should和in都是方法名。于是，问题来了，should和in前面是个String啊，String上哪有这两个方法的定义？</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2014/01/05/more-on-scala-implicit-function/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -993,7 +1094,7 @@
 
 <p>以这种方式来保证web service不会被无谓的重复请求。</p>
 <p>C#中则可以使用Lazy of T来实现类似的事:</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Lazy&lt;String&gt; str = <span class="keyword">new</span> Lazy&lt;<span class="keyword">string</span>&gt; (() =&gt; GetStrFromWebService ());</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> String Str</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">get</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> str.Value;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">private Lazy&lt;String&gt; str &#x3D; new Lazy&lt;string&gt; (() &#x3D;&gt; GetStrFromWebService ());</span><br><span class="line"></span><br><span class="line">public String Str</span><br><span class="line">&#123;</span><br><span class="line">	get</span><br><span class="line">	&#123;</span><br><span class="line">		return str.Value;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/blog/2013/12/24/desugar-scala-5/#more" rel="contents">
@@ -1372,7 +1473,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.2k</span>
+              <span>3.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -2596,105 +2697,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2011/08/23/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%205%20-%20Empty/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="崔鹏飞">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="崔鹏飞的Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2011/08/23/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%205%20-%20Empty/" class="post-title-link" itemprop="url">自己动手重新实现LINQ to Objects 5 - Empty</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2011-08-23 23:41:53" itemprop="dateCreated datePublished" datetime="2011-08-23T23:41:53+08:00">2011-08-23</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/2011/08/23/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%205%20-%20Empty/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2011/08/23/自己动手重新实现LINQ to Objects: 5 - Empty/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文翻译自  <a href="http://stackoverflow.com/users/22656/jon-skeet" target="_blank" rel="noopener"> Jon Skeet  </a> 的系列博文”Edulinq”。</p>
-<p>本篇原文地址：</p>
-<p><a href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-objects-part-5-empty.aspx" target="_blank" rel="noopener">http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-objects-part-5-empty.aspx</a>这一篇继续讲非扩展方法。这次我们要讲的是  Empty  ，它有可能是最简单的  LINQ  操作符了。</p>
-<h1 id="Empty-是什么？"><a href="#Empty-是什么？" class="headerlink" title="Empty  是什么？"></a>Empty  是什么？</h1><p><a href="http://msdn.microsoft.com/en-us/library/bb341042.aspx" target="_blank" rel="noopener"> Empty  </a><br>是一个泛型的，静态的方法，它只有一个签名形式，不接受任何参数：  </p>
-<p>public  static  IEnumerable<tresult> Empty<tresult>()  </tresult></tresult></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/2011/08/23/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects:%205%20-%20Empty/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -2743,14 +2745,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-count">163</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -2811,7 +2813,7 @@
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">5:01</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
