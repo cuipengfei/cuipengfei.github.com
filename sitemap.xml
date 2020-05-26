@@ -4,7 +4,7 @@
   <url>
     <loc>https://cuipengfei.me/blog/2020/05/22/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%86%A8%E8%83%80/</loc>
     
-    <lastmod>2020-05-23T14:45:10.281Z</lastmod>
+    <lastmod>2020-05-26T03:23:46.446Z</lastmod>
     
   </url>
   
@@ -940,14 +940,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/</loc>
+    <loc>https://cuipengfei.me/blog/2015/06/01/command-pattern-fp-implementation/</loc>
     
     <lastmod>2019-12-07T13:18:10.868Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2015/06/01/command-pattern-fp-implementation/</loc>
+    <loc>https://cuipengfei.me/blog/2015/05/27/trait-and-fp-makes-strategy-pattern-irrelevant/</loc>
     
     <lastmod>2019-12-07T13:18:10.868Z</lastmod>
     
@@ -1017,7 +1017,7 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2014/06/12/scala-update-method/</loc>
+    <loc>https://cuipengfei.me/blog/2014/06/21/desugar-scala-lower-bound/</loc>
     
     <lastmod>2019-12-07T13:18:10.863Z</lastmod>
     
@@ -1031,23 +1031,9 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2014/06/21/desugar-scala-lower-bound/</loc>
+    <loc>https://cuipengfei.me/blog/2014/06/12/scala-update-method/</loc>
     
     <lastmod>2019-12-07T13:18:10.863Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cuipengfei.me/blog/2014/01/01/my-2013/</loc>
-    
-    <lastmod>2019-12-07T13:18:10.862Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cuipengfei.me/blog/2014/01/05/more-on-scala-implicit-function/</loc>
-    
-    <lastmod>2019-12-07T13:18:10.862Z</lastmod>
     
   </url>
   
@@ -1059,7 +1045,21 @@
   </url>
   
   <url>
+    <loc>https://cuipengfei.me/blog/2014/01/01/my-2013/</loc>
+    
+    <lastmod>2019-12-07T13:18:10.862Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cuipengfei.me/blog/2014/06/09/desugar-scala-default-parameter-value/</loc>
+    
+    <lastmod>2019-12-07T13:18:10.862Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cuipengfei.me/blog/2014/01/05/more-on-scala-implicit-function/</loc>
     
     <lastmod>2019-12-07T13:18:10.862Z</lastmod>
     
@@ -1080,14 +1080,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2013/12/29/desugar-scala-7/</loc>
+    <loc>https://cuipengfei.me/blog/2013/12/29/desugar-scala-8/</loc>
     
     <lastmod>2019-12-07T13:18:10.861Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2013/12/29/desugar-scala-8/</loc>
+    <loc>https://cuipengfei.me/blog/2013/12/29/desugar-scala-7/</loc>
     
     <lastmod>2019-12-07T13:18:10.861Z</lastmod>
     
@@ -1122,7 +1122,7 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2013/05/05/how-are-scala-language-features-implemented/</loc>
+    <loc>https://cuipengfei.me/blog/2013/06/22/why-does-it-have-to-be-final/</loc>
     
     <lastmod>2019-12-07T13:18:10.859Z</lastmod>
     
@@ -1136,7 +1136,7 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/blog/2013/06/22/why-does-it-have-to-be-final/</loc>
+    <loc>https://cuipengfei.me/blog/2013/05/05/how-are-scala-language-features-implemented/</loc>
     
     <lastmod>2019-12-07T13:18:10.859Z</lastmod>
     
