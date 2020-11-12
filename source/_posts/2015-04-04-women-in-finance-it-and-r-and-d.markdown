@@ -245,40 +245,8 @@ NACE的wiki页面：<a href="http://en.wikipedia.org/wiki/National_Association_o
 所有这些问题，都属于**价值判断**。通过上面引用的数据，以及常识的积累，我对这些问题会有确定性的判断。
 想来你也能猜到我的判断是什么。但是我不把它说出来，**留待读者自己得出结论**。
 
-# 最后
-如果您觉得这篇博客写的还可以，请用手机支付宝扫描下面的二维码：
+# 2020-11-12 更新
 
-![](https://tfsimg.alipay.com/images/mobilecodec/T1J3FfXbpsXXXXXXXX)
+感谢读者Victoria Mesbere的来信并推荐了一篇与本文主题契合的文章：技术女性赋权指南。
 
-我会把收到的巨款用来置装，美容，健身。
-
-然后穿的花枝招展，抹的五彩绚烂，露出两条人鱼线。
-
-站在女程序员们旁边，给她们端茶倒水擦汗。
-
-并且忘掉我也可以是一个独立的个体，也可以通过某种其他的方式体现自我价值。
-
-成为一名雄性鼓励师，从此人生走上巅峰。
-
-# 最后的后面
-最后的后面怎么还有呢？因为标题已经啰嗦了，索性结尾也啰嗦一下。
-
-说是不严谨的考据，但是还是用了十几个番茄钟，五六次git commit，三四次审校。
-
-![](http://ww2.sinaimg.cn/large/8b1ece2agw1eqtkcps0zaj21g60zejya.jpg)
-
-![](http://ww4.sinaimg.cn/large/8b1ece2agw1eqtkec0012j21fq0ku7a1.jpg)
-
-七易其稿也不过是如此的两倍嘛。
-
-不过从此以后，我要与这样的辛劳说再见了。我要成为一个靠性别，靠脸，靠身材吃饭的男人。
-
-所以，你懂的，趁我还能靠智识谋生，扫码吧。
-
-别跑，说的就是你，别骗我，我知道你余额宝收益好几十块钱一天呢。
-
-难道你就不想为一位志存高远的未来雄性鼓励师提供一些帮助吗？
-
-（胆敢说我最终还是免不了被周树人附体的善款要x2）
-
-现在，请回到页面的最上端，再看一遍那两张图片，请问您现在看到的东西和读本文之前还一样吗？
+与本文只揭示现象不同，这篇文章给出了一些可供实操的建议，推荐阅读：[https://www.websiteplanet.com/blog/the-empowering-guide-for-women-in-tech/](https://www.websiteplanet.com/blog/the-empowering-guide-for-women-in-tech/)
