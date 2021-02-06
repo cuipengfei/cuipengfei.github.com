@@ -505,11 +505,11 @@
     <lastmod>2019-12-07</lastmod>
   </url>
   <url>
-    <loc>https://cuipengfei.me/blog/2016/01/03/2015/</loc>
+    <loc>https://cuipengfei.me/blog/2015/10/05/2015-3rd-season/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>
   <url>
-    <loc>https://cuipengfei.me/blog/2015/10/05/2015-3rd-season/</loc>
+    <loc>https://cuipengfei.me/blog/2016/01/03/2015/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>
   <url>
@@ -517,11 +517,11 @@
     <lastmod>2019-12-07</lastmod>
   </url>
   <url>
-    <loc>https://cuipengfei.me/blog/2015/06/16/visitor-pattern-pattern-match/</loc>
+    <loc>https://cuipengfei.me/blog/2015/07/04/2015-second-season/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>
   <url>
-    <loc>https://cuipengfei.me/blog/2015/07/04/2015-second-season/</loc>
+    <loc>https://cuipengfei.me/blog/2015/06/16/visitor-pattern-pattern-match/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>
   <url>
@@ -545,11 +545,11 @@
     <lastmod>2019-12-07</lastmod>
   </url>
   <url>
-    <loc>https://cuipengfei.me/blog/2015/04/26/principles-of-reactive-programming-week-2/</loc>
+    <loc>https://cuipengfei.me/blog/2015/04/19/principles-of-reactive-programming-week-one/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>
   <url>
-    <loc>https://cuipengfei.me/blog/2015/04/19/principles-of-reactive-programming-week-one/</loc>
+    <loc>https://cuipengfei.me/blog/2015/04/26/principles-of-reactive-programming-week-2/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>
   <url>
@@ -565,19 +565,19 @@
     <lastmod>2019-12-07</lastmod>
   </url>
   <url>
-    <loc>https://cuipengfei.me/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/</loc>
-    <lastmod>2019-12-07</lastmod>
-  </url>
-  <url>
     <loc>https://cuipengfei.me/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>
   <url>
-    <loc>https://cuipengfei.me/blog/2014/08/30/options-for/</loc>
+    <loc>https://cuipengfei.me/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>
   <url>
     <loc>https://cuipengfei.me/blog/2014/07/18/play-evolutions-to-liquibase/</loc>
+    <lastmod>2019-12-07</lastmod>
+  </url>
+  <url>
+    <loc>https://cuipengfei.me/blog/2014/08/30/options-for/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>
   <url>
@@ -613,10 +613,6 @@
     <lastmod>2019-12-07</lastmod>
   </url>
   <url>
-    <loc>https://cuipengfei.me/blog/2013/12/29/desugar-scala-8/</loc>
-    <lastmod>2019-12-07</lastmod>
-  </url>
-  <url>
     <loc>https://cuipengfei.me/blog/2013/12/30/desugar-scala-9/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>
@@ -625,7 +621,15 @@
     <lastmod>2019-12-07</lastmod>
   </url>
   <url>
+    <loc>https://cuipengfei.me/blog/2013/12/29/desugar-scala-8/</loc>
+    <lastmod>2019-12-07</lastmod>
+  </url>
+  <url>
     <loc>https://cuipengfei.me/blog/2013/12/24/desugar-scala-5/</loc>
+    <lastmod>2019-12-07</lastmod>
+  </url>
+  <url>
+    <loc>https://cuipengfei.me/blog/2013/12/25/desugar-scala-6/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>
   <url>
@@ -637,11 +641,7 @@
     <lastmod>2019-12-07</lastmod>
   </url>
   <url>
-    <loc>https://cuipengfei.me/blog/2013/12/25/desugar-scala-6/</loc>
-    <lastmod>2019-12-07</lastmod>
-  </url>
-  <url>
-    <loc>https://cuipengfei.me/blog/2013/05/05/how-are-scala-language-features-implemented/</loc>
+    <loc>https://cuipengfei.me/blog/2013/05/11/scala-language-features-2/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>
   <url>
@@ -649,7 +649,7 @@
     <lastmod>2019-12-07</lastmod>
   </url>
   <url>
-    <loc>https://cuipengfei.me/blog/2013/05/11/scala-language-features-2/</loc>
+    <loc>https://cuipengfei.me/blog/2013/05/05/how-are-scala-language-features-implemented/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>
   <url>
