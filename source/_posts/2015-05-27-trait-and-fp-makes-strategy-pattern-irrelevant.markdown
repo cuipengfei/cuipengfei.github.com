@@ -43,32 +43,27 @@ keywords: 'scala, java, design pattern, strategy pattern, OO, FP, 设计模式'
 # Java
 以下是《Head first design patterns》附带的代码：
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/strategy/fly/FlyBehavior.java?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fstrategy%2Ffly%2FFlyBehavior.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/strategy/fly/FlyWithWings.java?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fstrategy%2Ffly%2FFlyWithWings.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/strategy/fly/FlyNoWay.java?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fstrategy%2Ffly%2FFlyNoWay.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 飞行的接口，以及两个实现：一个真会飞，一个不会飞。
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/strategy/quack/QuackBehavior.java?slice=1:&footer=minimal">
-</script>
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/strategy/quack/Quack.java?slice=1:&footer=minimal">
-</script>
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/strategy/quack/MuteQuack.java?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fstrategy%2Fquack%2FQuackBehavior.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fstrategy%2Fquack%2FQuack.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fstrategy%2Fquack%2FMuteQuack.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 叫的接口，两个实现，一个真会叫，一个不会叫。
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/strategy/ducks/Duck.java?slice=4:&footer=minimal">
-</script>
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/strategy/ducks/MallardDuck.java?slice=4:&footer=minimal">
-</script>
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/strategy/ducks/DecoyDuck.java?slice=4:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fstrategy%2Fducks%2FDuck.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fstrategy%2Fducks%2FMallardDuck.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fstrategy%2Fducks%2FDecoyDuck.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 最后，终于到了鸭子。鸭子的顶层抽象类声明两个字段，一个用来飞，一个用来叫。
 
@@ -88,16 +83,15 @@ keywords: 'scala, java, design pattern, strategy pattern, OO, FP, 设计模式'
 
 更多关于Scala的trait的详情请参考我的另一篇博客： [http://cuipengfei.me/blog/2013/10/13/scala-trait/](http://cuipengfei.me/blog/2013/10/13/scala-trait/)
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/strategytrait/Fly.scala?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2Fstrategytrait%2FFly.scala&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 飞行家族。
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/strategytrait/Quack.scala?slice=1:&footer=minimal">
-</script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2Fstrategytrait%2FQuack.scala&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 叫的行为的家族。
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/strategytrait/Duck.scala?slice=1:&footer=minimal">
-</script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2Fstrategytrait%2FDuck.scala&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 最后，鸭子的各种实现。
 
@@ -118,8 +112,8 @@ Duck原来是持有Fly和Quack的实例，现在则是变成了混入Fly和Quack
 也就是说我们想要做的不过是把符合某个签名的函数塞到鸭子的子类里去而已，而却用interface，class，trait来把这些行为包裹起来了。有些臃肿不是吗？
 
 下面是直接把函数塞入鸭子子类的做法：
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/strategyfp/Duck.scala?slice=3:&footer=minimal">
-</script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2Fstrategyfp%2FDuck.scala&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 Fly和Quack不再是interface或者是trait。而是type aliase。
 
@@ -151,23 +145,18 @@ strategy patten要解决的问题其实就是如何把一族行为的不同实�
 不过今天我们有了开瓶器，就无需一定要用菜刀了。
 
 最后是一个Java 8的实现：
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/tree/master/OODPFP/src/main/java/strategyj8/Fly.java?slice=1:&footer=minimal">
-</script>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/tree/master/OODPFP/src/main/java/strategyj8/Quack.java?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Ftree%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fstrategyj8%2FFly.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/tree/master/OODPFP/src/main/java/strategyj8/BehaviorsRepo.java?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Ftree%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fstrategyj8%2FQuack.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/tree/master/OODPFP/src/main/java/strategyj8/Duck.java?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Ftree%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fstrategyj8%2FBehaviorsRepo.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/tree/master/OODPFP/src/main/java/strategyj8/MallardDuck.java?slice=4:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Ftree%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fstrategyj8%2FDuck.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/tree/master/OODPFP/src/main/java/strategyj8/DecoyDuck.java?slice=4:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Ftree%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fstrategyj8%2FMallardDuck.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Ftree%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fstrategyj8%2FDecoyDuck.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 看起来比最开始的那一版好一些，但是我还是看它不顺眼。
 

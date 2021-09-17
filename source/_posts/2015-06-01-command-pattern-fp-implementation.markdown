@@ -33,61 +33,49 @@ tags:
 
 # Java
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/appliances/Light.java?slice=1:&footer=minimal">
-</script>
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/appliances/TV.java?slice=1:&footer=minimal">
-</script>
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/appliances/Stereo.java?slice=1:&footer=minimal">
-</script>
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/appliances/Hottub.java?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fappliances%2FLight.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fappliances%2FTV.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fappliances%2FStereo.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fappliances%2FHottub.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 首先是有四大件家用电器。各自之间没有什么关系。
 
 这里面的代码都有点傻，不过没关系，我们就想象这都是些很复杂的硬件通信之类的代码就好了。
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/Command.java?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2FCommand.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 然后，定义一个Command接口，其中只有一个execute()方法。
 
 之后我们会用它的实现类来操作各种电器。
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/LightOnCommand.java?slice=4:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fcommands%2FLightOnCommand.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/LightOffCommand.java?slice=4:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fcommands%2FLightOffCommand.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/TVOnCommand.java?slice=4:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fcommands%2FTVOnCommand.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/TVOffCommand.java?slice=4:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fcommands%2FTVOffCommand.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/StereoOnCommand.java?slice=4:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fcommands%2FStereoOnCommand.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/StereoOffCommand.java?slice=4:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fcommands%2FStereoOffCommand.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/HottubOnCommand.java?slice=4:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fcommands%2FHottubOnCommand.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/commands/HottubOffCommand.java?slice=4:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fcommands%2FHottubOffCommand.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 这一大坨，就是Command的实现了。
 
 四大件电器，于是便有八个Command，分别负责每个电器的开启和关闭。
 
 有些电器的开启和关闭比别的要复杂一些，不过这没有关系，因为它们的细节都被封装在Command的实现类里面了，我们接下来的代码只要和Command这个接口打交道就好了。
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/MacroCommand.java?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2FMacroCommand.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 还有一个宏命令，用来组合其他命令。
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/runner/RemoteControl.java?slice=3:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Frunner%2FRemoteControl.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 可以实现遥控器了。
 
@@ -95,8 +83,7 @@ tags:
 
 这个遥控器上的按钮都是空白的，我们可以给它置入任意我们想要的命令。
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/command/runner/RemoteLoader.java?slice=9:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Frunner%2FRemoteLoader.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 终于可以写一个main函数了：
 
@@ -136,22 +123,17 @@ tags:
 # functions
 
 来试试用Scala实现：
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/appliances/Light.scala?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2FcommandFP%2Fappliances%2FLight.scala&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/appliances/TV.scala?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2FcommandFP%2Fappliances%2FTV.scala&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/appliances/Stereo.scala?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2FcommandFP%2Fappliances%2FStereo.scala&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/appliances/Hottub.scala?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2FcommandFP%2Fappliances%2FHottub.scala&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 首先是有四大件家用电器，这部分和Java的代码等价。
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/Commands.scala?slice=3:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2FcommandFP%2FCommands.scala&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 这一段用来定义各种命令的代码就不同了。
 
@@ -165,11 +147,9 @@ tags:
 
 由于这几个操作都只涉及到一个方法的调用，它们直接就符合Command的函数签名，所以不用再封入任何闭包了。这一点看下面的代码就明白了。
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/RemoteControl.scala?slice=3:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2FcommandFP%2FRemoteControl.scala&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/commandFP/RemoteLoader.scala?slice=4:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2FcommandFP%2FRemoteLoader.scala&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 我们可以定义一个遥控器。其中有开启，和关闭两排按钮。
 

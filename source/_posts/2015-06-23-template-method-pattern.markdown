@@ -24,24 +24,20 @@ tags:
 
 # Java
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/CaffeineBeverage.java?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2FtemplatemethodJ%2FCaffeineBeverage.java&style=github&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 首先有一个咖啡因饮品的抽象类，定义一个算法骨架：1烧水，2泡，3装杯，4加调料。
 其中的第二步和第四步是有待实现的抽象方法，留给子类决定怎么搞。第一步和第三步是写死的。
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/Coffee.java?slice=1:">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2FtemplatemethodJ%2FCoffee.java&style=github&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 接下来是咖啡，它实现了过滤咖啡和添加牛奶、糖的步骤。这样当它的实例的prepareRecipe方法被调用时就会执行父类的烧水、装杯，以及自己的泡和加调料。
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/Tea.java?slice=1:">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2FtemplatemethodJ%2FTea.java&style=github&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 还有，就是茶了。它和咖啡不一样，是用浸泡而不是过滤，加的是柠檬而不是牛奶和糖。
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/templatemethodJ/BeverageTestDrive.java?slice=1:">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2FtemplatemethodJ%2FBeverageTestDrive.java&style=github&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 最后用一个main函数来执行制作咖啡和茶的代码。
 
@@ -59,8 +55,7 @@ tags:
 
 接下来是用Scala实现的版本：
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/templatemethodS/Beverages.scala?slice=1:">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2FtemplatemethodS%2FBeverages.scala&style=github&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 首先，定义三个type，分别是泡和加调料这两个步骤，还有饮品本身（这三个type其实是一样的，看起来有点傻）。
 

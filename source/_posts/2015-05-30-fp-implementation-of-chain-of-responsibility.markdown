@@ -24,23 +24,18 @@ keywords: 'scala, java, design pattern, Chain Of Responsibility pattern, OO, FP,
 
 # Java
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/chainofresponsibility/Logger.java?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fchainofresponsibility%2FLogger.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 首先定义一个Logger抽象类。从其setNext和message这两个方法可以看出，我们后面会把多个具有不同writeMessage实现的Logger链到一起，并且依次让它们处理某件需要被记录的事件。
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/chainofresponsibility/StdoutLogger.java?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fchainofresponsibility%2FStdoutLogger.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/chainofresponsibility/EmailLogger.java?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fchainofresponsibility%2FEmailLogger.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/chainofresponsibility/StderrLogger.java?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fchainofresponsibility%2FStderrLogger.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 然后有三个Logger的实现，分别为向命令行输出消息，发送邮件（当然是假的），向命令行输出错误。
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/java/chainofresponsibility/ChainOfResponsibilityExample.java?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fchainofresponsibility%2FChainOfResponsibilityExample.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 最后，有一个main函数，创建三个Logger的实例，把它们通过setNext链在一起。 只需要调用一次message就可以让三个Logger依次工作。
 
@@ -70,8 +65,7 @@ keywords: 'scala, java, design pattern, Chain Of Responsibility pattern, OO, FP,
 
 下面就是比较偏函数式的Scala实现：
 
-<script src="http://gist-it.appspot.com/https://github.com/cuipengfei/BlogCode/blob/master/OODPFP/src/main/scala/chain/Loggers.scala?slice=1:&footer=minimal">
-</script>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2Fchain%2FLoggers.scala&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
 这个代码已经简短到我不想解释的程度了。不过还是解释一下吧。
 
