@@ -52,7 +52,7 @@ for (i=0; i<repeatTimes; i++){
 }
 ```
 
-这是测试代码，反复运行多次，每次都生成具有随机性的input，然后把input传递给```calculatedExpectedResult```和```calculateSomething``，最后断言二者返回值是一致的。
+这是测试代码，反复运行多次，每次都生成具有随机性的input，然后把input传递给```calculatedExpectedResult```和```calculateSomething```，最后断言二者返回值是一致的。
 
 这份代码和常见的测试不同，<span style="color:orange;">它使用的input data不是预先设定好的</span>，而是运行时随机生成的。这也是它有趣的原因。
 
