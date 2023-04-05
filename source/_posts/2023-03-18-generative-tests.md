@@ -134,7 +134,7 @@ test('加0不影响结果', () => {
 });
 
 test('正数加负数，结果小于原数', () => {
-    fc.assert(fc.property(fc.integer(-1000, -1), fc.integer(1, 1000), (x, y) => {
+    fc.assert(fc.property(fc.integer(1000, 1), fc.integer(-1, -1000), (x, y) => {
         return add(x, y) < x;
     }));
 });
