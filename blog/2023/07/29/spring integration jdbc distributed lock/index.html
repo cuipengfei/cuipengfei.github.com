@@ -405,7 +405,7 @@ note over instance_1_thread_2: 继续等也没用</pre>
 
 <p><a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-integration/blob/7dcc0bb125eb5d72d9dc6cec0cc91bd4114336be/spring-integration-core/src/main/java/org/springframework/integration/support/locks/ExpirableLockRegistry.java#L27-L36">ExpirableLockRegistry </a></p>
 <p>如果一个Java进程中的一个线程因为某种原因卡死了，从而无法释放锁。<br>在TTL过期之后，另一个线程在尝试获取同一个锁之前，可以先调用expireUnusedOlderThan来强制释放该锁。<br>然后再尝试获取锁，就可以成功获取并继续工作。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>第一个问题是在不该失去锁的情况下，却太早地失去了锁，解决方法是让它不要过早地失去锁。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>第一个问题是在不该失去锁的情况下，却太早地失去了锁，解决方法是让它不要过早地失去锁。 </p>
 <p>第二个问题是应该失去锁的时间早就过了，但却还没有失去锁，解决方法是需要强制让它失去锁。</p>
 <p><img data-src="/../images/spring-lock/LiuLuoGuo.jpg" alt="llg"></p>
 
