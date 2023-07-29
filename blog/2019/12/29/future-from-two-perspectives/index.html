@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"style":null,"show_result":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="我们来一起看一下两个程序员之间的故事。 以下示例代码是用Scala写的，不过本文所讲的话题并不仅限于Scala，任何有Future&#x2F;Promise支持的语言都是适用的。下面这个wiki页面罗列了各个有Future&#x2F;Promise支持的语言，已经涵盖了大多数的常用语言。Future与promise实现列表 我是异步函数的编写者我写了两个异步函数,来提供给其他程序员同事使用。 12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Future-异步函数的两个视角">
+<meta property="og:url" content="https://cuipengfei.me/blog/2019/12/29/future-from-two-perspectives/index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="我们来一起看一下两个程序员之间的故事。 以下示例代码是用Scala写的，不过本文所讲的话题并不仅限于Scala，任何有Future&#x2F;Promise支持的语言都是适用的。下面这个wiki页面罗列了各个有Future&#x2F;Promise支持的语言，已经涵盖了大多数的常用语言。Future与promise实现列表 我是异步函数的编写者我写了两个异步函数,来提供给其他程序员同事使用。 12">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-12-29T13:02:39.000Z">
+<meta property="article:modified_time" content="2019-12-29T13:02:39.000Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="Scala">
+<meta property="article:tag" content="Reactive">
+<meta property="article:tag" content="🐸">
+<meta property="article:tag" content="Future">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://cuipengfei.me/blog/2019/12/29/future-from-two-perspectives/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2019/12/29/future-from-two-perspectives/","path":"blog/2019/12/29/future-from-two-perspectives/","title":"Future-异步函数的两个视角"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Future-异步函数的两个视角 | 崔鹏飞的Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+<script data-ad-client="ca-pub-2529393324217872" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2529393324217872"></script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">崔鹏飞的Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E6%98%AF%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0%E7%9A%84%E7%BC%96%E5%86%99%E8%80%85"><span class="nav-number">1.</span> <span class="nav-text">我是异步函数的编写者</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E6%98%AF%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0%E7%9A%84%E8%B0%83%E7%94%A8%E8%80%85"><span class="nav-number">2.</span> <span class="nav-text">我是异步函数的调用者</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%95%9C%E5%A4%B4%E5%88%87%E5%9B%9E%E5%88%B0%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0%E7%BC%96%E5%86%99%E8%80%85"><span class="nav-number">3.</span> <span class="nav-text">镜头切回到异步函数编写者</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%95%9C%E5%A4%B4%E5%86%8D%E5%88%87%E5%88%B0%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E8%80%85"><span class="nav-number">4.</span> <span class="nav-text">镜头再切到异步函数调用者</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener me" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2019/12/29/future-from-two-perspectives/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Future-异步函数的两个视角 | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Future-异步函数的两个视角
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-12-29 21:02:39" itemprop="dateCreated datePublished" datetime="2019-12-29T21:02:39+08:00">2019-12-29</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2019/12/29/future-from-two-perspectives/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2019/12/29/future-from-two-perspectives/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>我们来一起看一下两个程序员之间的故事。</p>
+<p>以下示例代码是用Scala写的，不过本文所讲的话题并不仅限于Scala，任何有Future&#x2F;Promise支持的语言都是适用的。<br>下面这个wiki页面罗列了各个有Future&#x2F;Promise支持的语言，已经涵盖了大多数的常用语言。<br><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Future%E4%B8%8Epromise#%E5%AE%9E%E7%8E%B0%E5%88%97%E8%A1%A8">Future与promise实现列表</a></p>
+<h1 id="我是异步函数的编写者"><a href="#我是异步函数的编写者" class="headerlink" title="我是异步函数的编写者"></a>我是异步函数的编写者</h1><p>我写了两个异步函数,来提供给其他程序员同事使用。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">CallBack</span> </span>= <span class="type">Try</span>[<span class="type">String</span>] =&gt; <span class="type">Unit</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pretendCallAPI</span></span>(callBack: <span class="type">CallBack</span>, okMsg: <span class="type">String</span>, failedMsg: <span class="type">String</span>) = &#123;</span><br><span class="line">  <span class="keyword">val</span> task = <span class="keyword">new</span> <span class="type">TimerTask</span> &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">run</span></span>() = &#123;</span><br><span class="line">      <span class="keyword">val</span> percentage = <span class="type">Random</span>.between(<span class="number">1</span>, <span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (percentage &gt;= <span class="number">50</span>)</span><br><span class="line">        callBack(<span class="type">Success</span>(okMsg))</span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span> (percentage &lt;= <span class="number">30</span>)</span><br><span class="line">        callBack(<span class="type">Failure</span>(<span class="keyword">new</span> <span class="type">Exception</span>(failedMsg)))</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        callBack(<span class="type">Failure</span>(<span class="keyword">new</span> <span class="type">Exception</span>(<span class="string">&quot;network problem&quot;</span>)))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">new</span> <span class="type">Timer</span>().schedule(task, <span class="type">Random</span>.between(<span class="number">200</span>, <span class="number">500</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> searchTB = pretendCallAPI(_, <span class="string">&quot;product price found&quot;</span>, <span class="string">&quot;product not listed&quot;</span>)</span><br><span class="line"><span class="keyword">val</span> buyFromTB = pretendCallAPI(_, <span class="string">&quot;product bought&quot;</span>, <span class="string">&quot;can not buy, no money left&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这两个异步函数: <code>searchTB</code>用来从淘宝搜索物品,另一个<code>buyFromTB</code>用来购买搜到的物品。</p>
+<p>由于仅仅是为了演示而写的,他们两个都是基于一个叫做<code>pretendCallAPI</code>的函数实现的。<br>顾名思义,<code>pretendCallAPI</code>并不会真的去调用淘宝的API,而只是模拟API的行为。</p>
+<p>这个<code>pretendCallAPI</code>函数有几个行为特征:</p>
+<ul>
+<li>每次耗时200到500毫秒之间</li>
+<li>每次执行有50%的几率成功</li>
+<li>20%的几率遇到网络故障</li>
+<li>另外30%的几率虽然网络没问题但是服务器会给你一个非正常的结果</li>
+</ul>
+<p>当然,由于我写的是异步算法,需要避免block caller thread。<br>所以当你调用<code>pretendCallAPI</code>的时候,这个函数是<strong>瞬间立即返回的</strong>。<br>那么当然我就<strong>无法在函数返回的时候return什么有用的东西</strong>给你了。</p>
+<p>如果你想知道执行的结果到底是啥,你需要传给我一个<code>CallBack</code>,在我执行完后,通过<code>CallBack</code>来告知你执行的结果。<br>这个<code>CallBack</code>的完整签名表达式展开是<code>Try[String] =&gt; Unit</code></p>
+<p>大家看<code>searchTB</code>和<code>buyFromTB</code>可能觉得他们长的有点奇怪,这是Scala里柯里化的写法。<br>也就是通过把<code>pretendCallAPI</code>包一层来构造新的函数,锁死两个参数,剩下的一个参数(也就是<code>CallBack</code>)就变成了新构造出来的函数的唯一参数了。<br>也就是说<code>searchTB</code>和<code>buyFromTB</code>的签名是<code>(Try[String] =&gt; Unit) =&gt; Unit</code>。</p>
+<p>关于柯里化这个语言特性的更多信息:<br><a href="https://cuipengfei.me/blog/2013/12/25/desugar-scala-6/">https://cuipengfei.me/blog/2013/12/25/desugar-scala-6/</a></p>
+<p>好了,现在这两个函数可以提供给大家使用了。</p>
+<h1 id="我是异步函数的调用者"><a href="#我是异步函数的调用者" class="headerlink" title="我是异步函数的调用者"></a>我是异步函数的调用者</h1><p>听说异步函数已经写好了,我终于可以用他们来实现剁手业务了。</p>
+<p>听函数作者讲了一下,用起来应该不会很难,那我来实现一下吧。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">searchPriceThenBuy</span></span>() = &#123;</span><br><span class="line">  searchTB &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Success</span>(searchMsg) =&gt;</span><br><span class="line">      println(searchMsg)</span><br><span class="line">      buyFromTB &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="type">Success</span>(buyMsg) =&gt; println(buyMsg)</span><br><span class="line">        <span class="keyword">case</span> <span class="type">Failure</span>(err) =&gt; println(err.getMessage)</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Failure</span>(err) =&gt; println(err.getMessage)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>searchTB</code>和<code>buyFromTB</code>并不难. 他们两个都是接受<code>CallBack</code>作为参数的函数。<br><code>CallBack</code>本身是个函数,它的签名是<code>Try[String] =&gt; Unit</code>。<br>而<code>Try</code>有两种形式,分别是<code>Success</code>和<code>Failure</code>。</p>
+<p>所以在调用<code>searchTB</code>和<code>buyFromTB</code>的时候,必须把两个分支都给到(以免pattern match不到)。<br>这样在异步函数有结果的时候(无论成败)才能call back过来到我的代码,以便我能够在合适的时机做后续的处理(无论是基于成功做后续业务,还是做error handling)。</p>
+<p>关于pattern match,可以参考这里:<br><a href="https://cuipengfei.me/blog/2013/12/29/desugar-scala-8/">https://cuipengfei.me/blog/2013/12/29/desugar-scala-8/</a><br><a href="https://cuipengfei.me/blog/2015/06/16/visitor-pattern-pattern-match/">https://cuipengfei.me/blog/2015/06/16/visitor-pattern-pattern-match/</a></p>
+<p>这段代码跑一下的话,会有这么几种结果:</p>
+<ul>
+<li>搜到了,也买到了</li>
+<li>搜到了,购买时遇到了网络故障</li>
+<li>搜到了,由于支付宝钱不够而没买到</li>
+<li>没搜到,购买行为未触发</li>
+<li>搜索遇到网络故障,购买行为未触发</li>
+</ul>
+<p>一共就这么几种可能,因为<code>pretendCallAPI</code>是跑概率的,多跑几次这些情况都能遇到。</p>
+<p>虽然实现出来不难,执行结果也没问题,但是总有点<strong>隐忧</strong>。</p>
+<p>这里只有<code>searchTB</code>和<code>buyFromTB</code>两个函数,如果其他场景下我需要把更多的异步函数组合起来使用呢?岂不是要缩进很多层?</p>
+<p>当然,缩进只是个视觉审美问题,是个表象,不是特别要紧.关键是<strong>我的业务逻辑很容易被这样的代码给割裂的鸡零狗碎</strong>,那就不好了。<br>我要给上游编写异步函数的同事反馈一下，看是否有办法解决这个问题。</p>
+<h1 id="镜头切回到异步函数编写者"><a href="#镜头切回到异步函数编写者" class="headerlink" title="镜头切回到异步函数编写者"></a>镜头切回到异步函数编写者</h1><p>之前写的两个函数反馈不太好，主要是因为同事们认为使用<code>CallBack</code>不是最优的方式。<br>这个反馈确实很中肯，如果只有一个异步函数单独使用，用<code>CallBack</code>也没什么太大的问题，如果是很多个异步函数组合使用确实会形成多层嵌套的问题。<br>我作为上游程序员，确实需要更多地为下游调用者考虑。</p>
+<p>既然如此，那我改版一下，免除掉让下游使用<code>CallBack</code>的必要性。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">CallBackBasedFunction</span> </span>= (<span class="type">CallBack</span>) =&gt; <span class="type">Unit</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">futurize</span></span>(f: <span class="type">CallBackBasedFunction</span>) = () =&gt; &#123;</span><br><span class="line">  <span class="keyword">val</span> promise = <span class="type">Promise</span>[<span class="type">String</span>]()</span><br><span class="line"></span><br><span class="line">  f &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Success</span>(msg) =&gt; promise.success(msg)</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Failure</span>(err) =&gt; promise.failure(err)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  promise.future</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> searchTBFutureVersion = futurize(searchTB)</span><br><span class="line"><span class="keyword">val</span> buyFromTBFutureVersion = futurize(buyFromTB)</span><br></pre></td></tr></table></figure>
+
+<p>先定义一个<code>CallBackBasedFunction</code>，它代表一个接受<code>CallBack</code>为参数的函数的签名。</p>
+<p>表达式展开后就是：　<code>(Try[String] =&gt; Unit) =&gt; Unit</code><br>这就符合了<code>searchTB</code>和<code>buyFromTB</code>两个函数的签名。</p>
+<p><code>futurize</code>算是个higher order function,它接受一个<code>CallBackBasedFunction</code>作为参数，返回一个<code>() =&gt; Future[String]</code>。<br>(<code>Future</code>是Scala标准库的内容，可以认为和JS Promises&#x2F;A+是类似的概念)</p>
+<p>也就是说<code>futurize</code>可以把<code>searchTB</code>和<code>buyFromTB</code>改造成返回<code>Future</code>的函数。上面代码最后两行就是改造的结果。</p>
+<p>这样，原本接受<code>CallBack</code>做为参数且没有返回值的函数，就变成了不接受参数且返回<code>Future</code>的函数。</p>
+<p>再看<code>futurize</code>的具体实现，它使用了Scala的<code>Promise</code>，让返回的<code>Future</code>在原版函数成功时成功，在原版函数失败时失败。</p>
+<p>这样，我就得到了<code>searchTBFutureVersion</code>和<code>buyFromTBFutureVersion</code>这两个<strong>仍然是立即瞬间返回，不会block caller thread</strong>的函数。</p>
+<p>关于Scala中Promise和Future的更多信息：<br><a target="_blank" rel="noopener" href="https://docs.scala-lang.org/overviews/core/futures.html">https://docs.scala-lang.org/overviews/core/futures.html</a></p>
+<h1 id="镜头再切到异步函数调用者"><a href="#镜头再切到异步函数调用者" class="headerlink" title="镜头再切到异步函数调用者"></a>镜头再切到异步函数调用者</h1><p>现在有了<code>searchTBFutureVersion</code>和<code>buyFromTBFutureVersion</code>，我来试着重新实现一次：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">searchPriceThenBuyFutureVersion</span></span>() = &#123;</span><br><span class="line">  <span class="keyword">val</span> eventualResult = <span class="keyword">for</span> &#123;</span><br><span class="line">    searchResult &lt;- searchTBFutureVersion().map(msg =&gt; println(msg))</span><br><span class="line">    buyResult &lt;- buyFromTBFutureVersion().map(msg =&gt; println(msg))</span><br><span class="line">  &#125; <span class="keyword">yield</span> (searchResult, buyResult)</span><br><span class="line"></span><br><span class="line">  eventualResult.onComplete &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Failure</span>(err) =&gt; println(err.getMessage)</span><br><span class="line">    <span class="keyword">case</span> _ =&gt;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里用到了Scala的for comprehension，编译后会变成map，flatMap等等monadic operator。<br>而map,flatMap等操作符正是Scala中Future拿来做组合用的。</p>
+<p>这样，用for把两个返回Future的异步函数组织起来，形成一个新的Future，然后在新的Future complete时统一处理异常。</p>
+<p>关于for的更多信息：<br><a href="https://cuipengfei.me/blog/2014/08/30/options-for/">https://cuipengfei.me/blog/2014/08/30/options-for/</a></p>
+<p>这次实现的代码与上次的行为是一致的,没什么两样。<br>不过我的<strong>业务代码从鸡零狗碎变成了平铺直叙平易近人</strong>。<br>(这种效果在这里表现的并不是特别突出，不过很容易想象如果需要组合使用的异步函数更多一些的话，这种效果的好处就显露出来了)</p>
+<p>当然了，让业务代码易读易懂主要还是要靠<strong>个人奋斗</strong>，而有了Promise和Future这种<strong>历史进程</strong>的推力，则更有增益作用。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>最近在看Scala Reactive的一些内容<br>想起了很久之前写过一篇叫做<strong>自己动手实现Promises&#x2F;A+规范</strong>的博客，用JS实现了一个简版的Promise:<br><a href="https://cuipengfei.me/blog/2016/05/15/promise/">https://cuipengfei.me/blog/2016/05/15/promise/</a></p>
+<p>我在当时的一段演示代码里面写了两句注释：</p>
+<blockquote>
+<p>Promise的作用在于</p>
+<ol>
+<li>给异步算法的编写者和使用者之间提供一种统一的交流手段</li>
+<li>给异步算法的使用者提供一种组织代码的手段,以便于将一层又一层嵌套的业务主流程变成一次一次的对then的调用</li>
+</ol>
+</blockquote>
+<p>不过当时的博客里只讲了实现Promise规范的事情,并没有详细解释过这两句话。<br>既然又遇到了这个话题，于是写点Scala来把当时没展开写到的内容补充了一下。</p>
+<p>上文的四个镜头展现了两个角色的思考过程，通过这个过程其实也就解释了上面两句注释的含义。</p>
+<blockquote>
+<ol>
+<li>给异步算法的编写者和使用者之间提供一种统一的交流手段</li>
+</ol>
+</blockquote>
+<p>所谓统一的交流手段，其实就是异步函数的签名问题。<br>由于需要处理的业务五花八门，异步函数接受的参数列表没法统一，但是返回值是可以统一的。</p>
+<p>一个异步函数，接受了外界给的参数，立即瞬间返回一个Js的Promise或者Scala的Future(<strong>或者是任何语言中类似概念的叫法</strong>)。<br>然后在异步任务执行完的时候把Promise resolve&#x2F;reject掉(让Future success或者failure),借此来让调用方的代码知道该到了它跑后续处理的时候了。</p>
+<p>这样我们就获得了一个<strong>sensible default</strong>，无需在每次设计异步函数的时候都去商议该返回什么东西，该怎么获得异步执行的结果。</p>
+<blockquote>
+<ol start="2">
+<li>给异步算法的使用者提供一种组织代码的手段,以便于将一层又一层嵌套的业务主流程变成一次一次的对then的调用</li>
+</ol>
+</blockquote>
+<p>所谓组织代码的手段，就是关于异步函数调用者的那两个镜头的内容了。<br>一开始<code>CallBack</code>套着<code>CallBack</code>，异步的味道很重，这体现出了代码的组织方式在向代码的技术实现低头。或者说是代码的<strong>技术实现干扰了我行文的风格</strong>。<br>后来变成了看起来很像是消费同步函数结果的写法。从而让我惯常的文风得以保持。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://cuipengfei.me/blog/2019/12/29/future-from-two-perspectives/" title="Future-异步函数的两个视角">https://cuipengfei.me/blog/2019/12/29/future-from-two-perspectives/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Scala/" rel="tag"><i class="fa fa-tag"></i> Scala</a>
+              <a href="/tags/Reactive/" rel="tag"><i class="fa fa-tag"></i> Reactive</a>
+              <a href="/tags/%F0%9F%90%B8/" rel="tag"><i class="fa fa-tag"></i> 🐸</a>
+              <a href="/tags/Future/" rel="tag"><i class="fa fa-tag"></i> Future</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2019/12/06/in-the-large/" rel="prev" title="「译」大规模敏捷">
+                  <i class="fa fa-chevron-left"></i> 「译」大规模敏捷
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2020/01/05/desugar-scala-19-partial-function/" rel="next" title="Desugar Scala(19) -- Partial Function">
+                  Desugar Scala(19) -- Partial Function <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">355k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:23</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":"forest","flowchart":{"nodeSpacing":1,"rankSpacing":1,"curve":"basis"},"js":{"url":"//cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.min.js"}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
