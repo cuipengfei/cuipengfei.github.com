@@ -149,7 +149,7 @@ note over event_initiator,instance_2: instance 1的线程由于某种原因卡�
 
 但是，在Spring Integration JDBC的分布式锁实现中，time to live并不是这样的。它对于同一个Java进程中的两个线程来说是无效的。
 
-下面的图说明了它的具体无效之处。
+下面的图说明了它的具体无效之处。 
 
 ```mermaid
 sequenceDiagram
@@ -207,7 +207,7 @@ public interface ExpirableLockRegistry extends LockRegistry {
 
 # 总结
 
-第一个问题是在不该失去锁的情况下，却太早地失去了锁，解决方法是让它不要过早地失去锁。
+第一个问题是在不该失去锁的情况下，却太早地失去了锁，解决方法是让它不要过早地失去锁。 
 
 第二个问题是应该失去锁的时间早就过了，但却还没有失去锁，解决方法是需要强制让它失去锁。
 
