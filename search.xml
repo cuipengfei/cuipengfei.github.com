@@ -7856,7 +7856,7 @@ note over instance_1_thread_2: 继续等也没用</pre>
 
 <p><a href="https://github.com/spring-projects/spring-integration/blob/7dcc0bb125eb5d72d9dc6cec0cc91bd4114336be/spring-integration-core/src/main/java/org/springframework/integration/support/locks/ExpirableLockRegistry.java#L27-L36">ExpirableLockRegistry </a></p>
 <p>如果一个Java进程中的一个线程因为某种原因卡死了，从而无法释放锁。<br>在TTL过期之后，另一个线程在尝试获取同一个锁之前，可以调用expireUnusedOlderThan来强制释放该锁。<br>然后再尝试获取锁，就可以成功获取并继续工作。</p>
-<h2 id="为什么不把time-to-leave设计的更具有概念上的一致性？"><a href="#为什么不把time-to-leave设计的更具有概念上的一致性？" class="headerlink" title="为什么不把time to leave设计的更具有概念上的一致性？"></a>为什么不把time to leave设计的更具有概念上的一致性？</h2><p>当涉及到跨越两个进程时，time to live会发挥作用。但是对于同一个进程中的两个线程来说，time to live就不再有效。这种同一个概念在不同的场景下表现出不同的行为，缺乏概念上的一致性，这可能会增加使用者的认知负担。</p>
+<h2 id="为什么不把time-to-live设计的更具有概念上的一致性？"><a href="#为什么不把time-to-live设计的更具有概念上的一致性？" class="headerlink" title="为什么不把time to live设计的更具有概念上的一致性？"></a>为什么不把time to live设计的更具有概念上的一致性？</h2><p>当涉及到跨越两个进程时，time to live会发挥作用。但是对于同一个进程中的两个线程来说，time to live就不再有效。这种同一个概念在不同的场景下表现出不同的行为，缺乏概念上的一致性，这可能会增加使用者的认知负担。</p>
 <p>那Spring为什么要把它设计成这样呢？</p>
 <p>以下是我的<strong>解读</strong>：</p>
 <p>在分布式系统中，如果两个进程想要获得同一个锁，那么来得晚一些的进程实际上并不知道前一个进程目前处于什么状态，它是否已经死亡。在这种情况下，time to live成为了<strong>决策的唯一依据</strong>。如果time to live还没有过期，那么来得晚的进程认为它不应该获取该锁。一旦time to live过期，后续进程将把锁置于自己的控制之下，而不管前一个进程是否仍然活着。简而言之，由于<strong>缺少其他的决策依据</strong>，这种情况下只能选择依照time to live来简单粗暴的办事。</p>
