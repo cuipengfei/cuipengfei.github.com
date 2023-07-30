@@ -205,7 +205,7 @@ public interface ExpirableLockRegistry extends LockRegistry {
 在TTL过期之后，另一个线程在尝试获取同一个锁之前，可以调用expireUnusedOlderThan来强制释放该锁。
 然后再尝试获取锁，就可以成功获取并继续工作。
 
-## 为什么不把time to leave设计的更具有概念上的一致性？
+## 为什么不把time to live设计的更具有概念上的一致性？
 
 当涉及到跨越两个进程时，time to live会发挥作用。但是对于同一个进程中的两个线程来说，time to live就不再有效。这种同一个概念在不同的场景下表现出不同的行为，缺乏概念上的一致性，这可能会增加使用者的认知负担。
 
