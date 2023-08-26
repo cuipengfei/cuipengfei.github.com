@@ -4,6 +4,7 @@ date: 2023-07-29 0:30:00
 tags:
 - 分布式
 - 锁
+- Java
 ---
 
 最近在项目中需要使用Spring Integration提供的基于JDBC实现的分布式锁。
