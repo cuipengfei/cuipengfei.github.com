@@ -6,7 +6,7 @@
   <link href="https://cuipengfei.me/atom.xml" rel="self"/>
   
   <link href="https://cuipengfei.me/"/>
-  <updated>2023-07-28T16:30:00.000Z</updated>
+  <updated>2023-08-26T13:45:00.000Z</updated>
   <id>https://cuipengfei.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>内存涨上去不肯下来 - 未必是内存泄漏</title>
+    <link href="https://cuipengfei.me/blog/2023/08/26/not-mem-leak/"/>
+    <id>https://cuipengfei.me/blog/2023/08/26/not-mem-leak/</id>
+    <published>2023-08-26T13:45:00.000Z</published>
+    <updated>2023-08-26T13:45:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在一个Kubernetes（K8s）集群中，部署了Prometheus和Grafana用于监控集群本身和应用的状态。</p><p>在其中一个Java应用对应的Pod级别观察到了内存上升的现象。具体而言，当该应用刚启动时，内存占用并不高。如果不发送请求给应用，内存将保持在启动时的水平上。</p><p>如果大量发送请求给应用并在短时间内持续发送，内存会迅速增加。这在一定程度上是正常的。</p><p>一旦内存增加之后，即使停止发送请求和压力，内存使用也不会下降，一直保持在高峰水平。</p><p>上面的状况是由Grafana中观察到的。</p><p>观察到的现象看起来像是内存泄漏，但实际上并不一定是内存泄漏。</p><p>原因有以下两点：</p><h1 id="1-在K8s中运行的Prometheus默认只使用了Node-Exporter"><a href="#1-在K8s中运行的Prometheus默认只使用了Node-Exporter" class="headerlink" title="1 在K8s中运行的Prometheus默认只使用了Node Exporter"></a>1 在K8s中运行的Prometheus默认只使用了Node Exporter</h1><p>这意味着Prometheus收集的数据是从操作系统的角度来看进程的内存使用情况，而不是从Java虚拟机（JVM）进程内部观察。</p><p>如果想要从JVM内部的视角观察堆内存的使用情况，例如堆的大小和使用情况，就需要让应用容器内包含有Prometheus的jmx exporter。</p><h1 id="2-关键是要观察堆内存的使用情况"><a href="#2-关键是要观察堆内存的使用情况" class="headerlink" title="2 关键是要观察堆内存的使用情况"></a>2 关键是要观察堆内存的使用情况</h1><p>要检查和确诊Java应用的内存泄漏，不能仅仅从操作系统的角度观察整个进程的内存使用情况，认为内存没有释放就是泄漏。这种观察方式是不准确的。</p><p>应该从JVM内部观察堆内存的使用情况，即使进行了垃圾回收（GC），堆内存仍然无法下降是一个明确的征兆。</p><p>例如，堆使用量（heap usage）基本上接近堆大小（heap size），并且堆使用量出现了频繁的小锯齿波动，这基本上表明GC在尝试清理旧的内存，但无法成功清理，这就是比较明显的迹象了。</p><p>因为JVM有时候不愿意释放从操作系统那里要来的内存。因此，仅仅根据从操作系统的角度观察内存是否增加而不下降来诊断为Java的内存泄漏是不准确的。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;在一个Kubernetes（K8s）集群中，部署了Prometheus和Grafana用于监控集群本身和应用的状态。&lt;/p&gt;
+&lt;p&gt;在其中一个Java应用对应的Pod级别观察到了内存上升的现象。具体而言，当该应用刚启动时，内存占用并不高。如果不发送请求给应用，内存将保持在启动时的水平上。&lt;/p&gt;
+&lt;p&gt;如果大量发送请求给应用并在短时间内持续发送，内存会迅速增加。这在一定程度上是正常的。&lt;/p&gt;
+&lt;p&gt;一旦内存增加之后，即使停止发送请求和压力，内存使用也不会下降，一直保持在高峰水平。&lt;/p&gt;
+&lt;p&gt;上面的状况是由Grafana中观察到的。&lt;/p&gt;
+&lt;p&gt;观察到的现象看起来像是内存泄漏，但实际上并不一定是内存泄漏。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Java" scheme="https://cuipengfei.me/tags/Java/"/>
+    
+    <category term="jvm" scheme="https://cuipengfei.me/tags/jvm/"/>
+    
+    <category term="内存" scheme="https://cuipengfei.me/tags/%E5%86%85%E5%AD%98/"/>
+    
+  </entry>
   
   <entry>
     <title>Spring Integration JDBC分布式锁 - TTL</title>
@@ -61,6 +89,8 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     
+    
+    <category term="Java" scheme="https://cuipengfei.me/tags/Java/"/>
     
     <category term="分布式" scheme="https://cuipengfei.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
@@ -114,6 +144,8 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     <category term="读书" scheme="https://cuipengfei.me/tags/%E8%AF%BB%E4%B9%A6/"/>
+    
+    <category term="经济" scheme="https://cuipengfei.me/tags/%E7%BB%8F%E6%B5%8E/"/>
     
   </entry>
   
@@ -236,6 +268,8 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     <category term="Reactive" scheme="https://cuipengfei.me/tags/Reactive/"/>
+    
+    <category term="分布式" scheme="https://cuipengfei.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
   </entry>
   
@@ -470,6 +504,8 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     <category term="读书" scheme="https://cuipengfei.me/tags/%E8%AF%BB%E4%B9%A6/"/>
     
+    <category term="经济" scheme="https://cuipengfei.me/tags/%E7%BB%8F%E6%B5%8E/"/>
+    
   </entry>
   
   <entry>
@@ -493,6 +529,8 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     <category term="shadow traffic" scheme="https://cuipengfei.me/tags/shadow-traffic/"/>
+    
+    <category term="ops" scheme="https://cuipengfei.me/tags/ops/"/>
     
   </entry>
   
@@ -527,32 +565,6 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     <category term="读书" scheme="https://cuipengfei.me/tags/%E8%AF%BB%E4%B9%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>信息安全要做好，身份认证不能少。众邦银行胡乱搞，别人知我钱多少。</title>
-    <link href="https://cuipengfei.me/blog/2018/10/14/zb-bank/"/>
-    <id>https://cuipengfei.me/blog/2018/10/14/zb-bank/</id>
-    <published>2018-10-14T02:03:00.000Z</published>
-    <updated>2018-10-14T02:03:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>一首绝句作为定场诗，接下来开始正式的内容。</p><p>最近，我在网上进行了一些稀奇古怪的操作，于是乎我莫名其妙的得到了一个“众邦银行”的账户。</p><p>这个名字并不是很熟悉，查了一下，看起来还算是有头有脸的样子。</p><blockquote><p><strong>武汉众邦银行股份有限公司</strong>（简称<strong>武汉众邦银行</strong>，英语：<strong>Wuhan Zhongbang Bank Co., Ltd.<strong>，<a href="https://zh.wikipedia.org/wiki/%E7%B8%AE%E5%AF%AB">缩写</a>：</strong>Z-BANK</strong>）是中华人民共和国境内第11家开业的民营银行，也是湖北省首家获批开业的民营银行。</p></blockquote><p>以上是wiki的信息。</p><p><img data-src="/images/zb-bank/zb-info.png"></p><p>国内一共十七家民营银行，这个众邦是第十一家，或许应该不会太差吧？</p><p>这样想的我实在是too young，too simple，还需要继续提高自己的知识水平。</p><p>这家银行其他方面不敢说，但是信息安全方面，是非常值得质疑的。</p><p>下面是我的众邦银行账户上的一部分流水：</p><p><img data-src="/images/zb-bank/liushui.png"></p><p>首先，时间的格式化有问题，小时和分钟之间有两个冒号，这叫个啥？</p><p>分钟的两位数中间又有一个冒号，这叫个啥？</p><p>秒钟干脆就没有了，这叫个啥？</p><p>不但没有秒钟，分钟的第二位数后面还有一个冒号，这又是个啥？</p><p>这就算了，时间的格式化，小问题，大概还是能看懂的。</p><p>关键是这个页面的URL啊，同志们。</p><p>它的URL有啥问题呢？先不着急说。我们看两个其他的例子先。</p><h3 id="京东"><a href="#京东" class="headerlink" title="京东"></a>京东</h3><p>查看我在京东的历史订单，URL是这样的：<a href="https://order.jd.com/center/list.action">https://order.jd.com/center/list.action</a></p><p>域名&#x2F;center&#x2F;list.action，这里面不包含任何多余的信息。</p><p>如果我把这个URL发给别人，别人如果正处于登录了京东的状态的话，打开看到的肯定是人家自己的订单。</p><p>如果没有登录京东，就会看到京东的登录页面。</p><p>没有问题，这很好，很合理。</p><h3 id="支付宝"><a href="#支付宝" class="headerlink" title="支付宝"></a>支付宝</h3><p>再看看支付宝，查看我在支付宝的流水，URL是这样的：<a href="https://consumeprod.alipay.com/record/standard.htm">https://consumeprod.alipay.com/record/standard.htm</a></p><p>域名&#x2F;record&#x2F;standard.htm，也很干净，path里没有啥脏东西。</p><p>如果我把这个URL发给别人，别人如果正处于登录了支付宝的状态的话，打开看到的肯定是人家自己的流水。</p><p>如果没有登录支付宝，就会看到支付宝的登录页面。</p><p>好了，应该不需要更多的例子了，大的原则就是我的购物和流水信息别人不应该仅仅通过一个URL就能看到。</p><p>接下来，看一看反面典型吧。没错，反面典型就是这个“中华人民共和国境内第11家开业的民营银行，也是湖北省首家获批开业的民营银行”–众邦银行。</p><p><a href="https://perbank.z-bank.com/weixinServer/htmlShow/weixinBank/views/transfer/tradeRecord.html?/iwJPm77nZq2HJfE5F1i0O8eJZlV6AJqePqv0T7or1bZwkrWnishU3vmqDhXVKGFRuCcJFfjMxcu9khuk5DU8JtIvYvdELXHJMfGepT4I1UAYMCuutU8mQotdPwHAgq4nhocB1nKeeE4HKhWkNMG3kvv/HqUv0QA5F+oxCtdtYRpM9hwNz4mbAL/7VALq7818qWxJgTpWGt9zmO/G9tFb6rSBiW00BT1aPSPCBsswXk939y2I2qc/8yclDRs41ex=">https://perbank.z-bank.com/weixinServer/htmlShow/weixinBank/views/transfer/tradeRecord.html?/iwJPm77nZq2HJfE5F1i0O8eJZlV6AJqePqv0T7or1bZwkrWnishU3vmqDhXVKGFRuCcJFfjMxcu9khuk5DU8JtIvYvdELXHJMfGepT4I1UAYMCuutU8mQotdPwHAgq4nhocB1nKeeE4HKhWkNMG3kvv/HqUv0QA5F+oxCtdtYRpM9hwNz4mbAL/7VALq7818qWxJgTpWGt9zmO/G9tFb6rSBiW00BT1aPSPCBsswXk939y2I2qc/8yclDRs41ex=</a></p><p>上面是我在众邦银行的流水页面的URL。</p><p>哇呀，好花哨啊，这么多字符呀，看起来乱呼呼的，想必很安全吧？</p><p>并没有！</p><p>任何一个人，在任何一台设备上，使用任何浏览器，访问这个URL，就可以得到，你猜是啥？</p><p>没错，就是我在众邦银行的流水了。</p><p>不信的话，你访问一下那个URL，看到的内容和本文上面的截图里是一样的。</p><p>实在不是我想要搞一个大新闻，然后把众邦银行批判一番，而是众邦银行犯的这个错误太低级了。</p><p>作为国家批准钦定的民营银行，你们怎么能这个样子呢？将来用户的信息安全有了偏差的话，你们是不是要负责任的呀？</p><p>你们搞的这个东西呀，一点都不excited，简直让我折寿-1s。</p><p>你们这样搞啊，行不通的，这绝对不是坠吼的，简直不知道低到哪里去了。</p><p>希望你们能努力提高自身的知识水平，积累一点人生经验。</p><p>悄悄地做一点微小的工作，修复这个问题，之后就可以慢声大发财。</p><p>来日才好和用户们谈笑风生啊。</p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;一首绝句作为定场诗，接下来开始正式的内容。&lt;/p&gt;
-&lt;p&gt;最近，我在网上进行了一些稀奇古怪的操作，于是乎我莫名其妙的得到了一个“众邦银行”的账户。&lt;/p&gt;
-&lt;p&gt;这个名字并不是很熟悉，查了一下，看起来还算是有头有脸的样子。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;武汉众邦银行股份有限公司&lt;/strong&gt;（简称&lt;strong&gt;武汉众邦银行&lt;/strong&gt;，英语：&lt;strong&gt;Wuhan Zhongbang Bank Co., Ltd.&lt;strong&gt;，&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E7%B8%AE%E5%AF%AB&quot;&gt;缩写&lt;/a&gt;：&lt;/strong&gt;Z-BANK&lt;/strong&gt;）是中华人民共和国境内第11家开业的民营银行，也是湖北省首家获批开业的民营银行。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;以上是wiki的信息。&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&quot;/images/zb-bank/zb-info.png&quot;&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="🐸" scheme="https://cuipengfei.me/tags/%F0%9F%90%B8/"/>
     
   </entry>
   

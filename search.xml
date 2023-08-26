@@ -3440,6 +3440,7 @@ public static bool All&lt;TSource&gt;(
 ]]></content>
       <tags>
         <tag>Y</tag>
+        <tag>FP</tag>
       </tags>
   </entry>
   <entry>
@@ -6563,6 +6564,7 @@ public static bool All&lt;TSource&gt;(
 ]]></content>
       <tags>
         <tag>shadow traffic</tag>
+        <tag>ops</tag>
       </tags>
   </entry>
   <entry>
@@ -6978,6 +6980,7 @@ public static bool All&lt;TSource&gt;(
 ]]></content>
       <tags>
         <tag>读书</tag>
+        <tag>经济</tag>
       </tags>
   </entry>
   <entry>
@@ -7195,6 +7198,7 @@ public static bool All&lt;TSource&gt;(
 ]]></content>
       <tags>
         <tag>Reactive</tag>
+        <tag>分布式</tag>
       </tags>
   </entry>
   <entry>
@@ -7879,6 +7883,7 @@ note over instance_1_thread_2: 继续等也没用</pre>
 <p><img data-src="/../images/spring-lock/LiuLuoGuo.jpg" alt="llg"></p>
 ]]></content>
       <tags>
+        <tag>Java</tag>
         <tag>分布式</tag>
         <tag>锁</tag>
       </tags>
@@ -7989,6 +7994,30 @@ note over instance_1_thread_2: 继续等也没用</pre>
 ]]></content>
       <tags>
         <tag>读书</tag>
+        <tag>经济</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>内存涨上去不肯下来 - 未必是内存泄漏</title>
+    <url>/blog/2023/08/26/not-mem-leak/</url>
+    <content><![CDATA[<p>在一个Kubernetes（K8s）集群中，部署了Prometheus和Grafana用于监控集群本身和应用的状态。</p>
+<p>在其中一个Java应用对应的Pod级别观察到了内存上升的现象。具体而言，当该应用刚启动时，内存占用并不高。如果不发送请求给应用，内存将保持在启动时的水平上。</p>
+<p>如果大量发送请求给应用并在短时间内持续发送，内存会迅速增加。这在一定程度上是正常的。</p>
+<p>一旦内存增加之后，即使停止发送请求和压力，内存使用也不会下降，一直保持在高峰水平。</p>
+<p>上面的状况是由Grafana中观察到的。</p>
+<p>观察到的现象看起来像是内存泄漏，但实际上并不一定是内存泄漏。</p>
+<p>原因有以下两点：</p>
+<h1 id="1-在K8s中运行的Prometheus默认只使用了Node-Exporter"><a href="#1-在K8s中运行的Prometheus默认只使用了Node-Exporter" class="headerlink" title="1 在K8s中运行的Prometheus默认只使用了Node Exporter"></a>1 在K8s中运行的Prometheus默认只使用了Node Exporter</h1><p>这意味着Prometheus收集的数据是从操作系统的角度来看进程的内存使用情况，而不是从Java虚拟机（JVM）进程内部观察。</p>
+<p>如果想要从JVM内部的视角观察堆内存的使用情况，例如堆的大小和使用情况，就需要让应用容器内包含有Prometheus的jmx exporter。</p>
+<h1 id="2-关键是要观察堆内存的使用情况"><a href="#2-关键是要观察堆内存的使用情况" class="headerlink" title="2 关键是要观察堆内存的使用情况"></a>2 关键是要观察堆内存的使用情况</h1><p>要检查和确诊Java应用的内存泄漏，不能仅仅从操作系统的角度观察整个进程的内存使用情况，认为内存没有释放就是泄漏。这种观察方式是不准确的。</p>
+<p>应该从JVM内部观察堆内存的使用情况，即使进行了垃圾回收（GC），堆内存仍然无法下降是一个明确的征兆。</p>
+<p>例如，堆使用量（heap usage）基本上接近堆大小（heap size），并且堆使用量出现了频繁的小锯齿波动，这基本上表明GC在尝试清理旧的内存，但无法成功清理，这就是比较明显的迹象了。</p>
+<p>因为JVM有时候不愿意释放从操作系统那里要来的内存。因此，仅仅根据从操作系统的角度观察内存是否增加而不下降来诊断为Java的内存泄漏是不准确的。</p>
+]]></content>
+      <tags>
+        <tag>Java</tag>
+        <tag>jvm</tag>
+        <tag>内存</tag>
       </tags>
   </entry>
 </search>
