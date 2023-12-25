@@ -228,16 +228,17 @@ public interface ExpirableLockRegistry extends LockRegistry {
 
 第二个问题：time to live对于运行在同一个进程中的两个线程来说是**不会默认生效**的，从而导致应该失去锁的时间已经过了，但卡住的线程还没有释放锁，进而导致后续的线程拿不到锁的情况。解决方法是**可以选择**让同一个进程内的后来者线程使用expireUnusedOlderThan来强制剥夺锁(同一个进程中的两个线程，其中后来的那个具有更高的自由裁量权，不必只依据TTL一个指标来行事)。
 
-```mermaid
-mindmap
-  root(Spring Integration JDBC Distributed Lock)
-    默认TTL太短
-        设置长一些
-        renew
-    卡死了，没机会释放锁
-        其它进程可以在TTL过后拿到锁
-        同一个进程内的其它线程可以选择使用expireUnusedOlderThan
-```
+{% markmap 400px %}
+# JDBC Distributed Lock - TTL
+
+## 默认TTL太短
+### 设置长一些
+### renew
+
+## 卡死了，没机会释放锁
+### 其它进程可以在TTL过后拿到锁
+### 同一个进程内的其它线程可以选择使用expireUnusedOlderThan
+{% endmarkmap %}
 
 锁的事，该失去就失去，不失去也强制失去。
 
