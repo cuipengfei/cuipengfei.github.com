@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -14,19 +14,19 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"style":null,"show_result":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="欲验证的结论：  接口引用指向装箱后的值类型时无需拆箱  。 代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344interface SomeInterface&amp;#123;    void MethodInInterface();&amp;#125;struct OneValueType">
+    <meta name="description" content="欲验证的结论：  接口引用指向装箱后的值类型时无需拆箱  。 代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344interface SomeInterface&#123;    void MethodInInterface();&#125;struct OneValueType">
 <meta property="og:type" content="article">
 <meta property="og:title" content="格物致知--《Effective C#》读书笔记--验证接口引用指向装箱后的值类型时无需拆箱">
 <meta property="og:url" content="https://cuipengfei.me/blog/2009/07/29/%E6%A0%BC%E7%89%A9%E8%87%B4%E7%9F%A5--Effective%20C%20Sharp%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E9%AA%8C%E8%AF%81%E6%8E%A5%E5%8F%A3%E5%BC%95%E7%94%A8%E6%8C%87%E5%90%91%E8%A3%85%E7%AE%B1%E5%90%8E%E7%9A%84%E5%80%BC%E7%B1%BB%E5%9E%8B%E6%97%B6%E6%97%A0%E9%9C%80%E6%8B%86%E7%AE%B1/index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="欲验证的结论：  接口引用指向装箱后的值类型时无需拆箱  。 代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344interface SomeInterface&amp;#123;    void MethodInInterface();&amp;#125;struct OneValueType">
+<meta property="og:description" content="欲验证的结论：  接口引用指向装箱后的值类型时无需拆箱  。 代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344interface SomeInterface&#123;    void MethodInInterface();&#125;struct OneValueType">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cuipengfei.me/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090729/2009-07-29_08-47-04.jpg">
 <meta property="og:image" content="https://cuipengfei.me/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090729/2009-07-29_08-47-18.jpg">
@@ -48,7 +48,7 @@
 <title>格物致知--《Effective C#》读书笔记--验证接口引用指向装箱后的值类型时无需拆箱 | 崔鹏飞的Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
-  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false}</script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
   <script src="/js/third-party/analytics/google-analytics.js"></script>
 
 
@@ -160,7 +160,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-count">171</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -329,12 +329,12 @@
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/blog/2009/07/19/%E6%A0%BC%E7%89%A9%E8%87%B4%E7%9F%A5--%E3%80%8AEffective%20CSharp%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E9%AA%8C%E8%AF%81%E5%9B%9B%E7%A7%8D%E5%88%A4%E7%AD%89%E6%96%B9%E5%BC%8F/" rel="prev" title="格物致知--《Effective C#》读书笔记--验证四种判等方式">
-                  <i class="fa fa-chevron-left"></i> 格物致知--《Effective C#》读书笔记--验证四种判等方式
+                  <i class="fa fa-angle-left"></i> 格物致知--《Effective C#》读书笔记--验证四种判等方式
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/blog/2009/08/07/%E3%80%8AHead%20First%20CSharp%E3%80%8B%E5%B0%86%E5%81%9C%E6%AD%A2%E7%BF%BB%E8%AF%91%E5%92%8C%E6%9B%B4%E6%96%B0/" rel="next" title="《Head First C#》将停止翻译和更新">
-                  《Head First C#》将停止翻译和更新 <i class="fa fa-chevron-right"></i>
+                  《Head First C#》将停止翻译和更新 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -372,14 +372,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">357k</span>
+    <span title="站点总字数">360k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:25</span>
+    <span title="站点阅读时长">5:27</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
@@ -415,7 +415,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"version":"7.1.2","options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.2.3/mermaid.min.js","integrity":"sha256-JFptYy4KzJ5OQP+Q9fubNf3cxpPPmZKqUOovyEONKrQ="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"version":"7.1.2","options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js","integrity":"sha256-mm3Re3y7xlvh+yCD+l/Zs1d+PU0AEad93MkWvljfm/s="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
 

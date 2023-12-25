@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -14,12 +14,12 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.17.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"style":null,"show_result":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="最近在项目中需要使用Spring Integration提供的基于JDBC实现的分布式锁。 在实践的过程中，我们遇到了一些有趣的问题，现在在此记录和总结一下。 一共遇到了两个问题，第一个和time to live有关，第二个还是和time to live有关。 第一个问题：由于time to live默认值不够长而导致被动失去锁的问题sequenceDiagram  actor event_ini">
 <meta property="og:type" content="article">
@@ -49,7 +49,7 @@
 <title>Spring Integration JDBC分布式锁 - TTL | 崔鹏飞的Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
-  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false}</script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
   <script src="/js/third-party/analytics/google-analytics.js"></script>
 
 
@@ -162,7 +162,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-count">171</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -268,7 +268,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>5.6k</span>
+      <span>5.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -415,14 +415,11 @@ note over instance_1_thread_2: 继续等也没用</pre>
 <p>但是，如果是同一支小队中的两个士兵，后面的士兵实际上可以在目视距离内看到前面的士兵是否仍然在执行任务。因此，<strong>即便是战友行动太慢</strong>了，他也可以选择多等待一会，让前面的士兵可以继续完成任务。当然，如果后面的士兵等不及了，想要立即行动，他也可以选择这样做。在这种情况下，后面的士兵<strong>具有更多的决策依据</strong>，因此他可以选择多等待一段时间或立即采取行动。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>第一个问题：由于time to live默认值不够长，而导致在还不该失去锁的时间点上过早地失去了锁（<strong>防死锁机制过早地介入了</strong>），解决方法是把TTL设置的足够大，以及在合适的时机做renew从而避免过早地失去锁。</p>
 <p>第二个问题：time to live对于运行在同一个进程中的两个线程来说是<strong>不会默认生效</strong>的，从而导致应该失去锁的时间已经过了，但卡住的线程还没有释放锁，进而导致后续的线程拿不到锁的情况。解决方法是<strong>可以选择</strong>让同一个进程内的后来者线程使用expireUnusedOlderThan来强制剥夺锁(同一个进程中的两个线程，其中后来的那个具有更高的自由裁量权，不必只依据TTL一个指标来行事)。</p>
-<pre class="mermaid">mindmap
-  root(Spring Integration JDBC Distributed Lock)
-    默认TTL太短
-        设置长一些
-        renew
-    卡死了，没机会释放锁
-        其它进程可以在TTL过后拿到锁
-        同一个进程内的其它线程可以选择使用expireUnusedOlderThan</pre>
+
+<div class="markmap-container" style="height:400px">
+  <svg data="{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:1,&quot;p&quot;:{&quot;lines&quot;:[0,1]},&quot;v&quot;:&quot;JDBC Distributed Lock - TTL&quot;,&quot;c&quot;:[{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[2,3]},&quot;v&quot;:&quot;默认TTL太短&quot;,&quot;c&quot;:[{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:3,&quot;p&quot;:{&quot;lines&quot;:[3,4]},&quot;v&quot;:&quot;设置长一些&quot;},{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:3,&quot;p&quot;:{&quot;lines&quot;:[4,5]},&quot;v&quot;:&quot;renew&quot;}]},{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[6,7]},&quot;v&quot;:&quot;卡死了，没机会释放锁&quot;,&quot;c&quot;:[{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:3,&quot;p&quot;:{&quot;lines&quot;:[7,8]},&quot;v&quot;:&quot;其它进程可以在TTL过后拿到锁&quot;},{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:3,&quot;p&quot;:{&quot;lines&quot;:[8,9]},&quot;v&quot;:&quot;同一个进程内的其它线程可以选择使用expireUnusedOlderThan&quot;}]}]}"></svg>
+</div>
+
 
 <p>锁的事，该失去就失去，不失去也强制失去。</p>
 <p>锁的事，不该失去就不能失去，要失去也不许失去。</p>
@@ -463,12 +460,12 @@ note over instance_1_thread_2: 继续等也没用</pre>
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/blog/2023/03/18/generative-tests/" rel="prev" title="当测试代码使用随机生成的输入数据时，该如何去做出断言">
-                  <i class="fa fa-chevron-left"></i> 当测试代码使用随机生成的输入数据时，该如何去做出断言
+                  <i class="fa fa-angle-left"></i> 当测试代码使用随机生成的输入数据时，该如何去做出断言
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/blog/2023/08/26/not-mem-leak/" rel="next" title="内存涨上去不肯下来 - 未必是内存泄漏">
-                  内存涨上去不肯下来 - 未必是内存泄漏 <i class="fa fa-chevron-right"></i>
+                  内存涨上去不肯下来 - 未必是内存泄漏 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -506,14 +503,14 @@ note over instance_1_thread_2: 继续等也没用</pre>
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">357k</span>
+    <span title="站点总字数">360k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:25</span>
+    <span title="站点阅读时长">5:27</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
@@ -549,7 +546,7 @@ note over instance_1_thread_2: 继续等也没用</pre>
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"version":"7.1.2","options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.2.3/mermaid.min.js","integrity":"sha256-JFptYy4KzJ5OQP+Q9fubNf3cxpPPmZKqUOovyEONKrQ="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"version":"7.1.2","options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js","integrity":"sha256-mm3Re3y7xlvh+yCD+l/Zs1d+PU0AEad93MkWvljfm/s="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
 
@@ -565,5 +562,5 @@ note over instance_1_thread_2: 继续等也没用</pre>
 <script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
 <script src="/js/third-party/comments/disqus.js"></script>
 
-</body>
+<script src="/js/markmap.js"></script></body>
 </html>
