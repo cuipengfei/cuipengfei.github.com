@@ -26,6 +26,7 @@
     "hexo-generator-sitemap": "^3.0.1",
     "hexo-generator-tag": "^2.0.0",
     "hexo-graphviz": "^1.0.2",
+    "hexo-markmap": "^1.2.5",
     "hexo-related-popular-posts": "^5.0.1",
     "hexo-renderer-ejs": "^2.0.0",
     "hexo-renderer-marked": "^6.2.0",
@@ -34,8 +35,5 @@
     "hexo-symbols-count-time": "^0.7.1",
     "hexo-theme-next": "^8.19.1",
     "markdown-link-extractor": "^3.1.0"
-  },
-  "devDependencies": {
-    "hexo-markmap": "^1.2.5"
   }
 }
