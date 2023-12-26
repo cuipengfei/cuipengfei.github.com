@@ -1594,14 +1594,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/tags/graphics/</loc>
+    <loc>https://cuipengfei.me/tags/%E6%88%91%E7%BF%BB%E8%AF%91%E7%9A%84Head-First-C-%EF%BC%88%E4%B9%A0%E4%BD%9C%EF%BC%89/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/tags/%E6%88%91%E7%BF%BB%E8%AF%91%E7%9A%84Head-First-C-%EF%BC%88%E4%B9%A0%E4%BD%9C%EF%BC%89/</loc>
+    <loc>https://cuipengfei.me/tags/graphics/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1650,14 +1650,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/tags/WPF/</loc>
+    <loc>https://cuipengfei.me/tags/Words-Via-Subtitle/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/tags/Words-Via-Subtitle/</loc>
+    <loc>https://cuipengfei.me/tags/WPF/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1706,20 +1706,6 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/tags/Desugar-Scala/</loc>
-    <lastmod>2023-12-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cuipengfei.me/tags/Scala/</loc>
-    <lastmod>2023-12-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://cuipengfei.me/tags/Y/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -1728,6 +1714,20 @@
   
   <url>
     <loc>https://cuipengfei.me/tags/FP/</loc>
+    <lastmod>2023-12-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cuipengfei.me/tags/Desugar-Scala/</loc>
+    <lastmod>2023-12-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cuipengfei.me/tags/Scala/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1804,14 +1804,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/tags/Promises-A/</loc>
+    <loc>https://cuipengfei.me/tags/Android/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/tags/Android/</loc>
+    <loc>https://cuipengfei.me/tags/Promises-A/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1826,13 +1826,6 @@
   
   <url>
     <loc>https://cuipengfei.me/tags/%F0%9F%90%B8/</loc>
-    <lastmod>2023-12-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cuipengfei.me/tags/Uncle-Bob/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1860,6 +1853,13 @@
   </url>
   
   <url>
+    <loc>https://cuipengfei.me/tags/Uncle-Bob/</loc>
+    <lastmod>2023-12-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://cuipengfei.me/tags/%E7%BB%8F%E6%B5%8E/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -1874,13 +1874,6 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F/</loc>
-    <lastmod>2023-12-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://cuipengfei.me/tags/%E9%9C%80%E6%B1%82/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -1888,14 +1881,21 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/tags/%E9%93%B6%E8%A1%8C/</loc>
+    <loc>https://cuipengfei.me/tags/%E5%B7%A5%E4%B8%9A%E5%85%9A/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/tags/%E5%B7%A5%E4%B8%9A%E5%85%9A/</loc>
+    <loc>https://cuipengfei.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F/</loc>
+    <lastmod>2023-12-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cuipengfei.me/tags/%E9%93%B6%E8%A1%8C/</loc>
     <lastmod>2023-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
