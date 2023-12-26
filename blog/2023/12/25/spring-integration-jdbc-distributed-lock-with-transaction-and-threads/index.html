@@ -266,14 +266,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.4k</span>
+      <span>3.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -306,11 +306,31 @@
 <h1 id="第二个问题的较优解决方法：缩小事务范围，避免将业务操作和获取JDBC锁的操作混合在同一个被-Transactional标注的方法内"><a href="#第二个问题的较优解决方法：缩小事务范围，避免将业务操作和获取JDBC锁的操作混合在同一个被-Transactional标注的方法内" class="headerlink" title="第二个问题的较优解决方法：缩小事务范围，避免将业务操作和获取JDBC锁的操作混合在同一个被@Transactional标注的方法内"></a>第二个问题的较优解决方法：缩小事务范围，避免将业务操作和获取JDBC锁的操作混合在同一个被@Transactional标注的方法内</h1><p><strong>上述四份代码都存在一个共同的缺点</strong>，即@Transactional注解的范围太广。</p>
 <p>这容易导致JPA Transaction Manager范畴内与业务相关的SQL操作以及获取JDBC分布式锁的Data Source Transaction Manager范畴内的SQL操作混在一起。<br>当这两者混在一起时，很容易出现问题。</p>
 <p>第二个问题的较优解决方法的代码请参考：<br><a target="_blank" rel="noopener" href="https://github.com/cuipengfei/Spikes/blob/master/jpa/lock-transaction-threads/src/main/java/com/github/spring/example/service/Problem2GoodFixService.java">https://github.com/cuipengfei/Spikes/blob/master/jpa/lock-transaction-threads/src/main/java/com/github/spring/example/service/Problem2GoodFixService.java</a></p>
+<pre class="mermaid">mindmap
+  root(Threads & Transactions)
+    1 第一个问题：在多个线程中运行隔离级别为serializable的事务
+      Spring Integration JDBC分布式锁的实现会需要使用一个serializable级别的事务来**获取锁**
+      如果多个线程同时尝试获取锁，这些事务之间可能会出现顺序问题
+      发生这样的问题其实也不可怕，因为JDBC锁会进行重试
+      然而，当使用JPA Transaction Manager时，由于某些异常类型的原因，JDBC锁无法在发生这种错误的情况下进行重试
 
-<div class="markmap-container" style="height:800px">
-  <svg data="{&quot;t&quot;:&quot;root&quot;,&quot;d&quot;:0,&quot;v&quot;:&quot;&quot;,&quot;c&quot;:[{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:1,&quot;p&quot;:{&quot;lines&quot;:[1,2]},&quot;v&quot;:&quot;第一个问题：在多个线程中运行隔离级别&lt;br&gt;为serializable的事务&quot;,&quot;c&quot;:[{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[2,3]},&quot;v&quot;:&quot;Spring Integration JDBC分布式锁的&lt;br&gt;实现会需要使用一个serializable级别的事务来&lt;strong&gt;获取锁&lt;/strong&gt;&quot;},{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[3,4]},&quot;v&quot;:&quot;如果多个线程同时尝试获取锁，这些事务&lt;br&gt;之间可能会出现顺序问题&quot;},{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[4,5]},&quot;v&quot;:&quot;发生这样的问题其实也不可怕，因为JDBC锁会&lt;br&gt;进行重试&quot;},{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[5,6]},&quot;v&quot;:&quot;然而，当使用JPA Transaction Manager时，由于&lt;br&gt;某些异常类型的原因，JDBC锁无法在发生这种错误的情况下进行重试&quot;}]},{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:1,&quot;p&quot;:{&quot;lines&quot;:[7,8]},&quot;v&quot;:&quot;使用Data Source Transaction Manager来&lt;br&gt;workaround第一个问题&quot;,&quot;c&quot;:[{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[8,9]},&quot;v&quot;:&quot;可以明确指定让JDBC锁不使用&lt;br&gt;JPA Transaction Manager&quot;},{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[9,10]},&quot;v&quot;:&quot;而是使用Data Source Transaction Manager&lt;br&gt;来绕过此问题&quot;}]},{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:1,&quot;p&quot;:{&quot;lines&quot;:[11,12]},&quot;v&quot;:&quot;第二个问题：在同一个线程中先使用JPA&lt;br&gt;启动一个事务，然后尝试获取JDBC锁所导致&lt;br&gt;的事务隔离级别变化的问题&quot;,&quot;c&quot;:[{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[12,13]},&quot;v&quot;:&quot;如果在一个方法上标注了@Transactional，然后在该方法&lt;br&gt;内部先执行了一些JPA的SQL操作，然后&lt;br&gt;再尝试获取JDBC分布式锁，就会出现无法更改事务隔离级别的问题&quot;},{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[13,14]},&quot;v&quot;:&quot;问题的关键在于并行流（parallel stream）并不总是&lt;br&gt;仅利用其自己线程池中的线程，它也会利用当前线程&quot;},{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[14,15]},&quot;v&quot;:&quot;而恰好落在当前线程上的那一次尝试获取JDBC分布式锁的&lt;br&gt;操作就会出现无法更改事务隔离级别的问题&quot;}]},{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:1,&quot;p&quot;:{&quot;lines&quot;:[16,17]},&quot;v&quot;:&quot;第二个问题的不完善解决方法：强制&lt;br&gt;parallel stream不使用当前线程&quot;,&quot;c&quot;:[{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[17,18]},&quot;v&quot;:&quot;尽管这样做可以成功获取JDBC锁，但它也会&lt;br&gt;导致一部分SQL游离在事务之外执行&quot;},{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[18,19]},&quot;v&quot;:&quot;不仅仅是这个解决方法，&lt;strong&gt;上述的三份代码也都会有这个问题&lt;/strong&gt;&quot;}]},{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:1,&quot;p&quot;:{&quot;lines&quot;:[20,21]},&quot;v&quot;:&quot;第二个问题的较优解决方法：缩小事务范围，避免&lt;br&gt;将业务操作和获取JDBC锁的操作混合在同一个&lt;br&gt;被@Transactional标注的方法内&quot;,&quot;c&quot;:[{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[21,22]},&quot;v&quot;:&quot;&lt;strong&gt;上述四份代码都存在一个共同的缺点&lt;/strong&gt;，即@Transactional注解的范围太广&quot;},{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[22,23]},&quot;v&quot;:&quot;这容易导致JPA Transaction Manager范畴内与业务&lt;br&gt;相关的SQL操作以及获取JDBC分布式锁的&lt;br&gt;Data Source Transaction Manager范畴内的SQL操作混在一起&quot;},{&quot;t&quot;:&quot;heading&quot;,&quot;d&quot;:2,&quot;p&quot;:{&quot;lines&quot;:[23,24]},&quot;v&quot;:&quot;当这两者混在一起时，很容易出现问题&quot;}]}],&quot;p&quot;:{}}"></svg>
-</div>
+    2 使用Data Source Transaction Manager来workaround第一个问题
+      可以明确指定让JDBC锁不使用JPA Transaction Manager
+      而是使用Data Source Transaction Manager来绕过此问题
 
+    3 第二个问题：在同一个线程中先使用JPA启动一个事务，然后尝试获取JDBC锁所导致的事务隔离级别变化的问题
+      如果在一个方法上标注了@Transactional，然后在该方法内部先执行了一些JPA的SQL操作，然后再尝试获取JDBC分布式锁，就会出现无法更改事务隔离级别的问题
+      问题的关键在于并行流（parallel stream）并不总是仅利用其自己线程池中的线程，它也会利用当前线程
+      而恰好落在当前线程上的那一次尝试获取JDBC分布式锁的操作就会出现无法更改事务隔离级别的问题
+
+    4 第二个问题的不完善解决方法：强制parallel stream不使用当前线程
+      尽管这样做可以成功获取JDBC锁，但它也会导致一部分SQL游离在事务之外执行
+      不仅仅是这个解决方法，**上述的三份代码也都会有这个问题**
+
+    5 第二个问题的较优解决方法：缩小事务范围，避免将业务操作和获取JDBC锁的操作混合在同一个被@Transactional标注的方法内
+      **上述四份代码都存在一个共同的缺点**，即@Transactional注解的范围太广
+      这容易导致JPA Transaction Manager范畴内与业务相关的SQL操作以及获取JDBC分布式锁的Data Source Transaction Manager范畴内的SQL操作混在一起
+      当这两者混在一起时，很容易出现问题</pre>
     </div>
 
     
@@ -386,14 +406,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">360k</span>
+    <span title="站点总字数">361k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:27</span>
+    <span title="站点阅读时长">5:28</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
@@ -445,5 +465,5 @@
 <script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
 <script src="/js/third-party/comments/disqus.js"></script>
 
-<script src="/js/markmap.js"></script></body>
+</body>
 </html>
