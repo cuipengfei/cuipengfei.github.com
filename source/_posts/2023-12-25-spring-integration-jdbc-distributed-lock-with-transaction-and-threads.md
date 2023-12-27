@@ -74,7 +74,7 @@ https://github.com/cuipengfei/Spikes/blob/master/jpa/lock-transaction-threads/sr
 第二个问题的较优解决方法的代码请参考：
 https://github.com/cuipengfei/Spikes/blob/master/jpa/lock-transaction-threads/src/main/java/com/github/spring/example/service/Problem2GoodFixService.java
 
-# 最后用图来总结一下
+# 用图来总结一下
 
 ```mermaid
 flowchart TD
@@ -142,3 +142,15 @@ flowchart TD
     tl2-->|从而避免|ile
     end
 ```
+
+# 补充：Redis
+
+上面的问题都是由于业务代码和获取锁的代码二者同时依赖于同一个数据库。
+
+而Spring Integration的分布式锁除了可以使用JDBC，其实也可以使用Redis或其他底层技术。
+如果把上述代码中的JdbcLockRegistry全部替换为RedisLockRegistry，而保持其它代码不变，所有错误都会消失，不会再重现。
+
+因为无论用到了哪一个线程，哪一个DB Transaction，也无论@Transactional标记的宽或者窄，Redis总是不会和JDBC/DB撞车的。
+
+可以通过修改上述代码中的此处来试用Redis： 
+https://github.com/cuipengfei/Spikes/blob/c887a6f802bbfffc45ee29cbb91dac731243b7cd/jpa/lock-transaction-threads/src/main/resources/application.properties#L17-L18
