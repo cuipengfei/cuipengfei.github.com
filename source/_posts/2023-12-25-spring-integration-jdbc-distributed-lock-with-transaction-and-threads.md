@@ -143,7 +143,9 @@ flowchart TD
     end
 ```
 
-# 补充：Redis
+# 补充
+
+## Redis
 
 上面的问题都是由于业务代码和获取锁的代码二者同时依赖于同一个数据库。
 
@@ -154,3 +156,7 @@ flowchart TD
 
 可以通过修改上述代码中的此处来试用Redis： 
 https://github.com/cuipengfei/Spikes/blob/c887a6f802bbfffc45ee29cbb91dac731243b7cd/jpa/lock-transaction-threads/src/main/resources/application.properties#L17-L18
+
+## Spring Boot 3
+
+如果升级到Spring Boot 3.x + JDK 17，则Spring Integration JDBC会升到6.x(上述代码用的是5.x)，甚至不用替换成Data Source Transaction Manager，上述问题也会消失。
