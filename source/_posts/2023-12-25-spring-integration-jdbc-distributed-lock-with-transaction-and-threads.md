@@ -170,3 +170,4 @@ https://github.com/cuipengfei/Spikes/blob/c887a6f802bbfffc45ee29cbb91dac731243b7
 这样，自然就规避了第一个问题，不再有serializable事务撞车。
 
 而由于不再需要给锁使用Data Source Transaction Manager，自然也就解决了第二个问题，不再有同一个线程上两个transaction managers打架的问题。
+不过，即便如此，缩小@Transactional的范围仍然是值得建议的。
