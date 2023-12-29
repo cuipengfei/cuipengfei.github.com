@@ -115,7 +115,7 @@ flowchart TD
     style ile fill:#FFCCCB,stroke:#333,stroke-width:4px
 
     st[同一个线程中]
-    t[绑在当前线程上的事务]
+    t[事务]
     t2[事务]
     tm[一个范围很宽的标注了@Transactional的方法]
     js[JPA的SQL操作]
