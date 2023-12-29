@@ -381,7 +381,7 @@
 <h2 id="Spring-Boot-3"><a href="#Spring-Boot-3" class="headerlink" title="Spring Boot 3"></a>Spring Boot 3</h2><p>如果升级到Spring Boot 3.1.5 + JDK 17，则Spring Integration JDBC会升到6.1.4(上述代码用的是5.x)，甚至不用替换成Data Source Transaction Manager，上述问题也会消失。</p>
 <p>因为这一版本的Spring Integration JDBC的分布式锁实现在acquire lock时不再使用serializable的事务，而是改成了read committed。</p>
 <p>这样，自然就规避了第一个问题，不再有serializable事务撞车。</p>
-<p>而由于不再需要给锁使用Data Source Transaction Manager，自然也就解决了第二个问题，不再有同一个线程上两个transaction managers打架的问题。</p>
+<p>而由于不再需要给锁使用Data Source Transaction Manager，自然也就解决了第二个问题，不再有同一个线程上两个transaction managers打架的问题。<br>不过，即便如此，缩小@Transactional的范围仍然是值得建议的。</p>
 
     </div>
 
