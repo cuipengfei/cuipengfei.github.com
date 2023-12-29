@@ -159,4 +159,4 @@ https://github.com/cuipengfei/Spikes/blob/c887a6f802bbfffc45ee29cbb91dac731243b7
 
 ## Spring Boot 3
 
-如果升级到Spring Boot 3.x + JDK 17，则Spring Integration JDBC会升到6.x(上述代码用的是5.x)，甚至不用替换成Data Source Transaction Manager，上述问题也会消失。
+如果升级到Spring Boot 3.1.5 + JDK 17，则Spring Integration JDBC会升到6.1.4(上述代码用的是5.x)，甚至不用替换成Data Source Transaction Manager，上述问题也会消失。
