@@ -7,7 +7,7 @@ tags:
 - Java
 ---
 
-# 第一个问题：在多个线程中运行隔离级别为serializable的事务
+# 第一个问题：在多个线程中同时运行隔离级别为serializable的事务而导致的无法重试获取锁的问题
 
 Spring Integration JDBC分布式锁的实现会需要使用一个serializable级别的事务来**获取锁**。
 
@@ -39,12 +39,15 @@ https://github.com/cuipengfei/Spikes/blob/master/jpa/lock-transaction-threads/sr
 可以执行该代码以观察workaround的效果：
 https://github.com/cuipengfei/Spikes/blob/master/jpa/lock-transaction-threads/src/main/java/com/github/spring/example/service/Problem1FixService.java
 
-# 第二个问题：在同一个线程中先使用JPA启动一个事务，然后尝试获取JDBC锁所导致的事务隔离级别变化的问题
+# 第二个问题：在同一个线程中先使用JpaTransactionManager启动一个事务，然后尝试用DataSourceTransactionManager获取JDBC锁所导致的事务隔离级别变化的问题
 
 该问题的显著特征是：如果在一个方法上标注了@Transactional，然后在该方法内部先执行了一些JPA的SQL操作，然后再尝试获取JDBC分布式锁，就会出现无法更改事务隔离级别的问题。
 
 问题的关键在于并行流（parallel stream）并不总是仅利用其自己线程池中的线程，它也会利用当前线程。
 而恰好落在当前线程上的那一次尝试获取JDBC分布式锁的操作就会出现无法更改事务隔离级别的问题。
+
+这是因为我们用来解决第一个问题而引入的DataSourceTransactionManager的文档中提及它具有如下行为：
+> Note: The DataSource that this transaction manager operates on needs to return independent Connections. The Connections typically come from a connection pool but the DataSource must not return specifically scoped or constrained Connections. This transaction manager will associate Connections with thread-bound transactions, according to the specified propagation behavior. It assumes that a separate, independent Connection can be obtained even during an ongoing transaction.
 
 可以通过以下代码观察parallel stream的行为：
 https://github.com/cuipengfei/Spikes/blob/master/jpa/lock-transaction-threads/src/main/java/com/github/spring/example/TestParallelStreamThreads.java
@@ -111,7 +114,7 @@ flowchart TD
     style ile fill:#FFCCCB,stroke:#333,stroke-width:4px
 
     st[同一个线程中]
-    t[事务]
+    t[绑在当前线程上的事务]
     t2[事务]
     tm[一个范围很宽的标注了@Transactional的方法]
     js[JPA的SQL操作]
@@ -160,3 +163,9 @@ https://github.com/cuipengfei/Spikes/blob/c887a6f802bbfffc45ee29cbb91dac731243b7
 ## Spring Boot 3
 
 如果升级到Spring Boot 3.1.5 + JDK 17，则Spring Integration JDBC会升到6.1.4(上述代码用的是5.x)，甚至不用替换成Data Source Transaction Manager，上述问题也会消失。
+
+因为这一版本的Spring Integration JDBC的分布式锁实现在acquire lock时不再使用serializable的事务，而是改成了read committed。
+
+这样，自然就规避了第一个问题，不再有serializable事务撞车。
+
+而由于不再需要给锁使用Data Source Transaction Manager，自然也就解决了第二个问题，不再有同一个线程上两个transaction managers打架的问题。
