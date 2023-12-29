@@ -373,7 +373,7 @@
 <p>而Spring Integration的分布式锁除了可以使用JDBC，其实也可以使用Redis或其他底层技术。<br>如果把上述代码中的JdbcLockRegistry全部替换为RedisLockRegistry，而保持其它代码不变，所有错误都会消失，不会再重现。</p>
 <p>因为无论用到了哪一个线程，哪一个DB Transaction，也无论@Transactional标记的宽或者窄，Redis总是不会和JDBC&#x2F;DB撞车的。</p>
 <p>可以通过修改上述代码中的此处来试用Redis：<br><a target="_blank" rel="noopener" href="https://github.com/cuipengfei/Spikes/blob/c887a6f802bbfffc45ee29cbb91dac731243b7cd/jpa/lock-transaction-threads/src/main/resources/application.properties#L17-L18">https://github.com/cuipengfei/Spikes/blob/c887a6f802bbfffc45ee29cbb91dac731243b7cd/jpa/lock-transaction-threads/src/main/resources/application.properties#L17-L18</a></p>
-<h2 id="Spring-Boot-3"><a href="#Spring-Boot-3" class="headerlink" title="Spring Boot 3"></a>Spring Boot 3</h2><p>如果升级到Spring Boot 3.x + JDK 17，则Spring Integration JDBC会升到6.x(上述代码用的是5.x)，甚至不用替换成Data Source Transaction Manager，上述问题也会消失。</p>
+<h2 id="Spring-Boot-3"><a href="#Spring-Boot-3" class="headerlink" title="Spring Boot 3"></a>Spring Boot 3</h2><p>如果升级到Spring Boot 3.1.5 + JDK 17，则Spring Integration JDBC会升到6.1.4(上述代码用的是5.x)，甚至不用替换成Data Source Transaction Manager，上述问题也会消失。</p>
 
     </div>
 
