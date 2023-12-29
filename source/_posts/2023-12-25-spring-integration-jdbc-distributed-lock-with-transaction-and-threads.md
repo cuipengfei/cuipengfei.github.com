@@ -72,7 +72,8 @@ https://github.com/cuipengfei/Spikes/blob/master/jpa/lock-transaction-threads/sr
 **上述四份代码都存在一个共同的缺点**，即@Transactional注解的范围太广。
 
 这容易导致JPA Transaction Manager范畴内与业务相关的SQL操作以及获取JDBC分布式锁的Data Source Transaction Manager范畴内的SQL操作混在一起。
-当这两者混在一起时，很容易出现问题。
+
+当这两者混在一起时，很容易出现DataSourceTransactionManager试图去改变一个已经被open过的transaction的隔离级别的问题。
 
 第二个问题的较优解决方法的代码请参考：
 https://github.com/cuipengfei/Spikes/blob/master/jpa/lock-transaction-threads/src/main/java/com/github/spring/example/service/Problem2GoodFixService.java
