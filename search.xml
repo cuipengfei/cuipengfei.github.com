@@ -8048,7 +8048,7 @@ note over instance_1_thread_2: 继续等也没用</pre>
 <p>尽管这样做可以成功获取JDBC锁，但它也会导致一部分SQL游离在事务之外执行。<br>不仅仅是这个解决方法，<strong>上述的三份代码也都会有这个问题</strong>。</p>
 <p>不太理想的解决方法的代码如下：<br><a href="https://github.com/cuipengfei/Spikes/blob/master/jpa/lock-transaction-threads/src/main/java/com/github/spring/example/service/Problem2BadFixService.java">https://github.com/cuipengfei/Spikes/blob/master/jpa/lock-transaction-threads/src/main/java/com/github/spring/example/service/Problem2BadFixService.java</a></p>
 <h1 id="第二个问题的较优解决方法：缩小事务范围，避免将业务操作和获取JDBC锁的操作混合在同一个被-Transactional标注的方法内"><a href="#第二个问题的较优解决方法：缩小事务范围，避免将业务操作和获取JDBC锁的操作混合在同一个被-Transactional标注的方法内" class="headerlink" title="第二个问题的较优解决方法：缩小事务范围，避免将业务操作和获取JDBC锁的操作混合在同一个被@Transactional标注的方法内"></a>第二个问题的较优解决方法：缩小事务范围，避免将业务操作和获取JDBC锁的操作混合在同一个被@Transactional标注的方法内</h1><p><strong>上述四份代码都存在一个共同的缺点</strong>，即@Transactional注解的范围太广。</p>
-<p>这容易导致JPA Transaction Manager范畴内与业务相关的SQL操作以及获取JDBC分布式锁的Data Source Transaction Manager范畴内的SQL操作混在一起。</p>
+<p>这容易导致JPA Transaction Manager的范畴以及用于获取JDBC分布式锁的Data Source Transaction Manager的范畴互相交叉。</p>
 <p>当这两者混在一起时，很容易出现DataSourceTransactionManager试图去改变一个已经被open过的transaction的隔离级别的问题。</p>
 <p>第二个问题的较优解决方法的代码请参考：<br><a href="https://github.com/cuipengfei/Spikes/blob/master/jpa/lock-transaction-threads/src/main/java/com/github/spring/example/service/Problem2GoodFixService.java">https://github.com/cuipengfei/Spikes/blob/master/jpa/lock-transaction-threads/src/main/java/com/github/spring/example/service/Problem2GoodFixService.java</a></p>
 <h1 id="用图来总结一下"><a href="#用图来总结一下" class="headerlink" title="用图来总结一下"></a>用图来总结一下</h1><pre class="mermaid">flowchart TD
@@ -8065,7 +8065,7 @@ note over instance_1_thread_2: 继续等也没用</pre>
     se[Serialization Error]
     se2[Serialization Error]
 
-    subgraph 无法重试获取锁
+    subgraph 在多个线程中同时运行隔离级别为serializable的事务而导致的无法重试获取锁的问题
     jl-->|默认使用|str
     mt-->|同时获取|jl
     jl-->|恰好用了|jtm
@@ -8096,7 +8096,7 @@ note over instance_1_thread_2: 继续等也没用</pre>
     ile[🪳无法更改事务隔离级别的问题🪳]
     nd[❤️正确做法应该是缩小@Transactional的范围❤️]
 
-    subgraph 事务隔离级别变化的问题
+    subgraph 在同一个线程中先使用JpaTransactionManager启动一个事务然后尝试用DataSourceTransactionManager获取JDBC锁所导致的事务隔离级别变化的问题
     ps-->|并不总是仅利用|op
     ps-->|也会利用|ct
     ct-->|那么就会在|st
