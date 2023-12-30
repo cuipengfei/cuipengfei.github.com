@@ -71,7 +71,7 @@ https://github.com/cuipengfei/Spikes/blob/master/jpa/lock-transaction-threads/sr
 
 **上述四份代码都存在一个共同的缺点**，即@Transactional注解的范围太广。
 
-这容易导致JPA Transaction Manager范畴内与业务相关的SQL操作以及获取JDBC分布式锁的Data Source Transaction Manager范畴内的SQL操作混在一起。
+这容易导致JPA Transaction Manager的范畴以及用于获取JDBC分布式锁的Data Source Transaction Manager的范畴互相交叉。
 
 当这两者混在一起时，很容易出现DataSourceTransactionManager试图去改变一个已经被open过的transaction的隔离级别的问题。
 
@@ -95,7 +95,7 @@ flowchart TD
     se[Serialization Error]
     se2[Serialization Error]
 
-    subgraph 无法重试获取锁
+    subgraph 在多个线程中同时运行隔离级别为serializable的事务而导致的无法重试获取锁的问题
     jl-->|默认使用|str
     mt-->|同时获取|jl
     jl-->|恰好用了|jtm
@@ -128,7 +128,7 @@ flowchart TD
     ile[🪳无法更改事务隔离级别的问题🪳]
     nd[❤️正确做法应该是缩小@Transactional的范围❤️]
 
-    subgraph 事务隔离级别变化的问题
+    subgraph 在同一个线程中先使用JpaTransactionManager启动一个事务然后尝试用DataSourceTransactionManager获取JDBC锁所导致的事务隔离级别变化的问题
     ps-->|并不总是仅利用|op
     ps-->|也会利用|ct
     ct-->|那么就会在|st
