@@ -1,3 +1,4 @@
+https://cuipengfei.me/blog/2024/02/04/libre-jod/
 https://cuipengfei.me/blog/2023/12/25/spring-integration-jdbc-distributed-lock-with-transaction-and-threads/
 https://cuipengfei.me/blog/2023/08/26/not-mem-leak/
 https://cuipengfei.me/blog/2023/07/29/spring%20integration%20jdbc%20distributed%20lock/
@@ -224,3 +225,5 @@ https://cuipengfei.me/tags/%E9%94%81/
 https://cuipengfei.me/tags/%E9%93%B6%E8%A1%8C/
 https://cuipengfei.me/tags/jvm/
 https://cuipengfei.me/tags/%E5%86%85%E5%AD%98/
+https://cuipengfei.me/tags/LibreOffice/
+https://cuipengfei.me/tags/JOD/
