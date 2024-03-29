@@ -14,17 +14,17 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="最近还是在看郑大翻译的《Scala程序设计》，其中第十一章还有一句话：  如果trait有方法实现，那么Java类就不能实现这个trait  口说还是无凭，还是拍照为证：  我感觉这句话是错的，下面寻根究底地探索一下。 trait这个语言特性前面的博文讲过。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的">
-<meta property="og:url" content="https://cuipengfei.me/blog/2014/06/28/scala-java-interop-trait-with-impl/index.html">
+<meta property="og:url" content="https://cuipengfei.github.io/blog/2014/06/28/scala-java-interop-trait-with-impl/index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="最近还是在看郑大翻译的《Scala程序设计》，其中第十一章还有一句话：  如果trait有方法实现，那么Java类就不能实现这个trait  口说还是无凭，还是拍照为证：  我感觉这句话是错的，下面寻根究底地探索一下。 trait这个语言特性前面的博文讲过。">
 <meta property="og:locale" content="zh_CN">
@@ -37,11 +37,11 @@
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/8b1ece2agw1ehtqjokutnj21kw23u7wh.jpg">
 
 
-<link rel="canonical" href="https://cuipengfei.me/blog/2014/06/28/scala-java-interop-trait-with-impl/">
+<link rel="canonical" href="https://cuipengfei.github.io/blog/2014/06/28/scala-java-interop-trait-with-impl/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2014/06/28/scala-java-interop-trait-with-impl/","path":"blog/2014/06/28/scala-java-interop-trait-with-impl/","title":"论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.github.io/blog/2014/06/28/scala-java-interop-trait-with-impl/","path":"blog/2014/06/28/scala-java-interop-trait-with-impl/","title":"论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的 | 崔鹏飞的Blog</title>
@@ -212,7 +212,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2014/06/28/scala-java-interop-trait-with-impl/">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.github.io/blog/2014/06/28/scala-java-interop-trait-with-impl/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -289,7 +289,7 @@
 <p>口说还是无凭，还是拍照为证：</p>
 <p><img data-src="http://ww1.sinaimg.cn/large/8b1ece2agw1ehtqjokutnj21kw23u7wh.jpg"></p>
 <p>我感觉这句话是错的，下面寻根究底地探索一下。</p>
-<p>trait这个语言特性<a href="http://cuipengfei.me/blog/2013/10/13/scala-trait/">前面的博文</a>讲过。</p>
+<p>trait这个语言特性<a target="_blank" rel="noopener" href="http://cuipengfei.me/blog/2013/10/13/scala-trait/">前面的博文</a>讲过。</p>
 <p>一个含有方法实现的trait会被编译成一个interface，还有一个含有实现的静态方法。</p>
 <p>所有extends或者是with这个trait的Scala类，实际上都是implements了这个interface，在具体实现中调用了静态方法。</p>
 <p>快速的简单回忆一下：</p>
@@ -335,7 +335,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://cuipengfei.me/blog/2014/06/28/scala-java-interop-trait-with-impl/" title="论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的">https://cuipengfei.me/blog/2014/06/28/scala-java-interop-trait-with-impl/</a>
+      <a href="https://cuipengfei.github.io/blog/2014/06/28/scala-java-interop-trait-with-impl/" title="论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的">https://cuipengfei.github.io/blog/2014/06/28/scala-java-interop-trait-with-impl/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -438,7 +438,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"version":"7.1.2","options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js","integrity":"sha256-mm3Re3y7xlvh+yCD+l/Zs1d+PU0AEad93MkWvljfm/s="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"version":"7.1.2","options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.min.js","integrity":"sha256-TtLOdUA8mstPoO6sGvHIGx2ceXrrX4KgIItO06XOn8A="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
 
