@@ -3,11 +3,11 @@
   <title>崔鹏飞的Blog</title>
   
   
-  <link href="https://cuipengfei.github.io/atom.xml" rel="self"/>
+  <link href="https://cuipengfei.blog/atom.xml" rel="self"/>
   
-  <link href="https://cuipengfei.github.io/"/>
+  <link href="https://cuipengfei.blog/"/>
   <updated>2024-02-04T07:21:24.000Z</updated>
-  <id>https://cuipengfei.github.io/</id>
+  <id>https://cuipengfei.blog/</id>
   
   <author>
     <name>崔鹏飞</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>基于LibreOffice的MS Office文档格式转换</title>
-    <link href="https://cuipengfei.github.io/blog/2024/02/04/libre-jod/"/>
-    <id>https://cuipengfei.github.io/blog/2024/02/04/libre-jod/</id>
+    <link href="https://cuipengfei.blog/blog/2024/02/04/libre-jod/"/>
+    <id>https://cuipengfei.blog/blog/2024/02/04/libre-jod/</id>
     <published>2024-02-04T07:21:24.000Z</published>
     <updated>2024-02-04T07:21:24.000Z</updated>
     
@@ -43,16 +43,16 @@
     
     
     
-    <category term="LibreOffice" scheme="https://cuipengfei.github.io/tags/LibreOffice/"/>
+    <category term="LibreOffice" scheme="https://cuipengfei.blog/tags/LibreOffice/"/>
     
-    <category term="JOD" scheme="https://cuipengfei.github.io/tags/JOD/"/>
+    <category term="JOD" scheme="https://cuipengfei.blog/tags/JOD/"/>
     
   </entry>
   
   <entry>
     <title>Spring Integration JDBC分布式锁 - Transactions与Threads</title>
-    <link href="https://cuipengfei.github.io/blog/2023/12/25/spring-integration-jdbc-distributed-lock-with-transaction-and-threads/"/>
-    <id>https://cuipengfei.github.io/blog/2023/12/25/spring-integration-jdbc-distributed-lock-with-transaction-and-threads/</id>
+    <link href="https://cuipengfei.blog/blog/2023/12/25/spring-integration-jdbc-distributed-lock-with-transaction-and-threads/"/>
+    <id>https://cuipengfei.blog/blog/2023/12/25/spring-integration-jdbc-distributed-lock-with-transaction-and-threads/</id>
     <published>2023-12-25T03:16:17.000Z</published>
     <updated>2023-12-25T03:16:17.000Z</updated>
     
@@ -69,18 +69,18 @@
     
     
     
-    <category term="Java" scheme="https://cuipengfei.github.io/tags/Java/"/>
+    <category term="Java" scheme="https://cuipengfei.blog/tags/Java/"/>
     
-    <category term="分布式" scheme="https://cuipengfei.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    <category term="分布式" scheme="https://cuipengfei.blog/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
-    <category term="锁" scheme="https://cuipengfei.github.io/tags/%E9%94%81/"/>
+    <category term="锁" scheme="https://cuipengfei.blog/tags/%E9%94%81/"/>
     
   </entry>
   
   <entry>
     <title>内存涨上去不肯下来 - 未必是内存泄漏</title>
-    <link href="https://cuipengfei.github.io/blog/2023/08/26/not-mem-leak/"/>
-    <id>https://cuipengfei.github.io/blog/2023/08/26/not-mem-leak/</id>
+    <link href="https://cuipengfei.blog/blog/2023/08/26/not-mem-leak/"/>
+    <id>https://cuipengfei.blog/blog/2023/08/26/not-mem-leak/</id>
     <published>2023-08-26T13:45:00.000Z</published>
     <updated>2023-08-26T13:45:00.000Z</updated>
     
@@ -97,18 +97,18 @@
     
     
     
-    <category term="Java" scheme="https://cuipengfei.github.io/tags/Java/"/>
+    <category term="Java" scheme="https://cuipengfei.blog/tags/Java/"/>
     
-    <category term="jvm" scheme="https://cuipengfei.github.io/tags/jvm/"/>
+    <category term="jvm" scheme="https://cuipengfei.blog/tags/jvm/"/>
     
-    <category term="内存" scheme="https://cuipengfei.github.io/tags/%E5%86%85%E5%AD%98/"/>
+    <category term="内存" scheme="https://cuipengfei.blog/tags/%E5%86%85%E5%AD%98/"/>
     
   </entry>
   
   <entry>
     <title>Spring Integration JDBC分布式锁 - TTL</title>
-    <link href="https://cuipengfei.github.io/blog/2023/07/29/spring%20integration%20jdbc%20distributed%20lock/"/>
-    <id>https://cuipengfei.github.io/blog/2023/07/29/spring%20integration%20jdbc%20distributed%20lock/</id>
+    <link href="https://cuipengfei.blog/blog/2023/07/29/spring%20integration%20jdbc%20distributed%20lock/"/>
+    <id>https://cuipengfei.blog/blog/2023/07/29/spring%20integration%20jdbc%20distributed%20lock/</id>
     <published>2023-07-28T16:30:00.000Z</published>
     <updated>2023-07-28T16:30:00.000Z</updated>
     
@@ -151,18 +151,18 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     
-    <category term="Java" scheme="https://cuipengfei.github.io/tags/Java/"/>
+    <category term="Java" scheme="https://cuipengfei.blog/tags/Java/"/>
     
-    <category term="分布式" scheme="https://cuipengfei.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    <category term="分布式" scheme="https://cuipengfei.blog/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
-    <category term="锁" scheme="https://cuipengfei.github.io/tags/%E9%94%81/"/>
+    <category term="锁" scheme="https://cuipengfei.blog/tags/%E9%94%81/"/>
     
   </entry>
   
   <entry>
     <title>当测试代码使用随机生成的输入数据时，该如何去做出断言</title>
-    <link href="https://cuipengfei.github.io/blog/2023/03/18/generative-tests/"/>
-    <id>https://cuipengfei.github.io/blog/2023/03/18/generative-tests/</id>
+    <link href="https://cuipengfei.blog/blog/2023/03/18/generative-tests/"/>
+    <id>https://cuipengfei.blog/blog/2023/03/18/generative-tests/</id>
     <published>2023-03-18T14:34:00.000Z</published>
     <updated>2023-03-18T14:34:00.000Z</updated>
     
@@ -178,14 +178,14 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     
-    <category term="testing" scheme="https://cuipengfei.github.io/tags/testing/"/>
+    <category term="testing" scheme="https://cuipengfei.blog/tags/testing/"/>
     
   </entry>
   
   <entry>
     <title>卢瑟经济学</title>
-    <link href="https://cuipengfei.github.io/blog/2022/10/28/loser-economy/"/>
-    <id>https://cuipengfei.github.io/blog/2022/10/28/loser-economy/</id>
+    <link href="https://cuipengfei.blog/blog/2022/10/28/loser-economy/"/>
+    <id>https://cuipengfei.blog/blog/2022/10/28/loser-economy/</id>
     <published>2022-10-28T08:48:00.000Z</published>
     <updated>2022-10-28T08:48:00.000Z</updated>
     
@@ -204,16 +204,16 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     
-    <category term="读书" scheme="https://cuipengfei.github.io/tags/%E8%AF%BB%E4%B9%A6/"/>
+    <category term="读书" scheme="https://cuipengfei.blog/tags/%E8%AF%BB%E4%B9%A6/"/>
     
-    <category term="经济" scheme="https://cuipengfei.github.io/tags/%E7%BB%8F%E6%B5%8E/"/>
+    <category term="经济" scheme="https://cuipengfei.blog/tags/%E7%BB%8F%E6%B5%8E/"/>
     
   </entry>
   
   <entry>
     <title>一些关于银行的散碎知识</title>
-    <link href="https://cuipengfei.github.io/blog/2022/01/29/%E4%B8%80%E4%BA%9B%E5%85%B3%E4%BA%8E%E9%93%B6%E8%A1%8C%E7%9A%84%E6%95%A3%E7%A2%8E%E7%9F%A5%E8%AF%86/"/>
-    <id>https://cuipengfei.github.io/blog/2022/01/29/%E4%B8%80%E4%BA%9B%E5%85%B3%E4%BA%8E%E9%93%B6%E8%A1%8C%E7%9A%84%E6%95%A3%E7%A2%8E%E7%9F%A5%E8%AF%86/</id>
+    <link href="https://cuipengfei.blog/blog/2022/01/29/%E4%B8%80%E4%BA%9B%E5%85%B3%E4%BA%8E%E9%93%B6%E8%A1%8C%E7%9A%84%E6%95%A3%E7%A2%8E%E7%9F%A5%E8%AF%86/"/>
+    <id>https://cuipengfei.blog/blog/2022/01/29/%E4%B8%80%E4%BA%9B%E5%85%B3%E4%BA%8E%E9%93%B6%E8%A1%8C%E7%9A%84%E6%95%A3%E7%A2%8E%E7%9F%A5%E8%AF%86/</id>
     <published>2022-01-29T06:40:50.000Z</published>
     <updated>2022-01-29T06:40:50.000Z</updated>
     
@@ -229,14 +229,14 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     
-    <category term="银行" scheme="https://cuipengfei.github.io/tags/%E9%93%B6%E8%A1%8C/"/>
+    <category term="银行" scheme="https://cuipengfei.blog/tags/%E9%93%B6%E8%A1%8C/"/>
     
   </entry>
   
   <entry>
     <title>TW十四载</title>
-    <link href="https://cuipengfei.github.io/blog/2021/12/17/tw14years/"/>
-    <id>https://cuipengfei.github.io/blog/2021/12/17/tw14years/</id>
+    <link href="https://cuipengfei.blog/blog/2021/12/17/tw14years/"/>
+    <id>https://cuipengfei.blog/blog/2021/12/17/tw14years/</id>
     <published>2021-12-17T06:40:50.000Z</published>
     <updated>2021-12-17T06:40:50.000Z</updated>
     
@@ -254,14 +254,14 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     
-    <category term="TW" scheme="https://cuipengfei.github.io/tags/TW/"/>
+    <category term="TW" scheme="https://cuipengfei.blog/tags/TW/"/>
     
   </entry>
   
   <entry>
     <title>《大目标》一书中的有趣观点</title>
-    <link href="https://cuipengfei.github.io/blog/2020/07/05/%E5%A4%A7%E7%9B%AE%E6%A0%87/"/>
-    <id>https://cuipengfei.github.io/blog/2020/07/05/%E5%A4%A7%E7%9B%AE%E6%A0%87/</id>
+    <link href="https://cuipengfei.blog/blog/2020/07/05/%E5%A4%A7%E7%9B%AE%E6%A0%87/"/>
+    <id>https://cuipengfei.blog/blog/2020/07/05/%E5%A4%A7%E7%9B%AE%E6%A0%87/</id>
     <published>2020-07-05T04:23:28.000Z</published>
     <updated>2020-07-05T04:23:28.000Z</updated>
     
@@ -276,14 +276,14 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     
-    <category term="工业党" scheme="https://cuipengfei.github.io/tags/%E5%B7%A5%E4%B8%9A%E5%85%9A/"/>
+    <category term="工业党" scheme="https://cuipengfei.blog/tags/%E5%B7%A5%E4%B8%9A%E5%85%9A/"/>
     
   </entry>
   
   <entry>
     <title>软件需求膨胀系数</title>
-    <link href="https://cuipengfei.github.io/blog/2020/05/22/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%86%A8%E8%83%80/"/>
-    <id>https://cuipengfei.github.io/blog/2020/05/22/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%86%A8%E8%83%80/</id>
+    <link href="https://cuipengfei.blog/blog/2020/05/22/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%86%A8%E8%83%80/"/>
+    <id>https://cuipengfei.blog/blog/2020/05/22/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%86%A8%E8%83%80/</id>
     <published>2020-05-22T04:32:38.000Z</published>
     <updated>2020-05-22T04:32:38.000Z</updated>
     
@@ -300,14 +300,14 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     
-    <category term="需求" scheme="https://cuipengfei.github.io/tags/%E9%9C%80%E6%B1%82/"/>
+    <category term="需求" scheme="https://cuipengfei.blog/tags/%E9%9C%80%E6%B1%82/"/>
     
   </entry>
   
   <entry>
     <title>分布式键值存储（Distributed Key-Value Store）</title>
-    <link href="https://cuipengfei.github.io/blog/2020/02/21/distributed-key-value-store/"/>
-    <id>https://cuipengfei.github.io/blog/2020/02/21/distributed-key-value-store/</id>
+    <link href="https://cuipengfei.blog/blog/2020/02/21/distributed-key-value-store/"/>
+    <id>https://cuipengfei.blog/blog/2020/02/21/distributed-key-value-store/</id>
     <published>2020-02-21T12:54:15.000Z</published>
     <updated>2020-02-21T12:54:15.000Z</updated>
     
@@ -328,16 +328,16 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     
-    <category term="Reactive" scheme="https://cuipengfei.github.io/tags/Reactive/"/>
+    <category term="Reactive" scheme="https://cuipengfei.blog/tags/Reactive/"/>
     
-    <category term="分布式" scheme="https://cuipengfei.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    <category term="分布式" scheme="https://cuipengfei.blog/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>[译] 类 vs 数据结构</title>
-    <link href="https://cuipengfei.github.io/blog/2020/02/15/classes-vs-data-structures/"/>
-    <id>https://cuipengfei.github.io/blog/2020/02/15/classes-vs-data-structures/</id>
+    <link href="https://cuipengfei.blog/blog/2020/02/15/classes-vs-data-structures/"/>
+    <id>https://cuipengfei.blog/blog/2020/02/15/classes-vs-data-structures/</id>
     <published>2020-02-15T15:44:13.000Z</published>
     <updated>2020-02-15T15:44:13.000Z</updated>
     
@@ -360,14 +360,14 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     
-    <category term="Uncle Bob" scheme="https://cuipengfei.github.io/tags/Uncle-Bob/"/>
+    <category term="Uncle Bob" scheme="https://cuipengfei.blog/tags/Uncle-Bob/"/>
     
   </entry>
   
   <entry>
     <title>Desugar Scala 20 -- Self Type</title>
-    <link href="https://cuipengfei.github.io/blog/2020/01/07/desugar-scala-20-self-type/"/>
-    <id>https://cuipengfei.github.io/blog/2020/01/07/desugar-scala-20-self-type/</id>
+    <link href="https://cuipengfei.blog/blog/2020/01/07/desugar-scala-20-self-type/"/>
+    <id>https://cuipengfei.blog/blog/2020/01/07/desugar-scala-20-self-type/</id>
     <published>2020-01-07T10:57:20.000Z</published>
     <updated>2020-01-07T10:57:20.000Z</updated>
     
@@ -385,16 +385,16 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     
-    <category term="Desugar_Scala" scheme="https://cuipengfei.github.io/tags/Desugar-Scala/"/>
+    <category term="Desugar_Scala" scheme="https://cuipengfei.blog/tags/Desugar-Scala/"/>
     
-    <category term="Scala" scheme="https://cuipengfei.github.io/tags/Scala/"/>
+    <category term="Scala" scheme="https://cuipengfei.blog/tags/Scala/"/>
     
   </entry>
   
   <entry>
     <title>Desugar Scala(19) -- Partial Function</title>
-    <link href="https://cuipengfei.github.io/blog/2020/01/05/desugar-scala-19-partial-function/"/>
-    <id>https://cuipengfei.github.io/blog/2020/01/05/desugar-scala-19-partial-function/</id>
+    <link href="https://cuipengfei.blog/blog/2020/01/05/desugar-scala-19-partial-function/"/>
+    <id>https://cuipengfei.blog/blog/2020/01/05/desugar-scala-19-partial-function/</id>
     <published>2020-01-05T11:58:10.000Z</published>
     <updated>2020-01-05T11:58:10.000Z</updated>
     
@@ -412,16 +412,16 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     
-    <category term="Desugar_Scala" scheme="https://cuipengfei.github.io/tags/Desugar-Scala/"/>
+    <category term="Desugar_Scala" scheme="https://cuipengfei.blog/tags/Desugar-Scala/"/>
     
-    <category term="Scala" scheme="https://cuipengfei.github.io/tags/Scala/"/>
+    <category term="Scala" scheme="https://cuipengfei.blog/tags/Scala/"/>
     
   </entry>
   
   <entry>
     <title>Future-异步函数的两个视角</title>
-    <link href="https://cuipengfei.github.io/blog/2019/12/29/future-from-two-perspectives/"/>
-    <id>https://cuipengfei.github.io/blog/2019/12/29/future-from-two-perspectives/</id>
+    <link href="https://cuipengfei.blog/blog/2019/12/29/future-from-two-perspectives/"/>
+    <id>https://cuipengfei.blog/blog/2019/12/29/future-from-two-perspectives/</id>
     <published>2019-12-29T13:02:39.000Z</published>
     <updated>2019-12-29T13:02:39.000Z</updated>
     
@@ -438,20 +438,20 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     
-    <category term="Scala" scheme="https://cuipengfei.github.io/tags/Scala/"/>
+    <category term="Scala" scheme="https://cuipengfei.blog/tags/Scala/"/>
     
-    <category term="Reactive" scheme="https://cuipengfei.github.io/tags/Reactive/"/>
+    <category term="Reactive" scheme="https://cuipengfei.blog/tags/Reactive/"/>
     
-    <category term="🐸" scheme="https://cuipengfei.github.io/tags/%F0%9F%90%B8/"/>
+    <category term="🐸" scheme="https://cuipengfei.blog/tags/%F0%9F%90%B8/"/>
     
-    <category term="Future" scheme="https://cuipengfei.github.io/tags/Future/"/>
+    <category term="Future" scheme="https://cuipengfei.blog/tags/Future/"/>
     
   </entry>
   
   <entry>
     <title>「译」大规模敏捷</title>
-    <link href="https://cuipengfei.github.io/blog/2019/12/06/in-the-large/"/>
-    <id>https://cuipengfei.github.io/blog/2019/12/06/in-the-large/</id>
+    <link href="https://cuipengfei.blog/blog/2019/12/06/in-the-large/"/>
+    <id>https://cuipengfei.blog/blog/2019/12/06/in-the-large/</id>
     <published>2019-12-06T08:19:00.000Z</published>
     <updated>2019-12-06T08:19:00.000Z</updated>
     
@@ -468,14 +468,14 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     
-    <category term="Uncle Bob" scheme="https://cuipengfei.github.io/tags/Uncle-Bob/"/>
+    <category term="Uncle Bob" scheme="https://cuipengfei.blog/tags/Uncle-Bob/"/>
     
   </entry>
   
   <entry>
     <title>[译] FP vs OO</title>
-    <link href="https://cuipengfei.github.io/blog/2019/11/03/fp-vs-oo/"/>
-    <id>https://cuipengfei.github.io/blog/2019/11/03/fp-vs-oo/</id>
+    <link href="https://cuipengfei.blog/blog/2019/11/03/fp-vs-oo/"/>
+    <id>https://cuipengfei.blog/blog/2019/11/03/fp-vs-oo/</id>
     <published>2019-11-03T04:39:00.000Z</published>
     <updated>2019-11-03T04:39:00.000Z</updated>
     
@@ -492,14 +492,14 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     
-    <category term="Uncle Bob" scheme="https://cuipengfei.github.io/tags/Uncle-Bob/"/>
+    <category term="Uncle Bob" scheme="https://cuipengfei.blog/tags/Uncle-Bob/"/>
     
   </entry>
   
   <entry>
     <title>被诅咒的与被祝福的</title>
-    <link href="https://cuipengfei.github.io/blog/2019/06/20/zxz-swd/"/>
-    <id>https://cuipengfei.github.io/blog/2019/06/20/zxz-swd/</id>
+    <link href="https://cuipengfei.blog/blog/2019/06/20/zxz-swd/"/>
+    <id>https://cuipengfei.blog/blog/2019/06/20/zxz-swd/</id>
     <published>2019-06-20T14:06:00.000Z</published>
     <updated>2019-06-20T14:06:00.000Z</updated>
     
@@ -515,14 +515,14 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     
-    <category term="Uncle Bob" scheme="https://cuipengfei.github.io/tags/Uncle-Bob/"/>
+    <category term="Uncle Bob" scheme="https://cuipengfei.blog/tags/Uncle-Bob/"/>
     
   </entry>
   
   <entry>
     <title>读屠龙术五卷，粗浅总结一下太祖的套路</title>
-    <link href="https://cuipengfei.github.io/blog/2019/04/11/tu-long-shu-mao/"/>
-    <id>https://cuipengfei.github.io/blog/2019/04/11/tu-long-shu-mao/</id>
+    <link href="https://cuipengfei.blog/blog/2019/04/11/tu-long-shu-mao/"/>
+    <id>https://cuipengfei.blog/blog/2019/04/11/tu-long-shu-mao/</id>
     <published>2019-04-11T08:08:00.000Z</published>
     <updated>2019-04-11T08:08:00.000Z</updated>
     
@@ -538,16 +538,16 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     
-    <category term="读书" scheme="https://cuipengfei.github.io/tags/%E8%AF%BB%E4%B9%A6/"/>
+    <category term="读书" scheme="https://cuipengfei.blog/tags/%E8%AF%BB%E4%B9%A6/"/>
     
-    <category term="marx" scheme="https://cuipengfei.github.io/tags/marx/"/>
+    <category term="marx" scheme="https://cuipengfei.blog/tags/marx/"/>
     
   </entry>
   
   <entry>
     <title>小岛经济学</title>
-    <link href="https://cuipengfei.github.io/blog/2019/01/06/2019-1-6-island-economy/"/>
-    <id>https://cuipengfei.github.io/blog/2019/01/06/2019-1-6-island-economy/</id>
+    <link href="https://cuipengfei.blog/blog/2019/01/06/2019-1-6-island-economy/"/>
+    <id>https://cuipengfei.blog/blog/2019/01/06/2019-1-6-island-economy/</id>
     <published>2019-01-06T02:03:00.000Z</published>
     <updated>2019-01-06T02:03:00.000Z</updated>
     
@@ -563,9 +563,9 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
     
     
     
-    <category term="读书" scheme="https://cuipengfei.github.io/tags/%E8%AF%BB%E4%B9%A6/"/>
+    <category term="读书" scheme="https://cuipengfei.blog/tags/%E8%AF%BB%E4%B9%A6/"/>
     
-    <category term="经济" scheme="https://cuipengfei.github.io/tags/%E7%BB%8F%E6%B5%8E/"/>
+    <category term="经济" scheme="https://cuipengfei.blog/tags/%E7%BB%8F%E6%B5%8E/"/>
     
   </entry>
   
