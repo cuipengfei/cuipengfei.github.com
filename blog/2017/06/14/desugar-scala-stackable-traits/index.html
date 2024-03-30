@@ -19,12 +19,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.blog","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="Stackable traits是一种怎样的特性呢？ 来举一个🌰 1234abstract class IntQueue &#123;  def get(): Int  def put(x: Int)&#125;  定义一个IntQueue，抽象类，定义了get和put，没有实现。 123456789class BasicIntQueue extends IntQueue &#123;  pri">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Desugar Scala(18) -- stackable traits">
-<meta property="og:url" content="https://cuipengfei.blog/blog/2017/06/14/desugar-scala-stackable-traits/index.html">
+<meta property="og:url" content="https://cuipengfei.me/blog/2017/06/14/desugar-scala-stackable-traits/index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="Stackable traits是一种怎样的特性呢？ 来举一个🌰 1234abstract class IntQueue &#123;  def get(): Int  def put(x: Int)&#125;  定义一个IntQueue，抽象类，定义了get和put，没有实现。 123456789class BasicIntQueue extends IntQueue &#123;  pri">
 <meta property="og:locale" content="zh_CN">
@@ -36,11 +36,11 @@
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://cuipengfei.blog/blog/2017/06/14/desugar-scala-stackable-traits/">
+<link rel="canonical" href="https://cuipengfei.me/blog/2017/06/14/desugar-scala-stackable-traits/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.blog/blog/2017/06/14/desugar-scala-stackable-traits/","path":"blog/2017/06/14/desugar-scala-stackable-traits/","title":"Desugar Scala(18) -- stackable traits"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2017/06/14/desugar-scala-stackable-traits/","path":"blog/2017/06/14/desugar-scala-stackable-traits/","title":"Desugar Scala(18) -- stackable traits"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Desugar Scala(18) -- stackable traits | 崔鹏飞的Blog</title>
@@ -211,7 +211,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cuipengfei.blog/blog/2017/06/14/desugar-scala-stackable-traits/">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2017/06/14/desugar-scala-stackable-traits/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -353,7 +353,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://cuipengfei.blog/blog/2017/06/14/desugar-scala-stackable-traits/" title="Desugar Scala(18) -- stackable traits">https://cuipengfei.blog/blog/2017/06/14/desugar-scala-stackable-traits/</a>
+      <a href="https://cuipengfei.me/blog/2017/06/14/desugar-scala-stackable-traits/" title="Desugar Scala(18) -- stackable traits">https://cuipengfei.me/blog/2017/06/14/desugar-scala-stackable-traits/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
