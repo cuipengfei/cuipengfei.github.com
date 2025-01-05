@@ -14,12 +14,12 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="2015竟然这么快就过去一半了。逝者如斯夫。 博客第一季度总结的时候说：  今年的博客主线任务定为OO与FP的比较和结合应用吧。  这个任务完成的不错，这个主题写了7篇博客。 迭代器已经irrelevant了，中介者和备忘录太简单就没写，状态模式没找到好的FP实现方式。这样11种行为模式除去上述4个，算是基本覆盖完了。">
 <meta property="og:type" content="article">
@@ -43,7 +43,6 @@
 
 
 <link rel="canonical" href="https://cuipengfei.me/blog/2015/07/04/2015-second-season/">
-
 
 
 <script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2015/07/04/2015-second-season/","path":"blog/2015/07/04/2015-second-season/","title":"2015第二季度"}</script>
@@ -112,25 +111,25 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup"><div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off" maxlength="80"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close" role="button">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div class="search-result-container no-result">
-  <div class="search-result-icon">
-    <i class="fa fa-spinner fa-pulse fa-5x"></i>
-  </div>
-</div>
-
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -165,13 +164,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">173</span>
+          <span class="site-state-item-count">174</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-count">59</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -309,13 +308,13 @@
 <p>明年需要看一些轻量级的经济、哲学和社会心理学的书。</p>
 </blockquote>
 <p>这方面执行的不好。</p>
-<p><img data-src="http://i1.tietuku.com/26b6dd870a313983.png" alt="http://i1.tietuku.com/26b6dd870a313983.png"></p>
+<p><img data-src="http://i1.tietuku.com/26b6dd870a313983.png" alt="http:&#x2F;&#x2F;i1.tietuku.com&#x2F;26b6dd870a313983.png"></p>
 <p>于是建了一个trello，把2015下半年要读的书预先plan出来。每个月plan两三本，一部分符合上述他山之石的领域，一部分符合OOP和FP的技术主线。</p>
-<p><img data-src="http://i1.tietuku.com/09607b3bd8c47d1d.png" alt="http://i1.tietuku.com/09607b3bd8c47d1d.png"></p>
+<p><img data-src="http://i1.tietuku.com/09607b3bd8c47d1d.png" alt="http:&#x2F;&#x2F;i1.tietuku.com&#x2F;09607b3bd8c47d1d.png"></p>
 <p>这样plan的数量并不大，如果突然出现兴趣很高，或者优先级很高的书的话，可以随时插入计划中。</p>
 <p>另外，pipeline定义清晰，每本书要读完，有笔记，有复习，有某种形式的产出（笔记也算）。</p>
 <h1 id="MOOC"><a href="#MOOC" class="headerlink" title="MOOC"></a>MOOC</h1><p>把Principles of Reactive Programming跟完了，证书拿到了。</p>
-<p><img data-src="http://i1.tietuku.com/cff384ac4788e10b.png" alt="http://i1.tietuku.com/cff384ac4788e10b.png"></p>
+<p><img data-src="http://i1.tietuku.com/cff384ac4788e10b.png" alt="http:&#x2F;&#x2F;i1.tietuku.com&#x2F;cff384ac4788e10b.png"></p>
 <p>但是照实说，这门课没学懂，只是应付过了。后四周的作业导学没写出来。</p>
 <p>主要原因在于事先对课程难度估计过低，投入时间不够。下次开课，需要再跟一遍。</p>
 <p>除此之外，下半年对于MOOC这方面不做过多预期，有特别好的特别感兴趣的就跟，没有就算了。</p>
@@ -331,7 +330,7 @@
 <h1 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h1><p>接了出版社一个翻译的活儿，《Seven more languages in seven weeks》，是本蛮不错的书。这个额外的任务投入时间较多也是读书方面有欠缺的原因之一。</p>
 <p>对出版充满期待。</p>
 <h1 id="时间管理与统计"><a href="#时间管理与统计" class="headerlink" title="时间管理与统计"></a>时间管理与统计</h1><p>从四月一号开始，开始使用pomotodo这款超赞的番茄钟软件。从开始的第一天开始，到现在为止，凡是需要坐下来专心执行的事情都有记录。</p>
-<p><img data-src="http://i1.tietuku.com/50d083b12ab39342.png" alt="http://i1.tietuku.com/50d083b12ab39342.png"></p>
+<p><img data-src="http://i1.tietuku.com/50d083b12ab39342.png" alt="http:&#x2F;&#x2F;i1.tietuku.com&#x2F;50d083b12ab39342.png"></p>
 <p>这款软件的统计分析功能很好用，每个番茄钟还可以加tag。可以看到，这三个月做多的时间放在了TWU的备课上（26%），其次是翻译书（16%），mooc和blog紧跟其后（13%和10%），然后还有读书和写TWU需要的总结反馈（都是7%）。</p>
 <p>这样，有数据，为什么读书少就一目了然了。</p>
 <p>另外，可以看到这三个月平均日完成7.55个番茄钟。这个数量很说明问题，工作的效率靠感觉是感觉不出来的，要靠统计数据和分析。<br>7.55个番茄钟，相当于四个小时左右。每天平均专心工作，执行任务的时间只有四个小时啊！</p>
@@ -402,7 +401,7 @@
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2024</span>
+    <span itemprop="copyrightYear">2025</span>
     <span class="with-love">
       <i class="user"></i>
     </span>
@@ -463,7 +462,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"version":"7.1.2","options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.0/mermaid.min.js","integrity":"sha256-stuqcu2FrjYCXDOytWFA5SoUE/r3nkp6gTglzNSlavU="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"version":"7.1.2","options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
 
