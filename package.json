@@ -12,7 +12,7 @@
     "version": "7.3.0"
   },
   "dependencies": {
-    "axios": "^1.7.2",
+    "axios": "^1.7.9",
     "hexo": "^7.3.0",
     "hexo-deployer-git": "^4.0.0",
     "hexo-excerpt": "^1.3.1",
@@ -28,11 +28,11 @@
     "hexo-graphviz": "^1.0.2",
     "hexo-related-popular-posts": "^5.0.1",
     "hexo-renderer-ejs": "^2.0.0",
-    "hexo-renderer-marked": "^6.3.0",
+    "hexo-renderer-marked": "^7.0.0",
     "hexo-renderer-stylus": "^3.0.1",
     "hexo-server": "^3.0.0",
     "hexo-symbols-count-time": "^0.7.1",
-    "hexo-theme-next": "^8.20.0",
+    "hexo-theme-next": "^8.22.0",
     "markdown-link-extractor": "^4.0.2"
   }
 }
