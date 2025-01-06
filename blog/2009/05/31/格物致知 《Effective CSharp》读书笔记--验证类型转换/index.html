@@ -302,7 +302,7 @@
 <p>就会报告：  无法通过引用转换、装箱转换、取消装箱转换、包装转换或  Null类型转换将类型  “CastAsIs.ClassOne”  转换为<br>“CastAsIs.ClassTwo”</p>
 <p>由此可见  as  对于自定义类型转换不感冒。</p>
 <p>实际上，  foreach  内部也是使用的强制类型转换的，看下面：</p>
-<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ClassOne[] arr =</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">new</span> <span class="type">ClassOne</span> &#123;FiledOne = <span class="number">1</span>&#125;,</span><br><span class="line"></span><br><span class="line">    <span class="keyword">new</span> <span class="type">ClassOne</span> &#123;FiledOne = <span class="number">2</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">foreach (ClassTwo item <span class="keyword">in</span> arr)</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(item.FiledTwo.ToString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ClassOne[] arr =</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">new</span> ClassOne &#123;FiledOne = <span class="number">1</span>&#125;,</span><br><span class="line"></span><br><span class="line">    <span class="keyword">new</span> ClassOne &#123;FiledOne = <span class="number">2</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">foreach (ClassTwo item <span class="keyword">in</span> arr)</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(item.FiledTwo.<span class="keyword">To</span><span class="built_in">String</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这段代码编译和运行都没问题（把  arr  中的  ClassOne  强制转换为  ClassTwo  自然没问题），但是如果改写成下面这样：</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foreach (ClassTwo <span class="built_in">item</span> <span class="keyword">in</span> arr <span class="keyword">as</span> IEnumerable)</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(<span class="built_in">item</span>.FiledTwo.ToString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -396,14 +396,7 @@
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>{% if theme.mermaid.enable %}
-  <script src='https://unpkg.com/mermaid@{{ theme.mermaid.version }}/dist/mermaid.min.js'></script>
-  <script>
-    if (window.mermaid) {
-      mermaid.initialize({{ JSON.stringify(theme.mermaid.options) }});
-    }
-  </script>
-{% endif %}
+  </div>
 
     </div>
   </footer>
@@ -434,7 +427,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"version":"7.1.2","options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
 

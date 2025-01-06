@@ -416,7 +416,7 @@
 <p>下图是使用了开源字体替代后的转换效果，右侧的PDF和左侧的PPT视觉差异已经不太大了。<br><img data-src="/images/libre/compare2.png" alt="alt text"></p>
 <p>作为一个LibreOffice<strong>桌面应用的使用者</strong>可以按照上述说明来做配置，从而最大程度的去兼容微软的商用字体。<br>而当我们使用headless模式时该如何做出等效的配置呢？</p>
 <h1 id="LibreOffice-User-Profile"><a href="#LibreOffice-User-Profile" class="headerlink" title="LibreOffice - User Profile"></a>LibreOffice - User Profile</h1><p>上面提到的配置项，会被保存在LibreOffice User Profile内，在不同的OS内保存的路径为：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Windows</span><br><span class="line">%APPDATA%\libreoffice\<span class="number">4</span>\user (LibreOffice <span class="number">4</span> and above)</span><br><span class="line"></span><br><span class="line">GNU/Linux</span><br><span class="line"><span class="regexp">/home/</span>&lt;user name&gt;<span class="regexp">/.config/</span>libreoffice<span class="regexp">/4/u</span>ser (LibreOffice <span class="number">4</span> and above)</span><br></pre></td></tr></table></figure>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Windows</span><br><span class="line">%APPDATA%\libreoffice\<span class="number">4</span>\<span class="keyword">user</span> <span class="title">(LibreOffice</span> <span class="number">4</span> <span class="keyword">and</span> above)</span><br><span class="line"></span><br><span class="line">GNU/Linux</span><br><span class="line">/home/<span class="tag">&lt;user name&gt;</span>/.config/libreoffice/<span class="number">4</span>/<span class="keyword">user</span> <span class="title">(LibreOffice</span> <span class="number">4</span> <span class="keyword">and</span> above)</span><br></pre></td></tr></table></figure>
 
 <p>我们可以把开源字体文件以及保存下来的配置文件内置入docker image内。<br>并通过JOD指定启动LibreOffice时的参数，让headless模式下运行的LibreOffice加载到正确的配置文件，进而也能达成上图所示一样转换的效果。</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/cuipengfei/docker-image-jodconverter-examples/blob/909d9c62859b9c55b49afca0c7df7e04546042cc/Dockerfile#L38-L44">如下Dockerfile示例</a>中把开源字体和配置文件copy进Docker image</p>
@@ -523,14 +523,7 @@
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>{% if theme.mermaid.enable %}
-  <script src='https://unpkg.com/mermaid@{{ theme.mermaid.version }}/dist/mermaid.min.js'></script>
-  <script>
-    if (window.mermaid) {
-      mermaid.initialize({{ JSON.stringify(theme.mermaid.options) }});
-    }
-  </script>
-{% endif %}
+  </div>
 
     </div>
   </footer>
@@ -561,7 +554,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"version":"7.1.2","options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
 

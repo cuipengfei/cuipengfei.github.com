@@ -299,10 +299,10 @@
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NewDocumentPaneAddedByMouseEventArgs</span> : <span class="type">EventArgs</span> &#123;</span><br><span class="line">   <span class="keyword">public</span> NewDocumentPaneAddedByMouseEventArgs(DocumentPane addedPane) &#123; AddedPane = addedPane; &#125;</span><br><span class="line">   <span class="keyword">public</span> DocumentPane AddedPane &#123; <span class="keyword">get</span>; <span class="keyword">private</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 
 <p> 依然尊规范在DocumentFloatingWindow中定义如下方法来触发事件：  </p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> void <span class="constructor">OnNewDocumentPaneAddedByMouse(NewDocumentPaneAddedByMouseEventArgs <span class="params">args</span>)</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (NewDocumentPaneAddedByMouse != null) &#123;</span><br><span class="line">       <span class="constructor">NewDocumentPaneAddedByMouse(<span class="params">this</span>, <span class="params">args</span>)</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnNewDocumentPaneAddedByMouse</span>(<span class="params">NewDocumentPaneAddedByMouseEventArgs <span class="keyword">args</span></span>)</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (NewDocumentPaneAddedByMouse != <span class="literal">null</span>) &#123;</span><br><span class="line">       NewDocumentPaneAddedByMouse(<span class="keyword">this</span>, <span class="keyword">args</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p> 并在DocumentFloatingWindow中的ClonePane方法（鼠标拖拽时创建新  DocumentPane  的工作就是在这个方法中做的）中调用该方法来触发事件，修改后的  ClonePane方法是这样的：  </p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public override Pane <span class="constructor">ClonePane()</span> &#123;</span><br><span class="line"> DocumentPane paneToAnchor = <span class="keyword">new</span> <span class="constructor">DocumentPane()</span>;</span><br><span class="line"> <span class="constructor">OnNewDocumentPaneAddedByMouse(<span class="params">new</span> NewDocumentPaneAddedByMouseEventArgs(<span class="params">paneToAnchor</span>)</span>);</span><br><span class="line"> ResizingPanel.<span class="constructor">SetEffectiveSize(<span class="params">paneToAnchor</span>, <span class="params">new</span> Size(Width, Height)</span>);</span><br><span class="line"> <span class="keyword">while</span> (HostedPane.Items.Count &gt; <span class="number">0</span>) &#123;</span><br><span class="line">  paneToAnchor.Items.<span class="constructor">Add(HostedPane.RemoveContent(0)</span>);</span><br><span class="line"> &#125;</span><br><span class="line"> return paneToAnchor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Pane <span class="title">ClonePane</span>()</span> &#123;</span><br><span class="line"> DocumentPane paneToAnchor = <span class="keyword">new</span> DocumentPane();</span><br><span class="line"> OnNewDocumentPaneAddedByMouse(<span class="keyword">new</span> NewDocumentPaneAddedByMouseEventArgs(paneToAnchor));</span><br><span class="line"> ResizingPanel.SetEffectiveSize(paneToAnchor, <span class="keyword">new</span> Size(Width, Height));</span><br><span class="line"> <span class="keyword">while</span> (HostedPane.Items.Count &gt; <span class="number">0</span>) &#123;</span><br><span class="line">  paneToAnchor.Items.Add(HostedPane.RemoveContent(<span class="number">0</span>));</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> paneToAnchor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p> 我们只关心其中的OnNewDocumentPaneAddedByMouse(new NewDocumentPaneAddedByMouseEventArgs(paneToAnchor));  这一句就OK了。  </p>
 <p> 好了，现在每当因鼠标拖拽而创建出一个新的  DocumentPane  时，都有一个事件会被触发，而且其传递的事件参数中还含有对新添加的  DocumentPane  实例的引用。这样订阅事件的地方（比如说我们的客户代码中）就可以通过该引用来把新添加的  DocumentPane  的  NewContentAdded事件挂到某个方法上了（当然就是我们的DocumentPane_NewContentAdded方法了）。  </p>
 <p> 接下来修改客户代码吧：  </p>
@@ -409,14 +409,7 @@
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>{% if theme.mermaid.enable %}
-  <script src='https://unpkg.com/mermaid@{{ theme.mermaid.version }}/dist/mermaid.min.js'></script>
-  <script>
-    if (window.mermaid) {
-      mermaid.initialize({{ JSON.stringify(theme.mermaid.options) }});
-    }
-  </script>
-{% endif %}
+  </div>
 
     </div>
   </footer>
@@ -447,7 +440,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"version":"7.1.2","options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
 

@@ -295,7 +295,7 @@
 <p>DoSomething  方法（输出字符串）。</p>
 <p>所以应该是先输出  SWIGStringHelper static constructor  而后输出  static method of OsrPINVOKE  。</p>
 <p>试着这样调用一下：</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static void <span class="constructor">Main(<span class="params">string</span>[] <span class="params">args</span>)</span> &#123;</span><br><span class="line">    OsrPINVOKE.<span class="constructor">DoSomething()</span>;</span><br><span class="line">    Console.<span class="constructor">ReadLine()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] <span class="keyword">args</span></span>)</span> &#123;</span><br><span class="line">    OsrPINVOKE.DoSomething();</span><br><span class="line">    Console.ReadLine();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>却发现如果用的  target framework  是  .net 4  ，用  release  编译并且在  VS  外运行的话，就会只输出<br>static method of OsrPINVOKE  ，感觉好像  SWIGStringHelper  的静态构造方法没有执行。而如果用的是  .net<br>2.0  、  3.5  ，或者是用  Debug  编译或是在  VS  里面运行的话都不会有问题。</p>
 <p>难道是静态字段的初始化在  .NET 4  中变成  Lazy  的了？</p>
@@ -395,14 +395,7 @@
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>{% if theme.mermaid.enable %}
-  <script src='https://unpkg.com/mermaid@{{ theme.mermaid.version }}/dist/mermaid.min.js'></script>
-  <script>
-    if (window.mermaid) {
-      mermaid.initialize({{ JSON.stringify(theme.mermaid.options) }});
-    }
-  </script>
-{% endif %}
+  </div>
 
     </div>
   </footer>
@@ -433,7 +426,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"version":"7.1.2","options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
 

@@ -286,7 +286,7 @@
 <p>提示：本篇文章较长。虽然我选择了一个比较简单的操作符来在本文中实现，不过我们还是会遇到一些特例以及一些与  LINQ<br>相关的原则。因为我还在试着找出表现本文内容的最佳方式，所以本文的排版方式暂时是实验性的。</p>
 <p>我们将要实现“  Where  ”子句（也可以说是方法或操作符）。  Where  在总体上来说比较容易理解，但是涉及到延迟执行和流式处理的部分会有些麻烦。<br>Where  方法是泛型的，不过只有一个类型参数（在我看来这很重要，因为我觉得一个方法的泛型参数越多就越令人难以理解）。哦，对了，我们将在本文开始涉及查询表<br>达式，这算是本文的一点额外猛料。  </p>
 <h1 id="Where-是什么？"><a href="#Where-是什么？" class="headerlink" title="Where  是什么？"></a>Where  是什么？</h1><p>Where  有两个重载：  </p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static IEnumerable &lt; TSource &gt; <span class="constructor">Where(<span class="params">this</span> IEnumerable &lt; TSource &gt; <span class="params">source</span>, Func &lt; TSource, <span class="params">bool</span> &gt; <span class="params">predicate</span>)</span></span><br><span class="line"></span><br><span class="line">public static IEnumerable &lt; TSource &gt; <span class="constructor">Where(<span class="params">this</span> IEnumerable &lt; TSource &gt; <span class="params">source</span>, Func &lt; TSource, <span class="params">int</span>, <span class="params">bool</span> &gt; <span class="params">predicate</span>)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">static</span> IEnumerable &lt; TSource &gt; <span class="built_in">Where</span>(<span class="keyword">this</span> IEnumerable &lt; TSource &gt; source, Func &lt; TSource, <span class="type">bool</span> &gt; predicate)</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="type">static</span> IEnumerable &lt; TSource &gt; <span class="built_in">Where</span>(<span class="keyword">this</span> IEnumerable &lt; TSource &gt; source, Func &lt; TSource, <span class="type">int</span>, <span class="type">bool</span> &gt; predicate)</span><br></pre></td></tr></table></figure>
 
 <p>在开始讲述  Where  方法到底做什么之前，我先指出几点  LINQ  操作符的常识，这些常识适用于几乎所有的  LINQ  操作符：  </p>
 <ul>
@@ -347,7 +347,7 @@
 <figure class="highlight nim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">internal <span class="keyword">static</span> <span class="type">void</span> <span class="type">AssertDeferred</span> &lt; T &gt; (<span class="type">Func</span> &lt; <span class="type">IEnumerable</span> &lt; <span class="type">int</span> &gt; , <span class="type">IEnumerable</span> &lt; T &gt;&gt; deferredFunction) &#123;</span><br><span class="line"> <span class="type">ThrowingEnumerable</span> source = new <span class="type">ThrowingEnumerable</span>();</span><br><span class="line"></span><br><span class="line"> <span class="keyword">var</span> <span class="built_in">result</span> = deferredFunction(source);</span><br><span class="line"></span><br><span class="line"> <span class="keyword">using</span>(<span class="keyword">var</span> <span class="keyword">iterator</span> = <span class="built_in">result</span>.<span class="type">GetEnumerator</span>()) &#123;</span><br><span class="line">  <span class="type">Assert</span>.<span class="type">Throws</span> &lt; <span class="type">InvalidOperationException</span> &gt; (() =&gt; <span class="keyword">iterator</span>.<span class="type">MoveNext</span>());</span><br><span class="line"> &#125;</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
 
 <p>现在我们就可以测试  Where  是不是延迟执行的了：  </p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">[T<span class="identifier">est</span>]</span></span><br><span class="line">public  void  <span class="constructor">ExecutionIsDeferred()</span></span><br><span class="line">&#123;</span><br><span class="line">    ThrowingEnumerable.<span class="constructor">AssertDeferred(<span class="params">src</span> =&gt; <span class="params">src</span>.Where(<span class="params">x</span> =&gt; <span class="params">x</span> &gt; 0  )</span>);</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[Test]</span><br><span class="line">public  <span class="keyword">void</span>  ExecutionIsDeferred()</span><br><span class="line">&#123;</span><br><span class="line">    ThrowingEnumerable.AssertDeferred(<span class="function"><span class="params">src</span> =&gt;</span> src.Where(<span class="function"><span class="params">x</span> =&gt;</span> x &gt; <span class="number">0</span>  ));</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
 
 <p>以上所示的都是对  Where  的简单重载的测试，也就是那个谓词只能访问元素值而不能访问元素  index  的重载。能够访问  index<br>的那个重载的测试与上述测试非常类似。  </p>
 <h1 id="来动手实现吧！"><a href="#来动手实现吧！" class="headerlink" title="来动手实现吧！"></a>来动手实现吧！</h1><p>原版的  LINQ to Objects  能够通过所有这些测试，现在来实现我们自己的代码吧。我们将会用到  <a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/dscyy5s0.aspx"> 迭代器代码块</a> ，它在  C#  2  中被引入来简化<br>IEnumerable<T> 的实现。如果你想了解更多的背景知识的话，我有  <a target="_blank" rel="noopener" href="http://csharpindepth.com/Articles/Chapter11/StreamingAndIterators.aspx"> 几篇</a> <a target="_blank" rel="noopener" href="http://csharpindepth.com/Articles/Chapter6/IteratorBlockImplementation.aspx"> 文章</a><br>你可以去读一下  …  或者读  C#  in Depth  （第一或第二版都可以）的第六章也可以。迭代器代码块让我们可以很简单的实现延迟执行  …<br>不过它也是一把双刃剑，我们马上就会体会到了。</p>
@@ -478,14 +478,7 @@
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>{% if theme.mermaid.enable %}
-  <script src='https://unpkg.com/mermaid@{{ theme.mermaid.version }}/dist/mermaid.min.js'></script>
-  <script>
-    if (window.mermaid) {
-      mermaid.initialize({{ JSON.stringify(theme.mermaid.options) }});
-    }
-  </script>
-{% endif %}
+  </div>
 
     </div>
   </footer>
@@ -516,7 +509,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"version":"7.1.2","options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
 

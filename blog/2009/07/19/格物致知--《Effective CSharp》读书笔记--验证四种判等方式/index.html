@@ -282,11 +282,11 @@
     <div class="post-body" itemprop="articleBody"><p>原地址在我的CSDN<br>Blog：<a target="_blank" rel="noopener" href="http://blog.csdn.net/cuipengfei1/archive/2009/07/19/4362245.aspx">http://blog.csdn.net/cuipengfei1/archive/2009/07/19/4362245.aspx</a></p>
 <p>①  Object  的静态方法  ReferenceEquals  ：</p>
 <p>只适用于判断两个引用是否指向同一个实例，不适用于值类型（或者说用于值类型是没意义的，因为永远返回  false  ）。如下：</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">TestEqual  te =  <span class="keyword">new</span>  TestEqual  <span class="literal">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">bool</span>  b1=  <span class="keyword">object</span>  .<span class="constructor">ReferenceEquals(<span class="params">te</span>,<span class="params">te</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">bool</span>  b2 =  <span class="keyword">object</span>  .<span class="constructor">ReferenceEquals(1, 1)</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">TestEqual  te =  <span class="keyword">new</span>  TestEqual  ();</span><br><span class="line"></span><br><span class="line"><span class="built_in">bool</span>  b1=  <span class="built_in">object</span>  .ReferenceEquals(te,te);</span><br><span class="line"></span><br><span class="line"><span class="built_in">bool</span>  b2 =  <span class="built_in">object</span>  .ReferenceEquals(<span class="number">1</span>, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 <p>b1  为  true  ，  b2  为  false  。  b2  为  false  的原因是两个整型值  1  装箱之后是两个不同的<br>Object  实例。</p>
 <p>②  Object  中定义的实例级虚方法  Equals  ：</p>
 <p>其  默认  行为是判断引用是否相等，引用类型从  Object  中继承了这一行为，如下：</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">TestEqual  te1=  <span class="keyword">new</span>  TestEqual  <span class="literal">()</span>;</span><br><span class="line"></span><br><span class="line">TestEqual  te2 =  <span class="keyword">new</span>  TestEqual  <span class="literal">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">bool</span>  b4= te1.<span class="constructor">Equals(<span class="params">te2</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">bool</span>  b5 = te1.<span class="constructor">Equals(<span class="params">te1</span>)</span>;</span><br><span class="line"></span><br><span class="line">Console  .<span class="constructor">WriteLine(<span class="params">b4</span>)</span>;</span><br><span class="line"></span><br><span class="line">Console  .<span class="constructor">WriteLine(<span class="params">b5</span>)</span>  ;</span><br></pre></td></tr></table></figure>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">TestEqual  te1<span class="operator">=</span>  new  TestEqual  ()<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">TestEqual  te2 <span class="operator">=</span>  new  TestEqual  ()<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">bool  b4<span class="operator">=</span> te1.Equals(te2)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">bool  b5 <span class="operator">=</span> te1.Equals(te1)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">Console  .WriteLine(b4)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">Console  .WriteLine(b5)  <span class="comment">;</span></span><br></pre></td></tr></table></figure>
 
 <p>输出结果很明显第一个假，第二个真。</p>
 <p>但是对于值类型来说，由于  ValueType  重写了这个方法，所以其行为不同，可以判断值是否相同，而不是引用。</p>
@@ -387,14 +387,7 @@
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>{% if theme.mermaid.enable %}
-  <script src='https://unpkg.com/mermaid@{{ theme.mermaid.version }}/dist/mermaid.min.js'></script>
-  <script>
-    if (window.mermaid) {
-      mermaid.initialize({{ JSON.stringify(theme.mermaid.options) }});
-    }
-  </script>
-{% endif %}
+  </div>
 
     </div>
   </footer>
@@ -425,7 +418,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"version":"7.1.2","options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
 

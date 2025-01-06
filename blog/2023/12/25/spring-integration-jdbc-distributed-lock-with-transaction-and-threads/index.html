@@ -265,14 +265,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>4.9k</span>
+      <span>5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span>5 分钟</span>
     </span>
 </div>
 
@@ -310,7 +310,7 @@
 <p>这容易导致JPA Transaction Manager的范畴以及用于获取JDBC分布式锁的Data Source Transaction Manager的范畴互相交叉。</p>
 <p>当这两者混在一起时，很容易出现DataSourceTransactionManager试图去改变一个已经被open过的transaction的隔离级别的问题。</p>
 <p>第二个问题的较优解决方法的代码请参考：<br><a target="_blank" rel="noopener" href="https://github.com/cuipengfei/Spikes/blob/master/jpa/lock-transaction-threads/src/main/java/com/github/spring/example/service/Problem2GoodFixService.java">https://github.com/cuipengfei/Spikes/blob/master/jpa/lock-transaction-threads/src/main/java/com/github/spring/example/service/Problem2GoodFixService.java</a></p>
-<h1 id="用图来总结一下"><a href="#用图来总结一下" class="headerlink" title="用图来总结一下"></a>用图来总结一下</h1><pre class="mermaid">flowchart TD
+<h1 id="用图来总结一下"><a href="#用图来总结一下" class="headerlink" title="用图来总结一下"></a>用图来总结一下</h1><pre><code class="highlight mermaid">flowchart TD
     
     style dstm fill:lightgreen,stroke:#333,stroke-width:4px
     style nrt fill:#FFCCCB,stroke:#333,stroke-width:4px
@@ -325,18 +325,18 @@
     se2[Serialization Error]
 
     subgraph 在多个线程中同时运行隔离级别为serializable的事务而导致的无法重试获取锁的问题
-    jl-->|默认使用|str
-    mt-->|同时获取|jl
-    jl-->|恰好用了|jtm
-    str-->|容易撞车而导致|se
-    jtm-->|hold不住|se
-    se-->|从而导致|nrt
-    jl-->|替换成使用|dstm
-    dstm-->|可以hold住|se2
-    se2-->|从而解决|nrt
-    end</pre>
+    jl--&gt;|默认使用|str
+    mt--&gt;|同时获取|jl
+    jl--&gt;|恰好用了|jtm
+    str--&gt;|容易撞车而导致|se
+    jtm--&gt;|hold不住|se
+    se--&gt;|从而导致|nrt
+    jl--&gt;|替换成使用|dstm
+    dstm--&gt;|可以hold住|se2
+    se2--&gt;|从而解决|nrt
+    end</code></pre>
 
-<pre class="mermaid">flowchart TD
+<pre><code class="highlight mermaid">flowchart TD
     
     style nd fill:lightgreen,stroke:#333,stroke-width:4px
     style ile fill:#FFCCCB,stroke:#333,stroke-width:4px
@@ -356,22 +356,22 @@
     nd[❤️正确做法应该是缩小@Transactional的范围❤️]
 
     subgraph 在同一个线程中先使用JpaTransactionManager启动一个事务然后尝试用DataSourceTransactionManager获取JDBC锁所导致的事务隔离级别变化的问题
-    ps-->|并不总是仅利用|op
-    ps-->|也会利用|ct
-    ct-->|那么就会在|st
-    st-->|跑|tm
-    tm-->|先执行了一些|js
-    tm-->|然后再尝试|tl
-    js-->|已经open了|t
-    tl-->|再去试图更改其隔离等级|t
-    t-->|从而导致|ile
+    ps--&gt;|并不总是仅利用|op
+    ps--&gt;|也会利用|ct
+    ct--&gt;|那么就会在|st
+    st--&gt;|跑|tm
+    tm--&gt;|先执行了一些|js
+    tm--&gt;|然后再尝试|tl
+    js--&gt;|已经open了|t
+    tl--&gt;|再去试图更改其隔离等级|t
+    t--&gt;|从而导致|ile
 
-    nd-->|可以及时关闭|t2
-    t2-->|避免把二者混在一起|js2
-    t2-->|避免把二者混在一起|tl2
-    js2-->|从而避免|ile
-    tl2-->|从而避免|ile
-    end</pre>
+    nd--&gt;|可以及时关闭|t2
+    t2--&gt;|避免把二者混在一起|js2
+    t2--&gt;|避免把二者混在一起|tl2
+    js2--&gt;|从而避免|ile
+    tl2--&gt;|从而避免|ile
+    end</code></pre>
 
 <h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p>上面的问题都是由于业务代码和获取锁的代码二者同时依赖于同一个数据库。</p>
 <p>而Spring Integration的分布式锁除了可以使用JDBC，其实也可以使用Redis或其他底层技术。<br>如果把上述代码中的JdbcLockRegistry全部替换为RedisLockRegistry，而保持其它代码不变，所有错误都会消失，不会再重现。</p>
@@ -471,14 +471,7 @@
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>{% if theme.mermaid.enable %}
-  <script src='https://unpkg.com/mermaid@{{ theme.mermaid.version }}/dist/mermaid.min.js'></script>
-  <script>
-    if (window.mermaid) {
-      mermaid.initialize({{ JSON.stringify(theme.mermaid.options) }});
-    }
-  </script>
-{% endif %}
+  </div>
 
     </div>
   </footer>
@@ -509,7 +502,7 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
-  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"version":"7.1.2","options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
   <script src="/js/third-party/tags/mermaid.js"></script>
 
 
