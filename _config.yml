@@ -4,12 +4,12 @@
 
 # Site
 title: 崔鹏飞的Blog
-subtitle: ''
-description: ''
+subtitle: ""
+description: ""
 keywords:
 author: 崔鹏飞
 language: zh-CN
-timezone: ''
+timezone: ""
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -37,24 +37,27 @@ titlecase: false # Transform title into titlecase
 external_link:
   enable: true # Open external links in new tab
   field: site # Apply to the whole site
-  exclude: ''
+  exclude: ""
 filename_case: 0
 render_drafts: false
 post_asset_folder: false
 relative_link: false
 future: true
+
 highlight:
+  exclude_languages:
+    - mermaid
   enable: true
   line_number: true
   auto_detect: true
-  tab_replace: ''
+  tab_replace: ""
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
-  path: ''
+  path: ""
   per_page: 25
   order_by: -date
 
@@ -96,9 +99,9 @@ plugins: hexo-generate-feed
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: 'git'
-  repo: 'git@github.com:cuipengfei/cuipengfei.github.com.git'
-  branch: 'master'
+  type: "git"
+  repo: "git@github.com:cuipengfei/cuipengfei.github.com.git"
+  branch: "master"
 
 excerpt:
   depth: 6
