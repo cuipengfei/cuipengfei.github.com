@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="命令模式 在面向对象程式设计的范畴中，命令模式是一种设计模式，它尝试以物件来代表实际行动。命令物件可以把行动(action) 及其参数封装起来，于是这些行动可以被：    重复多次 取消（如果该物件有实作的话） 取消后又再重做   以上是wiki对命令模式的定义（术语像是台湾的）。 下面是来自《Head first design patterns》的一个例子： 假设你有很多家用电器：电灯泡，电视，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="命令模式的不爽就像用指甲刀刮胡子">
+<meta property="og:url" content="https://cuipengfei.me/blog/2015/06/01/command-pattern-fp-implementation/index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="命令模式 在面向对象程式设计的范畴中，命令模式是一种设计模式，它尝试以物件来代表实际行动。命令物件可以把行动(action) 及其参数封装起来，于是这些行动可以被：    重复多次 取消（如果该物件有实作的话） 取消后又再重做   以上是wiki对命令模式的定义（术语像是台湾的）。 下面是来自《Head first design patterns》的一个例子： 假设你有很多家用电器：电灯泡，电视，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://elisabethrobson.com/wp-content/uploads/2014/07/Command.jpg">
+<meta property="article:published_time" content="2015-06-01T13:51:00.000Z">
+<meta property="article:modified_time" content="2015-06-01T13:51:00.000Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="Scala">
+<meta property="article:tag" content="OODP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://elisabethrobson.com/wp-content/uploads/2014/07/Command.jpg">
+
+
+<link rel="canonical" href="https://cuipengfei.me/blog/2015/06/01/command-pattern-fp-implementation/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2015/06/01/command-pattern-fp-implementation/","path":"blog/2015/06/01/command-pattern-fp-implementation/","title":"命令模式的不爽就像用指甲刀刮胡子"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>命令模式的不爽就像用指甲刀刮胡子 | 崔鹏飞的Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+<script data-ad-client="ca-pub-2529393324217872" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2529393324217872"></script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">崔鹏飞的Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">命令模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java"><span class="nav-number">2.</span> <span class="nav-text">Java</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E8%BF%87%E5%86%8D%E6%83%B3%E4%B8%80%E4%B8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">不过再想一下</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#functions"><span class="nav-number">3.</span> <span class="nav-text">functions</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8C%87%E7%94%B2%E5%88%80%E5%88%AE%E8%83%A1%E5%AD%90"><span class="nav-number">4.</span> <span class="nav-text">指甲刀刮胡子</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">174</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener me" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2015/06/01/command-pattern-fp-implementation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="命令模式的不爽就像用指甲刀刮胡子 | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          命令模式的不爽就像用指甲刀刮胡子
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2015-06-01 21:51:00" itemprop="dateCreated datePublished" datetime="2015-06-01T21:51:00+08:00">2015-06-01</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2015/06/01/command-pattern-fp-implementation/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2015/06/01/command-pattern-fp-implementation/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h1><blockquote>
+<p>在面向对象程式设计的范畴中，命令模式是一种设计模式，它尝试以物件来代表实际行动。命令物件可以把行动(action) 及其参数封装起来，于是这些行动可以被：</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>重复多次</li>
+<li>取消（如果该物件有实作的话）</li>
+<li>取消后又再重做</li>
+</ul>
+</blockquote>
+<p>以上是wiki对命令模式的定义（术语像是台湾的）。</p>
+<p>下面是来自《Head first design patterns》的一个例子：</p>
+<p>假设你有很多家用电器：电灯泡，电视，音响，还有一个水疗浴缸。（就是没有手电筒）</p>
+<p>每个家用电器都有自己的开关装置，处于不同的位置。如果你想把它们都开启，需要一个一个地去按按钮。</p>
+<p>现在你想要有一个遥控器，一键开启所有电器，一键关闭所有电器。</p>
+<p>或者是一键完成任意的电器操作组合。</p>
+<p>每个电器的接口都是不同的，但是又需要和同一个遥控器集成，于是呢，肯定要有一个统一的接口了。</p>
+<p>于是就有了下面命令模式的实现代码。</p>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fappliances%2FLight.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fappliances%2FTV.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fappliances%2FStereo.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fappliances%2FHottub.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<p>首先是有四大件家用电器。各自之间没有什么关系。</p>
+<p>这里面的代码都有点傻，不过没关系，我们就想象这都是些很复杂的硬件通信之类的代码就好了。</p>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2FCommand.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<p>然后，定义一个Command接口，其中只有一个execute()方法。</p>
+<p>之后我们会用它的实现类来操作各种电器。</p>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fcommands%2FLightOnCommand.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fcommands%2FLightOffCommand.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fcommands%2FTVOnCommand.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fcommands%2FTVOffCommand.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fcommands%2FStereoOnCommand.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fcommands%2FStereoOffCommand.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fcommands%2FHottubOnCommand.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Fcommands%2FHottubOffCommand.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<p>这一大坨，就是Command的实现了。</p>
+<p>四大件电器，于是便有八个Command，分别负责每个电器的开启和关闭。</p>
+<p>有些电器的开启和关闭比别的要复杂一些，不过这没有关系，因为它们的细节都被封装在Command的实现类里面了，我们接下来的代码只要和Command这个接口打交道就好了。</p>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2FMacroCommand.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<p>还有一个宏命令，用来组合其他命令。</p>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Frunner%2FRemoteControl.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<p>可以实现遥控器了。</p>
+<p><img data-src="http://elisabethrobson.com/wp-content/uploads/2014/07/Command.jpg" alt="http:&#x2F;&#x2F;elisabethrobson.com&#x2F;wp-content&#x2F;uploads&#x2F;2014&#x2F;07&#x2F;Command.jpg"></p>
+<p>这个遥控器上的按钮都是空白的，我们可以给它置入任意我们想要的命令。</p>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fjava%2Fcommand%2Frunner%2FRemoteLoader.java&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<p>终于可以写一个main函数了：</p>
+<ul>
+<li>把家用电器和其对应的Command联系起来</li>
+<li>把各种Command组合成开启和关闭两个宏命令</li>
+<li>把宏命令置入遥控器</li>
+</ul>
+<p>然后，只要按一个按钮，就可以开启所有电器，享受资产阶级奢靡的生活了。</p>
+<p>享受够了之后只要再按一个按钮就可以把所有电器关闭掉。</p>
+<p>如果再有别的电器，只需要实现几个新的Command，把新的Command组合入宏命令，继续使用遥控器就好了。</p>
+<p>换句话说，因为遥控器和电器之间通过Command解耦了，增加新的电器和新的Command对于遥控器没有影响，遥控器的代码是稳定的。这也就是所谓的对扩展开放，对修改关闭。</p>
+<p>很好，很符合良好的设计原则，看着就舒服对吧？</p>
+<h2 id="不过再想一下"><a href="#不过再想一下" class="headerlink" title="不过再想一下"></a>不过再想一下</h2><p>电灯的开启和关闭这两个命令仅仅是对电灯的两个方法的简单代理。</p>
+<p>音响的开启和关闭这两个命令仅仅是对音响的两个方法的简单代理。</p>
+<p>电视机的关闭也是简单的代理。</p>
+<p>这些命令类是否看起来太单薄了呢？它们的方法异常瘦弱，营养不良。</p>
+<p>它们除了持有一个需要操作的电器的实例之外，基本没有什么实例级状态。</p>
+<p>（电视开机还好，由于需要选择频道，好歹调用了两个方法。<br>水疗浴缸操作比较复杂，需要调节温度，所以也还稍微好一些。）</p>
+<p>每次看到这种贫血的类，我就怀疑它们存在的必要性。</p>
+<p>如果我们只是想要给家用电器内的方法构造一个统一个的对外接口，是不是可以用函数式来实现呢？</p>
+<h1 id="functions"><a href="#functions" class="headerlink" title="functions"></a>functions</h1><p>来试试用Scala实现：</p>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2FcommandFP%2Fappliances%2FLight.scala&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2FcommandFP%2Fappliances%2FTV.scala&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2FcommandFP%2Fappliances%2FStereo.scala&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2FcommandFP%2Fappliances%2FHottub.scala&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<p>首先是有四大件家用电器，这部分和Java的代码等价。</p>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2FcommandFP%2FCommands.scala&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<p>这一段用来定义各种命令的代码就不同了。</p>
+<p>我们对家用电器的各种方法的调用都是只期待其副作用，不期待任何返回值的。所以可以定义一个函数签名Command来涵盖所有这类操作。</p>
+<p>和上面的Java代码类似，这里也有一个宏命令，只不过实现简单一些。</p>
+<p>电视的开启，水疗浴缸的开和关都有对应的方法来把家用电器的实例封入闭包中。</p>
+<p>咦？电灯的开关，音响的开关，以及电视的关闭都跑哪儿去了呢？</p>
+<p>由于这几个操作都只涉及到一个方法的调用，它们直接就符合Command的函数签名，所以不用再封入任何闭包了。这一点看下面的代码就明白了。</p>
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2FcommandFP%2FRemoteControl.scala&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2FcommandFP%2FRemoteLoader.scala&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
+
+<p>我们可以定义一个遥控器。其中有开启，和关闭两排按钮。</p>
+<p>最后，可以写一个main函数，其中所做的事情和之前Java代码main函数所做的事情是一样的。</p>
+<p>只不过，不需要创建各种Command的实例。</p>
+<p>而且light.on，stereo.on，light.off，stereo.off，tv.off这几个方法由于符合Command的签名，是可以直接拿来当Command用的。（注意方法名后面没有()，不是调用，而是函数传递）</p>
+<p>前后两版代码是等价的。只不过：</p>
+<ul>
+<li>247行代码变成了93行代码</li>
+<li>16个实体变成了7个</li>
+</ul>
+<p>作为一个多按几个按钮都嫌麻烦的好逸恶劳的资产阶级，这个结果是我所乐于见到的。</p>
+<p>更少，更紧凑的代码。更少的实体。我终于可以用更小的成本来享受我昂贵的家用电器了。</p>
+<h1 id="指甲刀刮胡子"><a href="#指甲刀刮胡子" class="headerlink" title="指甲刀刮胡子"></a>指甲刀刮胡子</h1><p>最后回到标题上去：指甲刀刮胡子，意即用不合适的工具解决问题。</p>
+<p>命令模式想要做到的事情其实就是给各种不同的操作寻找一个统一的接口，从而实现调用者（遥控器）和被调用者（家用电器）之间的解耦。</p>
+<p>给不同的操作寻找一个统一的接口这件事可以通过接口来做，但是我们同时要承担写一堆贫血类的代价。</p>
+<p>而如果直接用函数来做的话，则可以得到更紧凑简洁的代码（就像object Commands这个实体内的代码一样）。</p>
+<p>该模式提出的时候FP并不如今日盛行，其作者选用了可能会导致贫血类泛滥的解决方案，这无可厚非。传播了解耦和开闭等良好设计的原则也实为功德。</p>
+<p>不过今天我们有了剃须刀，就无需一定要用指甲刀来刮胡子了。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://cuipengfei.me/blog/2015/06/01/command-pattern-fp-implementation/" title="命令模式的不爽就像用指甲刀刮胡子">https://cuipengfei.me/blog/2015/06/01/command-pattern-fp-implementation/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Scala/" rel="tag"><i class="fa fa-tag"></i> Scala</a>
+              <a href="/tags/OODP/" rel="tag"><i class="fa fa-tag"></i> OODP</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/" rel="prev" title="职责链模式的别扭就像用门框夹核桃">
+                  <i class="fa fa-angle-left"></i> 职责链模式的别扭就像用门框夹核桃
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2015/06/05/interpreter-pattern-oop-versus-functional-decomposition/" rel="next" title="解释器模式：OOP versus Functional Decomposition">
+                  解释器模式：OOP versus Functional Decomposition <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">372k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:38</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

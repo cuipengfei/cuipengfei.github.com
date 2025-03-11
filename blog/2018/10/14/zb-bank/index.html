@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="一首绝句作为定场诗，接下来开始正式的内容。 最近，我在网上进行了一些稀奇古怪的操作，于是乎我莫名其妙的得到了一个“众邦银行”的账户。 这个名字并不是很熟悉，查了一下，看起来还算是有头有脸的样子。  武汉众邦银行股份有限公司（简称武汉众邦银行，英语：Wuhan Zhongbang Bank Co., Ltd.，缩写：Z-BANK）是中华人民共和国境内第11家开业的民营银行，也是湖北省首家获批开业的民">
+<meta property="og:type" content="article">
+<meta property="og:title" content="信息安全要做好，身份认证不能少。众邦银行胡乱搞，别人知我钱多少。">
+<meta property="og:url" content="https://cuipengfei.me/blog/2018/10/14/zb-bank/index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="一首绝句作为定场诗，接下来开始正式的内容。 最近，我在网上进行了一些稀奇古怪的操作，于是乎我莫名其妙的得到了一个“众邦银行”的账户。 这个名字并不是很熟悉，查了一下，看起来还算是有头有脸的样子。  武汉众邦银行股份有限公司（简称武汉众邦银行，英语：Wuhan Zhongbang Bank Co., Ltd.，缩写：Z-BANK）是中华人民共和国境内第11家开业的民营银行，也是湖北省首家获批开业的民">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cuipengfei.me/images/zb-bank/zb-info.png">
+<meta property="og:image" content="https://cuipengfei.me/images/zb-bank/liushui.png">
+<meta property="article:published_time" content="2018-10-14T02:03:00.000Z">
+<meta property="article:modified_time" content="2018-10-14T02:03:00.000Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="🐸">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cuipengfei.me/images/zb-bank/zb-info.png">
+
+
+<link rel="canonical" href="https://cuipengfei.me/blog/2018/10/14/zb-bank/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2018/10/14/zb-bank/","path":"blog/2018/10/14/zb-bank/","title":"信息安全要做好，身份认证不能少。众邦银行胡乱搞，别人知我钱多少。"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>信息安全要做好，身份认证不能少。众邦银行胡乱搞，别人知我钱多少。 | 崔鹏飞的Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+<script data-ad-client="ca-pub-2529393324217872" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2529393324217872"></script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">崔鹏飞的Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%AC%E4%B8%9C"><span class="nav-number">1.</span> <span class="nav-text">京东</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%AF%E4%BB%98%E5%AE%9D"><span class="nav-number">2.</span> <span class="nav-text">支付宝</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">174</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener me" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2018/10/14/zb-bank/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="信息安全要做好，身份认证不能少。众邦银行胡乱搞，别人知我钱多少。 | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          信息安全要做好，身份认证不能少。众邦银行胡乱搞，别人知我钱多少。
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-10-14 10:03:00" itemprop="dateCreated datePublished" datetime="2018-10-14T10:03:00+08:00">2018-10-14</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2018/10/14/zb-bank/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2018/10/14/zb-bank/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>一首绝句作为定场诗，接下来开始正式的内容。</p>
+<p>最近，我在网上进行了一些稀奇古怪的操作，于是乎我莫名其妙的得到了一个“众邦银行”的账户。</p>
+<p>这个名字并不是很熟悉，查了一下，看起来还算是有头有脸的样子。</p>
+<blockquote>
+<p><strong>武汉众邦银行股份有限公司</strong>（简称<strong>武汉众邦银行</strong>，英语：<strong>Wuhan Zhongbang Bank Co., Ltd.</strong>，<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%B8%AE%E5%AF%AB">缩写</a>：<strong>Z-BANK</strong>）是中华人民共和国境内第11家开业的民营银行，也是湖北省首家获批开业的民营银行。</p>
+</blockquote>
+<p>以上是wiki的信息。</p>
+<p><img data-src="/images/zb-bank/zb-info.png"></p>
+<p>国内一共十七家民营银行，这个众邦是第十一家，或许应该不会太差吧？</p>
+<p>这样想的我实在是too young，too simple，还需要继续提高自己的知识水平。</p>
+<p>这家银行其他方面不敢说，但是信息安全方面，是非常值得质疑的。</p>
+<p>下面是我的众邦银行账户上的一部分流水：</p>
+<p><img data-src="/images/zb-bank/liushui.png"></p>
+<p>首先，时间的格式化有问题，小时和分钟之间有两个冒号，这叫个啥？</p>
+<p>分钟的两位数中间又有一个冒号，这叫个啥？</p>
+<p>秒钟干脆就没有了，这叫个啥？</p>
+<p>不但没有秒钟，分钟的第二位数后面还有一个冒号，这又是个啥？</p>
+<p>这就算了，时间的格式化，小问题，大概还是能看懂的。</p>
+<p>关键是这个页面的URL啊，同志们。</p>
+<p>它的URL有啥问题呢？先不着急说。我们看两个其他的例子先。</p>
+<h3 id="京东"><a href="#京东" class="headerlink" title="京东"></a>京东</h3><p>查看我在京东的历史订单，URL是这样的：<a target="_blank" rel="noopener" href="https://order.jd.com/center/list.action">https://order.jd.com/center/list.action</a></p>
+<p>域名&#x2F;center&#x2F;list.action，这里面不包含任何多余的信息。</p>
+<p>如果我把这个URL发给别人，别人如果正处于登录了京东的状态的话，打开看到的肯定是人家自己的订单。</p>
+<p>如果没有登录京东，就会看到京东的登录页面。</p>
+<p>没有问题，这很好，很合理。</p>
+<h3 id="支付宝"><a href="#支付宝" class="headerlink" title="支付宝"></a>支付宝</h3><p>再看看支付宝，查看我在支付宝的流水，URL是这样的：<a target="_blank" rel="noopener" href="https://consumeprod.alipay.com/record/standard.htm">https://consumeprod.alipay.com/record/standard.htm</a></p>
+<p>域名&#x2F;record&#x2F;standard.htm，也很干净，path里没有啥脏东西。</p>
+<p>如果我把这个URL发给别人，别人如果正处于登录了支付宝的状态的话，打开看到的肯定是人家自己的流水。</p>
+<p>如果没有登录支付宝，就会看到支付宝的登录页面。</p>
+<p>好了，应该不需要更多的例子了，大的原则就是我的购物和流水信息别人不应该仅仅通过一个URL就能看到。</p>
+<p>接下来，看一看反面典型吧。没错，反面典型就是这个“中华人民共和国境内第11家开业的民营银行，也是湖北省首家获批开业的民营银行”–众邦银行。</p>
+<p><a target="_blank" rel="noopener" href="https://perbank.z-bank.com/weixinServer/htmlShow/weixinBank/views/transfer/tradeRecord.html?/iwJPm77nZq2HJfE5F1i0O8eJZlV6AJqePqv0T7or1bZwkrWnishU3vmqDhXVKGFRuCcJFfjMxcu9khuk5DU8JtIvYvdELXHJMfGepT4I1UAYMCuutU8mQotdPwHAgq4nhocB1nKeeE4HKhWkNMG3kvv/HqUv0QA5F+oxCtdtYRpM9hwNz4mbAL/7VALq7818qWxJgTpWGt9zmO/G9tFb6rSBiW00BT1aPSPCBsswXk939y2I2qc/8yclDRs41ex=">https://perbank.z-bank.com/weixinServer/htmlShow/weixinBank/views/transfer/tradeRecord.html?/iwJPm77nZq2HJfE5F1i0O8eJZlV6AJqePqv0T7or1bZwkrWnishU3vmqDhXVKGFRuCcJFfjMxcu9khuk5DU8JtIvYvdELXHJMfGepT4I1UAYMCuutU8mQotdPwHAgq4nhocB1nKeeE4HKhWkNMG3kvv/HqUv0QA5F+oxCtdtYRpM9hwNz4mbAL/7VALq7818qWxJgTpWGt9zmO/G9tFb6rSBiW00BT1aPSPCBsswXk939y2I2qc/8yclDRs41ex=</a></p>
+<p>上面是我在众邦银行的流水页面的URL。</p>
+<p>哇呀，好花哨啊，这么多字符呀，看起来乱呼呼的，想必很安全吧？</p>
+<p>并没有！</p>
+<p>任何一个人，在任何一台设备上，使用任何浏览器，访问这个URL，就可以得到，你猜是啥？</p>
+<p>没错，就是我在众邦银行的流水了。</p>
+<p>不信的话，你访问一下那个URL，看到的内容和本文上面的截图里是一样的。</p>
+<p>实在不是我想要搞一个大新闻，然后把众邦银行批判一番，而是众邦银行犯的这个错误太低级了。</p>
+<p>作为国家批准钦定的民营银行，你们怎么能这个样子呢？将来用户的信息安全有了偏差的话，你们是不是要负责任的呀？</p>
+<p>你们搞的这个东西呀，一点都不excited，简直让我折寿-1s。</p>
+<p>你们这样搞啊，行不通的，这绝对不是坠吼的，简直不知道低到哪里去了。</p>
+<p>希望你们能努力提高自身的知识水平，积累一点人生经验。</p>
+<p>悄悄地做一点微小的工作，修复这个问题，之后就可以慢声大发财。</p>
+<p>来日才好和用户们谈笑风生啊。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://cuipengfei.me/blog/2018/10/14/zb-bank/" title="信息安全要做好，身份认证不能少。众邦银行胡乱搞，别人知我钱多少。">https://cuipengfei.me/blog/2018/10/14/zb-bank/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%F0%9F%90%B8/" rel="tag"><i class="fa fa-tag"></i> 🐸</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2017/06/14/desugar-scala-stackable-traits/" rel="prev" title="Desugar Scala(18) -- stackable traits">
+                  <i class="fa fa-angle-left"></i> Desugar Scala(18) -- stackable traits
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2018/10/21/JIN-RI-JIAN-SHI/" rel="next" title="今日简史">
+                  今日简史 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">372k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:38</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

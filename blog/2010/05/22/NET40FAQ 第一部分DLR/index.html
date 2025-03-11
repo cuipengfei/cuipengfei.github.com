@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content=".NET 4.0 FAQ 第一部分—DLR 简介 本篇文章中我们将讨论.NET FrameWork 4.0提供了哪些新特性。然后再探讨DLR特性  中的动态对象和Expando对象。我们也将会创建一个Expando对象来看我们可以从中获得哪些益处。很多的开发人员误以为动态对象是用来替代反射和object类型的，我们也将会纠正这种错误的概念。 .NET 4.0中有哪些重要的新特性？ 与其去浏览.NE">
+<meta property="og:type" content="article">
+<meta property="og:title" content=".NET 4.0 FAQ 第一部分—DLR">
+<meta property="og:url" content="https://cuipengfei.me/blog/2010/05/22/NET40FAQ%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86DLR/index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content=".NET 4.0 FAQ 第一部分—DLR 简介 本篇文章中我们将讨论.NET FrameWork 4.0提供了哪些新特性。然后再探讨DLR特性  中的动态对象和Expando对象。我们也将会创建一个Expando对象来看我们可以从中获得哪些益处。很多的开发人员误以为动态对象是用来替代反射和object类型的，我们也将会纠正这种错误的概念。 .NET 4.0中有哪些重要的新特性？ 与其去浏览.NE">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/1.JPG">
+<meta property="og:image" content="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/2.JPG">
+<meta property="og:image" content="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/3.JPG">
+<meta property="og:image" content="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/4.JPG">
+<meta property="og:image" content="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/41.JPG">
+<meta property="og:image" content="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/5.JPG">
+<meta property="og:image" content="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/6.JPG">
+<meta property="article:published_time" content="2010-05-22T02:03:00.000Z">
+<meta property="article:modified_time" content="2010-05-22T02:03:00.000Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="C#">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/1.JPG">
+
+
+<link rel="canonical" href="https://cuipengfei.me/blog/2010/05/22/NET40FAQ%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86DLR/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2010/05/22/NET40FAQ%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86DLR/","path":"blog/2010/05/22/NET40FAQ 第一部分DLR/","title":".NET 4.0 FAQ 第一部分—DLR"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>.NET 4.0 FAQ 第一部分—DLR | 崔鹏飞的Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+<script data-ad-client="ca-pub-2529393324217872" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2529393324217872"></script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">崔鹏飞的Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">174</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener me" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2010/05/22/NET40FAQ%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86DLR/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=".NET 4.0 FAQ 第一部分—DLR | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          .NET 4.0 FAQ 第一部分—DLR
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2010-05-22 10:03:00" itemprop="dateCreated datePublished" datetime="2010-05-22T10:03:00+08:00">2010-05-22</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2010/05/22/NET40FAQ%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86DLR/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2010/05/22/NET40FAQ 第一部分DLR/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>.NET 4.0 FAQ 第一部分—DLR</p>
+<p>简介</p>
+<p>本篇文章中我们将讨论.NET FrameWork 4.0提供了哪些新特性。然后再探讨DLR特性  中的动态对象和Expando对象。我们也将会创建一个Exp<br>ando对象来看我们可以从中获得哪些益处。很多的开发人员误以为动态对象是用来替代反射和object类型的，我们也将会纠正这种错误的概念。</p>
+<p>.NET 4.0中有哪些重要的新特性？</p>
+<p>与其去浏览.NET 4.0冗长的新特性列表，我们还是专注于我们认为最重要的三项新特性上吧。</p>
+<p>•  WF和WCF 4.0：这是.NET</p>
+<p>4.0中的一个重大改变。WCF中引入了简化的配置、发现和路由服务。WF的核心编程模型也得到了改变，变得更加简易和健壮。最重大事件的就是WCF和WF的整合。</p>
+<p>•  动态语言运行时：DLR给.NET 4.0的CLR赋予了动态编程的能力。我们将会在文章接下来的部分探讨这一点。</p>
+<p>•  并行扩展：这有助于多核系统中的并行计算。.NET 4.0的LinQ中添加了PLinQ来支持并行执行。.NET 4.0引入了TPL（Task<br>parallel library），其中暴露了像并行的“For”和“ForEach”等并行构造，它们可以调用普通方法或者委托。</p>
+<p>接下来我们将详细讲述以上提到新特性。</p>
+<p>DLR在.NET 4.0中扮演何种角色呢？</p>
+<p>DLR（Dynamic language runtime）是一组服务，它给CLR赋予了动态编程的能力。DLR使得像LISP、JavaScript、PHP、Ruby一样的动态语言可以运行在.NET<br>FrameWork上。</p>
+<p><img data-src="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/1.JPG"></p>
+<p>编程语言分为动态类型语言和静态类型语言。在静态类型语言中，你需要在编译时或者说是设计时指明对象的类型。而动态类型语言可以在运行时识别对象的类型。DLR使得C<br>LR能够作为动态语言代码运行的宿主环境。</p>
+<p><img data-src="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/2.JPG"></p>
+<p>有了DLR，Ruby、Python、JavaScript等动态语言就可以无缝的运行在CLR之上了。DLR还有助于为你最喜欢的动态语言来构建最佳体验。这样，你<br>的与动态语言交互的代码就会变得更加简洁。</p>
+<p><img data-src="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/3.JPG"></p>
+<p>DLR并不仅限于动态语言。你也可以通过使用COM Interop Binder来以一种更加简洁的方式去调用MS Office组件。</p>
+<p>DLR的一大优势就是它为动态语言提供了一个子系统。</p>
+<p>可以讲讲DLR子系统的细节吗？</p>
+<p>DLR有三个基本子系统：</p>
+<p>•  表达式树：我们可以用它来以AST（抽象语法树）的方式表达语义。DLR会动态生成使用AST的代码，这些代码可以在CLR之上执行。JavaScript和R<br>uby等动态语言可以运行在CLR之上很大程度上得是益于表达式树的助力。</p>
+<p>•  调用栈缓存：当你调用动态对象的方法时，DLR会把那些方法调用的信息都缓存起来。在后续的调用中，DLR就会使用这些缓存起来的信息来完成快速调度。</p>
+<p>•  动态对象互操作性（DOI）：DOI系统中包含一组用来创建动态对象的类。开发人员可以使用这些类来创建可以在动态语言或者静态语言中使用的动态对象。</p>
+<p>接下来我们会对上述的新特性做详细讲解。</p>
+<p><img data-src="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/4.JPG"></p>
+<p>我们该如何使用动态语言的对象，又该如何向动态语言暴露一个类呢？</p>
+<p>要使用一个DLR支持的语言创建的对象，我们可以使用dynamic关键字。而要向动态语言暴露一个类，我们可以使用Expando类。</p>
+<p>所以如果你想要使用一个诸如由Python、Ruby或者JavaScript等动态语言创建的对象的话，你就可以使用dynamic的引用来指向该对象。如果你想要<br>让你的类可以被动态语言使用，你的类就需要继承自Expando类。我们稍后就会看到这两种例子。</p>
+<p><img data-src="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/41.JPG"></p>
+<p>（上图中文字：Dynamic对象有助于使用动态语言创建的对象。Expando对象有助于向动态语言暴露一个类。）</p>
+<p>有什么Dynamic对象的例子吗？</p>
+<p>我们已经讲过Dynamic对象有助于去访问由受DLR支持的动态语言创建的对象。dynamic关键字是DOI子系统的一部分。</p>
+<p>如果你把一个对象赋值给一个dynamic类型的变量的话（dynamic x &#x3D; new<br>SomeClass（）），所有对x的方法的调用，对x的属性的访问，以及对x的运算符操作都会被延迟到运行时去，而且编译器在编译时不会对x做任何的类型检查。</p>
+<p>考虑下面的代码片段，我们在其中试着去调用excel的方法。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// <span class="keyword">Get</span> the running <span class="keyword">object</span> <span class="keyword">of</span> the excel application</span><br><span class="line"><span class="keyword">object</span> objApp = <span class="keyword">System</span>.Runtime.InteropServices.Marshal.GetActiveObject(&quot;Excel.Application&quot;);</span><br><span class="line">// Invoke the member dynamically</span><br><span class="line"><span class="keyword">object</span> x = objApp.GetType().InvokeMember(&quot;Name&quot;, <span class="keyword">System</span>.Reflection.BindingFlags.GetProperty, <span class="keyword">null</span>, objApp, <span class="keyword">null</span>);</span><br><span class="line">// Finally <span class="keyword">get</span> the <span class="keyword">value</span> <span class="keyword">by</span> <span class="keyword">type</span> casting</span><br><span class="line">MessageBox.<span class="keyword">Show</span>(x.ToString());</span><br></pre></td></tr></table></figure>
+
+<p>使用dynamic关键字来完成相同功能的代码。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// <span class="keyword">Get</span> the <span class="keyword">object</span> <span class="keyword">using</span> dynamic objApp1 =</span><br><span class="line"><span class="keyword">System</span>.Runtime.InteropServices.Marshal.GetActiveObject(&quot;Excel.Application&quot;);</span><br><span class="line">// <span class="keyword">Call</span> the MessageBox.<span class="keyword">Show</span>(objApp1.Name);</span><br></pre></td></tr></table></figure>
+
+<p>你可以很清楚地发现访问属性的语法的简化。InvokeMember这个方法含义模糊而且容易出错。使用dynamic关键字，我们可以看到代码得到了简化。</p>
+<p><img data-src="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/5.JPG"></p>
+<p>如果你试着在Visual Studio中查看x的属性，你将会得到提示说此表达式的值只有在运行时才可以被断定。</p>
+<p><img data-src="http://www.codeproject.com/KB/dotnet/DOTNETre4pt0/6.JPG"></p>
+<p>Dynamic、Object和反射这三者之间有何关系？</p>
+<p>很多的开发人员认为引入Dynamic的目的就是要替换掉反射或者Object这种类型。其实dynamic的主要目的是在静态类型的语言中去无缝的访问动态语言创建<br>的对象。也正是由于这一点，它的部分目的与反射和object类型重合了。</p>
+<p>由于dynamic可以简化代码并具有缓存的优势，它最终会替换掉反射和object类型。但是引入dynamic的初衷绝对不是要去代替反射和object类型，只<br>是它们的目的重合了而已。</p>
+<p>Dynamic</p>
+<p>Object &#x2F;  反射</p>
+<p>Dynamic对象是DLR引擎提供的一个小特性，我们可以通过使用它来访问动态语言创建的对象。而DLR不仅使得动态语言创建的对象可以被访问，它还使得你的类可以<br>被暴露给动态语言。</p>
+<p>反射和object类型只是用来引用未知类型。反射和object类型无法帮你把你的类暴露给其他语言。它们只是用来访问那些直到运行时才得知具体类型的对象的。</p>
+<p>语法相当简单。</p>
+<p>语法有点难。</p>
+<p>因为有了方法访问的缓存，性能得以提升。</p>
+<p>目前还没有对访问方法的缓存。</p>
+<p>dynamic关键字有什么优缺点？</p>
+<p>差的程序员即使使用最好的语言也会写出很差的代码，而好的程序员即使使用最差的编程语言也可以健步如飞。Dynamic关键字是一个减少复杂性的好工具，但是如果使用<br>不当的话，它就是个诅咒。</p>
+<p>Dynamic关键字的优势有：</p>
+<p>•  帮你与动态语言相交互。</p>
+<p>•  消除混乱的反射代码并可以简化代码复杂度。</p>
+<p>•  有方法访问的缓存，可以提升性能。</p>
+<p>缺点：</p>
+<p>•  当与强类型的类一起使用的时候可能会损害性能。</p>
+<p>Expando对象是什么呢？</p>
+<p>Expando对象是为交互性的另一端服务的，比如说它使得你的自定义类型可以在动态语言中被访问。所以你可以创建一个Expando类的实例并把它传递给像Ruby<br>、JavaScript、Python之类的动态语言。Expando对象有助于在运行时添加属性。它是动态属性包的一种高效实现。要想使用Expando对象，我们<br>首先要引入System.Dynamic命名空间。然后创建一个ExpandoObject的对象并把它赋值给一个用dynamic声明的引用。</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dynamic obj <span class="operator">=</span> new ExpandoObject()<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
+<p>要创建动态属性，我们只需要写出属性名并给它赋值。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">obj.Customername</span> = <span class="string">&quot;Some Customer Name&quot;</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
+<p>最后我们显示该值。</p>
+<figure class="highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">MessageBox</span>.<span class="literal">Show</span>(obj.Customername)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
+<p>我们可以实现自己的Expando对象吗？</p>
+<p>Expando对象在内部只是向一个集合中添加属性。所以你可以创建自己的Expando对象。</p>
+<p>我们首先需要继承DynamicObject类。</p>
+<figure class="highlight golo"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class clsMyExpando : <span class="keyword">DynamicObject</span></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如前所述，我们需要定义一个集合来存储属性。所以第二步我们就要创建一个字典对象来维护集合中的属性。</p>
+<figure class="highlight golo"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public class clsMyExpando : <span class="keyword">DynamicObject</span></span><br><span class="line">&#123;</span><br><span class="line">    Dictionary items= new Dictionary();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们现在可以使用TryGetMember和SetGetMember来定义我们的属性访问器。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">clsMyExpando</span>: <span class="title">DynamicObject</span> &#123;</span><br><span class="line"> Dictionary items = <span class="keyword">new</span> Dictionary();</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">bool</span> <span class="title">TryGetMember</span>(<span class="params">GetMemberBinder binder, <span class="keyword">out</span> <span class="built_in">object</span> result</span>)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> items.TryGetValue(binder.Name, <span class="keyword">out</span> result);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">bool</span> <span class="title">TrySetMember</span>(<span class="params">SetMemberBinder binder, <span class="built_in">object</span> <span class="keyword">value</span></span>)</span> &#123;</span><br><span class="line">  items[binder.Name] = <span class="keyword">value</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在我们可以创建我们自己的Expando类的对象并把它赋值给dynamic类的引用。下面的代码片断中我们给一个叫做Name的动态属性赋了值。</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dynamic obj <span class="operator">=</span> new clsMyExpando()<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">obj.Name <span class="operator">=</span> <span class="string">&quot;Dynamic Property&quot;</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用自定义Expando对象有什么益处呢？</p>
+<p>使用Expando对象可以提升性能。如果你的类有静态属性也有动态属性的话，你可以像如下代码一样的在自定义Expando类中创建静态属性。当该对象的静态属性被<br>访问的时候，它不会去调用字典的成员方法，这样也就增进了性能。DLR引擎会首先试着去访问属性名而不是去调用TryGetMember和SetGetMember。</p>
+<p>如果你不需要动态属性也不需要和动态语言交互的话，就要避免使用自定义Expando类型。而如果你需要使用动态属性的话，一定要确保你是继承了DynamicObj<br>ect类的。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">clsMyExpando</span>: <span class="title">DynamicObject</span> &#123;</span><br><span class="line"> Dictionary items = <span class="keyword">new</span> Dictionary();</span><br><span class="line"> <span class="keyword">private</span> <span class="built_in">string</span> _Name;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">public</span> <span class="built_in">string</span> Name &#123;</span><br><span class="line">  <span class="keyword">get</span> &#123;</span><br><span class="line">   <span class="keyword">return</span> _Name;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">set</span> &#123;</span><br><span class="line">   _Name = <span class="keyword">value</span>;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">bool</span> <span class="title">TryGetMember</span>(<span class="params">GetMemberBinder binder, <span class="keyword">out</span> <span class="built_in">object</span> result</span>)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> items.TryGetValue(binder.Name, <span class="keyword">out</span> result);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">bool</span> <span class="title">TrySetMember</span>(<span class="params">SetMemberBinder binder, <span class="built_in">object</span> <span class="keyword">value</span></span>)</span> &#123;</span><br><span class="line">  items[binder.Name] = <span class="keyword">value</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>IDynamicMetaObjectProvider和DynamicMetaObject是什么呢？</p>
+<p>动态对象实现IDynamicMetaObjectProvider并返回DynamicMetaObject。这两个类型都是实现动态语言之间交互性的核心部分。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://cuipengfei.me/blog/2010/05/22/NET40FAQ%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86DLR/" title=".NET 4.0 FAQ 第一部分—DLR">https://cuipengfei.me/blog/2010/05/22/NET40FAQ 第一部分DLR/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C#</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2010/03/17/%E7%94%A8AvalonDock%E5%88%B6%E4%BD%9CWPF%E5%A4%9A%E6%A0%87%E7%AD%BE%E6%B5%8F%E8%A7%88%E5%99%A8%EF%BC%88%E4%B8%89%EF%BC%89/" rel="prev" title="用AvalonDock制作WPF多标签浏览器（三）">
+                  <i class="fa fa-angle-left"></i> 用AvalonDock制作WPF多标签浏览器（三）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2010/05/22/MEF%E7%BC%96%E7%A8%8B%E6%8C%87%E5%8D%97%EF%BC%88%E5%89%8D%E4%B8%A4%E8%8A%82%EF%BC%89/" rel="next" title="MEF编程指南（前两节）">
+                  MEF编程指南（前两节） <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">372k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:38</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

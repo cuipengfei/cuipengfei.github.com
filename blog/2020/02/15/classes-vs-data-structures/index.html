@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="原文作者：Robert C. Martin (Uncle Bob)原文链接：https:&#x2F;&#x2F;blog.cleancoder.com&#x2F;uncle-bob&#x2F;2019&#x2F;06&#x2F;16&#x2F;ObjectsAndDataStructures.html  类是什么？  类是一组相似对象的范本。  对象又是什么呢？  对象是对封装的数据进行操作的一组函数。  不如这么说:对象是对隐含数据进行操作的一组函数。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[译] 类 vs 数据结构">
+<meta property="og:url" content="https://cuipengfei.me/blog/2020/02/15/classes-vs-data-structures/index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="原文作者：Robert C. Martin (Uncle Bob)原文链接：https:&#x2F;&#x2F;blog.cleancoder.com&#x2F;uncle-bob&#x2F;2019&#x2F;06&#x2F;16&#x2F;ObjectsAndDataStructures.html  类是什么？  类是一组相似对象的范本。  对象又是什么呢？  对象是对封装的数据进行操作的一组函数。  不如这么说:对象是对隐含数据进行操作的一组函数。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-15T15:44:13.000Z">
+<meta property="article:modified_time" content="2020-02-15T15:44:13.000Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="Uncle Bob">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://cuipengfei.me/blog/2020/02/15/classes-vs-data-structures/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2020/02/15/classes-vs-data-structures/","path":"blog/2020/02/15/classes-vs-data-structures/","title":"[译] 类 vs 数据结构"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>[译] 类 vs 数据结构 | 崔鹏飞的Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+<script data-ad-client="ca-pub-2529393324217872" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2529393324217872"></script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">崔鹏飞的Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">174</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener me" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2020/02/15/classes-vs-data-structures/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="[译] 类 vs 数据结构 | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [译] 类 vs 数据结构
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-02-15 23:44:13" itemprop="dateCreated datePublished" datetime="2020-02-15T23:44:13+08:00">2020-02-15</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2020/02/15/classes-vs-data-structures/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2020/02/15/classes-vs-data-structures/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>原文作者：Robert C. Martin (Uncle Bob)<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.cleancoder.com/uncle-bob/2019/06/16/ObjectsAndDataStructures.html">https://blog.cleancoder.com/uncle-bob/2019/06/16/ObjectsAndDataStructures.html</a></p>
+<blockquote>
+<p>类是什么？</p>
+</blockquote>
+<p>类是一组相似对象的范本。</p>
+<blockquote>
+<p>对象又是什么呢？</p>
+</blockquote>
+<p>对象是对封装的数据进行操作的一组函数。</p>
+<blockquote>
+<p>不如这么说:对象是对隐含数据进行操作的一组函数。</p>
+</blockquote>
+<p>隐式数据？什么意思？</p>
+<blockquote>
+<p>对象的函数隐含意味着某些数据是存在的。但是该数据无法在对象外部直接访问或看到。</p>
+</blockquote>
+<p>数据不是对象内部的吗？</p>
+<blockquote>
+<p>可能是; 但没有规则说必须如此。从用户的角度来看，一个对象不过是一组函数。这些函数所需要的数据必须存在，但是用户不知道该数据的位置。</p>
+</blockquote>
+<p>嗯，好，我同意。</p>
+<blockquote>
+<p>好。现在说说，数据结构是什么？</p>
+</blockquote>
+<p>数据结构是一组内聚的数据。</p>
+<blockquote>
+<p>或者，换句话说，数据结构是由隐含函数操作的一组数据。</p>
+</blockquote>
+<p>好的，好的。我知道了。数据结构没有定义对数据结构进行操作的函数，但是数据结构的存在意味着某些函数必须存在。</p>
+<blockquote>
+<p>对。你有什么发现没有？</p>
+</blockquote>
+<p>对象和数据结构似乎是彼此相反的。</p>
+<blockquote>
+<p>确实。它们是彼此互补的。</p>
+<ul>
+<li>对象是对隐式数据进行操作的一组函数。</li>
+<li>数据结构是被隐式函数操作的一组数据。</li>
+</ul>
+</blockquote>
+<p>哇，所以对象不是数据结构了？</p>
+<blockquote>
+<p>说对了。对象与数据结构相反。</p>
+</blockquote>
+<p>那么DTO（Data Transfer Object）不是对象吗？</p>
+<blockquote>
+<p>DTO是数据结构。</p>
+</blockquote>
+<p>所以数据库表也不是对象吗？</p>
+<blockquote>
+<p>数据库包含数据结构，而不是对象。</p>
+</blockquote>
+<p>可是，等等。ORM(Object Relational Mapper)不是将数据库表映射到对象吗？</p>
+<blockquote>
+<p>当然不是。数据库表和对象之间没有映射。数据库表是数据结构，而不是对象。</p>
+</blockquote>
+<p>那么，ORM算是干嘛的呢？</p>
+<blockquote>
+<p>在数据结构之间传输数据。</p>
+</blockquote>
+<p>ORM与对象无关是吗？</p>
+<blockquote>
+<p>完全无关，ORM其实是不存在的。因为数据库表和对象之间没有映射。</p>
+</blockquote>
+<p>但是我还以为ORM为我们创建了业务对象呢。</p>
+<blockquote>
+<p>不对，ORM会提取业务对象所操作的数据。该数据包含在ORM加载的数据结构中。</p>
+</blockquote>
+<p>但是，业务对象是不是会包含该数据结构啊？</p>
+<blockquote>
+<p>它可能包含，也可能不包含。但是这不关ORM的事。</p>
+</blockquote>
+<p>这种说法似乎是咬文嚼字，不太重要。</p>
+<blockquote>
+<p>不，这具有重大意义。</p>
+</blockquote>
+<p>怎么讲？</p>
+<blockquote>
+<p>例如数据库schema的设计与业务对象的设计。业务对象定义业务行为的结构。数据库schema定义业务数据的结构。这两个结构受到非常不同的力的约束。业务数据的结构不一定是业务行为的最佳结构。</p>
+</blockquote>
+<p>嗯？令人困惑。</p>
+<blockquote>
+<p>这样想吧。数据库schema不仅为一个应用程序服务；它必须服务于整个企业。因此，该数据的结构是许多不同应用程序之间的折衷方案。</p>
+</blockquote>
+<p>好，我知道了。</p>
+<blockquote>
+<p>好。但是现在来说单独的应用程序。每个应用程序的对象模型描述了该应用程序的行为的构造方式。每个应用程序将具有不同的对象模型，并根据该应用程序的行为进行调整。</p>
+</blockquote>
+<p>哦，我懂了。由于数据库schema是各种应用程序的折衷方案，因此该schema将不符合任何特定应用程序的对象模型。</p>
+<blockquote>
+<p>对！对象和数据结构受到非常不同的作用力的约束。他们很少能对齐。人们习惯称其为对象&#x2F;关系阻抗失衡（Object&#x2F;Relational impedance mismatch）。</p>
+</blockquote>
+<p>我听说过，但是我认为阻抗失衡是由ORM解决的。</p>
+<blockquote>
+<p>现在你知道不是这样的了。因为对象和数据结构是互补的，而不是同构的，所以没有阻抗失配。</p>
+</blockquote>
+<p>什么？</p>
+<blockquote>
+<p>它们是对立的，不是相似的实体。</p>
+</blockquote>
+<p>相反吗?</p>
+<blockquote>
+<p>是的，以一种非常有趣的方式。你会看到，对象和数据结构意味着相反的控制结构。</p>
+</blockquote>
+<p>等一下，什么?</p>
+<blockquote>
+<p>考虑一组符合公共接口的类。例如，想象一下表示二维形状的类，这些类都具有计算area面积和perimeter周长的函数。</p>
+</blockquote>
+<p>为什么每个软件示例都总是提到形状？</p>
+<blockquote>
+<p>让我们只考虑两种不同的类型：Square和Circle。应该很容易看清楚的是，这两个类的area和permimeter函数在不同的隐式数据结构上运行。还应该清楚的是，调用这些函数的方式是通过动态多态性进行的。</p>
+</blockquote>
+<p>等下，慢一点，什么？</p>
+<blockquote>
+<p>有两种不同的area函数；一个是Square的，另一个是Circle的。当调用者在特定对象上调用area函数时，只有该对象才知道要调用哪个函数。我们称之为动态多态性。</p>
+</blockquote>
+<p>好。当然。该对象知道其方法的实现。当然。</p>
+<blockquote>
+<p>现在，让我们将这些对象换成数据结构。我们将使用标签联合（discriminated union）。</p>
+</blockquote>
+<p>标签联合是什么？</p>
+<blockquote>
+<p>标签联合。在我们当前讨论的情况下，这只是两个不同的数据结构。一个是Square另一个是Circle。Circle数据结构有一个圆心和半径。它还有一个将其标识为Circle的类型码。</p>
+</blockquote>
+<p>你是说像枚举？</p>
+<blockquote>
+<p>当然。Square数据结构有左顶点，和边长。它还有类型区分符(type discriminator)–枚举。</p>
+</blockquote>
+<p>好。具有类型码的两个数据结构。</p>
+<blockquote>
+<p>对。现在考虑area函数。它要有一个switch语句，不是吗？</p>
+</blockquote>
+<p>嗯，当然，对应两种不同的情况。一个用于Square另一个用于Circle。并且perimeter函数也需要类似的switch语句。</p>
+<blockquote>
+<p>对。现在考虑这两种场景的结构。在对象场景中，area函数的两个实现彼此独立，并且（在某种意义上）从属于类型。Square的area函数属于Square，Circle的area函数属于Circle。</p>
+</blockquote>
+<p>好的，我知道您的意思了。在数据结构场景中，area的两个实现在同一个函数中，它们并不“从属于”类型。</p>
+<blockquote>
+<p>接下来会更有趣。如果要将Triangle类型添加到对象方案中，必须更改哪些代码？</p>
+</blockquote>
+<p>无需更改代码。您只需创建新Triangle类。哦，我想必须更改实例的创建者。</p>
+<blockquote>
+<p>对。因此，当添加新类型时，几乎没有什么变化。现在，假设您要添加一个新函数-比如center函数。</p>
+</blockquote>
+<p>那么，你就必须在Circle，Square，和Triangle这三个类里面都去添加center函数。</p>
+<blockquote>
+<p>好。因此添加新函数很困难，必须更改每个类。</p>
+</blockquote>
+<p>但是在数据结构上却有所不同。为了添加Triangle，必须更改每个函数以将Triangle的case添加到switch语句里面去。</p>
+<blockquote>
+<p>对。添加新类型很困难，必须更改每个函数。</p>
+</blockquote>
+<p>但是，当您添加新center函数时，无需更改任何现存代码。</p>
+<blockquote>
+<p>对。添加新函数很容易。</p>
+</blockquote>
+<p>哇。恰恰相反。</p>
+<blockquote>
+<p>对。我们来复习：</p>
+<ul>
+<li>向一组类中添加新函数很困难，必须更改每个类。</li>
+<li>向一组数据结构中添加新函数很容易，只需添加函数，无需其他改变。</li>
+<li>向一组类中添加新类型很容易，只需添加新类即可。</li>
+<li>向一组数据结构中添加新类型很困难，必须更改每个函数。</li>
+</ul>
+</blockquote>
+<p>是的，相反。以一种有趣的方式对立。我的意思是，如果您知道要向一组类型中添加新函数，则应该使用数据结构。但是，如果您知道要添加新的类型，则可以使用类。</p>
+<blockquote>
+<p>说得好！但是，今天我们还有最后一件事要考虑。数据结构和类的对立还有另一种方式，与依赖关系有关。</p>
+</blockquote>
+<p>依赖关系？</p>
+<blockquote>
+<p>是的，源代码的依赖方向。</p>
+</blockquote>
+<p>具体来说呢？</p>
+<blockquote>
+<p>考虑数据结构的情况。每个函数都有一个switch语句，该语句根据类型码选择适当的实现。</p>
+</blockquote>
+<p>对，然后？</p>
+<blockquote>
+<p>考虑对area函数的调用。调用者依赖于area函数，而area函数依赖于每个特定的实现。</p>
+</blockquote>
+<p>您所说的“依赖”是什么意思？</p>
+<blockquote>
+<p>想象一下，area的每个实现都被写入了单独的函数中。所以有circleArea，squareArea和triangleArea。</p>
+</blockquote>
+<p>OK，switch语句会调用这几个函数。</p>
+<blockquote>
+<p>想象一下这几个函数在不同的源文件中。</p>
+</blockquote>
+<p>那么，包含有switch语句的源文件就必须import，use或include这些源文件。</p>
+<blockquote>
+<p>对。这就是源代码依赖性。一个源文件依赖于另一个源文件。这种依赖的方向是什么？</p>
+</blockquote>
+<p>带有switch语句的源文件依赖于包含实现的源文件。</p>
+<blockquote>
+<p>那area函数的调用者呢？</p>
+</blockquote>
+<p>area函数的调用者依赖于包含switch语句的源文件，该文件的switch语句依赖于各个实现。</p>
+<blockquote>
+<p>正确。从调用者到实现，所有源文件依赖性都指向调用的方向。因此，如果您对其中的一种实现进行了微小的更改……</p>
+</blockquote>
+<p>好的，我知道您的意思。对任何一种实现的更改将导致重新编译带有switch语句的源文件，从而导致每个调用switch语句的人重新编译。</p>
+<blockquote>
+<p>对。至少对于依赖于源文件的更改日期来确定应编译哪些模块的语言系统而言，这么说是正确的。</p>
+</blockquote>
+<p>几乎所有使用静态类型的语言，对吗？</p>
+<blockquote>
+<p>是的，有些非静态的也会。</p>
+</blockquote>
+<p>大量的重新编译。</p>
+<blockquote>
+<p>还有大量的重新部署。</p>
+</blockquote>
+<p>是的，但是在类的情况下这是相反的吗？</p>
+<blockquote>
+<p>是的，因为area函数的调用者依赖于接口，而函数实现也依赖于该接口。</p>
+</blockquote>
+<p>我明白你的意思了。Square类的源文件将import，use或include Shape接口的源文件。</p>
+<blockquote>
+<p>对。实现的源文件指向调用的相反方向。他们从实现指向调用者。至少对于静态类型的语言来说是这样。对于动态类型的语言，area函数的调用者完全不依赖任何内容。链接在运行时确定。</p>
+</blockquote>
+<p>对，因此，如果您更改其中一种实现方式…</p>
+<blockquote>
+<p>仅更改的文件需要重新编译或重新部署。</p>
+</blockquote>
+<p>那是因为源文件之间的依赖关系指向调用方向的反方向。</p>
+<blockquote>
+<p>对。我们称之为依赖倒置。</p>
+</blockquote>
+<p>好，让我看看我是否可以总结一下。类和数据结构在至少三种不同的方式上是相反的。</p>
+<ul>
+<li>类使函数可见，隐藏数据。数据结构使数据可见，隐藏函数。</li>
+<li>类使添加类型变得容易，但是却难以添加函数。数据结构使添加函数变得容易，但难以添加类型。</li>
+<li>数据结构导致调用者重新编译和重新部署。类将调用者与重新编译和重新部署隔离开。</li>
+</ul>
+<blockquote>
+<p>你说对了。这些都是每个优秀的软件设计人员和架构师都需要牢记的问题。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://cuipengfei.me/blog/2020/02/15/classes-vs-data-structures/" title="[译] 类 vs 数据结构">https://cuipengfei.me/blog/2020/02/15/classes-vs-data-structures/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Uncle-Bob/" rel="tag"><i class="fa fa-tag"></i> Uncle Bob</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2020/01/07/desugar-scala-20-self-type/" rel="prev" title="Desugar Scala 20 -- Self Type">
+                  <i class="fa fa-angle-left"></i> Desugar Scala 20 -- Self Type
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2020/02/21/distributed-key-value-store/" rel="next" title="分布式键值存储（Distributed Key-Value Store）">
+                  分布式键值存储（Distributed Key-Value Store） <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">372k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:38</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

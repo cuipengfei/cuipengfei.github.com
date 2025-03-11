@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本文翻译自   Jon Skeet   的系列博文”Edulinq”。 本篇原文地址： http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;26&#x2F;reimplementing-linq-to-objects-part-7-count-and-longcount.aspx 今天的文章要介绍两个  LIN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自己动手重新实现LINQ to Objects 7 - Count和LongCount">
+<meta property="og:url" content="https://cuipengfei.me/blog/2011/09/05/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects7%20-%20Count%E5%92%8CLongCount/index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="本文翻译自   Jon Skeet   的系列博文”Edulinq”。 本篇原文地址： http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;26&#x2F;reimplementing-linq-to-objects-part-7-count-and-longcount.aspx 今天的文章要介绍两个  LIN">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2011-09-05T04:25:38.000Z">
+<meta property="article:modified_time" content="2011-09-05T04:25:38.000Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="LinQ">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://cuipengfei.me/blog/2011/09/05/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects7%20-%20Count%E5%92%8CLongCount/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2011/09/05/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects7%20-%20Count%E5%92%8CLongCount/","path":"blog/2011/09/05/自己动手重新实现LINQ to Objects7 - Count和LongCount/","title":"自己动手重新实现LINQ to Objects 7 - Count和LongCount"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>自己动手重新实现LINQ to Objects 7 - Count和LongCount | 崔鹏飞的Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+<script data-ad-client="ca-pub-2529393324217872" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2529393324217872"></script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">崔鹏飞的Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E4%BB%AC%E8%A6%81%E6%B5%8B%E8%AF%95%E4%BB%80%E4%B9%88%E5%91%A2%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">我们要测试什么呢？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9D%A5%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0%E5%90%A7%EF%BC%81"><span class="nav-number">2.</span> <span class="nav-text">来动手实现吧！</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">3.</span> <span class="nav-text">结论</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">174</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener me" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2011/09/05/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects7%20-%20Count%E5%92%8CLongCount/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="自己动手重新实现LINQ to Objects 7 - Count和LongCount | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          自己动手重新实现LINQ to Objects 7 - Count和LongCount
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2011-09-05 12:25:38" itemprop="dateCreated datePublished" datetime="2011-09-05T12:25:38+08:00">2011-09-05</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2011/09/05/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects7%20-%20Count%E5%92%8CLongCount/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2011/09/05/自己动手重新实现LINQ to Objects7 - Count和LongCount/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>本文翻译自  <a target="_blank" rel="noopener" href="http://stackoverflow.com/users/22656/jon-skeet"> Jon Skeet  </a> 的系列博文”Edulinq”。</p>
+<p>本篇原文地址：</p>
+<p><a target="_blank" rel="noopener" href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/26/reimplementing-linq-to-objects-part-7-count-and-longcount.aspx">http://msmvps.com/blogs/jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;26&#x2F;reimplementing-linq-to-objects-part-7-count-and-longcount.aspx</a></p>
+<p>今天的文章要介绍两个  LINQ  操作符，因为它们实在是太类似了，所以放到一起来讲。  Count  和  LongCount<br>的实现非常相像，不同的只是方法名，返回值类型和几个变量。</p>
+<p>Count  和  LongCount  是什么呢？  <a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/system.linq.enumerable.count.aspx">  Count  </a> 和  <a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/system.linq.enumerable.longcount.aspx"> LongCount</a><br>各自有两个重载：一个重载接受谓词，另一个不接受。下面是这四个方法的签名：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="keyword">Count</span> &lt; TSource &gt; (<span class="keyword">this</span> IEnumerable &lt; TSource &gt; <span class="keyword">source</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="keyword">Count</span> &lt; TSource &gt; (<span class="keyword">this</span> IEnumerable &lt; TSource &gt; <span class="keyword">source</span>, Func &lt; TSource, bool &gt; predicate)</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> LongCount &lt; TSource &gt; (<span class="keyword">this</span> IEnumerable &lt; TSource &gt; <span class="keyword">source</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> LongCount &lt; TSource &gt; (<span class="keyword">this</span> IEnumerable &lt; TSource &gt; <span class="keyword">source</span>, Func &lt; TSource, bool &gt; predicate)</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，  Count  和  LongCount  的方法签名的差别仅在于返回值类型，一个是  int  （  Int32  ），一个是  long（  Int64  ）。</p>
+<p>不接受谓词的重载返回输入序列中元素的个数；而接受谓词的重载则返回能够通过谓词验证的元素的个数。</p>
+<p>这些方法有一些有趣的行为：  </p>
+<ul>
+<li><p>这四个方法都是扩展  IEnumerable<T> 的方法，你有可能会认为对于不接受谓词的那个重载来说，扩展  IEnumerable<br>会来得更好，因为没有什么会限制元素的类型。</p>
+</li>
+<li><p>Count  的不接受谓词的那个重载对于  ICollection<T> 和  ICollection  （  .NET4<br>中的接口）做了优化，因为这两个接口都定义有  Count  这个属性，这个属性的实现应该比遍历整个集合要快。  LongCount<br>则没有做优化，稍后的一节中我将会谈到这点。</p>
+</li>
+<li><p>接受谓词的重载中没有做任何优化，因为不迭代每一个元素就无法知道到底有多少个元素可以通过谓词的检验。</p>
+</li>
+<li><p>这四个方法都是立即执行的，都不涉及延迟执行。（仔细想想就明白了，这些方法仅仅返回一个  int  或  long  值，确实没什么可延迟执行的）。</p>
+</li>
+<li><p>所有的参数都只做非  null的校验。</p>
+</li>
+<li><p>当输入集合的元素个数超出了  int  或  long  的上限值时，应该抛出  OverflowException  。</p>
+</li>
+</ul>
+<h1 id="我们要测试什么呢？"><a href="#我们要测试什么呢？" class="headerlink" title="我们要测试什么呢？"></a>我们要测试什么呢？</h1><p>我们需要对方法的优化做测试，这件事做起来比说起来难，因为我们需要测试以下四种情况：</p>
+<ul>
+<li><p>输入序列同时实现了  ICollection<T> 和  ICollection  （这个简单，直接用  List<T> ）</p>
+</li>
+<li><p>输入序列实现了  ICollection<T> 但没有实现  ICollection  （还算简单，可以用  HashSet<T> ）</p>
+</li>
+<li><p>输入序列实现了  ICollection  但没有实现  ICollection<T> ，我还要要求这个类型实现了  IEnumerable<T><br>（这样才能用到我们的扩展方法）。</p>
+</li>
+<li><p>输入序列既不实现  ICollection  也不实现  ICollection<T> （简单，用我们已经实现了的  Range  来生成）</p>
+</li>
+</ul>
+<p>其中第三点比较麻烦。虽然有很多类型是实现了  ICollection  但没有实现  ICollection<T> 的（比如  ArrayList<br>），但是它们通常也不实现  IEnumerable<T> ，而我们的扩展方法是针对于  IEnumerable<T> 的。所以我只得自己写了一个叫做<br>SemiGenericCollection  的类。</p>
+<p>上述的四种输入序列的类型都找到了，我们现在需要考虑到底怎么测试了。你可能会说我们可以通过检查输入序列是否被迭代过来测试方法是不是真的被优化了。但是要做这个测<br>试就需要写一个有  Count  值但是其  GetEnumerator  方法会抛异常的集合类型。这个测试确实可行，但是我并没有做它。</p>
+<p>对于接受谓词的重载来说，我们无需考虑那几个不同的集合接口，因为我们反正都不会优化这两个方法。</p>
+<p>参数值为  null的几个测试都比较简单，但是有另一个测试比较重要：溢出。我给  Count<br>创建了一个检验溢出行为的单元测试。很不幸，我们现在还不能在  Edulinq  的环境里运行它，因为我们还没有实现  Concat<br>。不过我还是把它写在这里：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Test</span>]</span><br><span class="line">[<span class="meta">Ignore(<span class="string">&quot;Takes an enormous amount of time!&quot;</span>)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Overflow</span>()</span> &#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">var</span> largeSequence = Enumerable.Range(<span class="number">0</span>, <span class="built_in">int</span>.MaxValue).Concat(Enumerable.Range(<span class="number">0</span>, <span class="number">1</span>));</span><br><span class="line"></span><br><span class="line"> Assert.Throws &lt; OverflowException &gt; (() =&gt; largeSequence.Count());</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果  Count  的实现在应该抛出异常的时候把返回值溢出到了  Int.MinValue  的话，这个测试可以发现到它。</p>
+<p>你可以看到，即使在实现了  Concat  并反注释了这段代码之后，这个测试也是被忽略掉了的，因为它需要遍历  20<br>亿个元素，对于几个简单快速的单元测试来说，这可不妙。其实  20  亿还不算太坏，因为  LongCount  的溢出测试需要遍历  2  的  63  次<br>方个元素呢。要生成那么长的序列并不难，难的是遍历它，那要花很长的时间。对于接受谓词的重载来说，我们也需要做溢出测试，直到写这篇文章之前我都忘记了要写这个测试<br>，而写测试的时候还发现了一个方法实现中的  bug :)</p>
+<h1 id="来动手实现吧！"><a href="#来动手实现吧！" class="headerlink" title="来动手实现吧！"></a>来动手实现吧！</h1><p>我们来看看接受谓词的那个重载的实现吧，它其实挺简单的：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="keyword">Count</span> &lt; TSource &gt; (<span class="keyword">this</span> IEnumerable &lt; TSource &gt; <span class="keyword">source</span>, Func &lt; TSource, bool &gt; predicate) &#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">if</span> (<span class="keyword">source</span> == <span class="keyword">null</span>) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="string">&quot;source&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">if</span> (predicate == <span class="keyword">null</span>) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="string">&quot;predicate&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// No way of optimizing this _</span></span><br><span class="line"></span><br><span class="line"> checked &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> <span class="keyword">count</span> = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  foreach(TSource item in <span class="keyword">source</span>) &#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> (predicate(item)) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">count</span>++;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">count</span>;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>请注意，在这里我们不需要返回一个序列，所以就没有用到迭代器代码块，因而也就无需把实现拆分到两个方法中去。</p>
+<p>参数校验之后的方法主体部分相当简单，只有一点需要注意：整个的迭代过程都在“  checked  ”代码块中。这样，如果  count<br>值溢出的话，就会抛出异常，而不会令  count  值成为负数。也有其他的方式可以实现这点：  </p>
+<ul>
+<li><p>可以只把给  count  加一的代码放在  checked  代码块中。</p>
+</li>
+<li><p>可以在每次给  count  加一之前检查  count&#x3D;&#x3D;int.MaxValue  ，如果确实相等，则抛出异常</p>
+</li>
+<li><p>可以给整个程序集都应用  checked</p>
+</li>
+</ul>
+<p>我觉得把这段代码显式的放在  checked  代码块中是很有益的，因为这样可以很明显的凸显出对溢出的检查是方法正确性的需求这一事实。你可能更倾向于只把<br>count++  这一句代码放在  checked  代码块中，不过我个人觉得现在的做法更容易引起读代码的人对  checked<br>的注意，当然这只是我的主观偏好。还有，显式的  checked  代码块有可能会快一些，这一点我不确定，我还没有测试过。</p>
+<p>除了与谓词有关的部分，上面的代码会全部出现在  Count  的优化过的实现中，我们就不再讲解了，直接写出代码：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="keyword">Count</span> &lt; TSource &gt; (<span class="keyword">this</span> IEnumerable &lt; TSource &gt; <span class="keyword">source</span>) &#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">if</span> (<span class="keyword">source</span> == <span class="keyword">null</span>) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="string">&quot;source&quot;</span>);</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// Optimization for ICollection&lt;T&gt; _</span></span><br><span class="line"></span><br><span class="line"> ICollection &lt; TSource &gt; genericCollection = <span class="keyword">source</span> as ICollection &lt; TSource &gt; ;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">if</span> (genericCollection != <span class="keyword">null</span>) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> genericCollection.<span class="keyword">Count</span>;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Optimization for ICollection _</span></span><br><span class="line"></span><br><span class="line"> ICollection nonGenericCollection = <span class="keyword">source</span> as ICollection;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">if</span> (nonGenericCollection != <span class="keyword">null</span>) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> nonGenericCollection.<span class="keyword">Count</span>;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Do it the slow way - and make sure we overflow appropriately _</span></span><br><span class="line"></span><br><span class="line"> checked &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> <span class="keyword">count</span> = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  using(var iterator = <span class="keyword">source</span>.GetEnumerator()) &#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">while</span> (iterator.MoveNext())</span><br><span class="line"></span><br><span class="line">   &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">count</span>++;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">count</span>;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个实现里面唯一的“新”代码就是关于优化的那段。优化代码中的两段基本是一样的，它们检查不同的集合接口类型，哪个检查通过就返回哪个的  Count<br>属性。我不知道  .NET Framework  的实现中是先检查  ICollection  还是先检查  ICollection<T><br>，我可以写一个同时实现了这两个接口，但是在两个  Count<br>属性中返回不同的值的类型来测试一下，但是那么做有点太过了。对于良好实现的集合来说，这点性能差异算不了什么，我们先检查“最有可能”的接口，也就是泛型的<br>ICollection<T> 。</p>
+<p>优化还是不优化？ LongCount  的实现和  Count  的实现几乎完全一样，只是  LongCount  中使用  long  而不是  int  。</p>
+<p>我对  ICollection  和  ICollection<T> 做了优化，但是我不认为  .NET  是如此实现的。（只要创建一个很大的  byte<br>数组，并比较一下  Count  和  LongCount  应用到这个数组上的耗时差距就可以了。）</p>
+<p>关于  <a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/system.array.getlonglength.aspx"> Array.GetLongCount  </a> 的使用存在一些争议，但是我觉得既然现在的  CLR<br>并不支持长度超过  Int32.MaxValue  的数组，那么这个问题现在就没什么好争议的，只有留待以后证明。除此之外，我不知道  .NET<br>的实现为什么没有优化。对一个实现了  ICollection  或  ICollection<T> 接口的类型来说，如果该集合中包含了超过<br>Int32.MaxValue  个元素的话，它的  Count  属性应该返回什么值呢？这一点并不明确。</p>
+<p>欢迎提出各种建议。不过我还是要指出  LongCount  方法可能会更多的应用在  Queryable  中而不是  Enumerable<br>中，获取一个数据库表的长度的场景会比较多见，而获取一个内存中的集合的长度的场景则不那么常见。</p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>这是我们第一次接触返回数值而不是返回一个序列的  LINQ  操作符，很自然，这样的操作符更容易理解。这些方法很简单的执行，做一些优化，然后返回结果值。这些<br>方法虽然简单，但是还是有一些东西很值得思考，比如说优化的问题，可惜优化的问题并没有一个确定的答案。</p>
+<p>下一次我想我会去实现  Concat  ，主要是因为实现了  Concat  就可以把对  Count  进行溢出测试的代码反注释了。  Concat<br>是一个会返回一个序列的操作符，不过它很简单。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://cuipengfei.me/blog/2011/09/05/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects7%20-%20Count%E5%92%8CLongCount/" title="自己动手重新实现LINQ to Objects 7 - Count和LongCount">https://cuipengfei.me/blog/2011/09/05/自己动手重新实现LINQ to Objects7 - Count和LongCount/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/LinQ/" rel="tag"><i class="fa fa-tag"></i> LinQ</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2011/08/31/%E6%B5%85%E6%9E%90%E5%BB%B6%E8%BF%9F%E6%89%A7%E8%A1%8C--%E5%AE%9E%E7%8E%B0%EF%BC%8C%E4%BC%98%E7%82%B9%EF%BC%8C%E9%99%B7%E9%98%B1%E4%BB%A5%E5%8F%8A%E9%A2%98%E5%A4%96%E8%AF%9D/" rel="prev" title="浅析延迟执行--实现，优点，陷阱以及题外话">
+                  <i class="fa fa-angle-left"></i> 浅析延迟执行--实现，优点，陷阱以及题外话
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2011/09/14/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects8%20-%20Concat/" rel="next" title="自己动手重新实现LINQ to Objects 8 - Concat">
+                  自己动手重新实现LINQ to Objects 8 - Concat <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">372k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:38</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

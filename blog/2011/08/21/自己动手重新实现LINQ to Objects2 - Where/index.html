@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本文翻译自   Jon Skeet   的系列博文”Edulinq”。 本篇原文地址： http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;09&#x2F;03&#x2F;reimplementing-linq-to-objects-part-2-quot-where-quot.aspx 提示：本篇文章较长。虽然我选择了一个比">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自己动手重新实现LINQ to Objects 2 - Where">
+<meta property="og:url" content="https://cuipengfei.me/blog/2011/08/21/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects2%20-%20Where/index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="本文翻译自   Jon Skeet   的系列博文”Edulinq”。 本篇原文地址： http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;09&#x2F;03&#x2F;reimplementing-linq-to-objects-part-2-quot-where-quot.aspx 提示：本篇文章较长。虽然我选择了一个比">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2011-08-20T16:20:14.000Z">
+<meta property="article:modified_time" content="2011-08-20T16:20:14.000Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="LinQ">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://cuipengfei.me/blog/2011/08/21/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects2%20-%20Where/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2011/08/21/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects2%20-%20Where/","path":"blog/2011/08/21/自己动手重新实现LINQ to Objects2 - Where/","title":"自己动手重新实现LINQ to Objects 2 - Where"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>自己动手重新实现LINQ to Objects 2 - Where | 崔鹏飞的Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+<script data-ad-client="ca-pub-2529393324217872" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2529393324217872"></script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">崔鹏飞的Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Where-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">Where  是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E4%BB%AC%E8%A6%81%E6%B5%8B%E8%AF%95%E4%BA%9B%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">我们要测试些什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9D%A5%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0%E5%90%A7%EF%BC%81"><span class="nav-number">3.</span> <span class="nav-text">来动手实现吧！</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">查询表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E4%BB%AC%E5%AD%A6%E5%88%B0%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">我们学到了什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E4%B8%8B%E8%BD%BD"><span class="nav-number">6.</span> <span class="nav-text">代码下载</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">174</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener me" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2011/08/21/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects2%20-%20Where/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="自己动手重新实现LINQ to Objects 2 - Where | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          自己动手重新实现LINQ to Objects 2 - Where
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2011-08-21 00:20:14" itemprop="dateCreated datePublished" datetime="2011-08-21T00:20:14+08:00">2011-08-21</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2011/08/21/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects2%20-%20Where/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2011/08/21/自己动手重新实现LINQ to Objects2 - Where/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>本文翻译自  <a target="_blank" rel="noopener" href="http://stackoverflow.com/users/22656/jon-skeet"> Jon Skeet  </a> 的系列博文”Edulinq”。</p>
+<p>本篇原文地址：</p>
+<p><a target="_blank" rel="noopener" href="http://msmvps.com/blogs/jon_skeet/archive/2010/09/03/reimplementing-linq-to-objects-part-2-quot-where-quot.aspx">http://msmvps.com/blogs/jon_skeet&#x2F;archive&#x2F;2010&#x2F;09&#x2F;03&#x2F;reimplementing-linq-to-objects-part-2-quot-where-quot.aspx</a></p>
+<p>提示：本篇文章较长。虽然我选择了一个比较简单的操作符来在本文中实现，不过我们还是会遇到一些特例以及一些与  LINQ<br>相关的原则。因为我还在试着找出表现本文内容的最佳方式，所以本文的排版方式暂时是实验性的。</p>
+<p>我们将要实现“  Where  ”子句（也可以说是方法或操作符）。  Where  在总体上来说比较容易理解，但是涉及到延迟执行和流式处理的部分会有些麻烦。<br>Where  方法是泛型的，不过只有一个类型参数（在我看来这很重要，因为我觉得一个方法的泛型参数越多就越令人难以理解）。哦，对了，我们将在本文开始涉及查询表<br>达式，这算是本文的一点额外猛料。  </p>
+<h1 id="Where-是什么？"><a href="#Where-是什么？" class="headerlink" title="Where  是什么？"></a>Where  是什么？</h1><p>Where  有两个重载：  </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">static</span> IEnumerable &lt; TSource &gt; <span class="built_in">Where</span>(<span class="keyword">this</span> IEnumerable &lt; TSource &gt; source, Func &lt; TSource, <span class="type">bool</span> &gt; predicate)</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="type">static</span> IEnumerable &lt; TSource &gt; <span class="built_in">Where</span>(<span class="keyword">this</span> IEnumerable &lt; TSource &gt; source, Func &lt; TSource, <span class="type">int</span>, <span class="type">bool</span> &gt; predicate)</span><br></pre></td></tr></table></figure>
+
+<p>在开始讲述  Where  方法到底做什么之前，我先指出几点  LINQ  操作符的常识，这些常识适用于几乎所有的  LINQ  操作符：  </p>
+<ul>
+<li><p>LINQ  操作符都是  <a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/bb383977.aspx"> 扩展方法  </a> -  扩展方法要定义在顶层的，非嵌套的静态类型中而且其第一个参数要带有“  this”修饰符。简单来说，扩展方法可以被其第一个参数的实例调用，就好像它是该参数类型的实例方法一样。</p>
+</li>
+<li><p>LINQ  操作符是  <a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/twcad0zb.aspx"> 泛型方法  </a> -  我们要讲的  Where  操作符只有一个叫做  TSource的类型参数，该类型参数指明了要处理的序列的类型。比如说，如果要处理一个  string  的序列，  TSource  就是  string  。</p>
+</li>
+<li><p>LINQ  操作符接受  Func&lt;…&gt; 这一族的泛型委托作为参数，通常以  <a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/bb397687.aspx"> lamdba  表达式</a>的方式提供，不过委托的其他表现形式也都可以作为其参数。</p>
+</li>
+<li><p>LINQ  操作符处理序列。序列以  <a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/9eekhta0.aspx"> IEnumerable<T> </a> 的形式出现，  IEnumerable<T> 中含有一个类型为  <a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/78dfe2yb.aspx"> IEnumerator<T></a> 的迭代器。</p>
+</li>
+</ul>
+<p>我希望本文的读者对以上提及的概念有所了解，所以我就不再深入解释了。如果您对上述内容不够熟悉的话，请在继续读下去之前先去做些功课，否则接下来的内容将让您很难理<br>解。</p>
+<p>Where  的目的是去过滤一个序列。它接受一个输入序列及一个 谓词 _<br>作为参数，返回一个结果序列。输出序列和输入序列的元素类型相同（也就是说如果输入是一个  string  的序列，输出也会是个  string<br>的序列），输出序列中只会包含输入序列中符合谓词条件的元素。（输入序列中的元素会依次被谓词检验。只有谓词返回  true<br>时，一个元素才会被包含在输出序列中。）</p>
+<p>下面是关于  Where  的几个重要的细节：  </p>
+<ul>
+<li><p>Where  不会对输入序列做任何修改：它和  <a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/wdka673a.aspx"> List<T>.RemoveAll </a> 之类的方法不一样。</p>
+</li>
+<li><p>Where  是延迟执行的  -  在你开始读取输出序列中的元素之前，  Where  不会去输入序列中取元素。</p>
+</li>
+<li><p>不过也有一点不是延迟执行的，它会立即检查参数是否为  null 。</p>
+</li>
+<li><p>它以流式处理结果：它每次只处理一个结果元素，它把结果元素  yield  返回而且不会保留其引用。这意味着你可以把  Where应用在一个无限长的序列上（比如说一个随机数的序列）。</p>
+</li>
+<li><p>你每在输出序列上迭代一次，  Where  方法就会在输入序列上迭代一次。</p>
+</li>
+<li><p>如果输出序列的迭代器被  Dispose  掉的话，对应的输入序列的迭代器也会被  Dispose  掉。（  C#   中的  foreach语句会用  try&#x2F;finally  来保障迭代器总是会被  Dispose  调，无论循环是因何种原因结束的。）</p>
+</li>
+</ul>
+<p>以上几点之中的有些对其它的操作符也适用。</p>
+<p>Where  的一个重载形式会接受一个  Func&lt;TSource, int, bool&gt; 作为参数，此重载让谓词中不仅可以访问元素值，还可以访问元素的<br>index  。  Index  总是从  0  开始并且每次递增  1  ，无论之前谓词的结果如何。  </p>
+<h1 id="我们要测试些什么？"><a href="#我们要测试些什么？" class="headerlink" title="我们要测试些什么？"></a>我们要测试些什么？</h1><p>理想情况下，我们要测试上述所有的东西。但是不幸的是，流式处理和序列被迭代多少次的细节测试起来很是麻烦。考虑到我们还要实现那么多的东西，我们以后再去测试那些。</p>
+<p>我们来看看一些测试。首先，看一个“正向”测试  -  有一个整数数组，我们用一个  lambda  表达式来使得输出结果中仅包含小于  4<br>的元素。（“过滤”这个词无处不在，这真是很不幸。“过滤掉”这个说法比“包含”要好理解得多，但是实际上谓词就是以“正向”的方式来处理的。）  </p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Test</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SimpleFiltering</span>()</span></span><br><span class="line">&#123;</span><br><span class="line"> <span class="built_in">int</span>[] source = &#123;</span><br><span class="line">  <span class="number">1</span>,</span><br><span class="line">  <span class="number">3</span>,</span><br><span class="line">  <span class="number">4</span>,</span><br><span class="line">  <span class="number">2</span>,</span><br><span class="line">  <span class="number">8</span>,</span><br><span class="line">  <span class="number">1</span></span><br><span class="line"> &#125;;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">var</span> result = source.Where(x =&gt; x &lt; <span class="number">4</span>);</span><br><span class="line"></span><br><span class="line"> result.AssertSequenceEqual(<span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>虽然  NUnit  中已经有了  CollectionAssert  ，我还是在用  MoreLINQ  中的  TestExtension。有三个原因让我觉得  MoreLINQ  的扩展方法更好用：</p>
+<ul>
+<li><p>扩展方法有助于减轻代码的混乱程度。</p>
+</li>
+<li><p>可以使用变长数组来表示期望的输出，这样更易于表达测试的意图。</p>
+</li>
+<li><p>断言失败的提示信息更清楚。</p>
+</li>
+</ul>
+<p>AssertSequenceEqual 所做的事情看名字就可以猜出来，它检查输出序列（通常就是你调用  AssertSequenceEqual<br>方法时所使用的那个变量）和期望的序列（通常就是作为参数传入的变长数组）是否匹配。</p>
+<p>目前为止进行的还不错。现在来看看参数校验吧：  </p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Test</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">NullSourceThrowsNullArgumentException</span>()</span> &#123;</span><br><span class="line"> IEnumerable &lt; <span class="built_in">int</span> &gt; source = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"> Assert.Throws &lt; ArgumentNullException &gt; (() =&gt; source.Where(x =&gt; x &gt; <span class="number">5</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[<span class="meta">Test</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">NullPredicateThrowsNullArgumentException</span>()</span> &#123;</span><br><span class="line"> <span class="built_in">int</span>[] source = &#123;</span><br><span class="line">  <span class="number">1</span>,</span><br><span class="line">  <span class="number">3</span>,</span><br><span class="line">  <span class="number">7</span>,</span><br><span class="line">  <span class="number">9</span>,</span><br><span class="line">  <span class="number">10</span></span><br><span class="line"> &#125;;</span><br><span class="line"></span><br><span class="line"> Func &lt; <span class="built_in">int</span>, <span class="built_in">bool</span> &gt; predicate = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"> Assert.Throws &lt; ArgumentNullException &gt; (() =&gt; source.Where(predicate));</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>我就不再费劲去检查  ArgumentNullException<br>里面的参数名字了，但是我要测试参数是不是立即被校验的，这一点很重要的。我没有迭代输出结果，所以如果参数校验是延迟执行的，这两个测试将不能通过。</p>
+<p>最后还有一个有趣的测试也是与延迟执行有关的。我们将用一个叫做  ThrowingEnumerable  的  helper<br>类来做这个测试，这个类是一个序列，你一旦迭代它，它就会抛出一个  InvalidOperationException  。这个测试是想要测试两点：  </p>
+<ul>
+<li><p>仅仅调用  Where  不会开始迭代输入序列。</p>
+</li>
+<li><p>调用  GetEnumerator()  来获取迭代器，然后再调用迭代器的  MoveNext()  的话，就开始迭代了，这就会导致一个异常被抛出。</p>
+</li>
+</ul>
+<p>对其它的操作符我们也需要做类似的测试，所以我在  ThrowingEnumerable  里写了一个  helper  方法：  </p>
+<figure class="highlight nim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">internal <span class="keyword">static</span> <span class="type">void</span> <span class="type">AssertDeferred</span> &lt; T &gt; (<span class="type">Func</span> &lt; <span class="type">IEnumerable</span> &lt; <span class="type">int</span> &gt; , <span class="type">IEnumerable</span> &lt; T &gt;&gt; deferredFunction) &#123;</span><br><span class="line"> <span class="type">ThrowingEnumerable</span> source = new <span class="type">ThrowingEnumerable</span>();</span><br><span class="line"></span><br><span class="line"> <span class="keyword">var</span> <span class="built_in">result</span> = deferredFunction(source);</span><br><span class="line"></span><br><span class="line"> <span class="keyword">using</span>(<span class="keyword">var</span> <span class="keyword">iterator</span> = <span class="built_in">result</span>.<span class="type">GetEnumerator</span>()) &#123;</span><br><span class="line">  <span class="type">Assert</span>.<span class="type">Throws</span> &lt; <span class="type">InvalidOperationException</span> &gt; (() =&gt; <span class="keyword">iterator</span>.<span class="type">MoveNext</span>());</span><br><span class="line"> &#125;</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>现在我们就可以测试  Where  是不是延迟执行的了：  </p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[Test]</span><br><span class="line">public  <span class="keyword">void</span>  ExecutionIsDeferred()</span><br><span class="line">&#123;</span><br><span class="line">    ThrowingEnumerable.AssertDeferred(<span class="function"><span class="params">src</span> =&gt;</span> src.Where(<span class="function"><span class="params">x</span> =&gt;</span> x &gt; <span class="number">0</span>  ));</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>以上所示的都是对  Where  的简单重载的测试，也就是那个谓词只能访问元素值而不能访问元素  index  的重载。能够访问  index<br>的那个重载的测试与上述测试非常类似。  </p>
+<h1 id="来动手实现吧！"><a href="#来动手实现吧！" class="headerlink" title="来动手实现吧！"></a>来动手实现吧！</h1><p>原版的  LINQ to Objects  能够通过所有这些测试，现在来实现我们自己的代码吧。我们将会用到  <a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/dscyy5s0.aspx"> 迭代器代码块</a> ，它在  C#  2  中被引入来简化<br>IEnumerable<T> 的实现。如果你想了解更多的背景知识的话，我有  <a target="_blank" rel="noopener" href="http://csharpindepth.com/Articles/Chapter11/StreamingAndIterators.aspx"> 几篇</a> <a target="_blank" rel="noopener" href="http://csharpindepth.com/Articles/Chapter6/IteratorBlockImplementation.aspx"> 文章</a><br>你可以去读一下  …  或者读  C#  in Depth  （第一或第二版都可以）的第六章也可以。迭代器代码块让我们可以很简单的实现延迟执行  …<br>不过它也是一把双刃剑，我们马上就会体会到了。</p>
+<p>Where  的核心部分是这样的：  </p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Naive implementation</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="title">IEnumerable</span> &lt; TSource &gt; <span class="title">Where</span> &lt; TSource &gt; (<span class="params"><span class="keyword">this</span> IEnumerable &lt; TSource &gt; source, Func &lt; TSource, <span class="built_in">bool</span> &gt; predicate</span>)</span> &#123;</span><br><span class="line"> <span class="keyword">foreach</span>(TSource item <span class="keyword">in</span> source) &#123;</span><br><span class="line">  <span class="keyword">if</span> (predicate(item)) &#123;</span><br><span class="line">   <span class="keyword">yield</span></span><br><span class="line">   <span class="keyword">return</span> item;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>很简单，是吧？用迭代器代码块写出来的代码就和用自然语言描述起来差不多：迭代输入序列中的每一个元素，如果谓词在一个元素上返回  true<br>的话，这个元素就可以被  yield  （也就是包含）到输出序列中去。</p>
+<p>诸位请看，有一些单元测试已经可以通过了。现在我们只需要参数校验了。参数校验很简单的，对吧？我们来试试看：  </p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Naive validation - broken!</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="title">IEnumerable</span> &lt; TSource &gt; <span class="title">Where</span> &lt; TSource &gt; (<span class="params"><span class="keyword">this</span> IEnumerable &lt; TSource &gt; source, Func &lt; TSource, <span class="built_in">bool</span> &gt; predicate</span>)</span></span><br><span class="line">&#123;</span><br><span class="line"> <span class="keyword">if</span> (source == <span class="literal">null</span>) &#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="string">&quot;source&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">if</span> (predicate == <span class="literal">null</span>) &#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="string">&quot;predicate&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">foreach</span>(TSource item <span class="keyword">in</span> source) &#123;</span><br><span class="line">  <span class="keyword">if</span> (predicate(item)) &#123;</span><br><span class="line">   <span class="keyword">yield</span></span><br><span class="line">   <span class="keyword">return</span> item;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>呃。测试亮起了红灯，通不过，在“  throw  ”的那一句上设断点也没用  …  断点根本就执行不到。怎么回事儿？</p>
+<p>我之前已经给出过很明显的提示了。导致问题的就是延迟执行。在返回值被迭代之前， 我们的代码不会被执行。我们的代码故意的 没有 _<br>去迭代返回值，所以参数校验也不会被执行。</p>
+<p>我们遇到了一个  C#   设计上的缺陷。  C#   中的迭代器代码块不能很好的对“立即执行”（通常用来做参数校验）和“延迟执行”作出分离。我们必须得把我们上<br>述的实现分为两个方法：第一个方法做参数校验，第二个方法含有迭代器代码块，用来实现延迟执行，第一个方法会调用第二个方法：  </p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="title">IEnumerable</span> &lt; TSource &gt; <span class="title">Where</span> &lt; TSource &gt; (<span class="params"><span class="keyword">this</span> IEnumerable &lt; TSource &gt; source, Func &lt; TSource, <span class="built_in">bool</span> &gt; predicate</span>)</span> &#123;</span><br><span class="line"> <span class="keyword">if</span> (source == <span class="literal">null</span>) &#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="string">&quot;source&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">if</span> (predicate == <span class="literal">null</span>) &#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="string">&quot;predicate&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">return</span> WhereImpl(source, predicate);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="title">IEnumerable</span> &lt; TSource &gt; <span class="title">WhereImpl</span> &lt; TSource &gt; (<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function"> <span class="keyword">this</span> IEnumerable &lt; TSource &gt; source,</span></span></span><br><span class="line"><span class="params"><span class="function"> Func &lt; TSource, <span class="built_in">bool</span> &gt; predicate</span>)</span> &#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">foreach</span>(TSource item <span class="keyword">in</span> source) &#123;</span><br><span class="line">  <span class="keyword">if</span> (predicate(item)) &#123;</span><br><span class="line">   <span class="keyword">yield</span></span><br><span class="line">   <span class="keyword">return</span> item;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样的代码很丑陋，但是能用：所有的针对于  Where  的简单重载（不含有  index  ）的测试都可以通过了。有了现在的基础，要实现  Where<br>的含有  index  的重载也就很简单了：  </p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="title">IEnumerable</span> &lt; TSource &gt; <span class="title">Where</span> &lt; TSource &gt; (<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function"> <span class="keyword">this</span> IEnumerable &lt; TSource &gt; source,</span></span></span><br><span class="line"><span class="params"><span class="function"> Func &lt; T, <span class="built_in">int</span>, <span class="built_in">bool</span> &gt; predicate</span>)</span> &#123;</span><br><span class="line"> <span class="keyword">if</span> (source == <span class="literal">null</span>) &#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="string">&quot;source&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">if</span> (predicate == <span class="literal">null</span>) &#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="string">&quot;predicate&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">return</span> WhereImpl(source, predicate);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="title">IEnumerable</span> &lt; TSource &gt; <span class="title">WhereImpl</span> &lt; TSource &gt; (<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function"> <span class="keyword">this</span> IEnumerable &lt; TSource &gt; source,</span></span></span><br><span class="line"><span class="params"><span class="function"> Func &lt; TSource, <span class="built_in">int</span>, <span class="built_in">bool</span> &gt; predicate</span>)</span> &#123;</span><br><span class="line"></span><br><span class="line"> <span class="built_in">int</span> index = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">foreach</span>(TSource item <span class="keyword">in</span> source) &#123;</span><br><span class="line">  <span class="keyword">if</span> (predicate(item, index)) &#123;</span><br><span class="line">   <span class="keyword">yield</span></span><br><span class="line">   <span class="keyword">return</span> item;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  index++;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>现在所有单元测试都通过了，我们的实现完成了。不过等一下  …  我们还没有无所不用其极的使用  Where  呢。  </p>
+<h1 id="查询表达式"><a href="#查询表达式" class="headerlink" title="查询表达式"></a>查询表达式</h1><p>到目前为止，我们都是在直接的调用  Where  方法（尽管是以扩展方法的形式出现的），不过  LINQ  可是还给我们提供了查询表达式的。下面是“<br>SimpleFiltering  ”那个测试的重写版本，其中用到了查询表达式：  </p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Test</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">QueryExpressionSimpleFiltering</span>()</span> &#123;</span><br><span class="line"> <span class="built_in">int</span>[] source = &#123;</span><br><span class="line">  <span class="number">1</span>,</span><br><span class="line">  <span class="number">3</span>,</span><br><span class="line">  <span class="number">4</span>,</span><br><span class="line">  <span class="number">2</span>,</span><br><span class="line">  <span class="number">8</span>,</span><br><span class="line">  <span class="number">1</span></span><br><span class="line"> &#125;;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">var</span> result = <span class="keyword">from</span> x <span class="keyword">in</span> source</span><br><span class="line"></span><br><span class="line"> <span class="keyword">where</span> x &lt; <span class="number">4</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">select</span> x;</span><br><span class="line"></span><br><span class="line"> result.AssertSequenceEqual(<span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（本博文中出现的方法名和下载到的代码中的不同，因为方法名中含有博客服务器的敏感词。呃。）</p>
+<p>以上代码会和我们先前的测试产出 完全相同的  IL 代码。编译器会把这种查询表达式的形式转译成调用方法的形式，并把用  lambda<br>表达式写出来的条件判断（  x &lt; 4  ）转换成一个委托。你可能会感到有点惊讶，因为我们还没有实现  Select  方法呢  …<br>不过我们现在用到的  select<br>投影操作实际上是不做任何事情的；我们并没有做任何真正的投影变换。这种情况下，只要查询表达式中含有任意其他的查询（上述代码中，这个查询就是  Where<br>）在内，编译器就会把“  select  ”从句忽略掉，这样的话我们没有实现  select  也就无关紧要了。如果你把“  select x  ”改写成“<br>select x * 2  ”的话，将无法通过编译，因为我们的  LINQ  实现中只有  Where  。</p>
+<p>查询表达式是基于上述这种模式的，这一强大的特性使得它极具灵活性。举例来说，  LINQ to Rx<br>就是基于这一点才能做到仅需实现对其应用场景有意义的操作符的。与此类似，  C#   编译器在处理查询表达式的时候并不需要知晓任何与<br>IEnumerable<T> 有关的东西，也正是如此，像  IObservable<T> 这样的完全与  IEnumerable<T><br>无关的接口也可以得以应用。  </p>
+<h1 id="我们学到了什么？"><a href="#我们学到了什么？" class="headerlink" title="我们学到了什么？"></a>我们学到了什么？</h1><p>本文中有不少不太好理解的东西，其中与我们的实现和  LINQ  核心原则有关的是：  </p>
+<ul>
+<li><p>LINQ to Objects  是基于扩展方法，委托还有  IEnumetable<T> 的。</p>
+</li>
+<li><p>条件允许的话，  LINQ  操作符会尽量利用延迟执行和流式处理。</p>
+</li>
+<li><p>LINQ  操作符不会改变输入序列，而是会返回一个包含符合条件的元素的新序列。</p>
+</li>
+<li><p>查询表达式基于编译器对一些模式的解释；你要用到的查询表达式和哪些模式相关，你就只需要实现那些模式就可以了，无需多劳。</p>
+</li>
+<li><p>迭代器代码块很适合用来实现延迟执行  …</p>
+</li>
+<li><p>…  但是它也使得需要立即执行的参数校验变得很难搞。</p>
+</li>
+</ul>
+<h1 id="代码下载"><a href="#代码下载" class="headerlink" title="代码下载"></a>代码下载</h1><p><a target="_blank" rel="noopener" href="http://yoda.arachsys.com/blogfiles/csharp/l2o/Linq-To-Objects-2.zip"> Linq-To-Objects-2.zip  </a></p>
+<p>很多人要求给本项目建一个源码管理服务器，这件事正在进行中；大概下一篇博文之前就可以完成。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://cuipengfei.me/blog/2011/08/21/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects2%20-%20Where/" title="自己动手重新实现LINQ to Objects 2 - Where">https://cuipengfei.me/blog/2011/08/21/自己动手重新实现LINQ to Objects2 - Where/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/LinQ/" rel="tag"><i class="fa fa-tag"></i> LinQ</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2011/08/19/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects1%20-%20%E5%BC%95%E8%A8%80/" rel="prev" title="自己动手重新实现LINQ to Objects 1 - 引言">
+                  <i class="fa fa-angle-left"></i> 自己动手重新实现LINQ to Objects 1 - 引言
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects3%20-%20Select/" rel="next" title="自己动手重新实现LINQ to Objects 3 - Select">
+                  自己动手重新实现LINQ to Objects 3 - Select <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">372k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:38</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

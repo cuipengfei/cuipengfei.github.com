@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="原文地址：https:&#x2F;&#x2F;blog.cleancoder.com&#x2F;uncle-bob&#x2F;2018&#x2F;04&#x2F;13&#x2F;FPvsOO.html 原作者：Robert C. Martin (Uncle Bob) 在过去的几年中，我通过与人结对来学习函数式编程，他们中的很多人表达了反对OO的偏见。他们经常会说：“啊，这太像对象了。” 他们会这样说是因为他们认为FP和OO在某种程度上是互斥的。许多人似乎认为程序FP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[译] FP vs OO">
+<meta property="og:url" content="https://cuipengfei.me/blog/2019/11/03/fp-vs-oo/index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="原文地址：https:&#x2F;&#x2F;blog.cleancoder.com&#x2F;uncle-bob&#x2F;2018&#x2F;04&#x2F;13&#x2F;FPvsOO.html 原作者：Robert C. Martin (Uncle Bob) 在过去的几年中，我通过与人结对来学习函数式编程，他们中的很多人表达了反对OO的偏见。他们经常会说：“啊，这太像对象了。” 他们会这样说是因为他们认为FP和OO在某种程度上是互斥的。许多人似乎认为程序FP">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-03T04:39:00.000Z">
+<meta property="article:modified_time" content="2019-11-03T04:39:00.000Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="Uncle Bob">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://cuipengfei.me/blog/2019/11/03/fp-vs-oo/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2019/11/03/fp-vs-oo/","path":"blog/2019/11/03/fp-vs-oo/","title":"[译] FP vs OO"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>[译] FP vs OO | 崔鹏飞的Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+<script data-ad-client="ca-pub-2529393324217872" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2529393324217872"></script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">崔鹏飞的Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFOO%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">什么是OO？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFFP%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">什么是FP？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FP-vs-OO"><span class="nav-number">3.</span> <span class="nav-text">FP vs OO</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">174</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener me" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2019/11/03/fp-vs-oo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="[译] FP vs OO | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [译] FP vs OO
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-11-03 12:39:00" itemprop="dateCreated datePublished" datetime="2019-11-03T12:39:00+08:00">2019-11-03</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2019/11/03/fp-vs-oo/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2019/11/03/fp-vs-oo/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>原文地址：<a target="_blank" rel="noopener" href="https://blog.cleancoder.com/uncle-bob/2018/04/13/FPvsOO.html">https://blog.cleancoder.com/uncle-bob/2018/04/13/FPvsOO.html</a></p>
+<p>原作者：Robert C. Martin (Uncle Bob)</p>
+<p>在过去的几年中，我通过与人结对来学习函数式编程，他们中的很多人表达了反对OO的偏见。他们经常会说：“啊，这太像对象了。”</p>
+<p>他们会这样说是因为他们认为FP和OO在某种程度上是互斥的。许多人似乎认为程序FP的程度等同于其非OO的程度。我认为这种观点是学习新事物的自然结果。</p>
+<p>当我们采用一种新技术时，我们通常倾向于避开以前使用的旧技术。这很自然，因为我们认为新技术“更好”，因此旧技术就一定是“更糟”的。</p>
+<p>在此博客中，我将说明OO和FP是正交的，但它们并不互斥。一个好的函数式程序可以（并且应该）是面向对象的。而且一个好的面向对象程序可以（并且应该）是函数式的。在此之前，我们必须非常谨慎地给FP和OO这两个词语下个定义。</p>
+<h1 id="什么是OO？"><a href="#什么是OO？" class="headerlink" title="什么是OO？"></a>什么是OO？</h1><p>我将在这里采取非常还原主义的立场。OO有许多有效的定义，涵盖了丰富的概念，原理，技术，模式和哲学。在这里，我将忽略所有这些内容，而将重点放在最基础的东西上。我采取这种还原主义的原因是，很多围绕着OO的丰富特性实际上根本不是OO所特有的，而是整体软件开发丰富性的一部分。在这里，我将重点介绍面向对象不可分割的那部分。</p>
+<p>看看以下两个表达式：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>：<span class="built_in">f</span>(o);</span><br><span class="line"><span class="number">2</span>：o<span class="selector-class">.f</span>();</span><br></pre></td></tr></table></figure>
+
+<p>有什么区别？</p>
+<p>显然，没有实际的语义差异。差异完全在语法上。但是一个看起来是FP的，另一个看起来是OO的。这是因为我们会推断表达式2具有特殊的语义行为，同时我们推断表达式1不具有这种特殊语义行为。这种特殊语义行为就是：多态性。</p>
+<p>当我们看到表达式1时，我们看到名为f的函数被应用在了o上。我们推断只有一个名为f的函数，并且它可能不是围绕着o的标准函数中的一员。</p>
+<p>另一方面，当我们看到表达式2时，我们看到一个名为f的消息被发送给了一个名为o的对象。我们推测可能还有其他类型的对象可以接受该消息f，因此我们不知道被调用的f具体是哪一个。<strong>其行为取决于o的类型，即f是多态的。</strong></p>
+<p>对多态性的这种预期是OO编程的本质。这是还原论的定义；它与OO密不可分。没有多态性的OO不是OO。OO的所有其他属性，例如封装的数据，绑定到该数据的方法，甚至继承，与表达式1的关系要比与表达式2的关系更多。</p>
+<p>C和Pascal程序员（甚至在某种程度上甚至包括Fortran和Cobol程序员）都创建了包含封装函数和数据结构的系统。要创建和使用这种封装的结构并不一定非得需要OO语言。封装，甚至简单的继承，在此类语言中都是显而易见且自然的。（在C和Pascal中比其他更自然。）</p>
+<p>因此，真正将OO程序与非OO程序区分开的是多态性。</p>
+<p>您可能会说可以通过在f内部使用switch语句或if&#x2F;else来实现多态。的确如此，因此我必须向OO添加一个约束。</p>
+<blockquote>
+<p>多态机制一定不能创建从调用方到被调用方的源码依赖关系。</p>
+</blockquote>
+<p>为了解释这一点，请再次看看上文的两个表达式。表达式1：f(o)似乎对f函数的源码有依赖。我们之所以如此推断是因为我们推断只有一个f，所以调用者必须认识被调用者。</p>
+<p>但是，当我们看表达式2时，从o.f()我们推断出一些不同的东西。我们知道可能会有很多个f的实现，而且我们不知道真正要被调用到的是其中哪个。因此表达式2对于f函数的源码没有依赖。</p>
+<p>具体来说，这意味着包含对函数进行多态调用的模块（源文件）绝对不能以任何方式引用包含这些函数实现的模块（源文件）。不可以有任何include或use或require或任何其它这样的声明使得一个源文件依赖另一个。</p>
+<p>因此，我们对OO的简化定义是：</p>
+<blockquote>
+<p>调用者的源码对于被调用者的源码不产生依赖的一种动态多态技巧。</p>
+</blockquote>
+<h1 id="什么是FP？"><a href="#什么是FP？" class="headerlink" title="什么是FP？"></a>什么是FP？</h1><p>同样，我将采用还原主义。FP具有悠久的历史和传统，可追溯到软件之外的其他领域。FP范式里存在很多原理，技术，定理，哲学和概念。我将忽略所有这些内容，直接进入将FP与任何其他范式区分开的不可分割的属性。简而言之，就是：</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当 a<span class="operator">=</span><span class="operator">=</span>b 时 f(a)<span class="operator">=</span><span class="operator">=</span>f(b)</span><br></pre></td></tr></table></figure>
+
+<p>在函数式程序中，每次调用同一个函数并给出同一个参数时，都会得到相同的结果。无论程序执行了多长时间。这叫做引用透明性。</p>
+<p>这意味着函数f不可以更改任何影响函数f行为方式的全局状态。而且，如果我们说函数f可以代表系统中的所有函数 – 系统中的所有函数都必须是引用透明的 – 那么系统中的任何函数都无法改变任何全局状态。系统中的任何函数都无法执行任何操作，来导致系统中的另一个函数对相同的输入返回不同的值。</p>
+<p>其更深的含义是，任何命名值都无法更改。也就是说，不能有赋值运算符。</p>
+<p>现在，如果您仔细地考虑一下，您可能会得出这样的结论：仅由引用透明的函数组成的程序根本无法执行任何操作-因为任何有用的系统行为都会改变某些事物的状态。即使只是打印机或显示器的状态。但是，如果我们从引用透明性约束中排除硬件以及外界的任何元素，那么事实证明我们确实可以创建非常有用的系统。</p>
+<p>诀窍当然是递归。考虑一个以state数据结构作为参数的函数。此参数包含函数工作需要的所有状态信息。该函数将创建一个新的state，里面包含更新过的值。该函数做的最后一件事就是调用它自己并把新的state作为参数传递进去。</p>
+<p>这是函数式程序可以用来跟踪内部状态的变化而无需真正改变任何内部状态的简单技巧之一。</p>
+<p>因此，函数式编程的简化定义为：</p>
+<blockquote>
+<p>引用透明 – 没有重新赋值。</p>
+</blockquote>
+<h1 id="FP-vs-OO"><a href="#FP-vs-OO" class="headerlink" title="FP vs OO"></a>FP vs OO</h1><p>现在OO和FP社区都要向我开炮了。还原主义不是赢得朋友的好方法。但这有时很有用。我认为有必要在似乎正在传播的FP vs OO的迷因上说两句。</p>
+<p>显然，我选择的两个归约定义是完全正交的。多态和引用透明之间没有任何关系。它们之间没有交集。</p>
+<p>但是正交并不意味着相互排斥（问问麦克斯韦就知道了）。建立同时使用动态多态性和引用透明性的系统是完全可能的。不仅可能，而且是可取的！</p>
+<p>为什么是可取的？二者各自独立可取，合一仍可取！我们希望系统具有动态多态性，为了解耦。依赖关系可以跨架构边界反转。可以使用Mocks and Fakes和其他类型的Test Doubles进行测试。可以在不强制更改其他模块的情况下修改模块。这使得系统更易于更改和改进。</p>
+<p>我们还希望系统具有引用透明性，为了可预测性。无法更改内部状态使系统更易于理解，更改和改进。它大大减少了竞态和其他并发更新问题的机会。</p>
+<p>底线是：</p>
+<p>没有FP vs OO。</p>
+<p>FP和OO可以很好地合作。这两个属性都是现代系统所希望具有的。同时基于OO和FP原理构建的系统将最大限度地提高灵活性，可维护性，可测试性，简单性和健壮性。排斥一个赞成另一个只会削弱系统的结构。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://cuipengfei.me/blog/2019/11/03/fp-vs-oo/" title="[译] FP vs OO">https://cuipengfei.me/blog/2019/11/03/fp-vs-oo/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Uncle-Bob/" rel="tag"><i class="fa fa-tag"></i> Uncle Bob</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2019/06/20/zxz-swd/" rel="prev" title="被诅咒的与被祝福的">
+                  <i class="fa fa-angle-left"></i> 被诅咒的与被祝福的
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2019/12/06/in-the-large/" rel="next" title="「译」大规模敏捷">
+                  「译」大规模敏捷 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">372k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:38</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

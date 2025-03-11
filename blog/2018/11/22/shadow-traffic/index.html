@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="随着持续集成，持续交付等理念的传播，很多软件开发团队都搭建了自己的staging、UAT等类生产环境。这些环境的软硬件及网络配置会尽量贴近真实的生产环境，起到沙盘演练的作用。 类生产环境毕竟前面还有一个类字，沙盘毕竟不是真实的战场，尽量贴近毕竟还不是完全吻合。 类生产环境与真实生产环境的一个重要差异就是访问量。稍具规模的互联网应用每天几百万访问量是很正常的，而类生产环境的访问量一般都会相形见绌。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="让你的系统在上线之前就接受炮火的洗礼-影子流量">
+<meta property="og:url" content="https://cuipengfei.me/blog/2018/11/22/shadow-traffic/index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="随着持续集成，持续交付等理念的传播，很多软件开发团队都搭建了自己的staging、UAT等类生产环境。这些环境的软硬件及网络配置会尽量贴近真实的生产环境，起到沙盘演练的作用。 类生产环境毕竟前面还有一个类字，沙盘毕竟不是真实的战场，尽量贴近毕竟还不是完全吻合。 类生产环境与真实生产环境的一个重要差异就是访问量。稍具规模的互联网应用每天几百万访问量是很正常的，而类生产环境的访问量一般都会相形见绌。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.zhimg.com/v2-49cb80cd0d2e1b2d6731d9e459e1fab0_b.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-49cb80cd0d2e1b2d6731d9e459e1fab0_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-b5c81fcbbacd543e508e161578f892eb_b.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-b5c81fcbbacd543e508e161578f892eb_hd.jpg">
+<meta property="article:published_time" content="2018-11-22T02:03:00.000Z">
+<meta property="article:modified_time" content="2018-11-22T02:03:00.000Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="shadow traffic">
+<meta property="article:tag" content="ops">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.zhimg.com/v2-49cb80cd0d2e1b2d6731d9e459e1fab0_b.jpg">
+
+
+<link rel="canonical" href="https://cuipengfei.me/blog/2018/11/22/shadow-traffic/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2018/11/22/shadow-traffic/","path":"blog/2018/11/22/shadow-traffic/","title":"让你的系统在上线之前就接受炮火的洗礼-影子流量"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>让你的系统在上线之前就接受炮火的洗礼-影子流量 | 崔鹏飞的Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+<script data-ad-client="ca-pub-2529393324217872" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2529393324217872"></script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">崔鹏飞的Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">实现方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">2.</span> <span class="nav-text">适用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E7%94%A8%E6%97%B6%E6%9C%BA"><span class="nav-number">3.</span> <span class="nav-text">启用时机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E5%A5%97%E6%9C%BA%E5%88%B6"><span class="nav-number">4.</span> <span class="nav-text">配套机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E7%9B%91%E6%8E%A7"><span class="nav-number">5.</span> <span class="nav-text">基础设施监控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%BF%97"><span class="nav-number">6.</span> <span class="nav-text">日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E6%B8%B8%E7%B3%BB%E7%BB%9F%E7%9A%84%E9%85%8D%E5%90%88"><span class="nav-number">7.</span> <span class="nav-text">下游系统的配合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%B3%95%E5%8F%98%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">用法变式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E6%8C%91%E5%8F%96"><span class="nav-number">9.</span> <span class="nav-text">请求挑取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="nav-number">10.</span> <span class="nav-text">流量控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E6%92%AD"><span class="nav-number">11.</span> <span class="nav-text">重播</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">12.</span> <span class="nav-text">小结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">174</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener me" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2018/11/22/shadow-traffic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="让你的系统在上线之前就接受炮火的洗礼-影子流量 | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          让你的系统在上线之前就接受炮火的洗礼-影子流量
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-22 10:03:00" itemprop="dateCreated datePublished" datetime="2018-11-22T10:03:00+08:00">2018-11-22</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2018/11/22/shadow-traffic/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2018/11/22/shadow-traffic/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>随着持续集成，持续交付等理念的传播，很多软件开发团队都搭建了自己的staging、UAT等<strong>类生产环境</strong>。这些环境的软硬件及网络配置会尽量贴近真实的生产环境，起到沙盘演练的作用。</p>
+<p>类生产环境毕竟前面还有一个类字，沙盘毕竟不是真实的战场，尽量贴近毕竟还不是完全吻合。</p>
+<p>类生产环境与真实生产环境的一个<strong>重要差异</strong>就是访问量。稍具规模的互联网应用每天几百万访问量是很正常的，而类生产环境的访问量一般都会相形见绌。</p>
+<p>有各种工具可以弥合这个差异，比如Apache JMeter，Gatling。测试人员可以和开发人员一起设计测试用例，以自动化或者半自动化的方式对类生产环境进行<strong>压力测试</strong>。</p>
+<p><strong>不过</strong>即便是精心设计出来的用例也还是用例，不是真实请求。真实请求具有<strong>多样性</strong>，会随着昼夜交替而变化，会随着时事热点而波动，这是很难用工具模拟出来的。</p>
+<p>这就引出了这篇文章的主角-影子流量（shadow traffic）。</p>
+<p>简言之，影子流量（shadow traffic）就是将发给生产环境的请求<strong>复制</strong>一份<strong>转发</strong>到类生产环境上去，以此来达到压力测试和正确性测试的目的。</p>
+<p>这就如同把真实战场上的敌方炮火投放到演习场里去。</p>
+<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><p>Shadow traffic通常有两种实现方式：服务端实现，客户端实现。</p>
+<p>下图描述的是服务端实现的简化示例。</p>
+<p><img data-src="https://pic1.zhimg.com/v2-49cb80cd0d2e1b2d6731d9e459e1fab0_b.jpg"></p>
+<p><img data-src="https://pic1.zhimg.com/80/v2-49cb80cd0d2e1b2d6731d9e459e1fab0_hd.jpg"></p>
+<p>生产环境接收到来自于用户<strong>或者</strong>是上游系统的请求，在响应该请求的同时，将这个请求原封不动的也发送给类生产环境。</p>
+<p>下图描述的是客户端的实现。</p>
+<p><img data-src="https://pic4.zhimg.com/v2-b5c81fcbbacd543e508e161578f892eb_b.jpg"></p>
+<p><img data-src="https://pic4.zhimg.com/80/v2-b5c81fcbbacd543e508e161578f892eb_hd.jpg"></p>
+<p>客户设备<strong>或者</strong>上游系统在发给生产环境请求的同时，给类生产环境也发送一个一模一样的请求。</p>
+<p>这两种实现方式各有优劣，放到服务端做可以减少客户端设备的流量消耗，这一点对于移动应用很重要。</p>
+<p>客户端的实现则较简单，通常只需要几行代码即可。如果后端架构较复杂，则可以选择前端实现。</p>
+<p>无论前端还是后端实现，都需要遵循发射后不管(<strong>fire and forget</strong>)的原则，以免阻塞正常流程或者增加响应时间。</p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><p>笼统来说，shadow traffic可以适用于所有互联网应用。而在以下场景中，shadow traffic的作用格外明显：</p>
+<ul>
+<li>要用新系统替换掉老旧系统</li>
+<li>系统经历了大规模改造，直接上线面对客户风险较大</li>
+<li>系统更新，需要提供向后兼容性</li>
+<li>试验性质的架构调整</li>
+</ul>
+<p>在以上场景运用shadow traffic，可以在不影响终端用户的情况下完成验证与测试。</p>
+<h2 id="启用时机"><a href="#启用时机" class="headerlink" title="启用时机"></a>启用时机</h2><p>在上线之前一段时间集中地进行测试固然是一种可行的方式，不过我个人更倾向于在项目运转的早期引入shadow traffic。</p>
+<p>这样做可以让开发团队尽早的并且持续的接触到真实的外界压力。相当于用一种成本并不怎么高的方式构建出了具有产品运维经验的开发团队。</p>
+<h2 id="配套机制"><a href="#配套机制" class="headerlink" title="配套机制"></a>配套机制</h2><p>Shadow traffic的原理和实现方式并不深奥，但要让它发挥出应有的价值还需要一些前期工作的配合。</p>
+<h2 id="基础设施监控"><a href="#基础设施监控" class="headerlink" title="基础设施监控"></a>基础设施监控</h2><p>要了解系统的表现，基础设施监控是必不可少的。</p>
+<p>上图是我所经历过的一个项目的可视化监控界面。监控范围涵盖了docker container的数量，请求数量，响应时间，以4或者5打头的HTTP状态码的数量，网络、内存、CPU用量等等。</p>
+<p>通过如上的可视化图表，开发团队可以实时得到反馈。</p>
+<h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><p>基础设施监控可以提供一个外部视角，日志则能够窥见应用内部。</p>
+<p>日志可以帮助开发团队定位shadow traffic中发现的问题，shadow traffic也可以促使开发团队提升日志的质量。这二者可以起到双向的积极促进作用。</p>
+<h2 id="下游系统的配合"><a href="#下游系统的配合" class="headerlink" title="下游系统的配合"></a>下游系统的配合</h2><p>如果一个系统开启了shadow traffic，可以想见它的下游系统所面对的压力也会陡升。</p>
+<p>这时有必要与下游系统负责团队做好事先沟通。</p>
+<h2 id="用法变式"><a href="#用法变式" class="headerlink" title="用法变式"></a>用法变式</h2><p>Shadow traffic并非是一成不变的技术实践，可以按需微调。</p>
+<h2 id="请求挑取"><a href="#请求挑取" class="headerlink" title="请求挑取"></a>请求挑取</h2><p>并非每一个请求都有被转发的必要。可以优先选取流量大或者业务价值高的请求。</p>
+<h2 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h2><p>如果想做极限压力测试，可以把每一个请求重复发送多次给类生产环境。</p>
+<p>当然也可以只挑取10%的请求来发送给类生产环境，随着团队信心的提升而逐步升高。</p>
+<h2 id="重播"><a href="#重播" class="headerlink" title="重播"></a>重播</h2><p>可以截取并保存每天尖峰时刻的请求，在其他时段反复重播。</p>
+<p>这种考验可以有效的锻炼团队的心理素质，并促使团队形成应急预案。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>如果明天要上线，今天会是一个让人惴惴不安的日子。</p>
+<p>系统性能表现如何？会不会有奇形怪状的用户行为导致系统异常？与上下游系统的衔接会不会出现问题？</p>
+<p>这些问题的答案，可以通过测试人员的精心模拟来寻找。但仍难免会挂一漏万。</p>
+<p>启用shadow traffic，如果开发团队可以习惯于有shadow traffic的日常，也就具有了应对线上运维问题的能力。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://cuipengfei.me/blog/2018/11/22/shadow-traffic/" title="让你的系统在上线之前就接受炮火的洗礼-影子流量">https://cuipengfei.me/blog/2018/11/22/shadow-traffic/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/shadow-traffic/" rel="tag"><i class="fa fa-tag"></i> shadow traffic</a>
+              <a href="/tags/ops/" rel="tag"><i class="fa fa-tag"></i> ops</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2018/10/21/JIN-RI-JIAN-SHI/" rel="prev" title="今日简史">
+                  <i class="fa fa-angle-left"></i> 今日简史
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2019/01/06/2019-1-6-island-economy/" rel="next" title="小岛经济学">
+                  小岛经济学 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">372k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:38</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

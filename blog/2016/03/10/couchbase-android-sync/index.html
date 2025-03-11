@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="背景Wifi，4G，3G，这些我们习以为常的东西，未必对所有人来说都是随时可用的。 以我当前所在项目为例，应用场景是某欠发达地区医疗服务机构的药品库存管理。 所谓欠发达，具体怎样呢？  没有台式电脑 没有笔记本 只能使用低端的安卓平板 4G，3G信号不要想 我们去过现场的一位同事甚至要爬到树上去，才能勉强收到2G信号 即便是2G信号，也是时断时续，非常不稳定  因此，需要随时保持连通的BS结构基本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用CouchBase为弱网环境构建云同步Android应用">
+<meta property="og:url" content="https://cuipengfei.me/blog/2016/03/10/couchbase-android-sync/index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="背景Wifi，4G，3G，这些我们习以为常的东西，未必对所有人来说都是随时可用的。 以我当前所在项目为例，应用场景是某欠发达地区医疗服务机构的药品库存管理。 所谓欠发达，具体怎样呢？  没有台式电脑 没有笔记本 只能使用低端的安卓平板 4G，3G信号不要想 我们去过现场的一位同事甚至要爬到树上去，才能勉强收到2G信号 即便是2G信号，也是时断时续，非常不稳定  因此，需要随时保持连通的BS结构基本">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img2.cache.netease.com/cnews/2009/2/2/20090202093425b68f3.jpg">
+<meta property="og:image" content="https://camo.githubusercontent.com/c1aa705fde3eb12245c06730d850c23e5a84ad8d/687474703a2f2f746c657964656e2d6d6973632e73332e616d617a6f6e6177732e636f6d2f636f756368626173652d6c6974652f636f756368626173652d6c6974652d6172636869746563747572652e706e67">
+<meta property="article:published_time" content="2016-03-10T02:26:00.000Z">
+<meta property="article:modified_time" content="2016-03-10T02:26:00.000Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img2.cache.netease.com/cnews/2009/2/2/20090202093425b68f3.jpg">
+
+
+<link rel="canonical" href="https://cuipengfei.me/blog/2016/03/10/couchbase-android-sync/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2016/03/10/couchbase-android-sync/","path":"blog/2016/03/10/couchbase-android-sync/","title":"利用CouchBase为弱网环境构建云同步Android应用"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>利用CouchBase为弱网环境构建云同步Android应用 | 崔鹏飞的Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+<script data-ad-client="ca-pub-2529393324217872" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2529393324217872"></script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">崔鹏飞的Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">3.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CouchBase"><span class="nav-number">4.</span> <span class="nav-text">CouchBase</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%8E%9F%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">一个原型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5"><span class="nav-number">5.1.</span> <span class="nav-text">第一步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5"><span class="nav-number">5.2.</span> <span class="nav-text">第二步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5"><span class="nav-number">5.3.</span> <span class="nav-text">第三步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5"><span class="nav-number">5.4.</span> <span class="nav-text">第四步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E6%AD%A5"><span class="nav-number">5.5.</span> <span class="nav-text">第五步</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">174</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener me" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2016/03/10/couchbase-android-sync/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="利用CouchBase为弱网环境构建云同步Android应用 | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          利用CouchBase为弱网环境构建云同步Android应用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-03-10 10:26:00" itemprop="dateCreated datePublished" datetime="2016-03-10T10:26:00+08:00">2016-03-10</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2016/03/10/couchbase-android-sync/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2016/03/10/couchbase-android-sync/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>Wifi，4G，3G，这些我们习以为常的东西，未必对所有人来说都是随时可用的。</p>
+<p>以我当前所在项目为例，应用场景是某欠发达地区医疗服务机构的药品库存管理。</p>
+<p>所谓欠发达，具体怎样呢？</p>
+<ul>
+<li>没有台式电脑</li>
+<li>没有笔记本</li>
+<li>只能使用低端的安卓平板</li>
+<li>4G，3G信号不要想</li>
+<li>我们去过现场的一位同事甚至要爬到树上去，才能勉强收到2G信号<br><img data-src="http://img2.cache.netease.com/cnews/2009/2/2/20090202093425b68f3.jpg" alt="tree"></li>
+<li>即便是2G信号，也是时断时续，非常不稳定</li>
+</ul>
+<p>因此，需要随时保持连通的BS结构基本不可行，我们选择了重度依赖移动端设备本地存储的CS结构（胖客户端）。</p>
+<p>网络不可用时，库存变动存储在安卓本地，何时网络可用，再将数据与服务器同步。</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>以上描述的解决方案似乎合情合理，但是真实实施中还是遇到不少问题：</p>
+<ul>
+<li>本地schema与服务器schema不一致，中间涉及数据转换与回转</li>
+<li>本地到服务器的同步数据流动链条过长（本地orm-&gt;本地Json serialization-&gt;服务器Json deserialization-&gt;服务器orm），链条中任何一环都有出差池的可能性。<br>换句话说，导致数据健全性受损的可能性分散在了太多的点上，一旦出错，难以定位</li>
+<li>服务器到本地的数据同步，上一条中所描述的链条的逆向，同样是链条太长，潜在的出现错误的点太多</li>
+<li>服务器端所掌握的数据只是客户端真实数据的一个变体，并且还未必是最新的，这样就导致当移动端应用因其本地数据而出错的时候，我们只能对着服务器干着急</li>
+</ul>
+<p>以上描述的问题并不是偶发性的，它不像这里有个bug今天修了，明天那里有个bug再修一次就好。</p>
+<p>只要我们仍然要在弱网环境中运行应用，我们就需要重度依赖本地存储，就需要持续的在移动端和服务端进行双向数据同步，以上的问题就将会一直存在。</p>
+<p>这是自然环境限制与技术选择所带来的固有的内在的问题。</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>上面提到：</p>
+<blockquote>
+<p>这是自然环境限制与技术选择所带来的固有的内在的问题。</p>
+</blockquote>
+<p>这句话再解释明白一些，自然环境限制指的是很差的网络可用性，技术选择指的是服务器端提供REST API，移动端利用该API进行通信。</p>
+<p>以上这二者相结合导致了上述情况成为了固有的内在的问题。</p>
+<p>自然环境的限制我们无法突破，我们不能把基站部署过去，让大家打电话之前不用再爬到树上去。</p>
+<p>但是技术选择是完全受我们控制的，是有做文章的空间的。</p>
+<p>这就引出了文章标题提到的CouchBase。</p>
+<h1 id="CouchBase"><a href="#CouchBase" class="headerlink" title="CouchBase"></a>CouchBase</h1><p>关于CouchBase是一个怎样的DB，请大家自行搜索。</p>
+<p>我们主要关注它推出的CouchBase-Lite（android和iOS均有对应版本）。</p>
+<p><img data-src="https://camo.githubusercontent.com/c1aa705fde3eb12245c06730d850c23e5a84ad8d/687474703a2f2f746c657964656e2d6d6973632e73332e616d617a6f6e6177732e636f6d2f636f756368626173652d6c6974652f636f756368626173652d6c6974652d6172636869746563747572652e706e67" alt="replicate"></p>
+<p>左边的绿色方框是移动端应用，它通过蓝色标示的Sync Gateway与CouchBase Server通信。</p>
+<p>请注意图中的箭头都是双向的，任何一方对本地数据库的写操作，都会导致对方的更新。任何一方的网络暂时中断也没有关系，在网络恢复的时候将会自动重试。</p>
+<p>这样一来，数据同步的思路就变了，不再是在服务器端定义上传下载的API，移动端进行调用。而是利用DB自有的replication机制进行数据同步。</p>
+<p>这就意味着我们在移动端只需要关注建立领域特定的模型，并将其存储入移动端本地的CouchBase即可，至于后面的序列化、网络通信等等问题就不需要我们去担心了。</p>
+<p>关注点中很大一部分就这样被分离了出去，交由infrastructure去完成。</p>
+<p>至于DB自有的replication机制的可靠性，应该可以比较安全的做出假设，认为一个有商用场景的DB厂商的通用数据备份机制不会比我们自己拼凑出来的更差。</p>
+<h1 id="一个原型"><a href="#一个原型" class="headerlink" title="一个原型"></a>一个原型</h1><p><a target="_blank" rel="noopener" href="https://github.com/cuipengfei/Spikes/tree/master/android/sync-prototype">https://github.com/cuipengfei/Spikes/tree/master/android/sync-prototype</a></p>
+<p>上面的链接是一个基本可用的购物清单应用。全部代码都在，供参考。</p>
+<p>下面谈如何把玩它。</p>
+<h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><p>下载CouchBase Server： <a target="_blank" rel="noopener" href="http://www.couchbase.com/nosql-databases/downloads#">http://www.couchbase.com/nosql-databases/downloads#</a>，安装，配置管理员账户，不赘述。</p>
+<p>在CouchBase Server的Admin console(默认地址： <a target="_blank" rel="noopener" href="http://127.0.0.1:8091/index.html)%E4%B8%AD%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAbucket%EF%BC%8C%E5%91%BD%E5%90%8D%E4%B8%BAdemodb%E3%80%82">http://127.0.0.1:8091/index.html)中创建一个bucket，命名为demodb。</a></p>
+<h2 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h2><p>安装sync_gateway，Mac用户可以：<br>	brew install sync_gateway</p>
+<p>以上github代码克隆下来后，sync-gateway路径下有个名为start_sync_gateway_server.sh的脚本，运行它来启动sync gateway。</p>
+<h2 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h2><p>运行同一个路径下的create_user.sh，来创建一个名为user1的用户，然后运行create_session.sh，为该用户创建一个session。</p>
+<p>create_session.sh脚本有类似如下的输出：</p>
+<pre><code>&#123;&quot;session_id&quot;:&quot;a469f18027647e4957ffd1743e2ea33ce0386dbc&quot;,&quot;expires&quot;:&quot;2016-02-21T17:51:43.071175586+08:00&quot;,&quot;cookie_name&quot;:&quot;SyncGatewaySession&quot;&#125;
+</code></pre>
+<p>把其中的session id记下备用。</p>
+<p>（注：这里的用户和session都是sync gateway需要的，与CouchBase Server无直接关系）</p>
+<h2 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h2><p>找到代码中的MainActivity类，在startSync方法中加入session id：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//......</span></span><br><span class="line"><span class="type">Replication</span> <span class="variable">pullReplication</span> <span class="operator">=</span> database.createPullReplication(syncUrl);</span><br><span class="line">pullReplication.setCookie(<span class="string">&quot;SyncGatewaySession&quot;</span>, <span class="string">&quot;a469f18027647e4957ffd1743e2ea33ce0386dbc&quot;</span>, <span class="literal">null</span>, <span class="number">86400000000000L</span>, <span class="literal">false</span>, <span class="literal">false</span>);</span><br><span class="line">pullReplication.setChannels(asList(<span class="string">&quot;user1&quot;</span>));</span><br><span class="line">pullReplication.setContinuous(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">Replication</span> <span class="variable">pushReplication</span> <span class="operator">=</span> database.createPushReplication(syncUrl);</span><br><span class="line">pushReplication.setCookie(<span class="string">&quot;SyncGatewaySession&quot;</span>, <span class="string">&quot;a469f18027647e4957ffd1743e2ea33ce0386dbc&quot;</span>, <span class="literal">null</span>, <span class="number">86400000000000L</span>, <span class="literal">false</span>, <span class="literal">false</span>);</span><br><span class="line">pushReplication.setChannels(asList(<span class="string">&quot;user1&quot;</span>));</span><br><span class="line">pushReplication.setContinuous(<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这段代码负责启动replication，双向同步从此而起。</p>
+<p>找到createGroceryItem，为其中创建document的代码指定其所归属的用户：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//......</span></span><br><span class="line"><span class="type">Document</span> <span class="variable">document</span> <span class="operator">=</span> database.createDocument();</span><br><span class="line"></span><br><span class="line">Map&lt;String, Object&gt; properties = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, Object&gt;();</span><br><span class="line">properties.put(<span class="string">&quot;channels&quot;</span>, asList(<span class="string">&quot;user1&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>这几行代码可以保证各个移动端用户之间的数据不会混杂在一起。</p>
+<h2 id="第五步"><a href="#第五步" class="headerlink" title="第五步"></a>第五步</h2><p>在genymotion中启动android虚拟机（如果使用其他虚拟设备或者真机，请注意修改代码中的服务器ip地址）。</p>
+<p>在购物清单中创建几条记录，然后清空移动端本机数据，重启应用，可以看到刚刚被清空的购物清单会从服务器上同步回来。</p>
+<p>也可以尝试把虚拟机的网络连接断掉，创建或者修改几条记录，稍后重新连通网络，可以发现数据仍然可以上传到服务器。</p>
+<p>还可以尝试用第三步中提到的脚本多创建几个用户，在不同的android虚拟机中使用不同用户，可以发现它们对彼此的数据是没有访问权的。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>以上第五步提到的双向同步，离线操作，不同用户之间的数据隔离，都不需要我们写任何特殊的代码来实现。</p>
+<p>我们移动端的代码与CouchBase的集成基本就只涉及到第四步中提到的启动replication和创建document，那这样移动端剩下的工作就只有构建业务逻辑了。</p>
+<p>如果你的移动端应用也需要在弱网环境下进行离线操作，在网络恢复时与服务器同步数据的话，不妨尝试一下CouchBase。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://cuipengfei.me/blog/2016/03/10/couchbase-android-sync/" title="利用CouchBase为弱网环境构建云同步Android应用">https://cuipengfei.me/blog/2016/03/10/couchbase-android-sync/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2016/01/03/2015/" rel="prev" title="2015">
+                  <i class="fa fa-angle-left"></i> 2015
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2016/05/15/promise/" rel="next" title="自己动手实现Promises/A+规范">
+                  自己动手实现Promises/A+规范 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">372k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:38</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

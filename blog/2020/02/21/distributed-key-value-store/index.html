@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言分布式键值存储（Distributed Key-Value Store）并不是一个新鲜的玩意。常见的Redis，Memcache等等都有很多人在用。 不过如果要是说其中的细节，如replicate，读写，一致性，retry等等的话，又是经常会遇到把自己绕的混淆不清的情况。。恰巧我最近在看的一门网课《Programming Reactive Systems》中有一道作业题就是要自己实现一个Dis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式键值存储（Distributed Key-Value Store）">
+<meta property="og:url" content="https://cuipengfei.me/blog/2020/02/21/distributed-key-value-store/index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="前言分布式键值存储（Distributed Key-Value Store）并不是一个新鲜的玩意。常见的Redis，Memcache等等都有很多人在用。 不过如果要是说其中的细节，如replicate，读写，一致性，retry等等的话，又是经常会遇到把自己绕的混淆不清的情况。。恰巧我最近在看的一门网课《Programming Reactive Systems》中有一道作业题就是要自己实现一个Dis">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbiAgUHJpbWFyeS0tPnxhc2sgdG8gcmVwbGljYXRlfFJlcGxpY2F0b3IxXG4gIFByaW1hcnktLT58YXNrIHRvIHJlcGxpY2F0ZXxSZXBsaWNhdG9yMlxuICBSZXBsaWNhdG9yMS0tPnxzbmFwc2hvdCB0b3xTZWNvbmRhcnkxXG4gIFJlcGxpY2F0b3IyLS0-fHNuYXBzaG90IHRvfFNlY29uZGFyeTJcbiAgUHJpbWFyeS0tPnxKb2lufEFyYml0ZXJcbiAgU2Vjb25kYXJ5MS0tPnxKb2lufEFyYml0ZXJcbiAgU2Vjb25kYXJ5Mi0tPnxKb2lufEFyYml0ZXJcbiAgUHJpbWFyeS0tPnxQZXJzaXN0IHRvfFBlcnNpc3RlbmNlMFxuICBTZWNvbmRhcnkxLS0-fFBlcnNpc3QgdG98UGVyc2lzdGVuY2UxXG4gIFNlY29uZGFyeTItLT58UGVyc2lzdCB0b3xQZXJzaXN0ZW5jZTJcbiAgXG4gIENsaWVudC0tPnxyZWFkL3dyaXRlfFByaW1hcnlcbiAgQ2xpZW50LS0-fHJlYWR8U2Vjb25kYXJ5MVxuICBDbGllbnQtLT58cmVhZHxTZWNvbmRhcnkyXG5cbiAgQXJiaXRlci0tPnxOb3RpZnkgam9pbi9sZWF2ZSBvZiBzZWNvbmRhcmllc3xQcmltYXJ5IiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ">
+<meta property="og:image" content="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgTm9kZSAxLT4-K0FyYml0ZXI6IEpvaW5cbiAgICBOb2RlIDItPj4rQXJiaXRlcjpKb2luXG4gICAgTm9kZSAzLT4-K0FyYml0ZXI6Sm9pblxuICAgIEFyYml0ZXItLT4-K05vZGUgMTogSm9pbmVkUHJpbWFyeVxuICAgIEFyYml0ZXItLT4-K05vZGUgMjogSm9pbmVkU2Vjb25kYXJ5XG4gICAgQXJiaXRlci0tPj4rTm9kZSAxOiBSZXBsaWNhcyhOb2RlIDIpXG4gICAgQXJiaXRlci0tPj4rTm9kZSAzOiBKb2luZWRTZWNvbmRhcnlcbiAgICBBcmJpdGVyLS0-PitOb2RlIDE6IFJlcGxpY2FzKE5vZGUgMylcblxuIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ">
+<meta property="og:image" content="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgTm9kZSAtPj4rUGVyc2lzdGVuY2U6IFBlcnNpc3Qoa2V5LHZhbHVlLGlkKVxuICAgIFBlcnNpc3RlbmNlLS0-PitOb2RlOiBQZXJzaXN0ZWQoa2V5LGlkKSBvciBub3RoaW5nIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ">
+<meta property="og:image" content="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgTm9kZSAtPj4rQXJiaXRlcjpKb2luXG4gICAgTm9kZSAtPj4rTm9kZTogUmV0cnkgUGVyc2lzdCBldmVyeSAxMDBtc1xuICAgIEFyYml0ZXItLT4-K05vZGU6Sm9pbmVkIFByaW1hcnkgb3IgU2Vjb25kYXJ5XG4gICAgIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ">
+<meta property="og:image" content="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUmVwbGljYXRvciAtPj4rU2Vjb25kYXJ5OlNuYXBzaG90KGtleSx2YWx1ZSxzZXEpXG4gICAgYWx0IHNlcT09ZXhwZWN0ZWRTZXFcbiAgICAgICAgU2Vjb25kYXJ5LT4-K1NlY29uZGFyeTogdXBkYXRlIGludGVybmFsIGt2IHN0b3JlXG4gICAgICAgIFNlY29uZGFyeS0-PitQZXJzaXN0ZW5jZTpQZXJzaXN0KGtleSx2YWx1ZSxzZXEpXG4gICAgICAgIFNlY29uZGFyeS0-PlNlY29uZGFyeTphZGQgb25lIGl0ZW0gdG8gaW50ZXJuYWwgcmV0cnkgcGVyc2lzdCBsaXN0XG4gICAgZWxzZSBzZXE8ZXhwZWN0ZWRTZXFcbiAgICAgICAgU2Vjb25kYXJ5LT4-K1JlcGxpY2F0b3I6U25hcHNob3RBY2soa2V5LHNlcSlcbiAgICBlbmRcbiAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0IiwiZmxvd2NoYXJ0Ijp7ImN1cnZlIjoiYmFzaXMifX0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9">
+<meta property="og:image" content="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUGVyc2lzdGVuY2UtPj5TZWNvbmRhcnk6UGVyc2lzdGVkKGtleSxzZXEpXG4gICAgU2Vjb25kYXJ5LT4-UmVwbGljYXRvcjpTbmFwc2hvdEFjayhrZXksc2VxKVxuICAgIFNlY29uZGFyeS0-PlNlY29uZGFyeTppbmNyZWFzZSBleHBlY3RlZFNlcVxuICAgIFNlY29uZGFyeS0-PlNlY29uZGFyeTpyZW1vdmUgc2VxIGZyb20gcmV0cnkgcGVyc2lzdCBsaXN0IiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ">
+<meta property="og:image" content="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgQ2xpZW50LT4-U2Vjb25kYXJ5OkdldChrZXksaWQpXG4gICAgU2Vjb25kYXJ5LT4-U2Vjb25kYXJ5OnF1ZXJ5IGludGVybmFsIGt2XG4gICAgU2Vjb25kYXJ5LS0-PkNsaWVudDpHZXRSZXN1bHQoa2V5LHZhbHVlLGlkKSAodmFsdWUgY291bGQgYmUgZW1wdHkpIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ">
+<meta property="og:image" content="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUmVwbGljYXRvci0-PlJlcGxpY2F0b3I6cmV0cnkgc25hcHNob3QgZXZlcnkgMTAwbXNcbiAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0IiwiZmxvd2NoYXJ0Ijp7ImN1cnZlIjoiYmFzaXMifX0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9">
+<meta property="og:image" content="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUHJpbWFyeS0-PlJlcGxpY2F0b3I6UmVwbGljYXRlKGtleSx2YWx1ZSxpZClcbiAgICBSZXBsaWNhdG9yLT4-U2Vjb25kYXJ5OlNuYXBzaG90KGtleSx2YWx1ZSxzZXEpXG4gICAgUmVwbGljYXRvci0-PlJlcGxpY2F0b3I6YWRkIGl0ZW0gdG8gaW50ZXJuYWwgcGVuZGluZyBhY2sgbGlzdFxuICAgIFJlcGxpY2F0b3ItPj5SZXBsaWNhdG9yOmluY3JlYXNlIGludGVybmFsIHNlcVxuICAgICIsIm1lcm1haWQiOnsidGhlbWUiOiJmb3Jlc3QiLCJmbG93Y2hhcnQiOnsiY3VydmUiOiJiYXNpcyJ9fSwidXBkYXRlRWRpdG9yIjpmYWxzZX0">
+<meta property="og:image" content="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgU2Vjb25kYXJ5LT4-UmVwbGljYXRvcjpTbmFwc2hvdEFjayhrZXksc2VxKVxuICAgIFJlcGxpY2F0b3ItPj5QcmltYXJ5OlJlcGxpY2F0ZWQoa2V5LGlkKVxuICAgIFJlcGxpY2F0b3ItPj5SZXBsaWNhdG9yOnJlbW92ZSBvbmUgaXRlbSBmcm9tIHBlbmRpbmcgYWNrIGxpc3QiLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0IiwiZmxvd2NoYXJ0Ijp7ImN1cnZlIjoiYmFzaXMifX0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9">
+<meta property="og:image" content="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgQ2xpZW50LT4-UHJpbWFyeTpJbnNlcnQoa2V5LHZhbHVlLGlkKSBvciBSZW1vdmUoa2V5LGlkKVxuICAgIFByaW1hcnktPj5QcmltYXJ5OnVwZGF0ZSBpbnRlcm5hbCBrdlxuICAgIFByaW1hcnktPj5QZXJzaXN0ZW5jZTpQZXJzaXN0KGtleSx2YWx1ZSxpZClcbiAgICBQcmltYXJ5LT4-UHJpbWFyeTphZGQgb25lIGl0ZW0gdG8gaW50ZXJuYWwgcmV0cnkgcGVyc2lzdCBsaXN0XG4gICAgUHJpbWFyeS0-PlJlcGxpY2F0b3IgMTpSZXBsaWNhdGUoa2V5LHZhbHVlLGlkKVxuICAgIFByaW1hcnktPj5QcmltYXJ5OmFkZCBvbmUgaXRlbSB0byBwZW5kaW5nIHJlcGxpY2F0ZXMgbGlzdFxuICAgIFByaW1hcnktPj5SZXBsaWNhdG9yIDI6UmVwbGljYXRlKGtleSx2YWx1ZSxpZClcbiAgICBQcmltYXJ5LT4-UHJpbWFyeTphZGQgb25lIGl0ZW0gdG8gcGVuZGluZyByZXBsaWNhdGVzIGxpc3RcbiAgICBQcmltYXJ5LT4-UHJpbWFyeTpzY2hlZHVsZSBmYWlsdXJlIGZvciBhZnRlciAxcyIsIm1lcm1haWQiOnsidGhlbWUiOiJmb3Jlc3QiLCJmbG93Y2hhcnQiOnsiY3VydmUiOiJiYXNpcyJ9fSwidXBkYXRlRWRpdG9yIjpmYWxzZX0">
+<meta property="og:image" content="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUGVyc2lzdGVuY2UtPj5QcmltYXJ5OlBlcnNpc3RlZChrZXksaWQpXG4gICAgUHJpbWFyeS0-PlByaW1hcnk6IHJlbW92ZSBvbmUgaXRlbSBmcm9tIHBlbmRpbmcgcGVyc2lzdCBsaXN0XG4gICAgYWx0IFJlcGxpY2F0aW9ucyBhbGwgZmluaXNoZWRcbiAgICBQcmltYXJ5LT4-Q2xpZW50Ok9wZXJhdGlvbkFjayhpZClcbiAgICBlbmQiLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9">
+<meta property="og:image" content="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUmVwbGljYXRvci0-PlByaW1hcnk6UmVwbGljYXRlZChrZXksaWQpXG4gICAgUHJpbWFyeS0-PlByaW1hcnk6IHJlbW92ZSBvbmUgaXRlbSBmcm9tIHBlbmRpbmcgcmVwbGlhdGVzXG4gICAgYWx0IEFsbCBSZXBsaWNhdGlvbnMgRmluaXNoZWRcbiAgICBhbHQgUGVyc2lzdCBmaW5pc2hlZFxuICAgIFByaW1hcnktPj5DbGllbnQ6T3BlcmF0aW9uQWNrKGlkKVxuICAgIGVuZFxuICAgIGVuZFxuIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ">
+<meta property="og:image" content="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgQXJiaXRlci0-PlByaW1hcnk6UmVwbGljYXMobm9kZXMpXG4gICAgbG9vcCBldmVyeSBuZXcgc2Vjb25kYXJ5XG4gICAgUHJpbWFyeS0-PlByaW1hcnk6Y3JlYXRlIG5ldyByZXBsaWNhdG9yIGZvciBuZXcgc2Vjb25kYXJ5XG4gICAgbG9vcCBldmVyeSBrdiBwYWlyXG4gICAgUHJpbWFyeS0-PlJlcGxpY2F0b3I6UmVwbGljYXRlKGtleSx2YWx1ZSxpZClcbiAgICBlbmRcbiAgICBlbmRcblxuICAgIGxvb3AgZXZlcnkgbGVmdCBzZWNvbmRhcnlcbiAgICBQcmltYXJ5LT4-UHJpbWFyeTpyZW1vdmUgaXRlbXMgZnJvbSBwZW5kaW5nIHJlcGxpY2F0ZXNcbiAgICBhbHQgYWxsIHJlcGxpY2F0aW9ucyBmaW5pc2hlZFxuICAgIGFsdCBwZXJzaXN0IGZpbmlzaGVkXG4gICAgUHJpbWFyeS0-PkNsaWVudDpPcGVyYXRpb25BY2soaWQpXG4gICAgZW5kXG4gICAgZW5kXG4gICAgUHJpbWFyeS0-PlByaW1hcnk6ZGVzdHJveSBpdHMgbWF0Y2hpbmcgcmVwbGljYXRvclxuICAgIFxuICAgIGVuZFxuIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ">
+<meta property="article:published_time" content="2020-02-21T12:54:15.000Z">
+<meta property="article:modified_time" content="2020-02-21T12:54:15.000Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="Reactive">
+<meta property="article:tag" content="分布式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbiAgUHJpbWFyeS0tPnxhc2sgdG8gcmVwbGljYXRlfFJlcGxpY2F0b3IxXG4gIFByaW1hcnktLT58YXNrIHRvIHJlcGxpY2F0ZXxSZXBsaWNhdG9yMlxuICBSZXBsaWNhdG9yMS0tPnxzbmFwc2hvdCB0b3xTZWNvbmRhcnkxXG4gIFJlcGxpY2F0b3IyLS0-fHNuYXBzaG90IHRvfFNlY29uZGFyeTJcbiAgUHJpbWFyeS0tPnxKb2lufEFyYml0ZXJcbiAgU2Vjb25kYXJ5MS0tPnxKb2lufEFyYml0ZXJcbiAgU2Vjb25kYXJ5Mi0tPnxKb2lufEFyYml0ZXJcbiAgUHJpbWFyeS0tPnxQZXJzaXN0IHRvfFBlcnNpc3RlbmNlMFxuICBTZWNvbmRhcnkxLS0-fFBlcnNpc3QgdG98UGVyc2lzdGVuY2UxXG4gIFNlY29uZGFyeTItLT58UGVyc2lzdCB0b3xQZXJzaXN0ZW5jZTJcbiAgXG4gIENsaWVudC0tPnxyZWFkL3dyaXRlfFByaW1hcnlcbiAgQ2xpZW50LS0-fHJlYWR8U2Vjb25kYXJ5MVxuICBDbGllbnQtLT58cmVhZHxTZWNvbmRhcnkyXG5cbiAgQXJiaXRlci0tPnxOb3RpZnkgam9pbi9sZWF2ZSBvZiBzZWNvbmRhcmllc3xQcmltYXJ5IiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ">
+
+
+<link rel="canonical" href="https://cuipengfei.me/blog/2020/02/21/distributed-key-value-store/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2020/02/21/distributed-key-value-store/","path":"blog/2020/02/21/distributed-key-value-store/","title":"分布式键值存储（Distributed Key-Value Store）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>分布式键值存储（Distributed Key-Value Store） | 崔鹏飞的Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+<script data-ad-client="ca-pub-2529393324217872" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2529393324217872"></script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">崔鹏飞的Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%84%E6%88%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%82%E4%B8%8E%E8%80%85"><span class="nav-number">2.</span> <span class="nav-text">组成系统的参与者</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E4%B8%8E%E8%80%85%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">2.1.</span> <span class="nav-text">参与者之间的关系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E9%99%90%E5%88%B6"><span class="nav-number">3.</span> <span class="nav-text">一些限制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%84%E5%8F%82%E4%B8%8E%E8%80%85%E7%9A%84%E8%81%8C%E8%B4%A3%E5%8F%8A%E7%9B%B8%E4%BA%92%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BA%A4%E4%BA%92"><span class="nav-number">4.</span> <span class="nav-text">各参与者的职责及相互之间的交互</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Arbiter"><span class="nav-number">4.1.</span> <span class="nav-text">Arbiter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Persistence"><span class="nav-number">4.2.</span> <span class="nav-text">Persistence</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Node"><span class="nav-number">4.3.</span> <span class="nav-text">Node</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Secondary"><span class="nav-number">4.4.</span> <span class="nav-text">Secondary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Secondary-Snapshot"><span class="nav-number">4.4.1.</span> <span class="nav-text">Secondary - Snapshot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Secondary-Persisted"><span class="nav-number">4.4.2.</span> <span class="nav-text">Secondary - Persisted</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Secondary-Get"><span class="nav-number">4.4.3.</span> <span class="nav-text">Secondary - Get</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Replicator"><span class="nav-number">4.5.</span> <span class="nav-text">Replicator</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Replicator-retry-snapshots"><span class="nav-number">4.5.1.</span> <span class="nav-text">Replicator - retry snapshots</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Replicator-Replicate"><span class="nav-number">4.5.2.</span> <span class="nav-text">Replicator - Replicate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Replicator-SnapshotAck"><span class="nav-number">4.5.3.</span> <span class="nav-text">Replicator - SnapshotAck</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Primary"><span class="nav-number">4.6.</span> <span class="nav-text">Primary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Primary-Insert-Remove"><span class="nav-number">4.6.1.</span> <span class="nav-text">Primary - Insert&#x2F;Remove</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Primary-Get"><span class="nav-number">4.6.2.</span> <span class="nav-text">Primary - Get</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Primary-Persisted"><span class="nav-number">4.6.3.</span> <span class="nav-text">Primary - Persisted</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Primary-Replicated"><span class="nav-number">4.6.4.</span> <span class="nav-text">Primary - Replicated</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Primary-Replicas"><span class="nav-number">4.6.5.</span> <span class="nav-text">Primary - Replicas</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OK"><span class="nav-number">5.</span> <span class="nav-text">OK</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">174</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener me" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2020/02/21/distributed-key-value-store/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="分布式键值存储（Distributed Key-Value Store） | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          分布式键值存储（Distributed Key-Value Store）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-02-21 20:54:15" itemprop="dateCreated datePublished" datetime="2020-02-21T20:54:15+08:00">2020-02-21</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2020/02/21/distributed-key-value-store/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2020/02/21/distributed-key-value-store/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>分布式键值存储（Distributed Key-Value Store）并不是一个新鲜的玩意。<br>常见的Redis，Memcache等等都有很多人在用。</p>
+<p>不过如果要是说其中的细节，如replicate，读写，一致性，retry等等的话，又是经常会遇到把自己绕的混淆不清的情况。。<br>恰巧我最近在看的一门网课《Programming Reactive Systems》中有一道作业题就是要自己实现一个Distributed Key-Value Store，那就正好借此机会详细写下其中的关键点。</p>
+<h1 id="组成系统的参与者"><a href="#组成系统的参与者" class="headerlink" title="组成系统的参与者"></a>组成系统的参与者</h1><p>既然是分布式键值存储，那么肯定会有主从节点，每个结点又会有自己的持久化，而主从之间也需要协调，于是就得出了如下关键参与者：</p>
+<ul>
+<li><strong>Primary</strong>： 主节点。接受来自client的更新（增&#x2F;删&#x2F;改）操作，并把更新后的数据扩散到其它节点。当然，也可以接受来自于client的读操作。</li>
+<li><strong>Secondary</strong>： 从节点。接受来自主节点的更新操作。接受来自client的只读操作。</li>
+<li><strong>Arbiter</strong>： 仲裁者。任何节点，无论主从，都要把自己注册到Arbiter上去。当有从节点加入或者离开集群的时候，Arbiter负责告知主节点。</li>
+<li><strong>Persistence</strong>： 每个节点都拥有自己的独享的Persistence。用于把节点上的数据持久化。</li>
+<li><strong>Clients</strong>： 客户端，可能与主或者从节点通信，进行各种读写操作。</li>
+</ul>
+<p>此外，还有另一个相对不那么关键的参与者：</p>
+<ul>
+<li><strong>Replicator</strong>： 复制器，负责扩散数据。主节点和从节点之间的桥梁。主节点扩散到从节点去的数据要经手Replicator。<br>之所以需要它是为了把一部分维护内部状态的职责从Primary身上解除出去，具体来说是一个sequence number序列号，后面会提到。</li>
+</ul>
+<h2 id="参与者之间的关系"><a href="#参与者之间的关系" class="headerlink" title="参与者之间的关系"></a>参与者之间的关系</h2><p><a target="_blank" rel="noopener" href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoiZ3JhcGggVERcbiAgUHJpbWFyeS0tPnxhc2sgdG8gcmVwbGljYXRlfFJlcGxpY2F0b3IxXG4gIFByaW1hcnktLT58YXNrIHRvIHJlcGxpY2F0ZXxSZXBsaWNhdG9yMlxuICBSZXBsaWNhdG9yMS0tPnxzbmFwc2hvdCB0b3xTZWNvbmRhcnkxXG4gIFJlcGxpY2F0b3IyLS0-fHNuYXBzaG90IHRvfFNlY29uZGFyeTJcbiAgUHJpbWFyeS0tPnxKb2lufEFyYml0ZXJcbiAgU2Vjb25kYXJ5MS0tPnxKb2lufEFyYml0ZXJcbiAgU2Vjb25kYXJ5Mi0tPnxKb2lufEFyYml0ZXJcbiAgUHJpbWFyeS0tPnxQZXJzaXN0IHRvfFBlcnNpc3RlbmNlMFxuICBTZWNvbmRhcnkxLS0-fFBlcnNpc3QgdG98UGVyc2lzdGVuY2UxXG4gIFNlY29uZGFyeTItLT58UGVyc2lzdCB0b3xQZXJzaXN0ZW5jZTJcbiAgXG4gIENsaWVudC0tPnxyZWFkL3dyaXRlfFByaW1hcnlcbiAgQ2xpZW50LS0-fHJlYWR8U2Vjb25kYXJ5MVxuICBDbGllbnQtLT58cmVhZHxTZWNvbmRhcnkyXG5cbiAgQXJiaXRlci0tPnxOb3RpZnkgam9pbi9sZWF2ZSBvZiBzZWNvbmRhcmllc3xQcmltYXJ5IiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"><img data-src="https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbiAgUHJpbWFyeS0tPnxhc2sgdG8gcmVwbGljYXRlfFJlcGxpY2F0b3IxXG4gIFByaW1hcnktLT58YXNrIHRvIHJlcGxpY2F0ZXxSZXBsaWNhdG9yMlxuICBSZXBsaWNhdG9yMS0tPnxzbmFwc2hvdCB0b3xTZWNvbmRhcnkxXG4gIFJlcGxpY2F0b3IyLS0-fHNuYXBzaG90IHRvfFNlY29uZGFyeTJcbiAgUHJpbWFyeS0tPnxKb2lufEFyYml0ZXJcbiAgU2Vjb25kYXJ5MS0tPnxKb2lufEFyYml0ZXJcbiAgU2Vjb25kYXJ5Mi0tPnxKb2lufEFyYml0ZXJcbiAgUHJpbWFyeS0tPnxQZXJzaXN0IHRvfFBlcnNpc3RlbmNlMFxuICBTZWNvbmRhcnkxLS0-fFBlcnNpc3QgdG98UGVyc2lzdGVuY2UxXG4gIFNlY29uZGFyeTItLT58UGVyc2lzdCB0b3xQZXJzaXN0ZW5jZTJcbiAgXG4gIENsaWVudC0tPnxyZWFkL3dyaXRlfFByaW1hcnlcbiAgQ2xpZW50LS0-fHJlYWR8U2Vjb25kYXJ5MVxuICBDbGllbnQtLT58cmVhZHxTZWNvbmRhcnkyXG5cbiAgQXJiaXRlci0tPnxOb3RpZnkgam9pbi9sZWF2ZSBvZiBzZWNvbmRhcmllc3xQcmltYXJ5IiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"></a></p>
+<p>可以看出，系统中有一个Primary，多个Secondary（虽然图中只画了两个，但是理论上可以有任意N多个）。<br>Primary向Secondary扩散数据是通过Replicator进行的，并且是给每个Secondary配了一个单独的Replicator。<br>也就是说Replicator和Secondary是成双成对的。</p>
+<p><strong>注：上图描述的是各个参与者之间的关系，上下左右位置并不代表先后顺序</strong></p>
+<h1 id="一些限制"><a href="#一些限制" class="headerlink" title="一些限制"></a>一些限制</h1><p>我们并不是要做一个可以在Prod环境中使用的KV Store，而只是借助自己实现来厘清KV Store的一些知识点，所以做出了如下的限制来简化实现：</p>
+<ul>
+<li>只有主节点可以接受写操作，所有从节点都只能接受读操作</li>
+<li>假设主节点是稳定可靠的，不会挂（不处理主节点身份转移）</li>
+<li>假设Arbiter是可靠的，不会挂</li>
+<li>不处理背压（back pressure）</li>
+<li>客户端使用的请求id是不会重复的</li>
+</ul>
+<h1 id="各参与者的职责及相互之间的交互"><a href="#各参与者的职责及相互之间的交互" class="headerlink" title="各参与者的职责及相互之间的交互"></a>各参与者的职责及相互之间的交互</h1><p>以下的这些图，<strong>每一张都只关心系统中的一个局部</strong>。主要原因在于把整个系统的交互放到一张图里会导致<strong>要素太多而难以阅读</strong>。</p>
+<h2 id="Arbiter"><a href="#Arbiter" class="headerlink" title="Arbiter"></a>Arbiter</h2><p><a target="_blank" rel="noopener" href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgTm9kZSAxLT4-K0FyYml0ZXI6IEpvaW5cbiAgICBOb2RlIDItPj4rQXJiaXRlcjpKb2luXG4gICAgTm9kZSAzLT4-K0FyYml0ZXI6Sm9pblxuICAgIEFyYml0ZXItLT4-K05vZGUgMTogSm9pbmVkUHJpbWFyeVxuICAgIEFyYml0ZXItLT4-K05vZGUgMjogSm9pbmVkU2Vjb25kYXJ5XG4gICAgQXJiaXRlci0tPj4rTm9kZSAxOiBSZXBsaWNhcyhOb2RlIDIpXG4gICAgQXJiaXRlci0tPj4rTm9kZSAzOiBKb2luZWRTZWNvbmRhcnlcbiAgICBBcmJpdGVyLS0-PitOb2RlIDE6IFJlcGxpY2FzKE5vZGUgMylcblxuIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"><img data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgTm9kZSAxLT4-K0FyYml0ZXI6IEpvaW5cbiAgICBOb2RlIDItPj4rQXJiaXRlcjpKb2luXG4gICAgTm9kZSAzLT4-K0FyYml0ZXI6Sm9pblxuICAgIEFyYml0ZXItLT4-K05vZGUgMTogSm9pbmVkUHJpbWFyeVxuICAgIEFyYml0ZXItLT4-K05vZGUgMjogSm9pbmVkU2Vjb25kYXJ5XG4gICAgQXJiaXRlci0tPj4rTm9kZSAxOiBSZXBsaWNhcyhOb2RlIDIpXG4gICAgQXJiaXRlci0tPj4rTm9kZSAzOiBKb2luZWRTZWNvbmRhcnlcbiAgICBBcmJpdGVyLS0-PitOb2RlIDE6IFJlcGxpY2FzKE5vZGUgMylcblxuIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"></a></p>
+<p>来的早的会被Arbiter当作Primary，来的晚的就是Secondary了。<br>并且，每一个来的晚的成为Secondary之后，Arbiter还会告知Primary说：来新节点了。以便Primary可以知道后续需要把数据扩散给谁。<br>如果有Secondary由于某种原因而离开了集群，Arbiter也会告知Primary，从而避免Primary继续给已经不在了的Secondary发消息。</p>
+<h2 id="Persistence"><a href="#Persistence" class="headerlink" title="Persistence"></a>Persistence</h2><p><a target="_blank" rel="noopener" href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgTm9kZSAtPj4rUGVyc2lzdGVuY2U6IFBlcnNpc3Qoa2V5LHZhbHVlLGlkKVxuICAgIFBlcnNpc3RlbmNlLS0-PitOb2RlOiBQZXJzaXN0ZWQoa2V5LGlkKSBvciBub3RoaW5nIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"><img data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgTm9kZSAtPj4rUGVyc2lzdGVuY2U6IFBlcnNpc3Qoa2V5LHZhbHVlLGlkKVxuICAgIFBlcnNpc3RlbmNlLS0-PitOb2RlOiBQZXJzaXN0ZWQoa2V5LGlkKSBvciBub3RoaW5nIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"></a></p>
+<p>前面提到过，每个节点，无论主从，都有一个自己独享的persistence。所以上图中的Node兼指主或者从节点。<br>Persistence本身的职责很简单，把Node告诉它的数据持久化下来。<br>但是，此处我们并<strong>没有假设持久化总是可靠的</strong>，所以上图中的第二根线是<strong>未必总是能成功发生</strong>的。</p>
+<h2 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h2><p><a target="_blank" rel="noopener" href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgTm9kZSAtPj4rQXJiaXRlcjpKb2luXG4gICAgTm9kZSAtPj4rTm9kZTogUmV0cnkgUGVyc2lzdCBldmVyeSAxMDBtc1xuICAgIEFyYml0ZXItLT4-K05vZGU6Sm9pbmVkIFByaW1hcnkgb3IgU2Vjb25kYXJ5XG4gICAgIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"><img data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgTm9kZSAtPj4rQXJiaXRlcjpKb2luXG4gICAgTm9kZSAtPj4rTm9kZTogUmV0cnkgUGVyc2lzdCBldmVyeSAxMDBtc1xuICAgIEFyYml0ZXItLT4-K05vZGU6Sm9pbmVkIFByaW1hcnkgb3IgU2Vjb25kYXJ5XG4gICAgIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"></a></p>
+<p>这里的Node兼指主或者从节点。也就是说上图中的事情是每个Node无论主从都要做的。<br>每一个Node，在它生命周期的最早开始作的第一件事就是告诉Arbiter：“我来了“。</p>
+<p>上面提到过，Persistence未必总是可靠的。所以每个Node一旦开始存活，就会给自己启动一个定时任务，每隔100ms就去retry persist，直到Persitence回话说Persisted为止才停止retry。</p>
+<h2 id="Secondary"><a href="#Secondary" class="headerlink" title="Secondary"></a>Secondary</h2><h3 id="Secondary-Snapshot"><a href="#Secondary-Snapshot" class="headerlink" title="Secondary - Snapshot"></a>Secondary - Snapshot</h3><p><a target="_blank" rel="noopener" href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUmVwbGljYXRvciAtPj4rU2Vjb25kYXJ5OlNuYXBzaG90KGtleSx2YWx1ZSxzZXEpXG4gICAgYWx0IHNlcT09ZXhwZWN0ZWRTZXFcbiAgICAgICAgU2Vjb25kYXJ5LT4-K1NlY29uZGFyeTogdXBkYXRlIGludGVybmFsIGt2IHN0b3JlXG4gICAgICAgIFNlY29uZGFyeS0-PitQZXJzaXN0ZW5jZTpQZXJzaXN0KGtleSx2YWx1ZSxzZXEpXG4gICAgICAgIFNlY29uZGFyeS0-PlNlY29uZGFyeTphZGQgb25lIGl0ZW0gdG8gaW50ZXJuYWwgcmV0cnkgcGVyc2lzdCBsaXN0XG4gICAgZWxzZSBzZXE8ZXhwZWN0ZWRTZXFcbiAgICAgICAgU2Vjb25kYXJ5LT4-K1JlcGxpY2F0b3I6U25hcHNob3RBY2soa2V5LHNlcSlcbiAgICBlbmRcbiAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0IiwiZmxvd2NoYXJ0Ijp7ImN1cnZlIjoiYmFzaXMifX0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9"><img data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUmVwbGljYXRvciAtPj4rU2Vjb25kYXJ5OlNuYXBzaG90KGtleSx2YWx1ZSxzZXEpXG4gICAgYWx0IHNlcT09ZXhwZWN0ZWRTZXFcbiAgICAgICAgU2Vjb25kYXJ5LT4-K1NlY29uZGFyeTogdXBkYXRlIGludGVybmFsIGt2IHN0b3JlXG4gICAgICAgIFNlY29uZGFyeS0-PitQZXJzaXN0ZW5jZTpQZXJzaXN0KGtleSx2YWx1ZSxzZXEpXG4gICAgICAgIFNlY29uZGFyeS0-PlNlY29uZGFyeTphZGQgb25lIGl0ZW0gdG8gaW50ZXJuYWwgcmV0cnkgcGVyc2lzdCBsaXN0XG4gICAgZWxzZSBzZXE8ZXhwZWN0ZWRTZXFcbiAgICAgICAgU2Vjb25kYXJ5LT4-K1JlcGxpY2F0b3I6U25hcHNob3RBY2soa2V5LHNlcSlcbiAgICBlbmRcbiAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0IiwiZmxvd2NoYXJ0Ijp7ImN1cnZlIjoiYmFzaXMifX0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9"></a></p>
+<p>上图描述的是当Replicator向Secondary扩散数据的时候，Secondary如何处理。<br>一旦一个Replicator告诉Secondary去更新数据（增&#x2F;删&#x2F;改），Secondary先去更新自己内部的kv，然后去告知Persistence去做持久化。</p>
+<p>这里有一个细节，就是图中出现的seq（sequence number 序列号）。Replicator和Secondary之间就是靠这个seq来保证数据更新操作总是先来的先处理，后来的后处理。<br>据此来提供一定程度的consistency。避免老数据覆盖新数据（此处需要结合下文中replicator的retry snapshot来理解）。</p>
+<h3 id="Secondary-Persisted"><a href="#Secondary-Persisted" class="headerlink" title="Secondary - Persisted"></a>Secondary - Persisted</h3><p><a target="_blank" rel="noopener" href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUGVyc2lzdGVuY2UtPj5TZWNvbmRhcnk6UGVyc2lzdGVkKGtleSxzZXEpXG4gICAgU2Vjb25kYXJ5LT4-UmVwbGljYXRvcjpTbmFwc2hvdEFjayhrZXksc2VxKVxuICAgIFNlY29uZGFyeS0-PlNlY29uZGFyeTppbmNyZWFzZSBleHBlY3RlZFNlcVxuICAgIFNlY29uZGFyeS0-PlNlY29uZGFyeTpyZW1vdmUgc2VxIGZyb20gcmV0cnkgcGVyc2lzdCBsaXN0IiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"><img data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUGVyc2lzdGVuY2UtPj5TZWNvbmRhcnk6UGVyc2lzdGVkKGtleSxzZXEpXG4gICAgU2Vjb25kYXJ5LT4-UmVwbGljYXRvcjpTbmFwc2hvdEFjayhrZXksc2VxKVxuICAgIFNlY29uZGFyeS0-PlNlY29uZGFyeTppbmNyZWFzZSBleHBlY3RlZFNlcVxuICAgIFNlY29uZGFyeS0-PlNlY29uZGFyeTpyZW1vdmUgc2VxIGZyb20gcmV0cnkgcGVyc2lzdCBsaXN0IiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"></a></p>
+<p>上图描述的是，当Persistence告诉Secondary：“持久化好了“的时候，Secondary如何处理。<br>可以看出来，只有确认持久化完成之后，Secondary才会告诉Replicator：“扩散数据完成了“，并且在Secondary自己内部取消掉这一条数据的retry persist。</p>
+<h3 id="Secondary-Get"><a href="#Secondary-Get" class="headerlink" title="Secondary - Get"></a>Secondary - Get</h3><p><a target="_blank" rel="noopener" href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgQ2xpZW50LT4-U2Vjb25kYXJ5OkdldChrZXksaWQpXG4gICAgU2Vjb25kYXJ5LT4-U2Vjb25kYXJ5OnF1ZXJ5IGludGVybmFsIGt2XG4gICAgU2Vjb25kYXJ5LS0-PkNsaWVudDpHZXRSZXN1bHQoa2V5LHZhbHVlLGlkKSAodmFsdWUgY291bGQgYmUgZW1wdHkpIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"><img data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgQ2xpZW50LT4-U2Vjb25kYXJ5OkdldChrZXksaWQpXG4gICAgU2Vjb25kYXJ5LT4-U2Vjb25kYXJ5OnF1ZXJ5IGludGVybmFsIGt2XG4gICAgU2Vjb25kYXJ5LS0-PkNsaWVudDpHZXRSZXN1bHQoa2V5LHZhbHVlLGlkKSAodmFsdWUgY291bGQgYmUgZW1wdHkpIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCIsImZsb3djaGFydCI6eyJjdXJ2ZSI6ImJhc2lzIn19LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"></a></p>
+<p>对于来自于Client的读取操作，Secondary总是心直口快，有就是有，没有就是没有。</p>
+<h2 id="Replicator"><a href="#Replicator" class="headerlink" title="Replicator"></a>Replicator</h2><h3 id="Replicator-retry-snapshots"><a href="#Replicator-retry-snapshots" class="headerlink" title="Replicator - retry snapshots"></a>Replicator - retry snapshots</h3><p><a target="_blank" rel="noopener" href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUmVwbGljYXRvci0-PlJlcGxpY2F0b3I6cmV0cnkgc25hcHNob3QgZXZlcnkgMTAwbXNcbiAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0IiwiZmxvd2NoYXJ0Ijp7ImN1cnZlIjoiYmFzaXMifX0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9"><img data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUmVwbGljYXRvci0-PlJlcGxpY2F0b3I6cmV0cnkgc25hcHNob3QgZXZlcnkgMTAwbXNcbiAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0IiwiZmxvd2NoYXJ0Ijp7ImN1cnZlIjoiYmFzaXMifX0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9"></a></p>
+<p>上面提到过，Persistence未必总是可靠的，也就意味着数据扩散操作也未必总是成功，所以，Replicator一旦启动（被Primary创建出来），就要开始一个定时任务来不断retry尚未成功的数据扩散操作。</p>
+<h3 id="Replicator-Replicate"><a href="#Replicator-Replicate" class="headerlink" title="Replicator - Replicate"></a>Replicator - Replicate</h3><p><a target="_blank" rel="noopener" href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUHJpbWFyeS0-PlJlcGxpY2F0b3I6UmVwbGljYXRlKGtleSx2YWx1ZSxpZClcbiAgICBSZXBsaWNhdG9yLT4-U2Vjb25kYXJ5OlNuYXBzaG90KGtleSx2YWx1ZSxzZXEpXG4gICAgUmVwbGljYXRvci0-PlJlcGxpY2F0b3I6YWRkIGl0ZW0gdG8gaW50ZXJuYWwgcGVuZGluZyBhY2sgbGlzdFxuICAgIFJlcGxpY2F0b3ItPj5SZXBsaWNhdG9yOmluY3JlYXNlIGludGVybmFsIHNlcVxuICAgICIsIm1lcm1haWQiOnsidGhlbWUiOiJmb3Jlc3QiLCJmbG93Y2hhcnQiOnsiY3VydmUiOiJiYXNpcyJ9fSwidXBkYXRlRWRpdG9yIjpmYWxzZX0"><img data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUHJpbWFyeS0-PlJlcGxpY2F0b3I6UmVwbGljYXRlKGtleSx2YWx1ZSxpZClcbiAgICBSZXBsaWNhdG9yLT4-U2Vjb25kYXJ5OlNuYXBzaG90KGtleSx2YWx1ZSxzZXEpXG4gICAgUmVwbGljYXRvci0-PlJlcGxpY2F0b3I6YWRkIGl0ZW0gdG8gaW50ZXJuYWwgcGVuZGluZyBhY2sgbGlzdFxuICAgIFJlcGxpY2F0b3ItPj5SZXBsaWNhdG9yOmluY3JlYXNlIGludGVybmFsIHNlcVxuICAgICIsIm1lcm1haWQiOnsidGhlbWUiOiJmb3Jlc3QiLCJmbG93Y2hhcnQiOnsiY3VydmUiOiJiYXNpcyJ9fSwidXBkYXRlRWRpdG9yIjpmYWxzZX0"></a></p>
+<p>上图描述的是当Primary要求Replicator去扩散数据到一个Secondary的时候Replicator如何处理。<br>那么Replicator首先告诉Secondary去更新数据，然后在自体内部把刚才的操作记下来，以便后续retry。并且把自己的seq加一，这里的seq就是Replicator和Secondary之间的信物，用来维持consistency。</p>
+<h3 id="Replicator-SnapshotAck"><a href="#Replicator-SnapshotAck" class="headerlink" title="Replicator - SnapshotAck"></a>Replicator - SnapshotAck</h3><p><a target="_blank" rel="noopener" href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgU2Vjb25kYXJ5LT4-UmVwbGljYXRvcjpTbmFwc2hvdEFjayhrZXksc2VxKVxuICAgIFJlcGxpY2F0b3ItPj5QcmltYXJ5OlJlcGxpY2F0ZWQoa2V5LGlkKVxuICAgIFJlcGxpY2F0b3ItPj5SZXBsaWNhdG9yOnJlbW92ZSBvbmUgaXRlbSBmcm9tIHBlbmRpbmcgYWNrIGxpc3QiLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0IiwiZmxvd2NoYXJ0Ijp7ImN1cnZlIjoiYmFzaXMifX0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9"><img data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgU2Vjb25kYXJ5LT4-UmVwbGljYXRvcjpTbmFwc2hvdEFjayhrZXksc2VxKVxuICAgIFJlcGxpY2F0b3ItPj5QcmltYXJ5OlJlcGxpY2F0ZWQoa2V5LGlkKVxuICAgIFJlcGxpY2F0b3ItPj5SZXBsaWNhdG9yOnJlbW92ZSBvbmUgaXRlbSBmcm9tIHBlbmRpbmcgYWNrIGxpc3QiLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0IiwiZmxvd2NoYXJ0Ijp7ImN1cnZlIjoiYmFzaXMifX0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9"></a></p>
+<p>上图描述的是Replicator在被Secondary告知扩散数据成功后如何处理。<br>先把这个好消息告诉给Primary，然后在retry的列表里面去除掉刚刚成功的这次操作，这样后面就再也不会再去retry这次操作了。</p>
+<h2 id="Primary"><a href="#Primary" class="headerlink" title="Primary"></a>Primary</h2><p>最后是Primary。作为主节点，它的职责是最多最辛劳的。</p>
+<h3 id="Primary-Insert-Remove"><a href="#Primary-Insert-Remove" class="headerlink" title="Primary - Insert&#x2F;Remove"></a>Primary - Insert&#x2F;Remove</h3><p><a target="_blank" rel="noopener" href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgQ2xpZW50LT4-UHJpbWFyeTpJbnNlcnQoa2V5LHZhbHVlLGlkKSBvciBSZW1vdmUoa2V5LGlkKVxuICAgIFByaW1hcnktPj5QcmltYXJ5OnVwZGF0ZSBpbnRlcm5hbCBrdlxuICAgIFByaW1hcnktPj5QZXJzaXN0ZW5jZTpQZXJzaXN0KGtleSx2YWx1ZSxpZClcbiAgICBQcmltYXJ5LT4-UHJpbWFyeTphZGQgb25lIGl0ZW0gdG8gaW50ZXJuYWwgcmV0cnkgcGVyc2lzdCBsaXN0XG4gICAgUHJpbWFyeS0-PlJlcGxpY2F0b3IgMTpSZXBsaWNhdGUoa2V5LHZhbHVlLGlkKVxuICAgIFByaW1hcnktPj5QcmltYXJ5OmFkZCBvbmUgaXRlbSB0byBwZW5kaW5nIHJlcGxpY2F0ZXMgbGlzdFxuICAgIFByaW1hcnktPj5SZXBsaWNhdG9yIDI6UmVwbGljYXRlKGtleSx2YWx1ZSxpZClcbiAgICBQcmltYXJ5LT4-UHJpbWFyeTphZGQgb25lIGl0ZW0gdG8gcGVuZGluZyByZXBsaWNhdGVzIGxpc3RcbiAgICBQcmltYXJ5LT4-UHJpbWFyeTpzY2hlZHVsZSBmYWlsdXJlIGZvciBhZnRlciAxcyIsIm1lcm1haWQiOnsidGhlbWUiOiJmb3Jlc3QiLCJmbG93Y2hhcnQiOnsiY3VydmUiOiJiYXNpcyJ9fSwidXBkYXRlRWRpdG9yIjpmYWxzZX0"><img data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgQ2xpZW50LT4-UHJpbWFyeTpJbnNlcnQoa2V5LHZhbHVlLGlkKSBvciBSZW1vdmUoa2V5LGlkKVxuICAgIFByaW1hcnktPj5QcmltYXJ5OnVwZGF0ZSBpbnRlcm5hbCBrdlxuICAgIFByaW1hcnktPj5QZXJzaXN0ZW5jZTpQZXJzaXN0KGtleSx2YWx1ZSxpZClcbiAgICBQcmltYXJ5LT4-UHJpbWFyeTphZGQgb25lIGl0ZW0gdG8gaW50ZXJuYWwgcmV0cnkgcGVyc2lzdCBsaXN0XG4gICAgUHJpbWFyeS0-PlJlcGxpY2F0b3IgMTpSZXBsaWNhdGUoa2V5LHZhbHVlLGlkKVxuICAgIFByaW1hcnktPj5QcmltYXJ5OmFkZCBvbmUgaXRlbSB0byBwZW5kaW5nIHJlcGxpY2F0ZXMgbGlzdFxuICAgIFByaW1hcnktPj5SZXBsaWNhdG9yIDI6UmVwbGljYXRlKGtleSx2YWx1ZSxpZClcbiAgICBQcmltYXJ5LT4-UHJpbWFyeTphZGQgb25lIGl0ZW0gdG8gcGVuZGluZyByZXBsaWNhdGVzIGxpc3RcbiAgICBQcmltYXJ5LT4-UHJpbWFyeTpzY2hlZHVsZSBmYWlsdXJlIGZvciBhZnRlciAxcyIsIm1lcm1haWQiOnsidGhlbWUiOiJmb3Jlc3QiLCJmbG93Y2hhcnQiOnsiY3VydmUiOiJiYXNpcyJ9fSwidXBkYXRlRWRpdG9yIjpmYWxzZX0"></a></p>
+<p>上图是Primary处理来自Client的Insert或者Remove请求。<br>前面一半和Secondary处理Snapshot方式基本一致。</p>
+<p>不同之处就在于：<br>Primary还要负责告诉所有现存的Replicator（图里只画了两个，理论上可以有任意N个）去扩散数据。并且把这个操作记在内部状态里。<br>以及设置一个定时任务，一秒钟之后，如果没有达成Primary自己persist成功并且每一个Replicator都扩散成功的状态，那就告诉Client这次操作是失败的。</p>
+<h3 id="Primary-Get"><a href="#Primary-Get" class="headerlink" title="Primary - Get"></a>Primary - Get</h3><p>至于Primary处理来自于Client的Get请求的图就不画了，与Secondary完全一致。</p>
+<h3 id="Primary-Persisted"><a href="#Primary-Persisted" class="headerlink" title="Primary - Persisted"></a>Primary - Persisted</h3><p><a target="_blank" rel="noopener" href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUGVyc2lzdGVuY2UtPj5QcmltYXJ5OlBlcnNpc3RlZChrZXksaWQpXG4gICAgUHJpbWFyeS0-PlByaW1hcnk6IHJlbW92ZSBvbmUgaXRlbSBmcm9tIHBlbmRpbmcgcGVyc2lzdCBsaXN0XG4gICAgYWx0IFJlcGxpY2F0aW9ucyBhbGwgZmluaXNoZWRcbiAgICBQcmltYXJ5LT4-Q2xpZW50Ok9wZXJhdGlvbkFjayhpZClcbiAgICBlbmQiLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9"><img data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUGVyc2lzdGVuY2UtPj5QcmltYXJ5OlBlcnNpc3RlZChrZXksaWQpXG4gICAgUHJpbWFyeS0-PlByaW1hcnk6IHJlbW92ZSBvbmUgaXRlbSBmcm9tIHBlbmRpbmcgcGVyc2lzdCBsaXN0XG4gICAgYWx0IFJlcGxpY2F0aW9ucyBhbGwgZmluaXNoZWRcbiAgICBQcmltYXJ5LT4-Q2xpZW50Ok9wZXJhdGlvbkFjayhpZClcbiAgICBlbmQiLCJtZXJtYWlkIjp7InRoZW1lIjoiZm9yZXN0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9"></a></p>
+<p>上图是Primary收到Persistence成功消息的时候要做的事情。<br>首先从pending persist列表中移除刚刚persist成功的一条。<br>然后检查下是不是所有Replications也都完成了，两个条件的都符合的话，就告诉Client说操作完成了。</p>
+<h3 id="Primary-Replicated"><a href="#Primary-Replicated" class="headerlink" title="Primary - Replicated"></a>Primary - Replicated</h3><p><a target="_blank" rel="noopener" href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUmVwbGljYXRvci0-PlByaW1hcnk6UmVwbGljYXRlZChrZXksaWQpXG4gICAgUHJpbWFyeS0-PlByaW1hcnk6IHJlbW92ZSBvbmUgaXRlbSBmcm9tIHBlbmRpbmcgcmVwbGlhdGVzXG4gICAgYWx0IEFsbCBSZXBsaWNhdGlvbnMgRmluaXNoZWRcbiAgICBhbHQgUGVyc2lzdCBmaW5pc2hlZFxuICAgIFByaW1hcnktPj5DbGllbnQ6T3BlcmF0aW9uQWNrKGlkKVxuICAgIGVuZFxuICAgIGVuZFxuIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"><img data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgUmVwbGljYXRvci0-PlByaW1hcnk6UmVwbGljYXRlZChrZXksaWQpXG4gICAgUHJpbWFyeS0-PlByaW1hcnk6IHJlbW92ZSBvbmUgaXRlbSBmcm9tIHBlbmRpbmcgcmVwbGlhdGVzXG4gICAgYWx0IEFsbCBSZXBsaWNhdGlvbnMgRmluaXNoZWRcbiAgICBhbHQgUGVyc2lzdCBmaW5pc2hlZFxuICAgIFByaW1hcnktPj5DbGllbnQ6T3BlcmF0aW9uQWNrKGlkKVxuICAgIGVuZFxuICAgIGVuZFxuIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"></a></p>
+<p>上图是Primary收到来自Replicator的扩散成功消息时候的处理。<br>首先把刚成功的这一条从pending replicates中移除。<br>然后检查下是不是所有的replications都完成了（毕竟这里只是收到了一个replicator的消息），并且persist也完成了，如果两条都符合，就告诉Client说操作完成了。</p>
+<p>到这里就明显可以看出，pending replicates的作用就是primary用来记录尚未完成的replication。</p>
+<h3 id="Primary-Replicas"><a href="#Primary-Replicas" class="headerlink" title="Primary - Replicas"></a>Primary - Replicas</h3><p><a target="_blank" rel="noopener" href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgQXJiaXRlci0-PlByaW1hcnk6UmVwbGljYXMobm9kZXMpXG4gICAgbG9vcCBldmVyeSBuZXcgc2Vjb25kYXJ5XG4gICAgUHJpbWFyeS0-PlByaW1hcnk6Y3JlYXRlIG5ldyByZXBsaWNhdG9yIGZvciBuZXcgc2Vjb25kYXJ5XG4gICAgbG9vcCBldmVyeSBrdiBwYWlyXG4gICAgUHJpbWFyeS0-PlJlcGxpY2F0b3I6UmVwbGljYXRlKGtleSx2YWx1ZSxpZClcbiAgICBlbmRcbiAgICBlbmRcblxuICAgIGxvb3AgZXZlcnkgbGVmdCBzZWNvbmRhcnlcbiAgICBQcmltYXJ5LT4-UHJpbWFyeTpyZW1vdmUgaXRlbXMgZnJvbSBwZW5kaW5nIHJlcGxpY2F0ZXNcbiAgICBhbHQgYWxsIHJlcGxpY2F0aW9ucyBmaW5pc2hlZFxuICAgIGFsdCBwZXJzaXN0IGZpbmlzaGVkXG4gICAgUHJpbWFyeS0-PkNsaWVudDpPcGVyYXRpb25BY2soaWQpXG4gICAgZW5kXG4gICAgZW5kXG4gICAgUHJpbWFyeS0-PlByaW1hcnk6ZGVzdHJveSBpdHMgbWF0Y2hpbmcgcmVwbGljYXRvclxuICAgIFxuICAgIGVuZFxuIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"><img data-src="https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG4gICAgQXJiaXRlci0-PlByaW1hcnk6UmVwbGljYXMobm9kZXMpXG4gICAgbG9vcCBldmVyeSBuZXcgc2Vjb25kYXJ5XG4gICAgUHJpbWFyeS0-PlByaW1hcnk6Y3JlYXRlIG5ldyByZXBsaWNhdG9yIGZvciBuZXcgc2Vjb25kYXJ5XG4gICAgbG9vcCBldmVyeSBrdiBwYWlyXG4gICAgUHJpbWFyeS0-PlJlcGxpY2F0b3I6UmVwbGljYXRlKGtleSx2YWx1ZSxpZClcbiAgICBlbmRcbiAgICBlbmRcblxuICAgIGxvb3AgZXZlcnkgbGVmdCBzZWNvbmRhcnlcbiAgICBQcmltYXJ5LT4-UHJpbWFyeTpyZW1vdmUgaXRlbXMgZnJvbSBwZW5kaW5nIHJlcGxpY2F0ZXNcbiAgICBhbHQgYWxsIHJlcGxpY2F0aW9ucyBmaW5pc2hlZFxuICAgIGFsdCBwZXJzaXN0IGZpbmlzaGVkXG4gICAgUHJpbWFyeS0-PkNsaWVudDpPcGVyYXRpb25BY2soaWQpXG4gICAgZW5kXG4gICAgZW5kXG4gICAgUHJpbWFyeS0-PlByaW1hcnk6ZGVzdHJveSBpdHMgbWF0Y2hpbmcgcmVwbGljYXRvclxuICAgIFxuICAgIGVuZFxuIiwibWVybWFpZCI6eyJ0aGVtZSI6ImZvcmVzdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ"></a></p>
+<p>最后一张图，描述的是当Arbiter告知Primary集群中有变动时，Primary的处理方式。</p>
+<p>对于新加入的Secondary，给它们每个都创建一个新的Replicator。然后通过Replicator把所有现存的kv数据都甩给新加入的Secondary。类似于给插班生<strong>补课</strong>。</p>
+<p>对于离开集群的Secondary，把和它们相关的pending replicates都删掉，既然它离开了，那就没必要等它了。删除掉之后马上检查一下是不是replications和persist都完了（因为有可能当前等的就是这个离开的Secondary，它一离开，没有别的需要等的了），如果是的话，那就告诉Client更新成功了。<br>最后，销毁掉对应的replicator。这个Secondary的历史使命就算终结了。如果后续这个Secondary又加入回来了，那走的就是上面一段<strong>补课</strong>的处理。</p>
+<h1 id="OK"><a href="#OK" class="headerlink" title="OK"></a>OK</h1><p>虽然讲的是一个加了若干限制的分布式键值存储，但是还是用了十四张图。</p>
+<p>这些图里没能体现到的一点是关于异步的问题，在最后补充一句：<br>除了Client之外，以上所有提到的参与者，每一个都是严格单线程的，不会在任何时候同时做两件事。<br>实际的实现代码中，是用<strong>akka</strong>写的，这些参与者做的多数都是<strong>async message passing</strong>的工作。<br>由于这是一门课的作业题，所以具体实现代码就不提及了。</p>
+<p>希望这些图表对于理解分布式键值存储（Distributed Key-Value Store）会有一些帮助。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://cuipengfei.me/blog/2020/02/21/distributed-key-value-store/" title="分布式键值存储（Distributed Key-Value Store）">https://cuipengfei.me/blog/2020/02/21/distributed-key-value-store/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Reactive/" rel="tag"><i class="fa fa-tag"></i> Reactive</a>
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 分布式</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2020/02/15/classes-vs-data-structures/" rel="prev" title="[译] 类 vs 数据结构">
+                  <i class="fa fa-angle-left"></i> [译] 类 vs 数据结构
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2020/05/22/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%86%A8%E8%83%80/" rel="next" title="软件需求膨胀系数">
+                  软件需求膨胀系数 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">372k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:38</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

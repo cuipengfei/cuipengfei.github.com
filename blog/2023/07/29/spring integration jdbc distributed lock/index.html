@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="最近在项目中需要使用Spring Integration提供的基于JDBC实现的分布式锁。 在实践的过程中，我们遇到了一些有趣的问题，现在在此记录和总结一下。 一共遇到了两个问题，第一个和time to live有关，第二个还是和time to live有关。 第一个问题：由于time to live默认值不够长而导致被动失去锁的问题sequenceDiagram  actor event_ini">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Integration JDBC分布式锁 - TTL">
+<meta property="og:url" content="https://cuipengfei.me/blog/2023/07/29/spring%20integration%20jdbc%20distributed%20lock/index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="最近在项目中需要使用Spring Integration提供的基于JDBC实现的分布式锁。 在实践的过程中，我们遇到了一些有趣的问题，现在在此记录和总结一下。 一共遇到了两个问题，第一个和time to live有关，第二个还是和time to live有关。 第一个问题：由于time to live默认值不够长而导致被动失去锁的问题sequenceDiagram  actor event_ini">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cuipengfei.me/images/spring-lock/LiuLuoGuo.jpg">
+<meta property="article:published_time" content="2023-07-28T16:30:00.000Z">
+<meta property="article:modified_time" content="2023-07-28T16:30:00.000Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="分布式">
+<meta property="article:tag" content="锁">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cuipengfei.me/images/spring-lock/LiuLuoGuo.jpg">
+
+
+<link rel="canonical" href="https://cuipengfei.me/blog/2023/07/29/spring%20integration%20jdbc%20distributed%20lock/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2023/07/29/spring%20integration%20jdbc%20distributed%20lock/","path":"blog/2023/07/29/spring integration jdbc distributed lock/","title":"Spring Integration JDBC分布式锁 - TTL"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Spring Integration JDBC分布式锁 - TTL | 崔鹏飞的Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+<script data-ad-client="ca-pub-2529393324217872" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2529393324217872"></script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">崔鹏飞的Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%9A%E7%94%B1%E4%BA%8Etime-to-live%E9%BB%98%E8%AE%A4%E5%80%BC%E4%B8%8D%E5%A4%9F%E9%95%BF%E8%80%8C%E5%AF%BC%E8%87%B4%E8%A2%AB%E5%8A%A8%E5%A4%B1%E5%8E%BB%E9%94%81%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">第一个问题：由于time to live默认值不够长而导致被动失去锁的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%99time-to-live%E4%B8%80%E4%B8%AA%E5%90%88%E7%90%86%E7%9A%84%E5%80%BC"><span class="nav-number">1.1.</span> <span class="nav-text">给time to live一个合理的值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E5%9C%A8%E5%90%88%E9%80%82%E7%9A%84%E6%97%B6%E6%9C%BArenew"><span class="nav-number">1.2.</span> <span class="nav-text">选择在合适的时机renew</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%9Atime-to-live%E5%AF%B9%E4%BA%8E%E8%BF%90%E8%A1%8C%E5%9C%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E8%BF%9B%E7%A8%8B%E4%B8%AD%E7%9A%84%E4%B8%A4%E4%B8%AA%E7%BA%BF%E7%A8%8B%E6%9D%A5%E8%AF%B4%E6%98%AF%E4%B8%8D%E4%BC%9A%E8%87%AA%E5%8A%A8%E7%94%9F%E6%95%88%E7%9A%84"><span class="nav-number">2.</span> <span class="nav-text">第二个问题：time to live对于运行在同一个进程中的两个线程来说是不会自动生效的</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E6%8A%8Atime-to-live%E8%AE%BE%E8%AE%A1%E7%9A%84%E6%9B%B4%E5%85%B7%E6%9C%89%E6%A6%82%E5%BF%B5%E4%B8%8A%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F"><span class="nav-number">2.1.</span> <span class="nav-text">为什么不把time to live设计的更具有概念上的一致性？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">174</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener me" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2023/07/29/spring%20integration%20jdbc%20distributed%20lock/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Spring Integration JDBC分布式锁 - TTL | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spring Integration JDBC分布式锁 - TTL
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-07-29 00:30:00" itemprop="dateCreated datePublished" datetime="2023-07-29T00:30:00+08:00">2023-07-29</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2023/07/29/spring%20integration%20jdbc%20distributed%20lock/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2023/07/29/spring integration jdbc distributed lock/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>最近在项目中需要使用Spring Integration提供的基于JDBC实现的分布式锁。</p>
+<p>在实践的过程中，我们遇到了一些有趣的问题，现在在此记录和总结一下。</p>
+<p>一共遇到了两个问题，第一个和time to live有关，第二个还是和time to live有关。</p>
+<h1 id="第一个问题：由于time-to-live默认值不够长而导致被动失去锁的问题"><a href="#第一个问题：由于time-to-live默认值不够长而导致被动失去锁的问题" class="headerlink" title="第一个问题：由于time to live默认值不够长而导致被动失去锁的问题"></a>第一个问题：由于time to live默认值不够长而导致被动失去锁的问题</h1><pre><code class="highlight mermaid">sequenceDiagram
+
+actor event_initiator
+participant instance_1
+participant instance_2
+
+event_initiator-&gt;&gt;instance_1: do something
+
+note over instance_1: instance 1 获得了 lock
+
+instance_1-&gt;&gt;instance_1: start doing its thing
+
+event_initiator-&gt;&gt;instance_2: do another thing
+
+note over instance_2: instance 2 等待 lock
+note over instance_2: 等 ......
+note over instance_2: 等 ......
+
+note over instance_1: lock的超时时间TTL到，instance 1还没干完活，但是它失去了 lock&lt;br&gt;失去不同于主动release&lt;br&gt;失去lock后，instance 1还会继续干活&lt;br&gt;而这些活里面可能会有SQL写操作
+
+note over instance_2: instance 2 获得了 lock
+
+instance_2-&gt;&gt;instance_2: start doing its thing
+
+note over instance_1,instance_2: 此时二者同时干活，有撞车的风险，因为二者干活的先后顺序没有保证&lt;br&gt; instance 1尚未把它干完活后才能确定的状态写入DB，而instance 2已经开始干活了
+
+note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; ① 想办法尽量让instance 1能在超时前干完活 &lt;br&gt; ② 以防万一可以考虑在合适的时间节点延长锁的过期时间</code></pre>
+
+<p>根据上图所示，我们有两个实例。</p>
+<p>事件的触发者首先让第一个实例去处理一个事件。第一个实例获取了一个锁并开始执行相应的任务。</p>
+<p>此时，事件的触发者又让第二个实例去处理另一个事件。第二个实例也想获取同一个锁，但由于第一个实例已经开始处理了，第二个实例无法获取锁，只能等待。</p>
+<p>在理想情况下，第一个实例会在完成任务后释放锁，然后第二个实例就可以获取锁并开始执行相应的任务，这样就不会有任何问题。</p>
+<p>但是，如果由于某种原因第一个实例处理任务的速度太慢，就会出现问题。</p>
+<p>因为Spring Integration JDBC分布式锁会遵循Time to Live的参数，该参数确定了在获取锁后最长可持有锁的时间。</p>
+<p>如果超出了这个时间，而另一个人想要获取该锁，则可以获取到锁。<strong>这是为了避免锁的持有者挂掉而导致其他人全部干等的防死锁机制。</strong></p>
+<p>在这种情况下，就会有两个人同时运行。</p>
+<p>我们本意是让锁保护资源以避免同时访问，但在这种情况下，资源会被同时访问。</p>
+<p>如果这些访问中涉及到读取共享状态以决定后续行为以及写入其他人可能会读取的状态的操作，那么就会出现混乱。</p>
+<p>在这种情况下，我们可以选择进行两个操作。</p>
+<h2 id="给time-to-live一个合理的值"><a href="#给time-to-live一个合理的值" class="headerlink" title="给time to live一个合理的值"></a>给time to live一个合理的值</h2><p>实际上，相当于需要对运行时间进行合理的估算，然后尽量将time to live设置为能够覆盖该估算值的数值。</p>
+<p>把这个估算出来的数字赋值给default lock repository的time to live就好了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Specify the time (in milliseconds) to expire deadlocks.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> timeToLive the time to expire deadlocks.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setTimeToLive</span><span class="params">(<span class="type">int</span> timeToLive)</span> &#123;</span><br><span class="line">	<span class="built_in">this</span>.ttl = Duration.ofMillis(timeToLive);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-integration/blob/7dcc0bb125eb5d72d9dc6cec0cc91bd4114336be/spring-integration-jdbc/src/main/java/org/springframework/integration/jdbc/lock/DefaultLockRepository.java#L190-L196">DefaultLockRepository</a></p>
+<h2 id="选择在合适的时机renew"><a href="#选择在合适的时机renew" class="headerlink" title="选择在合适的时机renew"></a>选择在合适的时机renew</h2><p>即使我们进行了合理的估算，但这只是一个估计值，不是绝对精确的值。</p>
+<p>换言之，在某些情况下，运行时间仍可能延续到time to live过期之后，从而面临两个人同时访问的风险。</p>
+<p>为了避免这种情况，可以在适当的时候进行renew操作。</p>
+<p>例如，在执行耗时较长的操作之前调用lock registry的renewLock方法，这样就相当于在执行耗时较长的操作之前重新获取了一次锁。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">RenewableLockRegistry</span> <span class="keyword">extends</span> <span class="title class_">LockRegistry</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Renew the time to live of the lock is associated with the parameter object.</span></span><br><span class="line"><span class="comment">	 * The lock must be held by the current thread</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> lockKey The object with which the lock is associated.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">void</span> <span class="title function_">renewLock</span><span class="params">(Object lockKey)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-integration/blob/7dcc0bb125eb5d72d9dc6cec0cc91bd4114336be/spring-integration-core/src/main/java/org/springframework/integration/support/locks/RenewableLockRegistry.java#L28-L37">RenewableLockRegistry</a></p>
+<h1 id="第二个问题：time-to-live对于运行在同一个进程中的两个线程来说是不会自动生效的"><a href="#第二个问题：time-to-live对于运行在同一个进程中的两个线程来说是不会自动生效的" class="headerlink" title="第二个问题：time to live对于运行在同一个进程中的两个线程来说是不会自动生效的"></a>第二个问题：time to live对于运行在同一个进程中的两个线程来说是不会自动生效的</h1><pre><code class="highlight mermaid">sequenceDiagram
+
+actor event_initiator
+participant instance_1
+participant instance_2
+
+event_initiator-&gt;&gt;instance_1: do something
+
+note over instance_1: instance 1 获得了 lock
+
+instance_1-&gt;&gt;instance_1: start doing its thing
+
+event_initiator-&gt;&gt;instance_2: do another thing
+
+note over instance_2: instance 2 等待 lock
+note over instance_2: 等 ......
+note over instance_2: 等 ......
+
+note over instance_1:instance 1的当前线程由于某种原因卡死了，没机会释放锁
+
+note over instance_1: lock的超时时间TTL到
+
+note over instance_2: instance 2 获得了 lock
+
+instance_2-&gt;&gt;instance_2: start doing its thing
+
+note over event_initiator,instance_2: instance 1的线程由于某种原因卡死而没机会释放锁&lt;br&gt;在TTL过后instance 2可以拿到锁并做事&lt;br&gt;这是我们希望看到的事情，因为这样可以避免由于一个线程卡死不释放锁而导致别人干等的局面</code></pre>
+
+<p>在上述图中，我们描述了两个实例，即在不同机器（或容器）上运行的两个不同Java进程。这是跨进程协作的情况，这正是我们需要<strong>分布式</strong>锁的主要原因。</p>
+<p>在这种场景下，time to live是有效的。它可以防止一个进程无法释放锁，从而导致其他进程一直等待锁而无法继续工作的局面的出现。</p>
+<p>在跨进程协作中，time to live可以发挥作用，那对于同一个进程中的两个线程，<strong>是否同样有效呢？</strong></p>
+<p>从概念上来说，如果能将其设计成同样有效的，则可以减轻使用者的认知负担。</p>
+<p>但是，在Spring Integration JDBC的分布式锁实现中，time to live<strong>并不是这样的。它对于同一个Java进程中的两个线程来说是不会自动生效的。</strong></p>
+<p>下面的图是一个它不会生效的具体例子。 </p>
+<pre><code class="highlight mermaid">sequenceDiagram
+
+actor event_initiator
+
+event_initiator-&gt;&gt;instance_1: do something
+
+instance_1-&gt;&gt;instance_1_thread_1: 分配工作给线程1
+
+note over instance_1_thread_1: instance 1 - thread 1 获得了 lock
+
+instance_1_thread_1-&gt;&gt;instance_1_thread_1: start doing its thing
+
+event_initiator-&gt;&gt;instance_1: do another thing
+
+instance_1-&gt;&gt;instance_1_thread_2: 分配工作给线程2
+
+note over instance_1_thread_2: instance 1 - thread 2 等待 lock
+note over instance_1_thread_2: 等 ......
+note over instance_1_thread_2: 等 ......
+
+note over instance_1_thread_1: thread 1由于某种原因卡死了，没机会释放锁
+
+note over instance_1_thread_1: lock的超时时间TTL到
+
+note over instance_1_thread_2: thread 2 仍然获获取不到 lock
+note over instance_1_thread_2: 继续等也没用</code></pre>
+
+<p>正如上图所示，第二个线程或同一个进程中的任何其他线程，即使继续等待锁，也无济于事。这也解释了time to live在这种情况下的无效性。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/cuipengfei/Spikes/blob/master/jpa/spring-jdbc-distributed-lock-issue/src/test/java/com/github/spring/example/LockTest.java">这份代码可以重现上面两幅图所描述的场景</a></p>
+<p>要解决这种情况下的问题，则需要用到下面提到的这个expireUnusedOlderThan方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ExpirableLockRegistry</span> <span class="keyword">extends</span> <span class="title class_">LockRegistry</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Remove locks last acquired more than &#x27;age&#x27; ago that are not currently locked.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> age the time since the lock was last obtained.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@throws</span> IllegalStateException if the registry configuration does not support this feature.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">void</span> <span class="title function_">expireUnusedOlderThan</span><span class="params">(<span class="type">long</span> age)</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-integration/blob/7dcc0bb125eb5d72d9dc6cec0cc91bd4114336be/spring-integration-core/src/main/java/org/springframework/integration/support/locks/ExpirableLockRegistry.java#L27-L36">ExpirableLockRegistry </a></p>
+<p>如果一个Java进程中的一个线程因为某种原因卡死了，从而无法释放锁。<br>在TTL过期之后，另一个线程在尝试获取同一个锁之前，可以调用expireUnusedOlderThan来强制释放该锁。<br>然后再尝试获取锁，就可以成功获取并继续工作。</p>
+<h2 id="为什么不把time-to-live设计的更具有概念上的一致性？"><a href="#为什么不把time-to-live设计的更具有概念上的一致性？" class="headerlink" title="为什么不把time to live设计的更具有概念上的一致性？"></a>为什么不把time to live设计的更具有概念上的一致性？</h2><p>当涉及到跨越两个进程时，time to live会发挥作用。但是对于同一个进程中的两个线程来说，time to live就不再有效。这种同一个概念在不同的场景下表现出不同的行为，缺乏概念上的一致性，这可能会增加使用者的认知负担。</p>
+<p>那Spring为什么要把它设计成这样呢？</p>
+<p>以下是我的<strong>解读</strong>：</p>
+<p>在分布式系统中，如果两个进程想要获得同一个锁，那么来得晚一些的进程实际上并不知道前一个进程目前处于什么状态，它是否已经死亡。在这种情况下，time to live成为了<strong>决策的唯一依据</strong>。如果time to live还没有过期，那么来得晚的进程认为它不应该获取该锁。一旦time to live过期，后续进程将把锁置于自己的控制之下，而不管前一个进程是否仍然活着。简而言之，由于<strong>缺少其他的决策依据</strong>，这种情况下只能选择依照time to live来简单粗暴的办事。</p>
+<p>然而，对于同一个进程中的两个线程来说，情况就不同了。它们共享同一块内存空间(从实现层面来讲，同一个进程中的两个线程是共享<strong>同一份registry和repository</strong>的)。如果后续线程发现前一个线程在TTL过后还没有释放锁，则默认认为前一个线程仍然有继续工作的能力，因此它默认不会强制抢占锁。除非他在TTL之后等过一段时间之后觉得等不及了，这时候他<strong>可以选择</strong>强制把锁抢过来。</p>
+<p>举个例子，就像在古代<strong>缺乏无线电通信</strong>的战争中。一支小队去执行任务，另一支小队待命。三个小时后，不论先前的小队是否成功，后续小队都必须出发参加战斗。因为除了这三个小时之外，你没有其他的决策依据。只要时间到了，我就开始行动。</p>
+<p>但是，如果是同一支小队中的两个士兵，后面的士兵实际上可以在目视距离内看到前面的士兵是否仍然在执行任务。因此，<strong>即便是战友行动太慢</strong>了，他也可以选择多等待一会，让前面的士兵可以继续完成任务。当然，如果后面的士兵等不及了，想要立即行动，他也可以选择这样做。在这种情况下，后面的士兵<strong>具有更多的决策依据</strong>，因此他可以选择多等待一段时间或立即采取行动。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>第一个问题：由于time to live默认值不够长，而导致在还不该失去锁的时间点上过早地失去了锁（<strong>防死锁机制过早地介入了</strong>），解决方法是把TTL设置的足够大，以及在合适的时机做renew从而避免过早地失去锁。</p>
+<p>第二个问题：time to live对于运行在同一个进程中的两个线程来说是<strong>不会默认生效</strong>的，从而导致应该失去锁的时间已经过了，但卡住的线程还没有释放锁，进而导致后续的线程拿不到锁的情况。解决方法是<strong>可以选择</strong>让同一个进程内的后来者线程使用expireUnusedOlderThan来强制剥夺锁(同一个进程中的两个线程，其中后来的那个具有更高的自由裁量权，不必只依据TTL一个指标来行事)。</p>
+<pre><code class="highlight mermaid">mindmap
+  root(Spring Integration JDBC Distributed Lock)
+    默认TTL太短
+        设置长一些
+        renew
+    卡死了，没机会释放锁
+        其它进程可以在TTL过后拿到锁
+        同一个进程内的其它线程可以选择使用expireUnusedOlderThan</code></pre>
+
+<p>锁的事，该失去就失去，不失去也强制失去。</p>
+<p>锁的事，不该失去就不能失去，要失去也不许失去。</p>
+<p><img data-src="/../images/spring-lock/LiuLuoGuo.jpg" alt="llg"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://cuipengfei.me/blog/2023/07/29/spring%20integration%20jdbc%20distributed%20lock/" title="Spring Integration JDBC分布式锁 - TTL">https://cuipengfei.me/blog/2023/07/29/spring integration jdbc distributed lock/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 分布式</a>
+              <a href="/tags/%E9%94%81/" rel="tag"><i class="fa fa-tag"></i> 锁</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2023/03/18/generative-tests/" rel="prev" title="当测试代码使用随机生成的输入数据时，该如何去做出断言">
+                  <i class="fa fa-angle-left"></i> 当测试代码使用随机生成的输入数据时，该如何去做出断言
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2023/08/26/not-mem-leak/" rel="next" title="内存涨上去不肯下来 - 未必是内存泄漏">
+                  内存涨上去不肯下来 - 未必是内存泄漏 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">372k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:38</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

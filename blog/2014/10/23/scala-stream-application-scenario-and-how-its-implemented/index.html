@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="假设一个场景需要在50个随机数中找到前两个可以被3整除的数字。 听起来很简单，我们可以这样来写： 123456789def randomList &#x3D; (1 to 50).map(_ &#x3D;&gt; Random.nextInt(100)).toListdef isDivisibleBy3(n: Int) &#x3D; &#123;  val isDivisible &#x3D; n % 3 &#x3D;&#x3D; 0  println(s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scala中Stream的应用场景及其实现原理">
+<meta property="og:url" content="https://cuipengfei.me/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="假设一个场景需要在50个随机数中找到前两个可以被3整除的数字。 听起来很简单，我们可以这样来写： 123456789def randomList &#x3D; (1 to 50).map(_ &#x3D;&gt; Random.nextInt(100)).toListdef isDivisibleBy3(n: Int) &#x3D; &#123;  val isDivisible &#x3D; n % 3 &#x3D;&#x3D; 0  println(s">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2014-10-23T09:21:00.000Z">
+<meta property="article:modified_time" content="2014-10-23T09:21:00.000Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="Scala">
+<meta property="article:tag" content="ScalaInAction">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://cuipengfei.me/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/","path":"blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/","title":"Scala中Stream的应用场景及其实现原理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Scala中Stream的应用场景及其实现原理 | 崔鹏飞的Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+<script data-ad-client="ca-pub-2529393324217872" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2529393324217872"></script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">崔鹏飞的Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%81%87%E8%AE%BE%E4%B8%80%E4%B8%AA%E5%9C%BA%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">假设一个场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%B0%E6%9C%89%E8%A7%A3%E6%B3%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">现有解法的优缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%95%E7%9D%80%E8%A7%A3%E5%86%B3%E5%85%B6%E7%BC%BA%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">试着解决其缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E6%8C%81%E4%BB%A3%E7%A0%81%E7%9A%84%E8%A1%A8%E6%84%8F%E6%80%A7%E8%80%8C%E5%8F%88%E4%B8%8D%E7%94%A8%E5%81%9A%E5%A4%9A%E4%BD%99%E8%BF%90%E7%AE%97%E5%91%A2%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">如何保持代码的表意性而又不用做多余运算呢？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">实现原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E7%AD%BE%E5%90%8D"><span class="nav-number">6.</span> <span class="nav-text">类型签名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">7.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Smart%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">8.</span> <span class="nav-text">Smart初始化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#filter"><span class="nav-number">9.</span> <span class="nav-text">filter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#take"><span class="nav-number">10.</span> <span class="nav-text">take</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#toList"><span class="nav-number">11.</span> <span class="nav-text">toList</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">12.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">174</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener me" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Scala中Stream的应用场景及其实现原理 | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Scala中Stream的应用场景及其实现原理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2014-10-23 17:21:00" itemprop="dateCreated datePublished" datetime="2014-10-23T17:21:00+08:00">2014-10-23</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="假设一个场景"><a href="#假设一个场景" class="headerlink" title="假设一个场景"></a>假设一个场景</h1><p>需要在50个随机数中找到前两个可以被3整除的数字。</p>
+<p>听起来很简单，我们可以这样来写：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">randomList</span> </span>= (<span class="number">1</span> to <span class="number">50</span>).map(_ =&gt; <span class="type">Random</span>.nextInt(<span class="number">100</span>)).toList</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">isDivisibleBy3</span></span>(n: <span class="type">Int</span>) = &#123;</span><br><span class="line">  <span class="keyword">val</span> isDivisible = n % <span class="number">3</span> == <span class="number">0</span></span><br><span class="line">  println(<span class="string">s&quot;<span class="subst">$n</span> <span class="subst">$isDivisible</span>&quot;</span>)</span><br><span class="line">  isDivisible</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">randomList.filter(isDivisibleBy3).take(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>一个产生50个随机数的函数；</p>
+<p>一个检查某数字是否能被3整除的函数；</p>
+<p>最后，对含有50个随机数的List做filter操作，找到其中所有能够被3整除的数字，取其中前两个。</p>
+<p>把这段代码在Scala的console里面跑一下，结果是这样的：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; randomList.filter(isDivisibleBy3).take(<span class="number">2</span>)</span><br><span class="line"><span class="number">31</span> <span class="literal">false</span></span><br><span class="line"><span class="number">71</span> <span class="literal">false</span></span><br><span class="line"><span class="number">95</span> <span class="literal">false</span></span><br><span class="line"><span class="number">7</span> <span class="literal">false</span></span><br><span class="line"><span class="number">38</span> <span class="literal">false</span></span><br><span class="line"><span class="number">48</span> <span class="literal">true</span></span><br><span class="line"><span class="number">88</span> <span class="literal">false</span></span><br><span class="line"><span class="number">52</span> <span class="literal">false</span></span><br><span class="line"><span class="number">2</span> <span class="literal">false</span></span><br><span class="line"><span class="number">27</span> <span class="literal">true</span></span><br><span class="line"><span class="number">90</span> <span class="literal">true</span></span><br><span class="line"><span class="number">55</span> <span class="literal">false</span></span><br><span class="line"><span class="number">96</span> <span class="literal">true</span></span><br><span class="line"><span class="number">91</span> <span class="literal">false</span></span><br><span class="line"><span class="number">82</span> <span class="literal">false</span></span><br><span class="line"><span class="number">83</span> <span class="literal">false</span></span><br><span class="line"><span class="number">8</span> <span class="literal">false</span></span><br><span class="line"><span class="number">51</span> <span class="literal">true</span></span><br><span class="line"><span class="number">96</span> <span class="literal">true</span></span><br><span class="line"><span class="number">27</span> <span class="literal">true</span></span><br><span class="line"><span class="number">12</span> <span class="literal">true</span></span><br><span class="line"><span class="number">76</span> <span class="literal">false</span></span><br><span class="line"><span class="number">17</span> <span class="literal">false</span></span><br><span class="line"><span class="number">53</span> <span class="literal">false</span></span><br><span class="line"><span class="number">54</span> <span class="literal">true</span></span><br><span class="line"><span class="number">70</span> <span class="literal">false</span></span><br><span class="line"><span class="number">29</span> <span class="literal">false</span></span><br><span class="line"><span class="number">49</span> <span class="literal">false</span></span><br><span class="line"><span class="number">12</span> <span class="literal">true</span></span><br><span class="line"><span class="number">83</span> <span class="literal">false</span></span><br><span class="line"><span class="number">18</span> <span class="literal">true</span></span><br><span class="line"><span class="number">6</span> <span class="literal">true</span></span><br><span class="line"><span class="number">7</span> <span class="literal">false</span></span><br><span class="line"><span class="number">76</span> <span class="literal">false</span></span><br><span class="line"><span class="number">51</span> <span class="literal">true</span></span><br><span class="line"><span class="number">95</span> <span class="literal">false</span></span><br><span class="line"><span class="number">76</span> <span class="literal">false</span></span><br><span class="line"><span class="number">85</span> <span class="literal">false</span></span><br><span class="line"><span class="number">87</span> <span class="literal">true</span></span><br><span class="line"><span class="number">84</span> <span class="literal">true</span></span><br><span class="line"><span class="number">44</span> <span class="literal">false</span></span><br><span class="line"><span class="number">44</span> <span class="literal">false</span></span><br><span class="line"><span class="number">89</span> <span class="literal">false</span></span><br><span class="line"><span class="number">84</span> <span class="literal">true</span></span><br><span class="line"><span class="number">42</span> <span class="literal">true</span></span><br><span class="line"><span class="number">44</span> <span class="literal">false</span></span><br><span class="line"><span class="number">0</span> <span class="literal">true</span></span><br><span class="line"><span class="number">23</span> <span class="literal">false</span></span><br><span class="line"><span class="number">35</span> <span class="literal">false</span></span><br><span class="line"><span class="number">55</span> <span class="literal">false</span></span><br><span class="line">res34: <span class="type">List</span>[<span class="type">Int</span>] = <span class="type">List</span>(<span class="number">48</span>, <span class="number">27</span>)</span><br></pre></td></tr></table></figure>
+
+<p>其最终结果固然是没有问题，找到了48和27这两个数字。但是非常明显的可以看出，isDivisibleBy3被调用了50次，找到了远多于两个的能被3整除的数字，但是最后我们只关心其中前两个结果。</p>
+<p>这似乎有点浪费，做了很多多余的运算。</p>
+<p>对于这个例子来说，这还没什么，我们的List很小，判断整除于否也不是什么耗时操作。</p>
+<p>但是如果List很大，filter时所做的运算很复杂的话，那这种做法就不可取了。</p>
+<h1 id="现有解法的优缺点"><a href="#现有解法的优缺点" class="headerlink" title="现有解法的优缺点"></a>现有解法的优缺点</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">randomList.filter(isDivisibleBy3).take(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>这行代码有一个优点：</p>
+<p>用描述性、声明性的语言描述了我们要做的事是什么，而无需描述怎么做。我们只需说先用filter过滤一下，然后拿前两个，整件事就完成了。</p>
+<p>但是它同时也有一个缺点：</p>
+<p>做了多余的运算，浪费资源，而且这个缺点会随着数据量的增大以及计算复杂度的增加而更为凸显。</p>
+<h1 id="试着解决其缺点"><a href="#试着解决其缺点" class="headerlink" title="试着解决其缺点"></a>试着解决其缺点</h1><p>解决多余运算的思路很简单，不要过滤完整个List之后再取前两个。而是在过滤的过程中如果发现已经找到两个了，那剩下的就忽略掉不管了。</p>
+<p>顺着这个思路很容易写出如下很像Java的代码：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">first2UsingMutable</span></span>: <span class="type">List</span>[<span class="type">Int</span>] = &#123;</span><br><span class="line">  <span class="keyword">val</span> result = <span class="type">ListBuffer</span>[<span class="type">Int</span>]()</span><br><span class="line"></span><br><span class="line">  randomList.foreach(n =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (isDivisibleBy3(n)) result.append(n)</span><br><span class="line">    <span class="keyword">if</span> (result.size == <span class="number">2</span>) <span class="keyword">return</span> result.toList</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  result.toList</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>创建一个可变的List，开始遍历随机数，找到能被3整除的就把它塞进可变List里面去，找够了两个就返回。</p>
+<p>执行的结果如下：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; first2UsingMutable</span><br><span class="line"><span class="number">31</span> <span class="literal">false</span></span><br><span class="line"><span class="number">89</span> <span class="literal">false</span></span><br><span class="line"><span class="number">21</span> <span class="literal">true</span></span><br><span class="line"><span class="number">29</span> <span class="literal">false</span></span><br><span class="line"><span class="number">12</span> <span class="literal">true</span></span><br><span class="line">res35: <span class="type">List</span>[<span class="type">Int</span>] = <span class="type">List</span>(<span class="number">21</span>, <span class="number">12</span>)</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，运算量确实变少了，找够了两个就直接收工了。</p>
+<p>但是这实在很糟糕，显式使用了return同时还引入了可变量。</p>
+<p>有什么东西像是一个foreach循环而又可以不引入可变量呢？fold</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">first2UsingFold</span></span>: <span class="type">List</span>[<span class="type">Int</span>] = &#123;</span><br><span class="line">  randomList.foldLeft(<span class="type">Nil</span>: <span class="type">List</span>[<span class="type">Int</span>])((acc, n) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (acc.size == <span class="number">2</span>) <span class="keyword">return</span> acc</span><br><span class="line">    <span class="keyword">if</span> (isDivisibleBy3(n)) n :: acc</span><br><span class="line">    <span class="keyword">else</span> acc</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; first2UsingFold</span><br><span class="line"><span class="number">98</span> <span class="literal">false</span></span><br><span class="line"><span class="number">77</span> <span class="literal">false</span></span><br><span class="line"><span class="number">68</span> <span class="literal">false</span></span><br><span class="line"><span class="number">93</span> <span class="literal">true</span></span><br><span class="line"><span class="number">93</span> <span class="literal">true</span></span><br><span class="line">res36: <span class="type">List</span>[<span class="type">Int</span>] = <span class="type">List</span>(<span class="number">93</span>, <span class="number">93</span>)</span><br></pre></td></tr></table></figure>
+
+<p>效果和上面一段代码类似，没有多余的运算。但是由于需要early termination，所以还是摆脱不了return。</p>
+<p>这两种解法在去除多余运算这个缺点的同时也把原来的优点给丢掉了，我们又退化回了描述如何做而不是做什么的程度了。</p>
+<h1 id="如何保持代码的表意性而又不用做多余运算呢？"><a href="#如何保持代码的表意性而又不用做多余运算呢？" class="headerlink" title="如何保持代码的表意性而又不用做多余运算呢？"></a>如何保持代码的表意性而又不用做多余运算呢？</h1><p>其实类似的问题是有套路化的解决方案的：使用Stream。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">randomList.toStream.filter(isDivisibleBy3).take(<span class="number">2</span>).toList</span><br></pre></td></tr></table></figure>
+
+<p>这行代码执行的结果：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; randomList.toStream.filter(isDivisibleBy3).take(<span class="number">2</span>).toList</span><br><span class="line"><span class="number">86</span> <span class="literal">false</span></span><br><span class="line"><span class="number">15</span> <span class="literal">true</span></span><br><span class="line"><span class="number">53</span> <span class="literal">false</span></span><br><span class="line"><span class="number">20</span> <span class="literal">false</span></span><br><span class="line"><span class="number">93</span> <span class="literal">true</span></span><br><span class="line">res42: <span class="type">List</span>[<span class="type">Int</span>] = <span class="type">List</span>(<span class="number">15</span>, <span class="number">93</span>)</span><br></pre></td></tr></table></figure>
+
+<p>可见没有多余运算了，而且这行代码和最初代码极为相似，都是通过描述先做filter再做take来完成任务的。缺点没有了，优点也保留了下来。</p>
+<p>这同样都是filter和take，代码跟代码的差距咋就这么大呢？</p>
+<p>答案就是：因为Stream利用了惰性求值（lazy evaluation），或者也可以称之为延迟执行（deferred execution）。</p>
+<p>接下来就看一下这两个晦涩的名词是如何帮助Stream完成工作的吧。</p>
+<h1 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h1><p>在这里我借用一下Functional programming in Scala这本书里对Stream实现的代码，之所以不用Scala标准库的源码是因为我们只需要实现filter，take和toList这三个方法就可以展示Stream的原理，就不需要动用重型武器了。</p>
+<p>先假设我们自己实现了一个MyStream，它的用法和Stream是类似的：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">MyStream</span>(randomList: _*).filter(isDivisibleBy3).take(<span class="number">2</span>).toList</span><br></pre></td></tr></table></figure>
+
+<p>以这一行代码为引子，我们来开始解剖MyStream是如何工作的。</p>
+<h1 id="类型签名"><a href="#类型签名" class="headerlink" title="类型签名"></a>类型签名</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">MyStream</span>[+<span class="type">A</span>] </span>&#123;</span><br><span class="line">	. . . . . .</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">object</span> <span class="title">Empty</span> <span class="keyword">extends</span> <span class="title">MyStream</span>[<span class="type">Nothing</span>]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">Cons</span>[+<span class="type">A</span>](<span class="params">h: (</span>) <span class="title">=&gt;</span> <span class="title">A</span>, <span class="title">t</span></span>: () =&gt; <span class="type">MyStream</span>[<span class="type">A</span>]) <span class="keyword">extends</span> <span class="type">MyStream</span>[<span class="type">A</span>]</span><br></pre></td></tr></table></figure>
+
+<p>一个trait叫做MyStream，其中的内容我们暂时忽略掉。</p>
+<p>它有两个子类，一个Cons，一个Empty。Empty当然是代表空Stream了。</p>
+<p>而Cons则是头尾结构的，头是Stream中的一个元素，尾是Stream中余下的元素。请注意头和尾这两个参数的类型并不是A，头的类型是一个能够返回A的函数，尾的类型是一个能够返回MyStream[A]的函数。</p>
+<h1 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h1><p>有了以上的类型定义以及头尾结构，我们就可以把很多个Cons加一个Empty（或者是无限多个Cons，没有Empty）连起来就构成一个Stream了，比如这样：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Cons</span>(()=&gt;<span class="number">1</span>,()=&gt;<span class="type">Cons</span>(()=&gt;<span class="number">2</span>,()=&gt;<span class="type">Empty</span>))</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以构造一个含有1，2的Stream了。</p>
+<p>不过，请注意，上面的说法并不严谨，实际上它是一个包含着两个分别会返回1和2的函数的Stream。</p>
+<p>也就是说当上面的代码在构造Cons的时候，1和2还没有“出生”，它们被包在一个函数里，等着被释放出来。</p>
+<p>如果说我们通常熟知的一些集合包含的是花朵的话，那Stream所包含的就是花苞，它本身不是花，但是有开出花来的能力。</p>
+<h1 id="Smart初始化"><a href="#Smart初始化" class="headerlink" title="Smart初始化"></a>Smart初始化</h1><p>当然，如果直接暴露Cons的构造函数出去给别人用的话，那这API也未免太不友好了，所以Stream需要提供一个易用的初始化的方式：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">MyStream</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">apply</span></span>[<span class="type">A</span>](elems: <span class="type">A</span>*): <span class="type">MyStream</span>[<span class="type">A</span>] = &#123;</span><br><span class="line">    <span class="keyword">if</span> (elems.isEmpty) empty</span><br><span class="line">    <span class="keyword">else</span> cons(elems.head, apply(elems.tail: _*))</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">cons</span></span>[<span class="type">A</span>](hd: =&gt; <span class="type">A</span>, tl: =&gt; <span class="type">MyStream</span>[<span class="type">A</span>]): <span class="type">MyStream</span>[<span class="type">A</span>] = &#123;</span><br><span class="line">    <span class="keyword">lazy</span> <span class="keyword">val</span> head = hd</span><br><span class="line">    <span class="keyword">lazy</span> <span class="keyword">val</span> tail = tl</span><br><span class="line">    <span class="type">Cons</span>(() =&gt; head, () =&gt; tail)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">empty</span></span>[<span class="type">A</span>]: <span class="type">MyStream</span>[<span class="type">A</span>] = <span class="type">Empty</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个没有太多好解释的，我们就是用apply和小写的cons这两个方法来把客户代码原本要写的一大堆匿名函数给代劳掉。</p>
+<p>需要注意的一点是apply方法看似是递归的，好像是你调用它的时候如果给它n个元素的话，它会自己调用自己n-1次。事实上它确实会调用自己n-1次，但是并不是立即发生的，为什么呢？</p>
+<p>因为小写的cons方法所接受的第二个参数不是eager evaluation的，这就会使得apply(elems.tail: _*)这个表达式不会立即被求值。这就意味着，apply缺失会被调用n次，但是这n次并不是一次接一次连续发生的，它只会在我们对一个Cons的尾巴求值时才会发生一次。</p>
+<p>如果说普通的集合中包含的是数据的话，那Stream中所包含的就是能够产生数据的算法。</p>
+<p>如何？是不是花朵花苞的感觉又回来了？</p>
+<p>还记得我们开始剖析的时候那句代码是什么吗？</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">MyStream</span>(randomList: _*).filter(isDivisibleBy3).take(<span class="number">2</span>).toList</span><br></pre></td></tr></table></figure>
+
+<p>现在我们算是把MyStream(randomList: _*)这一小点说清了。</p>
+<p>接下来看MyStream(randomList: _*).filter(isDivisibleBy3)是如何work的。</p>
+<h1 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">MyStream</span>[+<span class="type">A</span>] </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">filter</span></span>(p: <span class="type">A</span> =&gt; <span class="type">Boolean</span>): <span class="type">MyStream</span>[<span class="type">A</span>] = &#123;</span><br><span class="line">    <span class="keyword">this</span> <span class="keyword">match</span> &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="type">Cons</span>(h, t) =&gt;</span><br><span class="line">        <span class="keyword">if</span> (p(h())) cons(h(), t().filter(p))</span><br><span class="line">        <span class="keyword">else</span> t().filter(p)</span><br><span class="line">      <span class="keyword">case</span> <span class="type">Empty</span> =&gt; empty</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">. . . . . .</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这个方法定义在基类里，又是一个看似递归的实现。</p>
+<p>为什么说是看似呢？因为在</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (p(h())) cons(h(), t().filter(p))</span><br></pre></td></tr></table></figure>
+
+<p>这行代码中我们又用到了小写的cons，它所接受的参数不会被立即求值。也就是说filter一旦找到一个合适的元素，它就不再继续跑了，剩下的计算被延迟了。</p>
+<p>比较值得提一下的是：这里的h()是什么呢？h是构造Cons时的第一个参数，它是什么类型的？()&#x3D;&gt;A。它就是之前提到的能够生产数据的算法，就是那个能够开出花朵的花苞。在这里我们说h()，就是在调用这个函数来拿到它所生产的数据，就是让一个花苞开出花朵。</p>
+<h1 id="take"><a href="#take" class="headerlink" title="take"></a>take</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">MyStream</span>(randomList: _*).filter(isDivisibleBy3).take(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>接下来就该说take是如何work的了。在这里我们可以回顾一下，MyStream(randomList: _*)返回一个类型为MyStream[Int]，其中包含很多个可以返回Int的函数的容器。然后我们调用了这个容器的filter方法，filter又返回一个包含很多个可以返回Int的函数的容器。请注意，到这里为止，真正的计算还没有开始，真正的计算被包含到了一个又一个的函数（花苞）中，等待着被调用（绽放）。</p>
+<p>那对filter的结果调用take又会怎样呢？</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">MyStream</span>[+<span class="type">A</span>] </span>&#123;</span><br><span class="line"></span><br><span class="line">  . . . . . .</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">take</span></span>(n: <span class="type">Int</span>): <span class="type">MyStream</span>[<span class="type">A</span>] = &#123;</span><br><span class="line">    <span class="keyword">if</span> (n &gt; <span class="number">0</span>) <span class="keyword">this</span> <span class="keyword">match</span> &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="type">Cons</span>(h, t) <span class="keyword">if</span> n == <span class="number">1</span> =&gt; cons(h(), <span class="type">MyStream</span>.empty)</span><br><span class="line">      <span class="keyword">case</span> <span class="type">Cons</span>(h, t) =&gt; cons(h(), t().take(n - <span class="number">1</span>))</span><br><span class="line">      <span class="keyword">case</span> _ =&gt; <span class="type">MyStream</span>.empty</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="type">MyStream</span>()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  . . . . . .</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>看过了前面的apply和filter之后，take就显得顺眼了很多。我们又见到了小写的cons，条件反射一般，我们就可以意识到，只要看见cons，那就意味着作为它的参数的表达式不会被立即求值，那这就意味着计算被放到了函数里，稍后再执行。那稍后到底是什么时候呢？</p>
+<p>那就得看下面的toList了。</p>
+<h1 id="toList"><a href="#toList" class="headerlink" title="toList"></a>toList</h1><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">MyStream</span>[+<span class="type">A</span>] </span>&#123;</span><br><span class="line"></span><br><span class="line">  . . . . . .</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">toList</span></span>: <span class="type">List</span>[<span class="type">A</span>] = &#123;</span><br><span class="line">    <span class="keyword">this</span> <span class="keyword">match</span> &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="type">Cons</span>(h, t) =&gt; h() :: t().toList</span><br><span class="line">      <span class="keyword">case</span> <span class="type">Empty</span> =&gt; <span class="type">Nil</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>又是一个递归实现，但是这次可不是看似递归了，这次是实打实的递归：只要还没有遇到空节点，就继续向后遍历。这次没有使用cons，没有任何计算被延迟执行，我们通过不断地对h()求值，来把整个Stream中每一个能够生产数据的函数都调用一遍以此来拿到我们最终想要的数据。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>要把以上的代码细节全部load进脑子跑一遍确实不太容易，我们人类的大脑栈空间太浅了。</p>
+<p>所以我们试着从上面所罗列出的纷繁的事实中抽象出一些适合人脑理解的描述性语句吧：</p>
+<ul>
+<li><p>List(1,2,3)会构造一个容器，容器中包含数据</p>
+</li>
+<li><p>List(1,2,3).filter(n&#x3D;&gt;n&gt;1)会构造出一个新的容器，其中包含2和3，这两块具体的数据</p>
+</li>
+<li><p>List(1,2,3).filter(n&#x3D;&gt;n&gt;1).take(1)会把上一步中构造成的容器中的第一块数据取出，放入一个新容器</p>
+</li>
+<li><p>MyStream(1,2,3)也会构造一个容器，但是这个容器中不包含数据，它包含能够生产数据的算法</p>
+</li>
+<li><p>MyStream(1,2,3).filter(n&#x3D;&gt;n&gt;1)也会构造出一个新的容器，这个容器中所包含的仍然是算法，是基于上一步构造出的能生产1，2，3的算法之上的判断数字是否大于1的算法</p>
+</li>
+<li><p>MyStream(1,2,3).filter(n&#x3D;&gt;n&gt;1).take(1)会把上一步中构造成的算法容器中的第一个算法取出，放入一个新容器</p>
+</li>
+<li><p>MyStream(1,2,3).filter(n&#x3D;&gt;n&gt;1).take(1).toList终于把上面所有步骤构造出的算法执行了，从而得到了最终想要的结果</p>
+</li>
+</ul>
+<p>上面对List和Stream的应用的区别在哪儿呢？</p>
+<p>就在于List是先把数据构造出来，然后在一堆数据中挑选我们心仪的数据。</p>
+<p>而Stream是先把算法构造出来，挑选心仪的算法，最后只执行一大堆算法中我们需要的那一部分。</p>
+<p>这样，自然就不会执行多余的运算了。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://cuipengfei.me/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/" title="Scala中Stream的应用场景及其实现原理">https://cuipengfei.me/blog/2014/10/23/scala-stream-application-scenario-and-how-its-implemented/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Scala/" rel="tag"><i class="fa fa-tag"></i> Scala</a>
+              <a href="/tags/ScalaInAction/" rel="tag"><i class="fa fa-tag"></i> ScalaInAction</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2014/09/06/solving-regular-problems-in-scala/" rel="prev" title="solving regular problems in scala">
+                  <i class="fa fa-angle-left"></i> solving regular problems in scala
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2014/10/31/spark-fold-aggregate-why-not-foldleft/" rel="next" title="Spark RDD的fold和aggregate为什么是两个API？为什么不是一个foldLeft？">
+                  Spark RDD的fold和aggregate为什么是两个API？为什么不是一个foldLeft？ <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">372k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:38</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"copycode":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本文翻译自   Jon Skeet   的系列博文”Edulinq”。 本篇原文地址： http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;24&#x2F;reimplementing-linq-to-objects-part-4-range.aspx 本篇博文较短，接下来的几篇估计也会比较短。我觉得只有 很相">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自己动手重新实现LINQ to Objects 4 - Range">
+<meta property="og:url" content="https://cuipengfei.me/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects4%20-%20Range/index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="本文翻译自   Jon Skeet   的系列博文”Edulinq”。 本篇原文地址： http:&#x2F;&#x2F;msmvps.com&#x2F;blogs&#x2F;jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;24&#x2F;reimplementing-linq-to-objects-part-4-range.aspx 本篇博文较短，接下来的几篇估计也会比较短。我觉得只有 很相">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2011-08-22T14:09:45.000Z">
+<meta property="article:modified_time" content="2011-08-22T14:09:45.000Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="LinQ">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://cuipengfei.me/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects4%20-%20Range/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects4%20-%20Range/","path":"blog/2011/08/22/自己动手重新实现LINQ to Objects4 - Range/","title":"自己动手重新实现LINQ to Objects 4 - Range"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>自己动手重新实现LINQ to Objects 4 - Range | 崔鹏飞的Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+<script data-ad-client="ca-pub-2529393324217872" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2529393324217872"></script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">崔鹏飞的Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Range-%E6%93%8D%E4%BD%9C%E7%AC%A6%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">Range  操作符是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E4%BB%AC%E8%A6%81%E5%A6%82%E4%BD%95%E6%B5%8B%E8%AF%95%E5%91%A2%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">我们要如何测试呢？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E4%BB%AC%E8%A6%81%E6%B5%8B%E8%AF%95%E4%BB%80%E4%B9%88%E5%91%A2%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">我们要测试什么呢？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0%E5%90%A7%EF%BC%81"><span class="nav-number">4.</span> <span class="nav-text">开始实现吧！</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">5.</span> <span class="nav-text">结论</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">174</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener me" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects4%20-%20Range/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="自己动手重新实现LINQ to Objects 4 - Range | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          自己动手重新实现LINQ to Objects 4 - Range
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2011-08-22 22:09:45" itemprop="dateCreated datePublished" datetime="2011-08-22T22:09:45+08:00">2011-08-22</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects4%20-%20Range/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2011/08/22/自己动手重新实现LINQ to Objects4 - Range/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>本文翻译自  <a target="_blank" rel="noopener" href="http://stackoverflow.com/users/22656/jon-skeet"> Jon Skeet  </a> 的系列博文”Edulinq”。</p>
+<p>本篇原文地址：</p>
+<p><a target="_blank" rel="noopener" href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-objects-part-4-range.aspx">http://msmvps.com/blogs/jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;24&#x2F;reimplementing-linq-to-objects-part-4-range.aspx</a></p>
+<p>本篇博文较短，接下来的几篇估计也会比较短。我觉得只有 很相似的几个  LINQ  操作符才适合放到同一篇博文里面，比如  Count  和<br>LongCount  就比较适合放在一起讲。不过我也要采纳读者的意见，如果你喜欢“肥胖”一点的博文的话，请留言说明。</p>
+<p>本文将要讲解  Range  操作符。  </p>
+<h1 id="Range-操作符是什么？"><a href="#Range-操作符是什么？" class="headerlink" title="Range  操作符是什么？"></a>Range  操作符是什么？</h1><p><a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/system.linq.enumerable.range.aspx"> Range  </a> 只有一种方法签名：</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>  <span class="keyword">static</span>  IEnumerable&lt; <span class="built_in">int</span>  &gt; Range(<span class="built_in">int</span>  start, <span class="built_in">int</span>  <span class="keyword">count</span>)</span><br></pre></td></tr></table></figure>
+
+<p>和  LINQ  中的其他操作符不同，  Range  不是扩展方法，它就是一个普通的静态方法。  Range  返回一个可枚举的对象，该对象会<br>yield  返回“  count  ”个整数，返回的整数序列从“  start  ”开始，逐次加一。举例来说，<br>Enumerable.Range(6,3)  会返回  6  ，  7  ，  8  。</p>
+<p>由于  Range  不会接受输入序列，所以也就无所谓对输入的流式处理和缓冲了。不过它有以下几点行为：  </p>
+<ul>
+<li><p>参数的校验需要立即执行；参数  count  不可以为负数，也不可以让输出值中包含超出  Int32  范围的值。</p>
+</li>
+<li><p>输出值是被延迟输出的。  Range  的执行效率应该比创建并返回一个“  count  ”长度的数组来得更高。</p>
+</li>
+</ul>
+<h1 id="我们要如何测试呢？"><a href="#我们要如何测试呢？" class="headerlink" title="我们要如何测试呢？"></a>我们要如何测试呢？</h1><p>要测试普通的静态方法就给我们带来了一个新的挑战，因为我们要在原版的  LINQ  实现和  Edulinq<br>的实现之间做切换。这是由我所使用的命名空间所带来的缺陷，单元测试写在  Edulinq.Tests  这个命名空间内，我们的实现写在  Edulinq<br>这个命名空间中。在编译器寻找一个类型的时候，父级命名空间会比其他的通过  using  引入的命名空间拥有更高的优先级，即使是使用  using<br>来显式引入一个类型的别名时也是如此。</p>
+<p>我选择的解决方式是用一个  using  指令来引入一个叫做  RangeClass  的别名。  using  指令要么指向<br>System.Linq.Enumerable  要么指向  Edulinq.Enumerable  。测试代码中用到  Range  时都是这样写：<br>RangeClass.Range  。为此我创建了两个项目配置，其中一个定义了叫做  NORMAL_LINQ<br>的预处理符号，另一个则没有定义任何预处理符号，这样就可以在两种  LINQ  实现之间做切换了。  RangeTest.cs  中会包含如下的代码：  </p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#if NORMAL_LINQ</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span>  Range<span class="keyword">Class</span> =  <span class="keyword">System</span>  .Linq.Enumerable;</span><br><span class="line"></span><br><span class="line"><span class="meta">#else</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span>  Range<span class="keyword">Class</span> = Edulinq.Enumerable;</span><br><span class="line"></span><br><span class="line"><span class="meta">#endif  </span></span><br></pre></td></tr></table></figure>
+
+<p>当然了，也有别的办法可以替代以上的方式：  </p>
+<ul>
+<li><p>可以把单元测试代码换到另外一个命名空间中去。</p>
+</li>
+<li><p>也可以让项目的引用项依赖于不同的项目配置，用于测试原版  LINQ  的项目配置不包含对  Edulinq  的引用，而用于测试  Edulinq<br>的项目配置则不引用  System.Core  。这样就可以在  NORMAL_LINQ  的预处理符号下直接使用  using System.Linq<br>，并直接使用  Enumerable.Range  。测试默认的  LINQ  实现时亦是如此。</p>
+</li>
+</ul>
+<p>我喜欢上面提到的第二种方式，但是那需要手动修改测试工程的工程文件，因为  Visual Studio<br>没有提供任何根据不同条件引用不同引用项的功能。我以后或许会用到这个方法，欢迎提供建议。  </p>
+<h1 id="我们要测试什么呢？"><a href="#我们要测试什么呢？" class="headerlink" title="我们要测试什么呢？"></a>我们要测试什么呢？</h1><p>Range  需要的测试并不多，我只有八个方面需要测试，而且都不怎么很特别：  </p>
+<ul>
+<li><p>一个简单有效的  Range  操作应该可以通过  AssertSequenceEqual 的测试。</p>
+</li>
+<li><p>起始值应该可以是负数。</p>
+</li>
+<li><p>Range(Int32.MinValue, 0)  会返回一个空序列。</p>
+</li>
+<li><p>Range(Int32.MaxValue, 1)  会返回仅包含  Int32.MaxValue  的序列。</p>
+</li>
+<li><p>count  不可以为负数。</p>
+</li>
+<li><p>count  可以为  0  。</p>
+</li>
+<li><p>start+count-1  不可以超过  Int32.MaxValue  （所以  Range(Int32.MaxValue, 2)<br>应该是一个无效操作）。</p>
+</li>
+<li><p>start+count-1  可以等于  Int32.MaxValue  （所以  Range(Int32.MaxValue, 1)<br>应该是一个有效操作）。</p>
+</li>
+</ul>
+<p>最后两项要分别被几组不同的数据测试，这几组数据是：大的  start  值和小的  count  值，小的  start  值和大的  count<br>值，还有一组是  start  和  count  都相当大。</p>
+<p>请注意我没有做针对于惰性求值的测试，我确实可以测一下返回值是否实现了任何其他的集合接口，不过那会显得有点奇怪。不过我们有一些测试中用到的  count<br>值非常大，给这么大的集合分配内存几乎肯定要失败。  </p>
+<h1 id="开始实现吧！"><a href="#开始实现吧！" class="headerlink" title="开始实现吧！"></a>开始实现吧！</h1><p>你肯定早就猜到了，我们将会用分隔开的两个方法来实现  Range  。一个  public  的方法用来立即执行参数校验，还有一个  private<br>的方法用来做核心部分的工作，其中包含迭代器代码块。</p>
+<p>由于一开始就确定了参数不会超过  Int32  的上下限，我们在实现的主体部分就可以随意一点了。  </p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> IEnumerable &lt; <span class="built_in">int</span> &gt; Range(<span class="built_in">int</span> start, <span class="built_in">int</span> <span class="keyword">count</span>) &#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">if</span> (<span class="keyword">count</span> &lt; <span class="number">0</span>) &#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentOutOfRangeException(<span class="string">&quot;count&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Convert everything to long to avoid overflows. There are other ways of checking _</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// for overflow, but this way make the code correct in the most obvious way._</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">if</span> ((<span class="built_in">long</span>) start + (<span class="built_in">long</span>) <span class="keyword">count</span> - <span class="number">1</span> L &gt; <span class="built_in">int</span>.MaxValue) &#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentOutOfRangeException(<span class="string">&quot;count&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">return</span> RangeImpl(start, <span class="keyword">count</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> IEnumerable &lt; <span class="built_in">int</span> &gt; RangeImpl(<span class="built_in">int</span> start, <span class="built_in">int</span> <span class="keyword">count</span>) &#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">count</span>; i++) &#123;</span><br><span class="line">  yield</span><br><span class="line">  <span class="keyword">return</span> start + i;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>有几点需要说明：  </p>
+<ul>
+<li><p>第二段参数校验的代码检查的是“  start  ”和“  count  ”这二者的合法性，而不是仅仅检查“  count  ”。如果能给<br>ArgumentOutOfRangeException  （或者是  ArgumentException<br>）传入多个参数名就好了，这样就能在异常信息中指出多个参数不合法。话虽这么说，  .NET Framework  的实现也是只会指出“  count<br>”不合法。</p>
+</li>
+<li><p>第二段参数校验的代码还可以有很多其他的写法，把所有的操作数都转换成  long<br>并不是我们仅有的选择。不过我觉得我选择的这个方法是最简单的，而且也是正确的。采取这种方式，我无须考虑多种情况并保证每一种都是正确的。使用  Int64<br>可以确保不会有溢出，也无需去考虑  checked  或  unchecked  。</p>
+</li>
+<li><p>Private  方法中的循环也有其他的实现方式，不过我认为我用的这个是最简单的。一种很容易想到的替代方案就是用两个变量，一个是已经返回过的值的个数，<br>另一个是下一个要返回的值，每次循环都把这两个值各自加一。还有一种比较复杂的替代方案是只使用一个循环变量，但是那样的话你就不能写“  value &lt;<br>start + count  ”了，因为最后一个返回值有可能是  Int32.MaxValue  ，你也不能写“  value &lt;&#x3D; start +<br>count - 1  ”了，因为传入的参数有可能是  Int32.MaxValue  和  0<br>。我不想在代码中处理这么多种临界情况，所以我选择了一个简单正确的方式。如果你真的非常非常注重  Range  的效率的话，你应该去调查一下其他的可行方案。</p>
+</li>
+</ul>
+<p>写本文之前，我没有给  Range(Int32.MaxValue, 1)  和  Range(Int32.MinValue, 0)<br>写出好的单元测试。不过写了上面的那段关于替代性方案的话之后，我找到了合适的测试用例。寻找替代方案可以帮助我想到更多的测试用例，这事儿多有趣。  </p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>实现  Range  有助于测试其他的操作符，比如说  Count  。现在既然我已经实现了一个非扩展方法的  LINQ  操作符了，那无妨把另外两个（<br>Empty  和  Repeat  ）也实现了。其实我已经实现了“  Empty  ”了，希望今天就能把它整理成文。  Repeat<br>也不需要多久就能完工，然后我们就可以开始着手于  Count  和  LongCount  了。</p>
+<p>本文中的代码很好的诠释了这种情况：有时，写“傻”一点的代码会比写短一点，快一点的代码更好，因为它更易于读懂。无疑，以后博文中我还会写更多的“傻”代码的。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://cuipengfei.me/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects4%20-%20Range/" title="自己动手重新实现LINQ to Objects 4 - Range">https://cuipengfei.me/blog/2011/08/22/自己动手重新实现LINQ to Objects4 - Range/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/LinQ/" rel="tag"><i class="fa fa-tag"></i> LinQ</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2011/08/22/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects3%20-%20Select/" rel="prev" title="自己动手重新实现LINQ to Objects 3 - Select">
+                  <i class="fa fa-angle-left"></i> 自己动手重新实现LINQ to Objects 3 - Select
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2011/08/23/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects5%20-%20Empty/" rel="next" title="自己动手重新实现LINQ to Objects 5 - Empty">
+                  自己动手重新实现LINQ to Objects 5 - Empty <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">372k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:38</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
