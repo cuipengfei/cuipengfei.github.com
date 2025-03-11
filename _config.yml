@@ -100,7 +100,7 @@ plugins: hexo-generate-feed
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: "git"
-  repo: "git@github.com:cuipengfei/cuipengfei.github.com.git"
+  repo: "https://github.com/cuipengfei/cuipengfei.github.com.git"
   branch: "master"
 
 excerpt:
