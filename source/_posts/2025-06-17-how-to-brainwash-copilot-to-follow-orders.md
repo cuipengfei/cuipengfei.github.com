@@ -1,11 +1,12 @@
 ---
-title: "如何驯化 GitHub Copilot，让 AI 生成高质量代码"
+title: "如何给 GitHub Copilot “洗脑”，让 AI 精准遵循指令产出高质量代码"
 date: 2025-06-17 10:00:00
 tags:
   - AI
   - GitHub Copilot
   - 软件开发
   - 代码质量
+  - 提示工程
 categories:
   - 技术思考
 ---
@@ -18,17 +19,17 @@ categories:
 
 这让我想起了那些刚入行的程序员，技术不错，但是对软件工程的规范和最佳实践还不够了解。他们写出来的代码能跑，但总让资深工程师皱眉头。
 
-这些 AI 工具确实能提高效率，但如何让它们生成出更符合工程实践的高质量代码，成了一个值得思考的问题。
+这些 AI 工具确实能提高效率，但如何让它们不仅提高效率，更能精准地产出符合工程实践的高质量代码，甚至达到一种“洗脑”般的效果，让它们乖乖听话，这成了一个值得思考的问题。
 
 <!-- more -->
 
 ## 不是魔法，是系统指令
 
-经过一段时间的研究和实践，我发现 Copilot 这类 AI 工具实际上可以被"训练"或者说"驯化"。
+经过一段时间的研究和实践，我发现 Copilot 这类 AI 工具实际上可以被深度“引导”，甚至达到一种“洗脑”的效果，让它们按照我们的意愿来行动。
 
 它们并不是魔术盒子，而是遵循一套输入-输出原则的系统。如果我们能给它提供明确的指导和原则，它就能相应地调整自己的输出。
 
-这个思路促使我整理了一个专门用来"驯化" GitHub Copilot 的指令集：[prompts](https://github.com/cuipengfei/prompts)。
+这个思路促使我整理了一个专门用来给 GitHub Copilot“洗脑”的指令集：[prompts](https://github.com/cuipengfei/prompts)。
 
 这个仓库里不是代码，而是一系列指导 AI 行为的 Markdown 文件。每个文件就像是给 AI 的一份规范或指南，告诉它应该怎样思考和行动。
 
@@ -70,6 +71,45 @@ categories:
    - 如何使用顺序思考解决问题（sequential-thinking）
    - 快捷指令系统（shortcut-system-instruction）
 
+## 指令集中的提示工程技巧揭秘
+
+你可能会好奇，这些指令文件是如何对 AI 生效的呢？其实，它们巧妙地运用了多种提示工程（Prompt Engineering）的技巧，来引导 AI 的行为。我简单总结几个例子：
+
+- **角色扮演 (Role Playing)**:
+
+  - 在 `memory-bank.instructions.md` 中，AI 被赋予一个“健忘但专业的软件工程师”角色，这迫使它依赖并维护文档。
+  - `ba.md` 则让 AI 扮演“业务分析师的战略助手”。
+
+- **思维链/逐步思考 (Chain of Thought / Step-by-step Thinking)**:
+
+  - `response-and-prompt-guidelines.md` 要求 AI 在“基于角色的思考过程”部分展示其逐步推理。
+  - `programming-workflow.md` 定义了从准备到迭代的清晰开发阶段。
+  - `sequential-thinking.md` 更是将逐步思考工具化，允许动态调整思考路径。
+
+- **结构化输入输出 (Structured Input/Output)**:
+
+  - `req.md` 和 `ba.md` 都定义了明确的 Markdown 文档结构，AI 必须按章节逐步填充和更新。
+  - `testing-guidelines.md` 提供了结构化的测试用例模板。
+
+- **指令约束与引导 (Instruction Constraints and Guidance)**:
+
+  - `avoid-bad-smells.md` 和 `code-standards.md` 提供了大量的正面和负面约束，明确了“做与不做”。
+  - `programming-workflow.md` 中明确指出“此阶段不编写任何实现代码或测试代码”。
+
+- **迭代优化与自我批判 (Iterative Refinement and Self-Critique)**:
+
+  - `response-and-prompt-guidelines.md` 中的“自我批判”部分要求 AI 主动反思其生成的解决方案。
+  - `req.md` 和 `ba.md` 的核心交互模型是“暂停-提问-优化-继续”，强制进行迭代。
+
+- **上下文管理 (Context Management)**:
+
+  - `memory-bank.instructions.md` 强调 AI 必须在每次任务开始时阅读所有记忆库文件，确保上下文的连续性。
+
+- **目标驱动与分解 (Goal-Driven Decomposition)**:
+  - `workflow-and-task-splitting.md` 强调使用 MECE 原则将复杂目标分解为可管理的小任务。
+
+通过这些技巧的组合，指令集不再是简单的文本，而是变成了一套能够有效“校准”AI 行为的精密工具。这使得 AI 的输出更加符合我们的预期，也更贴近高质量软件工程实践。
+
 ## 如何在实际工作中使用这套指令
 
 经过实践，我发现在 VS Code 中配置 Copilot 使用这些指令非常简单：
@@ -94,7 +134,7 @@ categories:
 
 ## 一点思考
 
-驯化 AI 工具其实和带新人有些相似 —— 你需要清晰地表达期望，提供良好的指导和范例，然后持续进行纠正和反馈。
+给 AI 工具“洗脑”，或者说深度引导它们，其实和带新人有些相似 —— 你需要清晰地表达期望，提供良好的指导和范例，然后持续进行纠正和反馈。
 
 这不是一项精确的科学，而是一个持续改进的过程。不同项目可能需要对指令进行一些定制和调整，以适应特定的技术栈和团队风格。
 
