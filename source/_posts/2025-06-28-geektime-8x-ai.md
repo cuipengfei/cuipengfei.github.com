@@ -165,11 +165,10 @@ AI 时代的软件开发，核心挑战从编码转向了知识管理。掌握�
 
 ![x](https://github.com/cuipengfei/picx-images-hosting/raw/master/水墨画风格图片制作.sz7xujcjv.webp)
 
-## {% markmap %}
-
+{% markmap %}
+---
 options:
-colorFreezeLevel: 2
-
+  colorFreezeLevel: 2
 ---
 
 # AI 时代：软件=知识工程
