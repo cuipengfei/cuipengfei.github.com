@@ -388,6 +388,10 @@
 <h1 id="OK"><a href="#OK" class="headerlink" title="OK"></a>OK</h1><p>虽然讲的是一个加了若干限制的分布式键值存储，但是还是用了十四张图。</p>
 <p>这些图里没能体现到的一点是关于异步的问题，在最后补充一句：<br>除了Client之外，以上所有提到的参与者，每一个都是严格单线程的，不会在任何时候同时做两件事。<br>实际的实现代码中，是用<strong>akka</strong>写的，这些参与者做的多数都是<strong>async message passing</strong>的工作。<br>由于这是一门课的作业题，所以具体实现代码就不提及了。</p>
 <p>希望这些图表对于理解分布式键值存储（Distributed Key-Value Store）会有一些帮助。</p>
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css"><script src="https://fastly.jsdelivr.net/npm/d3@7"></script><script src="https://fastly.jsdelivr.net/npm/markmap-view@0.18.10"></script><script src="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10"></script>
+<link rel="stylesheet" href="/css/markmap.css">
+
+<script src="/js/markmap.js"></script>
 
     </div>
 
@@ -466,14 +470,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">379k</span>
+    <span title="站点总字数">385k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:44</span>
+    <span title="站点阅读时长">5:50</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

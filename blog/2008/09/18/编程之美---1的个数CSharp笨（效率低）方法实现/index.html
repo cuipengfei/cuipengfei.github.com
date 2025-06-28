@@ -312,6 +312,10 @@
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="function"><span class="keyword">Program</span></span></span><br><span class="line">&#123;</span><br><span class="line">    static void Main(string[] args)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">Program</span></span> p = new <span class="function"><span class="keyword">Program</span><span class="params">()</span></span>;</span><br><span class="line">        Console.WriteLine(p.count_1_in_a_bounch_of_nums(<span class="number">13</span>));</span><br><span class="line">        Console.Read();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> count_1_in_a_num(<span class="built_in">int</span> num)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span> <span class="built_in">count</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (num <span class="comment">!= 0)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">count</span> += (num % <span class="number">10</span>) == <span class="number">1</span> ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">            num /= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">count</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> count_1_in_a_bounch_of_nums(<span class="built_in">int</span> <span class="keyword">end</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span> <span class="built_in">count</span> = <span class="number">0</span>;</span><br><span class="line">        for (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt;= <span class="keyword">end</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">count</span> += count_1_in_a_num(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">count</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css"><script src="https://fastly.jsdelivr.net/npm/d3@7"></script><script src="https://fastly.jsdelivr.net/npm/markmap-view@0.18.10"></script><script src="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10"></script>
+<link rel="stylesheet" href="/css/markmap.css">
+
+<script src="/js/markmap.js"></script>
 
     </div>
 
@@ -389,14 +393,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">379k</span>
+    <span title="站点总字数">385k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:44</span>
+    <span title="站点阅读时长">5:50</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

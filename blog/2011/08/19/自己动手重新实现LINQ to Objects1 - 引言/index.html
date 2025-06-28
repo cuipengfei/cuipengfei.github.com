@@ -324,6 +324,10 @@
 <p>尽管我想要写出合理的工业级质量的代码来，但是我觉得自己在真的生产环境中都未必会写那么多的单元测试。虽是如此，我还是完全有理由相信测试代码量将会超过成品代码量<br>。因为边边角角的需要测试的情况实在太多了…而且有时重载也不少。不过请记住，我们此举的目的在于研究LINQ中有趣的特性。</p>
 <h1 id="代码分布"><a href="#代码分布" class="headerlink" title="代码分布"></a>代码分布</h1><p>就像原版的LINQ to Object一样，我将会创建一个叫做Enumerable的静态类型…但是我会用到分部类，每个方法（包括其多个重载）占用一个代码<br>文件。举例来说：Where方法将会在Where.cs中来实现，而它的测试代码将会写在WhereTest.cs中。</p>
 <p>第一次代码下载代码在这儿下载： <a target="_blank" rel="noopener" href="http://pobox.com/~skeet/blogfiles/csharp/l2o/Linq-To-Objects-1.zip"> Linq-To-Objects-1.zip</a><br>。其中暂时还没有任何的成品代码，只有四个Where方法的单元测试，主要目的在于检查NUnit可以正常工作。下一步…实现Where方法。</p>
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css"><script src="https://fastly.jsdelivr.net/npm/d3@7"></script><script src="https://fastly.jsdelivr.net/npm/markmap-view@0.18.10"></script><script src="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10"></script>
+<link rel="stylesheet" href="/css/markmap.css">
+
+<script src="/js/markmap.js"></script>
 
     </div>
 
@@ -401,14 +405,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">379k</span>
+    <span title="站点总字数">385k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:44</span>
+    <span title="站点阅读时长">5:50</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

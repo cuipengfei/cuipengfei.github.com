@@ -375,6 +375,10 @@ interface I3 : I1, I2 &#123;&#125;
 <p>这和IEnumerable<T>是协变的而IList<T>不是协变的是一个原因。通过装箱，我们可以把一个整数序列当做一个object的序列来对待。但是一个可<br>读可写的整数列表却不可以被当做一个可读可写的object的列表来对待，因为你有可能给可读可写的object列表中加入一个String。一个实现IEnumer<br>able<T>的类型可以很容易的满足IEnumerable，只要加一个装箱的helper方法就行了。但是实现IList<T>的类型却不一定能够满足IList<br>，所以IList没有继承自IList。</p>
 <p>那为什么List<T>又去实现了IList呢？</p>
 <p>这个有点奇怪，因为除了T为object时之外，其他情况下List<T>都不满足的IList的要求。这有可能是因为想要给升级老的C# 1.0代码的人行个方便吧<br>，好让他们更容易的用到泛型。那些想要升级代码的人可能已经确保了只向列表中加入正确类型的对象。而且多数情况下，当你把一个IList当做参数传递出去的时候，被调<br>用的方法也只是会去按索引访问列表，而不是去向列表中加入一些任意类型的对象。</p>
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css"><script src="https://fastly.jsdelivr.net/npm/d3@7"></script><script src="https://fastly.jsdelivr.net/npm/markmap-view@0.18.10"></script><script src="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10"></script>
+<link rel="stylesheet" href="/css/markmap.css">
+
+<script src="/js/markmap.js"></script>
 
     </div>
 
@@ -452,14 +456,14 @@ interface I3 : I1, I2 &#123;&#125;
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">379k</span>
+    <span title="站点总字数">385k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:44</span>
+    <span title="站点阅读时长">5:50</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
