@@ -45,13 +45,13 @@
     <category term="软件工程" scheme="https://cuipengfei.me/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/AI/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/"/>
     
     
-    <category term="软件开发" scheme="https://cuipengfei.me/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/"/>
-    
     <category term="知识工程" scheme="https://cuipengfei.me/tags/%E7%9F%A5%E8%AF%86%E5%B7%A5%E7%A8%8B/"/>
     
     <category term="LLM" scheme="https://cuipengfei.me/tags/LLM/"/>
     
     <category term="认知模型" scheme="https://cuipengfei.me/tags/%E8%AE%A4%E7%9F%A5%E6%A8%A1%E5%9E%8B/"/>
+    
+    <category term="软件开发" scheme="https://cuipengfei.me/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
@@ -76,11 +76,11 @@
     <category term="技术思考" scheme="https://cuipengfei.me/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/"/>
     
     
+    <category term="软件开发" scheme="https://cuipengfei.me/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/"/>
+    
     <category term="AI" scheme="https://cuipengfei.me/tags/AI/"/>
     
     <category term="GitHub Copilot" scheme="https://cuipengfei.me/tags/GitHub-Copilot/"/>
-    
-    <category term="软件开发" scheme="https://cuipengfei.me/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/"/>
     
     <category term="代码质量" scheme="https://cuipengfei.me/tags/%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/"/>
     
