@@ -7,7 +7,7 @@ tags: [知识工程, LLM, 认知模型, 软件开发]
 
 > _本文是极客时间 8x 课程的读书笔记。我本想取名 G8 (Geekbang 8x)，但听起来不太对劲，所以就有了现在这个标题。_
 
-> 代码本质上是业务知识的具体实现。
+> "软件的价值，最终由其承载的知识决定。代码，只是这些知识的可执行形态。"
 
 ![x](<https://github.com/cuipengfei/picx-images-hosting/raw/master/水墨画风格图片制作-(1).witvkcf9b.webp>)
 
@@ -165,10 +165,11 @@ AI 时代的软件开发，核心挑战从编码转向了知识管理。掌握�
 
 ![x](https://github.com/cuipengfei/picx-images-hosting/raw/master/水墨画风格图片制作.sz7xujcjv.webp)
 
-{% markmap %}
----
+## {% markmap %}
+
 options:
-  colorFreezeLevel: 2
+colorFreezeLevel: 2
+
 ---
 
 # AI 时代：软件=知识工程
