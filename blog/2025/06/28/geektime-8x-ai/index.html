@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous" defer></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.23.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"galactic"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="本文是极客时间 8x 课程的读书笔记。我本想取名 G8 (Geekbang 8x)，但听起来不太对劲，所以就有了现在这个标题。   “软件的价值，最终由其承载的知识决定。代码，只是这些知识的可执行形态。”  引言：从“构建者”到“知识工程师”的身份转变我们习惯于将软件开发看作一种“建造”活动，谈论“构建”软件、“编写”代码。 但随着 AI 大语言模型（LLM）的普及，我们或许需要换个角度审视自己">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI 时代，我们是在写代码，还是在“写知识”？—— 极客时间 8x 课程笔记">
+<meta property="og:url" content="https://cuipengfei.me/blog/2025/06/28/geektime-8x-ai/index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="本文是极客时间 8x 课程的读书笔记。我本想取名 G8 (Geekbang 8x)，但听起来不太对劲，所以就有了现在这个标题。   “软件的价值，最终由其承载的知识决定。代码，只是这些知识的可执行形态。”  引言：从“构建者”到“知识工程师”的身份转变我们习惯于将软件开发看作一种“建造”活动，谈论“构建”软件、“编写”代码。 但随着 AI 大语言模型（LLM）的普及，我们或许需要换个角度审视自己">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-28T12:30:00.000Z">
+<meta property="article:modified_time" content="2025-06-28T12:30:00.000Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="软件开发">
+<meta property="article:tag" content="知识工程">
+<meta property="article:tag" content="LLM">
+<meta property="article:tag" content="认知模型">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://cuipengfei.me/blog/2025/06/28/geektime-8x-ai/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2025/06/28/geektime-8x-ai/","path":"blog/2025/06/28/geektime-8x-ai/","title":"AI 时代，我们是在写代码，还是在“写知识”？—— 极客时间 8x 课程笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>AI 时代，我们是在写代码，还是在“写知识”？—— 极客时间 8x 课程笔记 | 崔鹏飞的Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/pjax.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.5.0/mermaid.min.js","integrity":"sha256-2obLuIPcceEhkE3G09G33hBdmE55ivVcZUlcKcGNHjU="}}</script>
+  <script src="/js/third-party/tags/mermaid.js" defer></script>
+
+
+
+  <script src="/js/third-party/pace.js" defer></script>
+
+
+  
+
+
+
+
+<script data-ad-client="ca-pub-2529393324217872" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2529393324217872"></script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">崔鹏飞的Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E8%A8%80%EF%BC%9A%E4%BB%8E%E2%80%9C%E6%9E%84%E5%BB%BA%E8%80%85%E2%80%9D%E5%88%B0%E2%80%9C%E7%9F%A5%E8%AF%86%E5%B7%A5%E7%A8%8B%E5%B8%88%E2%80%9D%E7%9A%84%E8%BA%AB%E4%BB%BD%E8%BD%AC%E5%8F%98"><span class="nav-number">1.</span> <span class="nav-text">引言：从“构建者”到“知识工程师”的身份转变</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E8%BD%AF%E4%BB%B6%EF%BC%9A%E4%B8%80%E7%A7%8D%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%9A%84%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">一、软件：一种可执行的知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LLM%EF%BC%9A%E8%AE%A4%E7%9F%A5%E6%9D%A0%E6%9D%86%EF%BC%8C%E8%80%8C%E9%9D%9E%E8%AE%A4%E7%9F%A5%E6%9B%BF%E4%BB%A3"><span class="nav-number">2.1.</span> <span class="nav-text">LLM：认知杠杆，而非认知替代</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%9F%A5%E8%AF%86%E5%B7%A5%E7%A8%8B%EF%BC%9A%E4%B8%80%E7%A7%8D%E6%96%B0%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">二、知识工程：一种新的工作模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%9F%A5%E8%AF%86%E4%B8%8E%E4%BB%BB%E5%8A%A1%E5%88%86%E7%A6%BB%EF%BC%9A%E4%B8%8E-LLM-%E7%B2%BE%E5%87%86%E5%AF%B9%E8%AF%9D"><span class="nav-number">3.1.</span> <span class="nav-text">1. 知识与任务分离：与 LLM 精准对话</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%80%9A%E8%BF%87%E5%8F%8D%E9%A6%88%E8%BF%AD%E4%BB%A3%EF%BC%9A%E6%8F%90%E7%82%BC%E9%9A%90%E6%80%A7%E7%9F%A5%E8%AF%86"><span class="nav-number">3.2.</span> <span class="nav-text">2. 通过反馈迭代：提炼隐性知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E9%A9%BE%E9%A9%AD%E4%B8%8D%E5%90%8C%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%9F%A5%E8%AF%86"><span class="nav-number">3.3.</span> <span class="nav-text">3. 驾驭不同类型的知识</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%A0%94%E5%8F%91%E6%B5%81%E7%A8%8B%E9%87%8D%E5%A1%91%EF%BC%9A%E4%BB%8E%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86%E5%88%B0%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">三、研发流程重塑：从代码管理到知识管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%BA%94%E7%94%A8%E4%B8%8E%E6%8F%90%E5%8F%96%E2%80%9C%E9%BB%98%E4%BC%9A%E7%9F%A5%E8%AF%86%E2%80%9D"><span class="nav-number">4.1.</span> <span class="nav-text">1. 应用与提取“默会知识”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%BA%94%E5%AF%B9%E8%AE%A4%E7%9F%A5%E5%81%8F%E5%B7%AE%EF%BC%9A%E5%85%88%E5%AF%B9%E9%BD%90%E6%80%9D%E8%B7%AF%EF%BC%8C%E5%86%8D%E5%86%99%E4%BB%A3%E7%A0%81"><span class="nav-number">4.2.</span> <span class="nav-text">2. 应对认知偏差：先对齐思路，再写代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%B7%B7%E4%B9%B1%E4%B8%AD%E7%9A%84%E6%B8%85%E9%86%92%EF%BC%9A%E5%8F%8A%E6%97%B6%E6%AD%A2%E6%8D%9F"><span class="nav-number">4.3.</span> <span class="nav-text">3. 混乱中的清醒：及时止损</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E4%BB%BB%E5%8A%A1%E5%88%92%E5%88%86%E4%B8%8E%E8%B4%A8%E9%87%8F%E5%86%85%E5%BB%BA%EF%BC%9A%E6%96%B0%E8%8C%83%E5%BC%8F%E4%B8%8B%E7%9A%84%E4%BA%A4%E4%BB%98%E5%85%B3%E9%94%AE"><span class="nav-number">5.</span> <span class="nav-text">四、任务划分与质量内建：新范式下的交付关键</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BB%BB%E5%8A%A1%E5%88%92%E5%88%86%EF%BC%9A%E4%B8%8E-LLM-%E5%8D%8F%E4%BD%9C%E7%9A%84%E2%80%9C%E6%8E%A5%E5%8F%A3%E2%80%9D"><span class="nav-number">5.1.</span> <span class="nav-text">1. 任务划分：与 LLM 协作的“接口”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%B4%A8%E9%87%8F%E6%8E%A7%E5%88%B6%E4%BC%98%E5%85%88%E4%BA%8E%E7%94%9F%E6%88%90%E6%95%88%E7%8E%87"><span class="nav-number">5.2.</span> <span class="nav-text">2. 质量控制优先于生成效率</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E8%BD%AC%E5%9E%8B%EF%BC%9A%E4%BB%8E%E2%80%9C%E7%BC%96%E7%A0%81%E8%80%85%E2%80%9D%E5%88%B0%E2%80%9C%E7%9F%A5%E8%AF%86%E5%B7%A5%E7%A8%8B%E5%B8%88%E2%80%9D"><span class="nav-number">6.</span> <span class="nav-text">五、工程师的转型：从“编码者”到“知识工程师”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AF%AD%EF%BC%9A%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E4%B8%AD%E7%9A%84%E7%A1%AE%E5%AE%9A%E6%80%A7"><span class="nav-number">7.</span> <span class="nav-text">结语：不确定性中的确定性</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">176</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener me" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2025/06/28/geektime-8x-ai/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="AI 时代，我们是在写代码，还是在“写知识”？—— 极客时间 8x 课程笔记 | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AI 时代，我们是在写代码，还是在“写知识”？—— 极客时间 8x 课程笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-06-28 20:30:00" itemprop="dateCreated datePublished" datetime="2025-06-28T20:30:00+08:00">2025-06-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/" itemprop="url" rel="index"><span itemprop="name">技术思考</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/AI/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">软件工程</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2025/06/28/geektime-8x-ai/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2025/06/28/geektime-8x-ai/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p><em>本文是极客时间 8x 课程的读书笔记。我本想取名 G8 (Geekbang 8x)，但听起来不太对劲，所以就有了现在这个标题。</em></p>
+</blockquote>
+<blockquote>
+<p>“软件的价值，最终由其承载的知识决定。代码，只是这些知识的可执行形态。”</p>
+</blockquote>
+<h2 id="引言：从“构建者”到“知识工程师”的身份转变"><a href="#引言：从“构建者”到“知识工程师”的身份转变" class="headerlink" title="引言：从“构建者”到“知识工程师”的身份转变"></a>引言：从“构建者”到“知识工程师”的身份转变</h2><p>我们习惯于将软件开发看作一种“建造”活动，谈论“构建”软件、“编写”代码。</p>
+<p>但随着 AI 大语言模型（LLM）的普及，我们或许需要换个角度审视自己的工作。</p>
+<p>如果说编码是软件开发的“最后一公里”，那在此之前的需求讨论、架构设计和技术选型，又是什么呢？</p>
+<p>这些过程，更像是一种知识的传递、提炼与组织。</p>
+<p>本文想探讨一个观点：在 AI 时代，软件工程的核心正从“构造软件”转向“管理知识”。</p>
+<p>这一转变，对我们的日常工作意味着什么？</p>
+<h2 id="一、软件：一种可执行的知识"><a href="#一、软件：一种可执行的知识" class="headerlink" title="一、软件：一种可执行的知识"></a>一、软件：一种可执行的知识</h2><p>让我们暂时抛开代码，思考软件的本质。</p>
+<ul>
+<li><strong>软件是知识的载体</strong>：真正的“产品”，是软件中蕴含的业务逻辑、领域规则和架构决策。代码只是这些知识的最终表现形式。</li>
+<li><strong>软件是知识的“可执行”形态</strong>：它让抽象的知识能够在现实世界中产生具体影响。</li>
+<li><strong>软件开发的核心，是知识的获取、学习与传递</strong>：编码只是这一漫长知识旅程的最终环节。</li>
+</ul>
+<p>如果把开发过程比作拍电影，最终的代码就像发行的拷贝，而剧本、分镜、导演构思和演员对角色的理解，才是构成电影价值的核心“知识”。</p>
+<h3 id="LLM：认知杠杆，而非认知替代"><a href="#LLM：认知杠杆，而非认知替代" class="headerlink" title="LLM：认知杠杆，而非认知替代"></a>LLM：认知杠杆，而非认知替代</h3><p>LLM 在这个新范式中扮演什么角色？它是一个强大的<strong>认知杠杆</strong>，极大地提升了知识转化为代码的效率，但它并未替代人类的认知过程。</p>
+<ul>
+<li><strong>人的认知水平是协作的上限</strong>：人与 LLM 协作的最终产出质量，取决于人对问题的理解深度和判断力。</li>
+<li><strong>LLM 的核心能力是基于上下文的理解与生成</strong>：通过提供精准的上下文，我们可以将其“调教”为特定领域的辅助专家。</li>
+<li><strong>LLM 存在固有技术限制</strong>：<ul>
+<li><strong>上下文与 Token 限制</strong>，使其难以一次性处理庞杂的系统。</li>
+<li><strong>“幻觉”现象</strong>，意味着其产出需要严格验证。</li>
+</ul>
+</li>
+</ul>
+<p>因此，将 LLM 视为无所不能的“代码生成器”是一种误解。</p>
+<p>它的真正价值在于成为知识传递链条中的高效“处理器”，而我们则需要成为高效的“知识管理者”。</p>
+<h2 id="二、知识工程：一种新的工作模式"><a href="#二、知识工程：一种新的工作模式" class="headerlink" title="二、知识工程：一种新的工作模式"></a>二、知识工程：一种新的工作模式</h2><p>如果软件开发是知识工作，我们该如何实践？</p>
+<p><strong>知识工程</strong>，可以理解为：<strong>将软件开发视为一个“提取、组织知识，使其能被 LLM 理解，并最终通过 LLM 将这些知识转化为可工作软件”的完整过程。</strong></p>
+<p>这里的<strong>关键瓶颈</strong>，不再是编码速度，而是<strong>知识传递的效率与保真度</strong>。</p>
+<h3 id="1-知识与任务分离：与-LLM-精准对话"><a href="#1-知识与任务分离：与-LLM-精准对话" class="headerlink" title="1. 知识与任务分离：与 LLM 精准对话"></a>1. 知识与任务分离：与 LLM 精准对话</h3><p>与 LLM 交互时，清晰地分离**知识（背景信息）<strong>与</strong>任务（具体指令）**至关重要。这能帮助 LLM 建立正确的上下文，形成明确的关注点。</p>
+<p>例如，与其直接说“写一个登录函数”，不如先提供知识：</p>
+<ul>
+<li><strong>知识（Context）</strong>：“系统使用 JWT 认证，密码采用 bcrypt 加密，用户信息存储在 <code>users</code> 表中。”</li>
+<li><strong>任务（Task）</strong>：“基于以上信息，编写一个 <code>login(username, password)</code> 函数，验证成功后返回 JWT。”</li>
+</ul>
+<p>有趣的是，敏捷开发中的<strong>用户故事（User Story）</strong>，恰好是一种优秀的知识管理工具。它天然地侧重于<strong>定义问题（“我是谁”、“我想要什么”、“为什么”）</strong>，而非预设解决方案，这使其成为向 LLM 传递需求的理想形式。</p>
+<h3 id="2-通过反馈迭代：提炼隐性知识"><a href="#2-通过反馈迭代：提炼隐性知识" class="headerlink" title="2. 通过反馈迭代：提炼隐性知识"></a>2. 通过反馈迭代：提炼隐性知识</h3><p>知识工程并非单向传递，而是一个双向的、迭代的探索过程。</p>
+<blockquote>
+<p>通过 LLM 的反馈来反思并修正我们对知识的描述，是知识工程的核心循环。</p>
+</blockquote>
+<p>这个过程的本质，是<strong>消除误解、对齐思路</strong>。它的最终目标是**“校准人”的理解**，而非仅仅“修复代码”。当 LLM 对你的描述产生“误解”时，或许我们首先要反思的是，自己对知识的表达是否足够清晰、准确。</p>
+<h3 id="3-驾驭不同类型的知识"><a href="#3-驾驭不同类型的知识" class="headerlink" title="3. 驾驭不同类型的知识"></a>3. 驾驭不同类型的知识</h3><p>软件开发涉及的知识远非单一类型，我们必须学会驾驭它们：</p>
+<ul>
+<li><strong>显式知识（Explicit Knowledge）</strong>：能够被清晰表达、记录和传播的”know-what”，如技术文档、业务规则。</li>
+<li><strong>隐式知识（Implicit Knowledge）</strong>：尚未被记录，但可以通过交流和文档化转为显式知识。</li>
+<li><strong>默会知识（Tacit Knowledge）</strong>：这是最宝贵也最难处理的部分。它是个人经验、直觉、技能的核心，是难以形式化的”know-how”。例如，一位资深架构师在众多方案中做出权衡的直觉，或是一位高级工程师对代码“坏味道”的敏锐嗅觉。<strong>定义问题通常比解决问题更难</strong>，而对问题的敏锐感知，正是默会知识的体现。</li>
+</ul>
+<p>为何同样的技术文档（显式知识）在不同人手中，会产生天壤之别的实现？</p>
+<p>为何有经验的工程师能在看似平静的代码中，直觉性地感知到潜在的设计缺陷？</p>
+<p>这些都彰显了默会知识的核心价值。</p>
+<h2 id="三、研发流程重塑：从代码管理到知识管理"><a href="#三、研发流程重塑：从代码管理到知识管理" class="headerlink" title="三、研发流程重塑：从代码管理到知识管理"></a>三、研发流程重塑：从代码管理到知识管理</h2><p>在新范式下，现有研发流程需要<strong>重构为以知识为中心的管理过程</strong>，其核心目标是从流程中捕获关键知识，并通过 LLM 有效沉淀。</p>
+<p><strong>围绕“默会知识”的传递来构建流程，是实现知识工程的关键。</strong></p>
+<h3 id="1-应用与提取“默会知识”"><a href="#1-应用与提取“默会知识”" class="headerlink" title="1. 应用与提取“默会知识”"></a>1. 应用与提取“默会知识”</h3><ul>
+<li><strong>应用知识</strong>：对于成熟的、有明确解决方案的问题（例如，为新项目搭建 CI&#x2F;CD 流水线），我们可以通过<strong>提示词模板</strong>对成熟的任务流程进行建模，高效应用那些已被充分学习的默会知识。</li>
+<li><strong>提取知识</strong>：默会知识的提取，本质上是**提炼“思维链”（Chain of Thought, CoT）**的过程。通过鼓励 LLM 解释其推理过程，我们可以反向形式化那些隐性的专家经验。RAG（检索增强生成）等模式，同样有助于新知识的学习与提取。</li>
+</ul>
+<h3 id="2-应对认知偏差：先对齐思路，再写代码"><a href="#2-应对认知偏差：先对齐思路，再写代码" class="headerlink" title="2. 应对认知偏差：先对齐思路，再写代码"></a>2. 应对认知偏差：先对齐思路，再写代码</h3><p><strong>认知偏差</strong>是团队协作中的巨大障碍：不同成员对同一问题可能持有完全不同的假设和理解，导致共识难以形成。</p>
+<p>这种分歧的<strong>后果</strong>是：团队难以形成统一共识，讨论陷入循环，新人培养周期延长，系统设计出现不一致，引入大量隐蔽的质量缺陷。我们是否曾困惑，为何同样的技术讨论，有些团队能迅速聚焦并达成一致，而有些团队却在表面问题上争论不休？认知偏差往往是根源。</p>
+<p>知识工程强调<strong>先对齐思路，再动手编码</strong>。</p>
+<ul>
+<li><strong>推行任务审查（Task Review）</strong>：将审查的重心从代码（Code Review）上移至任务本身，在编码前，就通过讨论、文档或图表，确保团队对“做什么”和“为什么做”达成一致。</li>
+<li><strong>建立认知行为基线</strong>：管理者应着力于建立团队统一的认知与行为基线，确保对问题的理解和处理方式有一致的标准。</li>
+</ul>
+<h3 id="3-混乱中的清醒：及时止损"><a href="#3-混乱中的清醒：及时止损" class="headerlink" title="3. 混乱中的清醒：及时止损"></a>3. 混乱中的清醒：及时止损</h3><p>当个体或团队对问题感到<strong>混乱（Chaotic）</strong>——即无法理解问题、被恐慌驱动而盲目行动时，任何试图“解决”问题的努力都可能加剧混乱。</p>
+<p>此时，<strong>理性地及时止损</strong>，暂停行动，回归问题的澄清与理解，是避免大量返工的明智选择。</p>
+<h2 id="四、任务划分与质量内建：新范式下的交付关键"><a href="#四、任务划分与质量内建：新范式下的交付关键" class="headerlink" title="四、任务划分与质量内建：新范式下的交付关键"></a>四、任务划分与质量内建：新范式下的交付关键</h2><h3 id="1-任务划分：与-LLM-协作的“接口”"><a href="#1-任务划分：与-LLM-协作的“接口”" class="headerlink" title="1. 任务划分：与 LLM 协作的“接口”"></a>1. 任务划分：与 LLM 协作的“接口”</h3><p>由于 LLM 的技术限制，需求必须被分解为<strong>足够小的、原子化的任务</strong>，才能转化为高质量的提示词。这个过程并非随意的拆分，而需同时兼顾<strong>软件架构与测试策略</strong>。</p>
+<p><strong>可测试性（Testability）是进程内架构最重要的属性之一</strong>。一个好的任务划分，本身就应该导向一个易于测试的实现。</p>
+<h3 id="2-质量控制优先于生成效率"><a href="#2-质量控制优先于生成效率" class="headerlink" title="2. 质量控制优先于生成效率"></a>2. 质量控制优先于生成效率</h3><p>在 LLM 辅助开发中，我们的精力分配需要发生根本转变：<strong>将更多精力投入质量控制，而非一味追求生成效率。</strong></p>
+<p>反馈循环的瓶颈在于<strong>如何高效验证 LLM 生成结果的正确性与有效性</strong>。因此，我们必须大力倡导**内建质量（Build Quality In）**的理念，通过测试驱动（TDD&#x2F;BDD）来提炼需要给予 LLM 的精准反馈，而非仅仅依赖于编码后的手动调试。</p>
+<p>我们应当转变思维，从”如何修复 LLM 生成的错误代码”到”如何设计流程，使 LLM 更容易生成正确代码”。</p>
+<p>当我们过于关注生成速度时，往往因大量调试修复而降低总体效率；而当我们专注于质量时，整体进度反而可能加快。</p>
+<p>这是否意味着，在 AI 时代，“慢即是快”可能成为新的工程法则？</p>
+<h2 id="五、工程师的转型：从“编码者”到“知识工程师”"><a href="#五、工程师的转型：从“编码者”到“知识工程师”" class="headerlink" title="五、工程师的转型：从“编码者”到“知识工程师”"></a>五、工程师的转型：从“编码者”到“知识工程师”</h2><p>这场范式转型，最终将重塑工程师的核心价值。</p>
+<ul>
+<li><p><strong>角色转变</strong>：从专注于编码实现的**“编码者”（Coder）<strong>，转向侧重于知识管理、任务分解与验证的</strong>“知识工程师”（Knowledge Engineer）<strong>。对纯粹编码技能的要求或许会降低，但对</strong>知识提炼、系统思考、质量保障**等能力的要求将显著提升。</p>
+<p>技能重组正在发生：</p>
+<ul>
+<li><strong>知识提炼能力</strong>：从复杂、模糊的业务需求中提取清晰、结构化的知识。</li>
+<li><strong>系统性思考</strong>：在碎片化任务中保持整体视角，确保局部解决方案符合全局最优。</li>
+<li><strong>元认知水平</strong>：对自身思考过程的觉察、监控与调整能力。</li>
+<li><strong>跨学科整合</strong>：将技术、业务、用户体验等多维度知识有机融合。</li>
+</ul>
+</li>
+<li><p><strong>核心价值</strong>：工程师的核心价值，在于为 LLM 提供<strong>足够丰富且精准的上下文信息</strong>——这包括功能需求、业务知识、架构决策、测试策略等一切关乎“生产正确代码”的关键信息。</p>
+</li>
+</ul>
+<p>我们的关注点，正从“如何构造软件”，历史性地转向**“如何提取和组织知识，让知识变成 LLM 能够理解的形式”**。</p>
+<p>从这个角度看，“提示词工程”的本质，是如何精准地组织与表达知识。</p>
+<p>因此，<strong>“知识工程”</strong>，或许是一个更合理、也更深刻的名称。</p>
+<h2 id="结语：不确定性中的确定性"><a href="#结语：不确定性中的确定性" class="headerlink" title="结语：不确定性中的确定性"></a>结语：不确定性中的确定性</h2><p>我们正站在一个技术剧变的时代，前方的道路充满不确定性。</p>
+<p>然而，在不确定性中，有一点是确定的：<strong>知识将始终是软件的核心价值载体</strong>，而知识的有效传递与组织，将成为决定性因素。</p>
+<p>软件工程或许正从“建筑学”迈向“认知科学”，从物质构造迈向知识组织。面对这一转变，我们需要保持敏锐的观察力，也需要务实的探索精神。</p>
+<p>这不是终点，而是重新思考软件工程本质的起点。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://cuipengfei.me/blog/2025/06/28/geektime-8x-ai/" title="AI 时代，我们是在写代码，还是在“写知识”？—— 极客时间 8x 课程笔记">https://cuipengfei.me/blog/2025/06/28/geektime-8x-ai/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/" rel="tag"><i class="fa fa-tag"></i> 软件开发</a>
+              <a href="/tags/%E7%9F%A5%E8%AF%86%E5%B7%A5%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 知识工程</a>
+              <a href="/tags/LLM/" rel="tag"><i class="fa fa-tag"></i> LLM</a>
+              <a href="/tags/%E8%AE%A4%E7%9F%A5%E6%A8%A1%E5%9E%8B/" rel="tag"><i class="fa fa-tag"></i> 认知模型</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2025/06/17/how-to-brainwash-copilot-to-follow-orders/" rel="prev" title="如何给 GitHub Copilot &quot;洗脑”，让 AI 精准遵循指令产出高质量代码">
+                  <i class="fa fa-angle-left"></i> 如何给 GitHub Copilot "洗脑”，让 AI 精准遵循指令产出高质量代码
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">379k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:44</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js" defer></script>
+
+</body>
+</html>
