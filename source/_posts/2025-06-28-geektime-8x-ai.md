@@ -9,6 +9,8 @@ tags: [知识工程, LLM, 认知模型, 软件开发]
 
 > "软件的价值，最终由其承载的知识决定。代码，只是这些知识的可执行形态。"
 
+![x](<https://github.com/cuipengfei/picx-images-hosting/raw/master/水墨画风格图片制作-(1).witvkcf9b.webp>)
+
 ## 引言：从“构建者”到“知识工程师”的身份转变
 
 我们习惯于将软件开发看作一种“建造”活动，谈论“构建”软件、“编写”代码。
@@ -167,11 +169,12 @@ LLM 在这个新范式中扮演什么角色？它是一个强大的**认知杠�
 
 这不是终点，而是重新思考软件工程本质的起点。
 
-## {% markmap %}
+![x](https://github.com/cuipengfei/picx-images-hosting/raw/master/水墨画风格图片制作.sz7xujcjv.webp)
 
+{% markmap %}
+---
 options:
-colorFreezeLevel: 2
-
+  colorFreezeLevel: 2
 ---
 
 # AI 时代：软件=知识工程
@@ -231,4 +234,5 @@ colorFreezeLevel: 2
 - 知识始终是软件核心价值
 - 有效传递与组织知识决定成败
 - 软件工程正迈向认知科学新范式
-  {% endmarkmap %}
+
+{% endmarkmap %}
