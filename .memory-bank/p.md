@@ -15,13 +15,24 @@
 3.  **Analyze and Collect (Iterative Process):**
 
     - To manage context and ensure thoroughness, analyze the blog posts one by one or in small batches.
-    - For each post, identify stylistic patterns. Pay attention to:
-      - **Tone and Voice:** (e.g., formal, informal, humorous, technical)
-      - **Common Phrases & Vocabulary:** (e.g., recurring expressions, specific technical jargon)
-      - **Sentence Structure:** (e.g., preference for short, declarative sentences or complex, compound sentences)
-      - **Formatting:** (e.g., use of bolding, italics, lists, blockquotes)
-      - **Code Blocks:** (e.g., inclusion of language identifiers, comments within code)
-      - **Markdown Usage:** (e.g., how headings, links, and images are formatted)
+    - For each post, identify stylistic patterns based on the principles of stylistics. Pay attention to:
+      - **A. Lexical Features (词汇特征):**
+        - **Vocabulary Choice:** (e.g., formal vs. informal, abstract vs. concrete, technical jargon, neologisms).
+        - **Recurring Phrases:** (e.g., idiomatic expressions, specific collocations).
+      - **B. Syntactic Features (句法特征):**
+        - **Sentence Structure:** (e.g., length, complexity: simple, compound, complex).
+        - **Sentence Type:** (e.g., declarative, interrogative, imperative, exclamatory).
+        - **Voice:** (e.g., active vs. passive).
+      - **C. Discourse Features (篇章特征):**
+        - **Cohesion & Coherence:** (e.g., use of conjunctions, transitions, paragraph structure).
+        - **Overall Structure:** (e.g., narrative, descriptive, argumentative, problem-solution).
+      - **D. Graphological & Formatting Features (字形与格式特征):**
+        - **Punctuation:** (e.g., frequent use of em-dashes, ellipses, etc.).
+        - **Text Formatting:** (e.g., use of bolding, italics, lists, blockquotes).
+        - **Markdown Conventions:** (e.g., specific ways of formatting headings, links, images).
+        - **Code Blocks:** (e.g., inclusion of language identifiers, commenting style within code).
+      - **E. Rhetorical Devices (修辞手法):**
+        - (e.g., metaphors, similes, analogies, personification, rhetorical questions).
     - Compare these observed patterns against the styles already documented in `writing-style-profile.md`.
 
 4.  **Stage New Patterns:**
