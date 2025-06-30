@@ -1,8 +1,3 @@
-D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---命令模式.md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---桥接模式.md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---适配器模式（从百度转回来的）.md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---职责链模式.md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---中介者模式（打出来是“终结者.......”）.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---状态模式（今天 CSDN 竟然上不去，暂时发在这里） (从百度空间转回来的).md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---组合模式（CSDN 依然没有恢复迹象......）.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-19-设计模式---享元模式.md
@@ -23,7 +18,7 @@ D:\code\cuipengfei.github.com\source\_posts\2008-09-18-编程之美---阶乘末�
 D:\code\cuipengfei.github.com\source\_posts\2008-10-03-对 Graphic 的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME].md
 D:\code\cuipengfei.github.com\source\_posts\2008-10-09-文字竖排工具 BY 烟锁重楼.md
 D:\code\cuipengfei.github.com\source\_posts\2008-10-12-文字竖排工具 By 崔鹏飞 没有混淆，可以用 reflector 看代码.md
-D:\code\cuipengfei.github.com\source\_posts\2008-10-30-Good news from O\'Reilly\'s Chinese website.md
+D:\code\cuipengfei.github.com\source\_posts\2008-10-30-Good news from O'Reilly's Chinese website.md
 D:\code\cuipengfei.github.com\source\_posts\2008-11-15-数据结构：用队列模拟理发店的排队情况（CSharp）.md
 D:\code\cuipengfei.github.com\source\_posts\2008-12-12-data-structure-binary-tree.md
 D:\code\cuipengfei.github.com\source\_posts\2009-01-14-迅雷账号升级到 24 了，全球 70000 名.md
