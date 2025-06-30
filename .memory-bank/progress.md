@@ -1,8 +1,8 @@
-d:\code\cuipengfei.github.com\source_posts\2008-10-12-文字竖排工具 By 崔鹏飞 没有混淆，可以用 reflector 看代码.md
-d:\code\cuipengfei.github.com\source_posts\2008-10-30-Good news from O'Reilly's Chinese website.md
-d:\code\cuipengfei.github.com\source_posts\2008-11-15-数据结构：用队列模拟理发店的排队情况（CSharp）.md
-d:\code\cuipengfei.github.com\source_posts\2008-12-12-data-structure-binary-tree.md
-d:\code\cuipengfei.github.com\source_posts\2009-01-14-迅雷账号升级到 24 了，全球 70000 名.md
+d:\code\cuipengfei.github.com\source_posts\2009-03-25-被学校的广播大大地雷了一把.md
+d:\code\cuipengfei.github.com\source_posts\2009-03-26-今天又被门卫大爷小小的雷了一下.md
+d:\code\cuipengfei.github.com\source_posts\2009-04-26-三种方式统计 string 中出现次数最多的 char（还是 LinQ 最简便）.md
+d:\code\cuipengfei.github.com\source_posts\2009-05-15-CET 口语证书，呕嘢.md
+d:\code\cuipengfei.github.com\source_posts\2009-05-31-格物致知 《Effective CSharp》读书笔记--验证类型转换.md
 D:\code\cuipengfei.github.com\source_posts\2008-09-17-cpu 占用率为正弦曲线（CSharp 实现）基本照抄书上的 C++.md
 D:\code\cuipengfei.github.com\source_posts\2008-09-18-编程之美---1 的个数 CSharp 笨（效率低）方法实现.md
 D:\code\cuipengfei.github.com\source_posts\2008-09-18-编程之美---阶乘末尾有几个 0(CSharp 实现).md
