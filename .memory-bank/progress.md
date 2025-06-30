@@ -1,8 +1,3 @@
-D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---状态模式（今天 CSDN 竟然上不去，暂时发在这里） (从百度空间转回来的).md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---组合模式（CSDN 依然没有恢复迹象......）.md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-19-设计模式---享元模式.md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-19-CSDN 被和谐期间的 Blog 都发到百度空间去了.md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-20-关于显式接口实现.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-20-设计模式---翻译器模式.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-21-设计模式---访问者模式（应该是最后一篇了）.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-24-MSIL 的条件跳转（不知道正确与否）.md
