@@ -1,4 +1,4 @@
-d:\code\cuipengfei.github.com\source_posts\2009-03-25-被学校的广播大大地雷了一把.md
+de\cuipengfei.github.com\source_posts\2009-03-25-被学校的广播大大地雷了一把.md
 d:\code\cuipengfei.github.com\source_posts\2009-03-26-今天又被门卫大爷小小的雷了一下.md
 d:\code\cuipengfei.github.com\source_posts\2009-04-26-三种方式统计 string 中出现次数最多的 char（还是 LinQ 最简便）.md
 d:\code\cuipengfei.github.com\source_posts\2009-05-15-CET 口语证书，呕嘢.md
