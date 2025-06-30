@@ -1,13 +1,3 @@
-D:\code\cuipengfei.github.com\source\_posts\2008-07-03-《编程之美——微软技术面试心得》一摞烧饼的排序 （不会做，看不懂）.md
-D:\code\cuipengfei.github.com\source\_posts\2008-07-29-简单工厂的最最简单应用（CSharp）.md
-D:\code\cuipengfei.github.com\source\_posts\2008-07-30-策略模式的简单应用（CSharp）.md
-D:\code\cuipengfei.github.com\source\_posts\2008-07-31-装饰模式的简单实现（CSharp）内有图一张,嘿嘿......md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-01-设计模式--代理模式的简单实现（CSharp）+类关系图.md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-02-设计模式--工厂模式.md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-03-设计模式--原型模式（附带类关系图一张）.md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-04-设计模式--模板方法模式（照旧，有类关系图）.md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-05-设计模式--外观模式.md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-06-设计模式---建造者（Builder）模式，有关系图.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-07-设计模式---观察者模式（恐怖袭击、地震的例子，有类关系图）.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-08-设计模式---抽象工厂模式+反射+配置文件.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---备忘录模式（CSDN没有恢复迹象......）.md
@@ -76,7 +66,7 @@ D:\code\cuipengfei.github.com\source\_posts\2011-04-18-[翻译]List为什么实�
 D:\code\cuipengfei.github.com\source\_posts\2011-05-31-美国生活第一个月见闻，有图有真相（1）.md
 D:\code\cuipengfei.github.com\source\_posts\2011-06-01-美国生活第一个月见闻，有图有真相（2）.md
 D:\code\cuipengfei.github.com\source\_posts\2011-06-02-美国生活第一个月见闻，有图有真相（3）.md
-D:\code\cuipengfei.github.com\source\_posts\2011-06-22-美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡.md
+D:\code\cuipengfei.github.com\source\_posts\2011-06-22-美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯���.md
 D:\code\cuipengfei.github.com\source\_posts\2011-06-25-美国生活第二个月照片（2）.md
 D:\code\cuipengfei.github.com\source\_posts\2011-07-06-WP7 Tip-禁用Pivot控件的切换手势.md
 D:\code\cuipengfei.github.com\source\_posts\2011-08-19-自己动手重新实现LINQ to Objects1 - 引言.md
@@ -161,7 +151,7 @@ D:\code\cuipengfei.github.com\source\_posts\2020-02-21-distributed-key-value-sto
 D:\code\cuipengfei.github.com\source\_posts\2020-05-22-软件需求膨胀.md
 D:\code\cuipengfei.github.com\source\_posts\2020-07-05-大目标.md
 D:\code\cuipengfei.github.com\source\_posts\2021-12-17-tw14years.md
-D:\code\cuipengfei.github.com\source\_posts\2022-01-29-一些关于银行的散碎���识.md
+D:\code\cuipengfei.github.com\source\_posts\2022-01-29-一些关于银行的散碎知识.md
 D:\code\cuipengfei.github.com\source\_posts\2022-10-28-loser-economy.md
 D:\code\cuipengfei.github.com\source\_posts\2023-03-18-generative-tests.md
 D:\code\cuipengfei.github.com\source\_posts\2023-07-29-spring integration jdbc distributed lock.md
