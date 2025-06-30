@@ -24,69 +24,64 @@
 
 1.  **Select Next File:** Take the first file path from `progress.md`
 
-2.  **Analyze Current Post:** Read the selected blog post and conduct a comprehensive stylistic analysis across multiple linguistic levels:
+2.  **Analyze Current Post:** Read the selected blog post and conduct a comprehensive Chinese stylistic analysis. **IMPORTANT: Do NOT copy original content from blog posts. Only record analytical observations and patterns.**
 
-    **Phonological Level (语音层面):**
+    **语音层面 (Phonological Level):**
 
-    - **Rhythm & Cadence:** Sentence flow, reading pace, use of short vs. long sentences for rhythm
-    - **Sound Patterns:** Alliteration, assonance, or deliberate sound repetitions (if any)
+    - **节奏韵律:** 句子长短搭配、停顿节奏、阅读语感
+    - **音韵效果:** 叠音词使用、声调搭配、语音和谐性
 
-    **Lexical Level (词汇层面):**
+    **词汇层面 (Lexical Level):**
 
-    - **Register & Formality:** Formal vs. informal vocabulary, technical vs. colloquial terms
-    - **Semantic Fields:** Dominant conceptual domains (technology, emotion, abstract concepts)
-    - **Word Formation:** Use of neologisms, compound words, borrowed terms
-    - **Collocation Patterns:** Recurring word combinations and phrase preferences
+    - **语体色彩:** 书面语 vs 口语、文言 vs 白话、正式 vs 非正式
+    - **专业术语:** 技术词汇密度、外来词使用、新词创造
+    - **语义场:** 主导概念域（技术、情感、抽象概念等）
+    - **词语搭配:** 惯用搭配、特色词组、固定表达
 
-    **Morphological Level (词法层面):**
+    **句法层面 (Syntactic Level):**
 
-    - **Derivation Patterns:** Preferred prefixes, suffixes, word-building strategies
-    - **Grammatical Categories:** Tense preferences, modal usage, aspect markers
+    - **句式特点:** 单句 vs 复句比例、长短句搭配
+    - **语序模式:** 主谓宾、定状补的使用偏好
+    - **句型变化:** 陈述、疑问、感叹、祈使句的分布
+    - **语法手段:** 被动句、把字句、存现句等特殊句式
 
-    **Syntactic Level (句法层面):**
+    **语篇层面 (Discourse Level):**
 
-    - **Sentence Architecture:** Simple, compound, complex sentence preferences and ratios
-    - **Clause Patterns:** Subordination vs. coordination tendencies
-    - **Voice & Mood:** Active/passive voice distribution, imperative/declarative patterns
-    - **Sentence Length Variation:** Average length, range, and strategic use of short/long sentences
+    - **衔接手段:** 连词使用、指代关系、词汇链
+    - **信息结构:** 话题-述题组织、已知-未知信息安排
+    - **段落组织:** 段落结构、层次安排、论证逻辑
+    - **元话语:** 自指语言、读者互动策略
 
-    **Discourse Level (语篇层面):**
+    **语用层面 (Pragmatic Level):**
 
-    - **Cohesive Devices:** Conjunctions, reference patterns, lexical chains
-    - **Information Structure:** Topic-comment organization, given-new patterns
-    - **Text Organization:** Paragraph structure, section transitions, argument development
-    - **Metadiscourse:** Self-referential language, reader engagement strategies
+    - **语体风格:** 正式度、亲和度、权威性
+    - **交际功能:** 说明、论证、指导、抒情等主要功能
+    - **礼貌策略:** 语气缓和、谦逊表达、断言程度
+    - **互文性:** 引用、典故、网络用语等文本间关系
 
-    **Pragmatic Level (语用层面):**
+    **修辞层面 (Rhetorical Level):**
 
-    - **Reader Positioning:** How the author positions themselves relative to the reader
-    - **Speech Acts:** Dominant communicative functions (explaining, arguing, instructing)
-    - **Politeness Strategies:** Hedging, mitigation, assertiveness patterns
-    - **Intertextuality:** References to other texts, genres, or discourse communities
+    - **修辞手法:** 比喻、拟人、排比、对偶等传统修辞
+    - **论证方式:** 举例、对比、类比、因果等逻辑手段
+    - **情感表达:** 感叹、强调、反问等情感色彩
+    - **说服策略:** 理性论证、情感感染、权威引用
 
-    **Graphological Level (字形层面):**
+    **表现层面 (Graphological Level):**
 
-    - **Typography:** Use of bold, italic, underline for emphasis or structure
-    - **Punctuation Patterns:** Distinctive use of dashes, colons, semicolons, ellipses
-    - **Spatial Layout:** Paragraph breaks, indentation, white space usage
-    - **Visual Elements:** Integration of code blocks, lists, tables, diagrams
+    - **标点特色:** 破折号、省略号、感叹号等使用模式
+    - **版式设计:** 段落分割、空行使用、视觉层次
+    - **格式元素:** 代码块、列表、表格、图表的整合方式
+    - **强调方式:** 加粗、斜体、下划线的使用规律
 
-    **Rhetorical Level (修辞层面):**
-
-    - **Figurative Language:** Metaphors, similes, analogies, personification
-    - **Rhetorical Questions:** Frequency and function
-    - **Repetition Schemes:** Anaphora, epistrophe, parallelism
-    - **Appeal Strategies:** Logical (logos), emotional (pathos), credibility (ethos) appeals
-
-3.  **Document Findings:** For each identified pattern, add it to `style_updates.md` using this format:
+3.  **Document Findings:** For each identified pattern, add it to `style_updates.md` using this format. **CRITICAL: Do NOT include original text from blog posts. Only record your analytical observations.**
 
     ```
-    ## Pattern: [Brief Description]
-    **Linguistic Level:** [Phonological/Lexical/Morphological/Syntactic/Discourse/Pragmatic/Graphological/Rhetorical]
-    **Evidence:** [Specific example from the post with exact quotation]
-    **Source File:** [Filename of the analyzed post]
-    **Frequency:** [How often this pattern appears: Dominant/Frequent/Occasional/Rare]
-    **Function:** [What communicative or stylistic purpose this pattern serves]
+    ## 文体特征: [简要描述]
+    **分析层面:** [语音/词汇/句法/语篇/语用/修辞/表现]
+    **特征描述:** [具体的文体学观察，不含原文引用]
+    **来源文件:** [被分析文章的文件名]
+    **出现频率:** [主导特征/频繁出现/偶尔出现/罕见特征]
+    **功能作用:** [该特征的交际或文体功能]
     ```
 
 4.  **Update Progress:** Remove the processed file path from the top of `progress.md`
@@ -97,12 +92,13 @@
 
 **Output Format Requirements:**
 
-- Each pattern entry in `style_updates.md` must include concrete evidence with exact quotations
-- Use the specified linguistic level labels for consistent classification
-- Include functional analysis explaining the communicative purpose of each pattern
-- Maintain chronological order of analysis in the updates file
-- Always include the source filename for traceability
-- Focus on recurring and distinctive patterns rather than isolated instances
+- **严禁原文引用:** `style_updates.md` 中不得包含博客原文内容，只记录分析观察结果
+- **中文文体学分类:** 使用指定的中文文体学层面标签进行分类
+- **功能导向分析:** 说明每个特征的交际目的和文体效果
+- **时序记录:** 保持分析的时间顺序
+- **来源追溯:** 始终标明来源文件名
+- **模式聚焦:** 关注重复出现和独特的文体模式，而非孤立现象
+- **简洁表达:** 用学术化但简洁的语言描述文体特征
 
 **Completion Indicator:**
 
