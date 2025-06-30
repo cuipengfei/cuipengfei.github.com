@@ -1,87 +1,82 @@
-D:\code\cuipengfei.github.com\source\_posts\2008-08-07-设计模式---观察者模式（恐怖袭击、地震的例子，有类关系图）.md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-08-设计模式---抽象工厂模式+反射+配置文件.md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---备忘录模式（CSDN没有恢复迹象......）.md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---单例模式（singleton）.md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---迭代器模式（昨天停电了......）.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---命令模式.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---桥接模式.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---适配器模式（从百度转回来的）.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---职责链模式.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---中介者模式（打出来是“终结者.......”）.md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---状态模式（今天CSDN竟然上不去，暂时发在这里） (从百度空间转回来的).md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---组合模式（CSDN依然没有恢复迹象......）.md
+D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---状态模式（今天 CSDN 竟然上不去，暂时发在这里） (从百度空间转回来的).md
+D:\code\cuipengfei.github.com\source\_posts\2008-08-18-设计模式---组合模式（CSDN 依然没有恢复迹象......）.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-19-设计模式---享元模式.md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-19-CSDN被和谐期间的Blog都发到百度空间去了.md
+D:\code\cuipengfei.github.com\source\_posts\2008-08-19-CSDN 被和谐期间的 Blog 都发到百度空间去了.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-20-关于显式接口实现.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-20-设计模式---翻译器模式.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-21-设计模式---访问者模式（应该是最后一篇了）.md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-24-MSIL的条件跳转（不知道正确与否）.md
+D:\code\cuipengfei.github.com\source\_posts\2008-08-24-MSIL 的条件跳转（不知道正确与否）.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-28-编译不可通过 why.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-28-引用类型参数的按值传递.md
-D:\code\cuipengfei.github.com\source\_posts\2008-08-28-new关键字用作修饰符.md
+D:\code\cuipengfei.github.com\source\_posts\2008-08-28-new 关键字用作修饰符.md
 D:\code\cuipengfei.github.com\source\_posts\2008-09-04-一个关于深层拷贝的问题（迷惑在私有构造函数）.md
-D:\code\cuipengfei.github.com\source\_posts\2008-09-09-可以为null的值类型.md
-D:\code\cuipengfei.github.com\source\_posts\2008-09-11-《编程之美——微软技术面试心得》的CSharp实现---电梯调度问题解法一.md
-D:\code\cuipengfei.github.com\source\_posts\2008-09-17-cpu占用率为正弦曲线（CSharp实现）基本照抄书上的C++.md
-D:\code\cuipengfei.github.com\source\_posts\2008-09-18-编程之美---1的个数CSharp笨（效率低）方法实现.md
-D:\code\cuipengfei.github.com\source\_posts\2008-09-18-编程之美---阶乘末尾有几个0(CSharp实现).md
-D:\code\cuipengfei.github.com\source\_posts\2008-10-03-对Graphic的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME].md
-D:\code\cuipengfei.github.com\source\_posts\2008-10-09-文字竖排工具BY烟锁重楼.md
-D:\code\cuipengfei.github.com\source\_posts\2008-10-12-文字竖排工具 By 崔鹏飞 没有混淆，可以用reflector看代码.md
-D:\code\cuipengfei.github.com\source\_posts\2008-10-30-Good news from O'Reilly's Chinese website.md
+D:\code\cuipengfei.github.com\source\_posts\2008-09-09-可以为 null 的值类型.md
+D:\code\cuipengfei.github.com\source\_posts\2008-09-11-《编程之美——微软技术面试心得》的 CSharp 实现---电梯调度问题解法一.md
+D:\code\cuipengfei.github.com\source\_posts\2008-09-17-cpu 占用率为正弦曲线（CSharp 实现）基本照抄书上的 C++.md
+D:\code\cuipengfei.github.com\source\_posts\2008-09-18-编程之美---1 的个数 CSharp 笨（效率低）方法实现.md
+D:\code\cuipengfei.github.com\source\_posts\2008-09-18-编程之美---阶乘末尾有几个 0(CSharp 实现).md
+D:\code\cuipengfei.github.com\source\_posts\2008-10-03-对 Graphic 的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME].md
+D:\code\cuipengfei.github.com\source\_posts\2008-10-09-文字竖排工具 BY 烟锁重楼.md
+D:\code\cuipengfei.github.com\source\_posts\2008-10-12-文字竖排工具 By 崔鹏飞 没有混淆，可以用 reflector 看代码.md
+D:\code\cuipengfei.github.com\source\_posts\2008-10-30-Good news from O\'Reilly\'s Chinese website.md
 D:\code\cuipengfei.github.com\source\_posts\2008-11-15-数据结构：用队列模拟理发店的排队情况（CSharp）.md
 D:\code\cuipengfei.github.com\source\_posts\2008-12-12-data-structure-binary-tree.md
-D:\code\cuipengfei.github.com\source\_posts\2009-01-14-迅雷账号升级到24了，全球70000名.md
-D:\code\cuipengfei.github.com\source\_posts\2009-01-16-西南石油大学--学分绩点计算器（用CSharp编写，需要有.NET 2.0）.md
-D:\code\cuipengfei.github.com\source\_posts\2009-02-06-SWPU学分绩点计算器女生版.md
+D:\code\cuipengfei.github.com\source\_posts\2009-01-14-迅雷账号升级到 24 了，全球 70000 名.md
+D:\code\cuipengfei.github.com\source\_posts\2009-01-16-西南石油大学--学分绩点计算器（用 CSharp 编写，需要有.NET 2.0）.md
+D:\code\cuipengfei.github.com\source\_posts\2009-02-06-SWPU 学分绩点计算器女生版.md
 D:\code\cuipengfei.github.com\source\_posts\2009-02-18-格物致知 《Effective CSharp》读书笔记--验证二进制兼容性.md
-D:\code\cuipengfei.github.com\source\_posts\2009-03-02-《计算机图形技术》练习--用GDI+模拟DDA算法.md
+D:\code\cuipengfei.github.com\source\_posts\2009-03-02-《计算机图形技术》练习--用 GDI+模拟 DDA 算法.md
 D:\code\cuipengfei.github.com\source\_posts\2009-03-10-A double blessing has descended upon the house.md
 D:\code\cuipengfei.github.com\source\_posts\2009-03-25-被学校的广播大大地雷了一把.md
 D:\code\cuipengfei.github.com\source\_posts\2009-03-26-今天又被门卫大爷小小的雷了一下.md
-D:\code\cuipengfei.github.com\source\_posts\2009-04-26-三种方式统计string中出现次数最多的char（还是LinQ最简便）.md
-D:\code\cuipengfei.github.com\source\_posts\2009-05-15-CET口语证书，呕嘢.md
+D:\code\cuipengfei.github.com\source\_posts\2009-04-26-三种方式统计 string 中出现次数最多的 char（还是 LinQ 最简便）.md
+D:\code\cuipengfei.github.com\source\_posts\2009-05-15-CET 口语证书，呕嘢.md
 D:\code\cuipengfei.github.com\source\_posts\2009-05-31-格物致知 《Effective CSharp》读书笔记--验证类型转换.md
 D:\code\cuipengfei.github.com\source\_posts\2009-07-19-格物致知--《Effective CSharp》读书笔记--验证四种判等方式.md
-D:\code\cuipengfei.github.com\source\_posts\2009-07-29-格物致知--Effective C Sharp读书笔记--验证接口引用指向装箱后的值类型时无需拆箱.md
+D:\code\cuipengfei.github.com\source\_posts\2009-07-29-格物致知--Effective C Sharp 读书笔记--验证接口引用指向装箱后的值类型时无需拆箱.md
 D:\code\cuipengfei.github.com\source\_posts\2009-08-07-《Head First CSharp》将停止翻译和更新.md
 D:\code\cuipengfei.github.com\source\_posts\2009-08-21-电驴（easyMule）自动关机工具.md
-D:\code\cuipengfei.github.com\source\_posts\2009-09-01-easyMule自动关机工具(可用于1.X和2.0版本).md
+D:\code\cuipengfei.github.com\source\_posts\2009-09-01-easyMule 自动关机工具(可用于 1.X 和 2.0 版本).md
 D:\code\cuipengfei.github.com\source\_posts\2009-09-03-通过英文剧集、电影学单词的小工具.md
-D:\code\cuipengfei.github.com\source\_posts\2009-09-10-Words Via Subtitle的两点改进.md
-D:\code\cuipengfei.github.com\source\_posts\2009-09-17-Words Via Subtitle改进：视频播放例句、加快生成WPS文档的速度.md
-D:\code\cuipengfei.github.com\source\_posts\2010-03-15-使用AvalonDock制作WPF多标签浏览器（一）.md
-D:\code\cuipengfei.github.com\source\_posts\2010-03-16-使用AvalonDock制作WPF多标签浏览器（二）.md
-D:\code\cuipengfei.github.com\source\_posts\2010-03-17-用AvalonDock制作WPF多标签浏览器（三）.md
-D:\code\cuipengfei.github.com\source\_posts\2010-05-22-MEF编程指南（前两节）.md
-D:\code\cuipengfei.github.com\source\_posts\2010-05-22-NET40FAQ 第一部分DLR.md
-D:\code\cuipengfei.github.com\source\_posts\2010-07-31-在.NET 4中调用GDAL库时遇到的问题及解决方法.md
-D:\code\cuipengfei.github.com\source\_posts\2010-09-13-WPF中ItemContainerStyle不适用的一种情况.md
-D:\code\cuipengfei.github.com\source\_posts\2010-09-30-当Generic.xaml遇上BitmapImage：发现一个疑似WPF Bug而又不似Bug的问题.md
+D:\code\cuipengfei.github.com\source\_posts\2009-09-10-Words Via Subtitle 的两点改进.md
+D:\code\cuipengfei.github.com\source\_posts\2009-09-17-Words Via Subtitle 改进：视频播放例句、加快生成 WPS 文档的速度.md
+D:\code\cuipengfei.github.com\source\_posts\2010-03-15-使用 AvalonDock 制作 WPF 多标签浏览器（一）.md
+D:\code\cuipengfei.github.com\source\_posts\2010-03-16-使用 AvalonDock 制作 WPF 多标签浏览器（二）.md
+D:\code\cuipengfei.github.com\source\_posts\2010-03-17-用 AvalonDock 制作 WPF 多标签浏览器（三）.md
+D:\code\cuipengfei.github.com\source\_posts\2010-05-22-MEF 编程指南（前两节）.md
+D:\code\cuipengfei.github.com\source\_posts\2010-05-22-NET40FAQ 第一部分 DLR.md
+D:\code\cuipengfei.github.com\source\_posts\2010-07-31-在.NET 4 中调用 GDAL 库时遇到的问题及解决方法.md
+D:\code\cuipengfei.github.com\source\_posts\2010-09-13-WPF 中 ItemContainerStyle 不适用的一种情况.md
+D:\code\cuipengfei.github.com\source\_posts\2010-09-30-当 Generic.xaml 遇上 BitmapImage：发现一个疑似 WPF Bug 而又不似 Bug 的问题.md
 D:\code\cuipengfei.github.com\source\_posts\2010-10-04-百度游戏 七彩鱼 自动喂鱼器.md
 D:\code\cuipengfei.github.com\source\_posts\2010-10-06-送给所有需要学英语的朋友—Words Via Subtitle.md
-D:\code\cuipengfei.github.com\source\_posts\2011-03-06-CSharp中的语言特性都是从何而来？.md
+D:\code\cuipengfei.github.com\source\_posts\2011-03-06-CSharp 中的语言特性都是从何而来？.md
 D:\code\cuipengfei.github.com\source\_posts\2011-04-13-“可选参数”趣事探轶.md
-D:\code\cuipengfei.github.com\source\_posts\2011-04-18-[翻译]List为什么实现了那么多接口？.md
+D:\code\cuipengfei.github.com\source\_posts\2011-04-18-[翻译]List 为什么实现了那么多接口？.md
 D:\code\cuipengfei.github.com\source\_posts\2011-05-31-美国生活第一个月见闻，有图有真相（1）.md
 D:\code\cuipengfei.github.com\source\_posts\2011-06-01-美国生活第一个月见闻，有图有真相（2）.md
 D:\code\cuipengfei.github.com\source\_posts\2011-06-02-美国生活第一个月见闻，有图有真相（3）.md
-D:\code\cuipengfei.github.com\source\_posts\2011-06-22-美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯���.md
+D:\code\cuipengfei.github.com\source\_posts\2011-06-22-美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡.md
 D:\code\cuipengfei.github.com\source\_posts\2011-06-25-美国生活第二个月照片（2）.md
-D:\code\cuipengfei.github.com\source\_posts\2011-07-06-WP7 Tip-禁用Pivot控件的切换手势.md
-D:\code\cuipengfei.github.com\source\_posts\2011-08-19-自己动手重新实现LINQ to Objects1 - 引言.md
-D:\code\cuipengfei.github.com\source\_posts\2011-08-21-自己动手重新实现LINQ to Objects2 - Where.md
-D:\code\cuipengfei.github.com\source\_posts\2011-08-22-自己动手重新实现LINQ to Objects3 - Select.md
-D:\code\cuipengfei.github.com\source\_posts\2011-08-22-自己动手重新实现LINQ to Objects4 - Range.md
-D:\code\cuipengfei.github.com\source\_posts\2011-08-23-自己动手重新实现LINQ to Objects5 - Empty.md
-D:\code\cuipengfei.github.com\source\_posts\2011-08-24-自己动手重新实现LINQ to Objects6 - Repeat.md
+D:\code\cuipengfei.github.com\source\_posts\2011-07-06-WP7 Tip-禁用 Pivot 控件的切换手势.md
+D:\code\cuipengfei.github.com\source\_posts\2011-08-19-自己动手重新实现 LINQ to Objects1 - 引言.md
+D:\code\cuipengfei.github.com\source\_posts\2011-08-21-自己动手重新实现 LINQ to Objects2 - Where.md
+D:\code\cuipengfei.github.com\source\_posts\2011-08-22-自己动手重新实现 LINQ to Objects3 - Select.md
+D:\code\cuipengfei.github.com\source\_posts\2011-08-22-自己动手重新实现 LINQ to Objects4 - Range.md
+D:\code\cuipengfei.github.com\source\_posts\2011-08-23-自己动手重新实现 LINQ to Objects5 - Empty.md
+D:\code\cuipengfei.github.com\source\_posts\2011-08-24-自己动手重新实现 LINQ to Objects6 - Repeat.md
 D:\code\cuipengfei.github.com\source\_posts\2011-08-31-浅析延迟执行--实现，优点，陷阱以及题外话.md
-D:\code\cuipengfei.github.com\source\_posts\2011-09-05-自己动手重新实现LINQ to Objects7 - Count和LongCount.md
-D:\code\cuipengfei.github.com\source\_posts\2011-09-14-自己动手重新实现LINQ to Objects8 - Concat.md
-D:\code\cuipengfei.github.com\source\_posts\2011-12-15-自己动手重新实现LINQ to Objects9 - SelectMany.md
-D:\code\cuipengfei.github.com\source\_posts\2012-02-15-自己动手重新实现LINQ to Objects10 - Any和All.md
-D:\code\cuipengfei.github.com\source\_posts\2012-04-09-自己动手重新实现LINQ to Objects11 - First，Last，Single以及它们带有OrDefault的重载.md
-D:\code\cuipengfei.github.com\source\_posts\2012-04-10-自己动手重新实现LINQ to Objects12 - DefaultIfEmpty.md
+D:\code\cuipengfei.github.com\source\_posts\2011-09-05-自己动手重新实现 LINQ to Objects7 - Count 和 LongCount.md
+D:\code\cuipengfei.github.com\source\_posts\2011-09-14-自己动手重新实现 LINQ to Objects8 - Concat.md
+D:\code\cuipengfei.github.com\source\_posts\2011-12-15-自己动手重新实现 LINQ to Objects9 - SelectMany.md
+D:\code\cuipengfei.github.com\source\_posts\2012-02-15-自己动手重新实现 LINQ to Objects10 - Any 和 All.md
+D:\code\cuipengfei.github.com\source\_posts\2012-04-09-自己动手重新实现 LINQ to Objects11 - First，Last，Single 以及它们带有 OrDefault 的重载.md
+D:\code\cuipengfei.github.com\source\_posts\2012-04-10-自己动手重新实现 LINQ to Objects12 - DefaultIfEmpty.md
 D:\code\cuipengfei.github.com\source\_posts\2013-03-04-ce-shi.markdown
 D:\code\cuipengfei.github.com\source\_posts\2013-04-01-doubanebookprice.markdown
 D:\code\cuipengfei.github.com\source\_posts\2013-04-09-make-y.markdown
