@@ -24,34 +24,69 @@
 
 1.  **Select Next File:** Take the first file path from `progress.md`
 
-2.  **Analyze Current Post:** Read the selected blog post and identify stylistic patterns based on:
+2.  **Analyze Current Post:** Read the selected blog post and conduct a comprehensive stylistic analysis across multiple linguistic levels:
 
-    - **A. Lexical Features (词汇特征):**
-      - **Vocabulary Choice:** (e.g., formal vs. informal, abstract vs. concrete, technical jargon, neologisms).
-      - **Recurring Phrases:** (e.g., idiomatic expressions, specific collocations).
-    - **B. Syntactic Features (句法特征):**
-      - **Sentence Structure:** (e.g., length, complexity: simple, compound, complex).
-      - **Sentence Type:** (e.g., declarative, interrogative, imperative, exclamatory).
-      - **Voice:** (e.g., active vs. passive).
-    - **C. Discourse Features (篇章特征):**
-      - **Cohesion & Coherence:** (e.g., use of conjunctions, transitions, paragraph structure).
-      - **Overall Structure:** (e.g., narrative, descriptive, argumentative, problem-solution).
-    - **D. Graphological & Formatting Features (字形与格式特征):**
-      - **Punctuation:** (e.g., frequent use of em-dashes, ellipses, etc.).
-      - **Text Formatting:** (e.g., use of bolding, italics, lists, blockquotes).
-      - **Markdown Conventions:** (e.g., specific ways of formatting headings, links, images).
-      - **Code Blocks:** (e.g., inclusion of language identifiers, commenting style within code).
-    - **E. Rhetorical Devices (修辞手法):**
-      - (e.g., metaphors, similes, analogies, personification, rhetorical questions).
+    **Phonological Level (语音层面):**
+
+    - **Rhythm & Cadence:** Sentence flow, reading pace, use of short vs. long sentences for rhythm
+    - **Sound Patterns:** Alliteration, assonance, or deliberate sound repetitions (if any)
+
+    **Lexical Level (词汇层面):**
+
+    - **Register & Formality:** Formal vs. informal vocabulary, technical vs. colloquial terms
+    - **Semantic Fields:** Dominant conceptual domains (technology, emotion, abstract concepts)
+    - **Word Formation:** Use of neologisms, compound words, borrowed terms
+    - **Collocation Patterns:** Recurring word combinations and phrase preferences
+
+    **Morphological Level (词法层面):**
+
+    - **Derivation Patterns:** Preferred prefixes, suffixes, word-building strategies
+    - **Grammatical Categories:** Tense preferences, modal usage, aspect markers
+
+    **Syntactic Level (句法层面):**
+
+    - **Sentence Architecture:** Simple, compound, complex sentence preferences and ratios
+    - **Clause Patterns:** Subordination vs. coordination tendencies
+    - **Voice & Mood:** Active/passive voice distribution, imperative/declarative patterns
+    - **Sentence Length Variation:** Average length, range, and strategic use of short/long sentences
+
+    **Discourse Level (语篇层面):**
+
+    - **Cohesive Devices:** Conjunctions, reference patterns, lexical chains
+    - **Information Structure:** Topic-comment organization, given-new patterns
+    - **Text Organization:** Paragraph structure, section transitions, argument development
+    - **Metadiscourse:** Self-referential language, reader engagement strategies
+
+    **Pragmatic Level (语用层面):**
+
+    - **Reader Positioning:** How the author positions themselves relative to the reader
+    - **Speech Acts:** Dominant communicative functions (explaining, arguing, instructing)
+    - **Politeness Strategies:** Hedging, mitigation, assertiveness patterns
+    - **Intertextuality:** References to other texts, genres, or discourse communities
+
+    **Graphological Level (字形层面):**
+
+    - **Typography:** Use of bold, italic, underline for emphasis or structure
+    - **Punctuation Patterns:** Distinctive use of dashes, colons, semicolons, ellipses
+    - **Spatial Layout:** Paragraph breaks, indentation, white space usage
+    - **Visual Elements:** Integration of code blocks, lists, tables, diagrams
+
+    **Rhetorical Level (修辞层面):**
+
+    - **Figurative Language:** Metaphors, similes, analogies, personification
+    - **Rhetorical Questions:** Frequency and function
+    - **Repetition Schemes:** Anaphora, epistrophe, parallelism
+    - **Appeal Strategies:** Logical (logos), emotional (pathos), credibility (ethos) appeals
 
 3.  **Document Findings:** For each identified pattern, add it to `style_updates.md` using this format:
 
     ```
     ## Pattern: [Brief Description]
-    **Category:** [A/B/C/D/E based on classification above]
-    **Evidence:** [Specific example from the post]
+    **Linguistic Level:** [Phonological/Lexical/Morphological/Syntactic/Discourse/Pragmatic/Graphological/Rhetorical]
+    **Evidence:** [Specific example from the post with exact quotation]
     **Source File:** [Filename of the analyzed post]
-    **Frequency:** [How often this pattern appears in the post]
+    **Frequency:** [How often this pattern appears: Dominant/Frequent/Occasional/Rare]
+    **Function:** [What communicative or stylistic purpose this pattern serves]
     ```
 
 4.  **Update Progress:** Remove the processed file path from the top of `progress.md`
@@ -62,10 +97,12 @@
 
 **Output Format Requirements:**
 
-- Each pattern entry in `style_updates.md` must include concrete evidence
-- Use the exact category labels (A through E) for consistent classification
+- Each pattern entry in `style_updates.md` must include concrete evidence with exact quotations
+- Use the specified linguistic level labels for consistent classification
+- Include functional analysis explaining the communicative purpose of each pattern
 - Maintain chronological order of analysis in the updates file
 - Always include the source filename for traceability
+- Focus on recurring and distinctive patterns rather than isolated instances
 
 **Completion Indicator:**
 
