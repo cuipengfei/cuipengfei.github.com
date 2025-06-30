@@ -1,5 +1,3 @@
-D:\code\cuipengfei.github.com\source\_posts\2008-07-02-《编程之美——微软技术面试心得》“中国象棋的将帅问题”CSharp实现.md
-D:\code\cuipengfei.github.com\source\_posts\2008-07-02-编程之美 CSharp实现 1.md
 D:\code\cuipengfei.github.com\source\_posts\2008-07-03-《编程之美——微软技术面试心得》一摞烧饼的排序 （不会做，看不懂）.md
 D:\code\cuipengfei.github.com\source\_posts\2008-07-29-简单工厂的最最简单应用（CSharp）.md
 D:\code\cuipengfei.github.com\source\_posts\2008-07-30-策略模式的简单应用（CSharp）.md
@@ -32,7 +30,7 @@ D:\code\cuipengfei.github.com\source\_posts\2008-08-28-编译不可通过 why.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-28-引用类型参数的按值传递.md
 D:\code\cuipengfei.github.com\source\_posts\2008-08-28-new关键字用作修饰符.md
 D:\code\cuipengfei.github.com\source\_posts\2008-09-04-一个关于深层拷贝的问题（迷惑在私有构造函数）.md
-D:\code\cuipengfei.github.com\source\_posts\2008-09-09-可以为null的���类型.md
+D:\code\cuipengfei.github.com\source\_posts\2008-09-09-可以为null的值类型.md
 D:\code\cuipengfei.github.com\source\_posts\2008-09-11-《编程之美——微软技术面试心得》的CSharp实现---电梯调度问题解法一.md
 D:\code\cuipengfei.github.com\source\_posts\2008-09-17-cpu占用率为正弦曲线（CSharp实现）基本照抄书上的C++.md
 D:\code\cuipengfei.github.com\source\_posts\2008-09-18-编程之美---1的个数CSharp笨（效率低）方法实现.md
@@ -78,7 +76,7 @@ D:\code\cuipengfei.github.com\source\_posts\2011-04-18-[翻译]List为什么实�
 D:\code\cuipengfei.github.com\source\_posts\2011-05-31-美国生活第一个月见闻，有图有真相（1）.md
 D:\code\cuipengfei.github.com\source\_posts\2011-06-01-美国生活第一个月见闻，有图有真相（2）.md
 D:\code\cuipengfei.github.com\source\_posts\2011-06-02-美国生活第一个月见闻，有图有真相（3）.md
-D:\code\cuipengfei.github.com\source\_posts\2011-06-22-美国生活第二个月照片��1）：飙摩托，二造红河谷；乘火车，初访沃斯堡.md
+D:\code\cuipengfei.github.com\source\_posts\2011-06-22-美国生活第二个月照片（1）：飙摩托，二造红河谷；乘火车，初访沃斯堡.md
 D:\code\cuipengfei.github.com\source\_posts\2011-06-25-美国生活第二个月照片（2）.md
 D:\code\cuipengfei.github.com\source\_posts\2011-07-06-WP7 Tip-禁用Pivot控件的切换手势.md
 D:\code\cuipengfei.github.com\source\_posts\2011-08-19-自己动手重新实现LINQ to Objects1 - 引言.md
@@ -163,7 +161,7 @@ D:\code\cuipengfei.github.com\source\_posts\2020-02-21-distributed-key-value-sto
 D:\code\cuipengfei.github.com\source\_posts\2020-05-22-软件需求膨胀.md
 D:\code\cuipengfei.github.com\source\_posts\2020-07-05-大目标.md
 D:\code\cuipengfei.github.com\source\_posts\2021-12-17-tw14years.md
-D:\code\cuipengfei.github.com\source\_posts\2022-01-29-一些关于银行的散碎知识.md
+D:\code\cuipengfei.github.com\source\_posts\2022-01-29-一些关于银行的散碎���识.md
 D:\code\cuipengfei.github.com\source\_posts\2022-10-28-loser-economy.md
 D:\code\cuipengfei.github.com\source\_posts\2023-03-18-generative-tests.md
 D:\code\cuipengfei.github.com\source\_posts\2023-07-29-spring integration jdbc distributed lock.md
