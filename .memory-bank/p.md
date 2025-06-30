@@ -1,45 +1,72 @@
-**Objective:** Your task is to act as a technical writing analyst. Your goal is to analyze all blog posts and update the `writing-style-profile.md` to ensure it comprehensively reflects the author's writing style.
+**Objective:** Act as a technical writing analyst to systematically analyze blog posts and extract writing style patterns. Your task is to process blog posts one by one, extract stylistic patterns, and maintain a comprehensive record of findings.
 
 **Core Principles:**
 
-1.  **Additive Only:** You must only add new, observed patterns. Do not remove or modify any existing content in `writing-style-profile.md`.
-2.  **Evidence-Based:** Every new pattern added must be directly observable in the blog posts. Do not invent or infer styles.
-3.  **Atomic Update:** Do not modify the target `writing-style-profile.md` file until your analysis of _all_ blog posts is complete.
+1.  **Evidence-Based Analysis:** Every pattern identified must be directly observable in the blog posts. Do not invent or infer styles.
+2.  **Progressive Processing:** Process one file at a time using the progress tracking system.
+3.  **File Modification Restriction:** Only modify `progress.md` and `style_updates.md` files during this process.
+4.  **Additive Documentation:** All findings should be accumulated without removing existing patterns.
 
-**Workflow:**
+**Start/Continue Instructions:**
 
-1.  **Load Profile:** Read the content of `D:\code\cuipengfei.github.com\.memory-bank\writing-style-profile.md` to understand the currently documented writing styles.
+**IF this is your first time running this task:**
 
-2.  **Locate Posts:** Identify all markdown files (`.md` or `.markdown`) within the `D:\code\cuipengfei.github.com\source\_posts\` directory.
+1. Check if `D:\code\cuipengfei.github.com\.memory-bank\progress.md` exists
+2. If it doesn't exist, create it with a complete list of all `.md` and `.markdown` files from `D:\code\cuipengfei.github.com\source\_posts\` directory
+3. If `D:\code\cuipengfei.github.com\.memory-bank\style_updates.md` doesn't exist, create it with a header: "# Writing Style Patterns Discovered"
 
-3.  **Analyze and Collect (Iterative Process):**
+**IF continuing from previous work:**
 
-    - To manage context and ensure thoroughness, analyze the blog posts one by one or in small batches.
-    - For each post, identify stylistic patterns based on the principles of stylistics. Pay attention to:
-      - **A. Lexical Features (词汇特征):**
-        - **Vocabulary Choice:** (e.g., formal vs. informal, abstract vs. concrete, technical jargon, neologisms).
-        - **Recurring Phrases:** (e.g., idiomatic expressions, specific collocations).
-      - **B. Syntactic Features (句法特征):**
-        - **Sentence Structure:** (e.g., length, complexity: simple, compound, complex).
-        - **Sentence Type:** (e.g., declarative, interrogative, imperative, exclamatory).
-        - **Voice:** (e.g., active vs. passive).
-      - **C. Discourse Features (篇章特征):**
-        - **Cohesion & Coherence:** (e.g., use of conjunctions, transitions, paragraph structure).
-        - **Overall Structure:** (e.g., narrative, descriptive, argumentative, problem-solution).
-      - **D. Graphological & Formatting Features (字形与格式特征):**
-        - **Punctuation:** (e.g., frequent use of em-dashes, ellipses, etc.).
-        - **Text Formatting:** (e.g., use of bolding, italics, lists, blockquotes).
-        - **Markdown Conventions:** (e.g., specific ways of formatting headings, links, images).
-        - **Code Blocks:** (e.g., inclusion of language identifiers, commenting style within code).
-      - **E. Rhetorical Devices (修辞手法):**
-        - (e.g., metaphors, similes, analogies, personification, rhetorical questions).
-    - Compare these observed patterns against the styles already documented in `writing-style-profile.md`.
+1. Read `D:\code\cuipengfei.github.com\.memory-bank\progress.md` to see remaining files
+2. Take the first file from the list and proceed with analysis
 
-4.  **Stage New Patterns:**
+**Processing Workflow:**
 
-    - If you identify a new stylistic pattern not yet documented in the profile, add a clear description of it to a local temporary file (e.g., `style_updates.tmp`).
-    - Do not modify `writing-style-profile.md` during this analysis phase.
+1.  **Select Next File:** Take the first file path from `progress.md`
 
-5.  **Consolidate and Update:**
-    - After analyzing all blog posts, review the full list of new patterns you have collected. Remove any duplicates and refine the descriptions for clarity.
-    - Append the consolidated, new style patterns to the end of the `D:\code\cuipengfei.github.com\.memory-bank\writing-style-profile.md` file.
+2.  **Analyze Current Post:** Read the selected blog post and identify stylistic patterns based on:
+
+    - **A. Lexical Features (词汇特征):**
+      - **Vocabulary Choice:** (e.g., formal vs. informal, abstract vs. concrete, technical jargon, neologisms).
+      - **Recurring Phrases:** (e.g., idiomatic expressions, specific collocations).
+    - **B. Syntactic Features (句法特征):**
+      - **Sentence Structure:** (e.g., length, complexity: simple, compound, complex).
+      - **Sentence Type:** (e.g., declarative, interrogative, imperative, exclamatory).
+      - **Voice:** (e.g., active vs. passive).
+    - **C. Discourse Features (篇章特征):**
+      - **Cohesion & Coherence:** (e.g., use of conjunctions, transitions, paragraph structure).
+      - **Overall Structure:** (e.g., narrative, descriptive, argumentative, problem-solution).
+    - **D. Graphological & Formatting Features (字形与格式特征):**
+      - **Punctuation:** (e.g., frequent use of em-dashes, ellipses, etc.).
+      - **Text Formatting:** (e.g., use of bolding, italics, lists, blockquotes).
+      - **Markdown Conventions:** (e.g., specific ways of formatting headings, links, images).
+      - **Code Blocks:** (e.g., inclusion of language identifiers, commenting style within code).
+    - **E. Rhetorical Devices (修辞手法):**
+      - (e.g., metaphors, similes, analogies, personification, rhetorical questions).
+
+3.  **Document Findings:** For each identified pattern, add it to `style_updates.md` using this format:
+
+    ```
+    ## Pattern: [Brief Description]
+    **Category:** [A/B/C/D/E based on classification above]
+    **Evidence:** [Specific example from the post]
+    **Source File:** [Filename of the analyzed post]
+    **Frequency:** [How often this pattern appears in the post]
+    ```
+
+4.  **Update Progress:** Remove the processed file path from the top of `progress.md`
+
+5.  **Continue or Complete:**
+    - If `progress.md` still contains file paths, repeat from step 1
+    - If `progress.md` is empty, the analysis is complete
+
+**Output Format Requirements:**
+
+- Each pattern entry in `style_updates.md` must include concrete evidence
+- Use the exact category labels (A through E) for consistent classification
+- Maintain chronological order of analysis in the updates file
+- Always include the source filename for traceability
+
+**Completion Indicator:**
+
+The task is complete when `progress.md` is empty and `style_updates.md` contains all discovered patterns from the blog post analysis.
