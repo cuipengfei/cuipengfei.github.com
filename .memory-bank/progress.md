@@ -1,8 +1,4 @@
-D:\code\cuipengfei.github.com\source\_posts\2009-09-10-Words Via Subtitle 的两点改进.md
-D:\code\cuipengfei.github.com\source\_posts\2009-04-26-三种方式统计 string 中出现次数最多的 char（还是 LinQ 最简便）.md
-D:\code\cuipengfei.github.com\source\_posts\2009-07-19-格物致知--《Effective CSharp》读书笔记--验证四种判等方式.md
-D:\code\cuipengfei.github.com\source\_posts\2009-07-29-格物致知--Effective C Sharp 读书笔记--验证接口引用指向装箱后的值类型时无需拆箱.md
-D:\code\cuipengfei.github.com\source\_posts\2009-08-07-《Head First CSharp》将停止翻译和更新.md
+
 D:\code\cuipengfei.github.com\source\_posts\2009-08-21-电驴（easyMule）自动关机工具.md
 D:\code\cuipengfei.github.com\source\_posts\2009-09-01-easyMule 自动关机工具(可用于 1.X 和 2.0 版本).md
 D:\code\cuipengfei.github.com\source\_posts\2009-09-03-通过英文剧集、电影学单词的小工具.md
