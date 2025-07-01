@@ -1,28 +1,8 @@
-de\cuipengfei.github.com\source_posts\2009-03-25-被学校的广播大大地雷了一把.md
-d:\code\cuipengfei.github.com\source_posts\2009-03-26-今天又被门卫大爷小小的雷了一下.md
-d:\code\cuipengfei.github.com\source_posts\2009-04-26-三种方式统计 string 中出现次数最多的 char（还是 LinQ 最简便）.md
-d:\code\cuipengfei.github.com\source_posts\2009-05-15-CET 口语证书，呕嘢.md
-d:\code\cuipengfei.github.com\source_posts\2009-05-31-格物致知 《Effective CSharp》读书笔记--验证类型转换.md
-D:\code\cuipengfei.github.com\source_posts\2008-09-17-cpu 占用率为正弦曲线（CSharp 实现）基本照抄书上的 C++.md
-D:\code\cuipengfei.github.com\source_posts\2008-09-18-编程之美---1 的个数 CSharp 笨（效率低）方法实现.md
-D:\code\cuipengfei.github.com\source_posts\2008-09-18-编程之美---阶乘末尾有几个 0(CSharp 实现).md
-D:\code\cuipengfei.github.com\source_posts\2008-10-03-对 Graphic 的应用，实现类似九宫格的绘制字符串、制定圆心，半径绘制圆形、用火柴棍拼字[Java ME].md
-D:\code\cuipengfei.github.com\source_posts\2008-10-09-文字竖排工具 BY 烟锁重楼.md
 D:\code\cuipengfei.github.com\source_posts\2008-10-12-文字竖排工具 By 崔鹏飞 没有混淆，可以用 reflector 看代码.md
 D:\code\cuipengfei.github.com\source_posts\2008-10-30-Good news from O'Reilly's Chinese website.md
 D:\code\cuipengfei.github.com\source_posts\2008-11-15-数据结构：用队列模拟理发店的排队情况（CSharp）.md
 D:\code\cuipengfei.github.com\source_posts\2008-12-12-data-structure-binary-tree.md
 D:\code\cuipengfei.github.com\source_posts\2009-01-14-迅雷账号升级到 24 了，全球 70000 名.md
-D:\code\cuipengfei.github.com\source_posts\2009-01-16-西南石油大学--学分绩点计算器（用 CSharp 编写，需要有.NET 2.0）.md
-D:\code\cuipengfei.github.com\source_posts\2009-02-06-SWPU 学分绩点计算器女生版.md
-D:\code\cuipengfei.github.com\source_posts\2009-02-18-格物致知 《Effective CSharp》读书笔记--验证二进制兼容性.md
-D:\code\cuipengfei.github.com\source_posts\2009-03-02-《计算机图形技术》练习--用 GDI+模拟 DDA 算法.md
-D:\code\cuipengfei.github.com\source_posts\2009-03-10-A double blessing has descended upon the house.md
-D:\code\cuipengfei.github.com\source_posts\2009-03-25-被学校的广播大大地雷了一把.md
-D:\code\cuipengfei.github.com\source_posts\2009-03-26-今天又被门卫大爷小小的雷了一下.md
-D:\code\cuipengfei.github.com\source_posts\2009-04-26-三种方式统计 string 中出现次数最多的 char（还是 LinQ 最简便）.md
-D:\code\cuipengfei.github.com\source_posts\2009-05-15-CET 口语证书，呕嘢.md
-D:\code\cuipengfei.github.com\source_posts\2009-05-31-格物致知 《Effective CSharp》读书笔记--验证类型转换.md
 D:\code\cuipengfei.github.com\source_posts\2009-07-19-格物致知--《Effective CSharp》读书笔记--验证四种判等方式.md
 D:\code\cuipengfei.github.com\source_posts\2009-07-29-格物致知--Effective C Sharp 读书笔记--验证接口引用指向装箱后的值类型时无需拆箱.md
 D:\code\cuipengfei.github.com\source_posts\2009-08-07-《Head First CSharp》将停止翻译和更新.md
