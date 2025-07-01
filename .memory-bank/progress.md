@@ -1,8 +1,6 @@
-D:\code\cuipengfei.github.com\source_posts\2008-10-12-文字竖排工具 By 崔鹏飞 没有混淆，可以用 reflector 看代码.md
-D:\code\cuipengfei.github.com\source_posts\2008-10-30-Good news from O'Reilly's Chinese website.md
-D:\code\cuipengfei.github.com\source_posts\2008-11-15-数据结构：用队列模拟理发店的排队情况（CSharp）.md
-D:\code\cuipengfei.github.com\source_posts\2008-12-12-data-structure-binary-tree.md
-D:\code\cuipengfei.github.com\source_posts\2009-01-14-迅雷账号升级到 24 了，全球 70000 名.md
+D:\code\cuipengfei.github.com\source_posts\2008-09-11-《编程之美——微软技术面试心得》的 CSharp 实现---电梯调度问题解法一.md
+D:\code\cuipengfei.github.com\source_posts\2009-09-10-Words Via Subtitle 的两点改进.md
+D:\code\cuipengfei.github.com\source_posts\2009-04-26-三种方式统计 string 中出现次数最多的 char（还是 LinQ 最简便）.md
 D:\code\cuipengfei.github.com\source_posts\2009-07-19-格物致知--《Effective CSharp》读书笔记--验证四种判等方式.md
 D:\code\cuipengfei.github.com\source_posts\2009-07-29-格物致知--Effective C Sharp 读书笔记--验证接口引用指向装箱后的值类型时无需拆箱.md
 D:\code\cuipengfei.github.com\source_posts\2009-08-07-《Head First CSharp》将停止翻译和更新.md
