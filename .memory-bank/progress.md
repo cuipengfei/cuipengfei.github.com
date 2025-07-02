@@ -1,14 +1,16 @@
-D:\code\cuipengfei.github.com\source_posts\2013-10-13-scala-trait.markdown
-D:\code\cuipengfei.github.com\source_posts\2013-12-23-desugar-scala-4.markdown
-D:\code\cuipengfei.github.com\source_posts\2013-12-24-desugar-scala-5.markdown
-D:\code\cuipengfei.github.com\source_posts\2013-12-25-desugar-scala-6.markdown
-D:\code\cuipengfei.github.com\source_posts\2013-12-29-desugar-scala-7.markdown
-D:\code\cuipengfei.github.com\source_posts\2013-12-29-desugar-scala-8.markdown
-D:\code\cuipengfei.github.com\source_posts\2013-12-30-desugar-scala-9.markdown
-D:\code\cuipengfei.github.com\source_posts\2014-01-01-desugar-scala-10.markdown
-D:\code\cuipengfei.github.com\source_posts\2014-01-01-my-2013.markdown
-D:\code\cuipengfei.github.com\source_posts\2014-01-02-desugar-scala-11.markdown
-D:\code\cuipengfei.github.com\source_posts\2014-01-05-more-on-scala-implicit-function.markdown
+# 博客写作风格分析进度追踪
+
+## 已完成分析（第 5 批，共 25 个文件）
+
+- 2014-01-05-more-on-scala-implicit-function.markdown
+- 2014-06-09-desugar-scala-default-parameter-value.markdown
+- 2014-06-12-scala-update-method.markdown
+- 2014-06-14-scala-unapply-method.markdown
+- 2014-06-21-desugar-scala-lower-bound.markdown
+
+## 待分析文件队列（共 60 个）
+
+D:\code\cuipengfei.github.com\source_posts\2014-06-22-scala-plus-play-plus-sbt-plus-protractor-equals-one-build.markdown
 D:\code\cuipengfei.github.com\source_posts\2014-06-09-desugar-scala-default-parameter-value.markdown
 D:\code\cuipengfei.github.com\source_posts\2014-06-12-scala-update-method.markdown
 D:\code\cuipengfei.github.com\source_posts\2014-06-14-scala-unapply-method.markdown
