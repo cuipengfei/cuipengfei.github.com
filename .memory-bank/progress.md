@@ -1,13 +1,4 @@
-ode\cuipengfei.github.com\source_posts\2010-05-22-NET40FAQ 第一部分 DLR.md
-D:\code\cuipengfei.github.com\source_posts\2010-07-31-在.NET 4 中调用 GDAL 库时遇到的问题及解决方法.md
-D:\code\cuipengfei.github.com\source_posts\2010-09-13-WPF 中 ItemContainerStyle 不适用的一种情况.md
-D:\code\cuipengfei.github.com\source_posts\2010-09-30-当 Generic.xaml 遇上 BitmapImage：发现一个疑似 WPF Bug 而又不似 Bug 的问题.mdngfei.github.com\source_posts\2010-05-22-NET40FAQ 第一部分 DLR.md
-D:\code\cuipengfei.github.com\source_posts\2010-07-31-在.NET 4 中调用 GDAL 库时遇到的问题及解决方法.md
-D:\code\cuipengfei.github.com\source_posts\2010-09-13-WPF 中 ItemContainerStyle 不适用的一种情况.md
-D:\code\cuipengfei.github.com\source_posts\2010-09-30-当 Generic.xaml 遇上 BitmapImage：发现一个疑似 WPF Bug 而又不似 Bug 的问题.md
-D:\code\cuipengfei.github.com\source_posts\2010-10-04-百度游戏 七彩鱼 自动喂鱼器.md
-D:\code\cuipengfei.github.com\source_posts\2010-10-06-送给所有需要学英语的朋友—Words Via Subtitle.md
-D:\code\cuipengfei.github.com\source_posts\2011-03-06-CSharp 中的语言特性都是从何而来？.md
+D:\code\cuipengfei.github.com\source_posts\2011-06-02-美国生活第一个月见闻，有图有真相（3）.mde\cuipengfei.github.com\source_posts\2011-03-06-CSharp 中的语言特性都是从何而来？.md
 D:\code\cuipengfei.github.com\source_posts\2011-04-13-“可选参数”趣事探轶.md
 D:\code\cuipengfei.github.com\source_posts\2011-04-18-[翻译]List 为什么实现了那么多接口？.md
 D:\code\cuipengfei.github.com\source_posts\2011-05-31-美国生活第一个月见闻，有图有真相（1）.md
