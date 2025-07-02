@@ -1,14 +1,14 @@
 # 博客写作风格分析进度追踪
 
-## 已完成分析（第 5 批，共 25 个文件）
+## 已完成分析（第 7 批，共 35 个文件）
 
-- 2014-01-05-more-on-scala-implicit-function.markdown
-- 2014-06-09-desugar-scala-default-parameter-value.markdown
-- 2014-06-12-scala-update-method.markdown
-- 2014-06-14-scala-unapply-method.markdown
-- 2014-06-21-desugar-scala-lower-bound.markdown
+- 2014-08-30-options-for.markdown
+- 2014-09-06-solving-regular-problems-in-scala.markdown
+- 2014-10-23-scala-stream-application-scenario-and-how-its-implemented.markdown
+- 2014-10-31-spark-fold-aggregate-why-not-foldleft.markdown
+- 2014-11-16-zdyx2015wuhansecondclass.markdown
 
-## 待分析文件队列（共 60 个）
+## 待分析文件队列（共 50 个）
 
 D:\code\cuipengfei.github.com\source_posts\2014-06-22-scala-plus-play-plus-sbt-plus-protractor-equals-one-build.markdown
 D:\code\cuipengfei.github.com\source_posts\2014-06-09-desugar-scala-default-parameter-value.markdown
