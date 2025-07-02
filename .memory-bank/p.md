@@ -1,30 +1,23 @@
-**Objective:** Act as a technical writing analyst to systematically analyze blog posts and extract writing style patterns. Your task is to process blog posts one by one, extract stylistic patterns, and maintain a comprehensive record of findings.
+**Objective:** Act as a technical writing analyst to systematically analyze blog posts and extract writing style patterns. Your task is to process blog posts in batches of 5, extract stylistic patterns, and maintain a comprehensive record of findings.
 
 **Core Principles:**
 
 1.  **Evidence-Based Analysis:** Every pattern identified must be directly observable in the blog posts. Do not invent or infer styles.
-2.  **Progressive Processing:** Process one file at a time using the progress tracking system.
+2.  **Batch Processing:** Process 5 files at a time using the progress tracking system.
 3.  **File Modification Restriction:** Only modify `progress.md` and `style_updates.md` files during this process.
 4.  **Additive Documentation:** All findings should be accumulated without removing existing patterns.
 
 **Start/Continue Instructions:**
 
-**IF this is your first time running this task:**
-
-1. Check if `D:\code\cuipengfei.github.com\.memory-bank\progress.md` exists
-2. If it doesn't exist, create it with a complete list of all `.md` and `.markdown` files from `D:\code\cuipengfei.github.com\source\_posts\` directory
-3. If `D:\code\cuipengfei.github.com\.memory-bank\style_updates.md` doesn't exist, create it with a header: "# Writing Style Patterns Discovered"
-
-**IF continuing from previous work:**
-
-1. Read `D:\code\cuipengfei.github.com\.memory-bank\progress.md` to see remaining files
-2. Take the first file from the list and proceed with analysis
+**Always start by reading `progress.md` to see remaining files and continue from there.**
 
 **Processing Workflow:**
 
-1.  **Select Next File:** Take the first file path from `progress.md`
+1.  **Select Next Batch:** Take the first 5 file paths from `progress.md`
 
-2.  **Analyze Current Post:** Read the selected blog post and conduct a comprehensive Chinese stylistic analysis. **IMPORTANT: Do NOT copy original content from blog posts. Only record analytical observations and patterns.**
+2.  **Analyze Current Batch:** Read each of the 5 selected blog posts and conduct a comprehensive Chinese stylistic analysis. **IMPORTANT: Do NOT copy original content from blog posts. Only record analytical observations and patterns.**
+
+    **Note:** If a file path has a typo or cannot be found, search for the file in that case only.
 
     **语音层面 (Phonological Level):**
 
@@ -84,9 +77,11 @@
     **功能作用:** [该特征的交际或文体功能]
     ```
 
-4.  **Update Progress:** Remove the processed file path from the top of `progress.md`
+4.  **Update Writing Style Profile:** After processing each batch of 5 files, update the writing style profile. Check if findings are already covered in the existing profile - only add new patterns that are not already documented. The update doesn't need to be long; if nothing new is found, no update is necessary.
 
-5.  **Continue or Complete:**
+5.  **Update Progress:** Remove the 5 processed file paths from the top of `progress.md`
+
+6.  **Continue or Complete:**
     - If `progress.md` still contains file paths, repeat from step 1
     - If `progress.md` is empty, the analysis is complete
 
@@ -102,4 +97,4 @@
 
 **Completion Indicator:**
 
-The task is complete when `progress.md` is empty and `style_updates.md` contains all discovered patterns from the blog post analysis.
+The task is complete when `progress.md` is empty and `style_updates.md` contains all discovered patterns from the blog post analysis, with the writing style profile updated after each batch.
