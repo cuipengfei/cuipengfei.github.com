@@ -22,12 +22,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.23.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"galactic"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="引子最近在项目中使用 GitHub Copilot 的过程中，我发现了一个很有趣的现象。 当我让 Copilot 帮我写代码时，它总是热情满满地给出一大段实现。但当我仔细审视这些代码时，却经常会发现各种小问题——缺少错误处理、异常情况没考虑、命名不规范、没有单元测试，有时甚至会出现一些”魔法数字”。 这让我想起了那些刚入行的程序员，技术不错，但是对软件工程的规范和最佳实践还不够了解。他们写出来的代">
+    <meta name="description" content="引子：把 AI 新兵改造成精锐士兵GitHub Copilot 就像一个天赋异禀但野路子出身的“新兵”。它枪法精准（编码能力强），但缺乏战场纪律（工程规范）。 你让它冲锋，它能迅速拿下山头，但阵地上一片狼藉：没有构筑工事（错误处理），不关心侧翼安全（边界情况），弹药随意堆放（命名混乱）。 我们需要的不是一个只会冲锋的“莽夫”，而是一个懂得协同作战、遵守战场纪律的“精锐士兵”。因此，我决定为它编写一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何给 GitHub Copilot &quot;洗脑”，让 AI 精准遵循指令产出高质量代码">
 <meta property="og:url" content="https://cuipengfei.me/blog/2025/06/17/how-to-brainwash-copilot-to-follow-orders/index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="引子最近在项目中使用 GitHub Copilot 的过程中，我发现了一个很有趣的现象。 当我让 Copilot 帮我写代码时，它总是热情满满地给出一大段实现。但当我仔细审视这些代码时，却经常会发现各种小问题——缺少错误处理、异常情况没考虑、命名不规范、没有单元测试，有时甚至会出现一些”魔法数字”。 这让我想起了那些刚入行的程序员，技术不错，但是对软件工程的规范和最佳实践还不够了解。他们写出来的代">
+<meta property="og:description" content="引子：把 AI 新兵改造成精锐士兵GitHub Copilot 就像一个天赋异禀但野路子出身的“新兵”。它枪法精准（编码能力强），但缺乏战场纪律（工程规范）。 你让它冲锋，它能迅速拿下山头，但阵地上一片狼藉：没有构筑工事（错误处理），不关心侧翼安全（边界情况），弹药随意堆放（命名混乱）。 我们需要的不是一个只会冲锋的“莽夫”，而是一个懂得协同作战、遵守战场纪律的“精锐士兵”。因此，我决定为它编写一">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-06-17T02:00:00.000Z">
 <meta property="article:modified_time" content="2025-06-17T02:00:00.000Z">
@@ -173,7 +173,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%AD%90"><span class="nav-number">1.</span> <span class="nav-text">引子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E6%98%AF%E9%AD%94%E6%B3%95%EF%BC%8C%E6%98%AF%E7%B3%BB%E7%BB%9F%E6%8C%87%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">不是魔法，是系统指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E5%A5%97%E6%8C%87%E4%BB%A4%E8%83%BD%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">这套指令能解决什么问题？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E9%9B%86%E7%9A%84%E6%9E%84%E6%88%90"><span class="nav-number">4.</span> <span class="nav-text">指令集的构成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E4%BA%9B%E6%8C%87%E4%BB%A4%E6%98%AF%E6%80%8E%E4%B9%88%E8%B5%B7%E4%BD%9C%E7%94%A8%E7%9A%84%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">这些指令是怎么起作用的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E5%AE%9E%E9%99%85%E5%B7%A5%E4%BD%9C%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%BF%99%E5%A5%97%E6%8C%87%E4%BB%A4"><span class="nav-number">6.</span> <span class="nav-text">如何在实际工作中使用这套指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E7%82%B9%E6%80%9D%E8%80%83"><span class="nav-number">7.</span> <span class="nav-text">一点思考</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%AD%90%EF%BC%9A%E6%8A%8A-AI-%E6%96%B0%E5%85%B5%E6%94%B9%E9%80%A0%E6%88%90%E7%B2%BE%E9%94%90%E5%A3%AB%E5%85%B5"><span class="nav-number">1.</span> <span class="nav-text">引子：把 AI 新兵改造成精锐士兵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E6%98%AF%E9%AD%94%E6%B3%95%EF%BC%8C%E6%98%AF%E7%B3%BB%E7%BB%9F%E6%8C%87%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">不是魔法，是系统指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E5%A5%97%E6%8C%87%E4%BB%A4%E8%83%BD%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">这套指令能解决什么问题？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E9%9B%86%E7%9A%84%E6%9E%84%E6%88%90"><span class="nav-number">4.</span> <span class="nav-text">指令集的构成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E4%BA%9B%E2%80%9C%E4%BD%9C%E6%88%98%E6%9D%A1%E4%BB%A4%E2%80%9D%E6%98%AF%E5%A6%82%E4%BD%95%E7%94%9F%E6%95%88%E7%9A%84%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">这些“作战条令”是如何生效的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E5%AE%9E%E9%99%85%E5%B7%A5%E4%BD%9C%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%BF%99%E5%A5%97%E6%8C%87%E4%BB%A4"><span class="nav-number">6.</span> <span class="nav-text">如何在实际工作中使用这套指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E7%82%B9%E6%80%9D%E8%80%83%EF%BC%9A%E6%88%91%E4%BB%AC%E7%A9%B6%E7%AB%9F%E5%9C%A8%E8%AE%AD%E7%BB%83%E8%B0%81%EF%BC%9F"><span class="nav-number">7.</span> <span class="nav-text">一点思考：我们究竟在训练谁？</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -186,7 +186,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">176</span>
+          <span class="site-state-item-count">177</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -196,7 +196,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-count">69</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -305,7 +305,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
+      <span>2.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -322,10 +322,9 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>最近在项目中使用 GitHub Copilot 的过程中，我发现了一个很有趣的现象。</p>
-<p>当我让 Copilot 帮我写代码时，它总是热情满满地给出一大段实现。但当我仔细审视这些代码时，却经常会发现各种小问题——缺少错误处理、异常情况没考虑、命名不规范、没有单元测试，有时甚至会出现一些”魔法数字”。</p>
-<p>这让我想起了那些刚入行的程序员，技术不错，但是对软件工程的规范和最佳实践还不够了解。他们写出来的代码能跑，但总让资深工程师皱眉头。</p>
-<p>这些 AI 工具确实能提高效率，但如何让它们不仅提高效率，更能精准地产出符合工程实践的高质量代码，甚至达到一种”洗脑”般的效果，让它们乖乖听话，这成了一个值得思考的问题。</p>
+    <div class="post-body" itemprop="articleBody"><h2 id="引子：把-AI-新兵改造成精锐士兵"><a href="#引子：把-AI-新兵改造成精锐士兵" class="headerlink" title="引子：把 AI 新兵改造成精锐士兵"></a>引子：把 AI 新兵改造成精锐士兵</h2><p>GitHub Copilot 就像一个天赋异禀但野路子出身的“新兵”。它枪法精准（编码能力强），但缺乏战场纪律（工程规范）。</p>
+<p>你让它冲锋，它能迅速拿下山头，但阵地上一片狼藉：没有构筑工事（错误处理），不关心侧翼安全（边界情况），弹药随意堆放（命名混乱）。</p>
+<p>我们需要的不是一个只会冲锋的“莽夫”，而是一个懂得协同作战、遵守战场纪律的“精锐士兵”。因此，我决定为它编写一套严格的“作战条令”（Prompts），对它进行一次彻底的“军事化改造”，让它乖乖听话。</p>
 <h2 id="不是魔法，是系统指令"><a href="#不是魔法，是系统指令" class="headerlink" title="不是魔法，是系统指令"></a>不是魔法，是系统指令</h2><p>经过一段时间的研究和实践，我发现 Copilot 这类 AI 工具实际上可以被深度”引导”，甚至达到一种”洗脑”的效果，让它们按照我们的意愿来行动。</p>
 <p>它们并不是魔术盒子，而是遵循一套输入-输出原则的系统。如果我们能给它提供明确的指导和原则，它就能相应地调整自己的输出。</p>
 <p>这个思路促使我整理了一个专门用来给 GitHub Copilot”洗脑”的指令集：<a target="_blank" rel="noopener" href="https://github.com/cuipengfei/prompts">prompts</a>。</p>
@@ -369,11 +368,17 @@
 </ul>
 </li>
 </ol>
-<h2 id="这些指令是怎么起作用的？"><a href="#这些指令是怎么起作用的？" class="headerlink" title="这些指令是怎么起作用的？"></a>这些指令是怎么起作用的？</h2><p>你可能会好奇，为什么一些 Markdown 文件就能让 AI 变得这么听话？</p>
-<p>我在研究这些指令的时候发现，它们其实就是几个简单的套路。比如，我给 AI 安排了不同的”角色”——有时候它是个健忘的工程师（所以必须写文档），有时候它是业务分析师的助手。这样一来，AI 就会按照角色来思考问题。</p>
-<p>还有一个很有效的技巧是强制它”慢思考”。很多指令都要求 AI 必须一步一步地展示思考过程，不能直接给答案。这就像我们做数学题时要求”列出解题步骤”一样。</p>
-<p>最有意思的是”自我批判”这一招。我发现如果让 AI 在给出解决方案后，再强制它自己找毛病，代码质量会提升很多。就像程序员写完代码后再做一遍 code review。</p>
-<p>另外，我还设计了一些结构化的模板。比如写测试用例必须按照固定格式，写需求必须一个章节一个章节地来。这样 AI 就没法偷懒，必须把每个环节都考虑到。</p>
+<h2 id="这些“作战条令”是如何生效的？"><a href="#这些“作战条令”是如何生效的？" class="headerlink" title="这些“作战条令”是如何生效的？"></a>这些“作战条令”是如何生效的？</h2><p>你可能会好奇，为什么几份 Markdown 文件就能驯服一个复杂的 AI？</p>
+<p>其根本原因在于，我们利用了大型语言模型的一个核心特性：<strong>它是一个基于上下文的、概率性的序列生成器</strong>。它本身没有真正的“理解”或“意识”，它的所有行为都是在预测“在当前上下文中，下一个最可能的词是什么”。</p>
+<p>因此，这套指令的本质，就是一场**“上下文污染”（Context Contamination）<strong>，或者说</strong>“概率空间操纵”（Probability Space Manipulation）**。</p>
+<p>通过在它的工作环境中注入一套强有力的、结构化的规则（我们的“作战条令”），我们极大地改变了它进行概率计算的“初始条件”。当“编写单元测试”、“考虑异常”这些概念在上下文中被反复强调时，生成符合这些规范的代码的概率就被显著提高了。</p>
+<p>我们不是在“教”它，而是在<strong>塑造一个让它“不得不”表现得更专业的环境</strong>。</p>
+<p>这套“作战条令”的核心，就是用规则约束 AI 的“自由意志”：</p>
+<ul>
+<li><strong>“慢思考”条令</strong>，强制它在行动前必须进行“沙盘推演”（展示思考过程）。</li>
+<li><strong>“自我批判”条令</strong>，要求它在每次“战斗”后必须提交“战后复盘报告”（自我评估）。</li>
+<li><strong>结构化的模板</strong>，则像是规定了标准的“军事作业程序”（SOP），确保它在任何情况下都能做出标准、可靠的战术动作。</li>
+</ul>
 <p>说白了，这套指令的核心就是不让 AI “想当然”。它必须按照预设的流程来工作，该问的问题不能跳过，该考虑的边界情况不能遗漏。</p>
 <h2 id="如何在实际工作中使用这套指令"><a href="#如何在实际工作中使用这套指令" class="headerlink" title="如何在实际工作中使用这套指令"></a>如何在实际工作中使用这套指令</h2><p>经过实践，我发现在 VS Code 中配置 Copilot 使用这些指令非常简单：</p>
 <ol>
@@ -385,11 +390,12 @@
 
 <p>需要注意的是，文件路径要正确。这里的路径是相对于你的 workspace 的。如果你的 prompts 仓库和当前项目不在同一位置，可能需要调整路径。</p>
 <p>设置完成后，你会发现 Copilot 生成的代码质量明显提升：更规范、更健壮、考虑更周全。</p>
-<h2 id="一点思考"><a href="#一点思考" class="headerlink" title="一点思考"></a>一点思考</h2><p>给 AI 工具”洗脑”，或者说深度引导它们，其实和带新人有些相似 —— 你需要清晰地表达期望，提供良好的指导和范例，然后持续进行纠正和反馈。</p>
-<p>这不是一项精确的科学，而是一个持续改进的过程。不同项目可能需要对指令进行一些定制和调整，以适应特定的技术栈和团队风格。</p>
-<p>对我来说，这套指令系统的价值不仅在于提升了 AI 工具的输出质量，更在于它促使我思考：什么是好的代码？什么是好的软件工程实践？这些思考反过来又能帮助我们在日常工作中做得更好。</p>
+<h2 id="一点思考：我们究竟在训练谁？"><a href="#一点思考：我们究竟在训练谁？" class="headerlink" title="一点思考：我们究竟在训练谁？"></a>一点思考：我们究竟在训练谁？</h2><p>为 AI 制定“作战条令”的过程，其实和带新人有些相似 —— 你需要清晰地表达期望，提供良好的指导和范例，然后持续进行纠正和反馈。</p>
+<p>但更有趣的是，这个过程在某种程度上也是对我们自己的“训练”。为了能给 AI 写出清晰的指令，我们必须首先在自己脑中将“好的代码”、“好的设计”、“好的流程”这些模糊的概念给形式化、结构化。</p>
+<p>我们究竟是在训练 AI，还是在通过训练 AI 的过程，强迫自己进行更深层次的思考，从而成为更好的工程师？</p>
+<p>这套指令系统的价值，或许不仅在于提升了 AI 的输出质量，更在于它像一面镜子，照见了我们自身在软件工程实践中的知识盲区，并促使我们去填补它。</p>
 <hr>
-<p>如果你也在使用 AI 编程助手，不妨试试这套指令。如果有任何想法或改进建议，欢迎到 <a target="_blank" rel="noopener" href="https://github.com/cuipengfei/prompts">prompts</a> 仓库提交 PR 或 Issue。</p>
+<p>如果你也在使用 AI 编程助手，不妨试试这套“作战条令”。如果有任何想法或改进建议，欢迎到 <a target="_blank" rel="noopener" href="https://github.com/cuipengfei/prompts">prompts</a> 仓库提交 PR 或 Issue。</p>
 <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css"><script src="https://fastly.jsdelivr.net/npm/d3@7"></script><script src="https://fastly.jsdelivr.net/npm/markmap-view@0.18.10"></script><script src="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10"></script>
 <link rel="stylesheet" href="/css/markmap.css">
 
@@ -475,14 +481,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">385k</span>
+    <span title="站点总字数">388k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:50</span>
+    <span title="站点阅读时长">5:53</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

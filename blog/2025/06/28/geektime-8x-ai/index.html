@@ -188,7 +188,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">176</span>
+          <span class="site-state-item-count">177</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -198,7 +198,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-count">69</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -368,6 +368,8 @@
 <p><strong>知识工程</strong>，可以理解为：<strong>将软件开发视为一个“提取、组织知识，使其能被 LLM 理解，并最终通过 LLM 将这些知识转化为可工作软件”的完整过程。</strong></p>
 <p>这里的<strong>关键瓶颈</strong>，不再是编码速度，而是<strong>知识传递的效率与保真度</strong>。</p>
 <h3 id="1-知识与任务分离：与-LLM-精准对话"><a href="#1-知识与任务分离：与-LLM-精准对话" class="headerlink" title="1. 知识与任务分离：与 LLM 精准对话"></a>1. 知识与任务分离：与 LLM 精准对话</h3><p>与 LLM 交互时，清晰地分离**知识（背景信息）<strong>与</strong>任务（具体指令）**至关重要。这能帮助 LLM 建立正确的上下文，形成明确的关注点。</p>
+<p>坦白说，我最初也尝试过一种不太明智的方法：将一份长达数页的需求文档直接丢给 LLM，期望它能“一口吃成个胖子”，直接生成整个模块。结果可想而知，它要么陷入逻辑混乱，要么给出一堆看似正确却无法组合的“代码碎片”。</p>
+<p>这次失败让我意识到，与 LLM 协作，我们不能扮演“甩手掌柜”的角色，而必须成为一名**“知识主厨”**。我们需要亲手将大块的“需求原料”精心切分、预处理，才能让 LLM 这位“超级副厨”高效地烹饪出佳肴。</p>
 <p>例如，与其直接说“写一个登录函数”，不如先提供知识：</p>
 <ul>
 <li><strong>知识（Context）</strong>：“系统使用 JWT 认证，密码采用 bcrypt 加密，用户信息存储在 <code>users</code> 表中。”</li>
@@ -378,7 +380,8 @@
 <blockquote>
 <p>通过 LLM 的反馈来反思并修正我们对知识的描述，是知识工程的核心循环。</p>
 </blockquote>
-<p>这个过程的本质，是<strong>消除误解、对齐思路</strong>。它的最终目标是**“校准人”的理解**，而非仅仅“修复代码”。当 LLM 对你的描述产生“误解”时，或许我们首先要反思的是，自己对知识的表达是否足够清晰、准确。</p>
+<p>我们可以将这个过程，比作<strong>请一位超级画师（LLM）为我们画一幅肖像画</strong>。我们与 LLM 的每一次交互，都是在向它描述自己的特征。当发现它画出的细节（生成的代码）有偏差时，问题往往不在于它的“画技”，而在于我们这位“模特”没有描述清楚自己的样貌。</p>
+<p>LLM 的“误解”就像一面镜子，忠实地反射出我们自身知识表达的模糊与缺漏。因此，这个迭代过程，与其说是“调试机器”，不如说是**“校准自我”**。它的最终目标是得到一幅双方都认可的、纤毫毕现的“知识蓝图”，而非仅仅“修复代码”。当 LLM 对你的描述产生“误解”时，我们首先要反思的是，自己对知识的表达是否足够清晰、准确。</p>
 <h3 id="3-驾驭不同类型的知识"><a href="#3-驾驭不同类型的知识" class="headerlink" title="3. 驾驭不同类型的知识"></a>3. 驾驭不同类型的知识</h3><p>软件开发涉及的知识远非单一类型，我们必须学会驾驭它们：</p>
 <ul>
 <li><strong>显式知识（Explicit Knowledge）</strong>：能够被清晰表达、记录和传播的”know-what”，如技术文档、业务规则。</li>
@@ -398,7 +401,7 @@
 <p>这种分歧的<strong>后果</strong>是：团队难以形成统一共识，讨论陷入循环，新人培养周期延长，系统设计出现不一致，引入大量隐蔽的质量缺陷。我们是否曾困惑，为何同样的技术讨论，有些团队能迅速聚焦并达成一致，而有些团队却在表面问题上争论不休？认知偏差往往是根源。</p>
 <p>知识工程强调<strong>先对齐思路，再动手编码</strong>。</p>
 <ul>
-<li><strong>推行任务审查（Task Review）</strong>：将审查的重心从代码（Code Review）上移至任务本身，在编码前，就通过讨论、文档或图表，确保团队对“做什么”和“为什么做”达成一致。</li>
+<li><strong>推行任务审查（Task Review）</strong>：将审查的重心从代码（Code Review）上移至任务本身，在编码前，就通过讨论、文档或图表，确保团队对“做什么”和“为什么做”达成一致。这看似增加了前期的沟通成本，但相较于修复因认知偏差导致的大量后期代码返工和隐蔽缺陷，这种“前期投入”的收益是巨大的。这是一种典型的“左移”（Shift-Left）思想在知识管理上的体现。</li>
 <li><strong>建立认知行为基线</strong>：管理者应着力于建立团队统一的认知与行为基线，确保对问题的理解和处理方式有一致的标准。</li>
 </ul>
 <h3 id="3-混乱中的清醒：及时止损"><a href="#3-混乱中的清醒：及时止损" class="headerlink" title="3. 混乱中的清醒：及时止损"></a>3. 混乱中的清醒：及时止损</h3><p>当个体或团队对问题感到<strong>混乱（Chaotic）</strong>——即无法理解问题、被恐慌驱动而盲目行动时，任何试图“解决”问题的努力都可能加剧混乱。</p>
@@ -481,6 +484,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/blog/2025/07/21/folo-wewe-rss/" rel="next" title="wewe-rss是个好开源项目，Folo是个好APP">
+                  wewe-rss是个好开源项目，Folo是个好APP <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -517,14 +523,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">385k</span>
+    <span title="站点总字数">388k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:50</span>
+    <span title="站点阅读时长">5:53</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
