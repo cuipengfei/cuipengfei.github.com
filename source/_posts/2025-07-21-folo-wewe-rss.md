@@ -103,4 +103,4 @@ RSS 这个 1999 年的协议，在 2025 年成为制衡平台中心化的有效�
 
 信息控制权的回归，是使用习惯的重塑。
 
-![生成特定图像](https://cuipengfei.github.io/picx-images-hosting/20250721/生成特定图像.1sfc86d8bx.png>)
+![生成特定图像](<https://cuipengfei.github.io/picx-images-hosting/20250721/生成特定图像.1sfc86d8bx.png>)
