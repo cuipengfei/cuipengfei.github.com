@@ -104,6 +104,16 @@ The Boeing 737 MAX autopilot is another example. The autopilot does not know how
 
 波音737 MAX自动驾驶仪是另一个例子。自动驾驶仪不知道如何驾驶飞机，但仍然被委以重任，波音让这种情况发生了一次又一次。这是一件可怕的事情，软件开始杀人了。
 
+### Dunning-Kruger Effect / 邓宁-克鲁格效应
+This is about the man who robbed a bank after covering his face in lemon juice, believing it would make him invisible to cameras. This is a classic example of the Dunning-Kruger effect, where people with low ability at a task overestimate their ability. This is a huge problem in software, where people often overestimate their abilities and create systems they don't fully understand.
+
+这是关于一个用柠檬汁涂满脸后抢劫银行的人，他相信这会让他对摄像机隐形。这是邓宁-克鲁格效应的经典例子，即在某项任务上能力较低的人会高估自己的能力。这在软件领域是一个巨大的问题，人们常常高估自己的能力，并创建他们不完全理解的系统。
+
+### Ivan Sutherland's Sketchpad / 伊凡·苏泽兰的画板
+Sketchpad was a revolutionary program created in the early 1960s. It allowed users to create and manipulate drawings directly on a screen with a light pen. It was one of the first programs to use a graphical user interface (GUI), object-oriented programming, and constraint-based drawing. It was a powerful tool that could be used to design everything from bridges to electrical circuits. It's a powerful example of what's possible when we build systems that augment human intellect, rather than just automating tasks.
+
+画板是20世纪60年代初创建的一个革命性程序。它允许用户使用光笔直接在屏幕上创建和操作绘图。它是最早使用图形用户界面（GUI）、面向对象编程和基于约束的绘图的程序之一。它是一个强大的工具，可以用来设计从桥梁到电路的任何东西。这是一个强有力的例子，说明了当我们构建增强人类智力的系统，而不仅仅是自动化任务时，什么是可能的。
+
 ---
 
 ## The Engineering Pledge / 工程誓言
@@ -137,12 +147,18 @@ Real civilization is not a place you get to - it's a group of people striving to
 3. **Design for failure** - not just for success
 4. **The stakes are getting higher** - software failures can now kill people
 5. **We need better education and standards** in software engineering
+6. **Augment human intellect** - we need to build tools that help us think better, not just automate tasks.
+7. **We are living in a dream** - our perception of reality is a construct of our minds. Science is a tool to help us see the world more clearly.
+8. **Beware of cognitive biases** - we are all susceptible to cognitive biases that can lead to bad decisions. We need to be aware of these biases and take steps to mitigate them.
 
 1. **软件工程仍处于起步阶段** - 我们处于其他工程学科100年前的位置
 2. **我们需要将科学和数学** 适当地整合到软件工程中
 3. **为失败而设计** - 不仅仅是为成功而设计
 4. **风险越来越高** - 软件故障现在可能致命
 5. **我们需要更好的教育和标准** 在软件工程中
+6. **增强人类智力** - 我们需要构建能帮助我们更好思考的工具，而不仅仅是自动化任务。
+7. **我们生活在梦中** - 我们对现实的感知是我们思想的建构。科学是帮助我们更清晰地看世界的工具。
+8. **警惕认知偏见** - 我们都容易受到认知偏见的影响，这可能导致错误的决策。我们需要意识到这些偏见并采取措施来减轻它们。
 
 ---
 
