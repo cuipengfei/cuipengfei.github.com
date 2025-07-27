@@ -24,7 +24,7 @@
 
     <meta name="description" content="控制权旁落RSS 并未消亡。 变化的不是协议，而是信息分发领域的权力结构。 用户在事实上让渡了选择看什么、何时看的权利。 微信公众号重塑了这种结构，通过两层约束：  技术约束：内容被封装于 App 内，无标准 API，无 RSS 输出通道。 算法约束：信息流按商业目标而非时间或信息价值排序。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="围墙花园里的阅读游击 - wewe-rss是个好开源项目，Folo是个好APP">
+<meta property="og:title" content="围墙花园里的阅读游击 - wewe-rss &amp; RSSHub，重夺信息控制权">
 <meta property="og:url" content="https://cuipengfei.me/blog/2025/07/21/folo-wewe-rss/index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="控制权旁落RSS 并未消亡。 变化的不是协议，而是信息分发领域的权力结构。 用户在事实上让渡了选择看什么、何时看的权利。 微信公众号重塑了这种结构，通过两层约束：  技术约束：内容被封装于 App 内，无标准 API，无 RSS 输出通道。 算法约束：信息流按商业目标而非时间或信息价值排序。">
@@ -40,6 +40,7 @@
 <meta property="article:tag" content="RSS">
 <meta property="article:tag" content="Folo">
 <meta property="article:tag" content="wewe-rss">
+<meta property="article:tag" content="RSSHub">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cuipengfei.github.io/picx-images-hosting/20250721/%E5%9B%BE%E5%83%8F%E7%94%9F%E6%88%90%E4%BB%BB%E5%8A%A1-(5).491kn3k47y.png">
 
@@ -47,10 +48,10 @@
 <link rel="canonical" href="https://cuipengfei.me/blog/2025/07/21/folo-wewe-rss/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2025/07/21/folo-wewe-rss/","path":"blog/2025/07/21/folo-wewe-rss/","title":"围墙花园里的阅读游击 - wewe-rss是个好开源项目，Folo是个好APP"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2025/07/21/folo-wewe-rss/","path":"blog/2025/07/21/folo-wewe-rss/","title":"围墙花园里的阅读游击 - wewe-rss & RSSHub，重夺信息控制权"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>围墙花园里的阅读游击 - wewe-rss是个好开源项目，Folo是个好APP | 崔鹏飞的Blog</title>
+<title>围墙花园里的阅读游击 - wewe-rss & RSSHub，重夺信息控制权 | 崔鹏飞的Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
@@ -177,7 +178,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E6%9D%83%E6%97%81%E8%90%BD"><span class="nav-number">1.</span> <span class="nav-text">控制权旁落</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%A7%A3%E5%89%96"><span class="nav-number">2.</span> <span class="nav-text">系统解剖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BF%E5%AD%94%E6%96%B9%E6%A1%88"><span class="nav-number">3.</span> <span class="nav-text">穿孔方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%B0%E4%BB%A3%E7%BB%88%E7%AB%AF"><span class="nav-number">4.</span> <span class="nav-text">现代终端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%84%86%E5%BC%B1%E7%9A%84%E5%B9%B3%E8%A1%A1"><span class="nav-number">5.</span> <span class="nav-text">脆弱的平衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E5%8A%A8%E6%B8%85%E5%8D%95"><span class="nav-number">6.</span> <span class="nav-text">行动清单</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E6%9D%83%E6%97%81%E8%90%BD"><span class="nav-number">1.</span> <span class="nav-text">控制权旁落</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%A7%A3%E5%89%96"><span class="nav-number">2.</span> <span class="nav-text">系统解剖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BF%E5%AD%94%E6%96%B9%E6%A1%88"><span class="nav-number">3.</span> <span class="nav-text">穿孔方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E7%9A%84%E4%B8%93%E7%94%A8%E5%B7%A5%E5%85%B7%EF%BC%9Awewe-rss"><span class="nav-number">3.1.</span> <span class="nav-text">微信公众号的专用工具：wewe-rss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%B9%B3%E5%8F%B0%E7%9A%84%E9%80%9A%E7%94%A8%E5%B7%A5%E5%85%B7%EF%BC%9ARSSHub"><span class="nav-number">3.2.</span> <span class="nav-text">多平台的通用工具：RSSHub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E7%94%9F%E6%80%81%E7%9A%84%E5%8D%8F%E5%90%8C%E4%BB%B7%E5%80%BC"><span class="nav-number">3.3.</span> <span class="nav-text">工具生态的协同价值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%84%86%E5%BC%B1%E7%9A%84%E5%B9%B3%E8%A1%A1"><span class="nav-number">4.</span> <span class="nav-text">脆弱的平衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E5%8A%A8%E4%B8%8E%E6%80%9D%E8%80%83"><span class="nav-number">5.</span> <span class="nav-text">行动与思考</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -200,7 +201,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-count">70</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -260,12 +261,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="围墙花园里的阅读游击 - wewe-rss是个好开源项目，Folo是个好APP | 崔鹏飞的Blog">
+      <meta itemprop="name" content="围墙花园里的阅读游击 - wewe-rss &amp; RSSHub，重夺信息控制权 | 崔鹏飞的Blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          围墙花园里的阅读游击 - wewe-rss是个好开源项目，Folo是个好APP
+          围墙花园里的阅读游击 - wewe-rss & RSSHub，重夺信息控制权
         </h1>
 
         <div class="post-meta-container">
@@ -300,7 +301,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.1k</span>
+      <span>1.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -334,11 +335,13 @@
         C --&gt;|注意力收割| D(用户)
     end
 
-    subgraph RSS 越狱路径
+    subgraph RSS工具生态
         A --&gt;|微信读书接口| E(wewe-rss)
-        E --&gt;|标准化 Feed| F[RSS]
-        F --&gt;|任意阅读器| G(Folo)
-        G --&gt;|主权归还| D
+        F[其他平台内容] --&gt;|API/爬虫| G(RSSHub)
+        E --&gt;|RSS输出| H[统一RSS协议]
+        G --&gt;|RSS输出| H
+        H --&gt;|整合阅读| I(Folo)
+        I --&gt;|控制权归还| D
     end</code></pre>
 
 <p><strong>技术隔离层</strong></p>
@@ -346,60 +349,40 @@
 <p><strong>算法黑箱层</strong></p>
 <p>算法根据用户停留时长、交互数据等指标对内容进行排序。用户的每一次点击，都在优化这个系统以更高效地实现其排序目标。</p>
 <p><img data-src="https://cuipengfei.github.io/picx-images-hosting/20250721/%E7%94%9F%E6%88%90%E7%89%B9%E5%AE%9A%E5%9B%BE%E5%83%8F-(1).60uji03h4a.png" alt="生成特定图像-(1)"></p>
-<h2 id="穿孔方案"><a href="#穿孔方案" class="headerlink" title="穿孔方案"></a>穿孔方案</h2><p><code>wewe-rss</code> 不破坏系统，它<strong>利用</strong>其现有接口。<br>通过调用微信读书的同步接口，将公众号内容转化为标准 RSS。这不是破解，是<strong>协议嫁接</strong>：</p>
+<h2 id="穿孔方案"><a href="#穿孔方案" class="headerlink" title="穿孔方案"></a>穿孔方案</h2><p>面对技术和算法的双重约束，开源社区提供了协同的解决工具：</p>
+<h3 id="微信公众号的专用工具：wewe-rss"><a href="#微信公众号的专用工具：wewe-rss" class="headerlink" title="微信公众号的专用工具：wewe-rss"></a>微信公众号的专用工具：wewe-rss</h3><p><code>wewe-rss</code> 专门针对微信公众号这一特殊封闭系统。它不破坏系统，而是<strong>利用</strong>其现有接口。</p>
+<p>通过调用微信读书的同步接口，将公众号内容转化为标准 RSS。这不是破解，是<strong>协议嫁接</strong>：</p>
 <ul>
-<li><strong>接口合法性</strong>：使用微信读书官方 API。</li>
-<li><strong>格式标准化</strong>：输出 RSS 2.0，兼容任意阅读器。</li>
-<li><strong>延迟容忍</strong>：以 15-30 分钟的延迟，换取系统稳定性。</li>
+<li><strong>接口合法性</strong>：使用微信读书官方 API</li>
+<li><strong>格式标准化</strong>：输出 RSS 2.0，兼容任意阅读器</li>
+<li><strong>延迟容忍</strong>：以 15-30 分钟的延迟，换取系统稳定性</li>
 </ul>
-<p>局限依然存在：付费墙内内容无法获取，接口也可能在未来关闭。但这是一种<strong>可接受的脆弱性</strong>——在绝对控制与完全开放之间，它提供了一个可行的中间路径。</p>
+<h3 id="多平台的通用工具：RSSHub"><a href="#多平台的通用工具：RSSHub" class="headerlink" title="多平台的通用工具：RSSHub"></a>多平台的通用工具：RSSHub</h3><p><code>RSSHub</code> 覆盖微信之外的广阔信息源——微博、Twitter、知乎、GitHub 等 1000+平台。它采用企业级架构：</p>
+<ul>
+<li><strong>多源适配</strong>：每个平台都有专门的适配器</li>
+<li><strong>反爬虫技术</strong>：浏览器自动化、代理轮换、签名验证</li>
+<li><strong>社区驱动</strong>：标准化的贡献流程和质量保证体系</li>
+</ul>
+<h3 id="工具生态的协同价值"><a href="#工具生态的协同价值" class="headerlink" title="工具生态的协同价值"></a>工具生态的协同价值</h3><p>这两个工具在实际使用中形成<strong>互补覆盖</strong>：</p>
+<ul>
+<li><strong>wewe-rss</strong> 处理微信公众号这一中文互联网重要信息源</li>
+<li><strong>RSSHub</strong> 覆盖其他所有主流平台和网站</li>
+<li><strong>Folo</strong> 作为统一终端，整合所有 RSS 源的阅读体验</li>
+</ul>
+<p>它们共同指向同一目标：<strong>将分散的封闭内容重新导入开放协议</strong>。</p>
+<p>局限依然存在：付费墙内容无法获取，接口可能关闭。但这是一种<strong>可接受的脆弱性</strong>——在绝对控制与完全开放之间，这个工具生态提供了可行的中间路径。</p>
 <p><img data-src="https://cuipengfei.github.io/picx-images-hosting/20250721/%E5%9B%BE%E5%83%8F%E7%94%9F%E6%88%90%E4%BB%BB%E5%8A%A1-(2).5q7pouo8yv.png" alt="图像生成任务-(2)"></p>
-<h2 id="现代终端"><a href="#现代终端" class="headerlink" title="现代终端"></a>现代终端</h2><p><code>wewe-rss</code> 解决“源”的问题，<code>Folo</code> 解决“端”的问题。<br>它保留了 RSS 的核心价值（用户控制权），并集成了现代产品的必要特性：</p>
-<ul>
-<li><strong>跨端同步</strong>：阅读进度、收藏、高亮等状态的实时同步。</li>
-<li><strong>AI 辅助</strong>：提供摘要与翻译，但决策权保留给用户。</li>
-<li><strong>社区发现</strong>：通过用户创建的订阅列表发现新信源。</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th align="left">维度</th>
-<th align="left">微信公众号</th>
-<th align="left">wewe-rss + Folo</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">阅读环境</td>
-<td align="left">高密度干扰</td>
-<td align="left">纯净专注</td>
-</tr>
-<tr>
-<td align="left">内容排序</td>
-<td align="left">黑箱算法</td>
-<td align="left">时间或自定义</td>
-</tr>
-<tr>
-<td align="left">数据所有权</td>
-<td align="left">平台持有</td>
-<td align="left">用户可导出</td>
-</tr>
-<tr>
-<td align="left">开放性</td>
-<td align="left">封闭系统</td>
-<td align="left">开放协议</td>
-</tr>
-</tbody></table>
-<p><img data-src="https://cuipengfei.github.io/picx-images-hosting/20250721/%E5%9B%BE%E5%83%8F%E7%94%9F%E6%88%90%E4%BB%BB%E5%8A%A1-(3).7p3wf6trab.png" alt="图像生成任务-(3)"></p>
 <h2 id="脆弱的平衡"><a href="#脆弱的平衡" class="headerlink" title="脆弱的平衡"></a>脆弱的平衡</h2><p>这套方案的生命周期，取决于微信读书的接口策略，存在不确定性。</p>
 <p>但它证明了：<strong>中心化平台的控制并非绝对</strong>。</p>
 <p>通过技术工具，个体可以重新取回部分信息控制权。</p>
 <p>这不是颠覆，而是一种<strong>结构性再平衡</strong>。</p>
 <p>RSS 这个 1999 年的协议，在 2025 年成为制衡平台中心化的有效工具。</p>
-<p>这提示我们：<strong>开放协议通常比封闭应用拥有更长的生命周期</strong>。</p>
-<h2 id="行动清单"><a href="#行动清单" class="headerlink" title="行动清单"></a>行动清单</h2><ol>
+<p>这提示我们：<strong>开放协议通常比封闭应用拥有更长的生命周期</strong>。当用户需求与平台利益发生冲突时，基于开放标准的工具生态会自发涌现出解决方案。</p>
+<p><img data-src="https://cuipengfei.github.io/picx-images-hosting/20250721/%E5%9B%BE%E5%83%8F%E7%94%9F%E6%88%90%E4%BB%BB%E5%8A%A1-(3).7p3wf6trab.png" alt="图像生成任务-(3)"></p>
+<h2 id="行动与思考"><a href="#行动与思考" class="headerlink" title="行动与思考"></a>行动与思考</h2><ol>
 <li><strong>盘点</strong>：识别你真正需要关注的信源。</li>
-<li><strong>转换</strong>：使用 <code>wewe-rss</code> 生成 RSS 地址。</li>
-<li><strong>阅读</strong>：导入 <code>Folo</code> 或你选择的 RSS 阅读器。</li>
+<li><strong>部署</strong>：搭建<code>wewe-rss</code>处理微信公众号，部署<code>RSSHub</code>覆盖其他平台。</li>
+<li><strong>整合</strong>：将所有 RSS 源导入<code>Folo</code>或你选择的 RSS 阅读器。</li>
 <li><strong>重塑</strong>：用主动拉取替代被动投喂的阅读习惯。</li>
 </ol>
 <p>信息控制权的回归，是使用习惯的重塑。</p>
@@ -425,7 +408,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://cuipengfei.me/blog/2025/07/21/folo-wewe-rss/" title="围墙花园里的阅读游击 - wewe-rss是个好开源项目，Folo是个好APP">https://cuipengfei.me/blog/2025/07/21/folo-wewe-rss/</a>
+      <a href="https://cuipengfei.me/blog/2025/07/21/folo-wewe-rss/" title="围墙花园里的阅读游击 - wewe-rss &amp; RSSHub，重夺信息控制权">https://cuipengfei.me/blog/2025/07/21/folo-wewe-rss/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -437,6 +420,7 @@
               <a href="/tags/RSS/" rel="tag"><i class="fa fa-tag"></i> RSS</a>
               <a href="/tags/Folo/" rel="tag"><i class="fa fa-tag"></i> Folo</a>
               <a href="/tags/wewe-rss/" rel="tag"><i class="fa fa-tag"></i> wewe-rss</a>
+              <a href="/tags/RSSHub/" rel="tag"><i class="fa fa-tag"></i> RSSHub</a>
           </div>
 
         
