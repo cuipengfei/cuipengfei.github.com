@@ -23,3 +23,5 @@ Design is not a phase - it's an activity that takes place periodically as we go 
 设计不是一个阶段，它是一个在我们进行时定期发生的活动。这需要功能和设计来回交织。
 
 java decompiler, kotlin, scala
+
+《你当像鸟飞往你的山》与《把花献给艾芝农》
