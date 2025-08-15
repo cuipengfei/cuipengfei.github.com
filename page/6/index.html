@@ -176,7 +176,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">178</span>
+          <span class="site-state-item-count">179</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -186,7 +186,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">70</span>
+        <span class="site-state-item-count">76</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -223,6 +223,111 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2009/04/26/%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E7%BB%9F%E8%AE%A1string%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84char%EF%BC%88%E8%BF%98%E6%98%AFLinQ%E6%9C%80%E7%AE%80%E4%BE%BF%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/blog/2009/04/26/%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E7%BB%9F%E8%AE%A1string%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84char%EF%BC%88%E8%BF%98%E6%98%AFLinQ%E6%9C%80%E7%AE%80%E4%BE%BF%EF%BC%89/" class="post-title-link" itemprop="url">三种方式统计string中出现次数最多的char（还是LinQ最简便）</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2009-04-26 16:28:00" itemprop="dateCreated datePublished" datetime="2009-04-26T16:28:00+08:00">2009-04-26</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2009/04/26/%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E7%BB%9F%E8%AE%A1string%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84char%EF%BC%88%E8%BF%98%E6%98%AFLinQ%E6%9C%80%E7%AE%80%E4%BE%BF%EF%BC%89/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2009/04/26/三种方式统计string中出现次数最多的char（还是LinQ最简便）/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">System</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">System</span>.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">System</span>.Text;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">System</span>.Linq;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">System</span>.Collections;</span><br><span class="line"></span><br><span class="line">namespace ConsoleApplication1</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> Program</span><br><span class="line">    &#123;</span><br><span class="line">        static <span class="type">void</span> Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            string str = &quot;aaeaabbebbccececddeddd&quot;;</span><br><span class="line"></span><br><span class="line">            List&lt;<span class="type">char</span>&gt; charList = <span class="built_in">new</span> List&lt;<span class="type">char</span>&gt;(str.ToCharArray());</span><br><span class="line">            <span class="type">int</span> len = charList.Count;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">Dictionary</span>&lt;<span class="type">char</span>, <span class="type">int</span>&gt; charD = <span class="built_in">new</span> <span class="keyword">Dictionary</span>&lt;<span class="type">char</span>, <span class="type">int</span>&gt;();</span><br><span class="line"></span><br><span class="line">            <span class="type">int</span> lastTime = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (charList.Count != <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="type">int</span> count = CountAChar(charList);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (count &gt; lastTime)</span><br><span class="line">                &#123;</span><br><span class="line">                    charD.Clear();</span><br><span class="line">                    charD.<span class="keyword">Add</span>(charList[<span class="number">0</span>], count);</span><br><span class="line">                    lastTime = count;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (count == lastTime)</span><br><span class="line">                &#123;</span><br><span class="line">                    charD.<span class="keyword">Add</span>(charList[<span class="number">0</span>], count);</span><br><span class="line">                    lastTime = count;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                DeleteAChar(count, charList);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">foreach</span> (KeyValuePair&lt;<span class="type">char</span>, <span class="type">int</span>&gt; kv <span class="keyword">in</span> charD)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(&quot;&#123;1&#125;有&#123;0&#125;个&quot;, kv.<span class="keyword">Value</span>.ToString(), kv.Key.ToString());</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(&quot;----------------------------------------&quot;);</span><br><span class="line">            SecondProgram.SecondWay(str);</span><br><span class="line">            Console.WriteLine(&quot;----------------------------------------&quot;);</span><br><span class="line">            ThirdClass.ThirdWay(str);</span><br><span class="line">            Console.<span class="keyword">Read</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        static <span class="type">void</span> DeleteAChar(<span class="type">int</span> num, List&lt;<span class="type">char</span>&gt; cl)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">char</span> c = cl[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; num; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                cl.Remove(c);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        static <span class="type">int</span> CountAChar(List&lt;<span class="type">char</span>&gt; cl)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> ret = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">foreach</span> (<span class="type">char</span> c <span class="keyword">in</span> cl)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (c == cl[<span class="number">0</span>])</span><br><span class="line">                &#123;</span><br><span class="line">                    ret++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> ret;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">//<span class="comment">-----------------------------------------------------------------</span></span><br><span class="line">    <span class="keyword">class</span> SecondProgram</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">public</span> static <span class="type">void</span> SecondWay(string str)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> len = str.Length;</span><br><span class="line">            <span class="type">char</span>[] strArray = str.ToCharArray();</span><br><span class="line">            <span class="type">int</span>[] count = <span class="built_in">new</span> <span class="type">int</span>[len];</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> y = <span class="number">0</span>; y &lt; len; y++) //将count数组的每个单元初始为<span class="number">0</span></span><br><span class="line">                count[y] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> y = <span class="number">0</span>; y &lt; len; y++) //将当前字符与之后的字符进行比较，相同count数组中对应索引处++</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> yy = y; yy &lt; len; yy++)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (strArray[y].Equals(strArray[yy]))</span><br><span class="line">                    &#123;</span><br><span class="line">                        count[y]++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            ArrayList maxCountArr = <span class="built_in">new</span> ArrayList();</span><br><span class="line">            <span class="type">int</span> maxCount = count[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> y = <span class="number">0</span>; y &lt; len; y++) //获得出现次数的最大值</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (count[y] &gt; maxCount)</span><br><span class="line">                &#123;</span><br><span class="line">                    maxCount = count[y];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> y = <span class="number">0</span>; y &lt; len; y++)</span><br><span class="line">//最大值与count数组中的每个数进行比较，相同则出现次数相同，把索引加入到maxCountArr</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (count[y] == maxCount)</span><br><span class="line">                &#123;</span><br><span class="line">                    maxCountArr.<span class="keyword">Add</span>(y);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> y = <span class="number">0</span>; y &lt; maxCountArr.Count; y++) //输出</span><br><span class="line">            &#123;</span><br><span class="line">                Console.<span class="keyword">Write</span>(&quot;Str&quot; + (y + <span class="number">1</span>) + &quot;:&quot; + strArray[(<span class="type">int</span>) maxCountArr[y]] + &quot;/n&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /// &lt;<span class="keyword">summary</span>&gt;</span><br><span class="line">    /// 第三种方式</span><br><span class="line">    /// &lt;/<span class="keyword">summary</span>&gt;</span><br><span class="line">    <span class="keyword">class</span> ThirdClass</span><br><span class="line">    &#123;</span><br><span class="line">        /// &lt;<span class="keyword">summary</span>&gt;</span><br><span class="line">        /// 还是LinQ最简便</span><br><span class="line">        /// &lt;/<span class="keyword">summary</span>&gt;</span><br><span class="line">        /// &lt;param <span class="type">name</span>=&quot;str&quot;&gt;&lt;/param&gt;</span><br><span class="line">        <span class="built_in">public</span> static <span class="type">void</span> ThirdWay(string str)</span><br><span class="line">        &#123;</span><br><span class="line">            var resultGroup = <span class="keyword">from</span> aChar <span class="keyword">in</span> str.ToCharArray()</span><br><span class="line">                <span class="keyword">group</span> aChar <span class="keyword">by</span> aChar;</span><br><span class="line"></span><br><span class="line">            <span class="type">int</span> max = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">foreach</span> (var one <span class="keyword">in</span> resultGroup)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (one.Count() &gt; <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    max = one.Count();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">foreach</span> (var one <span class="keyword">in</span> resultGroup)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (one.Count() == max)</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(&quot;&#123;0&#125;字符出现了&#123;1&#125;次&quot;, one.Key, max);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css"><script src="https://fastly.jsdelivr.net/npm/d3@7"></script><script src="https://fastly.jsdelivr.net/npm/markmap-view@0.18.10"></script><script src="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10"></script>
+<link rel="stylesheet" href="/css/markmap.css">
+
+<script src="/js/markmap.js"></script>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -2808,110 +2913,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2008/08/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F---%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%EF%BC%88%E5%BA%94%E8%AF%A5%E6%98%AF%E6%9C%80%E5%90%8E%E4%B8%80%E7%AF%87%E4%BA%86%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="崔鹏飞">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="崔鹏飞的Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | 崔鹏飞的Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/blog/2008/08/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F---%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%EF%BC%88%E5%BA%94%E8%AF%A5%E6%98%AF%E6%9C%80%E5%90%8E%E4%B8%80%E7%AF%87%E4%BA%86%EF%BC%89/" class="post-title-link" itemprop="url">设计模式---访问者模式（应该是最后一篇了）</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2008-08-21 18:00:00" itemprop="dateCreated datePublished" datetime="2008-08-21T18:00:00+08:00">2008-08-21</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/2008/08/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F---%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%EF%BC%88%E5%BA%94%E8%AF%A5%E6%98%AF%E6%9C%80%E5%90%8E%E4%B8%80%E7%AF%87%E4%BA%86%EF%BC%89/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2008/08/21/设计模式---访问者模式（应该是最后一篇了）/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img data-src="/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20080821/ClassDiagram1.jpg"></p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.Text;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">ConsoleApplication1</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Element</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Accept</span>(<span class="params">Visitor v</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Elem1</span> : <span class="title">Element</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Accept</span>(<span class="params">Visitor v</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            v.VisitElem1(<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Elem2</span> : <span class="title">Element</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Accept</span>(<span class="params">Visitor v</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            v.VisitElem2(<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Visitor</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">VisitElem1</span>(<span class="params">Elem1 e1</span>)</span>;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">VisitElem2</span>(<span class="params">Elem2 e2</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Visitor1</span> : <span class="title">Visitor</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">VisitElem1</span>(<span class="params">Elem1 e1</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="keyword">this</span>.GetType().Name + <span class="string">&quot;  &quot;</span> + e1.GetType().Name);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">VisitElem2</span>(<span class="params">Elem2 e2</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="keyword">this</span>.GetType().Name + <span class="string">&quot;  &quot;</span> + e2.GetType().Name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Visitor2</span> : <span class="title">Visitor</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">VisitElem1</span>(<span class="params">Elem1 e1</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="keyword">this</span>.GetType().Name + <span class="string">&quot;  &quot;</span> + e1.GetType().Name);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">VisitElem2</span>(<span class="params">Elem2 e2</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="keyword">this</span>.GetType().Name + <span class="string">&quot;  &quot;</span> + e2.GetType().Name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">ObjStructure</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> List&lt;Element&gt; elems = <span class="keyword">new</span> List&lt;Element&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span>(<span class="params">Element e</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            elems.Add(e);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span>(<span class="params">Visitor v</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">foreach</span> (Element e <span class="keyword">in</span> elems)</span><br><span class="line">            &#123;</span><br><span class="line">                e.Accept(v);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Client</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            ObjStructure o = <span class="keyword">new</span> ObjStructure();</span><br><span class="line">            o.<span class="keyword">add</span>(<span class="keyword">new</span> Elem1());</span><br><span class="line">            o.<span class="keyword">add</span>(<span class="keyword">new</span> Elem2());</span><br><span class="line">            o.visit(<span class="keyword">new</span> Visitor1());</span><br><span class="line">            o.visit(<span class="keyword">new</span> Visitor2());</span><br><span class="line">            Console.Read();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css"><script src="https://fastly.jsdelivr.net/npm/d3@7"></script><script src="https://fastly.jsdelivr.net/npm/markmap-view@0.18.10"></script><script src="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10"></script>
-<link rel="stylesheet" href="/css/markmap.css">
-
-<script src="/js/markmap.js"></script>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
@@ -2936,14 +2937,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">387k</span>
+    <span title="站点总字数">392k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:52</span>
+    <span title="站点阅读时长">5:56</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

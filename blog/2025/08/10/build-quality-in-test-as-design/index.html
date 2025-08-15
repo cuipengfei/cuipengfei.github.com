@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous" defer></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.23.2","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"galactic"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="业务复杂 ≠ 代码必然复杂。优秀的代码往往“平平无奇”，真正平衡的是设计与可测试性。  引言：为何“质量改进”举步维艰？我们或许都经历过类似的场景：团队引入了详尽的检查清单、严格的覆盖率红线和先进的扫描工具，但几个月后，大家在疲于应付流程，而质量本身却未见实质性提升。 问题往往不在于“执行不力”，而在于我们将质量活动放在了错误的位置——当设计已经完成，测试才被动介入，沦为问题拦截的最后一道防线。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="把质量内建进设计：从“测试是负担”到“测试即设计”">
+<meta property="og:url" content="https://cuipengfei.me/blog/2025/08/10/build-quality-in-test-as-design/index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="业务复杂 ≠ 代码必然复杂。优秀的代码往往“平平无奇”，真正平衡的是设计与可测试性。  引言：为何“质量改进”举步维艰？我们或许都经历过类似的场景：团队引入了详尽的检查清单、严格的覆盖率红线和先进的扫描工具，但几个月后，大家在疲于应付流程，而质量本身却未见实质性提升。 问题往往不在于“执行不力”，而在于我们将质量活动放在了错误的位置——当设计已经完成，测试才被动介入，沦为问题拦截的最后一道防线。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-08-10T02:00:00.000Z">
+<meta property="article:modified_time" content="2025-08-10T02:00:00.000Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="Build Quality In">
+<meta property="article:tag" content="Testability">
+<meta property="article:tag" content="TDD">
+<meta property="article:tag" content="BDD">
+<meta property="article:tag" content="Dependency Inversion">
+<meta property="article:tag" content="Composition">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://cuipengfei.me/blog/2025/08/10/build-quality-in-test-as-design/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2025/08/10/build-quality-in-test-as-design/","path":"blog/2025/08/10/build-quality-in-test-as-design/","title":"把质量内建进设计：从“测试是负担”到“测试即设计”"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>把质量内建进设计：从“测试是负担”到“测试即设计” | 崔鹏飞的Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/pjax.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.7.0/mermaid.min.js","integrity":"sha256-4+IKDqhZ/sXjc8Wtl2/MsxI4e0s1KpEVdbEP7V/Lz8U="}}</script>
+  <script src="/js/third-party/tags/mermaid.js" defer></script>
+
+
+
+  <script src="/js/third-party/pace.js" defer></script>
+
+
+  
+
+
+
+
+<script data-ad-client="ca-pub-2529393324217872" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2529393324217872"></script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">崔鹏飞的Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E8%A8%80%EF%BC%9A%E4%B8%BA%E4%BD%95%E2%80%9C%E8%B4%A8%E9%87%8F%E6%94%B9%E8%BF%9B%E2%80%9D%E4%B8%BE%E6%AD%A5%E7%BB%B4%E8%89%B0%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">引言：为何“质量改进”举步维艰？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%8C%E8%B4%A3%E4%B8%8E%E8%AF%AF%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">职责与误解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%9A%E8%AE%A9%E5%A4%8D%E6%9D%82%E4%B8%9A%E5%8A%A1%E4%B8%8D%E5%88%B6%E9%80%A0%E5%A4%8D%E6%9D%82%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">设计原则：让复杂业务不制造复杂代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%EF%BC%88DIP%EF%BC%89%E4%B8%8E%E6%9E%84%E9%80%A0%E6%B3%A8%E5%85%A5"><span class="nav-number">3.1.</span> <span class="nav-text">依赖倒置（DIP）与构造注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%96%84%E5%9B%9E%E8%B0%83%E5%B1%82%EF%BC%8C%E9%9A%94%E7%A6%BB%E6%A1%86%E6%9E%B6%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">3.2.</span> <span class="nav-text">薄回调层，隔离框架复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%91%E4%BE%9D%E8%B5%96-verify%EF%BC%8C%E5%A4%9A%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%9C"><span class="nav-number">3.3.</span> <span class="nav-text">少依赖 verify，多验证结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%84%A6%E7%82%B9%EF%BC%9A%E6%8E%A5%E5%8F%A3%E8%A1%8C%E4%B8%BA-%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.</span> <span class="nav-text">测试焦点：接口行为 &gt; 内部实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%A8%E9%87%8F%E5%BA%A6%E9%87%8F%EF%BC%9A%E4%BB%8E%E6%95%B0%E5%AD%97%E8%B5%B0%E5%90%91%E4%BF%A1%E5%BF%83"><span class="nav-number">5.</span> <span class="nav-text">质量度量：从数字走向信心</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%B6%E4%BC%B8%E4%B8%8E%E5%8F%8D%E6%80%9D"><span class="nav-number">6.</span> <span class="nav-text">延伸与反思</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="nav-number">7.</span> <span class="nav-text">结语</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">179</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">76</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener me" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2025/08/10/build-quality-in-test-as-design/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="把质量内建进设计：从“测试是负担”到“测试即设计” | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          把质量内建进设计：从“测试是负担”到“测试即设计”
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-08-10 10:00:00" itemprop="dateCreated datePublished" datetime="2025-08-10T10:00:00+08:00">2025-08-10</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2025/08/10/build-quality-in-test-as-design/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2025/08/10/build-quality-in-test-as-design/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>业务复杂 ≠ 代码必然复杂。优秀的代码往往“平平无奇”，真正平衡的是设计与可测试性。</p>
+</blockquote>
+<h2 id="引言：为何“质量改进”举步维艰？"><a href="#引言：为何“质量改进”举步维艰？" class="headerlink" title="引言：为何“质量改进”举步维艰？"></a>引言：为何“质量改进”举步维艰？</h2><p>我们或许都经历过类似的场景：团队引入了详尽的检查清单、严格的覆盖率红线和先进的扫描工具，但几个月后，大家在疲于应付流程，而质量本身却未见实质性提升。</p>
+<p>问题往往不在于“执行不力”，而在于我们将质量活动放在了错误的位置——当设计已经完成，测试才被动介入，沦为问题拦截的最后一道防线。</p>
+<p>本文聚焦一条主线：将质量从“外部检验”转变为“内部设计属性”。</p>
+<p>换句话说，测试的核心目的，是验证“设计是否合理”，而不仅仅是“代码是否正确”。</p>
+<p>进一步说，很多“失败的质量改进”源于<strong>诊断偏差</strong>：把“认知与方法”的问题，错误归因于“态度与能力”。</p>
+<p>我们缺的不是执行的意愿，而是“将质量融入设计”的共同认知框架。</p>
+<p>如果我们仍将测试视为末端闸门，自然会陷入不断增加流程的循环；而当我们把它前置为设计的反馈工具时，团队的创造力才能真正被释放。</p>
+<p>Build Quality In（内建质量）的真正含义是：让软件开发的每一环都交付“自带可验证标准”的成果，而不是将所有风险都积压到最终测试阶段。</p>
+<p>一句话：质量是过程属性，被<strong>设计</strong>出来，不是被<strong>扫</strong>出来。</p>
+<hr>
+<h2 id="职责与误解"><a href="#职责与误解" class="headerlink" title="职责与误解"></a>职责与误解</h2><p>测试是开发者的职责，不是 QA 的专属。</p>
+<p>当我们把测试外包出去，在某种程度上等于放弃对代码质量的直接管理权。</p>
+<p>三段常见的认知演进：</p>
+<ol>
+<li>测试是 QA 的事 → 代码能跑就行</li>
+<li>测试是开发的事 → 写完代码补测试</li>
+<li>质量是设计的事 → 用测试驱动设计（Test drives design）</li>
+</ol>
+<p>指标错觉：覆盖率不是质量，“变更信心、缺陷密度、反馈周期”才是更健康的三指标。</p>
+<p>覆盖率 &lt; 语义覆盖。很多 90% 覆盖率的项目依旧“改一处怕全局”，因为它们测的是执行路径，而非“业务承诺”。</p>
+<hr>
+<h2 id="设计原则：让复杂业务不制造复杂代码"><a href="#设计原则：让复杂业务不制造复杂代码" class="headerlink" title="设计原则：让复杂业务不制造复杂代码"></a>设计原则：让复杂业务不制造复杂代码</h2><p>核心是“可组合性（Composition）”与“解耦（Decoupling）”。</p>
+<p>它们直接决定了可测试性（Testability）。</p>
+<p>可测试性本身可以看作是优秀设计的一个重要标志——当某段代码”难以被孤立 + 快速断言”时，我们常常面临的不是”缺测试技巧”的问题，而是”设计边界模糊 &#x2F; 依赖隐藏”的挑战。</p>
+<h3 id="依赖倒置（DIP）与构造注入"><a href="#依赖倒置（DIP）与构造注入" class="headerlink" title="依赖倒置（DIP）与构造注入"></a>依赖倒置（DIP）与构造注入</h3><p>下面从一个紧耦合的反例切入，再用构造注入展示如何让依赖显式、可替换。</p>
+<p>反例：在组件内部直接创建依赖，紧耦合、难替换、难测。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Anti-pattern: 内部创建依赖，紧耦合</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderService</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">PaymentProcessor</span> <span class="variable">paymentProcessor</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PaymentProcessor</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">placeOrder</span><span class="params">(Order order)</span> &#123;</span><br><span class="line">        paymentProcessor.process(order.getPaymentDetails());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>更好：让高层依赖抽象、依赖由外注入。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Better: 构造注入 + 依赖倒置（DIP）</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderService</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> PaymentGateway payment;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Inventory inventory;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Notification notification;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">OrderService</span><span class="params">(PaymentGateway payment, Inventory inventory, Notification notification)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.payment = payment;</span><br><span class="line">        <span class="built_in">this</span>.inventory = inventory;</span><br><span class="line">        <span class="built_in">this</span>.notification = notification;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">processOrder</span><span class="params">(Order order)</span> &#123;</span><br><span class="line">        payment.charge(order.getAmount());</span><br><span class="line">        inventory.reserve(order.getItems());</span><br><span class="line">        notification.sendConfirmation(order.getEmail());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为什么这能降复杂？因为：</p>
+<ul>
+<li>可替换：测试中传入 Mock&#x2F;Fake，环境可控。</li>
+<li>可演进：实现可变而接口不变，测试稳定。</li>
+<li>可理解：依赖图显式化，认知负荷更低。</li>
+</ul>
+<p>把对象创建权上移（构造注入）&#x3D; 把“变动点”推到最外围；业务核心越“纯”，测试越“薄”。</p>
+<h3 id="薄回调层，隔离框架复杂度"><a href="#薄回调层，隔离框架复杂度" class="headerlink" title="薄回调层，隔离框架复杂度"></a>薄回调层，隔离框架复杂度</h3><p>Controller 只做“转发到业务”的薄层，避免业务深绑框架；业务可在纯代码环境下独立测试。<br>简例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Spring Controller</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">OrderController</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> OrderApplicationService app; <span class="comment">// 纯业务服务</span></span><br><span class="line">  OrderController(OrderApplicationService app)&#123;<span class="built_in">this</span>.app = app;&#125;</span><br><span class="line">  <span class="meta">@PostMapping(&quot;/orders&quot;)</span></span><br><span class="line">  <span class="keyword">public</span> OrderDTO <span class="title function_">place</span><span class="params">(<span class="meta">@RequestBody</span> OrderDTO dto)</span>&#123;<span class="keyword">return</span> app.place(dto.toDomain()).toDTO();&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 纯业务（无框架依赖，可直接 new + 单元测试）</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderApplicationService</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> OrderService domain;</span><br><span class="line">  <span class="keyword">public</span> <span class="title function_">OrderApplicationService</span><span class="params">(OrderService domain)</span>&#123;<span class="built_in">this</span>.domain = domain;&#125;</span><br><span class="line">  <span class="keyword">public</span> Order <span class="title function_">place</span><span class="params">(Order order)</span>&#123;<span class="keyword">return</span> domain.process(order);&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试时只 new <code>OrderApplicationService</code> + Fake 依赖即可，无需启动 Spring。框架层的测试再用少量集成测试覆盖即可。</p>
+<h3 id="少依赖-verify，多验证结果"><a href="#少依赖-verify，多验证结果" class="headerlink" title="少依赖 verify，多验证结果"></a>少依赖 verify，多验证结果</h3><p>“验证是否调用了某内部方法”的测试，会将测试用例与实现细节紧紧绑死，任何内部重构都可能导致测试失效。</p>
+<p>正确的做法是，基于“公共接口的可观察结果或状态变化”进行断言。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误聚焦：实现细节</span></span><br><span class="line">verify(paymentClient, times(<span class="number">1</span>)).charge(any());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 正确聚焦：业务行为</span></span><br><span class="line">orderService.processOrder(order);</span><br><span class="line">assertThat(order.getStatus()).isEqualTo(PROCESSED);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="测试焦点：接口行为-内部实现"><a href="#测试焦点：接口行为-内部实现" class="headerlink" title="测试焦点：接口行为 &gt; 内部实现"></a>测试焦点：接口行为 &gt; 内部实现</h2><ul>
+<li>测什么：组件对外的承诺（状态、返回值、对外交互），而不是它“怎么做”。</li>
+<li>好处：重构自由度大、测试更稳定、设计更抽象。</li>
+<li>经验法则：能用一个 Given-When-Then 讲清楚的场景，就不要写“调用序列监视”的测试。</li>
+</ul>
+<p>示例（BDD&#x2F;SbE）：</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Feature</span>: 订单处理</span><br><span class="line">  <span class="keyword">Scenario</span>: 成功处理有效订单</span><br><span class="line">    <span class="keyword">Given</span> 用户有一个包含商品的订单</span><br><span class="line">    <span class="keyword">When</span> 用户提交订单</span><br><span class="line">    <span class="keyword">Then</span> 订单状态为“已处理”</span><br><span class="line">    <span class="keyword">And</span> 用户收到确认邮件</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>“行为测试”好比：下单后我看结果——订单状态变了、邮件发了。</li>
+<li>“实现细节测试”好比：我盯着服务内部是不是“正好调用了 X 方法一次”。后者一旦内部重构（比如拆成两个方法）就会碎。<br>入门策略：先列“这个功能对外可观察的 1~3 个结果”，测试里只断言这些结果；只有当结果无法直接观察时再考虑使用 <code>verify</code>。</li>
+</ul>
+<hr>
+<h2 id="质量度量：从数字走向信心"><a href="#质量度量：从数字走向信心" class="headerlink" title="质量度量：从数字走向信心"></a>质量度量：从数字走向信心</h2><p>替换“覆盖率崇拜”：</p>
+<ul>
+<li>变更信心：修改后能否立即部署？</li>
+<li>缺陷密度：每千行缺陷数随时间下降？</li>
+<li>反馈周期：提交到发现问题的时间足够短？</li>
+</ul>
+<p>这些指标直接反映测试是否在“护航设计”，而非堆数字。</p>
+<p>层次补充（避免“一把梭”）：</p>
+<ul>
+<li>单元测试：纯领域 &#x2F; 规则（最快，失败定位最精确）。</li>
+<li>组件 &#x2F; 集成测试：跨边界协作假设验证（接口契约 + 配置）。</li>
+<li>端到端冒烟：关键业务旅程“有没有坏”。</li>
+</ul>
+<p>测试金字塔倒置（过度依赖系统&#x2F;端到端测试堆砌）通常反映的是”可测试性设计缺席”的现象，而不仅仅是”尚未补齐测试数量”的问题。</p>
+<hr>
+<h2 id="延伸与反思"><a href="#延伸与反思" class="headerlink" title="延伸与反思"></a>延伸与反思</h2><p>几点可内化的”对照思考”：</p>
+<ol>
+<li>业务复杂 ≠ 代码必须复杂：遇到”看不懂的实现”时，可以先问问”是否把业务决策隐藏在技术细节里”。</li>
+<li>主要成本在修改：每次改动如果都需要”开启多人口头同步”才能放心发布，通常说明缺少可验证的自动化回归测试集。测试可以看作是摊平未来修改成本的”前置投资”。</li>
+<li>设计是持续活动：每加入一个特性，都值得重新检视”依赖是否最小化””边界是否清晰”以及”关键行为是否能被直接测试”。</li>
+<li>测试是一把尺：当你犹豫“是否需要抽象”时，可以问自己——这个抽象是否让关键行为的测试表达更短、更清晰？如果是，那么这个抽象通常是正确的方向。</li>
+<li>认知惯性 ≠ 技术难点：很多开发者感觉”写测试浪费时间”，这可能源于对”前置投入换取未来变更自由”这一逆直觉收益模型的天然抗拒。识别到这是”认知惯性”而非”技术局限”后，可以通过”小步展示节省的回归与调试时间”来逐步建立共识。</li>
+</ol>
+<hr>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>把测试从“末端审判”变成“设计工具”，把质量从“外部检查”变成“内部属性”。</p>
+<p>当我们用可组合的设计、行为导向的测试和清晰的验收标准把质量内建进去，复杂业务也能产出“平平无奇”的高质量代码。</p>
+<p>最后留一个自检问题（供回到代码前快速扫一眼）：</p>
+<blockquote>
+<p>当前这次改动，如果我删掉所有 <code>verify</code> 调用，只保留对最终结果的断言，测试是否仍然能够清晰地表达业务意图？如果答案是否定的，那么我可能仍旧在测试实现细节，而非设计契约。</p>
+</blockquote>
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css"><script src="https://fastly.jsdelivr.net/npm/d3@7"></script><script src="https://fastly.jsdelivr.net/npm/markmap-view@0.18.10"></script><script src="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10"></script>
+<link rel="stylesheet" href="/css/markmap.css">
+
+<script src="/js/markmap.js"></script>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://cuipengfei.me/blog/2025/08/10/build-quality-in-test-as-design/" title="把质量内建进设计：从“测试是负担”到“测试即设计”">https://cuipengfei.me/blog/2025/08/10/build-quality-in-test-as-design/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Build-Quality-In/" rel="tag"><i class="fa fa-tag"></i> Build Quality In</a>
+              <a href="/tags/Testability/" rel="tag"><i class="fa fa-tag"></i> Testability</a>
+              <a href="/tags/TDD/" rel="tag"><i class="fa fa-tag"></i> TDD</a>
+              <a href="/tags/BDD/" rel="tag"><i class="fa fa-tag"></i> BDD</a>
+              <a href="/tags/Dependency-Inversion/" rel="tag"><i class="fa fa-tag"></i> Dependency Inversion</a>
+              <a href="/tags/Composition/" rel="tag"><i class="fa fa-tag"></i> Composition</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2025/07/30/verify/" rel="prev" title="folo verify">
+                  <i class="fa fa-angle-left"></i> folo verify
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">392k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:56</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js" defer></script>
+
+</body>
+</html>

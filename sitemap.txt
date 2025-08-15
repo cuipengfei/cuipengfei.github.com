@@ -1,6 +1,5 @@
+https://cuipengfei.me/blog/2025/08/10/build-quality-in-test-as-design/
 https://cuipengfei.me/blog/2025/07/30/verify/
-https://cuipengfei.me/tmp/%E6%96%87%E4%BD%93%E7%89%B9%E5%BE%81%E5%88%86%E7%B1%BB%E6%95%B4%E7%90%86%E6%96%87%E6%A1%A3.html
-https://cuipengfei.me/tmp/blogideas.html
 https://cuipengfei.me/blog/2025/07/21/folo-wewe-rss/
 https://cuipengfei.me/blog/2025/06/28/geektime-8x-ai/
 https://cuipengfei.me/blog/2025/06/17/how-to-brainwash-copilot-to-follow-orders/
@@ -250,6 +249,12 @@ https://cuipengfei.me/tags/RSSHub/
 https://cuipengfei.me/tags/%E7%9F%A5%E8%AF%86%E5%B7%A5%E7%A8%8B/
 https://cuipengfei.me/tags/LLM/
 https://cuipengfei.me/tags/%E8%AE%A4%E7%9F%A5%E6%A8%A1%E5%9E%8B/
+https://cuipengfei.me/tags/Build-Quality-In/
+https://cuipengfei.me/tags/Testability/
+https://cuipengfei.me/tags/TDD/
+https://cuipengfei.me/tags/BDD/
+https://cuipengfei.me/tags/Dependency-Inversion/
+https://cuipengfei.me/tags/Composition/
 https://cuipengfei.me/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/
 https://cuipengfei.me/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/AI/
 https://cuipengfei.me/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/AI/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/
