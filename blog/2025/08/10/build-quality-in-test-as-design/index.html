@@ -22,12 +22,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.23.2","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"galactic"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="业务复杂 ≠ 代码必然复杂。优秀的代码往往“平平无奇”，真正平衡的是设计与可测试性。  引言：为何“质量改进”举步维艰？我们或许都经历过类似的场景：团队引入了详尽的检查清单、严格的覆盖率红线和先进的扫描工具，但几个月后，大家在疲于应付流程，而质量本身却未见实质性提升。 问题往往不在于“执行不力”，而在于我们将质量活动放在了错误的位置——当设计已经完成，测试才被动介入，沦为问题拦截的最后一道防线。">
+    <meta name="description" content="业务复杂 ≠ 代码必然复杂。优秀的代码往往“平平无奇”，真正平衡的是设计与可测试性。  引言：为何“质量改进”举步维艰？我们或许都经历过类似的场景：团队引入详尽检查清单、严格覆盖率红线与各类扫描工具；数个月后，大家忙于应付流程，质量本身却没有与投入成正比的提升。 问题往往不在于“执行不力”，而在于我们把质量活动放在了错误的时间与空间：设计已定型之后，测试才被动介入，只能沦为缺陷拦截的末端闸门。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="把质量内建进设计：从“测试是负担”到“测试即设计”">
 <meta property="og:url" content="https://cuipengfei.me/blog/2025/08/10/build-quality-in-test-as-design/index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
-<meta property="og:description" content="业务复杂 ≠ 代码必然复杂。优秀的代码往往“平平无奇”，真正平衡的是设计与可测试性。  引言：为何“质量改进”举步维艰？我们或许都经历过类似的场景：团队引入了详尽的检查清单、严格的覆盖率红线和先进的扫描工具，但几个月后，大家在疲于应付流程，而质量本身却未见实质性提升。 问题往往不在于“执行不力”，而在于我们将质量活动放在了错误的位置——当设计已经完成，测试才被动介入，沦为问题拦截的最后一道防线。">
+<meta property="og:description" content="业务复杂 ≠ 代码必然复杂。优秀的代码往往“平平无奇”，真正平衡的是设计与可测试性。  引言：为何“质量改进”举步维艰？我们或许都经历过类似的场景：团队引入详尽检查清单、严格覆盖率红线与各类扫描工具；数个月后，大家忙于应付流程，质量本身却没有与投入成正比的提升。 问题往往不在于“执行不力”，而在于我们把质量活动放在了错误的时间与空间：设计已定型之后，测试才被动介入，只能沦为缺陷拦截的末端闸门。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cuipengfei.github.io/picx-images-hosting/20250816/%E7%94%9F%E6%88%90%E8%9E%8D%E5%90%88%E5%9B%BE%E5%83%8F-(1).5xaykpra6p.png">
 <meta property="og:image" content="https://cuipengfei.github.io/picx-images-hosting/20250816/%E5%9B%BE%E5%83%8F%E7%94%9F%E6%88%90%E6%8F%90%E7%A4%BA%E8%AF%8D.4ub99tvgbv.png">
@@ -180,7 +180,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E8%A8%80%EF%BC%9A%E4%B8%BA%E4%BD%95%E2%80%9C%E8%B4%A8%E9%87%8F%E6%94%B9%E8%BF%9B%E2%80%9D%E4%B8%BE%E6%AD%A5%E7%BB%B4%E8%89%B0%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">引言：为何“质量改进”举步维艰？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%8C%E8%B4%A3%E4%B8%8E%E8%AF%AF%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">职责与误解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%9A%E8%AE%A9%E5%A4%8D%E6%9D%82%E4%B8%9A%E5%8A%A1%E4%B8%8D%E5%88%B6%E9%80%A0%E5%A4%8D%E6%9D%82%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">设计原则：让复杂业务不制造复杂代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%EF%BC%88DIP%EF%BC%89%E4%B8%8E%E6%9E%84%E9%80%A0%E6%B3%A8%E5%85%A5"><span class="nav-number">3.1.</span> <span class="nav-text">依赖倒置（DIP）与构造注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%96%84%E5%9B%9E%E8%B0%83%E5%B1%82%EF%BC%8C%E9%9A%94%E7%A6%BB%E6%A1%86%E6%9E%B6%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">3.2.</span> <span class="nav-text">薄回调层，隔离框架复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%91%E4%BE%9D%E8%B5%96-verify%EF%BC%8C%E5%A4%9A%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%9C"><span class="nav-number">3.3.</span> <span class="nav-text">少依赖 verify，多验证结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%84%A6%E7%82%B9%EF%BC%9A%E6%8E%A5%E5%8F%A3%E8%A1%8C%E4%B8%BA-%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.</span> <span class="nav-text">测试焦点：接口行为 &gt; 内部实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%A8%E9%87%8F%E5%BA%A6%E9%87%8F%EF%BC%9A%E4%BB%8E%E6%95%B0%E5%AD%97%E8%B5%B0%E5%90%91%E4%BF%A1%E5%BF%83"><span class="nav-number">5.</span> <span class="nav-text">质量度量：从数字走向信心</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%B6%E4%BC%B8%E4%B8%8E%E5%8F%8D%E6%80%9D"><span class="nav-number">6.</span> <span class="nav-text">延伸与反思</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="nav-number">7.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E8%A8%80%EF%BC%9A%E4%B8%BA%E4%BD%95%E2%80%9C%E8%B4%A8%E9%87%8F%E6%94%B9%E8%BF%9B%E2%80%9D%E4%B8%BE%E6%AD%A5%E7%BB%B4%E8%89%B0%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">引言：为何“质量改进”举步维艰？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%8C%E8%B4%A3%E9%87%8D%E5%A1%91%EF%BC%9A%E4%BB%8E%E5%A4%96%E5%8C%85%E6%B5%8B%E8%AF%95%E5%88%B0%E8%AE%BE%E8%AE%A1%E5%86%85%E8%81%9A"><span class="nav-number">2.</span> <span class="nav-text">职责重塑：从外包测试到设计内聚</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%9A%E8%AE%A9%E5%A4%8D%E6%9D%82%E4%B8%9A%E5%8A%A1%E4%B8%8D%E5%88%B6%E9%80%A0%E5%A4%8D%E6%9D%82%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">设计原则：让复杂业务不制造复杂代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%EF%BC%88DIP%EF%BC%89%E4%B8%8E%E6%9E%84%E9%80%A0%E6%B3%A8%E5%85%A5"><span class="nav-number">3.1.</span> <span class="nav-text">依赖倒置（DIP）与构造注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%96%84%E5%9B%9E%E8%B0%83%E5%B1%82%EF%BC%8C%E9%9A%94%E7%A6%BB%E6%A1%86%E6%9E%B6%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">3.2.</span> <span class="nav-text">薄回调层，隔离框架复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%8F%E5%B0%91-verify-%E4%BE%9D%E8%B5%96%EF%BC%8C%E5%9B%9E%E5%88%B0%E5%8F%AF%E8%A7%82%E5%AF%9F%E7%BB%93%E6%9E%9C"><span class="nav-number">3.3.</span> <span class="nav-text">减少 verify 依赖，回到可观察结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%84%A6%E7%82%B9%EF%BC%9A%E4%BB%A5%E5%AF%B9%E5%A4%96%E8%A1%8C%E4%B8%BA%E5%A5%91%E7%BA%A6%E5%8F%96%E4%BB%A3%E5%86%85%E9%83%A8%E8%B0%83%E7%94%A8%E5%BA%8F%E5%88%97"><span class="nav-number">4.</span> <span class="nav-text">测试焦点：以对外行为契约取代内部调用序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%A8%E9%87%8F%E5%BA%A6%E9%87%8F%EF%BC%9A%E4%BB%8E%E6%95%B0%E5%AD%97%E8%B5%B0%E5%90%91%E4%BF%A1%E5%BF%83"><span class="nav-number">5.</span> <span class="nav-text">质量度量：从数字走向信心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E5%9B%9E%E9%A1%BE%EF%BC%88Recap%EF%BC%89"><span class="nav-number">5.1.</span> <span class="nav-text">快速回顾（Recap）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%B6%E4%BC%B8%E4%B8%8E%E5%8F%8D%E6%80%9D"><span class="nav-number">6.</span> <span class="nav-text">延伸与反思</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="nav-number">7.</span> <span class="nav-text">结语</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -303,7 +303,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>4.1k</span>
+      <span>4.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -323,37 +323,40 @@
     <div class="post-body" itemprop="articleBody"><blockquote>
 <p>业务复杂 ≠ 代码必然复杂。优秀的代码往往“平平无奇”，真正平衡的是设计与可测试性。</p>
 </blockquote>
-<h2 id="引言：为何“质量改进”举步维艰？"><a href="#引言：为何“质量改进”举步维艰？" class="headerlink" title="引言：为何“质量改进”举步维艰？"></a>引言：为何“质量改进”举步维艰？</h2><p>我们或许都经历过类似的场景：团队引入了详尽的检查清单、严格的覆盖率红线和先进的扫描工具，但几个月后，大家在疲于应付流程，而质量本身却未见实质性提升。</p>
-<p>问题往往不在于“执行不力”，而在于我们将质量活动放在了错误的位置——当设计已经完成，测试才被动介入，沦为问题拦截的最后一道防线。</p>
-<p>本文聚焦一条主线：将质量从“外部检验”转变为“内部设计属性”。</p>
-<p>换句话说，测试的核心目的，是验证“设计是否合理”，而不仅仅是“代码是否正确”。</p>
-<p>进一步说，很多“失败的质量改进”源于<strong>诊断偏差</strong>：把“认知与方法”的问题，错误归因于“态度与能力”。</p>
-<p>我们缺的不是执行的意愿，而是“将质量融入设计”的共同认知框架。</p>
-<p>如果我们仍将测试视为末端闸门，自然会陷入不断增加流程的循环；而当我们把它前置为设计的反馈工具时，团队的创造力才能真正被释放。</p>
-<p>Build Quality In（内建质量）的真正含义是：让软件开发的每一环都交付“自带可验证标准”的成果，而不是将所有风险都积压到最终测试阶段。</p>
-<p>一句话：质量是过程属性，被<strong>设计</strong>出来，不是被<strong>扫</strong>出来。</p>
+<h2 id="引言：为何“质量改进”举步维艰？"><a href="#引言：为何“质量改进”举步维艰？" class="headerlink" title="引言：为何“质量改进”举步维艰？"></a>引言：为何“质量改进”举步维艰？</h2><p>我们或许都经历过类似的场景：团队引入详尽检查清单、严格覆盖率红线与各类扫描工具；数个月后，大家忙于应付流程，质量本身却没有与投入成正比的提升。</p>
+<p>问题往往不在于“执行不力”，而在于我们把质量活动放在了错误的时间与空间：设计已定型之后，测试才被动介入，只能沦为缺陷拦截的末端闸门。</p>
+<p>因此，若测试持续滞后，它只能事后缝补缺陷，而无法及早塑形结构。<strong>本文主线：把质量从“外部检验”迁移为“内部设计属性”。</strong></p>
+<hr>
+<p>测试的核心目的，是验证“设计是否合理”，而不仅仅是“代码是否正确”。</p>
+<p>理解这一点，才解释得通：为什么很多“质量改进”看似动作频繁却收效甚微。</p>
+<p>大量所谓失败的质量改进，其根源是<strong>诊断偏差</strong>：把“认知与方法”的缺口，误判为“态度与能力”的缺陷。</p>
+<p>我们缺的往往不是意愿，而是对“质量必须被前置设计进去”的共识。</p>
+<p>正因为测试目的被误读，我们才会不断叠加流程——模板、检查项、额外审批——却依旧缺乏演进信心。</p>
+<p>把测试前置为设计反馈回路，才能释放团队在结构演化上的创造力。</p>
+<p>Build Quality In（内建质量）的真正含义：每一环节交付的中间产物自带“可验证标准”，而不是把风险挤压到最后一轮集中测试。</p>
+<p>换句话说：质量是过程属性，是<strong>设计</strong>出来的，而不是<strong>扫</strong>出来的。</p>
 <p><img data-src="https://cuipengfei.github.io/picx-images-hosting/20250816/%E7%94%9F%E6%88%90%E8%9E%8D%E5%90%88%E5%9B%BE%E5%83%8F-(1).5xaykpra6p.png" alt="生成融合图像-(1)"></p>
 <hr>
-<h2 id="职责与误解"><a href="#职责与误解" class="headerlink" title="职责与误解"></a>职责与误解</h2><p>测试是开发者的职责，不是 QA 的专属。</p>
-<p>当我们把测试外包出去，在某种程度上等于放弃对代码质量的直接管理权。</p>
-<p>三段常见的认知演进：</p>
+<h2 id="职责重塑：从外包测试到设计内聚"><a href="#职责重塑：从外包测试到设计内聚" class="headerlink" title="职责重塑：从外包测试到设计内聚"></a>职责重塑：从外包测试到设计内聚</h2><p>当质量转化为设计属性，首个需要重构的就是“职责”认知：测试是开发者的职责，不是 QA 的专属。</p>
+<p>当我们把测试外包，就在事实层面放弃了对结构与演进风险的直接控制权。</p>
+<p>团队心智模型常沿着如下梯度演进，决定是否能真正进入“测试即设计”：</p>
 <ol>
 <li>测试是 QA 的事 → 代码能跑就行</li>
 <li>测试是开发的事 → 写完代码补测试</li>
 <li>质量是设计的事 → 用测试驱动设计（Test drives design）</li>
 </ol>
-<p>指标错觉：覆盖率不是质量，“变更信心、缺陷密度、反馈周期”才是更健康的三指标。</p>
-<p>覆盖率 &lt; 语义覆盖。很多 90% 覆盖率的项目依旧“改一处怕全局”，因为它们测的是执行路径，而非“业务承诺”。</p>
+<p>在职责澄清之后，另一高频误区是度量：覆盖率不是质量，“变更信心、缺陷密度、反馈周期”才是更健康的指标。</p>
+<p>所谓行覆盖率远低于“语义覆盖”（即：对外业务契约&#x2F;承诺的可观察行为是否被验证）。</p>
+<p>许多 90% 覆盖率的项目仍“动一处怕全局”，因为它们测的是“执行路径”，而非“业务承诺”。</p>
 <hr>
-<h2 id="设计原则：让复杂业务不制造复杂代码"><a href="#设计原则：让复杂业务不制造复杂代码" class="headerlink" title="设计原则：让复杂业务不制造复杂代码"></a>设计原则：让复杂业务不制造复杂代码</h2><p>核心是“可组合性（Composition）”与“解耦（Decoupling）”。</p>
-<p>它们直接决定了可测试性（Testability）。</p>
-<p>可测试性本身可以看作是优秀设计的一个重要标志——当某段代码”难以被孤立 + 快速断言”时，我们常常面临的不是”缺测试技巧”的问题，而是”设计边界模糊 &#x2F; 依赖隐藏”的挑战。</p>
+<h2 id="设计原则：让复杂业务不制造复杂代码"><a href="#设计原则：让复杂业务不制造复杂代码" class="headerlink" title="设计原则：让复杂业务不制造复杂代码"></a>设计原则：让复杂业务不制造复杂代码</h2><p>为了避免业务复杂度直接沉积为代码复杂度，我们需要两个结构支点：<strong>可组合性（Composition）</strong> 与 <strong>解耦（Decoupling）</strong>。它们直接决定可测试性（Testability）。</p>
+<p>可测试性可以看作优秀设计的副产物——当某段代码“难以被孤立 + 快速断言”时，问题通常不是“不会写测试”，而是“边界模糊 &#x2F; 依赖隐藏”。</p>
 <p><img data-src="https://cuipengfei.github.io/picx-images-hosting/20250816/%E5%9B%BE%E5%83%8F%E7%94%9F%E6%88%90%E6%8F%90%E7%A4%BA%E8%AF%8D.4ub99tvgbv.png" alt="图像生成提示词"></p>
-<h3 id="依赖倒置（DIP）与构造注入"><a href="#依赖倒置（DIP）与构造注入" class="headerlink" title="依赖倒置（DIP）与构造注入"></a>依赖倒置（DIP）与构造注入</h3><p>下面从一个紧耦合的反例切入，再用构造注入展示如何让依赖显式、可替换。</p>
-<p>反例：在组件内部直接创建依赖，紧耦合、难替换、难测。</p>
+<h3 id="依赖倒置（DIP）与构造注入"><a href="#依赖倒置（DIP）与构造注入" class="headerlink" title="依赖倒置（DIP）与构造注入"></a>依赖倒置（DIP）与构造注入</h3><p>先看一个典型“隐式依赖”日常写法，随后用构造注入展示如何让依赖显式、可替换。</p>
+<p>反例（内部直接创建依赖 → 紧耦合、难替换、难测）：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Anti-pattern: 内部创建依赖，紧耦合</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderService</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">PaymentProcessor</span> <span class="variable">paymentProcessor</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PaymentProcessor</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">placeOrder</span><span class="params">(Order order)</span> &#123;</span><br><span class="line">        paymentProcessor.process(order.getPaymentDetails());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>更好：让高层依赖抽象、依赖由外注入。</p>
+<p>改进思路：将依赖抽象（高层仅依赖接口）并交由外部装配（构造注入）。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Better: 构造注入 + 依赖倒置（DIP）</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderService</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> PaymentGateway payment;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Inventory inventory;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Notification notification;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">OrderService</span><span class="params">(PaymentGateway payment, Inventory inventory, Notification notification)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.payment = payment;</span><br><span class="line">        <span class="built_in">this</span>.inventory = inventory;</span><br><span class="line">        <span class="built_in">this</span>.notification = notification;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">processOrder</span><span class="params">(Order order)</span> &#123;</span><br><span class="line">        payment.charge(order.getAmount());</span><br><span class="line">        inventory.reserve(order.getItems());</span><br><span class="line">        notification.sendConfirmation(order.getEmail());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>为什么这能降复杂？因为：</p>
@@ -362,38 +365,40 @@
 <li>可演进：实现可变而接口不变，测试稳定。</li>
 <li>可理解：依赖图显式化，认知负荷更低。</li>
 </ul>
-<p>把对象创建权上移（构造注入）&#x3D; 把“变动点”推到最外围；业务核心越“纯”，测试越“薄”。</p>
+<p>这三点共同把变动半径压缩到装配层。</p>
+<p>把对象创建权上移（构造注入）&#x3D; 将“变动点”推到最外围；业务核心越“纯”，测试越“薄”。</p>
 <p><img data-src="https://cuipengfei.github.io/picx-images-hosting/20250816/%E4%B8%AD%E5%9B%BD%E9%A3%8E%E6%A6%82%E5%BF%B5%E6%8F%92%E7%94%BB.2a5ex6vhn1.png" alt="中国风概念插画"></p>
-<h3 id="薄回调层，隔离框架复杂度"><a href="#薄回调层，隔离框架复杂度" class="headerlink" title="薄回调层，隔离框架复杂度"></a>薄回调层，隔离框架复杂度</h3><p>Controller 只做“转发到业务”的薄层，避免业务深绑框架；业务可在纯代码环境下独立测试。<br>简例：</p>
+<h3 id="薄回调层，隔离框架复杂度"><a href="#薄回调层，隔离框架复杂度" class="headerlink" title="薄回调层，隔离框架复杂度"></a>薄回调层，隔离框架复杂度</h3><p>完成对象级依赖显式化后，第二类常见耦合源是“框架侵入业务”。策略：让 Controller 仅做“协议&#x2F;IO → 领域调用”转发，避免领域逻辑渗入框架层，使业务在纯 Java 环境下即可单测。</p>
+<p>简例：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Spring Controller</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">OrderController</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> OrderApplicationService app; <span class="comment">// 纯业务服务</span></span><br><span class="line">  OrderController(OrderApplicationService app)&#123;<span class="built_in">this</span>.app = app;&#125;</span><br><span class="line">  <span class="meta">@PostMapping(&quot;/orders&quot;)</span></span><br><span class="line">  <span class="keyword">public</span> OrderDTO <span class="title function_">place</span><span class="params">(<span class="meta">@RequestBody</span> OrderDTO dto)</span>&#123;<span class="keyword">return</span> app.place(dto.toDomain()).toDTO();&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 纯业务（无框架依赖，可直接 new + 单元测试）</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderApplicationService</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> OrderService domain;</span><br><span class="line">  <span class="keyword">public</span> <span class="title function_">OrderApplicationService</span><span class="params">(OrderService domain)</span>&#123;<span class="built_in">this</span>.domain = domain;&#125;</span><br><span class="line">  <span class="keyword">public</span> Order <span class="title function_">place</span><span class="params">(Order order)</span>&#123;<span class="keyword">return</span> domain.process(order);&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>测试时只 new <code>OrderApplicationService</code> + Fake 依赖即可，无需启动 Spring。框架层的测试再用少量集成测试覆盖即可。</p>
-<h3 id="少依赖-verify，多验证结果"><a href="#少依赖-verify，多验证结果" class="headerlink" title="少依赖 verify，多验证结果"></a>少依赖 verify，多验证结果</h3><p>“验证是否调用了某内部方法”的测试，会将测试用例与实现细节紧紧绑死，任何内部重构都可能导致测试失效。</p>
-<p>正确的做法是，基于“公共接口的可观察结果或状态变化”进行断言。</p>
+<p>测试时只需 <code>new OrderApplicationService</code> + Fake 依赖，无需启动 Spring。框架适配用少量集成测试覆盖外围即可。</p>
+<h3 id="减少-verify-依赖，回到可观察结果"><a href="#减少-verify-依赖，回到可观察结果" class="headerlink" title="减少 verify 依赖，回到可观察结果"></a>减少 verify 依赖，回到可观察结果</h3><p>减少脆弱测试的关键，不是写更精巧的 <code>verify</code>，而是回到“可观察结果 &#x2F; 状态改变”本身。</p>
+<p>否则测试与内部调用序列耦合，将在正常重构时碎裂。</p>
+<p>正确做法：基于公共接口的可观察结果或状态变化断言。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误聚焦：实现细节</span></span><br><span class="line">verify(paymentClient, times(<span class="number">1</span>)).charge(any());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 正确聚焦：业务行为</span></span><br><span class="line">orderService.processOrder(order);</span><br><span class="line">assertThat(order.getStatus()).isEqualTo(PROCESSED);</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="测试焦点：接口行为-内部实现"><a href="#测试焦点：接口行为-内部实现" class="headerlink" title="测试焦点：接口行为 &gt; 内部实现"></a>测试焦点：接口行为 &gt; 内部实现</h2><ul>
-<li>测什么：组件对外的承诺（状态、返回值、对外交互），而不是它“怎么做”。</li>
-<li>好处：重构自由度大、测试更稳定、设计更抽象。</li>
-<li>经验法则：能用一个 Given-When-Then 讲清楚的场景，就不要写“调用序列监视”的测试。</li>
+<h2 id="测试焦点：以对外行为契约取代内部调用序列"><a href="#测试焦点：以对外行为契约取代内部调用序列" class="headerlink" title="测试焦点：以对外行为契约取代内部调用序列"></a>测试焦点：以对外行为契约取代内部调用序列</h2><ul>
+<li>测什么：组件对外的行为契约（状态、返回值、对外交互语义），而不是它“怎么做”。</li>
+<li>好处：重构自由度大、测试稳定、设计抽象度更高。</li>
+<li>经验法则：能用一个 Given-When-Then 讲清楚的场景，就不要写“调用序列监视”。</li>
 </ul>
 <p>示例（BDD&#x2F;SbE）：</p>
 <figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Feature</span>: 订单处理</span><br><span class="line">  <span class="keyword">Scenario</span>: 成功处理有效订单</span><br><span class="line">    <span class="keyword">Given</span> 用户有一个包含商品的订单</span><br><span class="line">    <span class="keyword">When</span> 用户提交订单</span><br><span class="line">    <span class="keyword">Then</span> 订单状态为“已处理”</span><br><span class="line">    <span class="keyword">And</span> 用户收到确认邮件</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>“行为测试”好比：下单后我看结果——订单状态变了、邮件发了。</li>
-<li>“实现细节测试”好比：我盯着服务内部是不是“正好调用了 X 方法一次”。后者一旦内部重构（比如拆成两个方法）就会碎。<br>入门策略：先列“这个功能对外可观察的 1~3 个结果”，测试里只断言这些结果；只有当结果无法直接观察时再考虑使用 <code>verify</code>。</li>
-</ul>
+<p>“行为测试”好比：下单后只看结果——订单状态改变、邮件发送完成；“实现细节测试”好比：盯内部是否“恰好调用 X 一次”，一旦内部重构（拆分、合并、缓存）测试就会挂。</p>
+<p>列出该功能对外可观察的 1~3 个结果，测试只断言这些；仅当结果不可直接观察时，再退而使用 <code>verify</code>。</p>
+<p>这是前文所称“语义覆盖”的具体化——验证承诺，而非执行路径。</p>
 <p><img data-src="https://cuipengfei.github.io/picx-images-hosting/20250816/%E5%9B%BE%E5%83%8F%E7%94%9F%E6%88%90%E6%8F%90%E7%A4%BA%E8%AF%8D-(1).1lc5d67ync.png" alt="图像生成提示词-(1)"></p>
 <hr>
-<h2 id="质量度量：从数字走向信心"><a href="#质量度量：从数字走向信心" class="headerlink" title="质量度量：从数字走向信心"></a>质量度量：从数字走向信心</h2><p>替换“覆盖率崇拜”：</p>
+<h2 id="质量度量：从数字走向信心"><a href="#质量度量：从数字走向信心" class="headerlink" title="质量度量：从数字走向信心"></a>质量度量：从数字走向信心</h2><p>回到先前的覆盖率错觉，我们需要以“交付风险信号”替换单一数字崇拜：</p>
 <ul>
 <li>变更信心：修改后能否立即部署？</li>
 <li>缺陷密度：每千行缺陷数随时间下降？</li>
 <li>反馈周期：提交到发现问题的时间足够短？</li>
 </ul>
-<p>这些指标直接反映测试是否在“护航设计”，而非堆数字。</p>
+<p>这些指标直接反映测试是否在“护航设计”（支撑演进信心），而不仅是堆数字。</p>
 <p>层次补充（避免“一把梭”）：</p>
 <ul>
 <li>单元测试：纯领域 &#x2F; 规则（最快，失败定位最精确）。</li>
@@ -401,6 +406,11 @@
 <li>端到端冒烟：关键业务旅程“有没有坏”。</li>
 </ul>
 <p>测试金字塔倒置（过度依赖系统&#x2F;端到端测试堆砌）通常反映的是”可测试性设计缺席”的现象，而不仅仅是”尚未补齐测试数量”的问题。</p>
+<h3 id="快速回顾（Recap）"><a href="#快速回顾（Recap）" class="headerlink" title="快速回顾（Recap）"></a>快速回顾（Recap）</h3><p>我们改变了什么：测试位置（后置 → 前置反馈）、职责心智（外包 → 设计内聚）。</p>
+<p>我们采用什么结构支点：依赖倒置 + 可组合边界 + 薄框架适配层。</p>
+<p>我们设计什么测试：行为契约 &#x2F; 语义覆盖，减少 verify 依赖。</p>
+<p>我们用什么信号验证：变更信心、缺陷密度、反馈周期。</p>
+<p>这些拼合成“一条最小闭环”：结构可组合 → 行为可观察 → 度量可反馈。</p>
 <hr>
 <h2 id="延伸与反思"><a href="#延伸与反思" class="headerlink" title="延伸与反思"></a>延伸与反思</h2><p>几点可内化的”对照思考”：</p>
 <ol>
@@ -408,16 +418,17 @@
 <li>主要成本在修改：每次改动如果都需要”开启多人口头同步”才能放心发布，通常说明缺少可验证的自动化回归测试集。测试可以看作是摊平未来修改成本的”前置投资”。</li>
 <li>设计是持续活动：每加入一个特性，都值得重新检视”依赖是否最小化””边界是否清晰”以及”关键行为是否能被直接测试”。</li>
 <li>测试是一把尺：当你犹豫“是否需要抽象”时，可以问自己——这个抽象是否让关键行为的测试表达更短、更清晰？如果是，那么这个抽象通常是正确的方向。</li>
-<li>认知惯性 ≠ 技术难点：很多开发者感觉”写测试浪费时间”，这可能源于对”前置投入换取未来变更自由”这一逆直觉收益模型的天然抗拒。识别到这是”认知惯性”而非”技术局限”后，可以通过”小步展示节省的回归与调试时间”来逐步建立共识。</li>
+<li>认知惯性 ≠ 技术难点：很多开发者感觉”写测试浪费时间”，往往是对“前置投入换取未来自由”这一逆直觉收益模型的抗拒。识别到这只是惯性后，可用“小步演示削减回归&#x2F;调试时间”建立共识。</li>
 </ol>
+<p>这些对照共同指向：让测试成为持续设计校准机制，而非末端裁决。</p>
 <hr>
 <p><img data-src="https://cuipengfei.github.io/picx-images-hosting/20250816/%E7%94%9F%E6%88%90%E8%9E%8D%E5%90%88%E5%9B%BE%E5%83%8F.8adl1x53f7.png" alt="生成融合图像"></p>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>把测试从“末端审判”变成“设计工具”，把质量从“外部检查”变成“内部属性”。</p>
-<p>当我们用可组合的设计、行为导向的测试和清晰的验收标准把质量内建进去，复杂业务也能产出“平平无奇”的高质量代码。</p>
-<p>最后留一个自检问题（供回到代码前快速扫一眼）：</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>把测试从“末端审判”变成“设计工具”，把质量从“外部检查”变成“内部属性”。当我们用可组合设计、行为契约测试与清晰验收标准内建质量，复杂业务也能产出“平平无奇”且稳定可演进的代码。</p>
+<p>将全文抽象为一个快速自检:</p>
 <blockquote>
-<p>当前这次改动，如果我删掉所有 <code>verify</code> 调用，只保留对最终结果的断言，测试是否仍然能够清晰地表达业务意图？如果答案是否定的，那么我可能仍旧在测试实现细节，而非设计契约。</p>
+<p>当前这次改动，如果我删掉所有 <code>verify</code> 调用，只保留对最终结果（状态&#x2F;返回值&#x2F;对外交互）的断言，测试是否仍清晰表达业务意图？若否，请回溯：依赖是否显式？行为是否可观察？测试是否覆盖契约而非路径？</p>
 </blockquote>
+<p>若三个答案逐一补齐，质量就已在设计层被“写进去”。</p>
 <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css"><script src="https://fastly.jsdelivr.net/npm/d3@7"></script><script src="https://fastly.jsdelivr.net/npm/markmap-view@0.18.10"></script><script src="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10"></script>
 <link rel="stylesheet" href="/css/markmap.css">
 
