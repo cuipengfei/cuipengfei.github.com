@@ -5,5 +5,5 @@
       "Bash(bun run deploy)"
     ]
   },
-  "outputStyle": "Explanatory"
+  "outputStyle": "default"
 }
