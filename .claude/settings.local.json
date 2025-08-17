@@ -2,7 +2,13 @@
   "permissions": {
     "allow": [
       "Bash(bun run build)",
-      "Bash(bun run deploy)"
+      "Bash(bun run deploy)",
+      "Bash(cat:*)",
+      "Bash(claude_switch:*)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\39764",
+      "D:\\c\\Users\\39764"
     ]
   },
   "outputStyle": "default"
