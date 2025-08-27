@@ -6,6 +6,8 @@ tags: [AI Agent, Multi-Agent, RAG, Prompt Engineering, Cline]
 
 > 在 Cline 构建 AI agent 的过程中，我们发现最危险的想法不是那些显而易见的坏主意，而是那些在理论上听起来很棒但在实践中却失败的诱人想法。
 
+![诱人陷阱](https://cline.ghost.io/content/images/2025/08/u9318423161_tempting_trap_interpreted_in_nature_in_the_style__26705fd3-2f3e-430c-a10d-aae540aa1853_2-1.png)
+
 ## 引言
 
 在 Cline 构建 AI agent 的过程中，我们发现最危险的想法不是那些显而易见的坏主意，而是那些在理论上听起来很棒但在实践中却失败的诱人想法。这些"思维病毒"已经感染了整个行业，浪费了数百万工程时间，并将团队引向架构死胡同。
@@ -32,6 +34,12 @@ _"Agent 系统中错误的复合性质意味着传统软件的小问题可能会
 
 例如，主 agent 线程生成几个子 agent 并行读取文件的情况。或者，你可能会使用子 agent 执行像从网络获取数据这样的琐碎任务。但这些大部分本质上与进行并行工具调用相同，所以我甚至不确定这是否符合"真正的"多智能体编排。
 
+![多智能体微服务架构](https://cline.ghost.io/content/images/2025/08/image-27.png)
+
+*来源：[AI Agents are Microservices with Brains](https://seanfalconer.medium.com/ai-agents-are-microservices-with-brains-ccb42d1504d7)*
+
+![多智能体系统](https://cline.ghost.io/content/images/2025/08/image-33.png)
+
 ---
 
 ## (2) RAG (Retrieval Augmented Generation)
@@ -39,6 +47,8 @@ _"Agent 系统中错误的复合性质意味着传统软件的小问题可能会
 RAG 是另一个诱人的陷阱，延续自上下文窗口较小的时代，当时给你的 agent 查询"整个代码库"的能力感觉很诱人。但 RAG 的炒作并没有转化为实际的编码 agent 工作流，因为它经常产生分散的代码，而没有为模型提供任何真正的"上下文理解"。它在纸面上看起来很强大，但在实践中，即使是像 GREP 这样简单的东西也能工作得更好，特别是对于 agent。
 
 agent 列出文件、用 grep 搜索它们，然后打开并阅读整个文件，就像人类会做的那样，这几乎总是更好的。Cline 从一开始就设定了这种方法的标准，并且此后定义了元标准，Amp Code 和 Cursor 都跟随了这种做法。
+
+![RAG介绍](https://cline.ghost.io/content/images/2025/08/image-32.png)
 
 **RAG 和简单/复杂 RAG 介绍**
 
@@ -49,6 +59,10 @@ agent 列出文件、用 grep 搜索它们，然后打开并阅读整个文件�
 ## (3) 更多指令 = 更好结果
 
 认为在系统提示中堆叠越来越多的"指令"会让模型更聪明的神话是完全错误的。过载提示只会混淆模型，因为额外的指令经常冲突并产生噪音。你最终会在行为上打地鼠，而不是获得有用的输出。对于今天的大多数前沿模型，最好退一步让它们工作，而不是通过提示不断对它们吼叫。仔细衡量你的用词。
+
+![信号与噪声](https://cline.ghost.io/content/images/2025/08/image-31.png)
+
+*来源：[Signal vs. Noise](https://nolongerset.com/signal-vs-noise/)*
 
 **信号 vs. 噪声**
 
