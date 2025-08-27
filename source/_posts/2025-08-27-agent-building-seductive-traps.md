@@ -24,19 +24,19 @@ tags: [AI Agent, Multi-Agent, RAG, Prompt Engineering, Cline]
 
 ## (1) Multi-Agent Orchestration
 
-那种科幻电影般的 agent 愿景——'后勤 agent、分片 agent、分析器 agent、编排器 agent'——听起来确实很酷，派出一群子 agent 然后整合它们的结果。但现实是：大部分有用的 agent 工作其实都是单线程的。
+那种科幻电影般的 agent 愿景——'rear agent、quarter agent、analyzer agent、orchestrator agent'——听起来确实很酷，派出一群子 agent 然后整合它们的结果。但现实是：大部分有用的 agent 工作其实都是单线程的。
 
 目前多智能体系统的最大突破来自 Anthropic，但就连他们也坦言，构建和调教多个 agent 是[极其困难的](https://www.anthropic.com/engineering/multi-agent-research-system)。他们的团队这样说：
 
 _"Agent 系统中的错误会叠加放大，传统软件里的小毛病到了这里可能让整个 agent 彻底偏轨。一步走错，agent 就可能走上完全不同的路径，结果变得完全不可预测。基于我们文章中提到的种种原因，从原型到生产的鸿沟往往比想象中要大得多。"_
 
-当然，我们也不是完全否定多 agent 方案。对于一些小而具体的用例，用些功能有限的子 agent 还是挺合理的。
-
-比如说，主 agent 线程创建几个子 agent 来并行读取文件。或者用子 agent 来处理从网络抓取数据这种简单任务。但说白了，这些跟并行调用工具没什么本质区别，我甚至怀疑这算不算得上"真正的"多智能体编排。
-
 ![多智能体微服务架构](https://cline.ghost.io/content/images/2025/08/image-27.png)
 
 _来源：[AI Agents are Microservices with Brains](https://seanfalconer.medium.com/ai-agents-are-microservices-with-brains-ccb42d1504d7)_
+
+当然，我们也不是完全否定多 agent 方案。对于一些小而具体的用例，用些功能有限的子 agent 还是挺合理的。
+
+比如说，主 agent 线程创建几个子 agent 来并行读取文件。或者用子 agent 来处理从网络抓取数据这种简单任务。但说白了，这些跟并行调用工具没什么本质区别，我甚至怀疑这算不算得上"真正的"多智能体编排。
 
 ![多智能体系统](https://cline.ghost.io/content/images/2025/08/image-33.png)
 

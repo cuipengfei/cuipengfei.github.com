@@ -6,7 +6,8 @@
       "Bash(cat:*)",
       "Bash(claude_switch:*)",
       "WebFetch(domain:cline.bot)",
-      "Bash(curl -s \"https://cline.bot/blog/3-seductive-traps-in-agent-building\")"
+      "Bash(curl -s \"https://cline.bot/blog/3-seductive-traps-in-agent-building\")",
+      "Bash(grep -n \"image-2[7923]\\.png\\|image-3[123]\\.png\" original_article.html)"
     ],
     "additionalDirectories": [
       "C:\\Users\\39764",
