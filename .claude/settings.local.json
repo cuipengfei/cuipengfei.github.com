@@ -4,7 +4,9 @@
       "Bash(bun run build)",
       "Bash(bun run deploy)",
       "Bash(cat:*)",
-      "Bash(claude_switch:*)"
+      "Bash(claude_switch:*)",
+      "WebFetch(domain:cline.bot)",
+      "Bash(curl -s \"https://cline.bot/blog/3-seductive-traps-in-agent-building\")"
     ],
     "additionalDirectories": [
       "C:\\Users\\39764",
