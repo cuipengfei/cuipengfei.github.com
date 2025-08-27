@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous" defer></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.24.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"galactic"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="在构建 Cline AI agent 的过程中，我们发现最危险的不是那些一眼就能看出来的坏想法，而是那些理论上听起来完美、实践中却一败涂地的诱人陷阱。   引言在 Cline 构建 AI agent 的征程中，我们发现最危险的其实不是那些一眼就能识破的馊主意，而是那些理论上完美无缺、实践中却惨败收场的”陷阱”。这些思维病毒早已蔓延整个行业，吞噬了数百万工程师小时，把一个又一个团队拖进了架构死胡同">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Agent 构建中的三个诱人陷阱">
+<meta property="og:url" content="https://cuipengfei.me/blog/2025/08/27/agent-building-seductive-traps/index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="在构建 Cline AI agent 的过程中，我们发现最危险的不是那些一眼就能看出来的坏想法，而是那些理论上听起来完美、实践中却一败涂地的诱人陷阱。   引言在 Cline 构建 AI agent 的征程中，我们发现最危险的其实不是那些一眼就能识破的馊主意，而是那些理论上完美无缺、实践中却惨败收场的”陷阱”。这些思维病毒早已蔓延整个行业，吞噬了数百万工程师小时，把一个又一个团队拖进了架构死胡同">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cline.ghost.io/content/images/2025/08/u9318423161_tempting_trap_interpreted_in_nature_in_the_style__26705fd3-2f3e-430c-a10d-aae540aa1853_2-1.png">
+<meta property="og:image" content="https://cline.ghost.io/content/images/2025/08/image-27.png">
+<meta property="og:image" content="https://cline.ghost.io/content/images/2025/08/image-33.png">
+<meta property="og:image" content="https://cline.ghost.io/content/images/2025/08/image-32.png">
+<meta property="og:image" content="https://cline.ghost.io/content/images/2025/08/image-31.png">
+<meta property="article:published_time" content="2025-08-27T02:00:00.000Z">
+<meta property="article:modified_time" content="2025-08-27T02:00:00.000Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="AI Agent">
+<meta property="article:tag" content="Multi-Agent">
+<meta property="article:tag" content="RAG">
+<meta property="article:tag" content="Prompt Engineering">
+<meta property="article:tag" content="Cline">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cline.ghost.io/content/images/2025/08/u9318423161_tempting_trap_interpreted_in_nature_in_the_style__26705fd3-2f3e-430c-a10d-aae540aa1853_2-1.png">
+
+
+<link rel="canonical" href="https://cuipengfei.me/blog/2025/08/27/agent-building-seductive-traps/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2025/08/27/agent-building-seductive-traps/","path":"blog/2025/08/27/agent-building-seductive-traps/","title":"Agent 构建中的三个诱人陷阱"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Agent 构建中的三个诱人陷阱 | 崔鹏飞的Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/pjax.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.9.0/mermaid.min.js","integrity":"sha256-Cz7UN0EXNjgV2u/a38wg/3BNfdRRO1XtgDq93L2GqJg="}}</script>
+  <script src="/js/third-party/tags/mermaid.js" defer></script>
+
+
+
+  <script src="/js/third-party/pace.js" defer></script>
+
+
+  
+
+
+
+
+<script data-ad-client="ca-pub-2529393324217872" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2529393324217872"></script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">崔鹏飞的Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Multi-Agent-Orchestration"><span class="nav-number">2.</span> <span class="nav-text">(1) Multi-Agent Orchestration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-RAG-Retrieval-Augmented-Generation"><span class="nav-number">3.</span> <span class="nav-text">(2) RAG (Retrieval Augmented Generation)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%8C%87%E4%BB%A4%E8%B6%8A%E5%A4%9A-%E6%95%88%E6%9E%9C%E8%B6%8A%E5%A5%BD"><span class="nav-number">4.</span> <span class="nav-text">(3) 指令越多 &#x3D; 效果越好</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">5.</span> <span class="nav-text">结论</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">180</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener me" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2025/08/27/agent-building-seductive-traps/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Agent 构建中的三个诱人陷阱 | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Agent 构建中的三个诱人陷阱
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-08-27 10:00:00" itemprop="dateCreated datePublished" datetime="2025-08-27T10:00:00+08:00">2025-08-27</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2025/08/27/agent-building-seductive-traps/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2025/08/27/agent-building-seductive-traps/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>在构建 Cline AI agent 的过程中，我们发现最危险的不是那些一眼就能看出来的坏想法，而是那些理论上听起来完美、实践中却一败涂地的诱人陷阱。</p>
+</blockquote>
+<p><img data-src="https://cline.ghost.io/content/images/2025/08/u9318423161_tempting_trap_interpreted_in_nature_in_the_style__26705fd3-2f3e-430c-a10d-aae540aa1853_2-1.png" alt="诱人陷阱"></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在 Cline 构建 AI agent 的征程中，我们发现最危险的其实不是那些一眼就能识破的馊主意，而是那些理论上完美无缺、实践中却惨败收场的”陷阱”。这些思维病毒早已蔓延整个行业，吞噬了数百万工程师小时，把一个又一个团队拖进了架构死胡同。</p>
+<p>以下是我们见过的三大最常见陷阱：</p>
+<ol>
+<li><strong>Multi-Agent Orchestration</strong>（多智能体编排）</li>
+<li><strong>RAG (Retrieval Augmented Generation)</strong> 索引代码库</li>
+<li><strong>指令越多 &#x3D; 效果越好</strong></li>
+</ol>
+<blockquote>
+<p><strong>[译者注]</strong> 技术名词保持英文便于检索。RAG 在国内常被直译为”检索增强生成”，但工程实践中仍以英文为主。</p>
+</blockquote>
+<p>咱们一个个来看！</p>
+<hr>
+<h2 id="1-Multi-Agent-Orchestration"><a href="#1-Multi-Agent-Orchestration" class="headerlink" title="(1) Multi-Agent Orchestration"></a>(1) Multi-Agent Orchestration</h2><p>那种科幻电影般的 agent 愿景——‘rear agent、quarter agent、analyzer agent、orchestrator agent’——听起来确实很酷，派出一群子 agent 然后整合它们的结果。但现实是：大部分有用的 agent 工作其实都是单线程的。</p>
+<p>目前多智能体系统的最大突破来自 Anthropic，但就连他们也坦言，构建和调教多个 agent 是<a target="_blank" rel="noopener" href="https://www.anthropic.com/engineering/multi-agent-research-system">极其困难的</a>。他们的团队这样说：</p>
+<p><em>“Agent 系统中的错误会叠加放大，传统软件里的小毛病到了这里可能让整个 agent 彻底偏轨。一步走错，agent 就可能走上完全不同的路径，结果变得完全不可预测。基于我们文章中提到的种种原因，从原型到生产的鸿沟往往比想象中要大得多。”</em></p>
+<blockquote>
+<p><strong>[译者注]</strong> 这段话点出了多 agent 系统的核心困境：错误放大效应。在分布式系统设计中，这被称为”故障级联”。</p>
+</blockquote>
+<p><img data-src="https://cline.ghost.io/content/images/2025/08/image-27.png" alt="多智能体微服务架构"></p>
+<p><em>来源：<a target="_blank" rel="noopener" href="https://seanfalconer.medium.com/ai-agents-are-microservices-with-brains-ccb42d1504d7">AI Agents are Microservices with Brains</a></em></p>
+<p>当然，我们也不是完全否定多 agent 方案。对于一些小而具体的用例，用些功能有限的子 agent 还是挺合理的。</p>
+<p>比如说，主 agent 线程创建几个子 agent 来并行读取文件。或者用子 agent 来处理从网络抓取数据这种简单任务。但说白了，这些跟并行调用工具没什么本质区别，我甚至怀疑这算不算得上”真正的”多智能体编排。</p>
+<p><img data-src="https://cline.ghost.io/content/images/2025/08/image-33.png" alt="多智能体系统"></p>
+<hr>
+<h2 id="2-RAG-Retrieval-Augmented-Generation"><a href="#2-RAG-Retrieval-Augmented-Generation" class="headerlink" title="(2) RAG (Retrieval Augmented Generation)"></a>(2) RAG (Retrieval Augmented Generation)</h2><p>RAG 是另一个诱人的坑。这个概念延续自上下文窗口还很小的时代，那时候给 agent 提供查询”整个代码库”的能力确实很有吸引力。但 RAG 的炒作并没有转化为实际可用的编码 agent 工作流，因为它经常会产生零散的代码片段，完全无法为模型提供真正的”上下文理解”。纸面上看起来很强大，但实际上，就连 GREP 这样的简单工具都比它好用，特别是对 agent 来说。</p>
+<p>让 agent 像人类一样工作——列出文件、用 grep 搜索、然后打开完整的文件来阅读——这样的效果几乎总是更好。Cline 从一开始就确立了这套方法的标准，后来 Amp Code 和 Cursor 都跟着采用了这种做法。</p>
+<p><img data-src="https://cline.ghost.io/content/images/2025/08/image-32.png" alt="RAG介绍"></p>
+<p><strong>RAG 及其复杂变种介绍</strong></p>
+<p>大多数公司最初都选择了向量数据库，因为 2023 年那些”与代码聊天”的 VS Code 扩展刚出现时，模型只有 8,092 个 token 的上下文窗口，所以每一行进入模型的代码都必须精心挑选。那时候这样做确实说得通，这也解释了为什么那么多基础设施和热钱涌入了向量数据库公司，有些公司甚至筹集了数亿美元，比如 <a target="_blank" rel="noopener" href="https://www.pinecone.io/">Pinecone</a>。但 Cline 于 2024 年 7 月发布时，当时领先的编码模型是拥有 200K token 上下文窗口的 Claude 3.5 Sonnet，所以它从来没有受到需要拼接无关上下文片段的限制。</p>
+<blockquote>
+<p><strong>[译者注]</strong> 从 8K 到 200K 的上下文窗口跨越是个分水岭。这个时间差导致了技术路径的根本性分歧。</p>
+</blockquote>
+<hr>
+<h2 id="3-指令越多-效果越好"><a href="#3-指令越多-效果越好" class="headerlink" title="(3) 指令越多 &#x3D; 效果越好"></a>(3) 指令越多 &#x3D; 效果越好</h2><p>觉得在系统提示里堆砌越来越多”指令”就能让模型变聪明？这完全是个错误观念。过载的提示只会把模型搞糊涂，因为额外的指令经常会相互冲突，产生噪音。最后你只是在行为上打地鼠，而不是获得有用的输出。对今天的大多数前沿模型来说，最好是退一步让它们自己发挥，而不是通过提示不断对它们大吼大叫。措辞要仔细斟酌。</p>
+<p><img data-src="https://cline.ghost.io/content/images/2025/08/image-31.png" alt="信号与噪声"></p>
+<p><em>来源：<a target="_blank" rel="noopener" href="https://nolongerset.com/signal-vs-noise/">Signal vs. Noise</a></em></p>
+<p><strong>信号 vs. 噪声</strong></p>
+<p>Cline 在 2024 年中期发布时，Sonnet 3.5 是当时的顶级模型，那个时候用大量示例和想法填充提示确实有意义。但当 Sonnet 4 系列出现时，这套方法彻底失效了，其他所有 agent 系统也跟着翻车。经过反复测试，我们意识到核心问题：指令太多会产生矛盾，矛盾会产生混乱。</p>
+<p>新一代前沿模型——Claude 4、Gemini 2.5 和 GPT-5——在遵循简洁指令方面要强得多。它们不需要长篇大论，它们需要的是最精炼的内容。这就是新的现实。</p>
+<blockquote>
+<p><strong>[译者注]</strong> 这一观察与软件设计原则不谋而合：KISS (Keep It Simple, Stupid)。模型能力的提升反而要求我们做减法。</p>
+</blockquote>
+<hr>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>多智能体编排、RAG 和塞满内容的提示在纸面上看起来很诱人，但没有一个能在真正的开发工作流中存活下来。真正获胜的 agent 是那些拥抱简单性的：像开发者一样阅读代码，相信模型的能力，让路走得通畅。</p>
+<p>虽然整个行业还在追逐架构上的复杂性，但基本面已经发生了根本转变。少即是多，清晰胜过聪明，最好的 AI agent 往往是最简单的。</p>
+<blockquote>
+<p><strong>[译者注]</strong> 复杂性往往是解决方案的敌人，而非朋友。在 AI 工程化的道路上，保持理性比追逐热点更重要。</p>
+</blockquote>
+<p><strong>— Ara</strong></p>
+<p><em>让你的工程团队拥有一个完全协作的 AI 搭档。开源、完全可扩展，专为放大开发者影响力而设计。</em></p>
+<hr>
+<blockquote>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://cline.bot/blog/3-seductive-traps-in-agent-building">3 Seductive Traps in Agent Building</a><br>作者：Ara Khan (@arafatkkatze)<br>发布日期：2025 年 8 月 26 日</p>
+</blockquote>
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css"><script src="https://fastly.jsdelivr.net/npm/d3@7"></script><script src="https://fastly.jsdelivr.net/npm/markmap-view@0.18.10"></script><script src="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10"></script>
+<link rel="stylesheet" href="/css/markmap.css">
+
+<script src="/js/markmap.js"></script>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://cuipengfei.me/blog/2025/08/27/agent-building-seductive-traps/" title="Agent 构建中的三个诱人陷阱">https://cuipengfei.me/blog/2025/08/27/agent-building-seductive-traps/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/AI-Agent/" rel="tag"><i class="fa fa-tag"></i> AI Agent</a>
+              <a href="/tags/Multi-Agent/" rel="tag"><i class="fa fa-tag"></i> Multi-Agent</a>
+              <a href="/tags/RAG/" rel="tag"><i class="fa fa-tag"></i> RAG</a>
+              <a href="/tags/Prompt-Engineering/" rel="tag"><i class="fa fa-tag"></i> Prompt Engineering</a>
+              <a href="/tags/Cline/" rel="tag"><i class="fa fa-tag"></i> Cline</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2025/08/10/build-quality-in-test-as-design/" rel="prev" title="把质量内建进设计：从“测试是负担”到“测试即设计”">
+                  <i class="fa fa-angle-left"></i> 把质量内建进设计：从“测试是负担”到“测试即设计”
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">394k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js" defer></script>
+
+</body>
+</html>

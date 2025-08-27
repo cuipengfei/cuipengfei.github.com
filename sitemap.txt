@@ -1,3 +1,4 @@
+https://cuipengfei.me/blog/2025/08/27/agent-building-seductive-traps/
 https://cuipengfei.me/blog/2025/08/10/build-quality-in-test-as-design/
 https://cuipengfei.me/blog/2025/07/30/verify/
 https://cuipengfei.me/blog/2025/07/21/folo-wewe-rss/
@@ -255,6 +256,11 @@ https://cuipengfei.me/tags/TDD/
 https://cuipengfei.me/tags/BDD/
 https://cuipengfei.me/tags/Dependency-Inversion/
 https://cuipengfei.me/tags/Composition/
+https://cuipengfei.me/tags/AI-Agent/
+https://cuipengfei.me/tags/Multi-Agent/
+https://cuipengfei.me/tags/RAG/
+https://cuipengfei.me/tags/Prompt-Engineering/
+https://cuipengfei.me/tags/Cline/
 https://cuipengfei.me/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/
 https://cuipengfei.me/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/AI/
 https://cuipengfei.me/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/AI/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/
