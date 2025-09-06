@@ -24,7 +24,7 @@
         "hexo-renderer-stylus": "^3.0.1",
         "hexo-server": "^3.0.0",
         "hexo-symbols-count-time": "^0.7.1",
-        "hexo-theme-next": "^8.24.1",
+        "hexo-theme-next": "^8.25.0",
         "markdown-link-extractor": "^4.0.2",
       },
     },
@@ -490,7 +490,7 @@
 
     "hexo-symbols-count-time": ["hexo-symbols-count-time@0.7.1", "", { "dependencies": { "hexo-util": "1.9.0" } }, "sha512-Zw19uxRIT/3VCvMQytG6HfBJc/IvfFJYui8cg6vyFAtDxkPOoZ1UlsPjrBRXYAqO6VjLc/vRi+Jthj38pKNPlw=="],
 
-    "hexo-theme-next": ["hexo-theme-next@8.24.1", "", {}, "sha512-DTa+umV5XTDa8XEtiLkaKDzgHqlnrj5HXi+6auI690TJdbIULm9sgaUQFkriDr2jeeGQDUV4ptsvgTTRaZjiGw=="],
+    "hexo-theme-next": ["hexo-theme-next@8.25.0", "", {}, "sha512-ZboBoswarJAjGKnQxtepD3ZaOYJAQFj+SaIL8l7w/FcDZpqFPeBerVd861YMujQW4XRHiREh+dEjdJQeArhvkg=="],
 
     "hexo-util": ["hexo-util@3.3.0", "", { "dependencies": { "camel-case": "^4.1.2", "cross-spawn": "^7.0.3", "deepmerge": "^4.2.2", "highlight.js": "^11.6.0", "htmlparser2": "^9.0.0", "prismjs": "^1.29.0", "strip-indent": "^3.0.0" } }, "sha512-YvGngXijE2muEh5L/VI4Fmjqb+/yAkmY+VuyhWVoRwQu1X7bmWodsfYRXX7CUYhi5LqsvH8FAe/yBW1+f6ZX4Q=="],
 
