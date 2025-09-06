@@ -6,6 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a personal Chinese tech blog (cuipengfei.me) that has evolved from Octopress/Jekyll to Hexo. The site covers software development topics including Scala, functional programming, testing methodologies, and architecture patterns.
 
+**Important**: This project uses Bun as the package manager, not npm. Always use `bun` commands instead of `npm`.
+
 ## Architecture
 
 ### Dual Static Site Generators
@@ -23,22 +25,22 @@ This is a personal Chinese tech blog (cuipengfei.me) that has evolved from Octop
 
 ## Development Commands
 
-### Hexo (Current System)
+### Hexo (Current System) - 使用 Bun
 ```bash
 # Install dependencies
-npm install
+bun install
 
 # Clean generated files
-npm run clean
+bun run clean
 
 # Generate static site
-npm run build
+bun run build
 
-# Start development server
-npm run server
+# Start development server (default: http://localhost:4000)
+bun run server
 
-# Deploy to GitHub Pages
-npm run deploy
+# Deploy to GitHub Pages (master branch)
+bun run deploy
 ```
 
 ### Legacy Octopress Commands (Ruby/Rake)
@@ -65,15 +67,19 @@ rake new_page["Page Name"]
 ## Configuration
 
 ### Hexo Configuration
-- `_config.yml`: Main Hexo configuration
-- `_config.next.yml`: NexT theme configuration
+- `_config.yml`: Main Hexo configuration (v7.3.0)
+- `_config.next.yml`: NexT theme configuration (override: false)
 - Site URL: `https://cuipengfei.me`
 - Deploy target: GitHub Pages (`master` branch)
+- Custom file paths: `source/_data/head.swig`, `source/_data/footer.swig`
+- Package manager: Bun (not npm)
 
 ### Content Structure
 - Blog posts use YAML front matter with `title`, `date`, `tags`
 - Chinese language site (`language: zh-CN`)
 - Permalink pattern: `blog/:year/:month/:day/:title/`
+- Post naming: `:year-:month-:day-:title.md`
+- Pagination: 25 posts per page
 
 ## Development Workflow
 
@@ -88,15 +94,25 @@ rake new_page["Page Name"]
 - Legacy CSDN image migration script: `csdn-imgs.js`
 - Public images served from `public/images/`
 
+### Slides & Presentations
+- **Reveal.js Integration**: Create presentation slides using `hexo-generator-slidehtml`
+- **Slide Creation**: Add `slidehtml: true` to post front matter
+- **Slide Syntax**: Use `---` for horizontal slides, `--` for vertical slides
+- **Access URL**: Slides available at `/blog/:year/:month/:day/:title/slide.html`
+- **Themes**: Support for multiple Reveal.js themes (black, white, league, etc.)
+
 ## Key Features
 
-### Plugins & Extensions
-- `hexo-generator-*`: Various content generators
-- `hexo-theme-next`: Primary theme
-- `hexo-markmap`: Mind mapping support
-- `hexo-graphviz`: Diagram generation
-- Disqus comments integration
-- Google Analytics tracking
+### Core Plugins & Extensions
+- `hexo-theme-next`: Primary theme (v8.25.0)
+- `hexo-generator-*`: Content generators (archive, category, tag, feed, sitemap)
+- `hexo-markmap`: Mind mapping support for markdown
+- `hexo-graphviz`: Graphviz diagram generation
+- `hexo-excerpt`: Automatic post excerpt generation
+- `hexo-generator-searchdb`: Local search functionality
+- `hexo-related-popular-posts`: Related posts recommendations
+- `hexo-symbols-count-time`: Post reading time and word count
+- `hexo-generator-slidehtml`: Reveal.js slides generation (v0.0.65)
 
 ### SEO & Social
 - Sitemap generation
@@ -115,6 +131,7 @@ rake new_page["Page Name"]
 - Hexo processes Markdown files from `source/_posts/`
 - Generates static HTML to `public/`
 - Auto-deployment to GitHub Pages via `hexo-deployer-git`
+- **Package Manager**: Uses Bun exclusively (not npm) for dependency management
 
 ### Testing & Quality
 - No automated test suite

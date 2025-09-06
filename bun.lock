@@ -15,6 +15,7 @@
         "hexo-generator-index": "^4.0.0",
         "hexo-generator-searchdb": "^1.5.0",
         "hexo-generator-sitemap": "^3.0.1",
+        "hexo-generator-slidehtml": "^0.0.65",
         "hexo-generator-tag": "^2.0.0",
         "hexo-graphviz": "^1.0.2",
         "hexo-markmap": "^2.0.8",
@@ -465,6 +466,8 @@
     "hexo-generator-searchdb": ["hexo-generator-searchdb@1.5.0", "", { "dependencies": { "nunjucks": "^3.2.2" } }, "sha512-d0b5SueDxJimTFaHpPg430FQFx7DtMkmEIHo0UTOjXWRy+eDqNSp1CuS04P7fWzMnH2h+aQc6O9D2yY+3sdAUg=="],
 
     "hexo-generator-sitemap": ["hexo-generator-sitemap@3.0.1", "", { "dependencies": { "hexo-util": "^2.1.0", "micromatch": "^4.0.2", "nunjucks": "^3.1.6" } }, "sha512-n+0KLNmq6TLbiZPTQF6NY5MbEem/O+DFx0lgQZNQcU4tdjXIZRrQJs+KRKeT66NTkdlYTqb4WwCxswLqQz0crA=="],
+
+    "hexo-generator-slidehtml": ["hexo-generator-slidehtml@0.0.65", "", {}, "sha512-ckC/8xEOEMBn3o+8zx5pQ6K8GOrpPDQTIewvUTzlEUwE0a/mihKCuvJl9ZlcCcUkSZPqc0TPU6G4a/ATJR77LA=="],
 
     "hexo-generator-tag": ["hexo-generator-tag@2.0.0", "", { "dependencies": { "hexo-pagination": "3.0.0" } }, "sha512-1px/hF3veEohWDN8jjzchQhaiz+uOStUvvMaBJC9vWOlALh30UFcapL8IrvAwwJZjFRVA+WqGgDRqoQ8+yaaFw=="],
 

@@ -7,7 +7,18 @@
       "Bash(claude_switch:*)",
       "WebFetch(domain:cline.bot)",
       "Bash(curl -s \"https://cline.bot/blog/3-seductive-traps-in-agent-building\")",
-      "Bash(grep -n \"image-2[7923]\\.png\\|image-3[123]\\.png\" original_article.html)"
+      "Bash(grep -n \"image-2[7923]\\.png\\|image-3[123]\\.png\" original_article.html)",
+      "Bash(npm search:*)",
+      "WebFetch(domain:hexo.io)",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(bun add:*)",
+      "Bash(bun search:*)",
+      "Bash(bun run clean:*)",
+      "Bash(bun run server:*)",
+      "Bash(pkill:*)",
+      "Bash(hexo server:*)",
+      "Bash(taskkill:*)"
     ],
     "additionalDirectories": [
       "C:\\Users\\39764",

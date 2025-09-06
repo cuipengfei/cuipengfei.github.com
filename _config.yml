@@ -112,3 +112,15 @@ excerpt:
 # hexo-graphviz
 graphviz:
   enable: true
+
+# hexo-generator-slidehtml (Reveal.js)
+slidehtml:
+  enable: true
+  theme: black
+  transition: slide
+  backgroundTransition: fade
+  center: true
+  controls: true
+  progress: true
+  history: true
+  titleSlide: true
