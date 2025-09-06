@@ -176,7 +176,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">180</span>
+          <span class="site-state-item-count">181</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -186,7 +186,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-count">85</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -223,6 +223,117 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2009/05/31/%E6%A0%BC%E7%89%A9%E8%87%B4%E7%9F%A5%20%E3%80%8AEffective%20CSharp%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E9%AA%8C%E8%AF%81%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/blog/2009/05/31/%E6%A0%BC%E7%89%A9%E8%87%B4%E7%9F%A5%20%E3%80%8AEffective%20CSharp%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E9%AA%8C%E8%AF%81%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/" class="post-title-link" itemprop="url">格物致知 《Effective C#》读书笔记--验证类型转换</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2009-05-31 19:02:00" itemprop="dateCreated datePublished" datetime="2009-05-31T19:02:00+08:00">2009-05-31</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2009/05/31/%E6%A0%BC%E7%89%A9%E8%87%B4%E7%9F%A5%20%E3%80%8AEffective%20CSharp%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E9%AA%8C%E8%AF%81%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2009/05/31/格物致知 《Effective CSharp》读书笔记--验证类型转换/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>as  看起来很好用的样子，不会抛出异常，只要根据返回值是否为  null来做不同的处理就可以了。但是它也不是万金油，以下的情况  as  就不适用：</p>
+<p>①值类型</p>
+<p>比如：</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">double  d <span class="operator">=</span> <span class="number">100.0</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">int  valueType <span class="operator">=</span> d  as  int  <span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
+<p>这两句代码就直接通不过编译，给出的原因是：  as  运算符必须用于引用类型或可以为  null类型  (“int”  是一种不可以为  null<br>值的类型  )</p>
+<p>想一下也合理，  as  在失败时会返回  null，而值类型是不可以为  null的（  INullable  除外）。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2009/05/31/%E6%A0%BC%E7%89%A9%E8%87%B4%E7%9F%A5%20%E3%80%8AEffective%20CSharp%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E9%AA%8C%E8%AF%81%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1061,7 +1172,7 @@
 <p>注意：需要有.net Framework 2.0才可以运行</p>
 <p>.net Framework 2.0下载地址（如果你的电脑没有请在这儿下载）：<br><a target="_blank" rel="noopener" href="http://www.gougou.com/search?search=.net%20Framework%202.0&id=0">http://www.gougou.com/search?search=.net%20Framework%202.0&amp;id=0</a></p>
 <p>学分绩点计算器下载地址：<br><a target="_blank" rel="noopener" href="http://download.csdn.net/source/993661"> http://download.csdn.net/source/993661</a><br>（要有CSDN账号才可以下载）</p>
-<p>没有CSDN账号请向 <a href="mailto:&#51;&#57;&#x37;&#54;&#52;&#57;&#48;&#x37;&#57;&#x40;&#81;&#x51;&#46;&#x63;&#x6f;&#109;"> 397649079@QQ.com </a> 索取</p>
+<p>没有CSDN账号请向 <a href="mailto:&#51;&#x39;&#55;&#x36;&#52;&#x39;&#48;&#55;&#x39;&#64;&#x51;&#x51;&#46;&#x63;&#x6f;&#x6d;"> 397649079@QQ.com </a> 索取</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/blog/2009/02/06/SWPU%E5%AD%A6%E5%88%86%E7%BB%A9%E7%82%B9%E8%AE%A1%E7%AE%97%E5%99%A8%E5%A5%B3%E7%94%9F%E7%89%88/#more" rel="contents">
@@ -2784,108 +2895,6 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>连接： <a target="_blank" rel="noopener" href="http://topic.csdn.net/u/20080826/00/092e304d-b342-4e75-b62d-801142b556ca.html"> http://topic.csdn.net/u/20080826/00/092e304d-b342-4e75-b62d-801142b556ca.html </a></p>
-<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css"><script src="https://fastly.jsdelivr.net/npm/d3@7"></script><script src="https://fastly.jsdelivr.net/npm/markmap-view@0.18.10"></script><script src="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10"></script>
-<link rel="stylesheet" href="/css/markmap.css">
-
-<script src="/js/markmap.js"></script>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2008/08/28/%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0%E7%9A%84%E6%8C%89%E5%80%BC%E4%BC%A0%E9%80%92/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="崔鹏飞">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="崔鹏飞的Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | 崔鹏飞的Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/blog/2008/08/28/%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0%E7%9A%84%E6%8C%89%E5%80%BC%E4%BC%A0%E9%80%92/" class="post-title-link" itemprop="url">引用类型参数的按值传递</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2008-08-28 16:07:00" itemprop="dateCreated datePublished" datetime="2008-08-28T16:07:00+08:00">2008-08-28</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/2008/08/28/%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0%E7%9A%84%E6%8C%89%E5%80%BC%E4%BC%A0%E9%80%92/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2008/08/28/引用类型参数的按值传递/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>83</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>一个小问题： <a target="_blank" rel="noopener" href="http://topic.csdn.net/u/20080826/21/1b29e906-4ebb-49ab-98e3-982b7f2249f5.html"> http://topic.csdn.net/u/20080826/21/1b29e906-4ebb-49ab-98e3-982b7f2249f5.html </a></p>
 <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css"><script src="https://fastly.jsdelivr.net/npm/d3@7"></script><script src="https://fastly.jsdelivr.net/npm/markmap-view@0.18.10"></script><script src="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10"></script>
 <link rel="stylesheet" href="/css/markmap.css">
 

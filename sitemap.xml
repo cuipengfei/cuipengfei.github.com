@@ -56,6 +56,15 @@
   </url>
   
   <url>
+    <loc>https://cuipengfei.me/blog/2025/01/20/blog-slides-demo/</loc>
+    
+    <lastmod>2025-01-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://cuipengfei.me/blog/2025/01/05/go-back-to-rss/</loc>
     
     <lastmod>2025-01-04</lastmod>
@@ -1668,13 +1677,6 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/tags/graphics/</loc>
-    <lastmod>2025-09-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://cuipengfei.me/tags/utils/</loc>
     <lastmod>2025-09-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -1683,6 +1685,13 @@
   
   <url>
     <loc>https://cuipengfei.me/tags/%E6%88%91%E7%BF%BB%E8%AF%91%E7%9A%84Head-First-C-%EF%BC%88%E4%B9%A0%E4%BD%9C%EF%BC%89/</loc>
+    <lastmod>2025-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cuipengfei.me/tags/graphics/</loc>
     <lastmod>2025-09-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1710,6 +1719,13 @@
   </url>
   
   <url>
+    <loc>https://cuipengfei.me/tags/%E5%97%B7/</loc>
+    <lastmod>2025-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://cuipengfei.me/tags/625/</loc>
     <lastmod>2025-09-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -1718,13 +1734,6 @@
   
   <url>
     <loc>https://cuipengfei.me/tags/Linq/</loc>
-    <lastmod>2025-09-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cuipengfei.me/tags/%E5%97%B7/</loc>
     <lastmod>2025-09-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1836,14 +1845,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/tags/Spark/</loc>
+    <loc>https://cuipengfei.me/tags/TW/</loc>
     <lastmod>2025-09-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/tags/TW/</loc>
+    <loc>https://cuipengfei.me/tags/Spark/</loc>
     <lastmod>2025-09-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1934,13 +1943,6 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/tags/%E7%BB%8F%E6%B5%8E/</loc>
-    <lastmod>2025-09-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://cuipengfei.me/tags/Uncle-Bob/</loc>
     <lastmod>2025-09-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -1948,14 +1950,14 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/tags/Future/</loc>
+    <loc>https://cuipengfei.me/tags/%E7%BB%8F%E6%B5%8E/</loc>
     <lastmod>2025-09-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/tags/%E9%9C%80%E6%B1%82/</loc>
+    <loc>https://cuipengfei.me/tags/Future/</loc>
     <lastmod>2025-09-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1976,6 +1978,13 @@
   </url>
   
   <url>
+    <loc>https://cuipengfei.me/tags/%E9%9C%80%E6%B1%82/</loc>
+    <lastmod>2025-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://cuipengfei.me/tags/%E9%93%B6%E8%A1%8C/</loc>
     <lastmod>2025-09-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -1990,13 +1999,6 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/tags/%E9%94%81/</loc>
-    <lastmod>2025-09-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://cuipengfei.me/tags/jvm/</loc>
     <lastmod>2025-09-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -2005,6 +2007,13 @@
   
   <url>
     <loc>https://cuipengfei.me/tags/%E5%86%85%E5%AD%98/</loc>
+    <lastmod>2025-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cuipengfei.me/tags/%E9%94%81/</loc>
     <lastmod>2025-09-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2088,21 +2097,28 @@
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/tags/Folo/</loc>
+    <loc>https://cuipengfei.me/tags/slides/</loc>
     <lastmod>2025-09-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/tags/wewe-rss/</loc>
+    <loc>https://cuipengfei.me/tags/revealjs/</loc>
     <lastmod>2025-09-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://cuipengfei.me/tags/RSSHub/</loc>
+    <loc>https://cuipengfei.me/tags/effects/</loc>
+    <lastmod>2025-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cuipengfei.me/tags/demo/</loc>
     <lastmod>2025-09-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2124,6 +2140,27 @@
   
   <url>
     <loc>https://cuipengfei.me/tags/%E8%AE%A4%E7%9F%A5%E6%A8%A1%E5%9E%8B/</loc>
+    <lastmod>2025-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cuipengfei.me/tags/Folo/</loc>
+    <lastmod>2025-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cuipengfei.me/tags/wewe-rss/</loc>
+    <lastmod>2025-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cuipengfei.me/tags/RSSHub/</loc>
     <lastmod>2025-09-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
