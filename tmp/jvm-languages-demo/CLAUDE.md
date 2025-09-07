@@ -1,182 +1,182 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+本文件为 Claude Code (claude.ai/code) 提供在此代码库中工作的指导。
 
 **重要提醒**: 本项目专为 JVM 类型系统研究设计，主要通过字节码反编译进行对比分析。开发时需关注类型系统实现差异而非常规业务逻辑。
 
-## Project Overview
+## 项目概述
 
-This is a JVM multi-language demonstration project focused on type system research, specifically designed for studying generics, variance, type erasure, monads, and cross-language interoperability between Java, Scala, and Kotlin. The project serves as a comprehensive platform for bytecode analysis and decompilation-driven exploration of JVM type systems.
+这是一个专注于类型系统研究的 JVM 多语言演示项目，专门用于研究泛型、协变/逆变、类型擦除、Monad 以及 Java、Scala 和 Kotlin 之间的跨语言互操作性。该项目为字节码分析和基于反编译的 JVM 类型系统探索提供了一个综合平台。
 
-## Architecture
+## 架构
 
-### Multi-Language Source Structure
+### 多语言源码结构
 
-The project is organized into language-specific packages with Maven coordinating compilation:
+项目按语言包组织，Maven 统一编译管理：
 
 ```
 src/main/
-├── java/com/example/           # Java implementations
-│   ├── advanced/               # Advanced type system features  
-│   ├── bridges/                # Bridge method generation demos
-│   ├── benchmark/              # Performance testing
-│   └── interop/                # Cross-language interoperability
-├── scala/com/example/          # Scala implementations
-│   ├── advanced/               # Scala 3 advanced types, monads
-│   └── freemonads/             # Free monad implementations
-└── kotlin/com/example/         # Kotlin implementations
-    ├── generics/               # Kotlin-specific generics features
-    └── interop/                # Kotlin interop examples
+├── java/com/example/           # Java 实现
+│   ├── advanced/               # 高级类型系统特性  
+│   ├── bridges/                # 桥接方法生成演示
+│   ├── benchmark/              # 性能测试
+│   └── interop/                # 跨语言互操作性
+├── scala/com/example/          # Scala 实现
+│   ├── advanced/               # Scala 3 高级类型，monads
+│   └── freemonads/             # Free monad 实现
+└── kotlin/com/example/         # Kotlin 实现
+    ├── generics/               # Kotlin 特定的泛型特性
+    └── interop/                # Kotlin 互操作示例
 ```
 
-### Key Components
+### 核心组件
 
-- **Generic Containers**: Core generic implementations in all three languages for comparison
-- **Variance Demonstrations**: Covariance/contravariance implementations across languages
-- **Type Erasure Compensation**: Jackson/Gson-style TypeReference patterns
-- **Bridge Method Analysis**: Generated synthetic methods for generic inheritance
-- **Cross-Language Interop**: Safe type conversions and function interoperability
-- **Free Monads**: Advanced functional programming abstractions (Scala)
-- **Performance Benchmarks**: JMH-based type system performance analysis
+- **泛型容器**: 三种语言中的核心泛型实现对比
+- **协变/逆变演示**: 各语言间的协变/逆变实现
+- **类型擦除补偿**: Jackson/Gson 风格的 TypeReference 模式
+- **桥接方法分析**: 为泛型继承生成的合成方法
+- **跨语言互操作**: 安全的类型转换和函数互操作性
+- **Free Monads**: 高级函数式编程抽象 (Scala)
+- **性能基准测试**: 基于 JMH 的类型系统性能分析
 
-### Compilation Pipeline
+### 编译管道
 
-Maven coordinates a specific compilation order to ensure cross-language compatibility:
-1. **Java** (JDK 21): Base implementations and interfaces
-2. **Scala** (3.6.2): Advanced type features, builds on Java base
-3. **Kotlin** (2.1.0): Interops with both Java and Scala compiled classes
+Maven 协调特定的编译顺序以确保跨语言兼容性：
+1. **Java** (JDK 21): 基础实现和接口
+2. **Scala** (3.6.2): 高级类型特性，构建在 Java 基础之上
+3. **Kotlin** (2.1.0): 与已编译的 Java 和 Scala 类互操作
 
-## Commands
+## 命令
 
-### Development Commands
+### 开发命令
 
 ```bash
-# Build the entire multi-language project
+# 构建整个多语言项目
 mvn clean compile
 
-# Run the main demonstration program
+# 运行主演示程序
 mvn exec:java -Dexec.mainClass="com.example.Main"
 
-# Run tests (JUnit 5 + Kotlin test)
+# 运行测试 (JUnit 5 + Kotlin test)
 mvn test
 
-# Generate executable JAR with all dependencies
+# 生成包含所有依赖的可执行 JAR
 mvn package
 
-# Run performance benchmarks (when available)
+# 运行性能基准测试 (如果可用)
 java -cp target/classes com.example.benchmark.TypeSystemBenchmark
 ```
 
-### Platform-Specific Build Scripts
+### 平台特定构建脚本
 
 ```bash
-# Linux/macOS comprehensive build and analysis
+# Linux/macOS 全面构建和分析
 ./build.sh
 
-# Windows build (sets Java 21 environment)  
+# Windows 构建 (设置 Java 21 环境)  
 build.bat
 
-# Automated bytecode analysis
+# 自动字节码分析
 ./analysis.sh
 
-# Language comparison analysis (Windows)
+# 语言对比分析 (Windows)
 compare-languages.bat
 ```
 
-### Decompilation and Analysis Commands
+### 反编译和分析命令
 
 ```bash
-# View bytecode with generic signatures
+# 查看带泛型签名的字节码
 javap -v -p target/classes/com/example/GenericContainer.class
 
-# Extract generic signature information
+# 提取泛型签名信息
 javap -v target/classes/com/example/advanced/TypeReferenceDemo.class | grep -A2 "Signature"
 
-# Analyze bridge methods
+# 分析桥接方法
 javap -v target/classes/com/example/bridges/BridgeMethodDemo\$StringProcessor.class | grep "bridge"
 
-# CFR decompilation (when CFR is available)
+# CFR 反编译 (当 CFR 可用时)
 java -jar cfr.jar target/classes/com/example/freemonads/FreeMonadDemo.class
 
-# Performance analysis with JVM diagnostics
+# 使用 JVM 诊断进行性能分析
 java -XX:+PrintCompilation -XX:+UnlockDiagnosticVMOptions -XX:+PrintInlining com.example.Main
 ```
 
-## Development Workflow
+## 开发工作流
 
-### Research-Driven Development Process
+### 研究驱动的开发流程
 
-This project follows a **decompilation-first research methodology**:
+本项目遵循 **反编译优先的研究方法论**：
 
-1. **Implement Feature**: Write equivalent functionality in Java/Scala/Kotlin
-2. **Compile to Bytecode**: Use Maven multi-language compilation
-3. **Decompile Analysis**: Use javap, CFR, or other tools to analyze bytecode
-4. **Cross-Language Comparison**: Compare implementation strategies across languages
-5. **Performance Benchmarking**: Measure overhead of different type system features
-6. **Document Findings**: Update analysis results and comparative insights
+1. **实现特性**: 用 Java/Scala/Kotlin 编写等效功能
+2. **编译为字节码**: 使用 Maven 多语言编译
+3. **反编译分析**: 使用 javap、CFR 或其他工具分析字节码
+4. **跨语言对比**: 比较各语言的实现策略
+5. **性能基准测试**: 测量不同类型系统特性的开销
+6. **文档化结果**: 更新分析结果和对比见解
 
-### Key Analysis Points
+### 关键分析点
 
-When analyzing generated bytecode, focus on:
+分析生成的字节码时，重点关注：
 
-- **Signature Attributes**: How generic information is preserved
-- **Bridge Methods**: Compiler-generated synthetic methods
-- **Type Erasure**: What information is lost vs. compensated
-- **Variance Annotations**: How covariance/contravariance is encoded
-- **Cross-Language Bridges**: Interop mechanisms in bytecode
+- **签名属性**: 泛型信息如何被保留
+- **桥接方法**: 编译器生成的合成方法
+- **类型擦除**: 哪些信息丢失 vs 被补偿
+- **协变/逆变注解**: 协变/逆变如何编码
+- **跨语言桥接**: 字节码中的互操作机制
 
-### Testing Strategy
+### 测试策略
 
-- **Compilation Tests**: Verify all three languages compile together successfully
-- **Runtime Type Tests**: Validate type safety across language boundaries  
-- **Performance Tests**: JMH benchmarks for type system overhead analysis
-- **Decompilation Verification**: Automated bytecode analysis where possible
+- **编译测试**: 验证三种语言能够成功一起编译
+- **运行时类型测试**: 验证跨语言边界的类型安全性  
+- **性能测试**: JMH 基准测试用于类型系统开销分析
+- **反编译验证**: 在可能的情况下进行自动化字节码分析
 
 **注意**: 本项目重点在于类型系统演示，目前测试覆盖有限 (仅在 src/test/java 中有基础测试)。
 
-## Technical Configuration
+## 技术配置
 
-### Maven Multi-Language Setup
+### Maven 多语言设置
 
-The project uses specialized Maven configuration for JVM polyglot development:
+本项目使用专门的 Maven 配置进行 JVM 多语言开发：
 
-- **Java**: Standard compilation with generics signature preservation
-- **Scala**: scala-maven-plugin with Scala 3 compatibility
-- **Kotlin**: kotlin-maven-plugin with Java/Scala interoperability
-- **Build Order**: Enforced through Maven phase binding to ensure proper compilation sequence
+- **Java**: 标准编译，保留泛型签名
+- **Scala**: scala-maven-plugin 与 Scala 3 兼容
+- **Kotlin**: kotlin-maven-plugin 与 Java/Scala 互操作
+- **构建顺序**: 通过 Maven 阶段绑定强制执行，确保正确的编译顺序
 
-### Dependencies and Versions
+### 依赖和版本
 
-- **JDK**: 21 (required for all language compilation targets)
-- **Scala**: 3.6.2 (latest stable with advanced type features)
-- **Kotlin**: 2.1.0 (with coroutines and advanced generics)
-- **Testing**: JUnit 5 + Kotlin Test integration
-- **Benchmarking**: JMH 1.37 for performance analysis
-- **Type Utilities**: Jackson + Gson for TypeReference demonstrations
+- **JDK**: 21 (所有语言编译目标所需)
+- **Scala**: 3.6.2 (具有高级类型特性的最新稳定版)
+- **Kotlin**: 2.1.0 (具有协程和高级泛型)
+- **测试**: JUnit 5 + Kotlin Test 集成
+- **基准测试**: JMH 1.37 用于性能分析
+- **类型工具**: Jackson + Gson 用于 TypeReference 演示
 
-### Analysis Results Structure
+### 分析结果结构
 
-The project generates analysis artifacts in:
-- `analysis_results/` - Automated bytecode analysis outputs
-- `analysis-results/comparison/` - Multi-language comparison results from compare-languages.bat
-- `target/classes/` - Compiled bytecode for manual inspection  
-- `decompiled/` - Decompiled source for comparison (when applicable)
+项目在以下位置生成分析产物：
+- `analysis_results/` - 自动化字节码分析输出
+- `analysis-results/comparison/` - compare-languages.bat 的多语言对比结果
+- `target/classes/` - 编译的字节码用于手动检查  
+- `decompiled/` - 反编译的源码用于对比 (如适用)
 
-## Research Extensions
+## 研究扩展
 
-### Current Advanced Features (2024)
+### 当前高级特性 (2024)
 
-- **TypeReference Pattern**: Type erasure compensation mechanisms
-- **Scala 3 Union/Intersection Types**: Advanced type algebra
-- **Existential Types**: Deep wildcard capture scenarios  
-- **Free Monads**: Category theory abstractions in practice
-- **Cross-Language Monadic Operations**: Type-safe transformations
+- **TypeReference 模式**: 类型擦除补偿机制
+- **Scala 3 联合/交集类型**: 高级类型代数
+- **存在类型**: 深度通配符捕获场景  
+- **Free Monads**: 范畴理论抽象的实践
+- **跨语言单子操作**: 类型安全的转换
 
-### Recommended Research Paths
+### 推荐研究路径
 
-1. **Beginners**: Start with Java generics and type erasure basics
-2. **Intermediate**: Compare Scala/Kotlin variance mechanisms  
-3. **Advanced**: Analyze cross-language interop bridge generation
-4. **Expert**: Study Free Monad bytecode and performance implications
+1. **初学者**: 从 Java 泛型和类型擦除基础开始
+2. **中级**: 比较 Scala/Kotlin 协变/逆变机制  
+3. **高级**: 分析跨语言互操作桥接生成
+4. **专家**: 研究 Free Monad 字节码和性能影响
 
-This project is designed for developers and researchers interested in understanding JVM type systems at the bytecode level, providing a structured environment for comparative language analysis.
+本项目专为对在字节码级别理解 JVM 类型系统感兴趣的开发者和研究者设计，提供了进行比较语言分析的结构化环境。
