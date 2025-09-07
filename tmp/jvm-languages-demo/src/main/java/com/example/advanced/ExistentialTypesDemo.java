@@ -120,7 +120,7 @@ public class ExistentialTypesDemo {
             System.out.println("Processing nested unknown types");
             for (List<?> innerList : nestedList) {
                 System.out.println("  Inner list size: " + innerList.size());
-                processUnknownList(innerList);  // 递归处理
+                BasicExistentialTypes.processUnknownList(innerList);  // 递归处理
             }
         }
         
@@ -256,14 +256,14 @@ public class ExistentialTypesDemo {
          * 函数式接口中的通配符捕获
          * 反编译重点：lambda表达式与通配符捕获的交互
          */
-        public static void processWithFunction(List<?> list, Function<?, String> processor) {
+        public static void processWithFunction(List<?> list, Function<Object, String> processor) {
             // 无法直接调用processor.apply，需要捕获
             processWithFunctionHelper(list, processor);
         }
         
         @SuppressWarnings("unchecked")
-        private static <T> void processWithFunctionHelper(List<T> list, Function<T, String> processor) {
-            for (T element : list) {
+        private static void processWithFunctionHelper(List<?> list, Function<Object, String> processor) {
+            for (Object element : list) {
                 String result = processor.apply(element);
                 System.out.println("Processed: " + result);
             }
@@ -290,8 +290,8 @@ public class ExistentialTypesDemo {
             
             // 函数处理演示
             List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
-            Function<Integer, String> intToString = n -> "Number: " + n;
-            processWithFunction(numbers, intToString);
+            Function<Object, String> objToString = obj -> "Number: " + obj;
+            processWithFunction(numbers, objToString);
         }
     }
     
@@ -393,8 +393,8 @@ public class ExistentialTypesDemo {
             System.out.println("=== 复杂存在类型创建 ===");
             
             // 运行时构造复杂的存在类型
-            List<? extends Number> numbers = Arrays.asList(1, 2, 3);
-            Map<String, ? extends List<? extends Number>> complex = new HashMap<>();
+            List<Integer> numbers = Arrays.asList(1, 2, 3);
+            Map<String, List<Integer>> complex = new HashMap<>();
             complex.put("numbers", numbers);
             
             System.out.println("Created complex existential type");

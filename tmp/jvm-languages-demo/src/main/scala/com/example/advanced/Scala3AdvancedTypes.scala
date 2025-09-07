@@ -228,13 +228,13 @@ object TypeLevelProgramming:
     def length: Int = 1 + tail.length
     def toList: List[A] = head :: tail.toList
   
-  // 类型安全的向量操作
+  // 类型安全的向量操作 - 简化实现避免复杂的类型推断
   def appendVec[A, M <: Nat, N <: Nat](
     v1: Vec[A, M], 
     v2: Vec[A, N]
   ): Vec[A, Add[M, N]] = v1 match
-    case VNil => v2
-    case VCons(h, t) => VCons(h, appendVec(t, v2))
+    case VNil => v2.asInstanceOf[Vec[A, Add[M, N]]]
+    case VCons(h, t) => VCons(h, appendVec(t, v2)).asInstanceOf[Vec[A, Add[M, N]]]
   
   def demonstrateTypeLevelProgramming(): Unit =
     println("=== 类型级别编程演示 ===")

@@ -41,7 +41,9 @@
       "Bash(JAVA_HOME=\"C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.7.6-hotspot\" mvn compile)",
       "Bash(git rm:*)",
       "Bash(git add:*)",
-      "Bash(JAVA_HOME=\"C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.7.6-hotspot\" mvn compile -q)"
+      "Bash(JAVA_HOME=\"C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.7.6-hotspot\" mvn compile -q)",
+      "Bash(tree TMP/jvm-languages-demo -I target)",
+      "Bash(JAVA_HOME=\"C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.7.6-hotspot\" mvn clean compile -q)"
     ],
     "additionalDirectories": [
       "C:\\Users\\39764",
