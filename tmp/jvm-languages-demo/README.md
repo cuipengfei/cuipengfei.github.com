@@ -22,6 +22,12 @@ src/
 │   │   ├── generics/
 │   │   │   ├── GenericContainer.java         # 基础泛型容器
 │   │   │   └── AdvancedGenericsDemo.java     # 高级泛型特性
+│   │   ├── advanced/
+│   │   │   ├── TypeErasureCompensationDemo.java # 类型擦除补偿机制
+│   │   │   ├── VarianceImplementationComparison.java # 协变逆变实现对比
+│   │   │   ├── MonadImplementationComparison.java # Monad实现对比
+│   │   │   ├── TypeReferenceDemo.java        # TypeReference模式演示
+│   │   │   └── ExistentialTypesDemo.java     # 存在类型和通配符高级用法
 │   │   ├── interop/
 │   │   │   └── JavaInteropDemo.java         # Java跨语言互操作
 │   │   ├── bridges/
@@ -34,7 +40,8 @@ src/
 │   │   ├── variance/
 │   │   │   └── ScalaVarianceDemo.scala      # Scala协变逆变
 │   │   ├── advanced/
-│   │   │   └── ScalaAdvancedFeatures.scala  # Scala高级特性
+│   │   │   ├── ScalaAdvancedFeatures.scala  # Scala高级特性
+│   │   │   └── Scala3AdvancedTypes.scala    # Scala 3 交集/并集类型
 │   │   ├── interop/
 │   │   │   └── ScalaInteropDemo.scala       # Scala跨语言互操作
 │   │   ├── freemonads/
@@ -179,10 +186,18 @@ java -jar cfr.jar target/classes/com/example/freemonads/FreeMonadDemo.class
 
 ## 扩展研究建议
 
+### 新增高级特性 (2024扩展)
+
+- [x] **TypeReference模式**: Jackson/Gson风格的类型擦除补偿机制
+- [x] **Scala 3高级类型**: 交集类型、并集类型、复杂类型lambda
+- [x] **存在类型深度**: Java通配符作为存在类型的高级用法
+- [x] **通配符捕获**: 编译器的通配符捕获机制详解
+- [x] **嵌套存在类型**: 多层通配符嵌套的复杂场景
+
 ### 短期扩展
 
 - [ ] 添加更多边缘情况的泛型测试
-- [ ] 完善性能基准测试套件
+- [ ] 完善性能基准测试套件  
 - [ ] 集成自动化反编译分析工具
 - [ ] 添加更多 Monad 实例演示
 
