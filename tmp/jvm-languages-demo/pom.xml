@@ -11,14 +11,15 @@
     <packaging>jar</packaging>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         
         <!-- 语言版本 -->
-        <kotlin.version>2.2.10</kotlin.version>
-        <scala.version>3.7.2</scala.version>
-        <java.version>17</java.version>
+        <kotlin.version>2.1.0</kotlin.version>
+        <scala.version>3.6.2</scala.version>
+        <java.version>21</java.version>
+        <scala.binary.version>3</scala.binary.version>
         <groovy.version>4.0.15</groovy.version>
     </properties>
 
@@ -156,7 +157,8 @@
                 </configuration>
             </plugin>
 
-            <!-- Groovy 编译插件 -->
+            <!-- Groovy 编译插件 - 暂时注释掉 -->
+            <!--
             <plugin>
                 <groupId>org.apache.groovy</groupId>
                 <artifactId>groovy-maven-plugin</artifactId>
@@ -178,6 +180,7 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
 
             <!-- 构建顺序控制插件 -->
             <plugin>

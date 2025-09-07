@@ -4,9 +4,27 @@ import kotlin.reflect.KClass
 
 /**
  * Kotlin高级泛型特性演示
- * 展示reified类型参数、声明处/使用处变性、类型投影等高级特性
+ * 展示reified类型参数、声明处/使用处变性、类型安全等特性
  */
 class KotlinAdvancedGenerics {
+
+    object TypeSafeStorage {
+        val storage = mutableMapOf<KClass<*>, Any>()
+
+        /**
+         * 类型安全的存储
+         */
+        inline fun <reified T : Any> store(key: String, value: T) {
+            storage[T::class] = value
+        }
+
+        /**
+         * 类型安全的获取
+         */
+        inline fun <reified T : Any> retrieve(key: String): T? {
+            return storage[T::class] as? T
+        }
+    }
 
     /**
      * 1. reified类型参数 - 类型擦除补偿机制
@@ -29,7 +47,7 @@ class KotlinAdvancedGenerics {
         /**
          * 获取运行时类型信息
          */
-        inline fun <reified T> getTypeInfo(): KClass<T> {
+        inline fun <reified T : Any> getTypeInfo(): KClass<T> {
             return T::class
         }
 
@@ -107,7 +125,7 @@ class KotlinAdvancedGenerics {
      * 5. 具体化类型参数的高级用法
      */
     class TypeSafeRepository {
-        private val storage = mutableMapOf<KClass<*>, Any>()
+        val storage = mutableMapOf<KClass<*>, Any>()
 
         /**
          * 类型安全的存储
@@ -147,8 +165,8 @@ class KotlinAdvancedGenerics {
     }
 
     // 多重边界
-    fun <T : Comparable<T> & Number> maxNumber(numbers: List<T>): T {
-        return numbers.max()
+    fun <T> maxNumber(numbers: List<T>): T where T : Number, T : Comparable<T> {
+        return numbers.maxOrNull()!!
     }
 
     /**
@@ -166,7 +184,7 @@ class KotlinAdvancedGenerics {
      * 8. DSL构建器模式结合reified
      */
     class QueryBuilder {
-        private val conditions = mutableListOf<String>()
+        val conditions = mutableListOf<String>()
 
         inline fun <reified T> where(field: String, value: T) {
             conditions.add("$field = '${value}' (类型: ${T::class.simpleName})")
@@ -199,7 +217,7 @@ fun main() {
 
     // 2. 声明处协变逆变
     println("\n2. 声明处协变逆变:")
-    val stringProducer = object : KotlinAdvancedGenerics.Producer<String> {
+    val stringProducer: KotlinAdvancedGenerics.Producer<String> = object : KotlinAdvancedGenerics.Producer<String> {
         override fun produce(): String = "Hello Kotlin"
     }
     
@@ -214,7 +232,7 @@ fun main() {
     // 4. Functor演示
     println("\n4. Functor演示:")
     val numbers = listOf(1, 2, 3, 4, 5)
-    val doubled = KotlinAdvancedGenerics.ListFunctor.map(numbers) { it * 2 }
+    val doubled = KotlinAdvancedGenerics.ListFunctor.map(numbers) { it: Int -> it * 2 }
     println("原始: $numbers, 处理后: $doubled")
 
     // 5. 类型安全Repository

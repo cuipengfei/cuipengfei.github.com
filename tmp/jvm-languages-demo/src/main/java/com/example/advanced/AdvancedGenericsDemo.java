@@ -81,14 +81,22 @@ public class AdvancedGenericsDemo {
             // 编译错误：capture#1-of ? cannot be converted to capture#2-of ?
             // Collections.swap(list1, list2, 0);
             
-            // 解决方案：使用辅助方法
-            swapFirstHelper(list1, list2);
+            // 解决方案：不能在两个不同的通配符类型间操作
+            // swapFirstHelper(list1, list2);  // 这会导致编译错误
+            
+            System.out.println("无法在两个不同的通配符类型间交换元素");
+            System.out.println("这正好演示了通配符捕获的限制");
         }
         
         private <T> void swapFirstHelper(List<T> list1, List<T> list2) {
             T temp = list1.get(0);
             list1.set(0, list2.get(0));
             list2.set(0, temp);
+        }
+        
+        // 正确的使用方式：使用相同类型参数
+        public <T> void swapFirstCorrect(List<T> list1, List<T> list2) {
+            swapFirstHelper(list1, list2);
         }
     }
     

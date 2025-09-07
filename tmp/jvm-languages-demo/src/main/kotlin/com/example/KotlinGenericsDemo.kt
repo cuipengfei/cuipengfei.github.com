@@ -27,7 +27,7 @@ class Container<T>(private var value: T) {
 /**
  * 具体化类型参数 - Kotlin对类型擦除的补偿
  */
-inline fun <reified T> createArray(size: Int, init: (Int) -> T): Array<T> {
+inline fun <reified T> createArray(size: Int, noinline init: (Int) -> T): Array<T> {
     return Array(size, init)
 }
 
@@ -71,7 +71,7 @@ fun processNumbers(numbers: List<out Number>) {
     // numbers.add(42) // 编译错误
 }
 
-fun addIntegers(integers: List<in Int>) {
+fun addIntegers(integers: MutableList<in Int>) {
     // 可以添加Int类型
     integers.add(42)
     integers.add(100)

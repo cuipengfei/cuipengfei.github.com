@@ -8,3 +8,5 @@ public/
 .idea/
 .specstory/
 .env
+tmp/jvm-languages-demo/target/classes/com/example/bridges/
+*.class

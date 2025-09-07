@@ -48,9 +48,9 @@ public class GenericContainer<T extends Number> {
     /**
      * PECS原则示例 (Producer Extends, Consumer Super)
      */
-    public static <T> void copy(
-            GenericContainer<? extends T> source,
-            GenericContainer<? super T> destination) {
+    public static <U extends Number> void copy(
+            GenericContainer<? extends U> source,
+            GenericContainer<? super U> destination) {
         destination.setValue(source.getValue());
     }
 }
