@@ -12,7 +12,14 @@
       "Bash(javap -v target/classes/com/example/TypeErasureDemo.class)",
       "Bash(mvn clean compile:*)",
       "Bash(ls:*)",
-      "Read(//c/Users/**)"
+      "Read(//c/Users/**)",
+      "Bash(javap:*)",
+      "Bash(javac -cp target/classes -d target/classes src/main/java/com/example/GenericClassDemo.java)",
+      "Bash(javac -cp target/classes -d target/classes src/main/java/com/example/GenericReflectionTest.java)",
+      "Bash(java -cp target/classes com.example.GenericReflectionTest)",
+      "Bash(javac -g:none -cp target/classes -d target/test src/main/java/com/example/RuntimeTypeBypassDemo.java)",
+      "Bash(javac -g:none -cp target/classes -d target/test src/main/java/com/example/GenericClassDemo.java)",
+      "Bash(javac -g -cp target/classes -d target/test src/main/java/com/example/GenericClassDemo.java)"
     ],
     "deny": [],
     "ask": []
