@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(javac TypeErasureDemo.java)",
+      "Bash(java TypeErasureDemo)",
+      "Bash(javap -v TypeErasureDemo)",
+      "Bash(mvn clean compile)",
+      "Bash(java -cp target/classes com.example.TypeErasureDemo)",
+      "Bash(where:*)",
+      "Bash(java -version)",
+      "Bash(mvn exec:java:*)",
+      "Bash(javap -v target/classes/com/example/TypeErasureDemo.class)",
+      "Bash(mvn clean compile:*)",
+      "Bash(ls:*)",
+      "Read(//c/Users/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
