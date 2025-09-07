@@ -43,7 +43,13 @@
       "Bash(git add:*)",
       "Bash(JAVA_HOME=\"C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.7.6-hotspot\" mvn compile -q)",
       "Bash(tree TMP/jvm-languages-demo -I target)",
-      "Bash(JAVA_HOME=\"C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.7.6-hotspot\" mvn clean compile -q)"
+      "Bash(JAVA_HOME=\"C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.7.6-hotspot\" mvn clean compile -q)",
+      "Bash(dir \"C:\\Program Files\\JetBrains\")",
+      "Read(//c/Program Files/**)",
+      "Read(//d/**)",
+      "Bash(idea --version)",
+      "Bash(alias idea='\"\"/c/Users/39764/AppData/Local/Programs/IntelliJ IDEA Community Edition/bin/idea64.exe\"\"')",
+      "Bash(\"/c/Users/39764/AppData/Local/Programs/IntelliJ IDEA Community Edition/bin/idea64.exe\" .)"
     ],
     "additionalDirectories": [
       "C:\\Users\\39764",
