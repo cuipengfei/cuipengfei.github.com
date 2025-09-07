@@ -18,7 +18,8 @@
       "Bash(bun run server:*)",
       "Bash(pkill:*)",
       "Bash(hexo server:*)",
-      "Bash(taskkill:*)"
+      "Bash(taskkill:*)",
+      "Bash(chmod:*)"
     ],
     "additionalDirectories": [
       "C:\\Users\\39764",
