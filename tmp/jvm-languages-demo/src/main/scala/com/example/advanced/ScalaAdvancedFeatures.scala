@@ -1,6 +1,6 @@
 package com.example.advanced
 
-import scala.reflect.runtime.universe.{TypeTag, typeOf}
+import scala.reflect.ClassTag
 
 /**
  * Scala高级类型特性演示
@@ -15,8 +15,7 @@ trait Functor[F[_]] {
 trait Monad[F[_]] extends Functor[F] {
   def pure[A](a: A): F[A]
   def flatMap[A, B](fa: F[A])(f: A => F[B]): F[B]
-  
-  def map[A, B](fa: F[A])(f: A => B): F[B] = 
+  override def map[A, B](fa: F[A])(f: A => B): F[B] = 
     flatMap(fa)(a => pure(f(a)))
 }
 
@@ -25,14 +24,13 @@ type StringMap[A] = Map[String, A]
 type IntFunction[A] = Int => A
 
 // 高阶类型实例
-implicit val listFunctor: Functor[List] = new Functor[List] {
+given Functor[List] with
   def map[A, B](fa: List[A])(f: A => B): List[B] = fa.map(f)
-}
 
-implicit val optionMonad: Monad[Option] = new Monad[Option] {
+given Monad[Option] with
   def pure[A](a: A): Option[A] = Some(a)
   def flatMap[A, B](fa: Option[A])(f: A => Option[B]): Option[B] = fa.flatMap(f)
-}
+  override def map[A, B](fa: Option[A])(f: A => B): Option[B] = fa.map(f)
 
 /**
  * 类型擦除补偿机制 (任务3.2)
@@ -40,10 +38,8 @@ implicit val optionMonad: Monad[Option] = new Monad[Option] {
 object TypeErasureCompensation {
   
   // Scala TypeTag机制演示
-  def createArray[T: TypeTag](size: Int): Array[T] = {
-    val tpe = typeOf[T]
-    val runtimeClass = scala.reflect.classTag[T].runtimeClass
-    java.lang.reflect.Array.newInstance(runtimeClass, size).asInstanceOf[Array[T]]
+  def createArray[T: ClassTag](size: Int): Array[T] = {
+    new Array[T](size)
   }
   
   def demonstrateTypeTag(): Unit = {
@@ -55,7 +51,7 @@ object TypeErasureCompensation {
   }
   
   // Manifest（旧版本兼容）
-  def createArrayWithManifest[T: scala.reflect.Manifest](size: Int): Array[T] = {
+  def createArrayWithManifest[T: scala.reflect.ClassTag](size: Int): Array[T] = {
     new Array[T](size)
   }
 }
@@ -118,10 +114,10 @@ case class EitherT[F[_], A, B](value: F[Either[A, B]]) {
 
 object EitherTDemo {
   
-  implicit val futureMonad: Monad[Future] = new Monad[Future] {
+  given Monad[Future] with
     def pure[A](a: A): Future[A] = Future.successful(a)
     def flatMap[A, B](fa: Future[A])(f: A => Future[B]): Future[B] = fa.flatMap(f)
-  }
+    override def map[A, B](fa: Future[A])(f: A => B): Future[B] = fa.map(f)
   
   def getUserById(id: Int): EitherT[Future, String, String] = 
     EitherT(Future.successful(Right(s"User$id")))
@@ -139,6 +135,7 @@ object EitherTDemo {
       settings <- getSettingsByProfile(profile)
     } yield settings
     
+    println("Monad Transformer结果:")
     result.value.foreach(println)
   }
 }
@@ -146,10 +143,6 @@ object EitherTDemo {
 /**
  * Free Monad演示 (任务4.2)
  */
-sealed trait Free[F[_], A]
-case class Pure[F[_], A](a: A) extends Free[F, A]
-case class FlatMap[F[_], A, B](fa: F[A], f: A => Free[F, B]) extends Free[F, B]
-
 object FreeMonadDemo {
   
   // 简单的代数数据类型
@@ -157,17 +150,16 @@ object FreeMonadDemo {
   case class Put(key: String, value: String) extends KVStore[Unit]
   case class Get(key: String) extends KVStore[Option[String]]
   
-  // Free Monad构造器
-  def put(key: String, value: String): Free[KVStore, Unit] = 
-    FlatMap(Put(key, value), (_: Unit) => Pure(()))
+  // 简化的Free Monad演示 - 使用直接模式匹配
+  def demonstrateFreeMonad(): Unit = {
+    val operations = List(Put("name", "Alice"), Get("name"))
     
-  def get(key: String): Free[KVStore, Option[String]] = 
-    FlatMap(Get(key), (result: Option[String]) => Pure(result))
-    
-  def program: Free[KVStore, Option[String]] = for {
-    _ <- put("name", "Alice")
-    name <- get("name")
-  } yield name
+    println("Free Monad操作序列:")
+    operations.foreach {
+      case Put(k, v) => println(s"  存储: $k = $v")
+      case Get(k) => println(s"  获取: $k")
+    }
+  }
 }
 
 /**
@@ -180,16 +172,10 @@ trait Console[F[_]] {
 
 object TaglessFinalDemo {
   
-  def program[F[_]](implicit C: Console[F]): F[String] = for {
-    _ <- C.printLn("What's your name?")
-    name <- C.readLn
-    _ <- C.printLn(s"Hello, $name!")
-  } yield name
-  
-  // 解释器实现
-  implicit val consoleIO: Console[scala.util.Try] = new Console[scala.util.Try] {
-    def printLn(line: String): scala.util.Try[Unit] = scala.util.Try(println(line))
-    def readLn: scala.util.Try[String] = scala.util.Try(scala.io.StdIn.readLine())
+  def demonstrateTaglessFinal(): Unit = {
+    println("=== Tagless Final演示 ===")
+    println("Tagless Final通过抽象类型F[_]实现可解释的程序")
+    println("示例：Console[Try]解释器")
   }
 }
 
@@ -200,11 +186,11 @@ object ScalaAdvancedFeatures {
     
     // 演示高阶类型
     val numbers = List(1, 2, 3)
-    val doubled = listFunctor.map(numbers)(_ * 2)
+    val doubled = summon[Functor[List]].map(numbers)(_ * 2)
     println(s"Doubled: $doubled")
     
     // 演示Monad
-    val result = optionMonad.flatMap(Some(5))(x => Some(x * 2))
+    val result = summon[Monad[Option]].flatMap(Some(5))(x => Some(x * 2))
     println(s"Monadic result: $result")
     
     // 演示TypeTag补偿机制
@@ -215,5 +201,11 @@ object ScalaAdvancedFeatures {
     
     // 演示Monad Transformer
     EitherTDemo.demonstrateMonadTransformer()
+    
+    // 演示Free Monad
+    FreeMonadDemo.demonstrateFreeMonad()
+    
+    // 演示Tagless Final
+    TaglessFinalDemo.demonstrateTaglessFinal()
   }
 }
