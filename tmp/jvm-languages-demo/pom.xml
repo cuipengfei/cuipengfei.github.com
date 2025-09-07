@@ -19,6 +19,7 @@
         <kotlin.version>2.2.10</kotlin.version>
         <scala.version>3.7.2</scala.version>
         <java.version>17</java.version>
+        <groovy.version>4.0.15</groovy.version>
     </properties>
 
     <dependencies>
@@ -48,6 +49,39 @@
             <artifactId>kotlin-test-junit5</artifactId>
             <version>${kotlin.version}</version>
             <scope>test</scope>
+        </dependency>
+        
+        <!-- Groovy 标准库 -->
+        <dependency>
+            <groupId>org.apache.groovy</groupId>
+            <artifactId>groovy</artifactId>
+            <version>${groovy.version}</version>
+        </dependency>
+        
+        <!-- JMH 性能测试 -->
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-core</artifactId>
+            <version>1.37</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-generator-annprocess</artifactId>
+            <version>1.37</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- 类型转换工具 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.15.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
         </dependency>
     </dependencies>
 
@@ -122,6 +156,29 @@
                 </configuration>
             </plugin>
 
+            <!-- Groovy 编译插件 -->
+            <plugin>
+                <groupId>org.apache.groovy</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <version>4.0.15</version>
+                <executions>
+                    <execution>
+                        <id>groovy-compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>groovy-test-compile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- 构建顺序控制插件 -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -136,8 +193,10 @@
                         </goals>
                         <configuration>
                             <sources>
+                                <source>src/main/java</source>
                                 <source>src/main/scala</source>
                                 <source>src/main/kotlin</source>
+                                <source>src/main/groovy</source>
                             </sources>
                         </configuration>
                     </execution>
@@ -149,8 +208,10 @@
                         </goals>
                         <configuration>
                             <sources>
+                                <source>src/test/java</source>
                                 <source>src/test/scala</source>
                                 <source>src/test/kotlin</source>
+                                <source>src/test/groovy</source>
                             </sources>
                         </configuration>
                     </execution>
