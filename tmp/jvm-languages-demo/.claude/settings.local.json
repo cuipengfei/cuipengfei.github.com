@@ -19,7 +19,15 @@
       "Bash(java -cp target/classes com.example.GenericReflectionTest)",
       "Bash(javac -g:none -cp target/classes -d target/test src/main/java/com/example/RuntimeTypeBypassDemo.java)",
       "Bash(javac -g:none -cp target/classes -d target/test src/main/java/com/example/GenericClassDemo.java)",
-      "Bash(javac -g -cp target/classes -d target/test src/main/java/com/example/GenericClassDemo.java)"
+      "Bash(javac -g -cp target/classes -d target/test src/main/java/com/example/GenericClassDemo.java)",
+      "Bash(java -cp target/classes com.example.SimpleReifiedDemoKt)",
+      "Bash(mvn compile:*)",
+      "Bash(java -cp target/classes com.example.ThirdPartyReifiedTestKt)",
+      "Bash(jar tf ~/.m2/repository/com/fasterxml/jackson/module/jackson-module-kotlin/2.20.0/jackson-module-kotlin-2.20.0.jar)",
+      "Bash(jar xf:*)",
+      "Bash(git add:*)",
+      "Bash(git add bytecode-analysis-ThirdPartyReifiedTest.txt)",
+      "Bash(git add runtime-output-ThirdPartyReifiedTest.txt)"
     ],
     "deny": [],
     "ask": []

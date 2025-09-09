@@ -1,0 +1,904 @@
+Classfile /D:/code/cuipengfei.github.com/tmp/jvm-languages-demo/target/classes/com/example/StdLibReifiedTest.class
+  Last modified 2025-9-9; size 6819 bytes
+  MD5 checksum 3fba93ab9e00052fc146bdbed7bab47d
+  Compiled from "StdLibReifiedTest.kt"
+public final class com.example.StdLibReifiedTest
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_FINAL, ACC_SUPER
+Constant pool:
+    #1 = Utf8               com/example/StdLibReifiedTest
+    #2 = Class              #1            // com/example/StdLibReifiedTest
+    #3 = Utf8               java/lang/Object
+    #4 = Class              #3            // java/lang/Object
+    #5 = Utf8               <init>
+    #6 = Utf8               ()V
+    #7 = NameAndType        #5:#6         // "<init>":()V
+    #8 = Methodref          #4.#7         // java/lang/Object."<init>":()V
+    #9 = Utf8               this
+   #10 = Utf8               Lcom/example/StdLibReifiedTest;
+   #11 = Utf8               testStandardLibraryReified
+   #12 = Utf8               === Testing Kotlin Standard Library Reified Functions ===
+   #13 = String             #12           // === Testing Kotlin Standard Library Reified Functions ===
+   #14 = Utf8               java/lang/System
+   #15 = Class              #14           // java/lang/System
+   #16 = Utf8               out
+   #17 = Utf8               Ljava/io/PrintStream;
+   #18 = NameAndType        #16:#17       // out:Ljava/io/PrintStream;
+   #19 = Fieldref           #15.#18       // java/lang/System.out:Ljava/io/PrintStream;
+   #20 = Utf8               java/io/PrintStream
+   #21 = Class              #20           // java/io/PrintStream
+   #22 = Utf8               println
+   #23 = Utf8               (Ljava/lang/Object;)V
+   #24 = NameAndType        #22:#23       // println:(Ljava/lang/Object;)V
+   #25 = Methodref          #21.#24       // java/io/PrintStream.println:(Ljava/lang/Object;)V
+   #26 = Utf8               1. Testing typeOf<T>():
+   #27 = String             #26           // 1. Testing typeOf<T>():
+   #28 = Utf8               java/lang/String
+   #29 = Class              #28           // java/lang/String
+   #30 = Utf8               kotlin/jvm/internal/Reflection
+   #31 = Class              #30           // kotlin/jvm/internal/Reflection
+   #32 = Utf8               typeOf
+   #33 = Utf8               (Ljava/lang/Class;)Lkotlin/reflect/KType;
+   #34 = NameAndType        #32:#33       // typeOf:(Ljava/lang/Class;)Lkotlin/reflect/KType;
+   #35 = Methodref          #31.#34       // kotlin/jvm/internal/Reflection.typeOf:(Ljava/lang/Class;)Lkotlin/reflect/KType;
+   #36 = Utf8               java/util/List
+   #37 = Class              #36           // java/util/List
+   #38 = Utf8               kotlin/reflect/KTypeProjection
+   #39 = Class              #38           // kotlin/reflect/KTypeProjection
+   #40 = Utf8               Companion
+   #41 = Utf8               Lkotlin/reflect/KTypeProjection$Companion;
+   #42 = NameAndType        #40:#41       // Companion:Lkotlin/reflect/KTypeProjection$Companion;
+   #43 = Fieldref           #39.#42       // kotlin/reflect/KTypeProjection.Companion:Lkotlin/reflect/KTypeProjection$Companion;
+   #44 = Utf8               kotlin/reflect/KTypeProjection$Companion
+   #45 = Class              #44           // kotlin/reflect/KTypeProjection$Companion
+   #46 = Utf8               invariant
+   #47 = Utf8               (Lkotlin/reflect/KType;)Lkotlin/reflect/KTypeProjection;
+   #48 = NameAndType        #46:#47       // invariant:(Lkotlin/reflect/KType;)Lkotlin/reflect/KTypeProjection;
+   #49 = Methodref          #45.#48       // kotlin/reflect/KTypeProjection$Companion.invariant:(Lkotlin/reflect/KType;)Lkotlin/reflect/KTypeProjection;
+   #50 = Utf8               (Ljava/lang/Class;Lkotlin/reflect/KTypeProjection;)Lkotlin/reflect/KType;
+   #51 = NameAndType        #32:#50       // typeOf:(Ljava/lang/Class;Lkotlin/reflect/KTypeProjection;)Lkotlin/reflect/KType;
+   #52 = Methodref          #31.#51       // kotlin/jvm/internal/Reflection.typeOf:(Ljava/lang/Class;Lkotlin/reflect/KTypeProjection;)Lkotlin/reflect/KType;
+   #53 = Utf8               java/lang/StringBuilder
+   #54 = Class              #53           // java/lang/StringBuilder
+   #55 = Methodref          #54.#7        // java/lang/StringBuilder."<init>":()V
+   #56 = Utf8                  typeOf<String>():
+   #57 = String             #56           //    typeOf<String>():
+   #58 = Utf8               append
+   #59 = Utf8               (Ljava/lang/String;)Ljava/lang/StringBuilder;
+   #60 = NameAndType        #58:#59       // append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   #61 = Methodref          #54.#60       // java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   #62 = Utf8               (Ljava/lang/Object;)Ljava/lang/StringBuilder;
+   #63 = NameAndType        #58:#62       // append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+   #64 = Methodref          #54.#63       // java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+   #65 = Utf8               toString
+   #66 = Utf8               ()Ljava/lang/String;
+   #67 = NameAndType        #65:#66       // toString:()Ljava/lang/String;
+   #68 = Methodref          #54.#67       // java/lang/StringBuilder.toString:()Ljava/lang/String;
+   #69 = Utf8                  typeOf<List<String>>():
+   #70 = String             #69           //    typeOf<List<String>>():
+   #71 = Utf8               2. Testing listOf<T>():
+   #72 = String             #71           // 2. Testing listOf<T>():
+   #73 = Utf8               kotlin/collections/CollectionsKt
+   #74 = Class              #73           // kotlin/collections/CollectionsKt
+   #75 = Utf8               emptyList
+   #76 = Utf8               ()Ljava/util/List;
+   #77 = NameAndType        #75:#76       // emptyList:()Ljava/util/List;
+   #78 = Methodref          #74.#77       // kotlin/collections/CollectionsKt.emptyList:()Ljava/util/List;
+   #79 = Utf8                  listOf<String>():
+   #80 = String             #79           //    listOf<String>():
+   #81 = Utf8               getClass
+   #82 = Utf8               ()Ljava/lang/Class;
+   #83 = NameAndType        #81:#82       // getClass:()Ljava/lang/Class;
+   #84 = Methodref          #4.#83        // java/lang/Object.getClass:()Ljava/lang/Class;
+   #85 = Utf8                  listOf<Int>():
+   #86 = String             #85           //    listOf<Int>():
+   #87 = Utf8               3. Testing arrayOf<T>():
+   #88 = String             #87           // 3. Testing arrayOf<T>():
+   #89 = Utf8               java/lang/Integer
+   #90 = Class              #89           // java/lang/Integer
+   #91 = Utf8                  arrayOf<String>():
+   #92 = String             #91           //    arrayOf<String>():
+   #93 = Utf8                  arrayOf<Int>():
+   #94 = String             #93           //    arrayOf<Int>():
+   #95 = Utf8               4. Testing emptyArray<T>():
+   #96 = String             #95           // 4. Testing emptyArray<T>():
+   #97 = Utf8                  emptyArray<String>():
+   #98 = String             #97           //    emptyArray<String>():
+   #99 = Utf8                  emptyArray<Int>():
+  #100 = String             #99           //    emptyArray<Int>():
+  #101 = Utf8               5. Testing filterIsInstance<T>():
+  #102 = String             #101          // 5. Testing filterIsInstance<T>():
+  #103 = Utf8               hello
+  #104 = String             #103          // hello
+  #105 = Utf8               valueOf
+  #106 = Utf8               (I)Ljava/lang/Integer;
+  #107 = NameAndType        #105:#106     // valueOf:(I)Ljava/lang/Integer;
+  #108 = Methodref          #90.#107      // java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+  #109 = Utf8               world
+  #110 = String             #109          // world
+  #111 = Double             3.14d
+  #113 = Utf8               java/lang/Double
+  #114 = Class              #113          // java/lang/Double
+  #115 = Utf8               (D)Ljava/lang/Double;
+  #116 = NameAndType        #105:#115     // valueOf:(D)Ljava/lang/Double;
+  #117 = Methodref          #114.#116     // java/lang/Double.valueOf:(D)Ljava/lang/Double;
+  #118 = Utf8               kotlin
+  #119 = String             #118          // kotlin
+  #120 = Utf8               listOf
+  #121 = Utf8               ([Ljava/lang/Object;)Ljava/util/List;
+  #122 = NameAndType        #120:#121     // listOf:([Ljava/lang/Object;)Ljava/util/List;
+  #123 = Methodref          #74.#122      // kotlin/collections/CollectionsKt.listOf:([Ljava/lang/Object;)Ljava/util/List;
+  #124 = Utf8               java/lang/Iterable
+  #125 = Class              #124          // java/lang/Iterable
+  #126 = Utf8               java/util/ArrayList
+  #127 = Class              #126          // java/util/ArrayList
+  #128 = Methodref          #127.#7       // java/util/ArrayList."<init>":()V
+  #129 = Utf8               java/util/Collection
+  #130 = Class              #129          // java/util/Collection
+  #131 = Utf8               iterator
+  #132 = Utf8               ()Ljava/util/Iterator;
+  #133 = NameAndType        #131:#132     // iterator:()Ljava/util/Iterator;
+  #134 = InterfaceMethodref #125.#133     // java/lang/Iterable.iterator:()Ljava/util/Iterator;
+  #135 = Utf8               java/util/Iterator
+  #136 = Class              #135          // java/util/Iterator
+  #137 = Utf8               hasNext
+  #138 = Utf8               ()Z
+  #139 = NameAndType        #137:#138     // hasNext:()Z
+  #140 = InterfaceMethodref #136.#139     // java/util/Iterator.hasNext:()Z
+  #141 = Utf8               next
+  #142 = Utf8               ()Ljava/lang/Object;
+  #143 = NameAndType        #141:#142     // next:()Ljava/lang/Object;
+  #144 = InterfaceMethodref #136.#143     // java/util/Iterator.next:()Ljava/lang/Object;
+  #145 = Utf8               add
+  #146 = Utf8               (Ljava/lang/Object;)Z
+  #147 = NameAndType        #145:#146     // add:(Ljava/lang/Object;)Z
+  #148 = InterfaceMethodref #130.#147     // java/util/Collection.add:(Ljava/lang/Object;)Z
+  #149 = Utf8               java/lang/Number
+  #150 = Class              #149          // java/lang/Number
+  #151 = Utf8                  Original:
+  #152 = String             #151          //    Original:
+  #153 = Utf8                  Strings:
+  #154 = String             #153          //    Strings:
+  #155 = Utf8                  Numbers:
+  #156 = String             #155          //    Numbers:
+  #157 = Utf8               6. Testing reified type parameter preservation:
+  #158 = String             #157          // 6. Testing reified type parameter preservation:
+  #159 = Utf8               getOrCreateKotlinClass
+  #160 = Utf8               (Ljava/lang/Class;)Lkotlin/reflect/KClass;
+  #161 = NameAndType        #159:#160     // getOrCreateKotlinClass:(Ljava/lang/Class;)Lkotlin/reflect/KClass;
+  #162 = Methodref          #31.#161      // kotlin/jvm/internal/Reflection.getOrCreateKotlinClass:(Ljava/lang/Class;)Lkotlin/reflect/KClass;
+  #163 = Utf8                  T::class =
+  #164 = String             #163          //    T::class =
+  #165 = Utf8               kotlin/reflect/KClass
+  #166 = Class              #165          // kotlin/reflect/KClass
+  #167 = Utf8               getSimpleName
+  #168 = NameAndType        #167:#66      // getSimpleName:()Ljava/lang/String;
+  #169 = InterfaceMethodref #166.#168     // kotlin/reflect/KClass.getSimpleName:()Ljava/lang/String;
+  #170 = Utf8                  T::class.java =
+  #171 = String             #170          //    T::class.java =
+  #172 = Utf8               kotlin/jvm/JvmClassMappingKt
+  #173 = Class              #172          // kotlin/jvm/JvmClassMappingKt
+  #174 = Utf8               getJavaClass
+  #175 = Utf8               (Lkotlin/reflect/KClass;)Ljava/lang/Class;
+  #176 = NameAndType        #174:#175     // getJavaClass:(Lkotlin/reflect/KClass;)Ljava/lang/Class;
+  #177 = Methodref          #173.#176     // kotlin/jvm/JvmClassMappingKt.getJavaClass:(Lkotlin/reflect/KClass;)Ljava/lang/Class;
+  #178 = Utf8               java/lang/Class
+  #179 = Class              #178          // java/lang/Class
+  #180 = Utf8               getName
+  #181 = NameAndType        #180:#66      // getName:()Ljava/lang/String;
+  #182 = Methodref          #179.#181     // java/lang/Class.getName:()Ljava/lang/String;
+  #183 = Utf8               java/lang/reflect/Array
+  #184 = Class              #183          // java/lang/reflect/Array
+  #185 = Utf8               newInstance
+  #186 = Utf8               (Ljava/lang/Class;I)Ljava/lang/Object;
+  #187 = NameAndType        #185:#186     // newInstance:(Ljava/lang/Class;I)Ljava/lang/Object;
+  #188 = Methodref          #184.#187     // java/lang/reflect/Array.newInstance:(Ljava/lang/Class;I)Ljava/lang/Object;
+  #189 = Utf8               null cannot be cast to non-null type kotlin.Array<T of com.example.StdLibReifiedTest.testGenericPreservation>
+  #190 = String             #189          // null cannot be cast to non-null type kotlin.Array<T of com.example.StdLibReifiedTest.testGenericPreservation>
+  #191 = Utf8               kotlin/jvm/internal/Intrinsics
+  #192 = Class              #191          // kotlin/jvm/internal/Intrinsics
+  #193 = Utf8               checkNotNull
+  #194 = Utf8               (Ljava/lang/Object;Ljava/lang/String;)V
+  #195 = NameAndType        #193:#194     // checkNotNull:(Ljava/lang/Object;Ljava/lang/String;)V
+  #196 = Methodref          #192.#195     // kotlin/jvm/internal/Intrinsics.checkNotNull:(Ljava/lang/Object;Ljava/lang/String;)V
+  #197 = Utf8               [Ljava/lang/Object;
+  #198 = Class              #197          // "[Ljava/lang/Object;"
+  #199 = Utf8                  Created array:
+  #200 = String             #199          //    Created array:
+  #201 = Utf8               element$iv$iv
+  #202 = Utf8               Ljava/lang/Object;
+  #203 = Utf8               $i$f$filterIsInstanceTo
+  #204 = Utf8               I
+  #205 = Utf8               $this$filterIsInstanceTo$iv$iv
+  #206 = Utf8               Ljava/lang/Iterable;
+  #207 = Utf8               destination$iv$iv
+  #208 = Utf8               Ljava/util/Collection;
+  #209 = Utf8               $i$f$filterIsInstance
+  #210 = Utf8               $this$filterIsInstance$iv
+  #211 = Utf8               $i$f$testGenericPreservation
+  #212 = Utf8               kClass$iv
+  #213 = Utf8               Lkotlin/reflect/KClass;
+  #214 = Utf8               array$iv
+  #215 = Utf8               this_$iv
+  #216 = Utf8               stringType
+  #217 = Utf8               Lkotlin/reflect/KType;
+  #218 = Utf8               listType
+  #219 = Utf8               stringList
+  #220 = Utf8               Ljava/util/List;
+  #221 = Utf8               intList
+  #222 = Utf8               stringArray
+  #223 = Utf8               [Ljava/lang/String;
+  #224 = Utf8               intArray
+  #225 = Utf8               [Ljava/lang/Integer;
+  #226 = Utf8               emptyStringArray
+  #227 = Utf8               emptyIntArray
+  #228 = Utf8               mixedList
+  #229 = Utf8               strings
+  #230 = Utf8               numbers
+  #231 = Utf8               kotlin/reflect/KType
+  #232 = Class              #231          // kotlin/reflect/KType
+  #233 = Class              #223          // "[Ljava/lang/String;"
+  #234 = Class              #225          // "[Ljava/lang/Integer;"
+  #235 = Utf8               testGenericPreservation
+  #236 = Utf8               <T:Ljava/lang/Object;>()V
+  #237 = Utf8               T
+  #238 = String             #237          // T
+  #239 = Utf8               reifiedOperationMarker
+  #240 = Utf8               (ILjava/lang/String;)V
+  #241 = NameAndType        #239:#240     // reifiedOperationMarker:(ILjava/lang/String;)V
+  #242 = Methodref          #192.#241     // kotlin/jvm/internal/Intrinsics.reifiedOperationMarker:(ILjava/lang/String;)V
+  #243 = Utf8               kClass
+  #244 = Utf8               array
+  #245 = Utf8               <clinit>
+  #246 = Methodref          #2.#7         // com/example/StdLibReifiedTest."<init>":()V
+  #247 = Utf8               INSTANCE
+  #248 = NameAndType        #247:#10      // INSTANCE:Lcom/example/StdLibReifiedTest;
+  #249 = Fieldref           #2.#248       // com/example/StdLibReifiedTest.INSTANCE:Lcom/example/StdLibReifiedTest;
+  #250 = Utf8               Lorg/jetbrains/annotations/NotNull;
+  #251 = Utf8               Lkotlin/Metadata;
+  #252 = Utf8               mv
+  #253 = Integer            2
+  #254 = Integer            0
+  #255 = Utf8               k
+  #256 = Integer            1
+  #257 = Utf8               xi
+  #258 = Integer            48
+  #259 = Utf8               d1
+  #260 = Utf8                \n\n \n\n\n? 20B\t?J0J0\" H?¡§
+  #261 = Utf8               d2
+  #262 = Utf8
+  #263 = Utf8               jvm-languages-demo
+  #264 = Utf8               StdLibReifiedTest.kt
+  #265 = Utf8               Lkotlin/jvm/internal/SourceDebugExtension;
+  #266 = Utf8               value
+  #267 = Utf8               SMAP\nStdLibReifiedTest.kt\nKotlin\n*S Kotlin\n*F\n+ 1 StdLibReifiedTest.kt\ncom/example/StdLibReifiedTest\n+ 2 _Collections.kt\nkotlin/collections/CollectionsKt___CollectionsKt\n*L\n1#1,71:1\n59#1,8:94\n59#1,8:102\n808#2,11:72\n808#2,11:83\n*S KotlinDebug\n*F\n+ 1 StdLibReifiedTest.kt\ncom/example/StdLibReifiedTest\n*L\n53#1:94,8\n54#1:102,8\n45#1:72,11\n46#1:83,11\n*E\n
+  #268 = Utf8               RuntimeInvisibleAnnotations
+  #269 = Utf8               Code
+  #270 = Utf8               LineNumberTable
+  #271 = Utf8               LocalVariableTable
+  #272 = Utf8               StackMapTable
+  #273 = Utf8               Signature
+  #274 = Utf8               SourceFile
+  #275 = Utf8               SourceDebugExtension
+  #276 = Utf8               RuntimeVisibleAnnotations
+{
+  public static final com.example.StdLibReifiedTest INSTANCE;
+    descriptor: Lcom/example/StdLibReifiedTest;
+    flags: ACC_PUBLIC, ACC_STATIC, ACC_FINAL
+    RuntimeInvisibleAnnotations:
+      0: #250()
+
+  public final void testStandardLibraryReified();
+    descriptor: ()V
+    flags: ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=4, locals=19, args_size=1
+         0: ldc           #13                 // String === Testing Kotlin Standard Library Reified Functions ===
+         2: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+         5: swap
+         6: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+         9: ldc           #27                 // String 1. Testing typeOf<T>():
+        11: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        14: swap
+        15: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+        18: ldc           #29                 // class java/lang/String
+        20: invokestatic  #35                 // Method kotlin/jvm/internal/Reflection.typeOf:(Ljava/lang/Class;)Lkotlin/reflect/KType;
+        23: astore_1
+        24: ldc           #37                 // class java/util/List
+        26: getstatic     #43                 // Field kotlin/reflect/KTypeProjection.Companion:Lkotlin/reflect/KTypeProjection$Companion;
+        29: ldc           #29                 // class java/lang/String
+        31: invokestatic  #35                 // Method kotlin/jvm/internal/Reflection.typeOf:(Ljava/lang/Class;)Lkotlin/reflect/KType;
+        34: invokevirtual #49                 // Method kotlin/reflect/KTypeProjection$Companion.invariant:(Lkotlin/reflect/KType;)Lkotlin/reflect/KTypeProjection;
+        37: invokestatic  #52                 // Method kotlin/jvm/internal/Reflection.typeOf:(Ljava/lang/Class;Lkotlin/reflect/KTypeProjection;)Lkotlin/reflect/KType;
+        40: astore_2
+        41: new           #54                 // class java/lang/StringBuilder
+        44: dup
+        45: invokespecial #55                 // Method java/lang/StringBuilder."<init>":()V
+        48: ldc           #57                 // String    typeOf<String>():
+        50: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        53: aload_1
+        54: invokevirtual #64                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+        57: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+        60: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        63: swap
+        64: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+        67: new           #54                 // class java/lang/StringBuilder
+        70: dup
+        71: invokespecial #55                 // Method java/lang/StringBuilder."<init>":()V
+        74: ldc           #70                 // String    typeOf<List<String>>():
+        76: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        79: aload_2
+        80: invokevirtual #64                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+        83: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+        86: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        89: swap
+        90: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+        93: ldc           #72                 // String 2. Testing listOf<T>():
+        95: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        98: swap
+        99: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       102: invokestatic  #78                 // Method kotlin/collections/CollectionsKt.emptyList:()Ljava/util/List;
+       105: astore_3
+       106: invokestatic  #78                 // Method kotlin/collections/CollectionsKt.emptyList:()Ljava/util/List;
+       109: astore        4
+       111: new           #54                 // class java/lang/StringBuilder
+       114: dup
+       115: invokespecial #55                 // Method java/lang/StringBuilder."<init>":()V
+       118: ldc           #80                 // String    listOf<String>():
+       120: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       123: aload_3
+       124: invokevirtual #84                 // Method java/lang/Object.getClass:()Ljava/lang/Class;
+       127: invokevirtual #64                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+       130: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       133: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       136: swap
+       137: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       140: new           #54                 // class java/lang/StringBuilder
+       143: dup
+       144: invokespecial #55                 // Method java/lang/StringBuilder."<init>":()V
+       147: ldc           #86                 // String    listOf<Int>():
+       149: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       152: aload         4
+       154: invokevirtual #84                 // Method java/lang/Object.getClass:()Ljava/lang/Class;
+       157: invokevirtual #64                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+       160: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       163: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       166: swap
+       167: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       170: ldc           #88                 // String 3. Testing arrayOf<T>():
+       172: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       175: swap
+       176: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       179: iconst_0
+       180: anewarray     #29                 // class java/lang/String
+       183: astore        5
+       185: iconst_0
+       186: anewarray     #90                 // class java/lang/Integer
+       189: astore        6
+       191: new           #54                 // class java/lang/StringBuilder
+       194: dup
+       195: invokespecial #55                 // Method java/lang/StringBuilder."<init>":()V
+       198: ldc           #92                 // String    arrayOf<String>():
+       200: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       203: aload         5
+       205: invokevirtual #84                 // Method java/lang/Object.getClass:()Ljava/lang/Class;
+       208: invokevirtual #64                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+       211: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       214: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       217: swap
+       218: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       221: new           #54                 // class java/lang/StringBuilder
+       224: dup
+       225: invokespecial #55                 // Method java/lang/StringBuilder."<init>":()V
+       228: ldc           #94                 // String    arrayOf<Int>():
+       230: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       233: aload         6
+       235: invokevirtual #84                 // Method java/lang/Object.getClass:()Ljava/lang/Class;
+       238: invokevirtual #64                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+       241: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       244: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       247: swap
+       248: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       251: ldc           #96                 // String 4. Testing emptyArray<T>():
+       253: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       256: swap
+       257: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       260: iconst_0
+       261: anewarray     #29                 // class java/lang/String
+       264: astore        7
+       266: iconst_0
+       267: anewarray     #90                 // class java/lang/Integer
+       270: astore        8
+       272: new           #54                 // class java/lang/StringBuilder
+       275: dup
+       276: invokespecial #55                 // Method java/lang/StringBuilder."<init>":()V
+       279: ldc           #98                 // String    emptyArray<String>():
+       281: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       284: aload         7
+       286: invokevirtual #84                 // Method java/lang/Object.getClass:()Ljava/lang/Class;
+       289: invokevirtual #64                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+       292: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       295: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       298: swap
+       299: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       302: new           #54                 // class java/lang/StringBuilder
+       305: dup
+       306: invokespecial #55                 // Method java/lang/StringBuilder."<init>":()V
+       309: ldc           #100                // String    emptyArray<Int>():
+       311: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       314: aload         8
+       316: invokevirtual #84                 // Method java/lang/Object.getClass:()Ljava/lang/Class;
+       319: invokevirtual #64                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+       322: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       325: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       328: swap
+       329: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       332: ldc           #102                // String 5. Testing filterIsInstance<T>():
+       334: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       337: swap
+       338: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       341: iconst_5
+       342: anewarray     #4                  // class java/lang/Object
+       345: astore        10
+       347: aload         10
+       349: iconst_0
+       350: ldc           #104                // String hello
+       352: aastore
+       353: aload         10
+       355: iconst_1
+       356: bipush        42
+       358: invokestatic  #108                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+       361: aastore
+       362: aload         10
+       364: iconst_2
+       365: ldc           #110                // String world
+       367: aastore
+       368: aload         10
+       370: iconst_3
+       371: ldc2_w        #111                // double 3.14d
+       374: invokestatic  #117                // Method java/lang/Double.valueOf:(D)Ljava/lang/Double;
+       377: aastore
+       378: aload         10
+       380: iconst_4
+       381: ldc           #119                // String kotlin
+       383: aastore
+       384: aload         10
+       386: invokestatic  #123                // Method kotlin/collections/CollectionsKt.listOf:([Ljava/lang/Object;)Ljava/util/List;
+       389: astore        9
+       391: aload         9
+       393: checkcast     #125                // class java/lang/Iterable
+       396: astore        11
+       398: iconst_0
+       399: istore        12
+       401: aload         11
+       403: astore        13
+       405: new           #127                // class java/util/ArrayList
+       408: dup
+       409: invokespecial #128                // Method java/util/ArrayList."<init>":()V
+       412: checkcast     #130                // class java/util/Collection
+       415: astore        14
+       417: iconst_0
+       418: istore        15
+       420: aload         13
+       422: invokeinterface #134,  1          // InterfaceMethod java/lang/Iterable.iterator:()Ljava/util/Iterator;
+       427: astore        16
+       429: aload         16
+       431: invokeinterface #140,  1          // InterfaceMethod java/util/Iterator.hasNext:()Z
+       436: ifeq          469
+       439: aload         16
+       441: invokeinterface #144,  1          // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+       446: astore        17
+       448: aload         17
+       450: instanceof    #29                 // class java/lang/String
+       453: ifeq          429
+       456: aload         14
+       458: aload         17
+       460: invokeinterface #148,  2          // InterfaceMethod java/util/Collection.add:(Ljava/lang/Object;)Z
+       465: pop
+       466: goto          429
+       469: aload         14
+       471: checkcast     #37                 // class java/util/List
+       474: nop
+       475: astore        10
+       477: aload         9
+       479: checkcast     #125                // class java/lang/Iterable
+       482: astore        12
+       484: iconst_0
+       485: istore        13
+       487: aload         12
+       489: astore        14
+       491: new           #127                // class java/util/ArrayList
+       494: dup
+       495: invokespecial #128                // Method java/util/ArrayList."<init>":()V
+       498: checkcast     #130                // class java/util/Collection
+       501: astore        15
+       503: iconst_0
+       504: istore        16
+       506: aload         14
+       508: invokeinterface #134,  1          // InterfaceMethod java/lang/Iterable.iterator:()Ljava/util/Iterator;
+       513: astore        17
+       515: aload         17
+       517: invokeinterface #140,  1          // InterfaceMethod java/util/Iterator.hasNext:()Z
+       522: ifeq          555
+       525: aload         17
+       527: invokeinterface #144,  1          // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+       532: astore        18
+       534: aload         18
+       536: instanceof    #150                // class java/lang/Number
+       539: ifeq          515
+       542: aload         15
+       544: aload         18
+       546: invokeinterface #148,  2          // InterfaceMethod java/util/Collection.add:(Ljava/lang/Object;)Z
+       551: pop
+       552: goto          515
+       555: aload         15
+       557: checkcast     #37                 // class java/util/List
+       560: nop
+       561: astore        11
+       563: new           #54                 // class java/lang/StringBuilder
+       566: dup
+       567: invokespecial #55                 // Method java/lang/StringBuilder."<init>":()V
+       570: ldc           #152                // String    Original:
+       572: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       575: aload         9
+       577: invokevirtual #64                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+       580: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       583: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       586: swap
+       587: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       590: new           #54                 // class java/lang/StringBuilder
+       593: dup
+       594: invokespecial #55                 // Method java/lang/StringBuilder."<init>":()V
+       597: ldc           #154                // String    Strings:
+       599: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       602: aload         10
+       604: invokevirtual #64                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+       607: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       610: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       613: swap
+       614: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       617: new           #54                 // class java/lang/StringBuilder
+       620: dup
+       621: invokespecial #55                 // Method java/lang/StringBuilder."<init>":()V
+       624: ldc           #156                // String    Numbers:
+       626: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       629: aload         11
+       631: invokevirtual #64                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+       634: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       637: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       640: swap
+       641: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       644: ldc           #158                // String 6. Testing reified type parameter preservation:
+       646: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       649: swap
+       650: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       653: aload_0
+       654: astore        12
+       656: iconst_0
+       657: istore        13
+       659: ldc           #29                 // class java/lang/String
+       661: invokestatic  #162                // Method kotlin/jvm/internal/Reflection.getOrCreateKotlinClass:(Ljava/lang/Class;)Lkotlin/reflect/KClass;
+       664: astore        14
+       666: new           #54                 // class java/lang/StringBuilder
+       669: dup
+       670: invokespecial #55                 // Method java/lang/StringBuilder."<init>":()V
+       673: ldc           #164                // String    T::class =
+       675: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       678: aload         14
+       680: invokeinterface #169,  1          // InterfaceMethod kotlin/reflect/KClass.getSimpleName:()Ljava/lang/String;
+       685: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       688: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       691: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       694: swap
+       695: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       698: new           #54                 // class java/lang/StringBuilder
+       701: dup
+       702: invokespecial #55                 // Method java/lang/StringBuilder."<init>":()V
+       705: ldc           #171                // String    T::class.java =
+       707: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       710: aload         14
+       712: invokestatic  #177                // Method kotlin/jvm/JvmClassMappingKt.getJavaClass:(Lkotlin/reflect/KClass;)Ljava/lang/Class;
+       715: invokevirtual #182                // Method java/lang/Class.getName:()Ljava/lang/String;
+       718: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       721: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       724: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       727: swap
+       728: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       731: aload         14
+       733: invokestatic  #177                // Method kotlin/jvm/JvmClassMappingKt.getJavaClass:(Lkotlin/reflect/KClass;)Ljava/lang/Class;
+       736: iconst_0
+       737: invokestatic  #188                // Method java/lang/reflect/Array.newInstance:(Ljava/lang/Class;I)Ljava/lang/Object;
+       740: dup
+       741: ldc           #190                // String null cannot be cast to non-null type kotlin.Array<T of com.example.StdLibReifiedTest.testGenericPreservation>
+       743: invokestatic  #196                // Method kotlin/jvm/internal/Intrinsics.checkNotNull:(Ljava/lang/Object;Ljava/lang/String;)V
+       746: checkcast     #198                // class "[Ljava/lang/Object;"
+       749: astore        15
+       751: new           #54                 // class java/lang/StringBuilder
+       754: dup
+       755: invokespecial #55                 // Method java/lang/StringBuilder."<init>":()V
+       758: ldc           #200                // String    Created array:
+       760: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       763: aload         15
+       765: invokevirtual #84                 // Method java/lang/Object.getClass:()Ljava/lang/Class;
+       768: invokevirtual #64                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+       771: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       774: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       777: swap
+       778: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       781: nop
+       782: aload_0
+       783: astore        12
+       785: iconst_0
+       786: istore        13
+       788: ldc           #37                 // class java/util/List
+       790: invokestatic  #162                // Method kotlin/jvm/internal/Reflection.getOrCreateKotlinClass:(Ljava/lang/Class;)Lkotlin/reflect/KClass;
+       793: astore        14
+       795: new           #54                 // class java/lang/StringBuilder
+       798: dup
+       799: invokespecial #55                 // Method java/lang/StringBuilder."<init>":()V
+       802: ldc           #164                // String    T::class =
+       804: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       807: aload         14
+       809: invokeinterface #169,  1          // InterfaceMethod kotlin/reflect/KClass.getSimpleName:()Ljava/lang/String;
+       814: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       817: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       820: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       823: swap
+       824: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       827: new           #54                 // class java/lang/StringBuilder
+       830: dup
+       831: invokespecial #55                 // Method java/lang/StringBuilder."<init>":()V
+       834: ldc           #171                // String    T::class.java =
+       836: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       839: aload         14
+       841: invokestatic  #177                // Method kotlin/jvm/JvmClassMappingKt.getJavaClass:(Lkotlin/reflect/KClass;)Ljava/lang/Class;
+       844: invokevirtual #182                // Method java/lang/Class.getName:()Ljava/lang/String;
+       847: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       850: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       853: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       856: swap
+       857: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       860: aload         14
+       862: invokestatic  #177                // Method kotlin/jvm/JvmClassMappingKt.getJavaClass:(Lkotlin/reflect/KClass;)Ljava/lang/Class;
+       865: iconst_0
+       866: invokestatic  #188                // Method java/lang/reflect/Array.newInstance:(Ljava/lang/Class;I)Ljava/lang/Object;
+       869: dup
+       870: ldc           #190                // String null cannot be cast to non-null type kotlin.Array<T of com.example.StdLibReifiedTest.testGenericPreservation>
+       872: invokestatic  #196                // Method kotlin/jvm/internal/Intrinsics.checkNotNull:(Ljava/lang/Object;Ljava/lang/String;)V
+       875: checkcast     #198                // class "[Ljava/lang/Object;"
+       878: astore        15
+       880: new           #54                 // class java/lang/StringBuilder
+       883: dup
+       884: invokespecial #55                 // Method java/lang/StringBuilder."<init>":()V
+       887: ldc           #200                // String    Created array:
+       889: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       892: aload         15
+       894: invokevirtual #84                 // Method java/lang/Object.getClass:()Ljava/lang/Class;
+       897: invokevirtual #64                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+       900: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       903: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       906: swap
+       907: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       910: nop
+       911: return
+      StackMapTable: number_of_entries = 4
+        frame_type = 255 /* full_frame */
+          offset_delta = 429
+          locals = [ class com/example/StdLibReifiedTest, class kotlin/reflect/KType, class kotlin/reflect/KType, class java/util/List, class java/util/List, class "[Ljava/lang/String;", class "[Ljava/lang/Integer;", class "[Ljava/lang/String;", class "[Ljava/lang/Integer;", class java/util/List, class "[Ljava/lang/Object;", class java/lang/Iterable, int, class java/lang/Iterable, class java/util/Collection, int, class java/util/Iterator ]
+          stack = []
+        frame_type = 39 /* same */
+        frame_type = 255 /* full_frame */
+          offset_delta = 45
+          locals = [ class com/example/StdLibReifiedTest, class kotlin/reflect/KType, class kotlin/reflect/KType, class java/util/List, class java/util/List, class "[Ljava/lang/String;", class "[Ljava/lang/Integer;", class "[Ljava/lang/String;", class "[Ljava/lang/Integer;", class java/util/List, class java/util/List, class java/lang/Iterable, class java/lang/Iterable, int, class java/lang/Iterable, class java/util/Collection, int, class java/util/Iterator ]
+          stack = []
+        frame_type = 39 /* same */
+      LineNumberTable:
+        line 12: 0
+        line 15: 9
+        line 16: 18
+        line 17: 24
+        line 18: 41
+        line 19: 67
+        line 22: 93
+        line 23: 102
+        line 23: 105
+        line 24: 106
+        line 24: 109
+        line 25: 111
+        line 26: 140
+        line 29: 170
+        line 30: 183
+        line 31: 189
+        line 32: 191
+        line 33: 221
+        line 36: 251
+        line 37: 260
+        line 38: 266
+        line 39: 272
+        line 40: 302
+        line 43: 332
+        line 44: 341
+        line 45: 391
+        line 72: 401
+        line 81: 420
+        line 82: 469
+        line 72: 474
+        line 45: 475
+        line 46: 477
+        line 83: 487
+        line 92: 506
+        line 93: 555
+        line 83: 560
+        line 46: 561
+        line 47: 563
+        line 48: 590
+        line 49: 617
+        line 52: 644
+        line 53: 653
+        line 94: 664
+        line 95: 666
+        line 96: 698
+        line 99: 731
+        line 100: 751
+        line 101: 781
+        line 54: 782
+        line 102: 793
+        line 103: 795
+        line 104: 827
+        line 107: 860
+        line 108: 880
+        line 109: 910
+        line 55: 911
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+          448      18    17 element$iv$iv   Ljava/lang/Object;
+          420      51    15 $i$f$filterIsInstanceTo   I
+          417      54    13 $this$filterIsInstanceTo$iv$iv   Ljava/lang/Iterable;
+          417      54    14 destination$iv$iv   Ljava/util/Collection;
+          401      74    12 $i$f$filterIsInstance   I
+          398      77    11 $this$filterIsInstance$iv   Ljava/lang/Iterable;
+          534      18    18 element$iv$iv   Ljava/lang/Object;
+          506      51    16 $i$f$filterIsInstanceTo   I
+          503      54    14 $this$filterIsInstanceTo$iv$iv   Ljava/lang/Iterable;
+          503      54    15 destination$iv$iv   Ljava/util/Collection;
+          487      74    13 $i$f$filterIsInstance   I
+          484      77    12 $this$filterIsInstance$iv   Ljava/lang/Iterable;
+          659     123    13 $i$f$testGenericPreservation   I
+          666     116    14 kClass$iv   Lkotlin/reflect/KClass;
+          751      31    15 array$iv   [Ljava/lang/Object;
+          656     126    12 this_$iv   Lcom/example/StdLibReifiedTest;
+          788     123    13 $i$f$testGenericPreservation   I
+          795     116    14 kClass$iv   Lkotlin/reflect/KClass;
+          880      31    15 array$iv   [Ljava/lang/Object;
+          785     126    12 this_$iv   Lcom/example/StdLibReifiedTest;
+           24     888     1 stringType   Lkotlin/reflect/KType;
+           41     871     2 listType   Lkotlin/reflect/KType;
+          106     806     3 stringList   Ljava/util/List;
+          111     801     4 intList   Ljava/util/List;
+          185     727     5 stringArray   [Ljava/lang/String;
+          191     721     6 intArray   [Ljava/lang/Integer;
+          266     646     7 emptyStringArray   [Ljava/lang/String;
+          272     640     8 emptyIntArray   [Ljava/lang/Integer;
+          391     521     9 mixedList   Ljava/util/List;
+          477     435    10 strings   Ljava/util/List;
+          563     349    11 numbers   Ljava/util/List;
+            0     912     0  this   Lcom/example/StdLibReifiedTest;
+
+  public final <T extends java.lang.Object> void testGenericPreservation();
+    descriptor: ()V
+    flags: ACC_PUBLIC, ACC_FINAL, ACC_SYNTHETIC
+    Code:
+      stack=3, locals=4, args_size=1
+         0: iconst_0
+         1: istore_1
+         2: iconst_4
+         3: ldc           #238                // String T
+         5: invokestatic  #242                // Method kotlin/jvm/internal/Intrinsics.reifiedOperationMarker:(ILjava/lang/String;)V
+         8: ldc           #4                  // class java/lang/Object
+        10: invokestatic  #162                // Method kotlin/jvm/internal/Reflection.getOrCreateKotlinClass:(Ljava/lang/Class;)Lkotlin/reflect/KClass;
+        13: astore_2
+        14: new           #54                 // class java/lang/StringBuilder
+        17: dup
+        18: invokespecial #55                 // Method java/lang/StringBuilder."<init>":()V
+        21: ldc           #164                // String    T::class =
+        23: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        26: aload_2
+        27: invokeinterface #169,  1          // InterfaceMethod kotlin/reflect/KClass.getSimpleName:()Ljava/lang/String;
+        32: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        35: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+        38: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        41: swap
+        42: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+        45: new           #54                 // class java/lang/StringBuilder
+        48: dup
+        49: invokespecial #55                 // Method java/lang/StringBuilder."<init>":()V
+        52: ldc           #171                // String    T::class.java =
+        54: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        57: aload_2
+        58: invokestatic  #177                // Method kotlin/jvm/JvmClassMappingKt.getJavaClass:(Lkotlin/reflect/KClass;)Ljava/lang/Class;
+        61: invokevirtual #182                // Method java/lang/Class.getName:()Ljava/lang/String;
+        64: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        67: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+        70: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        73: swap
+        74: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+        77: aload_2
+        78: invokestatic  #177                // Method kotlin/jvm/JvmClassMappingKt.getJavaClass:(Lkotlin/reflect/KClass;)Ljava/lang/Class;
+        81: iconst_0
+        82: invokestatic  #188                // Method java/lang/reflect/Array.newInstance:(Ljava/lang/Class;I)Ljava/lang/Object;
+        85: dup
+        86: ldc           #190                // String null cannot be cast to non-null type kotlin.Array<T of com.example.StdLibReifiedTest.testGenericPreservation>
+        88: invokestatic  #196                // Method kotlin/jvm/internal/Intrinsics.checkNotNull:(Ljava/lang/Object;Ljava/lang/String;)V
+        91: checkcast     #198                // class "[Ljava/lang/Object;"
+        94: astore_3
+        95: new           #54                 // class java/lang/StringBuilder
+        98: dup
+        99: invokespecial #55                 // Method java/lang/StringBuilder."<init>":()V
+       102: ldc           #200                // String    Created array:
+       104: invokevirtual #61                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       107: aload_3
+       108: invokevirtual #84                 // Method java/lang/Object.getClass:()Ljava/lang/Class;
+       111: invokevirtual #64                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+       114: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       117: getstatic     #19                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       120: swap
+       121: invokevirtual #25                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       124: return
+      LineNumberTable:
+        line 59: 13
+        line 60: 14
+        line 61: 45
+        line 64: 77
+        line 65: 95
+        line 66: 124
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            2     123     1 $i$f$testGenericPreservation   I
+           14     111     2 kClass   Lkotlin/reflect/KClass;
+           95      30     3 array   [Ljava/lang/Object;
+            0     125     0  this   Lcom/example/StdLibReifiedTest;
+    Signature: #236                         // <T:Ljava/lang/Object;>()V
+
+  static {};
+    descriptor: ()V
+    flags: ACC_STATIC
+    Code:
+      stack=2, locals=0, args_size=0
+         0: new           #2                  // class com/example/StdLibReifiedTest
+         3: dup
+         4: invokespecial #246                // Method "<init>":()V
+         7: putstatic     #249                // Field INSTANCE:Lcom/example/StdLibReifiedTest;
+        10: return
+}
+SourceFile: "StdLibReifiedTest.kt"
+SourceDebugExtension:
+  SMAP
+  StdLibReifiedTest.kt
+  Kotlin
+  *S Kotlin
+  *F
+  + 1 StdLibReifiedTest.kt
+  com/example/StdLibReifiedTest
+  + 2 _Collections.kt
+  kotlin/collections/CollectionsKt___CollectionsKt
+  *L
+  1#1,71:1
+  59#1,8:94
+  59#1,8:102
+  808#2,11:72
+  808#2,11:83
+  *S KotlinDebug
+  *F
+  + 1 StdLibReifiedTest.kt
+  com/example/StdLibReifiedTest
+  *L
+  53#1:94,8
+  54#1:102,8
+  45#1:72,11
+  46#1:83,11
+  *E
+RuntimeVisibleAnnotations:
+  0: #251(#252=[I#253,I#253,I#254],#255=I#256,#257=I#258,#259=[s#260],#261=[s#10,s#262,s#5,s#6,s#11,s#262,s#235,s#237,s#263])
+RuntimeInvisibleAnnotations:
+  0: #265(#266=[s#267])
