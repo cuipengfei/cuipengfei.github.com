@@ -69,7 +69,7 @@ java -cp target/classes com.example.SimpleReifiedDemoKt
 # Java 类型擦除分析文件生成
 javap -v target/classes/com/example/RuntimeTypeBypassDemo.class > bytecode-analysis-RuntimeTypeBypassDemo.txt
 javap -v target/classes/com/example/GenericClassDemo.class > bytecode-analysis-GenericClassDemo.txt  
-javap -v target/classes/com/example/JavaCallsKotlinReified.class > bytecode-analysis-JavaCallsKotlinReified.txt
+javap -v target/classes/com/example/GenericReflectionTest.class > bytecode-analysis-GenericReflectionTest.txt
 
 # Java 运行输出保存
 java -cp target/classes com.example.RuntimeTypeBypassDemo > runtime-output-RuntimeTypeBypassDemo.txt 2>&1
@@ -79,11 +79,13 @@ java -cp target/classes com.example.GenericReflectionTest > runtime-output-Gener
 ### Kotlin 字节码分析
 ```bash
 # Kotlin reified 分析文件生成
-javap -v target/classes/com/example/SimpleReifiedDemoKt.class > bytecode-analysis-SimpleReifiedDemoKt.txt
+javap -v target/classes/com/example/SimpleReifiedDemoKt.class > bytecode-analysis-SimpleReifiedDemo.txt
 javap -v target/classes/com/example/StdLibReifiedTestKt.class > bytecode-analysis-StdLibReifiedTest.txt
+javap -v target/classes/com/example/ThirdPartyReifiedTestKt.class > bytecode-analysis-ThirdPartyReifiedTest.txt
 
 # Kotlin 运行输出保存
 java -cp target/classes com.example.SimpleReifiedDemoKt > runtime-output-SimpleReifiedDemo.txt 2>&1
+java -cp target/classes com.example.ThirdPartyReifiedTestKt > runtime-output-ThirdPartyReifiedTest.txt 2>&1
 ```
 
 ### 关键字节码模式搜索
@@ -115,13 +117,18 @@ src/main/
 ├── java/com/example/
 │   ├── RuntimeTypeBypassDemo.java        # Java 类型擦除漏洞演示
 │   ├── GenericClassDemo.java             # 泛型类 Signature 属性分析  
-│   ├── GenericReflectionTest.java        # 反射获取泛型信息边界
-│   ├── JavaCallsKotlinReified.java       # Java-Kotlin 互操作测试
-│   └── JavaCallsReifiedDirectly.java     # 直接调用 reified 的限制
+│   └── GenericReflectionTest.java        # 反射获取泛型信息边界
 └── kotlin/com/example/
     ├── SimpleReifiedDemo.kt              # 基础 reified vs 普通泛型
-    └── StdLibReifiedTest.kt              # 标准库 reified 跨 JAR 调用
+    ├── StdLibReifiedTest.kt              # 标准库 reified 跨 JAR 调用
+    └── ThirdPartyReifiedTest.kt          # 第三方库 reified 函数分析
 ```
+
+### 重要的第三方依赖
+- **Jackson Kotlin Module**: 提供 `readValue<T>()` 等第三方库 reified 函数
+- **Jackson Databind**: JSON 处理的核心库
+- **Gson**: Google 的 JSON 库，用于对比 TypeToken 模式
+- **JMH**: 性能基准测试框架（测试范围）
 
 ## 核心研究方法
 
@@ -190,7 +197,9 @@ src/main/
 
 ### 技术依赖
 - **kotlin-stdlib**: Kotlin 标准库，提供 reified 函数
-- **kotlin-reflect**: Kotlin 反射库，用于类型信息获取
+- **jackson-module-kotlin**: 第三方 reified 函数的关键研究对象
+- **jackson-databind**: JSON 处理核心库
+- **gson**: 用于对比 TypeToken 模式的替代实现
 
 ## 研究价值与应用
 
