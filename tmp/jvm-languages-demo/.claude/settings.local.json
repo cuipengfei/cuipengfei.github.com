@@ -27,7 +27,11 @@
       "Bash(jar xf:*)",
       "Bash(git add:*)",
       "Bash(git add bytecode-analysis-ThirdPartyReifiedTest.txt)",
-      "Bash(git add runtime-output-ThirdPartyReifiedTest.txt)"
+      "Bash(git add runtime-output-ThirdPartyReifiedTest.txt)",
+      "Bash(git commit:*)",
+      "Bash(java -cp target/classes com.example.StdLibReifiedTestKt)",
+      "WebSearch",
+      "WebFetch(domain:github.com)"
     ],
     "deny": [],
     "ask": []
