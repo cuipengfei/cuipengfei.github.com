@@ -146,3 +146,37 @@ The blog focuses on:
 - System architecture and design patterns
 - Technical reflection and best practices
 - Chinese technical writing with English code terms
+
+## Writing Style Requirements
+
+**Critical**: All content creation must follow the writing style profile defined in `.memory-bank/writing-style-profile.md`. Key principles:
+
+### Language and Tone
+- **Primary Language**: Chinese for all main content, with English preserved for technical terms and code
+- **Tone**: Humble, exploratory, and conversational - avoid authoritative or prescriptive language
+- **Uncertainty Markers**: Use "我认为", "似乎", "可能", "据我理解", "目前来看" to maintain humble tone
+- **Interactive Elements**: Include thoughtful questions and "不过再想一下" progressive inquiry patterns
+
+### Technical Content Standards
+- **Technical Term Density**: 15-25 technical terms per 100 characters
+- **Complex Sentence Ratio**: 60-75% compound sentences to reflect analytical thinking
+- **Question Frequency**: 8-15% of sentences should be questions to enhance reader engagement
+- **Code-to-Text Ratio**: Maintain 1:2 to 1:4 ratio for balanced theory and practice
+
+### Content Structure
+- **Spiral Progression**: Revisit themes at deeper levels throughout the article
+- **Multi-perspective Analysis**: Present different viewpoints using "从...角度" and "另一方面"
+- **Problem-Solution Framework**: Structure content as problem identification → analysis → solution exploration
+- **Metaphor Usage**: 3-5 analogies per 1000 characters to explain complex concepts
+
+### Reader Interaction
+- **Peer-Level Discussion**: Write as a colleague exploring ideas together, not as a teacher
+- **Cognitive Collaboration**: Invite readers to think along: "我们可以考虑", "值得探讨的是"
+- **Knowledge Boundary Acknowledgment**: Explicitly state limitations: "在我的经验中", "可能存在遗漏"
+- **Open Endings**: 30-45% of paragraphs should end with open questions or further thinking directions
+
+### Content Quality Indicators
+- Avoid absolute statements ("必须", "应该", "显然", "众所周知")
+- Include personal journey elements when relevant to technical understanding
+- Use story-telling techniques to make complex concepts accessible
+- Maintain technical depth while ensuring approachability

@@ -1,0 +1,393 @@
+Classfile /D:/code/cuipengfei.github.com/tmp/jvm-languages-demo/target/classes/com/example/SimpleReifiedDemo.class
+  Last modified 2025Äê9ÔÂ14ÈÕ; size 3359 bytes
+  SHA-256 checksum e832f3cc2aeeb215f12d2eed63324036e6f4943888c8cee2920647efb99abc22
+  Compiled from "SimpleReifiedDemo.kt"
+public final class com.example.SimpleReifiedDemo
+  minor version: 0
+  major version: 52
+  flags: (0x0031) ACC_PUBLIC, ACC_FINAL, ACC_SUPER
+  this_class: #2                          // com/example/SimpleReifiedDemo
+  super_class: #4                         // java/lang/Object
+  interfaces: 0, fields: 1, methods: 5, attributes: 4
+Constant pool:
+    #1 = Utf8               com/example/SimpleReifiedDemo
+    #2 = Class              #1            // com/example/SimpleReifiedDemo
+    #3 = Utf8               java/lang/Object
+    #4 = Class              #3            // java/lang/Object
+    #5 = Utf8               <init>
+    #6 = Utf8               ()V
+    #7 = NameAndType        #5:#6         // "<init>":()V
+    #8 = Methodref          #4.#7         // java/lang/Object."<init>":()V
+    #9 = Utf8               this
+   #10 = Utf8               Lcom/example/SimpleReifiedDemo;
+   #11 = Utf8               checkTypeNormal
+   #12 = Utf8               (Ljava/lang/Object;)Z
+   #13 = Utf8               <T:Ljava/lang/Object;>(Ljava/lang/Object;)Z
+   #14 = Utf8               Lorg/jetbrains/annotations/NotNull;
+   #15 = Utf8               obj
+   #16 = String             #15           // obj
+   #17 = Utf8               kotlin/jvm/internal/Intrinsics
+   #18 = Class              #17           // kotlin/jvm/internal/Intrinsics
+   #19 = Utf8               checkNotNullParameter
+   #20 = Utf8               (Ljava/lang/Object;Ljava/lang/String;)V
+   #21 = NameAndType        #19:#20       // checkNotNullParameter:(Ljava/lang/Object;Ljava/lang/String;)V
+   #22 = Methodref          #18.#21       // kotlin/jvm/internal/Intrinsics.checkNotNullParameter:(Ljava/lang/Object;Ljava/lang/String;)V
+   #23 = Utf8               Normal function: Cannot determine type T at runtime
+   #24 = String             #23           // Normal function: Cannot determine type T at runtime
+   #25 = Utf8               java/lang/System
+   #26 = Class              #25           // java/lang/System
+   #27 = Utf8               out
+   #28 = Utf8               Ljava/io/PrintStream;
+   #29 = NameAndType        #27:#28       // out:Ljava/io/PrintStream;
+   #30 = Fieldref           #26.#29       // java/lang/System.out:Ljava/io/PrintStream;
+   #31 = Utf8               java/io/PrintStream
+   #32 = Class              #31           // java/io/PrintStream
+   #33 = Utf8               println
+   #34 = Utf8               (Ljava/lang/Object;)V
+   #35 = NameAndType        #33:#34       // println:(Ljava/lang/Object;)V
+   #36 = Methodref          #32.#35       // java/io/PrintStream.println:(Ljava/lang/Object;)V
+   #37 = Utf8               Ljava/lang/Object;
+   #38 = Utf8               checkTypeReified
+   #39 = Utf8               java/lang/StringBuilder
+   #40 = Class              #39           // java/lang/StringBuilder
+   #41 = Methodref          #40.#7        // java/lang/StringBuilder."<init>":()V
+   #42 = Utf8               Reified function: Checking if obj is
+   #43 = String             #42           // Reified function: Checking if obj is
+   #44 = Utf8               append
+   #45 = Utf8               (Ljava/lang/String;)Ljava/lang/StringBuilder;
+   #46 = NameAndType        #44:#45       // append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   #47 = Methodref          #40.#46       // java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   #48 = Utf8               T
+   #49 = String             #48           // T
+   #50 = Utf8               reifiedOperationMarker
+   #51 = Utf8               (ILjava/lang/String;)V
+   #52 = NameAndType        #50:#51       // reifiedOperationMarker:(ILjava/lang/String;)V
+   #53 = Methodref          #18.#52       // kotlin/jvm/internal/Intrinsics.reifiedOperationMarker:(ILjava/lang/String;)V
+   #54 = Utf8               kotlin/jvm/internal/Reflection
+   #55 = Class              #54           // kotlin/jvm/internal/Reflection
+   #56 = Utf8               getOrCreateKotlinClass
+   #57 = Utf8               (Ljava/lang/Class;)Lkotlin/reflect/KClass;
+   #58 = NameAndType        #56:#57       // getOrCreateKotlinClass:(Ljava/lang/Class;)Lkotlin/reflect/KClass;
+   #59 = Methodref          #55.#58       // kotlin/jvm/internal/Reflection.getOrCreateKotlinClass:(Ljava/lang/Class;)Lkotlin/reflect/KClass;
+   #60 = Utf8               kotlin/reflect/KClass
+   #61 = Class              #60           // kotlin/reflect/KClass
+   #62 = Utf8               getSimpleName
+   #63 = Utf8               ()Ljava/lang/String;
+   #64 = NameAndType        #62:#63       // getSimpleName:()Ljava/lang/String;
+   #65 = InterfaceMethodref #61.#64       // kotlin/reflect/KClass.getSimpleName:()Ljava/lang/String;
+   #66 = Utf8               toString
+   #67 = NameAndType        #66:#63       // toString:()Ljava/lang/String;
+   #68 = Methodref          #40.#67       // java/lang/StringBuilder.toString:()Ljava/lang/String;
+   #69 = Utf8               $i$f$checkTypeReified
+   #70 = Utf8               I
+   #71 = Utf8               testBothApproaches
+   #72 = Utf8               Hello
+   #73 = String             #72           // Hello
+   #74 = Utf8               === Testing Normal Generic Function ===
+   #75 = String             #74           // === Testing Normal Generic Function ===
+   #76 = NameAndType        #11:#12       // checkTypeNormal:(Ljava/lang/Object;)Z
+   #77 = Methodref          #2.#76        // com/example/SimpleReifiedDemo.checkTypeNormal:(Ljava/lang/Object;)Z
+   #78 = Utf8               java/lang/Integer
+   #79 = Class              #78           // java/lang/Integer
+   #80 = Utf8               valueOf
+   #81 = Utf8               (I)Ljava/lang/Integer;
+   #82 = NameAndType        #80:#81       // valueOf:(I)Ljava/lang/Integer;
+   #83 = Methodref          #79.#82       // java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+   #84 = Utf8               === Testing Reified Generic Function ===
+   #85 = String             #84           // === Testing Reified Generic Function ===
+   #86 = Utf8               java/lang/String
+   #87 = Class              #86           // java/lang/String
+   #88 = Utf8               \'Hello\' is String:
+   #89 = String             #88           // \'Hello\' is String:
+   #90 = Utf8               (Z)Ljava/lang/StringBuilder;
+   #91 = NameAndType        #44:#90       // append:(Z)Ljava/lang/StringBuilder;
+   #92 = Methodref          #40.#91       // java/lang/StringBuilder.append:(Z)Ljava/lang/StringBuilder;
+   #93 = Utf8               42 is String:
+   #94 = String             #93           // 42 is String:
+   #95 = Utf8               this_$iv
+   #96 = Utf8               obj$iv
+   #97 = Utf8               stringObj
+   #98 = Utf8               Ljava/lang/String;
+   #99 = Utf8               intObj
+  #100 = Utf8               isString1
+  #101 = Utf8               Z
+  #102 = Utf8               isString2
+  #103 = Utf8               <clinit>
+  #104 = Methodref          #2.#7         // com/example/SimpleReifiedDemo."<init>":()V
+  #105 = Utf8               INSTANCE
+  #106 = NameAndType        #105:#10      // INSTANCE:Lcom/example/SimpleReifiedDemo;
+  #107 = Fieldref           #2.#106       // com/example/SimpleReifiedDemo.INSTANCE:Lcom/example/SimpleReifiedDemo;
+  #108 = Utf8               Lkotlin/Metadata;
+  #109 = Utf8               mv
+  #110 = Integer            2
+  #111 = Integer            0
+  #112 = Utf8               k
+  #113 = Integer            1
+  #114 = Utf8               xi
+  #115 = Integer            48
+  #116 = Utf8               d1
+  #117 = Utf8               \u0000\u001a\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0003\n\u0002\u0010\u000b\n\u0002\b\u0004\n\u0002\u0010\u0002\n\u0000\b?\u0002\u0018\u00002\u00020\u0001B\t\b\u0002?\u0006\u0004\b\u0002\u0010\u0003J\u0014\u0010\u0004\u001a\u00020\u0005\"\u0004\b\u0000\u0010\u00062\u0006\u0010\u0007\u001a\u00020\u0001J\u0019\u0010\b\u001a\u00020\u0005\"\u0006\b\u0000\u0010\u0006\u0018\u00012\u0006\u0010\u0007\u001a\u00020\u0001H\u0086\bJ\u0006\u0010\t\u001a\u00020\n¡§\u0006\u000b
+  #118 = Utf8               d2
+  #119 = Utf8
+  #120 = Utf8               jvm-languages-demo
+  #121 = Utf8               SimpleReifiedDemo.kt
+  #122 = Utf8               Lkotlin/jvm/internal/SourceDebugExtension;
+  #123 = Utf8               value
+  #124 = Utf8               SMAP\nSimpleReifiedDemo.kt\nKotlin\n*S Kotlin\n*F\n+ 1 SimpleReifiedDemo.kt\ncom/example/SimpleReifiedDemo\n*L\n1#1,43:1\n19#1,2:44\n19#1,2:46\n*S KotlinDebug\n*F\n+ 1 SimpleReifiedDemo.kt\ncom/example/SimpleReifiedDemo\n*L\n33#1:44,2\n34#1:46,2\n*E\n
+  #125 = Utf8               RuntimeInvisibleAnnotations
+  #126 = Utf8               Code
+  #127 = Utf8               LineNumberTable
+  #128 = Utf8               LocalVariableTable
+  #129 = Utf8               Signature
+  #130 = Utf8               RuntimeInvisibleParameterAnnotations
+  #131 = Utf8               SourceFile
+  #132 = Utf8               SourceDebugExtension
+  #133 = Utf8               RuntimeVisibleAnnotations
+{
+  public static final com.example.SimpleReifiedDemo INSTANCE;
+    descriptor: Lcom/example/SimpleReifiedDemo;
+    flags: (0x0019) ACC_PUBLIC, ACC_STATIC, ACC_FINAL
+    RuntimeInvisibleAnnotations:
+      0: #14()
+        org.jetbrains.annotations.NotNull
+
+  public final <T extends java.lang.Object> boolean checkTypeNormal(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Z
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_1
+         1: ldc           #16                 // String obj
+         3: invokestatic  #22                 // Method kotlin/jvm/internal/Intrinsics.checkNotNullParameter:(Ljava/lang/Object;Ljava/lang/String;)V
+         6: ldc           #24                 // String Normal function: Cannot determine type T at runtime
+         8: getstatic     #30                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        11: swap
+        12: invokevirtual #36                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+        15: iconst_0
+        16: ireturn
+      LineNumberTable:
+        line 12: 6
+        line 13: 15
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      17     0  this   Lcom/example/SimpleReifiedDemo;
+            0      17     1   obj   Ljava/lang/Object;
+    Signature: #13                          // <T:Ljava/lang/Object;>(Ljava/lang/Object;)Z
+    RuntimeInvisibleParameterAnnotations:
+      parameter 0:
+        0: #14()
+          org.jetbrains.annotations.NotNull
+
+  public final <T extends java.lang.Object> boolean checkTypeReified(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Z
+    flags: (0x1011) ACC_PUBLIC, ACC_FINAL, ACC_SYNTHETIC
+    Code:
+      stack=3, locals=3, args_size=2
+         0: aload_1
+         1: ldc           #16                 // String obj
+         3: invokestatic  #22                 // Method kotlin/jvm/internal/Intrinsics.checkNotNullParameter:(Ljava/lang/Object;Ljava/lang/String;)V
+         6: iconst_0
+         7: istore_2
+         8: new           #40                 // class java/lang/StringBuilder
+        11: dup
+        12: invokespecial #41                 // Method java/lang/StringBuilder."<init>":()V
+        15: ldc           #43                 // String Reified function: Checking if obj is
+        17: invokevirtual #47                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        20: iconst_4
+        21: ldc           #49                 // String T
+        23: invokestatic  #53                 // Method kotlin/jvm/internal/Intrinsics.reifiedOperationMarker:(ILjava/lang/String;)V
+        26: ldc           #4                  // class java/lang/Object
+        28: invokestatic  #59                 // Method kotlin/jvm/internal/Reflection.getOrCreateKotlinClass:(Ljava/lang/Class;)Lkotlin/reflect/KClass;
+        31: invokeinterface #65,  1           // InterfaceMethod kotlin/reflect/KClass.getSimpleName:()Ljava/lang/String;
+        36: invokevirtual #47                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        39: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+        42: getstatic     #30                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        45: swap
+        46: invokevirtual #36                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+        49: aload_1
+        50: iconst_3
+        51: ldc           #49                 // String T
+        53: invokestatic  #53                 // Method kotlin/jvm/internal/Intrinsics.reifiedOperationMarker:(ILjava/lang/String;)V
+        56: instanceof    #4                  // class java/lang/Object
+        59: ireturn
+      LineNumberTable:
+        line 19: 8
+        line 20: 49
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            8      52     2 $i$f$checkTypeReified   I
+            0      60     0  this   Lcom/example/SimpleReifiedDemo;
+            0      60     1   obj   Ljava/lang/Object;
+    Signature: #13                          // <T:Ljava/lang/Object;>(Ljava/lang/Object;)Z
+
+  public final void testBothApproaches();
+    descriptor: ()V
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=2, locals=8, args_size=1
+         0: ldc           #73                 // String Hello
+         2: astore_1
+         3: bipush        42
+         5: istore_2
+         6: ldc           #75                 // String === Testing Normal Generic Function ===
+         8: getstatic     #30                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        11: swap
+        12: invokevirtual #36                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+        15: aload_0
+        16: aload_1
+        17: invokevirtual #77                 // Method checkTypeNormal:(Ljava/lang/Object;)Z
+        20: pop
+        21: aload_0
+        22: iload_2
+        23: invokestatic  #83                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+        26: invokevirtual #77                 // Method checkTypeNormal:(Ljava/lang/Object;)Z
+        29: pop
+        30: ldc           #85                 // String === Testing Reified Generic Function ===
+        32: getstatic     #30                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        35: swap
+        36: invokevirtual #36                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+        39: aload_0
+        40: astore        4
+        42: aload_1
+        43: astore        5
+        45: iconst_0
+        46: istore        6
+        48: new           #40                 // class java/lang/StringBuilder
+        51: dup
+        52: invokespecial #41                 // Method java/lang/StringBuilder."<init>":()V
+        55: ldc           #43                 // String Reified function: Checking if obj is
+        57: invokevirtual #47                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        60: ldc           #87                 // class java/lang/String
+        62: invokestatic  #59                 // Method kotlin/jvm/internal/Reflection.getOrCreateKotlinClass:(Ljava/lang/Class;)Lkotlin/reflect/KClass;
+        65: invokeinterface #65,  1           // InterfaceMethod kotlin/reflect/KClass.getSimpleName:()Ljava/lang/String;
+        70: invokevirtual #47                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        73: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+        76: getstatic     #30                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        79: swap
+        80: invokevirtual #36                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+        83: iconst_1
+        84: istore_3
+        85: aload_0
+        86: astore        5
+        88: iload_2
+        89: invokestatic  #83                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+        92: astore        6
+        94: iconst_0
+        95: istore        7
+        97: new           #40                 // class java/lang/StringBuilder
+       100: dup
+       101: invokespecial #41                 // Method java/lang/StringBuilder."<init>":()V
+       104: ldc           #43                 // String Reified function: Checking if obj is
+       106: invokevirtual #47                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       109: ldc           #87                 // class java/lang/String
+       111: invokestatic  #59                 // Method kotlin/jvm/internal/Reflection.getOrCreateKotlinClass:(Ljava/lang/Class;)Lkotlin/reflect/KClass;
+       114: invokeinterface #65,  1           // InterfaceMethod kotlin/reflect/KClass.getSimpleName:()Ljava/lang/String;
+       119: invokevirtual #47                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       122: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       125: getstatic     #30                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       128: swap
+       129: invokevirtual #36                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       132: aload         6
+       134: instanceof    #87                 // class java/lang/String
+       137: istore        4
+       139: new           #40                 // class java/lang/StringBuilder
+       142: dup
+       143: invokespecial #41                 // Method java/lang/StringBuilder."<init>":()V
+       146: ldc           #89                 // String \'Hello\' is String:
+       148: invokevirtual #47                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       151: iload_3
+       152: invokevirtual #92                 // Method java/lang/StringBuilder.append:(Z)Ljava/lang/StringBuilder;
+       155: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       158: getstatic     #30                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       161: swap
+       162: invokevirtual #36                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       165: new           #40                 // class java/lang/StringBuilder
+       168: dup
+       169: invokespecial #41                 // Method java/lang/StringBuilder."<init>":()V
+       172: ldc           #94                 // String 42 is String:
+       174: invokevirtual #47                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       177: iload         4
+       179: invokevirtual #92                 // Method java/lang/StringBuilder.append:(Z)Ljava/lang/StringBuilder;
+       182: invokevirtual #68                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       185: getstatic     #30                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       188: swap
+       189: invokevirtual #36                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       192: return
+      LineNumberTable:
+        line 25: 0
+        line 26: 3
+        line 28: 6
+        line 29: 15
+        line 30: 21
+        line 32: 30
+        line 33: 39
+        line 44: 48
+        line 45: 83
+        line 33: 84
+        line 34: 85
+        line 46: 97
+        line 47: 132
+        line 34: 137
+        line 36: 139
+        line 37: 165
+        line 38: 192
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+           48      36     6 $i$f$checkTypeReified   I
+           45      39     4 this_$iv   Lcom/example/SimpleReifiedDemo;
+           45      39     5 obj$iv   Ljava/lang/Object;
+           97      40     7 $i$f$checkTypeReified   I
+           94      43     5 this_$iv   Lcom/example/SimpleReifiedDemo;
+           94      43     6 obj$iv   Ljava/lang/Object;
+            3     190     1 stringObj   Ljava/lang/String;
+            6     187     2 intObj   I
+           85     108     3 isString1   Z
+          139      54     4 isString2   Z
+            0     193     0  this   Lcom/example/SimpleReifiedDemo;
+
+  static {};
+    descriptor: ()V
+    flags: (0x0008) ACC_STATIC
+    Code:
+      stack=2, locals=0, args_size=0
+         0: new           #2                  // class com/example/SimpleReifiedDemo
+         3: dup
+         4: invokespecial #104                // Method "<init>":()V
+         7: putstatic     #107                // Field INSTANCE:Lcom/example/SimpleReifiedDemo;
+        10: return
+}
+SourceFile: "SimpleReifiedDemo.kt"
+SourceDebugExtension:
+  SMAP
+  SimpleReifiedDemo.kt
+  Kotlin
+  *S Kotlin
+  *F
+  + 1 SimpleReifiedDemo.kt
+  com/example/SimpleReifiedDemo
+  *L
+  1#1,43:1
+  19#1,2:44
+  19#1,2:46
+  *S KotlinDebug
+  *F
+  + 1 SimpleReifiedDemo.kt
+  com/example/SimpleReifiedDemo
+  *L
+  33#1:44,2
+  34#1:46,2
+  *E
+RuntimeVisibleAnnotations:
+  0: #108(#109=[I#110,I#110,I#111],#112=I#113,#114=I#115,#116=[s#117],#118=[s#10,s#119,s#5,s#6,s#11,s#119,s#48,s#15,s#38,s#71,s#119,s#120])
+    kotlin.Metadata(
+      mv=[2,2,0]
+      k=1
+      xi=48
+      d1=["\u0000\u001a\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0003\n\u0002\u0010\u000b\n\u0002\b\u0004\n\u0002\u0010\u0002\n\u0000\b?\u0002\u0018\u00002\u00020\u0001B\t\b\u0002?\u0006\u0004\b\u0002\u0010\u0003J\u0014\u0010\u0004\u001a\u00020\u0005\"\u0004\b\u0000\u0010\u00062\u0006\u0010\u0007\u001a\u00020\u0001J\u0019\u0010\b\u001a\u00020\u0005\"\u0006\b\u0000\u0010\u0006\u0018\u00012\u0006\u0010\u0007\u001a\u00020\u0001H\u0086\bJ\u0006\u0010\t\u001a\u00020\n¡§\u0006\u000b"]
+      d2=["Lcom/example/SimpleReifiedDemo;","","<init>","()V","checkTypeNormal","","T","obj","checkTypeReified","testBothApproaches","","jvm-languages-demo"]
+    )
+RuntimeInvisibleAnnotations:
+  0: #122(#123=[s#124])
+    kotlin.jvm.internal.SourceDebugExtension(
+      value=["SMAP\nSimpleReifiedDemo.kt\nKotlin\n*S Kotlin\n*F\n+ 1 SimpleReifiedDemo.kt\ncom/example/SimpleReifiedDemo\n*L\n1#1,43:1\n19#1,2:44\n19#1,2:46\n*S KotlinDebug\n*F\n+ 1 SimpleReifiedDemo.kt\ncom/example/SimpleReifiedDemo\n*L\n33#1:44,2\n34#1:46,2\n*E\n"]
+    )

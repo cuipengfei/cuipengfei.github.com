@@ -49,11 +49,37 @@
       "Read(//d/**)",
       "Bash(idea --version)",
       "Bash(alias idea='\"\"/c/Users/39764/AppData/Local/Programs/IntelliJ IDEA Community Edition/bin/idea64.exe\"\"')",
-      "Bash(\"/c/Users/39764/AppData/Local/Programs/IntelliJ IDEA Community Edition/bin/idea64.exe\" .)"
+      "Bash(\"/c/Users/39764/AppData/Local/Programs/IntelliJ IDEA Community Edition/bin/idea64.exe\" .)",
+      "Bash(pip --version)",
+      "Bash(python -m pip install --upgrade pip --dry-run)",
+      "WebFetch(domain:docs.litellm.ai)",
+      "WebFetch(domain:localhost)",
+      "Bash(curl:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(git clone https://github.com/dfinke/mcp-powershell-exec.git)",
+      "Bash(pip install:*)",
+      "Bash(python:*)",
+      "Bash(powershell -Command \"Get-Host | Select-Object Version\")",
+      "Bash(claude mcp add powershell-integration --scope user python D:/code/mcp-powershell-exec/server.py)",
+      "Read(//c//**)",
+      "mcp__powershell-integration__run_powershell",
+      "Bash(myvar=\"Hello from Bash\")",
+      "Bash(echo:*)",
+      "Bash(Get-Process python)",
+      "Bash(Where-Object {$_rocessName -eq \"python\"})",
+      "Bash(Stop-Process -Force)",
+      "Bash(powershell:*)",
+      "Bash(claude mcp list)",
+      "Bash(claude mcp remove powershell-integration)",
+      "Bash(claude mcp add powershell-integration --scope user bun D:/code/mcp-powershell-exec/server.ts)",
+      "Bash(git mv:*)",
+      "Bash(claude mcp add powershell-integration --scope user bun D:/code/mcp-powershell-exec/powershell.ts)",
+      "Bash(tree:*)"
     ],
     "additionalDirectories": [
       "C:\\Users\\39764",
-      "D:\\c\\Users\\39764"
+      "D:\\c\\Users\\39764",
+      "D:\\code\\mcp-powershell-exec\\"
     ]
   },
   "outputStyle": "default"
