@@ -1,3 +1,4 @@
+https://cuipengfei.me/blog/2025/09/14/generic-type-erasure-deep-dive/
 https://cuipengfei.me/blog/2025/08/27/agent-building-seductive-traps/
 https://cuipengfei.me/blog/2025/08/10/build-quality-in-test-as-design/
 https://cuipengfei.me/blog/2025/07/30/verify/
@@ -266,6 +267,11 @@ https://cuipengfei.me/tags/Multi-Agent/
 https://cuipengfei.me/tags/RAG/
 https://cuipengfei.me/tags/Prompt-Engineering/
 https://cuipengfei.me/tags/Cline/
+https://cuipengfei.me/tags/Kotlin/
+https://cuipengfei.me/tags/%E6%B3%9B%E5%9E%8B/
+https://cuipengfei.me/tags/JVM/
+https://cuipengfei.me/tags/%E7%B1%BB%E5%9E%8B%E6%93%A6%E9%99%A4/
+https://cuipengfei.me/tags/%E5%8F%8D%E5%B0%84/
 https://cuipengfei.me/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/
 https://cuipengfei.me/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/AI/
 https://cuipengfei.me/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/AI/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/

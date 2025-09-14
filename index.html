@@ -176,7 +176,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">181</span>
+          <span class="site-state-item-count">182</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -186,7 +186,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-count">90</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -223,6 +223,115 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2025/09/14/generic-type-erasure-deep-dive/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/blog/2025/09/14/generic-type-erasure-deep-dive/" class="post-title-link" itemprop="url">当泛型遇上现实：从表象到本质的技术思考</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-09-14 20:30:00" itemprop="dateCreated datePublished" datetime="2025-09-14T20:30:00+08:00">2025-09-14</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2025/09/14/generic-type-erasure-deep-dive/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2025/09/14/generic-type-erasure-deep-dive/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="当泛型遇上现实：从表象到本质的技术思考"><a href="#当泛型遇上现实：从表象到本质的技术思考" class="headerlink" title="当泛型遇上现实：从表象到本质的技术思考"></a>当泛型遇上现实：从表象到本质的技术思考</h1><p>最近在优化一个序列化框架时，遇到了一些类型安全方面的意外行为。这让我重新审视了JVM泛型系统的底层机制。虽然类型擦除是个老话题，但当我深入分析Kotlin的reified实现时，发现了一些值得思考的细节。</p>
+<h2 id="一个简单现象引发的思考"><a href="#一个简单现象引发的思考" class="headerlink" title="一个简单现象引发的思考"></a>一个简单现象引发的思考</h2><p>我们都知道Java的类型擦除，但最近在排查问题时，我又重新观察了这个现象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; stringList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">List&lt;Integer&gt; intList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在运行时，它们的Class信息完全相同</span></span><br><span class="line">System.out.println(stringList.getClass() == intList.getClass()); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>这是类型擦除的基本表现：编译器将泛型参数替换为边界类型。不过这让我想到一个问题：既然编译器会进行严格的泛型类型检查，那反射是如何绕过这些检查机制的？</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2025/09/14/generic-type-erasure-deep-dive/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -972,14 +1081,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>183</span>
+      <span>3.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -990,34 +1099,19 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <!-- .slide: data-background-video="https://www.w3schools.com/html/mov_bbb.mp4" data-background-video-loop data-background-video-muted data-background-opacity="0.3" -->
-<div style="text-align: center; padding: 3rem; background: rgba(0,0,0,0.7); border-radius: 20px;">
-    <h1 style="font-size: 4rem; color: #fff; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
-        🚀 Reveal.js 高级特效
-    </h1>
-    <h2 style="font-size: 2rem; color: #fff; margin-bottom: 2rem; opacity: 0.9;">
-        极致的视觉体验
-    </h2>
-    <div style="font-size: 1.5rem; color: #fff; opacity: 0.8;">
-        <p>背景视频 · 动态效果 · 交互体验</p>
-    </div>
-</div>
+          <!-- 
+  纯 Markdown 演示文稿
+  使用 Reveal.js 的高级功能，但内容完全用 Markdown 编写
+  特效通过 Reveal.js 的注释语法实现
+-->
 
+<h2 id="🚀-Reveal-js-高级特效演示"><a href="#🚀-Reveal-js-高级特效演示" class="headerlink" title="🚀 Reveal.js 高级特效演示"></a>🚀 Reveal.js 高级特效演示</h2><h3 id="极致的视觉体验"><a href="#极致的视觉体验" class="headerlink" title="极致的视觉体验"></a>极致的视觉体验</h3><ul>
+<li>背景视频 · 动态效果 · 交互体验</li>
+<li>使用纯 Markdown 语法编写</li>
+<li>所有特效通过 Reveal.js 注释实现</li>
+</ul>
 <hr>
-<!-- .slide: data-background-gradient="linear-gradient(to bottom, #667eea 0%, #764ba2 100%)" -->
-
-<h2 id="🎨-背景特效展示"><a href="#🎨-背景特效展示" class="headerlink" title="🎨 背景特效展示"></a>🎨 背景特效展示</h2><h3 id="渐变背景效果"><a href="#渐变背景效果" class="headerlink" title="渐变背景效果"></a>渐变背景效果</h3><div style="background: rgba(255,255,255,0.2); padding: 2rem; border-radius: 15px; backdrop-filter: blur(10px);">
-    <p style="font-size: 1.5rem; margin-bottom: 1rem;">支持多种背景效果</p>
-    <ul style="font-size: 1.2rem;">
-        <li>线性渐变</li>
-        <li>径向渐变</li>
-        <li>图片背景</li>
-        <li>视频背景</li>
-        <li>纯色背景</li>
-    </ul>
-</div>
-
-<p>–</p>
+<h2 id="🎨-背景特效展示"><a href="#🎨-背景特效展示" class="headerlink" title="🎨 背景特效展示"></a>🎨 背景特效展示</h2><h3 id="渐变背景效果"><a href="#渐变背景效果" class="headerlink" title="渐变背景效果"></a>渐变背景效果</h3>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/blog/2025/01/20/blog-slides-demo/#more" rel="contents">
@@ -2973,116 +3067,6 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2019/12/06/in-the-large/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="崔鹏飞">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="崔鹏飞的Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | 崔鹏飞的Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/blog/2019/12/06/in-the-large/" class="post-title-link" itemprop="url">「译」大规模敏捷</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-12-06 16:19:00" itemprop="dateCreated datePublished" datetime="2019-12-06T16:19:00+08:00">2019-12-06</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/2019/12/06/in-the-large/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2019/12/06/in-the-large/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>原文地址： <a target="_blank" rel="noopener" href="https://blog.cleancoder.com/uncle-bob/2018/04/02/InTheLarge.html">https://blog.cleancoder.com/uncle-bob/2018/04/02/InTheLarge.html</a></p>
-<p>原作者：Robert C. Martin (Uncle Bob)</p>
-<p>自敏捷之开端始，我们就思考大规模敏捷的问题。我们是否能够把轻量级，迭代，增量，快速反馈等软件开发的原理应用于规模巨大的项目呢？</p>
-<p>最初我们想到的答案是Scrum of Scrums之类的东西。这个想法是在更高的层次上递归地应用敏捷开发的原理。如果一个项目需要超过5-12个开发人员，那么可以组织两个这样的团队，以及一个更高级别的团队来“监督？”他们。</p>
-<p>请注意上面的问号。当我们开始考虑大型项目时，我们不可避免地要谈及层级化的组织。但是敏捷似乎是厌恶组织层级的。毕竟，敏捷就是关于平等主义的。敏捷是拒绝命令和控制的。敏捷是拒绝计划和时间表的，还有…</p>
-<p><strong>无稽之谈！并不是这样的！</strong></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/2019/12/06/in-the-large/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
@@ -3107,14 +3091,14 @@ note over event_initiator,instance_2: 为了降低风险，可以： &lt;br&gt; 
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">394k</span>
+    <span title="站点总字数">406k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:58</span>
+    <span title="站点阅读时长">6:09</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
