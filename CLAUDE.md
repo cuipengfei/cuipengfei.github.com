@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a personal Chinese tech blog (cuipengfei.me) that has evolved from Octopress/Jekyll to Hexo. The site covers software development topics including Scala, functional programming, testing methodologies, and architecture patterns.
 
-**Important**: This project uses Bun as the package manager, not npm. Always use `bun` commands instead of `npm`. Legacy Ruby/Jekyll components are preserved for reference only and are no longer actively maintained.
+**Important**: This project uses Bun as the package manager exclusively. Never use npm, yarn, pnpm, or direct hexo binary calls. Legacy Ruby/Jekyll components are preserved for reference only and are no longer actively maintained.
 
 ## Architecture
 
@@ -14,7 +14,7 @@ This is a personal Chinese tech blog (cuipengfei.me) that has evolved from Octop
 - **Primary System**: Hexo (Node.js-based, v8.0.0) generating from `source/` to `public/`
 - **Legacy System**: Octopress/Jekyll (Ruby-based) - preserved for reference, no longer maintained
 - **Theme**: Uses NexT theme for Hexo (`themes/next-old/`)
-- **Package Manager**: Bun (mandatory) - do not use npm or yarn
+- **Package Manager**: Bun (mandatory, exclusive) - strictly forbidden: npm, yarn, pnpm, direct hexo calls
 - **Deployment**: GitHub Pages via `hexo-deployer-git`
 
 ### Core Configuration Files
@@ -61,17 +61,16 @@ bun run deploy
 
 **Important**: After theme/configuration changes, always run `bun run clean` before building to ensure cache is cleared.
 
-### Direct Hexo Commands (if needed)
+### Create New Posts
 ```bash
-# Using npx (but prefer bun scripts above)
-npx hexo clean
-npx hexo generate
-npx hexo server
-npx hexo deploy
+# Add to package.json scripts if not present:
+# "new:post": "hexo new post"
 
 # Create new post
-npx hexo new post "Post Title"
+bun run new:post "Post Title"
 ```
+
+**Critical**: Use only bun commands. Never use npm, yarn, pnpm, or direct hexo binary calls to maintain environment consistency.
 
 ### Legacy Octopress Commands (Reference Only - DO NOT USE)
 ```bash
@@ -107,7 +106,7 @@ rake new_page["Page Name"]
 - Site URL: `https://cuipengfei.me`
 - Deploy target: GitHub Pages (`master` branch)
 - Custom file paths: `source/_data/head.swig`, `source/_data/footer.swig`
-- Package manager: Bun (not npm)
+- Package manager: Bun (exclusive, mandatory)
 
 ### Theme Customization Strategy
 **Recommended**: Use `source/_data/next.yml` or custom_file_path for theme modifications instead of directly editing `themes/next-old/_config.yml`. This approach:
@@ -146,6 +145,8 @@ rake new_page["Page Name"]
 ### Agent-Specific Rules
 - **Read-only directories**: Never directly edit `public/` or `.deploy_git/` directories
 - **Minimal changes**: Make only necessary modifications to achieve the goal
+- **Environment consistency**: Use only `bun` commands - strictly forbidden: npm, yarn, pnpm, direct hexo binary calls
+- **Post-configuration cleanup**: After theme/config changes, always run `bun run clean` before building
 - **Structure updates**: If adding new directories or major changes, update this CLAUDE.md file
 - **Git operations**: Only perform git commit/push operations when explicitly instructed
 - **Dependency management**: Use `bun` exclusively, never install global dependencies without permission
@@ -175,7 +176,7 @@ rake new_page["Page Name"]
 - **Axios**: v1.12.2 (HTTP client)
 - **NexT Theme**: v8.25.0 using Gemini scheme with dark mode
 - **Node.js**: Required for Hexo plugins and build process
-- **Bun**: Package manager (mandatory - replaces npm/yarn)
+- **Bun**: Package manager (mandatory, exclusive) - never use npm/yarn/pnpm
 
 ### Key Plugins & Extensions
 - `hexo-deployer-git`: GitHub Pages deployment
@@ -254,6 +255,24 @@ rake new_page["Page Name"]
 - Include personal journey elements when relevant to technical understanding
 - Use story-telling techniques to make complex concepts accessible
 - Maintain technical depth while ensuring approachability
+
+## Quick Start Guide
+
+Based on AGENTS.md recommendations:
+
+1. **Install dependencies**: `bun install`
+2. **Add post creation script** (if not present in package.json):
+   ```json
+   "scripts": {
+     "new:post": "hexo new post"
+   }
+   ```
+3. **Create new post**: `bun run new:post "Title"`
+4. **Edit content**: Add front matter, content, images to `source/images/<post-slug>/`, and `<!-- more -->` separator
+5. **Preview**: `bun run server` (http://localhost:4000)
+6. **Deploy**: `bun run deploy`
+
+**Environment Rules**: Use only `bun` commands. Never use npm, yarn, pnpm, or direct hexo binary calls to maintain consistency.
 
 ## Project File Structure
 
