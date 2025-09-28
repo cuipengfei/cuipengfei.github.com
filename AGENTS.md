@@ -1,68 +1,68 @@
 # Repository Guidelines
 
-本仓库已迁移为 Hexo + NexT 主题（不再使用 Ruby/Jekyll/Rake）。本指南覆盖根目录及所有子目录；贡献或由 AI 进行自动修改前需先阅读。目标：最小变更、可重复构建、内容清晰版本化。
+本仓库当前采用 Hexo + NexT（legacy Octopress/Jekyll 仅保留参考，不再主动维护）。目标：最小变更、可重复构建、内容与写作风格一致。修改前请先阅读；字数控制以便快速记忆。
 
 ## Project Structure
-- 根配置: `_config.yml` (站点)；`themes/next-old/_config.yml` (主题)；可用 `source/_data/next.yml` 做增量覆盖。
-- 内容: `source/_posts/`(文章), `source/_drafts/`(草稿，可建), `source/images/`, `source/javascripts/`, `source/assets/`。
-- 主题与定制: `themes/next-old/`；自定义资源放入 `source/_data/` 避免直接改主题核心。
-- 插件: `node_modules/` 中 NPM 包；自建脚本可放 `scripts/` (若新增需在指南补充)。
-- 构建 / 部署输出: `public/` (临时) 与 `.deploy_git/` (git 部署缓存) 均只读，不直接编辑。
+- Core: `_config.yml` (站点)，`_config.next.yml` / `themes/next-old/_config.yml` (主题)。
+- Optional override: `source/_data/next.yml` / `source/_data/*.swig|*.styl`。
+- Content: `source/_posts/`, `source/_drafts/`(草稿), `source/images/`, `source/javascripts/`, `source/assets/`。
+- Slides: 文章 front matter `slidehtml: true` 生成 Reveal.js 页面 `.../slide.html`。
+- Output (只读): `public/` (生成)，`.deploy_git/` (部署缓存)。
 
-## Build, Dev & Deployment
+## Build & Dev (Bun Only)
 ```bash
-pnpm|npm|bun install     # 安装依赖
-npx hexo clean           # 清理缓存与 public/
-npx hexo generate        # 生成静态文件到 public/
-npx hexo server          # 启动本地预览 (默认 4000)
-npx hexo deploy          # 清理 + 生成 + 部署 (hexo-deployer-git)
+bun install          # 安装依赖（唯一包管理器）
+bun run clean        # hexo clean
+bun run build        # hexo generate
+bun run server       # 预览 (http://localhost:4000)
+bun run deploy       # 构建+部署 (hexo-deployer-git)
 ```
-也可用 package.json scripts: `npm run build|clean|server|deploy`。
+推荐在 package.json 添加脚本:
+```json
+"scripts": {
+  "new:post": "hexo new post"
+}
+```
+然后统一使用 `bun run new:post "Title"` 创建文章。禁止使用 `npm` / `yarn` / `pnpm` / `npx` / 直接调用 `hexo` 二进制（保持环境一致）。变更主题/配置后先 `bun run clean` 再 build。
 
-## Coding Style & Naming
-- Markdown 文件: `YYYY-MM-DD-slug.md` (slug 小写短横线)。
-- Front matter 最少: `title`, `date`, `categories`；可选：`tags`, `updated`, `description`。
-- 代码块：fenced code ```lang；避免行尾多余空格。
-- 自定义 JS/CSS：放入 `source/`，使用 NexT 提供 `custom_file_path` 或 `_data/styles.styl`。
+## Coding & Naming
+- Post 文件: `YYYY-MM-DD-slug.md`（slug 小写短横线）。
+- 必需 front matter: `title`, `date`, `categories`；常用：`tags`, `updated`, `description`, `slidehtml`。
+- 摘要分隔: `<!-- more -->`；代码：fenced ```lang。
+- 自定义样式 / 变量优先放 `_data/`，避免直接修改主题核心文件以便升级。
 
-## Content Guidelines
-- 草稿存 `source/_drafts/`，发布前移动到 `_posts/`。
-- 图片：`source/images/<post-slug>/` 相对引用；大图可加缩略版本。
-- 摘要：在正文插入 `<!-- more -->` 分隔。
-- 外链尽量加协议前缀与有效性检查。
+## Content & Quality
+- 参考写作风格: `.memory-bank/writing-style-profile.md`。
+- 中文主文 + English 技术术语原文；避免绝对化语气。
+- 鼓励提出问题/多视角：适度使用 “从…角度 / 另一方面”。
+- 图片置于 `source/images/<post-slug>/`，引用相对路径；必要时优化尺寸。
+- Slides: 分节 `---`（横向）/ `--`（纵向）。
 
-## Testing (可选)
-默认无测试。若引入生成脚本或数据处理：
-1. 选用 `vitest` 或 `jest`，目录 `tests/` 或 `__tests__/`。
-2. 命名：`*.spec.ts|js`。
-3. 覆盖关键分支 (逻辑覆盖≈80%)。
+## Commit & PR
+- 格式: `<type>: <summary>`（feat|fix|docs|refactor|style|perf|chore|build|ci）。
+- PR 模板：背景 / 变更点 / 验证步骤（含 `bun run build`）/ 影响 / 截图(样式或 UI)。
+- 关联 Issue: `Closes #id`；保持单一主题。
 
-## Commit & Pull Request
-- 格式: `<type>: <summary>`；type: feat|fix|docs|refactor|style|perf|chore|build|ci。
-- PR 内容：背景、变更列表、影响范围、验证步骤（含 `hexo clean && hexo generate`）、截图（UI 变化）。
-- 关联 Issue：`Closes #id`。
-- 单一主题：避免同时提交内容与构建工具大改。
+## Configuration & Theme
+- 主题改动优先通过 `source/_data/next.yml` 与 custom_file_path；仅在无法覆盖时再改主题文件。
+- 性能：保持 `cache.enable=true`；配置大改后执行 clean。
+- 部署前检查 `deploy` 配置与站点 URL。
 
-## Configuration Tips
-- 主题 override：使用 `source/_data/next.yml` 而非直接改 `themes/next-old/_config.yml`（便于后续升级）。
-- 性能：启用主题 `cache.enable=true`；变更后执行 `hexo clean`。
-- 部署：确认 `_config.yml` 中 `deploy` 正确指向仓库。
+## Security & Agent Rules
+- 不提交 Secrets / Token；使用 `.env`（不入库）。
+- 升级依赖分离 PR，说明可能 breaking。
+- 禁止直接编辑 `public/`、`.deploy_git/`；最小 diff；新增结构需同步更新本文件。
+- 未获指令不执行 commit/push。
 
-## Security & Secrets
-- 不提交 Token / 密钥；放 `.env` 并在 `_config.yml` 引用前先判断存在性（通过 scripts 读取）。
-- 依赖升级：分开 PR，说明潜在 BREAKING CHANGE。
-
-## Agent-Specific Instructions
-1. 不写入或直接修改 `public/`、`.deploy_git/`。
-2. 新增或移动结构需同步更新本文件相关段落。
-3. 优先使用 `npx hexo` 命令，不擅自添加全局依赖。
-4. 仅在显式指令下进行 Git commit/push。
+## Optional Testing
+暂未内建测试；如添加脚本逻辑可引入 `vitest` 置于 `tests/`，文件 `*.spec.(js|ts)`；覆盖核心分支即可。
 
 ## Quick Start
-1. 安装依赖 (`npm install` 或 `bun install`)
-2. 创建文章：`npx hexo new post "Title"`
-3. 本地预览：`npx hexo server`
-4. 调整与校验链接/图片/摘要
-5. 部署：`npx hexo deploy`
+1. `bun install`
+2. （若无脚本）在 package.json 添加 `"new:post": "hexo new post"`
+3. `bun run new:post "Title"`
+4. 编辑 + 图片 + `<!-- more -->`
+5. `bun run server` 预览校验
+6. `bun run deploy`
 
-欢迎使用 `docs: update guidelines` 提交改进。
+欢迎通过 `docs: update guidelines` 改进此文件。

@@ -6,31 +6,47 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a personal Chinese tech blog (cuipengfei.me) that has evolved from Octopress/Jekyll to Hexo. The site covers software development topics including Scala, functional programming, testing methodologies, and architecture patterns.
 
-**Important**: This project uses Bun as the package manager, not npm. Always use `bun` commands instead of `npm`.
+**Important**: This project uses Bun as the package manager, not npm. Always use `bun` commands instead of `npm`. Legacy Ruby/Jekyll components are preserved for reference only and are no longer actively maintained.
 
 ## Architecture
 
-### Dual Static Site Generators
-- **Legacy System**: Octopress/Jekyll (Ruby-based) with files in `source/` and Ruby dependencies
-- **Current System**: Hexo (Node.js-based) generating from `source/` to `public/`
+### Current System Architecture
+- **Primary System**: Hexo (Node.js-based, v8.0.0) generating from `source/` to `public/`
+- **Legacy System**: Octopress/Jekyll (Ruby-based) - preserved for reference, no longer maintained
 - **Theme**: Uses NexT theme for Hexo (`themes/next-old/`)
+- **Package Manager**: Bun (mandatory) - do not use npm or yarn
+- **Deployment**: GitHub Pages via `hexo-deployer-git`
 
-### Key Directories
-- `source/_posts/`: Markdown blog posts (shared by both systems)
-- `source/_layouts/`: Jekyll layouts (legacy)
-- `public/`: Generated static site output (Hexo target)
+### Core Configuration Files
+- `_config.yml`: Main Hexo site configuration
+- `_config.next.yml`: NexT theme configuration (primary customization file)
+- `themes/next-old/_config.yml`: Theme core config (avoid direct modification)
+- `source/_data/next.yml`: Theme override file (optional, for incremental changes)
+- `source/_data/*.swig`: Custom template extensions
+- `source/_data/*.styl`: Custom stylesheets
+
+### Content Structure
+- `source/_posts/`: Published blog posts (YYYY-MM-DD-slug.md format)
+- `source/_drafts/`: Draft posts (optional directory)
+- `source/images/`: Static images (organize by post-slug subdirectories)
+- `source/_layouts/`: Jekyll layouts (legacy, reference only)
+- `public/`: Generated static site output (**read-only**, auto-generated)
+- `.deploy_git/`: Git deployment cache (**read-only**)
+
+### Legacy & Reference Files
 - `themes/`: Hexo themes including NexT theme
-- `plugins/`: Ruby plugins for Octopress
-- `sass/`: Stylesheets for legacy system
+- `plugins/`: Ruby plugins for Octopress (reference only)
+- `sass/`: Stylesheets for legacy system (reference only)
+- `Rakefile`: Ruby/Jekyll build tasks (legacy, reference only)
 
 ## Development Commands
 
-### Hexo (Current System) - 使用 Bun
+### Primary Commands (Bun Only)
 ```bash
 # Install dependencies
 bun install
 
-# Clean generated files
+# Clean generated files and cache
 bun run clean
 
 # Generate static site
@@ -39,12 +55,29 @@ bun run build
 # Start development server (default: http://localhost:4000)
 bun run server
 
-# Deploy to GitHub Pages (master branch)
+# Deploy to GitHub Pages (clean + generate + deploy)
 bun run deploy
 ```
 
-### Legacy Octopress Commands (Ruby/Rake)
+**Important**: After theme/configuration changes, always run `bun run clean` before building to ensure cache is cleared.
+
+### Direct Hexo Commands (if needed)
 ```bash
+# Using npx (but prefer bun scripts above)
+npx hexo clean
+npx hexo generate
+npx hexo server
+npx hexo deploy
+
+# Create new post
+npx hexo new post "Post Title"
+```
+
+### Legacy Octopress Commands (Reference Only - DO NOT USE)
+```bash
+# These commands are preserved for reference only
+# The Ruby/Jekyll system is no longer actively maintained
+
 # Generate site (legacy Jekyll)
 rake generate
 
@@ -64,48 +97,71 @@ rake new_post["Post Title"]
 rake new_page["Page Name"]
 ```
 
+**Warning**: Do not use these Ruby/Rake commands unless you have specific knowledge of the legacy system requirements.
+
 ## Configuration
 
 ### Hexo Configuration
-- `_config.yml`: Main Hexo configuration (v7.3.0)
-- `_config.next.yml`: NexT theme configuration (override: false)
+- `_config.yml`: Main Hexo configuration (v8.0.0)
+- `_config.next.yml`: NexT theme configuration (primary customization method)
 - Site URL: `https://cuipengfei.me`
 - Deploy target: GitHub Pages (`master` branch)
 - Custom file paths: `source/_data/head.swig`, `source/_data/footer.swig`
 - Package manager: Bun (not npm)
 
-### Content Structure
-- Blog posts use YAML front matter with `title`, `date`, `tags`
+### Theme Customization Strategy
+**Recommended**: Use `source/_data/next.yml` or custom_file_path for theme modifications instead of directly editing `themes/next-old/_config.yml`. This approach:
+- Preserves upgrade compatibility
+- Keeps customizations separate from theme core
+- Enables version control of customizations only
+
+### Content Structure Requirements
+- Blog posts use YAML front matter with required fields: `title`, `date`, `categories`
+- Optional front matter: `tags`, `updated`, `description`, `slidehtml`
+- Post naming convention: `YYYY-MM-DD-slug.md` (slug in lowercase with hyphens)
 - Chinese language site (`language: zh-CN`)
 - Permalink pattern: `blog/:year/:month/:day/:title/`
-- Post naming: `:year-:month-:day-:title.md`
 - Pagination: 25 posts per page
+- Excerpt separation: Use `<!-- more -->` in post content
 
 ## Development Workflow
 
 ### Content Creation
-1. Create new posts in `source/_posts/` with format: `YYYY-MM-DD-title.md`
-2. Use appropriate front matter with tags
-3. Generate and test locally: `bun run server`
-4. Validate content against writing style profile requirements
-5. Deploy to GitHub Pages: `bun run deploy`
+1. Create new posts in `source/_posts/` with format: `YYYY-MM-DD-slug.md`
+2. Use appropriate front matter with required and optional fields
+3. Add excerpt separator `<!-- more -->` after introduction
+4. Organize images in `source/images/<post-slug>/` with relative paths
+5. Validate content against writing style profile requirements
+6. Generate and test locally: `bun run server`
+7. Deploy to GitHub Pages: `bun run deploy`
 
 ### Quality Assurance Steps
-- Verify images are properly optimized and paths are correct
-- Check internal links and ensure proper permalink structure
-- Validate technical terminology against site consistency
-- Ensure Chinese/English language mixing follows established patterns
-- Test responsive design and mobile compatibility
+- **Configuration changes**: Always run `bun run clean` before building
+- **Image optimization**: Ensure images are properly sized and use relative paths
+- **Link validation**: Check internal links and ensure proper permalink structure
+- **Style consistency**: Validate technical terminology against site consistency
+- **Language mixing**: Ensure Chinese/English language mixing follows established patterns
+- **Responsive testing**: Test mobile compatibility and responsive design
 
-### Content Migration & Legacy Support
-- Legacy content exists from CSDN platform (see `csdn-imgs.js`)
-- Jekyll layouts preserved in `source/_layouts/` for reference
-- Ruby rake commands still available for legacy operations
+### Agent-Specific Rules
+- **Read-only directories**: Never directly edit `public/` or `.deploy_git/` directories
+- **Minimal changes**: Make only necessary modifications to achieve the goal
+- **Structure updates**: If adding new directories or major changes, update this CLAUDE.md file
+- **Git operations**: Only perform git commit/push operations when explicitly instructed
+- **Dependency management**: Use `bun` exclusively, never install global dependencies without permission
 
-### Image Management
-- Blog images stored in `source/images/`
-- Legacy CSDN image migration script: `csdn-imgs.js`
-- Public images served from `public/images/`
+### Image Management & Assets
+- **Structure**: Blog images stored in `source/images/<post-slug>/` subdirectories
+- **Referencing**: Use relative paths in markdown: `![alt text](../images/post-slug/image.png)`
+- **Optimization**: Ensure images are web-optimized (appropriate size and format)
+- **Legacy migration**: CSDN image migration script available: `csdn-imgs.js` (reference only)
+- **Public assets**: Generated images served from `public/images/` (auto-generated)
+
+### Content Migration & Legacy References
+- **Legacy platform**: Historical content migrated from CSDN platform
+- **Jekyll layouts**: Preserved in `source/_layouts/` for reference only
+- **Ruby rake commands**: Available but not recommended for normal operations
+- **Migration scripts**: Various migration utilities in root directory (reference)
 
 ### Slides & Presentations
 - **Reveal.js Integration**: Create presentation slides using `hexo-generator-slidehtml`
@@ -114,10 +170,15 @@ rake new_page["Page Name"]
 - **Access URL**: Slides available at `/blog/:year/:month/:day/:title/slide.html`
 - **Themes**: Support for multiple Reveal.js themes (black, white, league, etc.)
 
-## Key Features
+### Dependencies & Version Information
+- **Hexo**: v8.0.0 (main static site generator)
+- **Axios**: v1.12.2 (HTTP client)
+- **NexT Theme**: v8.25.0 using Gemini scheme with dark mode
+- **Node.js**: Required for Hexo plugins and build process
+- **Bun**: Package manager (mandatory - replaces npm/yarn)
 
-### Core Plugins & Extensions
-- `hexo-theme-next`: Primary theme (v8.25.0) using Gemini scheme with dark mode
+### Key Plugins & Extensions
+- `hexo-deployer-git`: GitHub Pages deployment
 - `hexo-generator-*`: Content generators (archive, category, tag, feed, sitemap)
 - `hexo-markmap`: Mind mapping support for markdown
 - `hexo-graphviz`: Graphviz diagram generation
@@ -127,70 +188,65 @@ rake new_page["Page Name"]
 - `hexo-symbols-count-time`: Post reading time and word count
 - `hexo-generator-slidehtml`: Reveal.js slides generation (v0.0.65)
 
-### SEO & Social
-- Sitemap generation (`sitemap.xml`)
-- RSS feed (`atom.xml`)
-- Baidu search optimization with push functionality
-- GitHub integration and social links
-- Google Analytics tracking (UA-46270419-1)
-- Disqus commenting system integration
+### Testing & Security
+- **No automated test suite**: Content validation through local preview only
+- **Manual quality checks**: Required before deployment
+- **Writing style validation**: Against `.memory-bank/writing-style-profile.md` standards
+- **Security**: Never commit secrets/tokens - use `.env` files (excluded from git)
+- **Dependency updates**: Handle in separate PRs with breaking change notes
 
-## Technical Notes
+## SEO & Social Integration
 
-### Legacy Compatibility
-- Some Ruby dependencies remain for legacy content processing
-- Rakefile contains legacy deployment scripts
-- Jekyll layouts preserved for reference
+### Built-in SEO Features
+- **Sitemap generation**: `sitemap.xml` auto-generated
+- **RSS feed**: `atom.xml` for syndication
+- **Baidu optimization**: Search engine optimization with push functionality
+- **Meta tags**: Automatic generation for posts and pages
+- **Structured URLs**: SEO-friendly permalink structure
 
-### Build Process
-- Hexo processes Markdown files from `source/_posts/`
-- Generates static HTML to `public/`
-- Auto-deployment to GitHub Pages via `hexo-deployer-git`
-- **Package Manager**: Uses Bun exclusively (not npm) for dependency management
+### Social & Analytics
+- **GitHub integration**: Author profile and repository links
+- **Google Analytics**: Tracking ID UA-46270419-1 (configured)
+- **Disqus commenting**: Community interaction system
+- **Social sharing**: Built-in sharing capabilities
+- **Related posts**: Algorithm-based content recommendations
 
-### Testing & Quality
-- No automated test suite - content validation through local preview
-- Manual quality checks before deployment
-- Writing style validation against `.memory-bank/writing-style-profile.md` standards
-- Link validation and image optimization before publishing
-- SEO and metadata verification through generated sitemap
+## Content Guidelines & Writing Style
 
-## Content Guidelines
-
-The blog focuses on:
-- Software development methodologies (TDD, BDD)
-- Functional programming (Scala, FP patterns)
+### Content Focus Areas
+- Software development methodologies (TDD, BDD, testing strategies)
+- Functional programming (Scala, functional patterns)
 - System architecture and design patterns
 - Technical reflection and best practices
-- Chinese technical writing with English code terms
+- AI-assisted development and tooling
+- Chinese technical writing with English code terms preservation
 
-## Writing Style Requirements
+### Writing Style Requirements (Critical)
+**All content creation must follow the writing style profile defined in `.memory-bank/writing-style-profile.md`**
 
-**Critical**: All content creation must follow the writing style profile defined in `.memory-bank/writing-style-profile.md`. Key principles:
-
-### Language and Tone
+### Language and Tone Guidelines
 - **Primary Language**: Chinese for all main content, with English preserved for technical terms and code
 - **Tone**: Humble, exploratory, and conversational - avoid authoritative or prescriptive language
 - **Uncertainty Markers**: Use "我认为", "似乎", "可能", "据我理解", "目前来看" to maintain humble tone
 - **Interactive Elements**: Include thoughtful questions and "不过再想一下" progressive inquiry patterns
 
-### Technical Content Standards
+### Technical Writing Standards
 - **Technical Term Density**: 15-25 technical terms per 100 characters
 - **Complex Sentence Ratio**: 60-75% compound sentences to reflect analytical thinking
 - **Question Frequency**: 8-15% of sentences should be questions to enhance reader engagement
 - **Code-to-Text Ratio**: Maintain 1:2 to 1:4 ratio for balanced theory and practice
 
-### Content Structure
-- **Spiral Progression**: Revisit themes at deeper levels throughout the article
+### Content Structure Principles
+- **Spiral Progression**: Revisit themes at deeper levels throughout articles
 - **Multi-perspective Analysis**: Present different viewpoints using "从...角度" and "另一方面"
-- **Problem-Solution Framework**: Structure content as problem identification → analysis → solution exploration
+- **Problem-Solution Framework**: Structure as problem identification → analysis → solution exploration
 - **Metaphor Usage**: 3-5 analogies per 1000 characters to explain complex concepts
 
-### Reader Interaction
-- **Peer-Level Discussion**: Write as a colleague exploring ideas together, not as a teacher
+### Reader Interaction Guidelines
+- **Peer-Level Discussion**: Write as colleague exploring ideas together, not as teacher
 - **Cognitive Collaboration**: Invite readers to think along: "我们可以考虑", "值得探讨的是"
 - **Knowledge Boundary Acknowledgment**: Explicitly state limitations: "在我的经验中", "可能存在遗漏"
-- **Open Endings**: 30-45% of paragraphs should end with open questions or further thinking directions
+- **Open Endings**: 30-45% of paragraphs should end with open questions or thinking directions
 
 ### Content Quality Indicators
 - Follow **文体学** (stylistic) principles from `.memory-bank/writing-style-profile.md`
