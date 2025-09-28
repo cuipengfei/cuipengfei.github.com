@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.0.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -175,8 +175,10 @@
 
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="崔鹏飞"
+      src="/images/favicon-32x32-next.png">
   <p class="site-author-name" itemprop="name">崔鹏飞</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">专注分布式系统、函数式编程、测试与架构实践的技术博客</div>
 </div>
 <div class="site-state-wrap animated">
   <nav class="site-state">
@@ -242,13 +244,13 @@
     <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2011/04/13/%E2%80%9C%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0%E2%80%9D%E8%B6%A3%E4%BA%8B%E6%8E%A2%E8%BD%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/favicon-32x32-next.png">
       <meta itemprop="name" content="崔鹏飞">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="崔鹏飞的Blog">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="专注分布式系统、函数式编程、测试与架构实践的技术博客">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
@@ -292,7 +294,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>5.3k</span>
+      <span>5.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -314,23 +316,23 @@
 <p>要研究语言特性的实现原理最好的方法莫过于反编译出IL代码来一探究竟了。所以，那就顺着这条线索走吧。</p>
 <p>首先用C#代码写一个很简单的测试方法：</p>
 <pre><code>public void TestMethod(string str = &quot;A&quot;)
-&#123;
-&#125;
+{
+}
 </code></pre>
 <p><a target="_blank" rel="noopener" href="http://blog.csdn.net/cuipengfei1/archive/2011/03/06/6227119.aspx"> 上一篇博文 </a><br>中提到过这种写法跟直接使用OptionalAttribute和DefaultValueAttribute这两个attribute的效果是一样的。</p>
 <pre><code>public void TestMethodWithAttributes([Optional, DefaultParameterValue(&quot;A&quot;)]string str)
-&#123;
-&#125;
+{
+}
 </code></pre>
 <p>这两段代码编译出来的IL除了名字之外别无二致，下面就以第一个方法为例，它的IL是这样的：</p>
 <pre><code>.method public hidebysig instance void  TestMethod([opt] string str) cil managed
-&#123;
+{
   .param [1] = &quot;A&quot;
   // Code size       2 (0x2)
   .maxstack  8
   IL_0000:  nop
   IL_0001:  ret
-&#125; // end of method Program::TestMethod
+} // end of method Program::TestMethod
 </code></pre>
 <p>同时其生成的Metadata是这样的：</p>
 <pre><code>MethodName: TestMethod (06000003)
@@ -349,24 +351,24 @@ Argument #1:  String
 <p>先自定义一个只能应用到参数上的attribute：</p>
 <pre><code>[AttributeUsage(AttributeTargets.Parameter, Inherited = false, AllowMultiple = true)]
 sealed class MyAttribute : Attribute
-&#123;
-&#125;
+{
+}
 </code></pre>
 <p>然后定义一个被该attribute修饰的方法：</p>
 <pre><code>public void TestAttribute([My]string str)
-&#123;
-&#125;
+{
+}
 </code></pre>
 <p>这个方法编译之后的IL如下：</p>
 <pre><code>.method public hidebysig instance void  TestAttribute(string str) cil managed
-&#123;
+{
   .param [1]
   .custom instance void HowDidTheyImplementOptionalParameters.MyAttribute::.ctor() = ( 01 00 00 00 ) 
   // Code size       2 (0x2)
   .maxstack  8
   IL_0000:  nop
   IL_0001:  ret
-&#125; // end of method Program::TestAttribute
+} // end of method Program::TestAttribute
 </code></pre>
 <p>可以看到上面代码中标红的部分是TestMethod的IL中没有的。而且，它的Metadata和TestMethod的也是不同的：</p>
 <pre><code>MethodName: TestAttribute (06000005)
@@ -394,13 +396,13 @@ ReturnType: Void
 <h1 id="背后的陷阱"><a href="#背后的陷阱" class="headerlink" title="背后的陷阱"></a>背后的陷阱</h1><p>“可选参数”看起来方便又好用，但是使用它是不是真的是多快好省的绝佳选择呢？实际上不是的，它的背后隐藏着至少两个陷阱（我只发现了两个）。</p>
 <h1 id="第一个陷阱：版本更迭的问题"><a href="#第一个陷阱：版本更迭的问题" class="headerlink" title="第一个陷阱：版本更迭的问题"></a>第一个陷阱：版本更迭的问题</h1><p>就以上面提到的TestMethod为例，写一个方法来调用它：</p>
 <pre><code>public void Caller()
-&#123;
+{
     TestMethod();
-&#125;
+}
 </code></pre>
 <p>这里在调用时没有传入参数，也就是说相当于传入了默认的参数“A”。Caller编译出来的IL是这样的：</p>
 <pre><code>.method public hidebysig instance void  Caller() cil managed
-&#123;
+{
   // Code size       14 (0xe)
   .maxstack  8
   IL_0000:  nop
@@ -409,7 +411,7 @@ ReturnType: Void
   IL_0007:  call     instance void HowDidTheyImplementOptionalParameters.Program::TestMethod(string)
   IL_000c:  nop
   IL_000d:  ret
-&#125; // end of method Program::Caller
+} // end of method Program::Caller
 </code></pre>
 <p>请注意标红的两行，Caller的IL中实际是把“A”这个值写死了的。也就是说如果有一个包含“可选参数”的非强命名程序集在版本升级时修改了参数的默认值，其他引<br>用它的程序集如果没有重新编译就无法获得到新的默认参数值，在运行时仍然会传入老版本中定义的值。</p>
 <h1 id="第二个陷阱：跨语言调用"><a href="#第二个陷阱：跨语言调用" class="headerlink" title="第二个陷阱：跨语言调用"></a>第二个陷阱：跨语言调用</h1><p>并不是所有的语言都被强制要求支持“可选参数”这一特性。对于不支持这一特性的语言来说，完全可以忽略掉元数据中包含的默认值而强制要求这一语言的用户去显式的提供参<br>数值。而这样就会导致代码的运行时行为不一致。</p>
@@ -421,8 +423,8 @@ ReturnType: Void
 </code></pre>
 <p>然后编译，编译器没有给出任何警告。而如果是在public<br>API中使用了unit这一“臭名昭著”的类型的话，编译器会毫不犹豫的给出一个警告。比如这样的一个方法：</p>
 <pre><code>public void TestCLSCompliant(uint parameter)
-&#123;
-&#125;
+{
+}
 </code></pre>
 <p>在编译时就会得到一个警告：Argument type ‘uint’ is not CLS-compliant。</p>
 <p>而且 <a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/ms182135.aspx"> MSDN的文档 </a><br>中也提到了虽然“可选参数”没有被收录到CLS的规范中，但是CLS是可以“容忍”它的存在的。</p>
@@ -518,14 +520,14 @@ ReturnType: Void
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">406k</span>
+    <span title="站点总字数">405k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:09</span>
+    <span title="站点阅读时长">6:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

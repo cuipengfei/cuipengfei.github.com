@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.0.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -184,8 +184,10 @@
 
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="崔鹏飞"
+      src="/images/favicon-32x32-next.png">
   <p class="site-author-name" itemprop="name">崔鹏飞</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">专注分布式系统、函数式编程、测试与架构实践的技术博客</div>
 </div>
 <div class="site-state-wrap animated">
   <nav class="site-state">
@@ -251,13 +253,13 @@
     <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2011/03/06/CSharp%E4%B8%AD%E7%9A%84%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A7%E9%83%BD%E6%98%AF%E4%BB%8E%E4%BD%95%E8%80%8C%E6%9D%A5%EF%BC%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/favicon-32x32-next.png">
       <meta itemprop="name" content="崔鹏飞">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="崔鹏飞的Blog">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="专注分布式系统、函数式编程、测试与架构实践的技术博客">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
@@ -324,7 +326,7 @@
 <pre><code>static void Main(string[] args)
 
 
-&#123;
+{
 
 
     TestMethod();
@@ -339,7 +341,7 @@
     Console.ReadLine();
 
 
-&#125;
+}
 
 
  
@@ -348,20 +350,20 @@
 public static void TestMethod(int parameter = 5)
 
 
-&#123;
+{
 
 
     Console.WriteLine(parameter);
 
 
-&#125;
+}
 </code></pre>
 <p>以上的代码在第一次调用TestMethod时输出5，第二次输出10，也就是在没有给TestMethod提供参数值时，会自动以5作为参数值。</p>
 <p>该特性的实现依赖于OptionalAttribute和DefaultParameterValueAttribute这两个attribute，也就是说Test<br>Method这个方法完全可以声明为这样：</p>
 <pre><code>public static void TestMethod([Optional, DefaultParameterValue(5)] int parameter)
-&#123;
+{
     Console.WriteLine(parameter);
-&#125;
+}
 </code></pre>
 <p>而跑起来的结果是一样的。</p>
 <p>OptionalAttribute和DefaultParameterValueAttribute这两个attribute分别是在.Net 1.1和.Net<br>2.0中引入的，也就是说N年前大家就可以写拥有“可选参数”的方法了，只是用起来没有现在这么爽。</p>
@@ -485,14 +487,14 @@ Console.WriteLine(str);
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">406k</span>
+    <span title="站点总字数">405k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:09</span>
+    <span title="站点阅读时长">6:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

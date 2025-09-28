@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.0.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -175,8 +175,10 @@
 
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="崔鹏飞"
+      src="/images/favicon-32x32-next.png">
   <p class="site-author-name" itemprop="name">崔鹏飞</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">专注分布式系统、函数式编程、测试与架构实践的技术博客</div>
 </div>
 <div class="site-state-wrap animated">
   <nav class="site-state">
@@ -242,13 +244,13 @@
     <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2012/02/15/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects10%20-%20Any%E5%92%8CAll/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/favicon-32x32-next.png">
       <meta itemprop="name" content="崔鹏飞">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="崔鹏飞的Blog">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="专注分布式系统、函数式编程、测试与架构实践的技术博客">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
@@ -292,14 +294,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.9k</span>
+      <span>3.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -367,9 +369,9 @@ if (query.Any())
 
 public void SequenceIsNotEvaluatedAfterFirstMatch() 
 
-&#123; 
+{ 
 
-    int[] src = &#123; 10, 2, 0, 3 &#125;; 
+    int[] src = { 10, 2, 0, 3 }; 
 
     var query = src.Select(x =&gt; 10 / x); 
 
@@ -379,7 +381,7 @@ public void SequenceIsNotEvaluatedAfterFirstMatch()
 
     Assert.IsTrue(query.Any(y =&gt; y &gt; 2)); 
 
-&#125;
+}
 </code></pre>
 <p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/cuipengfei/archive/2012/02/15/2352444.html"> 复制代码 </a></p>
 <p>对于  All，也有一个类似的测试用例，其中会导致异常的元素前面存在一个不能通过谓词检验的元素。</p>
@@ -389,11 +391,11 @@ public void SequenceIsNotEvaluatedAfterFirstMatch()
 
     this IEnumerable&lt;TSource&gt; source) 
 
-&#123; 
+{ 
 
     return source.Any(x =&gt; true); 
 
-&#125; 
+} 
 
  
 
@@ -403,19 +405,19 @@ public static bool Any&lt;TSource&gt;(
 
     Func&lt;TSource, bool&gt; predicate) 
 
-&#123; 
+{ 
 
     if (predicate == null) 
 
-    &#123; 
+    { 
 
         throw new ArgumentNullException(&quot;predicate&quot;); 
 
-    &#125; 
+    } 
 
     return !source.All(x =&gt; !predicate(x)); 
 
-&#125;
+}
 </code></pre>
 <p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/cuipengfei/archive/2012/02/15/2352444.html"> 复制代码 </a></p>
 <p>基于接受谓词的的  Any  来实现不接受谓词的  Any  是最简单的，我们使用了一个对任何元素都会返回  true<br>的谓词，这就意味着只要输出序列中含有元素就会返回  true  ，这正是我们想要的行为。</p>
@@ -425,27 +427,27 @@ public static bool Any&lt;TSource&gt;(
 
     this IEnumerable&lt;TSource&gt; source) 
 
-&#123; 
+{ 
 
     if (source == null) 
 
-    &#123; 
+    { 
 
         throw new ArgumentNullException(&quot;source&quot;); 
 
-    &#125; 
+    } 
 
              
 
     using (IEnumerator&lt;TSource&gt; iterator = source.GetEnumerator()) 
 
-    &#123; 
+    { 
 
         return iterator.MoveNext(); 
 
-    &#125; 
+    } 
 
-&#125; 
+} 
 
  
 
@@ -455,43 +457,43 @@ public static bool Any&lt;TSource&gt;(
 
     Func&lt;TSource, bool&gt; predicate) 
 
-&#123; 
+{ 
 
     if (source == null) 
 
-    &#123; 
+    { 
 
         throw new ArgumentNullException(&quot;source&quot;); 
 
-    &#125; 
+    } 
 
     if (predicate == null) 
 
-    &#123; 
+    { 
 
         throw new ArgumentNullException(&quot;predicate&quot;); 
 
-    &#125; 
+    } 
 
  
 
     foreach (TSource item in source) 
 
-    &#123; 
+    { 
 
         if (predicate(item)) 
 
-        &#123; 
+        { 
 
             return true; 
 
-        &#125; 
+        } 
 
-    &#125; 
+    } 
 
     return false; 
 
-&#125; 
+} 
 
  
 
@@ -503,43 +505,43 @@ public static bool All&lt;TSource&gt;(
 
     Func&lt;TSource, bool&gt; predicate) 
 
-&#123; 
+{ 
 
     if (source == null) 
 
-    &#123; 
+    { 
 
         throw new ArgumentNullException(&quot;source&quot;); 
 
-    &#125; 
+    } 
 
     if (predicate == null) 
 
-    &#123; 
+    { 
 
         throw new ArgumentNullException(&quot;predicate&quot;); 
 
-    &#125; 
+    } 
 
  
 
     foreach (TSource item in source) 
 
-    &#123; 
+    { 
 
         if (!predicate(item)) 
 
-        &#123; 
+        { 
 
             return false; 
 
-        &#125; 
+        } 
 
-    &#125; 
+    } 
 
     return true; 
 
-&#125;
+}
 </code></pre>
 <p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/cuipengfei/archive/2012/02/15/2352444.html"> 复制代码 </a></p>
 <p>这样的实现方式很明显的凸显了“提前返回”这一特性。而且，这样做也可以使得堆栈跟踪记录更易读。对于一个下游开发者来说，如果调试  Any<br>时在堆栈跟踪记录中看到了调用  All的记录会显得很奇怪；调用  All时看到了  Any  也会很奇怪。</p>
@@ -627,14 +629,14 @@ public static bool All&lt;TSource&gt;(
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">406k</span>
+    <span title="站点总字数">405k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:09</span>
+    <span title="站点阅读时长">6:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

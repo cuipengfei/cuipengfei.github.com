@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.0.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -178,8 +178,10 @@
 
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="崔鹏飞"
+      src="/images/favicon-32x32-next.png">
   <p class="site-author-name" itemprop="name">崔鹏飞</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">专注分布式系统、函数式编程、测试与架构实践的技术博客</div>
 </div>
 <div class="site-state-wrap animated">
   <nav class="site-state">
@@ -245,13 +247,13 @@
     <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2016/03/10/couchbase-android-sync/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/favicon-32x32-next.png">
       <meta itemprop="name" content="崔鹏飞">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="崔鹏飞的Blog">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="专注分布式系统、函数式编程、测试与架构实践的技术博客">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
@@ -362,7 +364,7 @@
 <p>以上github代码克隆下来后，sync-gateway路径下有个名为start_sync_gateway_server.sh的脚本，运行它来启动sync gateway。</p>
 <h2 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h2><p>运行同一个路径下的create_user.sh，来创建一个名为user1的用户，然后运行create_session.sh，为该用户创建一个session。</p>
 <p>create_session.sh脚本有类似如下的输出：</p>
-<pre><code>&#123;&quot;session_id&quot;:&quot;a469f18027647e4957ffd1743e2ea33ce0386dbc&quot;,&quot;expires&quot;:&quot;2016-02-21T17:51:43.071175586+08:00&quot;,&quot;cookie_name&quot;:&quot;SyncGatewaySession&quot;&#125;
+<pre><code>{&quot;session_id&quot;:&quot;a469f18027647e4957ffd1743e2ea33ce0386dbc&quot;,&quot;expires&quot;:&quot;2016-02-21T17:51:43.071175586+08:00&quot;,&quot;cookie_name&quot;:&quot;SyncGatewaySession&quot;}
 </code></pre>
 <p>把其中的session id记下备用。</p>
 <p>（注：这里的用户和session都是sync gateway需要的，与CouchBase Server无直接关系）</p>
@@ -462,14 +464,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">406k</span>
+    <span title="站点总字数">405k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:09</span>
+    <span title="站点阅读时长">6:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

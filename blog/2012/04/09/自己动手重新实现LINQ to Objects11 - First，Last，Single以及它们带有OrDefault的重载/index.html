@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.0.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -175,8 +175,10 @@
 
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="崔鹏飞"
+      src="/images/favicon-32x32-next.png">
   <p class="site-author-name" itemprop="name">崔鹏飞</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">专注分布式系统、函数式编程、测试与架构实践的技术博客</div>
 </div>
 <div class="site-state-wrap animated">
   <nav class="site-state">
@@ -242,13 +244,13 @@
     <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2012/04/09/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects11%20-%20First%EF%BC%8CLast%EF%BC%8CSingle%E4%BB%A5%E5%8F%8A%E5%AE%83%E4%BB%AC%E5%B8%A6%E6%9C%89OrDefault%E7%9A%84%E9%87%8D%E8%BD%BD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/favicon-32x32-next.png">
       <meta itemprop="name" content="崔鹏飞">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="崔鹏飞的Blog">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="专注分布式系统、函数式编程、测试与架构实践的技术博客">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
@@ -436,203 +438,203 @@ public static TSource SingleOrDefault&lt;TSource&gt;(
 <p>为了避免看起来冗余，我把每个方法中的参数检验的部分省略掉了。不过在真实的代码中是含有参数检验的。我们从  First  开始吧：</p>
 <pre><code>public static TSource First&lt;TSource&gt;(
     this IEnumerable&lt;TSource&gt; source)
-&#123;
+{
     // Argument validation elided
     using (IEnumerator&lt;TSource&gt; iterator = source.GetEnumerator())
-    &#123;
+    {
         if (iterator.MoveNext())
-        &#123;
+        {
             return iterator.Current;
-        &#125;
+        }
         throw new InvalidOperationException(&quot;Sequence was empty&quot;);
-    &#125;
-&#125;
+    }
+}
 
 public static TSource First&lt;TSource&gt;(
     this IEnumerable&lt;TSource&gt; source,
     Func&lt;TSource, bool&gt; predicate)
-&#123;
+{
     // Argument validation elided
     foreach (TSource item in source)
-    &#123;
+    {
         if (predicate(item))
-        &#123;
+        {
             return item;
-        &#125;
-    &#125;
+        }
+    }
     throw new InvalidOperationException(&quot;No items matched the predicate&quot;);
-&#125;
+}
 </code></pre>
 <p>这两个实现看起来差异很大，这是我有意为之的。对于没有谓词的重载，我也可以用  foreach  来实现的，就从  foreach<br>的循环体中无条件的返回就可以了。然而，我想要强调我们在  First<br>中不需要循环遍历。我们只需要移向第一个元素，然后返回就可以了，如果无法移向第一个元素则抛出异常。没有任何迹象显示我们会再次调用  MoveNext<br>。而对于有谓词的重载，我们必须一直循环遍历直到找到一个符合谓词的元素，我们只在遍历完所有元素而找不到符合谓词的元素时才抛出异常。</p>
 <p>下面我们来看看当序列为空时如何返回默认值：</p>
 <pre><code>public static TSource FirstOrDefault&lt;TSource&gt;(
     this IEnumerable&lt;TSource&gt; source)
-&#123;
+{
     // Argument validation elided
     using (IEnumerator&lt;TSource&gt; iterator = source.GetEnumerator())
-    &#123;
+    {
         return iterator.MoveNext() ? iterator.Current : default(TSource);
-    &#125;
-&#125;
+    }
+}
 
 public static TSource FirstOrDefault&lt;TSource&gt;(
     this IEnumerable&lt;TSource&gt; source,
     Func&lt;TSource, bool&gt; predicate)
-&#123;
+{
     // Argument validation elided
     foreach (TSource item in source)
-    &#123;
+    {
         if (predicate(item))
-        &#123;
+        {
             return item;
-        &#125;
-    &#125;
+        }
+    }
     return default(TSource);
-&#125;
+}
 </code></pre>
 <p>这个有谓词的  FirstOrDefault  看起来和有谓词的  First  非常相似，但是没有谓词的  FirstOrDefault  和没有谓词的<br>First  却有点细微的差别：我们在这里没有用  if  语句而是用了三元运算符（虽然说用  if<br>也是完全可以的）。不管能否移向第一个元素，我们都需要返回值。如果三元运算符允许第二个或第三个操作对象为  throw<br>语句就好了，但是即使不能的话也不是什么大问题。</p>
 <p>接下来我们来实现  Single  ，它在某些方面与  First  的相似性比  Last  与  First  的相似性更大：</p>
 <pre><code>public static TSource Single&lt;TSource&gt;(
     this IEnumerable&lt;TSource&gt; source)
-&#123;
+{
     // Argument validation elided
     using (IEnumerator&lt;TSource&gt; iterator = source.GetEnumerator())
-    &#123;
+    {
         if (!iterator.MoveNext())
-        &#123;
+        {
             throw new InvalidOperationException(&quot;Sequence was empty&quot;);
-        &#125;
+        }
         TSource ret = iterator.Current;
         if (iterator.MoveNext())
-        &#123;
+        {
             throw new InvalidOperationException(&quot;Sequence contained multiple elements&quot;);
-        &#125;
+        }
         return ret;
-    &#125;
-&#125;
+    }
+}
 
 public static TSource Single&lt;TSource&gt;(
     this IEnumerable&lt;TSource&gt; source,
     Func&lt;TSource, bool&gt; predicate)
-&#123;
+{
     // Argument validation elided
     TSource ret = default(TSource);
     bool foundAny = false;
     foreach (TSource item in source)
-    &#123;
+    {
         if (predicate(item))
-        &#123;
+        {
             if (foundAny)
-            &#123;
+            {
                 throw new InvalidOperationException(&quot;Sequence contained multiple matching elements&quot;);
-            &#125;
+            }
             foundAny = true;
             ret = item;
-        &#125;
-    &#125;
+        }
+    }
     if (!foundAny)
-    &#123;
+    {
         throw new InvalidOperationException(&quot;No items matched the predicate&quot;);
-    &#125;
+    }
     return ret;
-&#125;
+}
 </code></pre>
 <p>这个比  First  复杂多了。没有谓词的重载的开头和  First  的开头一样，不同的是如果能够成功的移向第一个元素的话，我们需要记住第一个元素的值（<br>因为我们可能需要返回该值）然后试着移向第二个元素。如果可以移向第二个元素，就要抛出异常，如果不能移向第二个元素，那就可以返回刚才记录下的值。</p>
 <p>有谓词的重载更麻烦。我们依然需要记住第一个找到的符合谓词的值，不过因为这次我们在循环，我们还需要记住是否已经找到过一个符合谓词的值了。如果能够找到第二个符合<br>谓词的值，就必须抛异常。如果一个符合谓词的值都找不到，也要抛异常。请注意，尽管我们给  ret  赋了一个  default<br>(TSource)的初值，但是我们的  return  语句执行时  ret  肯定不会是初值的状态。然而，  C#<br>的明确赋值的语法无法理解这一点，所以我们需要给  ret  一个“傀儡”式的初值，而  default  (T)是唯一可以用的值。有另外一种不用<br>foreach  的实现方法：遍历序列直到找到第一个符合谓词的元素，此时声明一个局部变量并且把找到的元素赋值给该变量，然后再开始另一个循环，以确保不能再找到<br>其他符合谓词的值了。我个人觉得这种方式太复杂了，所以我选择了用  foreach  的方式。</p>
 <p>下面实现  SingleOrDefault  的两个重载，这两个重载之间的差别就不是那么大了：</p>
 <pre><code>public static TSource SingleOrDefault&lt;TSource&gt;(
     this IEnumerable&lt;TSource&gt; source)
-&#123;
+{
     // Argument validation elided
     using (IEnumerator&lt;TSource&gt; iterator = source.GetEnumerator())
-    &#123;
+    {
         if (!iterator.MoveNext())
-        &#123;
+        {
             return default(TSource);
-        &#125;
+        }
         TSource ret = iterator.Current;
         if (iterator.MoveNext())
-        &#123;
+        {
             throw new InvalidOperationException(&quot;Sequence contained multiple elements&quot;);
-        &#125;
+        }
         return ret;
-    &#125;
-&#125;
+    }
+}
 
 public static TSource SingleOrDefault&lt;TSource&gt;(
     this IEnumerable&lt;TSource&gt; source,
     Func&lt;TSource, bool&gt; predicate)
-&#123;
+{
     // Argument validation elided
     TSource ret = default(TSource);
     bool foundAny = false;
     foreach (TSource item in source)
-    &#123;
+    {
         if (predicate(item))
-        &#123;
+        {
             if (foundAny)
-            &#123;
+            {
                 throw new InvalidOperationException(&quot;Sequence contained multiple matching elements&quot;);
-            &#125;
+            }
             foundAny = true;
             ret = item;
-        &#125;
-    &#125;
+        }
+    }
     return ret;
-&#125;
+}
 </code></pre>
 <p>这次我们只是把没有谓词的重载里的  throw  语句替换成了  return  语句，并且在有谓词的重载中移除了没有找到符合谓词的元素的判断。我们在这里给<br>ret  赋以初值是有好处的，因为如果后面的代码不会给  ret  赋以其他值，那么  ret  已经有了正确的返回值了。</p>
 <p>下一个是  Last  ：</p>
 <pre><code>public static TSource Last&lt;TSource&gt;(
     this IEnumerable&lt;TSource&gt; source)
-&#123;
+{
     // Argument validation elided
     IList&lt;TSource&gt; list = source as IList&lt;TSource&gt;;
     if (list != null)
-    &#123;
+    {
         if (list.Count == 0)
-        &#123;
+        {
             throw new InvalidOperationException(&quot;Sequence was empty&quot;);
-        &#125;
+        }
         return list[list.Count - 1];
-    &#125;
+    }
 
     using (IEnumerator&lt;TSource&gt; iterator = source.GetEnumerator())
-    &#123;
+    {
         if (!iterator.MoveNext())
-        &#123;
+        {
             throw new InvalidOperationException(&quot;Sequence was empty&quot;);
-        &#125;
+        }
         TSource last = iterator.Current;
         while (iterator.MoveNext())
-        &#123;
+        {
             last = iterator.Current;
-        &#125;
+        }
         return last;
-    &#125;
-&#125;
+    }
+}
 
 public static TSource Last&lt;TSource&gt;(
     this IEnumerable&lt;TSource&gt; source,
     Func&lt;TSource, bool&gt; predicate)
-&#123;
+{
     // Argument validation elided
     bool foundAny = false;
     TSource last = default(TSource);
     foreach (TSource item in source)
-    &#123;
+    {
         if (predicate(item))
-        &#123;
+        {
             foundAny = true;
             last = item;
-        &#125;
-    &#125;
+        }
+    }
     if (!foundAny)
-    &#123;
+    {
         throw new InvalidOperationException(&quot;No items matched the predicate&quot;);
-    &#125;
+    }
     return last;
-&#125;
+}
 </code></pre>
 <p>我们从没有谓词的方法开头的优化谈起吧。如果输入序列是个列表的话，我们可以获取列表的元素数量，然后根据元素数量的不同，或者是抛出异常或者是返回索引最大的元素。<br>如果还要再优化一点的话，我可以把  Count  值存到一个局部变量里，但是我假设获取  IList<T>的  Count<br>的代价是很低的。如果有哪位对这一点持反对意见，我很愿意做出修改：）请注意，我还假设了另一个情况，实现<br>IList<T>的类型含有的元素不会超过Int32.MaxValue，否则的话，这个优化就会失败。</p>
 <p>如果不做优化的话，我们可以遍历整个序列，每次迭代都用最新访问到的元素来更新一个局部变量的值。我在这里没有用  foreach  ，但是并没有什么特别的原因<br>–  我们其实也可以用  foreach  ，每次的迭代都把一个叫做  foundAny  的变量设为  true  ，然后在最后测试<br>foundAny  的值。实际上，上面所描述的就正是有谓词的方法所采用的方式。不许得承认，采用这个方式在一定程度上是不得已而为之  –  我们不能调用<br>MoveNext  然后把获取到的值存起来，因为这个值有可能不符合谓词的约束。</p>
@@ -640,37 +642,37 @@ public static TSource Last&lt;TSource&gt;(
 <p>现在，我们就只有一个操作符需要实现了  –LastOrDefault  ：</p>
 <pre><code>public static TSource LastOrDefault&lt;TSource&gt;(
     this IEnumerable&lt;TSource&gt; source)
-&#123;
+{
     // Argument validation elided
     IList&lt;TSource&gt; list = source as IList&lt;TSource&gt;;
     if (list != null)
-    &#123;
+    {
         return list.Count == 0 ? default(TSource) : list[list.Count - 1];
-    &#125;
+    }
 
     TSource last = default(TSource);
     foreach (TSource item in source)
-    &#123;
+    {
         last = item;
-    &#125;
+    }
     return last;
-&#125;
+}
 
 public static TSource LastOrDefault&lt;TSource&gt;(
     this IEnumerable&lt;TSource&gt; source,
     Func&lt;TSource, bool&gt; predicate)
-&#123;
+{
     // Argument validation elided
     TSource last = default(TSource);
     foreach (TSource item in source)
-    &#123;
+    {
         if (predicate(item))
-        &#123;
+        {
             last = item;
-        &#125;
-    &#125;
+        }
+    }
     return last;
-&#125;
+}
 </code></pre>
 <p>除了优化的部分，有谓词的和没有谓词的方法看起来很相似…比其他操作符的两个重载之间的差异要小。两个重载中，我们都是先定义一个返回值，并赋值为<br>default  (TSource)，然后遍历整个序列，并更新返回值，如果有谓词的话，就仅当元素符合谓词时才更新返回值。</p>
 <h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>我今早起床时没料到这篇博文会写的这么长，不过我希望上述的各个实现之间的差异和”Last&#x2F;LastOrDefault”没有优化的怪事能够值得这么多的辛苦。</p>
@@ -757,14 +759,14 @@ public static TSource LastOrDefault&lt;TSource&gt;(
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">406k</span>
+    <span title="站点总字数">405k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:09</span>
+    <span title="站点阅读时长">6:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

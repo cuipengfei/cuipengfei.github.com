@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.0.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -174,8 +174,10 @@
 
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="崔鹏飞"
+      src="/images/favicon-32x32-next.png">
   <p class="site-author-name" itemprop="name">崔鹏飞</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">专注分布式系统、函数式编程、测试与架构实践的技术博客</div>
 </div>
 <div class="site-state-wrap animated">
   <nav class="site-state">
@@ -241,13 +243,13 @@
     <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2011/04/18/[%E7%BF%BB%E8%AF%91]List%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%9E%E7%8E%B0%E4%BA%86%E9%82%A3%E4%B9%88%E5%A4%9A%E6%8E%A5%E5%8F%A3%EF%BC%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/favicon-32x32-next.png">
       <meta itemprop="name" content="崔鹏飞">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="崔鹏飞的Blog">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="专注分布式系统、函数式编程、测试与架构实践的技术博客">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
@@ -291,7 +293,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
+      <span>2.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -330,35 +332,35 @@
 <p>是的。</p>
 <p>总是这样的吗？</p>
 <p>基本上总是这样的：</p>
-<pre><code>interface I1 &#123;&#125;
-interface I2 : I1 &#123;&#125;
-interface I3 : I2 &#123;&#125;
+<pre><code>interface I1 {}
+interface I2 : I1 {}
+interface I3 : I2 {}
 </code></pre>
 <p>I3是否显式指明它实现了I1是可选的。</p>
-<pre><code>class B : I3 &#123;&#125;
+<pre><code>class B : I3 {}
 </code></pre>
 <p>I3的实现者必须实现I2和I1，但不一定要显式指明。是否指明是可选的。</p>
-<pre><code>class D : B &#123;&#125;
+<pre><code>class D : B {}
 </code></pre>
 <p>派生类可以指明它实现了其基类的接口，但是并不是一定要这么做。</p>
 <p>下面有一个例子：</p>
 <pre><code>class C&lt;T&gt; where T : I3
-&#123;
-  public virtual void M&lt;U&gt;() where U : I3 &#123;&#125;
-&#125;
+{
+  public virtual void M&lt;U&gt;() where U : I3 {}
+}
 </code></pre>
 <p>T和U所对应的类型参数必须要实现I2和I1，但是T的U的泛型类型约束中却不一定要显式指明出来。</p>
 <p>分布类中是否重新声明它所实现的接口也是可选的：</p>
-<pre><code>partial class E : I3 &#123;&#125;
-partial class E &#123;&#125;
+<pre><code>partial class E : I3 {}
+partial class E {}
 </code></pre>
 <p>类型E的第二部分可以声明它实现了I3，I2或I1，但并不是一定要这么做。</p>
 <p>好吧，我懂了；这是可选的。那怎么会有人想去声明一个并不是一定要声明的接口呢？</p>
 <p>可能是因为他们认为这么做会让代码更易读更具有自说明性吧。</p>
 <p>有可能某个开发者会写出如下的代码：</p>
-<pre><code>interface I1 &#123;&#125;
-interface I2 &#123;&#125;
-interface I3 : I1, I2 &#123;&#125;
+<pre><code>interface I1 {}
+interface I2 {}
+interface I3 : I1, I2 {}
 </code></pre>
 <p>然后他突然发觉I2应该继承自I1。 ** 干嘛非得要求开发者在把I2修改为继承自I1之后再回头去在I3的声明中删除掉对I1的继承呢？ **<br>我找不到任何理由去强制开发人员删除掉冗余的声明信息。</p>
 <p>除了易读性和易懂性之外，在基类列表中显式声明一个接口和虽不声明但实现这个接口会有什么 **技术上 **的区别吗？</p>
@@ -456,14 +458,14 @@ interface I3 : I1, I2 &#123;&#125;
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">406k</span>
+    <span title="站点总字数">405k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:09</span>
+    <span title="站点阅读时长">6:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
