@@ -74,7 +74,8 @@
       "Bash(claude mcp add powershell-integration --scope user bun D:/code/mcp-powershell-exec/server.ts)",
       "Bash(git mv:*)",
       "Bash(claude mcp add powershell-integration --scope user bun D:/code/mcp-powershell-exec/powershell.ts)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(bun run new:page \"about\")"
     ],
     "additionalDirectories": [
       "C:\\Users\\39764",
