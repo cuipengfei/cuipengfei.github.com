@@ -86,8 +86,21 @@ rake new_page["Page Name"]
 ### Content Creation
 1. Create new posts in `source/_posts/` with format: `YYYY-MM-DD-title.md`
 2. Use appropriate front matter with tags
-3. Generate and test locally
-4. Deploy to GitHub Pages
+3. Generate and test locally: `bun run server`
+4. Validate content against writing style profile requirements
+5. Deploy to GitHub Pages: `bun run deploy`
+
+### Quality Assurance Steps
+- Verify images are properly optimized and paths are correct
+- Check internal links and ensure proper permalink structure
+- Validate technical terminology against site consistency
+- Ensure Chinese/English language mixing follows established patterns
+- Test responsive design and mobile compatibility
+
+### Content Migration & Legacy Support
+- Legacy content exists from CSDN platform (see `csdn-imgs.js`)
+- Jekyll layouts preserved in `source/_layouts/` for reference
+- Ruby rake commands still available for legacy operations
 
 ### Image Management
 - Blog images stored in `source/images/`
@@ -104,11 +117,11 @@ rake new_page["Page Name"]
 ## Key Features
 
 ### Core Plugins & Extensions
-- `hexo-theme-next`: Primary theme (v8.25.0)
+- `hexo-theme-next`: Primary theme (v8.25.0) using Gemini scheme with dark mode
 - `hexo-generator-*`: Content generators (archive, category, tag, feed, sitemap)
 - `hexo-markmap`: Mind mapping support for markdown
 - `hexo-graphviz`: Graphviz diagram generation
-- `hexo-excerpt`: Automatic post excerpt generation
+- `hexo-excerpt`: Automatic post excerpt generation with configurable depth
 - `hexo-generator-searchdb`: Local search functionality
 - `hexo-related-popular-posts`: Related posts recommendations
 - `hexo-symbols-count-time`: Post reading time and word count
@@ -134,9 +147,11 @@ rake new_page["Page Name"]
 - **Package Manager**: Uses Bun exclusively (not npm) for dependency management
 
 ### Testing & Quality
-- No automated test suite
-- Content validation through local preview
+- No automated test suite - content validation through local preview
 - Manual quality checks before deployment
+- Writing style validation against `.memory-bank/writing-style-profile.md` standards
+- Link validation and image optimization before publishing
+- SEO and metadata verification through generated sitemap
 
 ## Content Guidelines
 
