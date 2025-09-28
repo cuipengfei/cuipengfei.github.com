@@ -128,10 +128,12 @@ rake new_page["Page Name"]
 - `hexo-generator-slidehtml`: Reveal.js slides generation (v0.0.65)
 
 ### SEO & Social
-- Sitemap generation
-- RSS feed
-- Baidu search optimization
-- GitHub integration
+- Sitemap generation (`sitemap.xml`)
+- RSS feed (`atom.xml`)
+- Baidu search optimization with push functionality
+- GitHub integration and social links
+- Google Analytics tracking (UA-46270419-1)
+- Disqus commenting system integration
 
 ## Technical Notes
 
@@ -191,7 +193,26 @@ The blog focuses on:
 - **Open Endings**: 30-45% of paragraphs should end with open questions or further thinking directions
 
 ### Content Quality Indicators
+- Follow **文体学** (stylistic) principles from `.memory-bank/writing-style-profile.md`
 - Avoid absolute statements ("必须", "应该", "显然", "众所周知")
 - Include personal journey elements when relevant to technical understanding
 - Use story-telling techniques to make complex concepts accessible
 - Maintain technical depth while ensuring approachability
+
+## Project File Structure
+
+### Key Directories
+- `source/_posts/`: Blog posts (500+ posts dating back to 2008)
+- `source/images/`: Static images and assets
+- `public/`: Generated site output (auto-generated)
+- `themes/next-old/`: Custom NexT theme configuration
+- `.memory-bank/`: AI writing guidelines and style profiles
+- `plugins/`: Ruby plugins for legacy Octopress support
+- `scaffolds/`: Post templates for new content creation
+
+### Important Files
+- `_config.yml`: Main Hexo configuration
+- `_config.next.yml`: NexT theme customization
+- `package.json`: Node.js dependencies (uses Bun)
+- `Rakefile`: Legacy Ruby/Jekyll build tasks
+- `CLAUDE.md`: This guidance file
