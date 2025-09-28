@@ -8,55 +8,51 @@ layout: page
 
 ## 关于我 / About Me
 
-我是崔鹏飞，软件开发工程师，主要使用 Scala 和 TypeScript 工作。
+我是崔鹏飞，一个程序员。目前主要在用 Scala 和 TypeScript 开发。
 
-I'm Cui Pengfei, a software engineer working primarily with Scala and TypeScript.
+I'm Cui Pengfei, a programmer. Currently working mainly with Scala and TypeScript.
 
-### 博客内容 / Blog Content
+### 这个博客写什么 / What I Write About
 
-这个博客记录了我在软件开发中的技术思考和实践经验，涵盖分布式系统、函数式编程、测试驱动开发等领域。
+我在这里记录工作中遇到的技术问题和解决方案，偶尔也写一些思考。
 
-This blog documents my technical thoughts and practical experience in software development, covering distributed systems, functional programming, test-driven development and other areas.
+I write about technical problems I encounter at work and their solutions, with occasional thoughts.
 
-主要内容包括 JVM 技术深度探索、软件工程最佳实践、现代开发工具使用心得，以及对技术趋势的思考。
+内容主要围绕 JVM 技术，也会聊聊软件工程实践。最近开始探索 AI 编程工具。
 
-Main content includes deep exploration of JVM technologies, software engineering best practices, insights on modern development tools, and reflections on technology trends.
+Content mostly focuses on JVM technologies, with some software engineering practices. Recently started exploring AI programming tools.
 
-### 技术领域 / Technical Areas
+### 技术方向 / Technical Areas
 
-**语言技术 / Languages**: Java、Scala、Kotlin、TypeScript 的语言特性和 JVM 底层机制
+日常工作主要使用 Java、Scala、Kotlin 做后端开发，TypeScript 做前端。对 JVM 底层实现比较感兴趣。
 
-**Language Technologies**: Language features and JVM internals of Java, Scala, Kotlin, TypeScript
+Daily work involves Java, Scala, Kotlin for backend and TypeScript for frontend. I'm quite interested in JVM internals.
 
-**软件工程 / Software Engineering**: 测试驱动开发、行为驱动开发、代码质量管理
+我实践 TDD、BDD 这些开发方法，也有一些分布式系统的经验。
 
-**Software Engineering**: Test-driven development, behavior-driven development, code quality management
+I practice TDD, BDD methodologies and have some distributed systems experience.
 
-**系统架构 / System Architecture**: 分布式系统设计、函数式编程实践、设计模式应用
+最近在学习如何更好地使用 GitHub Copilot，觉得 AI 辅助编程很有潜力。
 
-**System Architecture**: Distributed system design, functional programming practices, design pattern applications
-
-**现代开发 / Modern Development**: AI 辅助编程、GitHub Copilot、提示工程
-
-**Modern Development**: AI-assisted programming, GitHub Copilot, prompt engineering
+Recently learning how to better use GitHub Copilot, and I think AI-assisted programming has great potential.
 
 ### 技术栈 / Tech Stack
 
 **后端 / Backend**: Scala, Java, Kotlin, TypeScript, Node.js
 **数据库 / Database**: PostgreSQL, Redis
-**容器 / Container**: Docker, Kubernetes
+**运维 / DevOps**: Docker, Kubernetes
 **构建工具 / Build Tools**: Maven, SBT, Webpack
 **CI/CD**: Jenkins, GitHub Actions
 
-### 关于这个博客 / About This Blog
+### 博客历程 / Blog Journey
 
-从2008年开始写技术博客，记录了从 C# 设计模式到现代 JVM 生态的技术成长历程。
+从 2008 年开始写技术博客，最初在 CSDN 上分享 C# 设计模式。后来随着技术栈转向 Java/Scala，博客也经历了从 CSDN 到 Octopress/Jekyll 再到 Hexo 的迁移。
 
-Started writing technical blogs since 2008, documenting the technical growth journey from C# design patterns to modern JVM ecosystem.
+Started blogging in 2008, initially sharing C# design patterns on CSDN. As my tech stack shifted to Java/Scala, the blog also migrated from CSDN to Octopress/Jekyll and finally to Hexo.
 
-博客经历了从 CSDN 到 Octopress/Jekyll 再到 Hexo 的技术架构演进。
+这些年的文章记录了我的技术成长轨迹。
 
-The blog has evolved through technical architecture transitions from CSDN to Octopress/Jekyll and then to Hexo.
+These articles over the years document my technical growth journey.
 
 ### 联系 / Contact
 
