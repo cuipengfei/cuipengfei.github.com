@@ -65,7 +65,7 @@ tags:
 也就是说`searchTB`和`buyFromTB`的签名是`(Try[String] => Unit) => Unit`。
 
 关于柯里化这个语言特性的更多信息:
-https://cuipengfei.me/blog/2013/12/25/desugar-scala-6/
+https://cuipengfei.is-a.dev/blog/2013/12/25/desugar-scala-6/
 
 好了,现在这两个函数可以提供给大家使用了。
 
@@ -97,8 +97,8 @@ https://cuipengfei.me/blog/2013/12/25/desugar-scala-6/
 这样在异步函数有结果的时候(无论成败)才能call back过来到我的代码,以便我能够在合适的时机做后续的处理(无论是基于成功做后续业务,还是做error handling)。
 
 关于pattern match,可以参考这里:
-https://cuipengfei.me/blog/2013/12/29/desugar-scala-8/
-https://cuipengfei.me/blog/2015/06/16/visitor-pattern-pattern-match/
+https://cuipengfei.is-a.dev/blog/2013/12/29/desugar-scala-8/
+https://cuipengfei.is-a.dev/blog/2015/06/16/visitor-pattern-pattern-match/
 
 这段代码跑一下的话,会有这么几种结果:
 
@@ -186,7 +186,7 @@ https://docs.scala-lang.org/overviews/core/futures.html
 这样，用for把两个返回Future的异步函数组织起来，形成一个新的Future，然后在新的Future complete时统一处理异常。
 
 关于for的更多信息：
-https://cuipengfei.me/blog/2014/08/30/options-for/
+https://cuipengfei.is-a.dev/blog/2014/08/30/options-for/
 
 这次实现的代码与上次的行为是一致的,没什么两样。
 不过我的**业务代码从鸡零狗碎变成了平铺直叙平易近人**。
@@ -198,7 +198,7 @@ https://cuipengfei.me/blog/2014/08/30/options-for/
 
 最近在看Scala Reactive的一些内容
 想起了很久之前写过一篇叫做**自己动手实现Promises/A+规范**的博客，用JS实现了一个简版的Promise:
-https://cuipengfei.me/blog/2016/05/15/promise/
+https://cuipengfei.is-a.dev/blog/2016/05/15/promise/
 
 我在当时的一段演示代码里面写了两句注释：
 

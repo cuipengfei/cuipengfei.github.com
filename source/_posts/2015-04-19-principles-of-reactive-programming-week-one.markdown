@@ -154,4 +154,4 @@ property("min should be min")，这看起来像是一个方法调用啊。
 
 这是个乍一看很自然，但是仔细一想很费解的Scala语言特性-update方法。
 
-详情请见我之前的一篇博客：[http://cuipengfei.me/blog/2014/06/12/scala-update-method/](http://cuipengfei.me/blog/2014/06/12/scala-update-method/)
+详情请见我之前的一篇博客：[http://cuipengfei.is-a.dev/blog/2014/06/12/scala-update-method/](http://cuipengfei.is-a.dev/blog/2014/06/12/scala-update-method/)

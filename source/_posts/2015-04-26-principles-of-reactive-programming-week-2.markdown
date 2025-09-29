@@ -98,7 +98,7 @@ val x = new A()
 x.update(y,z)
 ```
 
-详情请见我之前的一篇博客：[http://cuipengfei.me/blog/2014/06/12/scala-update-method/](http://cuipengfei.me/blog/2014/06/12/scala-update-method/)
+详情请见我之前的一篇博客：[http://cuipengfei.is-a.dev/blog/2014/06/12/scala-update-method/](http://cuipengfei.is-a.dev/blog/2014/06/12/scala-update-method/)
 
 Signal的update方法是protected的，不可访问，所以它只可以从变，不可自变。
 

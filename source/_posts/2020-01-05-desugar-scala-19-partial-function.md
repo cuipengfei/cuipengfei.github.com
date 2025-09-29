@@ -129,7 +129,7 @@ def apply(x: T1): R = applyOrElse(x, PartialFunction.empty)
 产出了一个PFBlog$$anonfun$1并产出了isDefinedAt和applyOrElse方法。
 从而让这个pattern match表达式可以符合usePF的参数类型。
 
-最后，很久前写过一个关于partial application的博客： https://cuipengfei.me/blog/2013/12/25/desugar-scala-6/
+最后，很久前写过一个关于partial application的博客： https://cuipengfei.is-a.dev/blog/2013/12/25/desugar-scala-6/
 值得注意的是，虽然partial function和partial application名字里都有partial这个字，但是**他俩其实没啥关系**。
 一个是关于把pattern match表达式编译成PartialFunction的实现类的。另一个是关于柯里化的。
 

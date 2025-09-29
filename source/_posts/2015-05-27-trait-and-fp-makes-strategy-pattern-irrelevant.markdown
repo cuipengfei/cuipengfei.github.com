@@ -81,7 +81,7 @@ keywords: 'scala, java, design pattern, strategy pattern, OO, FP, 设计模式'
 # trait
 一说到把行为塞到某个类里，就会想到mix in，很自然就想到了Scala的trait。
 
-更多关于Scala的trait的详情请参考我的另一篇博客： [http://cuipengfei.me/blog/2013/10/13/scala-trait/](http://cuipengfei.me/blog/2013/10/13/scala-trait/)
+更多关于Scala的trait的详情请参考我的另一篇博客： [http://cuipengfei.is-a.dev/blog/2013/10/13/scala-trait/](http://cuipengfei.is-a.dev/blog/2013/10/13/scala-trait/)
 
 <script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fcuipengfei%2FBlogCode%2Fblob%2Fmaster%2FOODPFP%2Fsrc%2Fmain%2Fscala%2Fstrategytrait%2FFly.scala&style=hybrid&showBorder=on&showFileMeta=on&showCopy=on"></script>
 
@@ -119,7 +119,7 @@ Fly和Quack不再是interface或者是trait。而是type aliase。
 
 Scala的type aliase就类似于C#的delegate，用来声明function signature。
 
-更多关于type aliase的更多详情请参考我的另一篇博客： [http://cuipengfei.me/blog/2013/12/23/desugar-scala-4/](http://cuipengfei.me/blog/2013/12/23/desugar-scala-4/)
+更多关于type aliase的更多详情请参考我的另一篇博客： [http://cuipengfei.is-a.dev/blog/2013/12/23/desugar-scala-4/](http://cuipengfei.is-a.dev/blog/2013/12/23/desugar-scala-4/)
 
 这样，会飞不会飞，会叫不会叫就无需被class或者trait包裹着了，直接就是一个个的函数。
 

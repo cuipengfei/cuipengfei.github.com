@@ -81,7 +81,7 @@ type Logger则是声明了一个函数签名，凡是符合这个签名的函数
 
 这个andThen是个什么东西？何以如此神奇？
 
-欲知详情，请参考我之前的另一篇博客： [http://cuipengfei.me/blog/2013/12/30/desugar-scala-9/](http://cuipengfei.me/blog/2013/12/30/desugar-scala-9/)
+欲知详情，请参考我之前的另一篇博客： [http://cuipengfei.is-a.dev/blog/2013/12/30/desugar-scala-9/](http://cuipengfei.is-a.dev/blog/2013/12/30/desugar-scala-9/)
 
 而链接之后的结果本身也是一个函数，于是我们就可以调用chain并传入Event了。
 

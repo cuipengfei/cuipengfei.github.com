@@ -16,7 +16,7 @@ tags:
 
 自己把它实现了一遍:[https://www.npmjs.com/package/RWPromise](https://www.npmjs.com/package/RWPromise)
 
-然后在武汉办公室run了3次workshop:[http://cuipengfei.me/blog/2016/05/15/promise/](http://cuipengfei.me/blog/2016/05/15/promise/)。
+然后在武汉办公室run了3次workshop:[http://cuipengfei.is-a.dev/blog/2016/05/15/promise/](http://cuipengfei.is-a.dev/blog/2016/05/15/promise/)。
 
 手里有了这么一把锤子就总想找个钉子敲一敲。总在想能去哪里找N多异步操作来让我来组织一下呢?
 

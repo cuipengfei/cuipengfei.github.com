@@ -217,7 +217,7 @@ object Visitors {
 
 接下来是两个符合Visitor签名的函数，都是用pattern match实现的。
 
-pattern match这种神奇的语言特性是如何实现的呢？背后的原因并不神奇，更多详情请参考我之前的另一篇博客：[http://cuipengfei.me/blog/2013/12/29/desugar-scala-8/](http://cuipengfei.me/blog/2013/12/29/desugar-scala-8/)
+pattern match这种神奇的语言特性是如何实现的呢？背后的原因并不神奇，更多详情请参考我之前的另一篇博客：[http://cuipengfei.is-a.dev/blog/2013/12/29/desugar-scala-8/](http://cuipengfei.is-a.dev/blog/2013/12/29/desugar-scala-8/)
 
 ```scala
 object VisitorDemo {

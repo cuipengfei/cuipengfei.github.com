@@ -8,7 +8,7 @@ tags:
 - Scala
 ---
 
-[上篇博文](http://cuipengfei.me/blog/2013/05/05/how-are-scala-language-features-implemented/)的末尾留了三个问题，现在自问自答一下。
+[上篇博文](http://cuipengfei.is-a.dev/blog/2013/05/05/how-are-scala-language-features-implemented/)的末尾留了三个问题，现在自问自答一下。
 
 ### 在Scala中被声明为val的v4为什么在反编译的Java中不是final的呢？
 

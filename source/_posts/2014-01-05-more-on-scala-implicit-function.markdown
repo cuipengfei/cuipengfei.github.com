@@ -8,7 +8,7 @@ tags:
 - Scala
 ---
 
-上次[博客谈到了implicit function](http://cuipengfei.me/blog/2014/01/01/desugar-scala-10/)，但是漏掉了一些东西，今天补上。
+上次[博客谈到了implicit function](http://cuipengfei.is-a.dev/blog/2014/01/01/desugar-scala-10/)，但是漏掉了一些东西，今天补上。
 
 由于上次已经讲过implicit function的实现细节，这次就不再重复了。今天只补充上次漏掉了的implicit function的一种很好的实践。
 

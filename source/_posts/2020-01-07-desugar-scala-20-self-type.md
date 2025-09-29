@@ -52,7 +52,7 @@ Illegal inheritance, self-type VerifiedTweeter with Tweeter does not conform to 
 由此可知，反编译这段Scala对应的class文件是看不到任何神奇的东西的。
 
 不过，**很久之前**写过“Scala中的语言特性是如何实现的(3) -- trait”：
-https://cuipengfei.me/blog/2013/10/13/scala-trait/
+https://cuipengfei.is-a.dev/blog/2013/10/13/scala-trait/
 
 其中对于Scala如何编译trait做了逆向工程的分析，当时的trait是编译成了一个抽象类加一个接口。这个信息已经过时了。
 现在更新版的Scala可以编译出bytecode version 52，这一版是有interface default method的。

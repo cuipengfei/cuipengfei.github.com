@@ -16,7 +16,7 @@ tags: Scala
 
 我感觉这句话是错的，下面寻根究底地探索一下。
 
-trait这个语言特性[前面的博文](http://cuipengfei.me/blog/2013/10/13/scala-trait/)讲过。
+trait这个语言特性[前面的博文](http://cuipengfei.is-a.dev/blog/2013/10/13/scala-trait/)讲过。
 
 一个含有方法实现的trait会被编译成一个interface，还有一个含有实现的静态方法。
 
