@@ -3,11 +3,11 @@
   <title>崔鹏飞的Blog</title>
   
   
-  <link href="https://cuipengfei.me/atom.xml" rel="self"/>
+  <link href="https://cuipengfei.is-a.dev/atom.xml" rel="self"/>
   
-  <link href="https://cuipengfei.me/"/>
+  <link href="https://cuipengfei.is-a.dev/"/>
   <updated>2025-09-14T12:30:00.000Z</updated>
-  <id>https://cuipengfei.me/</id>
+  <id>https://cuipengfei.is-a.dev/</id>
   
   <author>
     <name>崔鹏飞</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>当泛型遇上现实：从表象到本质的技术思考</title>
-    <link href="https://cuipengfei.me/blog/2025/09/14/generic-type-erasure-deep-dive/"/>
-    <id>https://cuipengfei.me/blog/2025/09/14/generic-type-erasure-deep-dive/</id>
+    <link href="https://cuipengfei.is-a.dev/blog/2025/09/14/generic-type-erasure-deep-dive/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2025/09/14/generic-type-erasure-deep-dive/</id>
     <published>2025-09-14T12:30:00.000Z</published>
     <updated>2025-09-14T12:30:00.000Z</updated>
     
@@ -35,24 +35,24 @@
     
     
     
-    <category term="Java" scheme="https://cuipengfei.me/tags/Java/"/>
+    <category term="Java" scheme="https://cuipengfei.is-a.dev/tags/Java/"/>
     
-    <category term="Kotlin" scheme="https://cuipengfei.me/tags/Kotlin/"/>
+    <category term="Kotlin" scheme="https://cuipengfei.is-a.dev/tags/Kotlin/"/>
     
-    <category term="泛型" scheme="https://cuipengfei.me/tags/%E6%B3%9B%E5%9E%8B/"/>
+    <category term="泛型" scheme="https://cuipengfei.is-a.dev/tags/%E6%B3%9B%E5%9E%8B/"/>
     
-    <category term="JVM" scheme="https://cuipengfei.me/tags/JVM/"/>
+    <category term="JVM" scheme="https://cuipengfei.is-a.dev/tags/JVM/"/>
     
-    <category term="类型擦除" scheme="https://cuipengfei.me/tags/%E7%B1%BB%E5%9E%8B%E6%93%A6%E9%99%A4/"/>
+    <category term="类型擦除" scheme="https://cuipengfei.is-a.dev/tags/%E7%B1%BB%E5%9E%8B%E6%93%A6%E9%99%A4/"/>
     
-    <category term="反射" scheme="https://cuipengfei.me/tags/%E5%8F%8D%E5%B0%84/"/>
+    <category term="反射" scheme="https://cuipengfei.is-a.dev/tags/%E5%8F%8D%E5%B0%84/"/>
     
   </entry>
   
   <entry>
     <title>Agent 构建中的三个诱人陷阱</title>
-    <link href="https://cuipengfei.me/blog/2025/08/27/agent-building-seductive-traps/"/>
-    <id>https://cuipengfei.me/blog/2025/08/27/agent-building-seductive-traps/</id>
+    <link href="https://cuipengfei.is-a.dev/blog/2025/08/27/agent-building-seductive-traps/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2025/08/27/agent-building-seductive-traps/</id>
     <published>2025-08-27T02:00:00.000Z</published>
     <updated>2025-08-27T02:00:00.000Z</updated>
     
@@ -74,22 +74,22 @@
     
     
     
-    <category term="AI Agent" scheme="https://cuipengfei.me/tags/AI-Agent/"/>
+    <category term="AI Agent" scheme="https://cuipengfei.is-a.dev/tags/AI-Agent/"/>
     
-    <category term="Multi-Agent" scheme="https://cuipengfei.me/tags/Multi-Agent/"/>
+    <category term="Multi-Agent" scheme="https://cuipengfei.is-a.dev/tags/Multi-Agent/"/>
     
-    <category term="RAG" scheme="https://cuipengfei.me/tags/RAG/"/>
+    <category term="RAG" scheme="https://cuipengfei.is-a.dev/tags/RAG/"/>
     
-    <category term="Prompt Engineering" scheme="https://cuipengfei.me/tags/Prompt-Engineering/"/>
+    <category term="Prompt Engineering" scheme="https://cuipengfei.is-a.dev/tags/Prompt-Engineering/"/>
     
-    <category term="Cline" scheme="https://cuipengfei.me/tags/Cline/"/>
+    <category term="Cline" scheme="https://cuipengfei.is-a.dev/tags/Cline/"/>
     
   </entry>
   
   <entry>
     <title>把质量内建进设计：从“测试是负担”到“测试即设计”</title>
-    <link href="https://cuipengfei.me/blog/2025/08/10/build-quality-in-test-as-design/"/>
-    <id>https://cuipengfei.me/blog/2025/08/10/build-quality-in-test-as-design/</id>
+    <link href="https://cuipengfei.is-a.dev/blog/2025/08/10/build-quality-in-test-as-design/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2025/08/10/build-quality-in-test-as-design/</id>
     <published>2025-08-10T02:00:00.000Z</published>
     <updated>2025-08-10T02:00:00.000Z</updated>
     
@@ -107,24 +107,24 @@
     
     
     
-    <category term="Build Quality In" scheme="https://cuipengfei.me/tags/Build-Quality-In/"/>
+    <category term="Build Quality In" scheme="https://cuipengfei.is-a.dev/tags/Build-Quality-In/"/>
     
-    <category term="Testability" scheme="https://cuipengfei.me/tags/Testability/"/>
+    <category term="Testability" scheme="https://cuipengfei.is-a.dev/tags/Testability/"/>
     
-    <category term="TDD" scheme="https://cuipengfei.me/tags/TDD/"/>
+    <category term="TDD" scheme="https://cuipengfei.is-a.dev/tags/TDD/"/>
     
-    <category term="BDD" scheme="https://cuipengfei.me/tags/BDD/"/>
+    <category term="BDD" scheme="https://cuipengfei.is-a.dev/tags/BDD/"/>
     
-    <category term="Dependency Inversion" scheme="https://cuipengfei.me/tags/Dependency-Inversion/"/>
+    <category term="Dependency Inversion" scheme="https://cuipengfei.is-a.dev/tags/Dependency-Inversion/"/>
     
-    <category term="Composition" scheme="https://cuipengfei.me/tags/Composition/"/>
+    <category term="Composition" scheme="https://cuipengfei.is-a.dev/tags/Composition/"/>
     
   </entry>
   
   <entry>
     <title>folo verify</title>
-    <link href="https://cuipengfei.me/blog/2025/07/30/verify/"/>
-    <id>https://cuipengfei.me/blog/2025/07/30/verify/</id>
+    <link href="https://cuipengfei.is-a.dev/blog/2025/07/30/verify/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2025/07/30/verify/</id>
     <published>2025-07-30T12:49:00.000Z</published>
     <updated>2025-07-30T12:49:00.000Z</updated>
     
@@ -139,14 +139,14 @@
     
     
     
-    <category term="Folo" scheme="https://cuipengfei.me/tags/Folo/"/>
+    <category term="Folo" scheme="https://cuipengfei.is-a.dev/tags/Folo/"/>
     
   </entry>
   
   <entry>
     <title>围墙花园里的阅读游击 - wewe-rss &amp; RSSHub，重夺信息控制权</title>
-    <link href="https://cuipengfei.me/blog/2025/07/21/folo-wewe-rss/"/>
-    <id>https://cuipengfei.me/blog/2025/07/21/folo-wewe-rss/</id>
+    <link href="https://cuipengfei.is-a.dev/blog/2025/07/21/folo-wewe-rss/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2025/07/21/folo-wewe-rss/</id>
     <published>2025-07-21T13:56:00.000Z</published>
     <updated>2025-07-21T13:56:00.000Z</updated>
     
@@ -165,20 +165,20 @@
     
     
     
-    <category term="RSS" scheme="https://cuipengfei.me/tags/RSS/"/>
+    <category term="RSS" scheme="https://cuipengfei.is-a.dev/tags/RSS/"/>
     
-    <category term="Folo" scheme="https://cuipengfei.me/tags/Folo/"/>
+    <category term="Folo" scheme="https://cuipengfei.is-a.dev/tags/Folo/"/>
     
-    <category term="wewe-rss" scheme="https://cuipengfei.me/tags/wewe-rss/"/>
+    <category term="wewe-rss" scheme="https://cuipengfei.is-a.dev/tags/wewe-rss/"/>
     
-    <category term="RSSHub" scheme="https://cuipengfei.me/tags/RSSHub/"/>
+    <category term="RSSHub" scheme="https://cuipengfei.is-a.dev/tags/RSSHub/"/>
     
   </entry>
   
   <entry>
     <title>AI 时代，我们是在写代码，还是在“写知识”？—— 极客时间 8x 课程笔记</title>
-    <link href="https://cuipengfei.me/blog/2025/06/28/geektime-8x-ai/"/>
-    <id>https://cuipengfei.me/blog/2025/06/28/geektime-8x-ai/</id>
+    <link href="https://cuipengfei.is-a.dev/blog/2025/06/28/geektime-8x-ai/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2025/06/28/geektime-8x-ai/</id>
     <published>2025-06-28T12:30:00.000Z</published>
     <updated>2025-06-28T12:30:00.000Z</updated>
     
@@ -197,27 +197,27 @@
     
     
     
-    <category term="技术思考" scheme="https://cuipengfei.me/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/"/>
+    <category term="技术思考" scheme="https://cuipengfei.is-a.dev/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/"/>
     
-    <category term="AI" scheme="https://cuipengfei.me/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/AI/"/>
+    <category term="AI" scheme="https://cuipengfei.is-a.dev/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/AI/"/>
     
-    <category term="软件工程" scheme="https://cuipengfei.me/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/AI/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/"/>
+    <category term="软件工程" scheme="https://cuipengfei.is-a.dev/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/AI/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/"/>
     
     
-    <category term="软件开发" scheme="https://cuipengfei.me/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/"/>
+    <category term="知识工程" scheme="https://cuipengfei.is-a.dev/tags/%E7%9F%A5%E8%AF%86%E5%B7%A5%E7%A8%8B/"/>
     
-    <category term="知识工程" scheme="https://cuipengfei.me/tags/%E7%9F%A5%E8%AF%86%E5%B7%A5%E7%A8%8B/"/>
+    <category term="LLM" scheme="https://cuipengfei.is-a.dev/tags/LLM/"/>
     
-    <category term="LLM" scheme="https://cuipengfei.me/tags/LLM/"/>
+    <category term="认知模型" scheme="https://cuipengfei.is-a.dev/tags/%E8%AE%A4%E7%9F%A5%E6%A8%A1%E5%9E%8B/"/>
     
-    <category term="认知模型" scheme="https://cuipengfei.me/tags/%E8%AE%A4%E7%9F%A5%E6%A8%A1%E5%9E%8B/"/>
+    <category term="软件开发" scheme="https://cuipengfei.is-a.dev/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
   <entry>
     <title>如何给 GitHub Copilot &quot;洗脑”，让 AI 精准遵循指令产出高质量代码</title>
-    <link href="https://cuipengfei.me/blog/2025/06/17/how-to-brainwash-copilot-to-follow-orders/"/>
-    <id>https://cuipengfei.me/blog/2025/06/17/how-to-brainwash-copilot-to-follow-orders/</id>
+    <link href="https://cuipengfei.is-a.dev/blog/2025/06/17/how-to-brainwash-copilot-to-follow-orders/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2025/06/17/how-to-brainwash-copilot-to-follow-orders/</id>
     <published>2025-06-17T02:00:00.000Z</published>
     <updated>2025-06-17T02:00:00.000Z</updated>
     
@@ -231,25 +231,25 @@
     
     
     
-    <category term="技术思考" scheme="https://cuipengfei.me/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/"/>
+    <category term="技术思考" scheme="https://cuipengfei.is-a.dev/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/"/>
     
     
-    <category term="AI" scheme="https://cuipengfei.me/tags/AI/"/>
+    <category term="软件开发" scheme="https://cuipengfei.is-a.dev/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/"/>
     
-    <category term="GitHub Copilot" scheme="https://cuipengfei.me/tags/GitHub-Copilot/"/>
+    <category term="AI" scheme="https://cuipengfei.is-a.dev/tags/AI/"/>
     
-    <category term="软件开发" scheme="https://cuipengfei.me/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/"/>
+    <category term="GitHub Copilot" scheme="https://cuipengfei.is-a.dev/tags/GitHub-Copilot/"/>
     
-    <category term="代码质量" scheme="https://cuipengfei.me/tags/%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/"/>
+    <category term="代码质量" scheme="https://cuipengfei.is-a.dev/tags/%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/"/>
     
-    <category term="提示工程" scheme="https://cuipengfei.me/tags/%E6%8F%90%E7%A4%BA%E5%B7%A5%E7%A8%8B/"/>
+    <category term="提示工程" scheme="https://cuipengfei.is-a.dev/tags/%E6%8F%90%E7%A4%BA%E5%B7%A5%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>Reveal.js 高级特效演示</title>
-    <link href="https://cuipengfei.me/blog/2025/01/20/blog-slides-demo/"/>
-    <id>https://cuipengfei.me/blog/2025/01/20/blog-slides-demo/</id>
+    <link href="https://cuipengfei.is-a.dev/blog/2025/01/20/blog-slides-demo/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2025/01/20/blog-slides-demo/</id>
     <published>2025-01-19T16:00:00.000Z</published>
     <updated>2025-01-19T16:00:00.000Z</updated>
     
@@ -273,20 +273,20 @@
     
     
     
-    <category term="slides" scheme="https://cuipengfei.me/tags/slides/"/>
+    <category term="slides" scheme="https://cuipengfei.is-a.dev/tags/slides/"/>
     
-    <category term="revealjs" scheme="https://cuipengfei.me/tags/revealjs/"/>
+    <category term="revealjs" scheme="https://cuipengfei.is-a.dev/tags/revealjs/"/>
     
-    <category term="effects" scheme="https://cuipengfei.me/tags/effects/"/>
+    <category term="effects" scheme="https://cuipengfei.is-a.dev/tags/effects/"/>
     
-    <category term="demo" scheme="https://cuipengfei.me/tags/demo/"/>
+    <category term="demo" scheme="https://cuipengfei.is-a.dev/tags/demo/"/>
     
   </entry>
   
   <entry>
     <title>Feedly硬广-回归RSS</title>
-    <link href="https://cuipengfei.me/blog/2025/01/05/go-back-to-rss/"/>
-    <id>https://cuipengfei.me/blog/2025/01/05/go-back-to-rss/</id>
+    <link href="https://cuipengfei.is-a.dev/blog/2025/01/05/go-back-to-rss/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2025/01/05/go-back-to-rss/</id>
     <published>2025-01-04T16:00:00.000Z</published>
     <updated>2025-01-04T16:00:00.000Z</updated>
     
@@ -304,16 +304,16 @@
     
     
     
-    <category term="RSS" scheme="https://cuipengfei.me/tags/RSS/"/>
+    <category term="RSS" scheme="https://cuipengfei.is-a.dev/tags/RSS/"/>
     
-    <category term="Feedly" scheme="https://cuipengfei.me/tags/Feedly/"/>
+    <category term="Feedly" scheme="https://cuipengfei.is-a.dev/tags/Feedly/"/>
     
   </entry>
   
   <entry>
     <title>解决 LibreOffice 导出Excel 到 PDF 超链接丢失问题</title>
-    <link href="https://cuipengfei.me/blog/2024/07/28/libre-jod-single-page-excel/"/>
-    <id>https://cuipengfei.me/blog/2024/07/28/libre-jod-single-page-excel/</id>
+    <link href="https://cuipengfei.is-a.dev/blog/2024/07/28/libre-jod-single-page-excel/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2024/07/28/libre-jod-single-page-excel/</id>
     <published>2024-07-27T16:00:00.000Z</published>
     <updated>2024-07-27T16:00:00.000Z</updated>
     
@@ -332,18 +332,18 @@
     
     
     
-    <category term="LibreOffice" scheme="https://cuipengfei.me/tags/LibreOffice/"/>
+    <category term="LibreOffice" scheme="https://cuipengfei.is-a.dev/tags/LibreOffice/"/>
     
-    <category term="PDF" scheme="https://cuipengfei.me/tags/PDF/"/>
+    <category term="PDF" scheme="https://cuipengfei.is-a.dev/tags/PDF/"/>
     
-    <category term="JODConverter" scheme="https://cuipengfei.me/tags/JODConverter/"/>
+    <category term="JODConverter" scheme="https://cuipengfei.is-a.dev/tags/JODConverter/"/>
     
   </entry>
   
   <entry>
     <title>基于LibreOffice的MS Office文档格式转换</title>
-    <link href="https://cuipengfei.me/blog/2024/02/04/libre-jod/"/>
-    <id>https://cuipengfei.me/blog/2024/02/04/libre-jod/</id>
+    <link href="https://cuipengfei.is-a.dev/blog/2024/02/04/libre-jod/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2024/02/04/libre-jod/</id>
     <published>2024-02-04T07:21:24.000Z</published>
     <updated>2024-02-04T07:21:24.000Z</updated>
     
@@ -367,16 +367,16 @@
     
     
     
-    <category term="LibreOffice" scheme="https://cuipengfei.me/tags/LibreOffice/"/>
+    <category term="LibreOffice" scheme="https://cuipengfei.is-a.dev/tags/LibreOffice/"/>
     
-    <category term="JOD" scheme="https://cuipengfei.me/tags/JOD/"/>
+    <category term="JOD" scheme="https://cuipengfei.is-a.dev/tags/JOD/"/>
     
   </entry>
   
   <entry>
     <title>Spring Integration JDBC分布式锁 - Transactions与Threads</title>
-    <link href="https://cuipengfei.me/blog/2023/12/25/spring-integration-jdbc-distributed-lock-with-transaction-and-threads/"/>
-    <id>https://cuipengfei.me/blog/2023/12/25/spring-integration-jdbc-distributed-lock-with-transaction-and-threads/</id>
+    <link href="https://cuipengfei.is-a.dev/blog/2023/12/25/spring-integration-jdbc-distributed-lock-with-transaction-and-threads/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2023/12/25/spring-integration-jdbc-distributed-lock-with-transaction-and-threads/</id>
     <published>2023-12-25T03:16:17.000Z</published>
     <updated>2023-12-25T03:16:17.000Z</updated>
     
@@ -393,18 +393,18 @@
     
     
     
-    <category term="Java" scheme="https://cuipengfei.me/tags/Java/"/>
+    <category term="Java" scheme="https://cuipengfei.is-a.dev/tags/Java/"/>
     
-    <category term="分布式" scheme="https://cuipengfei.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    <category term="分布式" scheme="https://cuipengfei.is-a.dev/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
-    <category term="锁" scheme="https://cuipengfei.me/tags/%E9%94%81/"/>
+    <category term="锁" scheme="https://cuipengfei.is-a.dev/tags/%E9%94%81/"/>
     
   </entry>
   
   <entry>
     <title>内存涨上去不肯下来 - 未必是内存泄漏</title>
-    <link href="https://cuipengfei.me/blog/2023/08/26/not-mem-leak/"/>
-    <id>https://cuipengfei.me/blog/2023/08/26/not-mem-leak/</id>
+    <link href="https://cuipengfei.is-a.dev/blog/2023/08/26/not-mem-leak/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2023/08/26/not-mem-leak/</id>
     <published>2023-08-26T13:45:00.000Z</published>
     <updated>2023-08-26T13:45:00.000Z</updated>
     
@@ -421,18 +421,18 @@
     
     
     
-    <category term="Java" scheme="https://cuipengfei.me/tags/Java/"/>
+    <category term="Java" scheme="https://cuipengfei.is-a.dev/tags/Java/"/>
     
-    <category term="jvm" scheme="https://cuipengfei.me/tags/jvm/"/>
+    <category term="jvm" scheme="https://cuipengfei.is-a.dev/tags/jvm/"/>
     
-    <category term="内存" scheme="https://cuipengfei.me/tags/%E5%86%85%E5%AD%98/"/>
+    <category term="内存" scheme="https://cuipengfei.is-a.dev/tags/%E5%86%85%E5%AD%98/"/>
     
   </entry>
   
   <entry>
     <title>Spring Integration JDBC分布式锁 - TTL</title>
-    <link href="https://cuipengfei.me/blog/2023/07/29/spring%20integration%20jdbc%20distributed%20lock/"/>
-    <id>https://cuipengfei.me/blog/2023/07/29/spring%20integration%20jdbc%20distributed%20lock/</id>
+    <link href="https://cuipengfei.is-a.dev/blog/2023/07/29/spring%20integration%20jdbc%20distributed%20lock/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2023/07/29/spring%20integration%20jdbc%20distributed%20lock/</id>
     <published>2023-07-28T16:30:00.000Z</published>
     <updated>2023-07-28T16:30:00.000Z</updated>
     
@@ -475,18 +475,18 @@ note over event_initiator,instance_2: 为了降低风险，可以： &amp;lt;br&
     
     
     
-    <category term="Java" scheme="https://cuipengfei.me/tags/Java/"/>
+    <category term="Java" scheme="https://cuipengfei.is-a.dev/tags/Java/"/>
     
-    <category term="分布式" scheme="https://cuipengfei.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    <category term="分布式" scheme="https://cuipengfei.is-a.dev/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
-    <category term="锁" scheme="https://cuipengfei.me/tags/%E9%94%81/"/>
+    <category term="锁" scheme="https://cuipengfei.is-a.dev/tags/%E9%94%81/"/>
     
   </entry>
   
   <entry>
     <title>当测试代码使用随机生成的输入数据时，该如何去做出断言</title>
-    <link href="https://cuipengfei.me/blog/2023/03/18/generative-tests/"/>
-    <id>https://cuipengfei.me/blog/2023/03/18/generative-tests/</id>
+    <link href="https://cuipengfei.is-a.dev/blog/2023/03/18/generative-tests/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2023/03/18/generative-tests/</id>
     <published>2023-03-18T14:34:00.000Z</published>
     <updated>2023-03-18T14:34:00.000Z</updated>
     
@@ -502,14 +502,14 @@ note over event_initiator,instance_2: 为了降低风险，可以： &amp;lt;br&
     
     
     
-    <category term="testing" scheme="https://cuipengfei.me/tags/testing/"/>
+    <category term="testing" scheme="https://cuipengfei.is-a.dev/tags/testing/"/>
     
   </entry>
   
   <entry>
     <title>卢瑟经济学</title>
-    <link href="https://cuipengfei.me/blog/2022/10/28/loser-economy/"/>
-    <id>https://cuipengfei.me/blog/2022/10/28/loser-economy/</id>
+    <link href="https://cuipengfei.is-a.dev/blog/2022/10/28/loser-economy/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2022/10/28/loser-economy/</id>
     <published>2022-10-28T08:48:00.000Z</published>
     <updated>2022-10-28T08:48:00.000Z</updated>
     
@@ -528,16 +528,16 @@ note over event_initiator,instance_2: 为了降低风险，可以： &amp;lt;br&
     
     
     
-    <category term="读书" scheme="https://cuipengfei.me/tags/%E8%AF%BB%E4%B9%A6/"/>
+    <category term="读书" scheme="https://cuipengfei.is-a.dev/tags/%E8%AF%BB%E4%B9%A6/"/>
     
-    <category term="经济" scheme="https://cuipengfei.me/tags/%E7%BB%8F%E6%B5%8E/"/>
+    <category term="经济" scheme="https://cuipengfei.is-a.dev/tags/%E7%BB%8F%E6%B5%8E/"/>
     
   </entry>
   
   <entry>
     <title>一些关于银行的散碎知识</title>
-    <link href="https://cuipengfei.me/blog/2022/01/29/%E4%B8%80%E4%BA%9B%E5%85%B3%E4%BA%8E%E9%93%B6%E8%A1%8C%E7%9A%84%E6%95%A3%E7%A2%8E%E7%9F%A5%E8%AF%86/"/>
-    <id>https://cuipengfei.me/blog/2022/01/29/%E4%B8%80%E4%BA%9B%E5%85%B3%E4%BA%8E%E9%93%B6%E8%A1%8C%E7%9A%84%E6%95%A3%E7%A2%8E%E7%9F%A5%E8%AF%86/</id>
+    <link href="https://cuipengfei.is-a.dev/blog/2022/01/29/%E4%B8%80%E4%BA%9B%E5%85%B3%E4%BA%8E%E9%93%B6%E8%A1%8C%E7%9A%84%E6%95%A3%E7%A2%8E%E7%9F%A5%E8%AF%86/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2022/01/29/%E4%B8%80%E4%BA%9B%E5%85%B3%E4%BA%8E%E9%93%B6%E8%A1%8C%E7%9A%84%E6%95%A3%E7%A2%8E%E7%9F%A5%E8%AF%86/</id>
     <published>2022-01-29T06:40:50.000Z</published>
     <updated>2022-01-29T06:40:50.000Z</updated>
     
@@ -553,14 +553,14 @@ note over event_initiator,instance_2: 为了降低风险，可以： &amp;lt;br&
     
     
     
-    <category term="银行" scheme="https://cuipengfei.me/tags/%E9%93%B6%E8%A1%8C/"/>
+    <category term="银行" scheme="https://cuipengfei.is-a.dev/tags/%E9%93%B6%E8%A1%8C/"/>
     
   </entry>
   
   <entry>
     <title>TW十四载</title>
-    <link href="https://cuipengfei.me/blog/2021/12/17/tw14years/"/>
-    <id>https://cuipengfei.me/blog/2021/12/17/tw14years/</id>
+    <link href="https://cuipengfei.is-a.dev/blog/2021/12/17/tw14years/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2021/12/17/tw14years/</id>
     <published>2021-12-17T06:40:50.000Z</published>
     <updated>2021-12-17T06:40:50.000Z</updated>
     
@@ -578,14 +578,14 @@ note over event_initiator,instance_2: 为了降低风险，可以： &amp;lt;br&
     
     
     
-    <category term="TW" scheme="https://cuipengfei.me/tags/TW/"/>
+    <category term="TW" scheme="https://cuipengfei.is-a.dev/tags/TW/"/>
     
   </entry>
   
   <entry>
     <title>《大目标》一书中的有趣观点</title>
-    <link href="https://cuipengfei.me/blog/2020/07/05/%E5%A4%A7%E7%9B%AE%E6%A0%87/"/>
-    <id>https://cuipengfei.me/blog/2020/07/05/%E5%A4%A7%E7%9B%AE%E6%A0%87/</id>
+    <link href="https://cuipengfei.is-a.dev/blog/2020/07/05/%E5%A4%A7%E7%9B%AE%E6%A0%87/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2020/07/05/%E5%A4%A7%E7%9B%AE%E6%A0%87/</id>
     <published>2020-07-05T04:23:28.000Z</published>
     <updated>2020-07-05T04:23:28.000Z</updated>
     
@@ -600,14 +600,14 @@ note over event_initiator,instance_2: 为了降低风险，可以： &amp;lt;br&
     
     
     
-    <category term="工业党" scheme="https://cuipengfei.me/tags/%E5%B7%A5%E4%B8%9A%E5%85%9A/"/>
+    <category term="工业党" scheme="https://cuipengfei.is-a.dev/tags/%E5%B7%A5%E4%B8%9A%E5%85%9A/"/>
     
   </entry>
   
   <entry>
     <title>软件需求膨胀系数</title>
-    <link href="https://cuipengfei.me/blog/2020/05/22/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%86%A8%E8%83%80/"/>
-    <id>https://cuipengfei.me/blog/2020/05/22/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%86%A8%E8%83%80/</id>
+    <link href="https://cuipengfei.is-a.dev/blog/2020/05/22/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%86%A8%E8%83%80/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2020/05/22/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%86%A8%E8%83%80/</id>
     <published>2020-05-22T04:32:38.000Z</published>
     <updated>2020-05-22T04:32:38.000Z</updated>
     
@@ -624,7 +624,7 @@ note over event_initiator,instance_2: 为了降低风险，可以： &amp;lt;br&
     
     
     
-    <category term="需求" scheme="https://cuipengfei.me/tags/%E9%9C%80%E6%B1%82/"/>
+    <category term="需求" scheme="https://cuipengfei.is-a.dev/tags/%E9%9C%80%E6%B1%82/"/>
     
   </entry>
   

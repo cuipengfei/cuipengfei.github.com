@@ -20,12 +20,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous" defer></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"galactic"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.is-a.dev","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"galactic"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
 
     <meta name="description" content="最近还是在看郑大翻译的《Scala程序设计》，其中第十一章还有一句话：  如果trait有方法实现，那么Java类就不能实现这个trait  口说还是无凭，还是拍照为证：  我感觉这句话是错的，下面寻根究底地探索一下。 trait这个语言特性前面的博文讲过。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的">
-<meta property="og:url" content="https://cuipengfei.me/blog/2014/06/28/scala-java-interop-trait-with-impl/index.html">
+<meta property="og:url" content="https://cuipengfei.is-a.dev/blog/2014/06/28/scala-java-interop-trait-with-impl/index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="最近还是在看郑大翻译的《Scala程序设计》，其中第十一章还有一句话：  如果trait有方法实现，那么Java类就不能实现这个trait  口说还是无凭，还是拍照为证：  我感觉这句话是错的，下面寻根究底地探索一下。 trait这个语言特性前面的博文讲过。">
 <meta property="og:locale" content="zh_CN">
@@ -38,10 +38,10 @@
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/8b1ece2agw1ehtqjokutnj21kw23u7wh.jpg">
 
 
-<link rel="canonical" href="https://cuipengfei.me/blog/2014/06/28/scala-java-interop-trait-with-impl/">
+<link rel="canonical" href="https://cuipengfei.is-a.dev/blog/2014/06/28/scala-java-interop-trait-with-impl/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2014/06/28/scala-java-interop-trait-with-impl/","path":"blog/2014/06/28/scala-java-interop-trait-with-impl/","title":"论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.is-a.dev/blog/2014/06/28/scala-java-interop-trait-with-impl/","path":"blog/2014/06/28/scala-java-interop-trait-with-impl/","title":"论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的 | 崔鹏飞的Blog</title>
@@ -242,7 +242,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2014/06/28/scala-java-interop-trait-with-impl/">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.is-a.dev/blog/2014/06/28/scala-java-interop-trait-with-impl/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/favicon-32x32-next.png">
@@ -319,7 +319,7 @@
 <p>口说还是无凭，还是拍照为证：</p>
 <p><img data-src="http://ww1.sinaimg.cn/large/8b1ece2agw1ehtqjokutnj21kw23u7wh.jpg"></p>
 <p>我感觉这句话是错的，下面寻根究底地探索一下。</p>
-<p>trait这个语言特性<a href="http://cuipengfei.me/blog/2013/10/13/scala-trait/">前面的博文</a>讲过。</p>
+<p>trait这个语言特性<a target="_blank" rel="noopener" href="http://cuipengfei.me/blog/2013/10/13/scala-trait/">前面的博文</a>讲过。</p>
 <p>一个含有方法实现的trait会被编译成一个interface，还有一个含有实现的静态方法。</p>
 <p>所有extends或者是with这个trait的Scala类，实际上都是implements了这个interface，在具体实现中调用了静态方法。</p>
 <p>快速的简单回忆一下：</p>
@@ -369,7 +369,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://cuipengfei.me/blog/2014/06/28/scala-java-interop-trait-with-impl/" title="论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的">https://cuipengfei.me/blog/2014/06/28/scala-java-interop-trait-with-impl/</a>
+      <a href="https://cuipengfei.is-a.dev/blog/2014/06/28/scala-java-interop-trait-with-impl/" title="论“如果trait有方法实现，那么Java类就不能实现这个trait”这句话是错的">https://cuipengfei.is-a.dev/blog/2014/06/28/scala-java-interop-trait-with-impl/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！

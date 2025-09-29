@@ -20,12 +20,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous" defer></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.me","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"galactic"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.is-a.dev","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"galactic"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
 
     <meta name="description" content="职责链模式 责任链模式在面向对象程式设计里是一种软件设计模式，它包含了一些命令对象和一系列的处理对象。每一个处理对象决定它能处理哪些命令对象，它也知道如何将它不能处理的命令对象传递给该链中的下一个处理对象。该模式还描述了往该处理链的末尾添加新的处理对象的方法。  以上是wiki对职责链模式的定义。 举个例子来说，我们的系统中需要记录日志的功能。日志需要根据优先级被发送到不同的地方。 低优先级的日志">
 <meta property="og:type" content="article">
 <meta property="og:title" content="职责链模式的别扭就像用门框夹核桃">
-<meta property="og:url" content="https://cuipengfei.me/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/index.html">
+<meta property="og:url" content="https://cuipengfei.is-a.dev/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="职责链模式 责任链模式在面向对象程式设计里是一种软件设计模式，它包含了一些命令对象和一系列的处理对象。每一个处理对象决定它能处理哪些命令对象，它也知道如何将它不能处理的命令对象传递给该链中的下一个处理对象。该模式还描述了往该处理链的末尾添加新的处理对象的方法。  以上是wiki对职责链模式的定义。 举个例子来说，我们的系统中需要记录日志的功能。日志需要根据优先级被发送到不同的地方。 低优先级的日志">
 <meta property="og:locale" content="zh_CN">
@@ -37,10 +37,10 @@
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://cuipengfei.me/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/">
+<link rel="canonical" href="https://cuipengfei.is-a.dev/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.me/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/","path":"blog/2015/05/30/fp-implementation-of-chain-of-responsibility/","title":"职责链模式的别扭就像用门框夹核桃"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.is-a.dev/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/","path":"blog/2015/05/30/fp-implementation-of-chain-of-responsibility/","title":"职责链模式的别扭就像用门框夹核桃"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>职责链模式的别扭就像用门框夹核桃 | 崔鹏飞的Blog</title>
@@ -242,7 +242,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cuipengfei.me/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.is-a.dev/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/favicon-32x32-next.png">
@@ -354,7 +354,7 @@
 <p>然后便是三个函数实现，它们将mask通过闭包封进函数内。这三个函数共同依赖一个私有handleEvent函数，其作用和Java代码中的message类似，判断mask和正在发生的事件之间优先级大小关系，并以此决定当前logger是否需要处理该事件。</p>
 <p>哎？等一下，这个是职责链模式啊，那个啥，链在哪儿呢？就在main函数里。其中的andThen就可以把三个logger链在一起。</p>
 <p>这个andThen是个什么东西？何以如此神奇？</p>
-<p>欲知详情，请参考我之前的另一篇博客： <a href="http://cuipengfei.me/blog/2013/12/30/desugar-scala-9/">http://cuipengfei.me/blog/2013/12/30/desugar-scala-9/</a></p>
+<p>欲知详情，请参考我之前的另一篇博客： <a target="_blank" rel="noopener" href="http://cuipengfei.me/blog/2013/12/30/desugar-scala-9/">http://cuipengfei.me/blog/2013/12/30/desugar-scala-9/</a></p>
 <p>而链接之后的结果本身也是一个函数，于是我们就可以调用chain并传入Event了。</p>
 <p>这份代码和前面Java版的行为是等价的，输出是一致的。</p>
 <h1 id="门框夹核桃"><a href="#门框夹核桃" class="headerlink" title="门框夹核桃"></a>门框夹核桃</h1><p>最后回到标题上去：门框夹核桃，意即用不合适的工具解决问题。</p>
@@ -385,7 +385,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://cuipengfei.me/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/" title="职责链模式的别扭就像用门框夹核桃">https://cuipengfei.me/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/</a>
+      <a href="https://cuipengfei.is-a.dev/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/" title="职责链模式的别扭就像用门框夹核桃">https://cuipengfei.is-a.dev/blog/2015/05/30/fp-implementation-of-chain-of-responsibility/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
