@@ -1,0 +1,9 @@
+# 重定向所有请求到 cuipengfei.is-a.dev，保持路径
+/* https://cuipengfei.is-a.dev/:splat 301!
+
+# 重定向 www 子域名
+https://www.cuipengfei.me/* https://cuipengfei.is-a.dev/:splat 301!
+http://www.cuipengfei.me/* https://cuipengfei.is-a.dev/:splat 301!
+
+# 确保 HTTP 也重定向到 HTTPS
+http://cuipengfei.me/* https://cuipengfei.is-a.dev/:splat 301!
