@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous" defer></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.is-a.dev","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"galactic"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="家里那本《崔玉涛育儿百科》，700 多页，厚得像块砖。 不是不想看——是真的没时间。但眼看宝宝马上满周岁了，第 14 章「12-14 个月幼儿」的内容马上就要用上了。什么疫苗要打、吃什么辅食、怎么引导走路……这些知识点散落在几十页密密麻麻的文字里，每次翻书都要重新定位。 我想：能不能把这些精华提取出来，做成那种「一图读懂」的海报？这样需要的时候直接翻手机相册就行。 问题是——我不会设计。不过，我有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="因为懒得看书，我把 AI 变成了育儿博主">
+<meta property="og:url" content="https://cuipengfei.is-a.dev/blog/2025/12/18/%E5%9B%A0%E4%B8%BA%E6%87%92%E5%BE%97%E7%9C%8B%E4%B9%A6%EF%BC%8C%E6%88%91%E6%8A%8A-AI-%E5%8F%98%E6%88%90%E4%BA%86%E8%82%B2%E5%84%BF%E5%8D%9A%E4%B8%BB/index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="家里那本《崔玉涛育儿百科》，700 多页，厚得像块砖。 不是不想看——是真的没时间。但眼看宝宝马上满周岁了，第 14 章「12-14 个月幼儿」的内容马上就要用上了。什么疫苗要打、吃什么辅食、怎么引导走路……这些知识点散落在几十页密密麻麻的文字里，每次翻书都要重新定位。 我想：能不能把这些精华提取出来，做成那种「一图读懂」的海报？这样需要的时候直接翻手机相册就行。 问题是——我不会设计。不过，我有">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cuipengfei.is-a.dev/images/ai-parenting-poster/milestone.png">
+<meta property="og:image" content="https://cuipengfei.is-a.dev/images/ai-parenting-poster/feeding.png">
+<meta property="og:image" content="https://cuipengfei.is-a.dev/images/ai-parenting-poster/health-check.png">
+<meta property="article:published_time" content="2025-12-18T13:54:46.000Z">
+<meta property="article:modified_time" content="2025-12-18T13:54:46.000Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Claude">
+<meta property="article:tag" content="Design">
+<meta property="article:tag" content="育儿">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cuipengfei.is-a.dev/images/ai-parenting-poster/milestone.png">
+
+
+<link rel="canonical" href="https://cuipengfei.is-a.dev/blog/2025/12/18/%E5%9B%A0%E4%B8%BA%E6%87%92%E5%BE%97%E7%9C%8B%E4%B9%A6%EF%BC%8C%E6%88%91%E6%8A%8A-AI-%E5%8F%98%E6%88%90%E4%BA%86%E8%82%B2%E5%84%BF%E5%8D%9A%E4%B8%BB/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.is-a.dev/blog/2025/12/18/%E5%9B%A0%E4%B8%BA%E6%87%92%E5%BE%97%E7%9C%8B%E4%B9%A6%EF%BC%8C%E6%88%91%E6%8A%8A-AI-%E5%8F%98%E6%88%90%E4%BA%86%E8%82%B2%E5%84%BF%E5%8D%9A%E4%B8%BB/","path":"blog/2025/12/18/因为懒得看书，我把-AI-变成了育儿博主/","title":"因为懒得看书，我把 AI 变成了育儿博主"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>因为懒得看书，我把 AI 变成了育儿博主 | 崔鹏飞的Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/pjax.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.10.1/mermaid.min.js","integrity":"sha256-BmQmdWDS8X2OTbrwELWK366LV6escyWhHHe0XCTU/Hk="}}</script>
+  <script src="/js/third-party/tags/mermaid.js" defer></script>
+
+
+
+  <script src="/js/third-party/pace.js" defer></script>
+
+
+  
+
+
+
+
+<script data-ad-client="ca-pub-2529393324217872" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2529393324217872"></script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">崔鹏飞的Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E8%AE%A9-AI%E3%80%8C%E8%AF%BB%E3%80%8D%E4%B9%A6"><span class="nav-number">1.</span> <span class="nav-text">第一步：让 AI「读」书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E7%94%A8%E4%BB%A3%E7%A0%81%E3%80%8C%E8%AE%BE%E8%AE%A1%E3%80%8D%E6%B5%B7%E6%8A%A5"><span class="nav-number">2.</span> <span class="nav-text">第二步：用代码「设计」海报</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E4%BB%8E-HTML-%E5%88%B0-PNG"><span class="nav-number">3.</span> <span class="nav-text">第三步：从 HTML 到 PNG</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%90%E6%9E%9C%E5%B1%95%E7%A4%BA"><span class="nav-number">4.</span> <span class="nav-text">成果展示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E7%82%B9%E6%84%9F%E6%82%9F"><span class="nav-number">5.</span> <span class="nav-text">三点感悟</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-AI-%E6%98%AF%E8%83%BD%E5%8A%9B%E6%94%BE%E5%A4%A7%E5%99%A8%EF%BC%8C%E4%BD%86%E4%B9%9F%E6%98%AF%E8%AE%A4%E7%9F%A5%E6%94%BE%E5%A4%A7%E5%99%A8"><span class="nav-number">5.1.</span> <span class="nav-text">1. AI 是能力放大器，但也是认知放大器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%8D%E8%BF%87%E5%86%8D%E6%83%B3%E4%B8%80%E4%B8%8B%E2%80%A6%E4%BA%BA%E6%9C%BA%E5%8D%8F%E4%BD%9C%E7%9A%84%E6%9C%AC%E8%B4%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">5.2.</span> <span class="nav-text">2. 不过再想一下…人机协作的本质是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%9C%AA%E6%9D%A5%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F%E4%BC%9A%E5%8F%98%E6%88%90%E4%BB%80%E4%B9%88%E6%A0%B7%EF%BC%9F"><span class="nav-number">5.3.</span> <span class="nav-text">3. 未来的工作方式会变成什么样？</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="崔鹏飞"
+      src="/images/favicon-32x32-next.png">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description">专注分布式系统、函数式编程、测试与架构实践的技术博客</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">183</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener me" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.is-a.dev/blog/2025/12/18/%E5%9B%A0%E4%B8%BA%E6%87%92%E5%BE%97%E7%9C%8B%E4%B9%A6%EF%BC%8C%E6%88%91%E6%8A%8A-AI-%E5%8F%98%E6%88%90%E4%BA%86%E8%82%B2%E5%84%BF%E5%8D%9A%E4%B8%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/favicon-32x32-next.png">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="专注分布式系统、函数式编程、测试与架构实践的技术博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="因为懒得看书，我把 AI 变成了育儿博主 | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          因为懒得看书，我把 AI 变成了育儿博主
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-12-18 21:54:46" itemprop="dateCreated datePublished" datetime="2025-12-18T21:54:46+08:00">2025-12-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%82%B2%E5%84%BF/" itemprop="url" rel="index"><span itemprop="name">育儿</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2025/12/18/%E5%9B%A0%E4%B8%BA%E6%87%92%E5%BE%97%E7%9C%8B%E4%B9%A6%EF%BC%8C%E6%88%91%E6%8A%8A-AI-%E5%8F%98%E6%88%90%E4%BA%86%E8%82%B2%E5%84%BF%E5%8D%9A%E4%B8%BB/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2025/12/18/因为懒得看书，我把-AI-变成了育儿博主/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>家里那本《崔玉涛育儿百科》，700 多页，厚得像块砖。</p>
+<p>不是不想看——是真的没时间。但眼看宝宝马上满周岁了，第 14 章「12-14 个月幼儿」的内容马上就要用上了。什么疫苗要打、吃什么辅食、怎么引导走路……这些知识点散落在几十页密密麻麻的文字里，每次翻书都要重新定位。</p>
+<p>我想：能不能把这些精华提取出来，做成那种「一图读懂」的海报？这样需要的时候直接翻手机相册就行。</p>
+<p>问题是——我不会设计。不过，我有 Claude。</p>
+<span id="more"></span>
+
+<p>我决定试试能不能让 AI 帮我做这件事。</p>
+<p>目标很简单：把《育儿百科》第 14 章的内容，变成 8 张可以发朋友圈的精美海报。听起来像是需要设计师 + 排版师 + 内容编辑的活儿，但也许 AI 能搞定？</p>
+<h2 id="第一步：让-AI「读」书"><a href="#第一步：让-AI「读」书" class="headerlink" title="第一步：让 AI「读」书"></a>第一步：让 AI「读」书</h2><p>这一章有几十页。如果让我把文字一个个敲出来喂给 AI，那我不如直接自己看了。</p>
+<p>有没有更省事的办法？</p>
+<p>好在 Claude 已经支持 PDF 处理了。我直接把整本书的 PDF 文件扔过去，让它自己提取第 14 章的内容。</p>
+<p>Claude 调用了它的 <code>document-skills:pdf</code> 技能，把 PDF 转成图片，然后用多模态能力一页一页”看”——这比传统 OCR 准确多了，因为它不只是识别文字，还能理解排版结构、表格关系、甚至是文字的语义上下文。</p>
+<p>不过，AI 并不是一帆风顺。处理了几页后，它突然卡住不动了。我等了一会儿，发现它可能在某个地方死循环或者资源耗尽了。我问了一句：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stuck?</span><br></pre></td></tr></table></figure>
+
+<p>它才恢复过来继续处理。后来我学乖了，改用分批处理：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">do</span> <span class="keyword">it</span> <span class="keyword">in</span> small batches <span class="keyword">not</span> all <span class="keyword">in</span> <span class="literal">one</span> go</span><br></pre></td></tr></table></figure>
+
+<p>这种感觉很有意思——不是在用一个完美无缺的工具，而是在和一个需要偶尔提醒、偶尔调整策略的协作者工作。你会发现它的能力边界在哪里，然后调整自己的工作方式去配合它。</p>
+<h2 id="第二步：用代码「设计」海报"><a href="#第二步：用代码「设计」海报" class="headerlink" title="第二步：用代码「设计」海报"></a>第二步：用代码「设计」海报</h2><p>内容有了，接下来是设计。</p>
+<p>我跟 Claude 说：「我想要一套育儿风格的海报。背景要温馨，字体要可爱，重点要突出。」</p>
+<p>Claude 没有直接给我画图（它目前还不支持直接生成图片），但它做了一件更符合程序员思维的事——它写了一个 HTML 页面，用 CSS 排版生成了一个网页版的海报。</p>
+<p>这个思路很有意思：如果你把设计看成是一系列视觉参数的组合（颜色、字体、间距、布局），那用代码描述这些参数就是最精确的设计语言。Figma 或 Sketch 这些设计工具本质上也是在用某种抽象语法树描述设计，只不过它们提供了可视化界面。</p>
+<p>第一版生成的海报有点简陋——纯白背景 + 黑色文字。</p>
+<p>我说：「太素了，加点颜色，标题换个可爱的字体。」</p>
+<p>Claude 改了几行 CSS，海报立刻变了样。粉色渐变背景，标题用了 Google Fonts 的手写风格字体。</p>
+<p>我说：「这个排版太挤了，改成左右分栏，加点图标装饰。」</p>
+<p>它又迭代了一版——左边是重点摘要，右边是详细说明，emoji 图标点缀在关键信息旁边。</p>
+<p>这个循环工作流很顺畅：我负责提需求和审美判断，它负责把我的模糊描述转化成精确的代码实现。我不需要学 CSS，也不需要打开 Photoshop，只需要用自然语言说「我想要什么效果」，它就能翻译成代码。</p>
+<p>不过再想一下，这种协作方式似乎暴露了一个有趣的分工模式：人类擅长的是「模糊的审美判断」和「高层次的意图表达」，AI 擅长的是「精确的参数调整」和「快速的迭代执行」。两者结合，效率比单独工作高得多。</p>
+<h2 id="第三步：从-HTML-到-PNG"><a href="#第三步：从-HTML-到-PNG" class="headerlink" title="第三步：从 HTML 到 PNG"></a>第三步：从 HTML 到 PNG</h2><p>整个过程大概花了半个下午。</p>
+<p>坦白说，AI 不是完美的。有时候它会卡住不动，我问一句「stuck?」，它才继续。有时候生成的 CSS 样式在移动端显示不正常，我得提醒它检查 viewport 设置。有时候它会忘记我之前说过的某个设计要求，我得重申一遍。</p>
+<p>这种体验很像是在带一个刚毕业的实习生工作：它很聪明，学东西飞快，执行力也强，但需要你时不时地提醒、纠偏、补充上下文。你不能扔一个任务就不管了，而是需要保持对话，持续 review 它的输出，给出反馈。</p>
+<p>最后一步是把 HTML 转成 PNG 图片。我写了个 Python 脚本，用 Playwright 渲染 HTML 然后截图。这里有个小技巧：海报的高度是动态的（内容多少不一样），我用了 <code>bounding_box()</code> 方法获取实际渲染高度，而不是写死一个固定值，这样避免了长海报被截断的问题。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># src/html_to_png.py</span></span><br><span class="line">poster_element = page.locator(<span class="string">&#x27;.poster-container&#x27;</span>)</span><br><span class="line">box = poster_element.bounding_box()</span><br><span class="line">page.set_viewport_size(&#123;<span class="string">&quot;width&quot;</span>: <span class="number">2160</span>, <span class="string">&quot;height&quot;</span>: <span class="built_in">int</span>(box[<span class="string">&#x27;height&#x27;</span>])&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>这个细节花了我不少时间调试——一开始我用固定高度 3840px，结果有些海报内容超出被截断了，后来才改成动态检测。AI 能生成基础代码框架，但这种边界情况的 debug 还是得人来做。</p>
+<h2 id="成果展示"><a href="#成果展示" class="headerlink" title="成果展示"></a>成果展示</h2><p>最后，我们（我和这位 AI 实习生）搞定了 8 张海报。</p>
+<p>涵盖了 12-14 个月宝宝的发育指标、体检指南、喂养常识、早教建议等等。</p>
+<p>来看看成品：</p>
+<p><strong>宝宝发育里程碑：</strong><br><img data-src="/../images/ai-parenting-poster/milestone.png" alt="发育里程碑"></p>
+<p><strong>喂养常识：</strong><br><img data-src="/../images/ai-parenting-poster/feeding.png" alt="喂养常识"></p>
+<p><strong>体检指南：</strong><br><img data-src="/../images/ai-parenting-poster/health-check.png" alt="体检指南"></p>
+<p>我说：「是我和一个 AI 一起做的。」</p>
+<h2 id="三点感悟"><a href="#三点感悟" class="headerlink" title="三点感悟"></a>三点感悟</h2><p>做完这 8 张海报后，我有了一些关于 AI 协作的思考。</p>
+<h3 id="1-AI-是能力放大器，但也是认知放大器"><a href="#1-AI-是能力放大器，但也是认知放大器" class="headerlink" title="1. AI 是能力放大器，但也是认知放大器"></a>1. AI 是能力放大器，但也是认知放大器</h3><p>我有想法（做海报），但缺技能（设计 + 排版 + 代码实现）。以前，这个想法只能烂在肚子里，或者花几千块外包给设计师。</p>
+<p>现在，AI 似乎填补了「想法」和「成品」之间的技能鸿沟。但它不只是放大了我的执行能力，也放大了我的认知能力——在和 Claude 对话的过程中，我对「什么是好的设计」有了更清晰的理解。</p>
+<p>当你不得不用语言精确地描述你想要的效果时（「粉色渐变，不要太浓」「字体要可爱但不能太卡通」「留白要多但不能显得空」），你会发现自己对审美的理解变得更具体了。这种「被迫清晰化需求」的过程，本身就是一种学习。</p>
+<h3 id="2-不过再想一下…人机协作的本质是什么？"><a href="#2-不过再想一下…人机协作的本质是什么？" class="headerlink" title="2. 不过再想一下…人机协作的本质是什么？"></a>2. 不过再想一下…人机协作的本质是什么？</h3><p>它更像是一种认知外包。</p>
+<p>在这个下午，我做的事情主要是：</p>
+<ul>
+<li><strong>需求定义</strong>：我想要什么效果？</li>
+<li><strong>审美判断</strong>：这个版本好不好？</li>
+<li><strong>方向纠偏</strong>：这里改一下会不会更好？</li>
+<li><strong>边界处理</strong>：这个 edge case 怎么处理？</li>
+</ul>
+<p>而 AI 做的是：</p>
+<ul>
+<li><strong>技术实现</strong>：把需求转化成代码</li>
+<li><strong>快速迭代</strong>：改 CSS、调布局、换字体</li>
+<li><strong>细节填充</strong>：emoji 图标、颜色配色、间距调整</li>
+</ul>
+<p>两者的分工很清晰，但这也意味着：如果我没有能力做好「需求定义」和「审美判断」，AI 再强也帮不了我。它不会替我决定「我想做什么」，只会帮我实现「我已经想好的东西」。</p>
+<p>那些说「AI 会取代设计师」的观点，可能忽略了一个关键点：设计师的核心价值不是「会用 Photoshop」，而是「知道什么样的设计能解决什么问题」。前者是技能，后者是认知。AI 可以替代技能，但暂时还替代不了认知。</p>
+<p>不过，话说回来——会不会有一天，AI 也能替代认知？它会不会比我更懂「什么样的海报适合这个受众」？这是个开放性问题。</p>
+<h3 id="3-未来的工作方式会变成什么样？"><a href="#3-未来的工作方式会变成什么样？" class="headerlink" title="3. 未来的工作方式会变成什么样？"></a>3. 未来的工作方式会变成什么样？</h3><p>既然 AI 能帮我读育儿书做海报，那它能不能帮我读财报做分析？能不能帮我读论文写综述？能不能帮我读代码写文档？</p>
+<p>答案似乎都是肯定的。</p>
+<p>那这意味着什么？</p>
+<p>也许未来的工作会越来越变成一种「认知管理」的游戏：你需要管理的不是你的双手（做事的速度），而是你的大脑（判断的质量）。你的竞争力不再是「我能做什么」，而是「我知道该做什么」。</p>
+<p>从这个角度看，AI 时代最稀缺的能力可能是：</p>
+<ul>
+<li><strong>提出好问题的能力</strong>（而不是找到答案）</li>
+<li><strong>做出审美判断的能力</strong>（而不是执行设计）</li>
+<li><strong>定义清晰需求的能力</strong>（而不是实现需求）</li>
+</ul>
+<p>这些都是很难被自动化的「元认知」能力。</p>
+<hr>
+<p>这就引出了一个有趣的问题：<strong>如果你拥有了一个随叫随到、能力全面的 AI 助手，你最想让它帮你做什么？</strong></p>
+<p>或者换个角度问：<strong>你现在有什么想法，一直想做但觉得自己「技能点」不够？</strong></p>
+<p>也许，是时候试试看了。</p>
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css"><script src="https://fastly.jsdelivr.net/npm/d3@7"></script><script src="https://fastly.jsdelivr.net/npm/markmap-view@0.18.10"></script><script src="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10"></script>
+<link rel="stylesheet" href="/css/markmap.css">
+
+<script src="/js/markmap.js"></script>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://cuipengfei.is-a.dev/blog/2025/12/18/%E5%9B%A0%E4%B8%BA%E6%87%92%E5%BE%97%E7%9C%8B%E4%B9%A6%EF%BC%8C%E6%88%91%E6%8A%8A-AI-%E5%8F%98%E6%88%90%E4%BA%86%E8%82%B2%E5%84%BF%E5%8D%9A%E4%B8%BB/" title="因为懒得看书，我把 AI 变成了育儿博主">https://cuipengfei.is-a.dev/blog/2025/12/18/因为懒得看书，我把-AI-变成了育儿博主/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/AI/" rel="tag"><i class="fa fa-tag"></i> AI</a>
+              <a href="/tags/Claude/" rel="tag"><i class="fa fa-tag"></i> Claude</a>
+              <a href="/tags/%E8%82%B2%E5%84%BF/" rel="tag"><i class="fa fa-tag"></i> 育儿</a>
+              <a href="/tags/Design/" rel="tag"><i class="fa fa-tag"></i> Design</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2025/09/14/generic-type-erasure-deep-dive/" rel="prev" title="当泛型遇上现实：从表象到本质的技术思考">
+                  <i class="fa fa-angle-left"></i> 当泛型遇上现实：从表象到本质的技术思考
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">408k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">6:11</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js" defer></script>
+
+</body>
+</html>
