@@ -75,7 +75,20 @@
       "Bash(git mv:*)",
       "Bash(claude mcp add powershell-integration --scope user bun D:/code/mcp-powershell-exec/powershell.ts)",
       "Bash(tree:*)",
-      "Bash(bun run new:page \"about\")"
+      "Bash(bun run new:page \"about\")",
+      "Skill(document-skills:doc-coauthoring)",
+      "Bash(xargs:*)",
+      "Bash(jq:*)",
+      "Bash(grep:*)",
+      "Bash(done:*)",
+      "Bash(for:*)",
+      "Bash(do:*)",
+      "Bash(then echo '=== $\\(basename $f\\) ===')",
+      "Bash(__NEW_LINE__ grep \"\"role\"\":\"\"user\"\" $f)",
+      "Bash(__NEW_LINE__ fi)",
+      "Bash(__NEW_LINE__ done)",
+      "Skill(superpowers:brainstorming)",
+      "Bash(mkdir:*)"
     ],
     "additionalDirectories": [
       "C:\\Users\\39764",
