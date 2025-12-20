@@ -90,7 +90,8 @@
       "Skill(superpowers:brainstorming)",
       "Bash(mkdir:*)",
       "Bash(ls:*)",
-      "Skill(using-superpowers)"
+      "Skill(using-superpowers)",
+      "Skill(frontend-design:frontend-design)"
     ],
     "additionalDirectories": [
       "C:\\Users\\39764",
