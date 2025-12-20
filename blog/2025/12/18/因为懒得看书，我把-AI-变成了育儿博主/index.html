@@ -331,44 +331,35 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>家里那本《崔玉涛育儿百科》，700 多页，厚得像块砖。</p>
+    <div class="post-body" itemprop="articleBody"><p>家里那本《崔玉涛育儿百科》，<strong>700 多页</strong>，厚得像块砖。</p>
 <p>不是不想看——是真的没时间。但眼看宝宝马上满周岁了，第 14 章「12-14 个月幼儿」的内容马上就要用上了。什么疫苗要打、吃什么辅食、怎么引导走路……这些知识点散落在几十页密密麻麻的文字里，每次翻书都要重新定位。</p>
 <p>我想：能不能把这些精华提取出来，做成那种「一图读懂」的海报？这样需要的时候直接翻手机相册就行。</p>
-<p>问题是——我不会设计。不过，我有 Claude。</p>
+<p>问题是——我<strong>不会设计</strong>。不过，我有 <strong>Claude</strong>。</p>
 <span id="more"></span>
 
 <p>我决定试试能不能让 AI 帮我做这件事。</p>
-<p>目标很简单：把《育儿百科》第 14 章的内容，变成 8 张可以发朋友圈的精美海报。听起来像是需要设计师 + 排版师 + 内容编辑的活儿，但也许 AI 能搞定？</p>
+<p><strong>目标很简单</strong>：把《育儿百科》第 14 章的内容，变成 8 张可以发朋友圈的精美海报。听起来像是需要设计师 + 排版师 + 内容编辑的活儿，但也许 AI 能搞定？</p>
 <h2 id="第一步：让-AI「读」书"><a href="#第一步：让-AI「读」书" class="headerlink" title="第一步：让 AI「读」书"></a>第一步：让 AI「读」书</h2><p>这一章有几十页。如果让我把文字一个个敲出来喂给 AI，那我不如直接自己看了。</p>
 <p>有没有更省事的办法？</p>
-<p>好在 Claude 已经支持 PDF 处理了。我直接把整本书的 PDF 文件扔过去，让它自己提取第 14 章的内容。</p>
-<p>Claude 调用了它的 <code>document-skills:pdf</code> 技能，把 PDF 转成图片，然后用多模态能力一页一页”看”——这比传统 OCR 准确多了，因为它不只是识别文字，还能理解排版结构、表格关系、甚至是文字的语义上下文。</p>
-<p>不过，AI 并不是一帆风顺。处理了几页后，它突然卡住不动了。我等了一会儿，发现它可能在某个地方死循环或者资源耗尽了。我问了一句：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stuck?</span><br></pre></td></tr></table></figure>
-
-<p>它才恢复过来继续处理。后来我学乖了，改用分批处理：</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">do</span> <span class="keyword">it</span> <span class="keyword">in</span> small batches <span class="keyword">not</span> all <span class="keyword">in</span> <span class="literal">one</span> go</span><br></pre></td></tr></table></figure>
-
-<p>这种感觉很有意思——不是在用一个完美无缺的工具，而是在和一个需要偶尔提醒、偶尔调整策略的协作者工作。你会发现它的能力边界在哪里，然后调整自己的工作方式去配合它。</p>
+<p>好在 <strong>Claude</strong> 已经支持 <code>PDF</code> 处理了。我直接把整本书的 <code>PDF</code> 文件扔过去，让它自己提取第 14 章的内容。</p>
+<p>Claude 调用了它的 <code>document-skills:pdf</code> 技能，把 <code>PDF</code> 转成图片，然后用多模态能力一页一页”看”——在我这次体验里，比我以前折腾 <code>OCR</code> 省事一些，因为它不只是识别文字，还能把排版结构（比如标题层级、段落、表格）一起读出来，后续整理时<strong>返工更少</strong>。</p>
 <h2 id="第二步：用代码「设计」海报"><a href="#第二步：用代码「设计」海报" class="headerlink" title="第二步：用代码「设计」海报"></a>第二步：用代码「设计」海报</h2><p>内容有了，接下来是设计。</p>
 <p>我跟 Claude 说：「我想要一套育儿风格的海报。背景要温馨，字体要可爱，重点要突出。」</p>
-<p>Claude 没有直接给我画图（它目前还不支持直接生成图片），但它做了一件更符合程序员思维的事——它写了一个 HTML 页面，用 CSS 排版生成了一个网页版的海报。</p>
-<p>这个思路很有意思：如果你把设计看成是一系列视觉参数的组合（颜色、字体、间距、布局），那用代码描述这些参数就是最精确的设计语言。Figma 或 Sketch 这些设计工具本质上也是在用某种抽象语法树描述设计，只不过它们提供了可视化界面。</p>
+<p>Claude 没有直接给我画图（它目前还不支持直接生成图片），但它做了一件更符合程序员思维的事——它写了一个 <code>HTML</code> 页面，用 <code>CSS</code> 排版生成了一个网页版的海报。</p>
+<p>这个思路很有意思：我会把它理解成——设计工具把这些视觉参数（颜色、字体、间距、布局）做成了可视化界面，而 <code>HTML/CSS</code> 则把同一套参数写成代码。对我这种更习惯“改文本 → 看效果”的人来说，反而更顺手。</p>
 <p>第一版生成的海报有点简陋——纯白背景 + 黑色文字。</p>
 <p>我说：「太素了，加点颜色，标题换个可爱的字体。」</p>
-<p>Claude 改了几行 CSS，海报立刻变了样。粉色渐变背景，标题用了 Google Fonts 的手写风格字体。</p>
+<p>Claude 改了几行 CSS，海报立刻变了样。粉色渐变背景，标题也换成了更像手写的字体。</p>
 <p>我说：「这个排版太挤了，改成左右分栏，加点图标装饰。」</p>
-<p>它又迭代了一版——左边是重点摘要，右边是详细说明，emoji 图标点缀在关键信息旁边。</p>
-<p>这个循环工作流很顺畅：我负责提需求和审美判断，它负责把我的模糊描述转化成精确的代码实现。我不需要学 CSS，也不需要打开 Photoshop，只需要用自然语言说「我想要什么效果」，它就能翻译成代码。</p>
+<p>它又迭代了一版——左边是重点摘要，右边是详细说明，表情符号（emoji）点缀在关键信息旁边。</p>
+<p>这个循环工作流很顺畅：我负责提需求和审美判断，它负责把我的模糊描述转化成精确的代码实现。我不需要学 <code>CSS</code>，也不需要打开 <code>Photoshop</code>，只需要用自然语言说「我想要什么效果」，它就能翻译成代码。</p>
 <p>不过再想一下，这种协作方式似乎暴露了一个有趣的分工模式：人类擅长的是「模糊的审美判断」和「高层次的意图表达」，AI 擅长的是「精确的参数调整」和「快速的迭代执行」。两者结合，效率比单独工作高得多。</p>
 <h2 id="第三步：从-HTML-到-PNG"><a href="#第三步：从-HTML-到-PNG" class="headerlink" title="第三步：从 HTML 到 PNG"></a>第三步：从 HTML 到 PNG</h2><p>整个过程大概花了半个下午。</p>
-<p>坦白说，AI 不是完美的。有时候它会卡住不动，我问一句「stuck?」，它才继续。有时候生成的 CSS 样式在移动端显示不正常，我得提醒它检查 viewport 设置。有时候它会忘记我之前说过的某个设计要求，我得重申一遍。</p>
-<p>这种体验很像是在带一个刚毕业的实习生工作：它很聪明，学东西飞快，执行力也强，但需要你时不时地提醒、纠偏、补充上下文。你不能扔一个任务就不管了，而是需要保持对话，持续 review 它的输出，给出反馈。</p>
-<p>最后一步是把 HTML 转成 PNG 图片。我写了个 Python 脚本，用 Playwright 渲染 HTML 然后截图。这里有个小技巧：海报的高度是动态的（内容多少不一样），我用了 <code>bounding_box()</code> 方法获取实际渲染高度，而不是写死一个固定值，这样避免了长海报被截断的问题。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># src/html_to_png.py</span></span><br><span class="line">poster_element = page.locator(<span class="string">&#x27;.poster-container&#x27;</span>)</span><br><span class="line">box = poster_element.bounding_box()</span><br><span class="line">page.set_viewport_size(&#123;<span class="string">&quot;width&quot;</span>: <span class="number">2160</span>, <span class="string">&quot;height&quot;</span>: <span class="built_in">int</span>(box[<span class="string">&#x27;height&#x27;</span>])&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>这个细节花了我不少时间调试——一开始我用固定高度 3840px，结果有些海报内容超出被截断了，后来才改成动态检测。AI 能生成基础代码框架，但这种边界情况的 debug 还是得人来做。</p>
-<h2 id="成果展示"><a href="#成果展示" class="headerlink" title="成果展示"></a>成果展示</h2><p>最后，我们（我和这位 AI 实习生）搞定了 8 张海报。</p>
+<p>坦白说，AI 不是完美的。有时候它会卡住不动，我问一句 <code>stuck?</code>，它才继续。有时候生成的 <code>CSS</code> 样式在移动端显示不正常，我得提醒它检查视口（<code>viewport</code>）设置。有时候它会忘记我之前说过的某个设计要求，我得重申一遍。</p>
+<p>这种体验很像是在带一个刚毕业的实习生工作：它很聪明，学东西飞快，执行力也强，但需要你时不时地提醒、纠偏、补充上下文。你不能扔一个任务就不管了，而是需要保持对话，持续检查（<code>review</code>）它的输出，给出反馈。<br>最后一步是把 <code>HTML</code> 转成 <code>PNG</code> 图片。我让 Claude 写了个 <code>Python</code> 脚本，用 <code>Playwright</code> 渲染 <code>HTML</code> 然后截图。这里有个小技巧：海报的高度是动态的（内容多少不一样），使用了 <code>bounding_box()</code> 方法获取实际渲染高度，而不是写死一个固定值，这样避免了长海报被截断的问题。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># src/html_to_png.py</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取海报容器的实际尺寸</span></span><br><span class="line">poster_element = page.locator(<span class="string">&#x27;.poster-container&#x27;</span>)</span><br><span class="line">box = <span class="keyword">await</span> poster_element.bounding_box()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 动态调整视口大小以适应内容高度</span></span><br><span class="line"><span class="comment"># 注意：box[&#x27;height&#x27;] 是浮点数，set_viewport_size 需要整数</span></span><br><span class="line"><span class="comment"># device_scale_factor=1 确保了像素点 1:1 映射，避免了高 DPI 下的模糊</span></span><br><span class="line"><span class="keyword">if</span> box:</span><br><span class="line">    <span class="keyword">await</span> page.set_viewport_size(&#123;<span class="string">&quot;width&quot;</span>: <span class="number">2160</span>, <span class="string">&quot;height&quot;</span>: <span class="built_in">int</span>(box[<span class="string">&#x27;height&#x27;</span>])&#125;)</span><br></pre></td></tr></table></figure>
+<p>这个细节花了不少时间调试——一开始用固定高度 3840px，结果有些海报内容超出被截断了，后来才改成动态检测。AI 生成了基础代码框架，但这种边界情况的调试（<code>debug</code>）往往需要人类的介入或者多轮对话的打磨。</p>
+<h2 id="成果展示"><a href="#成果展示" class="headerlink" title="成果展示"></a>成果展示</h2><p>最后，我们（我和这位 <strong>AI</strong> 实习生）搞定了 <strong>8 张海报</strong>。</p>
 <p>涵盖了 12-14 个月宝宝的发育指标、体检指南、喂养常识、早教建议等等。</p>
 <p>来看看成品：</p>
 <p><strong>宝宝发育里程碑：</strong><br><img data-src="/../images/ai-parenting-poster/milestone.png" alt="发育里程碑"></p>
@@ -385,13 +376,13 @@
 <li><strong>需求定义</strong>：我想要什么效果？</li>
 <li><strong>审美判断</strong>：这个版本好不好？</li>
 <li><strong>方向纠偏</strong>：这里改一下会不会更好？</li>
-<li><strong>边界处理</strong>：这个 edge case 怎么处理？</li>
+<li><strong>边界处理</strong>：这个边界情况（<code>edge case</code>）怎么处理？</li>
 </ul>
 <p>而 AI 做的是：</p>
 <ul>
 <li><strong>技术实现</strong>：把需求转化成代码</li>
 <li><strong>快速迭代</strong>：改 CSS、调布局、换字体</li>
-<li><strong>细节填充</strong>：emoji 图标、颜色配色、间距调整</li>
+<li><strong>细节填充</strong>：表情符号（emoji）、颜色配色、间距调整</li>
 </ul>
 <p>两者的分工很清晰，但这也意味着：如果我没有能力做好「需求定义」和「审美判断」，AI 再强也帮不了我。它不会替我决定「我想做什么」，只会帮我实现「我已经想好的东西」。</p>
 <p>那些说「AI 会取代设计师」的观点，可能忽略了一个关键点：设计师的核心价值不是「会用 Photoshop」，而是「知道什么样的设计能解决什么问题」。前者是技能，后者是认知。AI 可以替代技能，但暂时还替代不了认知。</p>
@@ -408,8 +399,14 @@
 </ul>
 <p>这些都是很难被自动化的「元认知」能力。</p>
 <hr>
-<p>这就引出了一个有趣的问题：<strong>如果你拥有了一个随叫随到、能力全面的 AI 助手，你最想让它帮你做什么？</strong></p>
-<p>或者换个角度问：<strong>你现在有什么想法，一直想做但觉得自己「技能点」不够？</strong></p>
+<p>这就引出了一个有趣的问题：</p>
+<blockquote>
+<p><strong>如果你拥有了一个随叫随到、能力全面的 AI 助手，你最想让它帮你做什么？</strong></p>
+</blockquote>
+<p>或者换个角度问：</p>
+<blockquote>
+<p><strong>你现在有什么想法，一直想做但觉得自己「技能点」不够？</strong></p>
+</blockquote>
 <p>也许，是时候试试看了。</p>
 <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css"><script src="https://fastly.jsdelivr.net/npm/d3@7"></script><script src="https://fastly.jsdelivr.net/npm/markmap-view@0.18.10"></script><script src="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10"></script>
 <link rel="stylesheet" href="/css/markmap.css">
