@@ -89,12 +89,14 @@
       "Bash(__NEW_LINE__ done)",
       "Skill(superpowers:brainstorming)",
       "Bash(mkdir:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Skill(using-superpowers)"
     ],
     "additionalDirectories": [
       "C:\\Users\\39764",
       "D:\\c\\Users\\39764",
-      "D:\\code\\mcp-powershell-exec\\"
+      "D:\\code\\mcp-powershell-exec\\",
+      "/mnt/d/code/cyt/"
     ]
   },
   "outputStyle": "default"
