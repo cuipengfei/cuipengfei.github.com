@@ -23,11 +23,11 @@ tags:
 
 本来想去翻文档，结果官方文档里关于 MCP 优化的内容一片空白。
 
-转念一想，Claude Code 的 CLI 不就是个 JavaScript 文件吗？虽然发布出来的代码被压缩（minified）过，但环境变量为了能被操作系统识别，通常都是大写字母加下划线，很难被混淆。
+考虑到 Claude Code 的 CLI 本质上是一个 JavaScript 文件，虽然发布出来的代码被压缩（minified）过，但环境变量为了能被操作系统识别，通常都是大写字母加下划线，很难被混淆。
 
 于是我直接问 Claude：“你能分析一下你自己的源码，找找有没有控制 MCP 连接的 hidden flags 吗？”
 
-Claude 也很配合，直接用 Grep 工具在它自己的 `cli.js` 里翻了一遍。还真被它挖出来三个看起来像那么回事的变量：
+Claude 也很配合，直接用 Grep 工具在它自己的 `cli.js` 里翻了一遍。还真被它挖出来三个看似相关的变量：
 
 - `MCP_CONNECTION_NONBLOCKING`
 - `MCP_SERVER_CONNECTION_BATCH_SIZE`
@@ -35,7 +35,7 @@ Claude 也很配合，直接用 Grep 工具在它自己的 `cli.js` 里翻了一
 
 ## 变量背后的逻辑
 
-这名字起得太直白了，连猜带蒙也能知道是干嘛的。
+这些变量名非常直观，根据命名就能推测出用途。
 
 **`MCP_CONNECTION_NONBLOCKING`**：这正是我要的。现在的启动过程是"阻塞"的，必须等所有服务器连上才让用户说话。设成 `1`，应该就能"非阻塞"启动，先让我进交互界面，服务器在后台慢慢连。
 
