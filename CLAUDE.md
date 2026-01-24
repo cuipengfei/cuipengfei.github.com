@@ -246,6 +246,16 @@ rake new_page["Page Name"]
 ### Writing Style Requirements (Critical)
 **All content creation must follow the writing style profile defined in `.memory-bank/writing-style-profile.md`**
 
+### Avoid These Writing Styles
+以下写作风格不受欢迎（请避免）：
+- 未经验证的界面/行为描述（例如不存在的 UI）
+- 夸张或情绪化措辞（如“毁灭性”“秒进”）
+- 土味口头禅（如“光说不练假把式”“折腾一圈”）
+- 网络腔/吹捧（如“某些大佬”）
+- 装傻式叙述（如“搜着搜着我突然意识到”）
+- 过度文艺或比喻（如“隐藏秘籍”“赛博朋克”）
+- 模板化总结段落（固定三段式“观察”）
+
 ### Language and Tone Guidelines
 - **Primary Language**: Chinese for all main content, with English preserved for technical terms and code
 - **Tone**: Humble, exploratory, and conversational - avoid authoritative or prescriptive language
