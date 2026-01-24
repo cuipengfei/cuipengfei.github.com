@@ -6,7 +6,7 @@
   <link href="https://cuipengfei.is-a.dev/atom.xml" rel="self"/>
   
   <link href="https://cuipengfei.is-a.dev/"/>
-  <updated>2025-12-18T13:54:46.000Z</updated>
+  <updated>2026-01-24T09:30:00.000Z</updated>
   <id>https://cuipengfei.is-a.dev/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>让 Claude Code 启动快一倍：三个未记录的 MCP 环境变量</title>
+    <link href="https://cuipengfei.is-a.dev/blog/2026/01/24/claude-code-mcp-startup-optimization/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2026/01/24/claude-code-mcp-startup-optimization/</id>
+    <published>2026-01-24T09:30:00.000Z</published>
+    <updated>2026-01-24T09:30:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在用 Claude Code 时，用得越顺手，启动时的那阵漫长等待就越显得碍眼。</p><p>我装了 9 个 MCP 服务器：sequential-thinking 用来思考，memory 用来记东西，firecrawl 用来抓网页……每一个都是得力助手，但加在一起，每次启动都要对着终端干等十几秒，才能看到输入框。</p><p>这十几秒的延迟虽然不算长，但在频繁使用（比如反复重启会话）的场景下，确实有点消磨耐心。</p><span id="more"></span><h2 id="让-Claude-帮我逆向它自己"><a href="#让-Claude-帮我逆向它自己" class="headerlink" title="让 Claude 帮我逆向它自己"></a>让 Claude 帮我逆向它自己</h2><p>本来想去翻文档，结果官方文档里关于 MCP 优化的内容一片空白。</p><p>考虑到 Claude Code 的 CLI 本质上是一个 JavaScript 文件，虽然发布出来的代码被压缩（minified）过，但环境变量为了能被操作系统识别，通常都是大写字母加下划线，很难被混淆。</p><p>于是我直接问 Claude：“你能分析一下你自己的源码，找找有没有控制 MCP 连接的 hidden flags 吗？”</p><p>Claude 也很配合，直接用 Grep 工具在它自己的 <code>cli.js</code> 里翻了一遍。还真被它挖出来三个看似相关的变量：</p><ul><li><code>MCP_CONNECTION_NONBLOCKING</code></li><li><code>MCP_SERVER_CONNECTION_BATCH_SIZE</code></li><li><code>MCP_REMOTE_SERVER_CONNECTION_BATCH_SIZE</code></li></ul><h2 id="变量背后的逻辑"><a href="#变量背后的逻辑" class="headerlink" title="变量背后的逻辑"></a>变量背后的逻辑</h2><p>这些变量名非常直观，根据命名就能推测出用途。</p><p><strong><code>MCP_CONNECTION_NONBLOCKING</code></strong>：这正是我要的。现在的启动过程是”阻塞”的，必须等所有服务器连上才让用户说话。设成 <code>1</code>，应该就能”非阻塞”启动，先让我进交互界面，服务器在后台慢慢连。</p><p><strong><code>MCP_SERVER_CONNECTION_BATCH_SIZE</code></strong>：Claude 还特意去 minified 代码里确认了一下逻辑：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.<span class="property">MCP_SERVER_CONNECTION_BATCH_SIZE</span>||<span class="string">&quot;&quot;</span>,<span class="number">10</span>)||<span class="number">3</span></span><br></pre></td></tr></table></figure><p>翻译过来就是：读取环境变量，默认值是 3。也就是说，我有 9 个服务器，它得排队分三批连。对于本地进程来说，这个并发度确实太保守了。</p><h2 id="有趣的闭环"><a href="#有趣的闭环" class="headerlink" title="有趣的闭环"></a>有趣的闭环</h2><p>代码里既然有这些开关，我想看看社区里有没有人在用，或者有没有相关的讨论。</p><p>这一步挺有意思：我指挥 Claude 用 <strong>firecrawl</strong> 去搜社区文档，用 <strong>grep.app</strong> 去搜 GitHub 上的 dotfiles，用 <strong>deepwiki</strong> 去查相关仓库。</p><p>这形成了一个有趣的闭环：<strong>我正在用这几个导致启动慢的 MCP 工具，去研究怎么让它们启动变快。</strong></p><p>结果还真不少，GitHub 上一些 dotfiles 仓库里已经用上了，Issue 列表里也有人提到过。看来这条路是通的。</p><h2 id="实测效果"><a href="#实测效果" class="headerlink" title="实测效果"></a>实测效果</h2><p>我让 Claude 写了个测试脚本，排列组合测一下这几个变量的效果。</p><p>测试环境是 WSL2，Node.js v24。结果非常明显：</p><table><thead><tr><th>配置</th><th>平均启动时间</th><th>效果</th></tr></thead><tbody><tr><td>默认配置</td><td>15.6s</td><td>—</td></tr><tr><td><strong>NONBLOCKING&#x3D;1</strong></td><td><strong>7.6s</strong></td><td><strong>快了 51%</strong></td></tr><tr><td>只改并发数</td><td>15.6s</td><td>无变化</td></tr><tr><td>两者全开</td><td>7.9s</td><td>快了 49%</td></tr></tbody></table><p>只要开了 <code>NONBLOCKING</code>，启动时间从 15 秒降到了 7 秒多，减少了约一半。</p><p>而且我发现，单独改并发数（BATCH_SIZE）没用，因为只要是阻塞模式，并发再高也得等最慢的那个连完。只有开了非阻塞，并发数的调整才有意义——能让后台连接更快完成，让工具更早可用。</p><p>顺便提一句，既然 Anthropic 最近收购了 Bun，我还测了下用 Bun 运行的效果。本以为会比 Node 快，结果启动速度反而略慢（9.5s vs 7.6s）。不过内存占用确实低了很多，只有 Node 的三分之一。</p><h2 id="最终配置"><a href="#最终配置" class="headerlink" title="最终配置"></a>最终配置</h2><p>验证完这些后，配置其实很简单，在 <code>.zshrc</code> 里加两行：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> MCP_CONNECTION_NONBLOCKING=<span class="string">&quot;1&quot;</span></span><br><span class="line"><span class="built_in">export</span> MCP_SERVER_CONNECTION_BATCH_SIZE=<span class="string">&quot;8&quot;</span></span><br></pre></td></tr></table></figure><p>现在打开 Claude Code，7 秒左右就能看到输入框。虽然那几个 MCP 工具可能还在后台连接，但至少我可以先开始输入了。</p><h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>这类未文档化变量的状态并不稳定，版本升级后可能失效或改名。所以我更愿意把它当成一个临时优化手段，而不是长期依赖的配置。</p><p>这次过程里更有价值的其实是方法：先在 cli.js 找到入口，再用 MCP 工具验证社区的使用情况，最后用脚本把效果量化。少了任意一步，都可能把“猜测”当成“结论”。</p><p>如果未来官方补上文档，或者提供更稳定的配置入口，这些变量自然就可以退场了。在那之前，它们确实解决了启动慢的问题。</p><hr><p><em>测试脚本和完整日志可以在 <a href="https://github.com/cuipengfei/prompts">这里</a> 找到。</em></p><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css"><script src="https://fastly.jsdelivr.net/npm/d3@7"></script><script src="https://fastly.jsdelivr.net/npm/markmap-view@0.18.10"></script><script src="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10"></script><link rel="stylesheet" href="/css/markmap.css"><script src="/js/markmap.js"></script>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;最近在用 Claude Code 时，用得越顺手，启动时的那阵漫长等待就越显得碍眼。&lt;/p&gt;
+&lt;p&gt;我装了 9 个 MCP 服务器：sequential-thinking 用来思考，memory 用来记东西，firecrawl 用来抓网页……每一个都是得力助手，但加在一起，每次启动都要对着终端干等十几秒，才能看到输入框。&lt;/p&gt;
+&lt;p&gt;这十几秒的延迟虽然不算长，但在频繁使用（比如反复重启会话）的场景下，确实有点消磨耐心。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="AI" scheme="https://cuipengfei.is-a.dev/categories/AI/"/>
+    
+    <category term="工具" scheme="https://cuipengfei.is-a.dev/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="Claude Code" scheme="https://cuipengfei.is-a.dev/tags/Claude-Code/"/>
+    
+    <category term="MCP" scheme="https://cuipengfei.is-a.dev/tags/MCP/"/>
+    
+    <category term="性能优化" scheme="https://cuipengfei.is-a.dev/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+    
+    <category term="环境变量" scheme="https://cuipengfei.is-a.dev/tags/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>因为懒得看书，我把 AI 变成了育儿博主</title>
@@ -611,28 +642,6 @@ note over event_initiator,instance_2: 为了降低风险，可以： &amp;lt;br&
     
     
     <category term="TW" scheme="https://cuipengfei.is-a.dev/tags/TW/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《大目标》一书中的有趣观点</title>
-    <link href="https://cuipengfei.is-a.dev/blog/2020/07/05/%E5%A4%A7%E7%9B%AE%E6%A0%87/"/>
-    <id>https://cuipengfei.is-a.dev/blog/2020/07/05/%E5%A4%A7%E7%9B%AE%E6%A0%87/</id>
-    <published>2020-07-05T04:23:28.000Z</published>
-    <updated>2020-07-05T04:23:28.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h1><p>工业化、现代化、城市化、民主化、自由化、市场化、全球化，不一定要姓“西、资、基”。</p><h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><p>五常的否决权是对大国毁灭性力量的承认。核武器，氢弹，洲际导弹，核潜艇，多弹头分导。</p><p>退缩不会让狼群放弃供给，逃跑不会让狼群放弃追捕，倒下不会让狼群放弃杀戮。</p><p>大国没资格投降。</p><p>美国对日本可以援引《共同防卫协定》只会日本空军。韩国三军的最高指挥权本来就归美军。</p><p>冷战的本质是3.5亿的苏联东欧工业人口和欧美日6亿的工业人口抢全球的资源和市场。</p><h1 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h1><p>把人当人看是工业社会才能做到的事。医疗器具，消毒不再昂贵，简单高效。<br>当物质上的富足让社会不再需要合理合法地牺牲掉一些人而保证另一些人的生存时，才能进入文明。</p><p>1962年，中国粮食总产量1.6亿吨。1978年3亿吨。不是靠积极性。而是靠化肥。<br>化肥让农民有了余粮和闲暇，从农业中解放出来的生产力投入工业。</p><p>工业化：用机器造机器，然后用造出来的机器去造别的东西。</p><p>世界上勤俭的不止有中国人，勤俭了几千年也没有变的富裕。工业化才能让勤俭变成资本。</p><p>李鸿章去找“造器之器”，是找造火器的机器，而不是造机器的机器。</p><p>机器用钢铁造的，用的是煤炭或者煤炭生成的电能。欧盟来源于煤钢共同体。</p><h1 id="第三章"><a href="#第三章" class="headerlink" title="第三章"></a>第三章</h1><p>美国“绿卡战士”的阵亡率比美籍士兵高出一倍。</p><p>钱并不是财富，说“有钱”其实意味着“有货”。</p><p>美元作为结算货币收全球铸币税。各国越小，产业链越分散，美元铸币税收的越开心。</p><p>经济活动的本质是物质生产。</p><p>枪杆子里面出石油。</p><h1 id="第四章"><a href="#第四章" class="headerlink" title="第四章"></a>第四章</h1><p>工业与手工业的最大区别：工业可以升级。</p><p>西班牙，英国，美国，三个世界性的大帝国。<br>兴起的原因是先进的生产技术，发达的制造业能创造财富也支持了强大的军队。<br>然后不劳而获，停滞衰退。</p><h1 id="第五章"><a href="#第五章" class="headerlink" title="第五章"></a>第五章</h1><p>与之前的强国相比，苏联的工业化不依赖殖民地的市场和资源。</p><p>重工业是核心，轻工业释放重工业制造的生产能力。</p><p>苏联利用西方几次危机，抄底技术与设备。</p><p>工业化人口数量决定了工业经济的规模，也和工业体系的复杂程度和先进程度密切相关。<br>独立工业体系需要的工业化人口数量是基本配件数量的5到10倍。<br>欧洲走向一体化的原因就在于此。</p><p>苏联的崩溃说到底是因为美国用自己的人口优势率先完成了产业升级。</p><p>在战略对抗中，要掌握比对手更多的工业化人口，要向盟友输出工业化社会，通过输出工业化社会来制造盟友。否则早晚遇到工业升级的人口障碍。</p><h1 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h1><p>一切强权、帝国在工业革命面前都是过眼云烟。</p><p>终结大英帝国的是第二次工业革命。</p><p>中国不能靠出口来长期支持我们的工业化进程了。</p><h1 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h1><p>没有人会把太监叫做绅士。</p><p>保持不断的进步才能有道理可以讲。</p><p>输出工业化是个长久的买卖，比输出消费品要长久。</p><p>现在一个地市级的地勘力量比工业化之前全国合集还多。</p><p>买办是第一障碍。</p><p>要输出工业化，而不是像殖民主义那样打击当地工业发展。</p><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css"><script src="https://fastly.jsdelivr.net/npm/d3@7"></script><script src="https://fastly.jsdelivr.net/npm/markmap-view@0.18.10"></script><script src="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10"></script><link rel="stylesheet" href="/css/markmap.css"><script src="/js/markmap.js"></script>]]></content>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;引子&quot;&gt;&lt;a href=&quot;#引子&quot; class=&quot;headerlink&quot; title=&quot;引子&quot;&gt;&lt;/a&gt;引子&lt;/h1&gt;&lt;p&gt;工业化、现代化、城市化、民主化、自由化、市场化、全球化，不一定要姓“西、资、基”。&lt;/p&gt;
-&lt;h1 id=&quot;第一章&quot;&gt;&lt;a href=&quot;#第一章&quot; class=&quot;headerlink&quot; title=&quot;第一章&quot;&gt;&lt;/a&gt;第一章&lt;/h1&gt;&lt;p&gt;五常的否决权是对大国毁灭性力量的承认。核武器，氢弹，洲际导弹，核潜艇，多弹头分导。&lt;/p&gt;
-&lt;p&gt;退缩不会让狼群放弃供给，逃跑不会让狼群放弃追捕，倒下不会让狼群放弃杀戮。&lt;/p&gt;
-&lt;p&gt;大国没资格投降。&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="工业党" scheme="https://cuipengfei.is-a.dev/tags/%E5%B7%A5%E4%B8%9A%E5%85%9A/"/>
     
   </entry>
   
