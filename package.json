@@ -28,14 +28,14 @@
     "hexo-generator-slidehtml": "^0.0.65",
     "hexo-generator-tag": "^2.0.0",
     "hexo-graphviz": "^1.0.2",
-    "hexo-markmap": "^2.0.8",
+    "hexo-markmap": "^2.0.9",
     "hexo-related-popular-posts": "^5.0.1",
     "hexo-renderer-ejs": "^2.0.0",
     "hexo-renderer-marked": "^7.0.1",
     "hexo-renderer-stylus": "^3.0.1",
     "hexo-server": "^3.0.0",
     "hexo-symbols-count-time": "^0.7.1",
-    "hexo-theme-next": "^8.26.0",
+    "hexo-theme-next": "^8.27.0",
     "markdown-link-extractor": "^4.0.3"
   }
 }
