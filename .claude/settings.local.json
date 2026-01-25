@@ -92,13 +92,22 @@
       "Bash(ls:*)",
       "Skill(using-superpowers)",
       "Skill(frontend-design:frontend-design)",
-      "mcp__codex-mcp__codex"
+      "mcp__codex-mcp__codex",
+      "mcp__firecrawl-mcp__firecrawl_scrape",
+      "mcp__grep__searchGitHub",
+      "Bash(gh search code:*)",
+      "Bash(gh search issues:*)",
+      "Bash(gh search prs:*)",
+      "Bash(gh search commits:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh pr:*)"
     ],
     "additionalDirectories": [
       "C:\\Users\\39764",
       "D:\\c\\Users\\39764",
       "D:\\code\\mcp-powershell-exec\\",
-      "/mnt/d/code/cyt/"
+      "/mnt/d/code/cyt/",
+      "/mnt/d/code/prompts"
     ]
   },
   "outputStyle": "default"

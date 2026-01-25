@@ -1,5 +1,5 @@
 ---
-title: 让 Claude Code 启动快一倍：三个未记录的 MCP 环境变量
+title: 挖到 Claude Code 未公开的 MCP 加速开关，tweakcc 当天提交 PR
 date: 2026-01-24 17:30:00
 categories:
   - [AI]
@@ -55,7 +55,9 @@ Claude 也很配合，直接用 Grep 工具在它自己的 `cli.js` 里翻了一
 
 这形成了一个有趣的闭环：**我正在用这几个导致启动慢的 MCP 工具，去研究怎么让它们启动变快。**
 
-结果还真不少，GitHub 上一些 dotfiles 仓库里已经用上了，Issue 列表里也有人提到过。看来这条路是通的。
+搜索后发现，`MCP_SERVER_CONNECTION_BATCH_SIZE` 在一些逆向工程项目和 Claude Code 兼容 CLI（如 shcv/claude-investigations、shareAI-lab/Kode-cli）里有记录。但效果最显著的 `MCP_CONNECTION_NONBLOCKING`，似乎还没人公开提到过——至少在 GitHub 的代码、Issue、PR 里都搜不到相关讨论。
+
+这让我有点意外。一个能把启动时间砍半的开关，居然没人提过？
 
 ## 实测效果
 
@@ -95,6 +97,16 @@ export MCP_SERVER_CONNECTION_BATCH_SIZE="8"
 
 如果未来官方补上文档，或者提供更稳定的配置入口，这些变量自然就可以退场了。在那之前，它们确实解决了启动慢的问题。
 
+## 意外的后续
+
+写完这篇文章后，我顺手向 [tweakcc](https://github.com/Piebald-AI/tweakcc)（一个 Claude Code 的增强工具）提了个 [Issue](https://github.com/Piebald-AI/tweakcc/issues/406)，建议把 `MCP_CONNECTION_NONBLOCKING` 内置进去。
+
+没想到不到三小时，维护者就提交了 [PR #407](https://github.com/Piebald-AI/tweakcc/pull/407)，不仅加了非阻塞开关，还把批量大小也做成了可配置项。
+
+这个响应速度让我有点惊喜。从逆向发现到被社区工具采纳，整个过程不到 24 小时。
+
+开源社区的这种效率，大概就是为什么我们愿意花时间挖掘这些细节的原因吧。
+
 ---
 
-*测试脚本和完整日志可以在 [这里](https://github.com/cuipengfei/prompts) 找到。*
+*测试脚本在 [这里](https://github.com/cuipengfei/prompts/blob/main/test-mcp-startup.sh)，完整的环境变量参考在 [这里](https://github.com/cuipengfei/prompts/blob/main/claude-code-undocumented-env-vars.md)。*
