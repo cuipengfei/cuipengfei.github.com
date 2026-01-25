@@ -24,7 +24,7 @@
 
     <meta name="description" content="最近在用 Claude Code 时，用得越顺手，启动时的那阵漫长等待就越显得碍眼。 我装了 9 个 MCP 服务器：sequential-thinking 用来思考，memory 用来记东西，firecrawl 用来抓网页……每一个都是得力助手，但加在一起，每次启动都要对着终端干等十几秒，才能看到输入框。 这十几秒的延迟虽然不算长，但在频繁使用（比如反复重启会话）的场景下，确实有点消磨耐心。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="让 Claude Code 启动快一倍：三个未记录的 MCP 环境变量">
+<meta property="og:title" content="挖到 Claude Code 未公开的 MCP 加速开关，tweakcc 当天提交 PR">
 <meta property="og:url" content="https://cuipengfei.is-a.dev/blog/2026/01/24/claude-code-mcp-startup-optimization/index.html">
 <meta property="og:site_name" content="崔鹏飞的Blog">
 <meta property="og:description" content="最近在用 Claude Code 时，用得越顺手，启动时的那阵漫长等待就越显得碍眼。 我装了 9 个 MCP 服务器：sequential-thinking 用来思考，memory 用来记东西，firecrawl 用来抓网页……每一个都是得力助手，但加在一起，每次启动都要对着终端干等十几秒，才能看到输入框。 这十几秒的延迟虽然不算长，但在频繁使用（比如反复重启会话）的场景下，确实有点消磨耐心。">
@@ -42,10 +42,10 @@
 <link rel="canonical" href="https://cuipengfei.is-a.dev/blog/2026/01/24/claude-code-mcp-startup-optimization/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.is-a.dev/blog/2026/01/24/claude-code-mcp-startup-optimization/","path":"blog/2026/01/24/claude-code-mcp-startup-optimization/","title":"让 Claude Code 启动快一倍：三个未记录的 MCP 环境变量"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.is-a.dev/blog/2026/01/24/claude-code-mcp-startup-optimization/","path":"blog/2026/01/24/claude-code-mcp-startup-optimization/","title":"挖到 Claude Code 未公开的 MCP 加速开关，tweakcc 当天提交 PR"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>让 Claude Code 启动快一倍：三个未记录的 MCP 环境变量 | 崔鹏飞的Blog</title>
+<title>挖到 Claude Code 未公开的 MCP 加速开关，tweakcc 当天提交 PR | 崔鹏飞的Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
@@ -172,7 +172,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A9-Claude-%E5%B8%AE%E6%88%91%E9%80%86%E5%90%91%E5%AE%83%E8%87%AA%E5%B7%B1"><span class="nav-number">1.</span> <span class="nav-text">让 Claude 帮我逆向它自己</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E8%83%8C%E5%90%8E%E7%9A%84%E9%80%BB%E8%BE%91"><span class="nav-number">2.</span> <span class="nav-text">变量背后的逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E8%B6%A3%E7%9A%84%E9%97%AD%E7%8E%AF"><span class="nav-number">3.</span> <span class="nav-text">有趣的闭环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%B5%8B%E6%95%88%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">实测效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E9%85%8D%E7%BD%AE"><span class="nav-number">5.</span> <span class="nav-text">最终配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">6.</span> <span class="nav-text">后记</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A9-Claude-%E5%B8%AE%E6%88%91%E9%80%86%E5%90%91%E5%AE%83%E8%87%AA%E5%B7%B1"><span class="nav-number">1.</span> <span class="nav-text">让 Claude 帮我逆向它自己</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E8%83%8C%E5%90%8E%E7%9A%84%E9%80%BB%E8%BE%91"><span class="nav-number">2.</span> <span class="nav-text">变量背后的逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E8%B6%A3%E7%9A%84%E9%97%AD%E7%8E%AF"><span class="nav-number">3.</span> <span class="nav-text">有趣的闭环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%B5%8B%E6%95%88%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">实测效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E9%85%8D%E7%BD%AE"><span class="nav-number">5.</span> <span class="nav-text">最终配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">6.</span> <span class="nav-text">后记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%84%8F%E5%A4%96%E7%9A%84%E5%90%8E%E7%BB%AD"><span class="nav-number">7.</span> <span class="nav-text">意外的后续</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -257,12 +257,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="让 Claude Code 启动快一倍：三个未记录的 MCP 环境变量 | 崔鹏飞的Blog">
+      <meta itemprop="name" content="挖到 Claude Code 未公开的 MCP 加速开关，tweakcc 当天提交 PR | 崔鹏飞的Blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          让 Claude Code 启动快一倍：三个未记录的 MCP 环境变量
+          挖到 Claude Code 未公开的 MCP 加速开关，tweakcc 当天提交 PR
         </h1>
 
         <div class="post-meta-container">
@@ -310,7 +310,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.8k</span>
+      <span>2.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -350,7 +350,8 @@
 <h2 id="有趣的闭环"><a href="#有趣的闭环" class="headerlink" title="有趣的闭环"></a>有趣的闭环</h2><p>代码里既然有这些开关，我想看看社区里有没有人在用，或者有没有相关的讨论。</p>
 <p>这一步挺有意思：我指挥 Claude 用 <strong>firecrawl</strong> 去搜社区文档，用 <strong>grep.app</strong> 去搜 GitHub 上的 dotfiles，用 <strong>deepwiki</strong> 去查相关仓库。</p>
 <p>这形成了一个有趣的闭环：<strong>我正在用这几个导致启动慢的 MCP 工具，去研究怎么让它们启动变快。</strong></p>
-<p>结果还真不少，GitHub 上一些 dotfiles 仓库里已经用上了，Issue 列表里也有人提到过。看来这条路是通的。</p>
+<p>搜索后发现，<code>MCP_SERVER_CONNECTION_BATCH_SIZE</code> 在一些逆向工程项目和 Claude Code 兼容 CLI（如 shcv&#x2F;claude-investigations、shareAI-lab&#x2F;Kode-cli）里有记录。但效果最显著的 <code>MCP_CONNECTION_NONBLOCKING</code>，似乎还没人公开提到过——至少在 GitHub 的代码、Issue、PR 里都搜不到相关讨论。</p>
+<p>这让我有点意外。一个能把启动时间砍半的开关，居然没人提过？</p>
 <h2 id="实测效果"><a href="#实测效果" class="headerlink" title="实测效果"></a>实测效果</h2><p>我让 Claude 写了个测试脚本，排列组合测一下这几个变量的效果。</p>
 <p>测试环境是 WSL2，Node.js v24。结果非常明显：</p>
 <table>
@@ -392,8 +393,12 @@
 <h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>这类未文档化变量的状态并不稳定，版本升级后可能失效或改名。所以我更愿意把它当成一个临时优化手段，而不是长期依赖的配置。</p>
 <p>这次过程里更有价值的其实是方法：先在 cli.js 找到入口，再用 MCP 工具验证社区的使用情况，最后用脚本把效果量化。少了任意一步，都可能把“猜测”当成“结论”。</p>
 <p>如果未来官方补上文档，或者提供更稳定的配置入口，这些变量自然就可以退场了。在那之前，它们确实解决了启动慢的问题。</p>
+<h2 id="意外的后续"><a href="#意外的后续" class="headerlink" title="意外的后续"></a>意外的后续</h2><p>写完这篇文章后，我顺手向 <a target="_blank" rel="noopener" href="https://github.com/Piebald-AI/tweakcc">tweakcc</a>（一个 Claude Code 的增强工具）提了个 <a target="_blank" rel="noopener" href="https://github.com/Piebald-AI/tweakcc/issues/406">Issue</a>，建议把 <code>MCP_CONNECTION_NONBLOCKING</code> 内置进去。</p>
+<p>没想到不到三小时，维护者就提交了 <a target="_blank" rel="noopener" href="https://github.com/Piebald-AI/tweakcc/pull/407">PR #407</a>，不仅加了非阻塞开关，还把批量大小也做成了可配置项。</p>
+<p>这个响应速度让我有点惊喜。从逆向发现到被社区工具采纳，整个过程不到 24 小时。</p>
+<p>开源社区的这种效率，大概就是为什么我们愿意花时间挖掘这些细节的原因吧。</p>
 <hr>
-<p><em>测试脚本和完整日志可以在 <a target="_blank" rel="noopener" href="https://github.com/cuipengfei/prompts">这里</a> 找到。</em></p>
+<p><em>测试脚本在 <a target="_blank" rel="noopener" href="https://github.com/cuipengfei/prompts/blob/main/test-mcp-startup.sh">这里</a>，完整的环境变量参考在 <a target="_blank" rel="noopener" href="https://github.com/cuipengfei/prompts/blob/main/claude-code-undocumented-env-vars.md">这里</a>。</em></p>
 <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css"><script src="https://fastly.jsdelivr.net/npm/d3@7"></script><script src="https://fastly.jsdelivr.net/npm/markmap-view@0.18.10"></script><script src="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10"></script>
 <link rel="stylesheet" href="/css/markmap.css">
 
@@ -415,7 +420,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://cuipengfei.is-a.dev/blog/2026/01/24/claude-code-mcp-startup-optimization/" title="让 Claude Code 启动快一倍：三个未记录的 MCP 环境变量">https://cuipengfei.is-a.dev/blog/2026/01/24/claude-code-mcp-startup-optimization/</a>
+      <a href="https://cuipengfei.is-a.dev/blog/2026/01/24/claude-code-mcp-startup-optimization/" title="挖到 Claude Code 未公开的 MCP 加速开关，tweakcc 当天提交 PR">https://cuipengfei.is-a.dev/blog/2026/01/24/claude-code-mcp-startup-optimization/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
