@@ -6,7 +6,7 @@
   <link href="https://cuipengfei.is-a.dev/atom.xml" rel="self"/>
   
   <link href="https://cuipengfei.is-a.dev/"/>
-  <updated>2026-01-24T09:30:00.000Z</updated>
+  <updated>2026-03-01T02:00:00.000Z</updated>
   <id>https://cuipengfei.is-a.dev/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>写了一年 Agent，我做了个教程站</title>
+    <link href="https://cuipengfei.is-a.dev/blog/2026/03/01/everything-is-context/"/>
+    <id>https://cuipengfei.is-a.dev/blog/2026/03/01/everything-is-context/</id>
+    <published>2026-03-01T02:00:00.000Z</published>
+    <updated>2026-03-01T02:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>过去一年我写了四篇跟 AI Agent 有关的文章。</p><p><a href="/blog/2025/06/17/how-to-brainwash-copilot-to-follow-orders/">洗脑 Copilot</a> 讲怎么用指令让 agent 按你的方式工作。</p><p><a href="/blog/2025/08/27/agent-building-seductive-traps/">Agent 陷阱</a> 讲构建 agent 时那些看起来对实际上坑的模式。</p><p><a href="/blog/2025/12/18/%E5%9B%A0%E4%B8%BA%E6%87%92%E5%BE%97%E7%9C%8B%E4%B9%A6%EF%BC%8C%E6%88%91%E6%8A%8A-AI-%E5%8F%98%E6%88%90%E4%BA%86%E8%82%B2%E5%84%BF%E5%8D%9A%E4%B8%BB/">AI 育儿博主</a> 讲怎么把大量领域知识喂给 AI。</p><p><a href="/blog/2026/01/24/claude-code-mcp-startup-optimization/">MCP 启动优化</a> 讲逆向工程 Claude Code 的 MCP 初始化流程。</p><p>四个完全不同的话题，写的时候也没想过它们之间有什么关系。</p><p>但写完 MCP 那篇之后，我发现它们在讲同一件事。</p><span id="more"></span><h2 id="都是上下文"><a href="#都是上下文" class="headerlink" title="都是上下文"></a>都是上下文</h2><p>上下文（Context）。</p><p>不是什么玄学概念。就是你的 agent 发给 LLM API 的那个 HTTP request body 里的 JSON：</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;messages&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span><span class="attr">&quot;role&quot;</span><span class="punctuation">:</span> <span class="string">&quot;system&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;content&quot;</span><span class="punctuation">:</span> <span class="string">&quot;你是一个...（系统指令）&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span><span class="attr">&quot;role&quot;</span><span class="punctuation">:</span> <span class="string">&quot;user&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;content&quot;</span><span class="punctuation">:</span> <span class="string">&quot;帮我重构这个函数&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span><span class="attr">&quot;role&quot;</span><span class="punctuation">:</span> <span class="string">&quot;assistant&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;content&quot;</span><span class="punctuation">:</span> <span class="string">&quot;好的，我先看看...&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;tool_calls&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span>...<span class="punctuation">]</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span><span class="attr">&quot;role&quot;</span><span class="punctuation">:</span> <span class="string">&quot;tool&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;content&quot;</span><span class="punctuation">:</span> <span class="string">&quot;（文件内容、命令输出、搜索结果...）&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span><span class="attr">&quot;role&quot;</span><span class="punctuation">:</span> <span class="string">&quot;assistant&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;content&quot;</span><span class="punctuation">:</span> <span class="string">&quot;根据代码结构，我建议...&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure><p>每一轮对话，agent 都把完整的历史重新发送一遍。LLM 没有记忆——它每次都是从头读这个 JSON，然后生成下一条回复。</p><p>回头看那四篇文章：</p><p>洗脑 Copilot？你操纵的是 <code>system</code> 里的指令。它被注入到每个 request 的最前面，是 LLM 看到的第一样东西。</p><p>Agent 陷阱？你搭的工具链每调用一次就往 <code>messages</code> 里塞一条 <code>tool</code> 结果。塞太多，窗口满了，模型就开始丢信息。</p><p>育儿博主？你喂的知识在占用 context window。窗口就那么大，选什么喂、不选什么喂，是个决策问题。</p><p>MCP 优化？每个 MCP server 启动时注册的 tool definitions 会被塞进 system prompt。工具越多，留给实际对话的空间越少。</p><p>全是上下文。</p><h2 id="所以做了个站"><a href="#所以做了个站" class="headerlink" title="所以做了个站"></a>所以做了个站</h2><p>想明白这条线之后，我把它写成了一个教程站。</p><blockquote><p><strong><a href="https://cuipengfei.is-a.dev/adopt-agentic/">Adopt Agentic — 采用 Agentic AI 工作流</a></strong></p></blockquote><p>15 个概念节点，从”上下文是什么”一直讲到”多 Agent 协作”。中英双语。</p><p>每个概念都用 HTTP request&#x2F;response 拆解——因为 agent 和 LLM 之间的交互，归根到底就是 HTTP 调用，没什么神秘的。</p><p>但有意思的不是产出。是过程。</p><p>这个站本身就是用 agentic workflow 做的。</p><p>Agent 写内容，agent 爬了 62 篇社区文章做覆盖度分析，agent 生成 38 个 SVG 动画插图，agent 做五轮交叉审校（甚至用了不同模型交叉校验彼此的盲区）。</p><p>人做什么？人写规则。人审结果。人拍板。</p><p>过程中最大的收获：<strong>项目的规则文件从零长到了几百行，每一条都是踩坑长出来的。</strong></p><p>举个例子。最开始 agent 写出来的内容充斥着”本质上”、”从根本上说”、”essentially”——这些是 AI 生成文本的高频指纹。我们花了五轮审校才把这些清干净，然后把”AI filler 词密度控制”写成了一条显式规则：同一篇文档里”本质上”不超过两处，超了就删。</p><p>再比如。Agent 写技术教程时爱用文艺比喻——“给 Agent 请家教”、”把你的大脑装进 Agent”。读者看标题猜不到这节在讲什么。于是加了一条：标题禁止文艺化，用直白有信息量的表述。</p><p>规则不是一开始就有的。它们是在反复的”agent 写 → 人审 → 发现问题 → 加规则 → agent 重写”循环里长出来的。最后发现，人花在”改流程”上的时间远超”改内容”。</p><p>用 agentic workflow 来写教 agentic workflow 的教程——这事本身就挺 meta 的。</p><hr><h2 id="Agent-是胶水代码，不是-AI"><a href="#Agent-是胶水代码，不是-AI" class="headerlink" title="Agent 是胶水代码，不是 AI"></a>Agent 是胶水代码，不是 AI</h2><p>你每天用的那些 coding agent，不管是哪家的，90% 的代码在做这些事：拼 HTTP request、解析 LLM response、管理 tool calls、读写文件、跑 shell 命令。LLM 只是其中一个 API 调用。</p><p>理解这个，你对 agent 的期待会回到地面。它不是”更聪明的 AI”，是一个围绕 LLM API 构建的自动化流程。聪明与否取决于这个流程怎么编排上下文。</p><h2 id="上下文像牛奶，会过期"><a href="#上下文像牛奶，会过期" class="headerlink" title="上下文像牛奶，会过期"></a>上下文像牛奶，会过期</h2><p>长对话里的早期信息会被后续内容稀释。这不是 bug，是 attention 机制的物理限制——模型对最近的内容关注度更高，早期内容的影响力会衰减。</p><p>所以高手会主动切新会话。不是因为强迫症，是因为一个干净的新会话比一个拖了几十轮的旧会话更可控。上下文不是越多越好，是越相关越好。</p><h2 id="认知债务"><a href="#认知债务" class="headerlink" title="认知债务"></a>认知债务</h2><p>你让 agent 自动化的每个决策，如果你不理解它为什么这样决策，就欠下一笔认知债。短期看效率很高——agent 帮你做了一堆事。长期看，债积累到一定程度，你连 agent 出错都发现不了。</p><p>这跟技术债务一个道理。区别是技术债务在代码里，你至少看得见；认知债务在你脑子里，你甚至不知道自己欠了多少。</p><hr><p>这三个点，加上更多一篇博客展开不了的内容，都在这里：</p><h2 id="Adopt-Agentic-—-采用-Agentic-AI-工作流"><a href="#Adopt-Agentic-—-采用-Agentic-AI-工作流" class="headerlink" title="Adopt Agentic — 采用 Agentic AI 工作流"></a><strong><a href="https://cuipengfei.is-a.dev/adopt-agentic/">Adopt Agentic — 采用 Agentic AI 工作流</a></strong></h2><p>中文版直接进，英文版点右上角切换。</p><p>如果你每天在用 AI coding agent，但偶尔会想”这东西到底是怎么工作的”——这个站试图回答这个问题。</p><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css"><script src="https://fastly.jsdelivr.net/npm/d3@7"></script><script src="https://fastly.jsdelivr.net/npm/markmap-view@0.18.10"></script><script src="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10"></script><link rel="stylesheet" href="/css/markmap.css"><script src="/js/markmap.js"></script>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;过去一年我写了四篇跟 AI Agent 有关的文章。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/blog/2025/06/17/how-to-brainwash-copilot-to-follow-orders/&quot;&gt;洗脑 Copilot&lt;/a&gt; 讲怎么用指令让 agent 按你的方式工作。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/blog/2025/08/27/agent-building-seductive-traps/&quot;&gt;Agent 陷阱&lt;/a&gt; 讲构建 agent 时那些看起来对实际上坑的模式。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/blog/2025/12/18/%E5%9B%A0%E4%B8%BA%E6%87%92%E5%BE%97%E7%9C%8B%E4%B9%A6%EF%BC%8C%E6%88%91%E6%8A%8A-AI-%E5%8F%98%E6%88%90%E4%BA%86%E8%82%B2%E5%84%BF%E5%8D%9A%E4%B8%BB/&quot;&gt;AI 育儿博主&lt;/a&gt; 讲怎么把大量领域知识喂给 AI。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/blog/2026/01/24/claude-code-mcp-startup-optimization/&quot;&gt;MCP 启动优化&lt;/a&gt; 讲逆向工程 Claude Code 的 MCP 初始化流程。&lt;/p&gt;
+&lt;p&gt;四个完全不同的话题，写的时候也没想过它们之间有什么关系。&lt;/p&gt;
+&lt;p&gt;但写完 MCP 那篇之后，我发现它们在讲同一件事。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="技术思考" scheme="https://cuipengfei.is-a.dev/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/"/>
+    
+    <category term="AI" scheme="https://cuipengfei.is-a.dev/categories/AI/"/>
+    
+    
+    <category term="AI Agent" scheme="https://cuipengfei.is-a.dev/tags/AI-Agent/"/>
+    
+    <category term="Context Engineering" scheme="https://cuipengfei.is-a.dev/tags/Context-Engineering/"/>
+    
+    <category term="上下文" scheme="https://cuipengfei.is-a.dev/tags/%E4%B8%8A%E4%B8%8B%E6%96%87/"/>
+    
+  </entry>
   
   <entry>
     <title>挖到 Claude Code 未公开的 MCP 加速开关，tweakcc 当天提交 PR</title>
@@ -559,32 +592,6 @@
     
     
     <category term="银行" scheme="https://cuipengfei.is-a.dev/tags/%E9%93%B6%E8%A1%8C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>TW十四载</title>
-    <link href="https://cuipengfei.is-a.dev/blog/2021/12/17/tw14years/"/>
-    <id>https://cuipengfei.is-a.dev/blog/2021/12/17/tw14years/</id>
-    <published>2021-12-17T06:40:50.000Z</published>
-    <updated>2021-12-17T06:40:50.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>2007年，我在读大二。</p><p>当时经常会去学校食堂对面的报刊亭买杂志，一本，是《大众软件》，另一本，是《程序员》。</p><img data-src="/images/14years/cxy-2007-06.png"/><p>印象中当时《程序员》上的多数文章充满了我没听过的各种缩写与稀奇古怪的名词，文风是老成持重，我看不懂，但很是佩服。</p><p>而这当中偶尔会夹杂着几篇文风犀利，睥睨天下的文章，加上作者头像很是非主流，我虽也看不懂，但印象深刻。<br>这些犀利文章的作者，便经常冠有TW的头衔。</p><p>2012年，我在一家小软件公司上了两年的班。<br>当时我们每半年发布一个版本，每到要发布前夕，程序员便都停止写代码，去做回归测试。</p><p>经常会发现半年前发布时还是ok的功能，在这六个月里被改错了，得修。<br>我隐隐觉得这不对劲，再六个月之后还是会出现类似的状况，老是靠大家停工去做回归测试不是个办法，我们总是会“狗熊掰棒子，掰一根丢一根”。</p><img data-src="/images/14years/gxbbz.png"/><p>恰在此时，邮箱收到了来自TW的面试邀请。<br>到了这会，我其实已经记不清楚大学时看的《程序员》杂志上有什么内容了，不过TW这个名字还是有些印象。<br>再去一查，这家公司还出过不少书，推崇做自动化测试，注重软件质量，而这些正是我当时所在的小公司所缺乏的。</p><p>于是便接受了面试邀请，做了Mars Rover的题目，去参加了办公室面试。<br>面试时还见到了《软件设计精要与模式》的作者。<br>之后便加入TW成为了一名21世纪的程序员。</p><p>从第一次看到《程序员》杂志上的文章到眼下的2021年，有14年了。<br>14年挺长的，从上小学到高中毕业，也才12年。</p><p>时间跨度长，变化也就多，不过当时持有的很朴素的观念不太容易变：<br>软件至少要做对，一旦做对了之后，要避免“狗熊掰棒子，掰一根丢一根”。</p><p>就好像一个木匠师傅，用了锛凿斧锯，费力做成了板凳，肯定是不希望这个凳子给人坐了两天之后就开始“嘎吱吱”。</p><p>码匠师傅，亦当如是。</p><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css"><script src="https://fastly.jsdelivr.net/npm/d3@7"></script><script src="https://fastly.jsdelivr.net/npm/markmap-view@0.18.10"></script><script src="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10"></script><link rel="stylesheet" href="/css/markmap.css"><script src="/js/markmap.js"></script>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;2007年，我在读大二。&lt;/p&gt;
-&lt;p&gt;当时经常会去学校食堂对面的报刊亭买杂志，一本，是《大众软件》，另一本，是《程序员》。&lt;/p&gt;
-&lt;img data-src=&quot;/images/14years/cxy-2007-06.png&quot;/&gt;
-
-&lt;p&gt;印象中当时《程序员》上的多数文章</summary>
-      
-    
-    
-    
-    
-    <category term="TW" scheme="https://cuipengfei.is-a.dev/tags/TW/"/>
     
   </entry>
   
