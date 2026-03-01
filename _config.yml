@@ -96,6 +96,12 @@ ignore:
 theme: next
 plugins: hexo-generate-feed
 
+# hexo-related-posts
+related_posts:
+  enable: true
+  related_count: 5
+  filter_threshold: 0.2
+
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
