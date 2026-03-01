@@ -2,12 +2,12 @@
 
 ## TL;DR
 
-> **Quick Summary**: 对 127 篇博客（2008-2026）进行全量文体学扫描，提取贯穿始终的写作共性特征，用 voice-analysis + style-modeler 融合框架重写 `.memory-bank/writing-style-profile.md`，使其成为一份 AI 可执行的个人写作风格指南。
+> **Quick Summary**: 对 184 篇博客（2008-2026）进行全量文体学扫描，提取贯穿始终的写作共性特征，用 voice-analysis + style-modeler 融合框架重写 `.memory-bank/writing-style-profile.md`，使其成为一份 AI 可执行的个人写作风格指南。
 >
 > **Deliverables**:
 >
 > - 重写后的 `.memory-bank/writing-style-profile.md`
-> - 基于 127 篇博客的实证分析，非凭空编造
+> - 基于 184 篇博客的实证分析，非凭空编造
 >
 > **Estimated Effort**: Medium
 > **Parallel Execution**: YES - 4 waves
@@ -19,14 +19,14 @@
 
 ### Original Request
 
-用户认为当前的 `writing-style-profile.md` 写得不好——它是一份泛化的"技术博客写作通用指南"，而非基于实际文章的个人风格档案。要求用文体学方法论（voice-analysis + style-modeler 技能）对所有 127 篇博客进行分析后重写。注意：`source/_posts/verify.md` 是 Folo RSS 验证文件，非博客文章，应排除在分析范围外。
+用户认为当前的 `writing-style-profile.md` 写得不好——它是一份泛化的"技术博客写作通用指南"，而非基于实际文章的个人风格档案。要求用文体学方法论（voice-analysis + style-modeler 技能）对所有 184 篇博客进行分析后重写。注意：文章分布在 `.md` 和 `.markdown` 两种扩展名下（127 篇 .md + 57 篇 .markdown），`source/_posts/verify.md` 是 Folo RSS 验证文件，非博客文章，应排除在分析范围外。
 
 ### Interview Summary
 
 **Key Discussions**:
 
 - **目标受众**: 给 AI 用 → 输出可执行规则和模板，让 AI 精准模仿风格
-- **分析范围**: 全量 127 篇扫描（排除 verify.md），只取贯穿始终的共性（不追踪演变）
+- **分析范围**: 全量 184 篇扫描（127 篇 .md + 57 篇 .markdown，排除 verify.md），只取贯穿始终的共性（不追踪演变）
 - **框架选择**: 融合 voice-analysis（8阶段）+ style-modeler（15维度）自创框架
 
 **Research Findings**:
@@ -41,7 +41,7 @@
 
 ### Core Objective
 
-用系统化文体学分析方法，从 127 篇博客中提取作者真实的写作风格特征，生成一份 AI 可执行的个人写作风格档案。
+用系统化文体学分析方法，从 184 篇博客中提取作者真实的写作风格特征，生成一份 AI 可执行的个人写作风格档案。
 
 ### Concrete Deliverables
 
@@ -49,12 +49,12 @@
 
 ### Definition of Done
 
-- [ ] 新文件中每个特征声明都有原文摘录佐证（轻量引用关键句，不大段复制）
-- [ ] 包含招牌动作 + 原文示范（有多少写多少，不设数量限制）
-- [ ] 包含词汇指纹（高频词、禁用词）
-- [ ] 包含段落模板（有多少写多少，不设数量限制）
-- [ ] 包含禁忌清单
-- [ ] AI 使用此 profile 写出的文本能让作者认可“像我写的”
+- [x] 新文件中每个特征声明都有原文摘录佐证（轻量引用关键句，不大段复制）
+- [x] 包含招牌动作 + 原文示范（有多少写多少，不设数量限制）
+- [x] 包含词汇指纹（高频词、禁用词）
+- [x] 包含段落模板（有多少写多少，不设数量限制）
+- [x] 包含禁忌清单
+- [x] AI 使用此 profile 写出的文本能让作者认可“像我写的”
 
 ### Must Have
 
@@ -136,12 +136,13 @@ Wave 4 (After Wave 3 — 验证):
 
 ## TODOs
 
-- [ ] 1. 元数据统计与按内容量均衡分组
+- [x] 1. 元数据统计与按内容量均衡分组
 
   **What to do**:
-  - 扫描 `source/_posts/` 下所有 `.md` 文件，排除 `verify.md`（Folo RSS 验证文件，非博客）
+  - 扫描 `source/_posts/` 下所有 `.md` 和 `.markdown` 文件，排除 `verify.md`（Folo RSS 验证文件，非博客）
   - 统计每篇的：文件名、标题、日期、tags、categories、字数
-  - 按内容量（字节数）均衡分成 6 组，每组目标约 100K 字节（总量 ~609K 减去 verify.md 267B ≈ 609K / 6），而非简单按篇数均分——大文件多的组篇数少，小文件多的组篇数多，确保每个扫描 agent 的实际阅读工作量相当
+  - 按内容量（字节数）均衡分成 6 组，每组目标约 151K 字节（总量 ~905K / 6），而非简单按篇数均分——大文件多的组篇数少，小文件多的组篇数多，确保每个扫描 agent 的实际阅读工作量相当
+  - 每个分组中的文章列表格式为 `- source/_posts/YYYY-MM-DD-slug.md`（或 `.markdown`），方便后续 T2-T7 覆盖率校验
   - 保存到 `.sisyphus/evidence/task-1-metadata.md`
 
   **Must NOT do**:
@@ -172,16 +173,17 @@ Wave 4 (After Wave 3 — 验证):
     Tool: Bash
     Steps:
       1. wc -l .sisyphus/evidence/task-1-metadata.md → 非空
-      2. grep -c 'source/_posts/' .sisyphus/evidence/task-1-metadata.md → ≥ 127
-    Expected Result: 127 篇全覆盖（排除 verify.md），6 组各约 101K 字节（允许 ±15% 偏差）
+      2. grep -c 'source/_posts/' .sisyphus/evidence/task-1-metadata.md → ≥ 184
+    Expected Result: 184 篇全覆盖（排除 verify.md），6 组各约 151K 字节（允许 ±15% 偏差）
     Evidence: .sisyphus/evidence/task-1-metadata.md
   ```
 
   **Commit**: NO
 
-- [ ] 2. 批次A 文体学扫描（按内容量分组，~101K字节）
+- [x] 2. 批次A 文体学扫描（按内容量分组，~101K字节）
 
   **What to do**:
+  - 报告开头必须包含「已扫描文章清单」，逐一列出每篇文章的文件名，格式为 `- [x] source/_posts/YYYY-MM-DD-slug.md`（打勾表示已读）
   - 读取 Task 1 输出的批次A 文件列表
   - 逐篇阅读每篇文章的完整正文，提取以下文体学特征：
     - **词汇层**: 高频动词、口语化连接词、程度副词、中英混用模式
@@ -216,6 +218,8 @@ Wave 4 (After Wave 3 — 验证):
   - style-modeler 技能: 15 维度解构清单
 
   **Acceptance Criteria**:
+  - [ ] 报告开头包含「已扫描文章清单」，每篇文章文件名都列出
+  - [ ] 清单中的文章数量与 Task 1 分组一致（非偏发）
   - [ ] 报告覆盖批次A 所有文章
   - [ ] 每个文体学维度都有观察结果
   - [ ] 包含至少 10 处原文摘录
@@ -224,18 +228,19 @@ Wave 4 (After Wave 3 — 验证):
   **QA Scenarios**:
 
   ```
-  Scenario: 扫描报告质量
+  Scenario: 扫描报告质量 + 覆盖率验证
     Tool: Bash
     Steps:
       1. test -f .sisyphus/evidence/task-2-batch-a.md → 文件存在
       2. wc -l .sisyphus/evidence/task-2-batch-a.md → > 100 行
-    Expected Result: 报告完整，包含实证摘录
+      3. grep -c '\[x\] source/_posts/' .sisyphus/evidence/task-2-batch-a.md → 等于 Task 1 分组中批次A 的文章数
+    Expected Result: 报告完整，已扫描清单与 Task 1 分组一致，无遗漏
     Evidence: .sisyphus/evidence/task-2-batch-a.md
   ```
 
   **Commit**: NO
 
-- [ ] 3. 批次B 文体学扫描（~101K字节）
+- [x] 3. 批次B 文体学扫描（~101K字节）
      **What to do**: 与 Task 2 相同流程，针对批次B。输出到 `.sisyphus/evidence/task-3-batch-b.md`
      **Must NOT do**: 同 Task 2
      **Recommended Agent Profile**: Category `deep`, Skills [`voice-analysis`, `style-modeler`]
@@ -244,7 +249,7 @@ Wave 4 (After Wave 3 — 验证):
      **QA Scenarios**: 同 Task 2，路径替换
      **Commit**: NO
 
-- [ ] 4. 批次C 文体学扫描（~101K字节）
+- [x] 4. 批次C 文体学扫描（~101K字节）
      **What to do**: 与 Task 2 相同流程，针对批次C。输出到 `.sisyphus/evidence/task-4-batch-c.md`
      **Must NOT do**: 同 Task 2
      **Recommended Agent Profile**: Category `deep`, Skills [`voice-analysis`, `style-modeler`]
@@ -253,7 +258,7 @@ Wave 4 (After Wave 3 — 验证):
      **QA Scenarios**: 同 Task 2，路径替换
      **Commit**: NO
 
-- [ ] 5. 批次D 文体学扫描（~101K字节）
+- [x] 5. 批次D 文体学扫描（~101K字节）
      **What to do**: 与 Task 2 相同流程，针对批次D。输出到 `.sisyphus/evidence/task-5-batch-d.md`
      **Must NOT do**: 同 Task 2
      **Recommended Agent Profile**: Category `deep`, Skills [`voice-analysis`, `style-modeler`]
@@ -262,7 +267,7 @@ Wave 4 (After Wave 3 — 验证):
      **QA Scenarios**: 同 Task 2，路径替换
      **Commit**: NO
 
-- [ ] 6. 批次E 文体学扫描（~101K字节）
+- [x] 6. 批次E 文体学扫描（~101K字节）
      **What to do**: 与 Task 2 相同流程，针对批次E。输出到 `.sisyphus/evidence/task-6-batch-e.md`
      **Must NOT do**: 同 Task 2
      **Recommended Agent Profile**: Category `deep`, Skills [`voice-analysis`, `style-modeler`]
@@ -271,7 +276,7 @@ Wave 4 (After Wave 3 — 验证):
      **QA Scenarios**: 同 Task 2，路径替换
      **Commit**: NO
 
-- [ ] 7. 批次F 文体学扫描（~101K字节）
+- [x] 7. 批次F 文体学扫描（~101K字节）
      **What to do**: 与 Task 2 相同流程，针对批次F（剩余文章）。输出到 `.sisyphus/evidence/task-7-batch-f.md`
      **Must NOT do**: 同 Task 2
      **Recommended Agent Profile**: Category `deep`, Skills [`voice-analysis`, `style-modeler`]
@@ -282,9 +287,10 @@ Wave 4 (After Wave 3 — 验证):
 
 ---
 
-- [ ] 8. 汇总6份报告，提取高频共性特征
+- [x] 8. 汇总6份报告，提取高频共性特征
 
   **What to do**:
+  - **前置覆盖率校验（必须先做）**：从 6 份扫描报告中提取所有「已扫描文章清单」中的文件名，与 Task 1 的 184 篇全量列表对比，找出遗漏的文章。如有遗漏，在报告开头标红并列出遗漏清单
   - 读取 Tasks 2-7 的 6 份扫描报告
   - 交叉比对，找出在 **≥3 个批次**中反复出现的共性特征（仅出现在1-2个批次的不算共性）
   - 按维度汇总：词汇指纹、句式节奏、修辞手法、结构模式、互动设计、招牌动作
@@ -307,6 +313,7 @@ Wave 4 (After Wave 3 — 验证):
   - `.sisyphus/evidence/task-2-batch-a.md` 到 `task-7-batch-f.md`
 
   **Acceptance Criteria**:
+  - [ ] 前置覆盖率校验通过：6 份报告合计覆盖 184 篇文章，0 篇遗漏
   - [ ] 每个共性特征标注了跨批次覆盖率
   - [ ] 包含原文摘录佐证
   - [ ] 保存到 `.sisyphus/evidence/task-8-synthesis.md`
@@ -314,18 +321,20 @@ Wave 4 (After Wave 3 — 验证):
   **QA Scenarios**:
 
   ```
-  Scenario: 汇总完整性
+  Scenario: 覆盖率校验 + 汇总完整性
     Tool: Bash
     Steps:
       1. test -f .sisyphus/evidence/task-8-synthesis.md
       2. wc -l .sisyphus/evidence/task-8-synthesis.md → > 50 行
-    Expected Result: 汇总报告存在且内容充实
+      3. grep -c '覆盖率校验' .sisyphus/evidence/task-8-synthesis.md → ≥ 1（确认校验段存在）
+      4. grep '遗漏' .sisyphus/evidence/task-8-synthesis.md → 应为空或显示 0 篇遗漏
+    Expected Result: 覆盖率 184/184，汇总报告存在且内容充实
     Evidence: .sisyphus/evidence/task-8-synthesis.md
   ```
 
   **Commit**: NO
 
-- [ ] 9. 深度分析 10-15 篇代表作
+- [x] 9. 深度分析 10-15 篇代表作
 
   **What to do**:
   - 根据 Task 8 的汇总，选取 10-15 篇最能体现共性特征的代表作
@@ -369,7 +378,7 @@ Wave 4 (After Wave 3 — 验证):
 
   **Commit**: NO
 
-- [ ] 10. 撰写新的 writing-style-profile.md
+- [x] 10. 撰写新的 writing-style-profile.md
 
   **What to do**:
   - 读取 Task 8 汇总 + Task 9 深度分析
@@ -433,10 +442,10 @@ Wave 4 (After Wave 3 — 验证):
   ```
 
   **Commit**: YES
-  - Message: `docs: rewrite writing-style-profile based on empirical analysis of 127 posts`
+  - Message: `docs: rewrite writing-style-profile based on empirical analysis of 184 posts`
   - Files: `.memory-bank/writing-style-profile.md`
 
-- [ ] 11. 验证——用新 profile 写测试段落并对比
+- [x] 11. 验证——用新 profile 写测试段落并对比
 
   **What to do**:
   - 读取新的 `.memory-bank/writing-style-profile.md`
@@ -481,7 +490,7 @@ Wave 4 (After Wave 3 — 验证):
 
 ## Final Verification Wave
 
-- [ ] F1. **Plan Compliance Audit** — `deep`
+- [x] F1. **Plan Compliance Audit** — `deep`
       读取最终的 writing-style-profile.md，检查：每个特征声明是否都有原文摘录？是否包含招牌动作、词汇指纹、段落模板、禁忌清单？是否有编造指标或学术黑话？
       Output: `Must Have [N/N] | Must NOT Have [N/N] | VERDICT`
 
@@ -489,7 +498,7 @@ Wave 4 (After Wave 3 — 验证):
 
 ## Commit Strategy
 
-- **Task 10**: `docs: rewrite writing-style-profile based on empirical analysis of 127 posts` — `.memory-bank/writing-style-profile.md`
+- **Task 10**: `docs: rewrite writing-style-profile based on empirical analysis of 184 posts` — `.memory-bank/writing-style-profile.md`
 
 ---
 
@@ -497,12 +506,12 @@ Wave 4 (After Wave 3 — 验证):
 
 ### Final Checklist
 
-- [ ] 新 profile 基于 127 篇实际文章分析（排除 verify.md）
-- [ ] 每个特征都有原文摘录佐证
-- [ ] 招牌动作 + 原文示范（有多少写多少）
-- [ ] 词汇指纹完整（高频词 + 禁用词）
-- [ ] 段落模板（有多少写多少）
-- [ ] 禁忌清单完整
-- [ ] 无编造量化指标
-- [ ] 无学术黑话
-- [ ] AI 用此 profile 写出的文字风格一致
+- [x] 新 profile 基于 184 篇实际文章分析（排除 verify.md）
+- [x] 每个特征都有原文摘录佐证
+- [x] 招牌动作 + 原文示范（有多少写多少）
+- [x] 词汇指纹完整（高频词 + 禁用词）
+- [x] 段落模板（有多少写多少）
+- [x] 禁忌清单完整
+- [x] 无编造量化指标
+- [x] 无学术黑话
+- [x] AI 用此 profile 写出的文字风格一致
