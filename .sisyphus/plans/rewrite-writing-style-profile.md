@@ -162,9 +162,9 @@ Wave 4 (After Wave 3 — 验证):
   - `source/_posts/` — 博客文章目录，命名格式 `YYYY-MM-DD-slug.md`
 
   **Acceptance Criteria**:
-  - [ ] 统计了所有文章的元数据
-  - [ ] 按内容量（字节数）均衡输出 6 个分组（每组约 101K 字节），而非按篇数均分
-  - [ ] 保存到 `.sisyphus/evidence/task-1-metadata.md`
+  - [x] 统计了所有文章的元数据
+  - [x] 按内容量（字节数）均衡输出 6 个分组（每组约 101K 字节），而非按篇数均分
+  - [x] 保存到 `.sisyphus/evidence/task-1-metadata.md`
 
   **QA Scenarios**:
 
@@ -218,12 +218,12 @@ Wave 4 (After Wave 3 — 验证):
   - style-modeler 技能: 15 维度解构清单
 
   **Acceptance Criteria**:
-  - [ ] 报告开头包含「已扫描文章清单」，每篇文章文件名都列出
-  - [ ] 清单中的文章数量与 Task 1 分组一致（非偏发）
-  - [ ] 报告覆盖批次A 所有文章
-  - [ ] 每个文体学维度都有观察结果
-  - [ ] 包含至少 10 处原文摘录
-  - [ ] 保存到 `.sisyphus/evidence/task-2-batch-a.md`
+  - [x] 报告开头包含「已扫描文章清单」，每篇文章文件名都列出
+  - [x] 清单中的文章数量与 Task 1 分组一致（非偏发）
+  - [x] 报告覆盖批次A 所有文章
+  - [x] 每个文体学维度都有观察结果
+  - [x] 包含至少 10 处原文摘录
+  - [x] 保存到 `.sisyphus/evidence/task-2-batch-a.md`
 
   **QA Scenarios**:
 
@@ -313,10 +313,10 @@ Wave 4 (After Wave 3 — 验证):
   - `.sisyphus/evidence/task-2-batch-a.md` 到 `task-7-batch-f.md`
 
   **Acceptance Criteria**:
-  - [ ] 前置覆盖率校验通过：6 份报告合计覆盖 184 篇文章，0 篇遗漏
-  - [ ] 每个共性特征标注了跨批次覆盖率
-  - [ ] 包含原文摘录佐证
-  - [ ] 保存到 `.sisyphus/evidence/task-8-synthesis.md`
+  - [x] 前置覆盖率校验通过：6 份报告合计覆盖 184 篇文章，0 篇遗漏
+  - [x] 每个共性特征标注了跨批次覆盖率
+  - [x] 包含原文摘录佐证
+  - [x] 保存到 `.sisyphus/evidence/task-8-synthesis.md`
 
   **QA Scenarios**:
 
@@ -359,10 +359,10 @@ Wave 4 (After Wave 3 — 验证):
   - `source/_posts/` — 代表作原文
 
   **Acceptance Criteria**:
-  - [ ] 段落模板（含原文，有多少写多少）
-  - [ ] 招牌动作 + 原文示范（有多少写多少）
-  - [ ] 禁忌清单
-  - [ ] 保存到 `.sisyphus/evidence/task-9-deep-analysis.md`
+  - [x] 段落模板（含原文，有多少写多少）
+  - [x] 招牌动作 + 原文示范（有多少写多少）
+  - [x] 禁忌清单
+  - [x] 保存到 `.sisyphus/evidence/task-9-deep-analysis.md`
 
   **QA Scenarios**:
 
@@ -419,12 +419,12 @@ Wave 4 (After Wave 3 — 验证):
   - `.memory-bank/writing-style-profile.md` — 要被替换的旧文件
 
   **Acceptance Criteria**:
-  - [ ] 新文件包含上述 13 个维度
-  - [ ] 每个维度有原文摘录佐证
-  - [ ] 招牌动作（有多少写多少）
-  - [ ] 段落模板（有多少写多少）
-  - [ ] 禁忌清单完整
-  - [ ] 无编造指标、无学术黑话
+  - [x] 新文件包含上述 13 个维度
+  - [x] 每个维度有原文摘录佐证
+  - [x] 招牌动作（有多少写多少）
+  - [x] 段落模板（有多少写多少）
+  - [x] 禁忌清单完整
+  - [x] 无编造指标、无学术黑话
 
   **QA Scenarios**:
 
@@ -471,9 +471,9 @@ Wave 4 (After Wave 3 — 验证):
   - `source/_posts/` — 原文对比材料
 
   **Acceptance Criteria**:
-  - [ ] 生成了 2-3 段测试文字
-  - [ ] 与原文逐项对比
-  - [ ] 输出对比报告
+  - [x] 生成了 2-3 段测试文字
+  - [x] 与原文逐项对比
+  - [x] 输出对比报告
 
   **QA Scenarios**:
 
