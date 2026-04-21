@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "data-storytelling": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "computedHash": "eca30a8c6e0931beb9688484381eae2864358158edf6bfed1072927d2b2ff582"
+    }
+  }
+}

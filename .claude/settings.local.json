@@ -100,7 +100,9 @@
       "Bash(gh search prs:*)",
       "Bash(gh search commits:*)",
       "Bash(gh issue view:*)",
-      "Bash(gh pr:*)"
+      "Bash(gh pr:*)",
+      "Skill(humanizer-zh)",
+      "Bash(npx skills *)"
     ],
     "additionalDirectories": [
       "C:\\Users\\39764",
