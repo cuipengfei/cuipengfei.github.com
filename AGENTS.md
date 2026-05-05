@@ -51,7 +51,7 @@ bun run deploy       # 构建+部署 (hexo-deployer-git)
 - 自定义样式 / 变量优先放 `_data/`，避免直接修改主题核心文件以便升级。
 
 ## Content & Quality
-- 参考写作风格: `.memory-bank/writing-style-profile.md`。
+- **写作风格强制规范**：撰写或修改任何博客文章（`source/_posts/`、`source/_drafts/` 下的 `.md`）前，必须先阅读并遵循 [`.memory-bank/writing-style-profile.md`](./.memory-bank/writing-style-profile.md)（相对仓库根）。该文件定义了语气、句式、技术术语密度、问句比例、隐喻使用等强制约束，详见下方 “Content Guidelines & Writing Style” 章节。
 - 中文主文 + English 技术术语原文；避免绝对化语气。
 - 鼓励提出问题/多视角：适度使用 “从…角度 / 另一方面”。
 - 图片置于 `source/images/<post-slug>/`，引用相对路径；必要时优化尺寸。
@@ -265,6 +265,117 @@ For more details, see README.md and QUICKSTART.md.
 6. `bun run deploy`
 
 欢迎通过 `docs: update guidelines` 改进此文件。
+
+## Project Overview
+
+这是一个个人中文技术博客（cuipengfei.me），从 Octopress/Jekyll 演进到 Hexo。内容覆盖 Scala、函数式编程、测试方法学、架构模式等软件开发主题。
+
+- **Primary System**: Hexo (Node.js, v8.0.0)，从 `source/` 生成到 `public/`
+- **Legacy System**: Octopress/Jekyll（Ruby）保留作参考，不再维护
+- **Theme**: NexT for Hexo (`themes/next-old/`，v8.25.0，Gemini scheme + dark mode)
+- **Package Manager**: Bun（强制、独占）
+- **Deployment**: GitHub Pages via `hexo-deployer-git`，目标 `master` 分支
+- **Site URL**: `https://cuipengfei.me`，`language: zh-CN`，permalink `blog/:year/:month/:day/:title/`，每页 25 篇
+
+### Legacy & Reference Files
+- `themes/`：Hexo 主题（含 NexT）
+- `plugins/`：Octopress Ruby 插件（仅参考）
+- `sass/`：旧站样式（仅参考）
+- `Rakefile`：Ruby/Jekyll 构建任务（legacy）
+- `source/_layouts/`：Jekyll 布局（仅参考）
+- `csdn-imgs.js`：CSDN 图片迁移脚本（仅参考）
+
+## Key Plugins & Dependencies
+
+- `hexo-deployer-git`：GitHub Pages 部署
+- `hexo-generator-*`：archive / category / tag / feed / sitemap / searchdb
+- `hexo-generator-slidehtml` (v0.0.65)：Reveal.js 幻灯片
+- `hexo-markmap`：思维导图
+- `hexo-graphviz`：Graphviz 图表
+- `hexo-excerpt`：自动摘要
+- `hexo-related-popular-posts`：相关文章推荐
+- `hexo-symbols-count-time`：阅读时长 / 字数
+- 其他依赖：Axios v1.12.2
+
+## SEO & Social Integration
+
+- 自动生成 `sitemap.xml`、`atom.xml`
+- 百度推送优化、Google Analytics（UA-46270419-1）
+- Disqus 评论
+- GitHub 作者信息与社交分享内置
+
+## Content Guidelines & Writing Style
+
+**所有博客内容的撰写、改写、润色都必须严格遵循 [`.memory-bank/writing-style-profile.md`](./.memory-bank/writing-style-profile.md)（相对仓库根）中定义的文体学规范。**
+
+下文为该 profile 的核心摘要，但以 profile 文件本身为最终权威。
+
+### Content Focus Areas
+- 软件开发方法学（TDD、BDD、测试策略）
+- 函数式编程（Scala、函数式模式）
+- 系统架构与设计模式
+- 技术反思与最佳实践
+- AI 辅助开发与工具
+
+### Avoid These Writing Styles（禁用风格）
+- 未经验证的界面/行为描述（例如不存在的 UI）
+- 夸张或情绪化措辞（如“毁灭性”“秒进”）
+- 土味口头禅（如“光说不练假把式”“折腾一圈”）
+- 网络腔/吹捧（如“某些大佬”）
+- 装傻式叙述（如“搜着搜着我突然意识到”）
+- 过度文艺或比喻（如“隐藏秘籍”“赛博朋克”）
+- 模板化总结段落（固定三段式“观察”）
+- 绝对化措辞（“必须”“应该”“显然”“众所周知”）
+
+### Language and Tone
+- **主语言**：中文为主，技术术语与代码保留英文原文
+- **语气**：谦逊、探索性、对话式；避免权威或说教
+- **不确定性标记**：使用「我认为」「似乎」「可能」「据我理解」「目前来看」
+- **互动性**：穿插「不过再想一下」式的递进追问
+
+### Technical Writing Standards（量化指标）
+- 技术术语密度：每 100 字 15-25 个术语
+- 复合句比例：60-75%（体现分析性思维）
+- 问句频率：占句子总数 8-15%
+- 代码与正文比：1:2 到 1:4
+- 隐喻：每 1000 字 3-5 个类比
+
+### Content Structure Principles
+- **螺旋递进**：在文中多次回到同一主题并加深
+- **多视角**：使用「从…角度」「另一方面」
+- **问题—分析—解法**：以发现问题入手，逐步推演
+- **开放式结尾**：30-45% 段落以问题或思考方向收束
+
+### Reader Interaction
+- 同侪式探讨（不是教师姿态）
+- 邀请共同思考：「我们可以考虑」「值得探讨的是」
+- 明确知识边界：「在我的经验中」「可能存在遗漏」
+
+## Theme Customization Strategy
+
+主题改动优先通过 `source/_data/next.yml` 与 `custom_file_path` 完成；仅在无法覆盖时才动 `themes/next-old/_config.yml`。这样能：
+- 保留升级兼容性
+- 把自定义与主题核心解耦
+- 仅对自定义部分做版本控制
+
+自定义模板与样式：
+- `source/_data/head.swig`、`source/_data/footer.swig`：自定义模板片段
+- `source/_data/*.swig`：模板扩展
+- `source/_data/*.styl`：自定义样式
+
+## Image Management
+
+- 结构：`source/images/<post-slug>/`
+- 引用：markdown 内使用相对路径 `![alt](../images/post-slug/image.png)`
+- 优化：注意尺寸与格式，适合 Web
+- 生成产物 `public/images/` 自动生成，**禁止手改**
+
+## Slides & Presentations
+
+- 在文章 front matter 加 `slidehtml: true`
+- 横向分节 `---`，纵向分节 `--`
+- 访问路径：`/blog/:year/:month/:day/:title/slide.html`
+- 支持多种 Reveal.js 主题（black、white、league 等）
 
 ## Landing the Plane (Session Completion)
 
