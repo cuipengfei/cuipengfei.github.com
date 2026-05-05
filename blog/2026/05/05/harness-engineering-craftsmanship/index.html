@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous" defer></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cuipengfei.is-a.dev","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12,"onmobile":false},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null,"show_result":true},"fold":{"enable":false,"height":500},"language":false,"highlight_theme":"galactic"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="代码生成变快以后，工程纪律没有消失，只是从人身上搬到了模型外面的 guides、sensors 和 feedback loops 里。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Harness Engineering：把纪律搬到模型外面">
+<meta property="og:url" content="https://cuipengfei.is-a.dev/blog/2026/05/05/harness-engineering-craftsmanship/index.html">
+<meta property="og:site_name" content="崔鹏飞的Blog">
+<meta property="og:description" content="代码生成变快以后，工程纪律没有消失，只是从人身上搬到了模型外面的 guides、sensors 和 feedback loops 里。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-05T15:30:00.000Z">
+<meta property="article:modified_time" content="2026-05-05T15:30:00.000Z">
+<meta property="article:author" content="崔鹏飞">
+<meta property="article:tag" content="ai-agents">
+<meta property="article:tag" content="harness-engineering">
+<meta property="article:tag" content="software-craftsmanship">
+<meta property="article:tag" content="testing">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://cuipengfei.is-a.dev/blog/2026/05/05/harness-engineering-craftsmanship/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cuipengfei.is-a.dev/blog/2026/05/05/harness-engineering-craftsmanship/","path":"blog/2026/05/05/harness-engineering-craftsmanship/","title":"Harness Engineering：把纪律搬到模型外面"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Harness Engineering：把纪律搬到模型外面 | 崔鹏飞的Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46270419-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-46270419-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/pjax.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"options":null,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.10.1/mermaid.min.js","integrity":"sha256-BmQmdWDS8X2OTbrwELWK366LV6escyWhHHe0XCTU/Hk="}}</script>
+  <script src="/js/third-party/tags/mermaid.js" defer></script>
+
+
+
+  <script src="/js/third-party/pace.js" defer></script>
+
+
+  
+
+
+
+
+<script data-ad-client="ca-pub-2529393324217872" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2529393324217872"></script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="崔鹏飞的Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">崔鹏飞的Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9F%E5%BA%A6%E4%B8%8D%E6%98%AF%E7%BA%AA%E5%BE%8B"><span class="nav-number">1.</span> <span class="nav-text">速度不是纪律</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%AA%E5%BE%8B%E6%90%AC%E5%88%B0%E5%93%AA%E9%87%8C%E5%8E%BB%E4%BA%86%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">纪律搬到哪里去了？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%BD%E8%AE%A1%E7%AE%97%E7%9A%84%EF%BC%8C%E5%85%88%E4%BA%A4%E7%BB%99%E8%AE%A1%E7%AE%97%E6%9C%BA"><span class="nav-number">3.</span> <span class="nav-text">能计算的，先交给计算机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%BA%E6%89%8B%E8%A1%A5%E4%B8%80%E5%88%80%EF%BC%9Aharnessability"><span class="nav-number">4.</span> <span class="nav-text">顺手补一刀：harnessability</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E7%9C%9F%E5%AE%9E%E9%85%8D%E7%BD%AE%E9%87%8C%E8%83%BD%E7%9C%8B%E5%87%BA%E7%9A%84%E5%87%A0%E4%BB%B6%E4%BA%8B"><span class="nav-number">5.</span> <span class="nav-text">从真实配置里能看出的几件事</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8D%95%E4%B8%80%E8%A7%84%E5%88%99%E6%B2%BB%E4%B8%8D%E4%BD%8F-agent%EF%BC%9F"><span class="nav-number">6.</span> <span class="nav-text">为什么单一规则治不住 agent？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E8%BF%87%E5%86%8D%E6%83%B3%E4%B8%80%E4%B8%8B%EF%BC%9Aharness-%E6%9C%AC%E8%BA%AB%E8%B0%81%E6%9D%A5%E6%B5%8B%EF%BC%9F"><span class="nav-number">7.</span> <span class="nav-text">不过再想一下：harness 本身谁来测？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E5%8F%AA%E6%98%AF%E6%98%A0%E5%B0%84%EF%BC%8C%E4%B8%8D%E6%98%AF%E4%B8%BB%E8%AF%AD"><span class="nav-number">8.</span> <span class="nav-text">工具只是映射，不是主语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9E%E5%88%B0-craftsmanship"><span class="nav-number">9.</span> <span class="nav-text">回到 craftsmanship</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">10.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="崔鹏飞"
+      src="/images/favicon-32x32-next.png">
+  <p class="site-author-name" itemprop="name">崔鹏飞</p>
+  <div class="site-description" itemprop="description">专注分布式系统、函数式编程、测试与架构实践的技术博客</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">188</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">111</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cuipengfei" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cuipengfei" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/290284/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;290284&#x2F;" rel="noopener me" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+        <div class="pjax">
+        <div class="sidebar-inner sidebar-post-related">
+          <div class="animated">
+              <div class="links-of-blogroll-title"><i class="fa fa-signs-post fa-fw"></i>
+    相关文章
+  </div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/blog/2026/03/01/everything-is-context/" rel="bookmark">
+        <time class="popular-posts-time">2026-03-01</time>
+        <br>
+      写了一年 Agent，我做了个教程站
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/blog/2025/08/27/agent-building-seductive-traps/" rel="bookmark">
+        <time class="popular-posts-time">2025-08-27</time>
+        <br>
+      Agent 构建中的三个诱人陷阱
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/blog/2026/03/30/kanban-worktree-future-of-ide/" rel="bookmark">
+        <time class="popular-posts-time">2026-03-30</time>
+        <br>
+      Agent 在写代码，你在切 tab——IDE 伺候了你的手二十年，现在该伺候脑子了
+      </a>
+    </li>
+  </ul>
+
+          </div>
+        </div>
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.is-a.dev/blog/2026/05/05/harness-engineering-craftsmanship/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/favicon-32x32-next.png">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="专注分布式系统、函数式编程、测试与架构实践的技术博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Harness Engineering：把纪律搬到模型外面 | 崔鹏飞的Blog">
+      <meta itemprop="description" content="代码生成变快以后，工程纪律没有消失，只是从人身上搬到了模型外面的 guides、sensors 和 feedback loops 里。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Harness Engineering：把纪律搬到模型外面
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-05-05 23:30:00" itemprop="dateCreated datePublished" datetime="2026-05-05T23:30:00+08:00">2026-05-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2026/05/05/harness-engineering-craftsmanship/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2026/05/05/harness-engineering-craftsmanship/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">代码生成变快以后，工程纪律没有消失，只是从人身上搬到了模型外面的 guides、sensors 和 feedback loops 里。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>为什么 AI coding 让人一边兴奋，一边心里发毛？</p>
+<p>不是因为它写不出代码。恰恰相反，是因为它太能写了。你说一句，它回你一屏；你开个 agent，它能自己读文件、改代码、跑命令、再解释一遍自己做了什么。</p>
+<p>问题是：生成变快了，判断有没有变严？</p>
+<p>如果没有，那就不是工程效率提升，而是把风险生成得更快。</p>
+<span id="more"></span>
+
+<h2 id="速度不是纪律"><a href="#速度不是纪律" class="headerlink" title="速度不是纪律"></a>速度不是纪律</h2><p>以前我们说一个工程师靠谱，通常不是说他打字快。</p>
+<p>靠谱意味着很多隐性的东西：知道什么代码不该写，知道一个测试是不是只是在凑 coverage，知道一个依赖跨层了会在三个月后变成债，知道某个“先这样吧”其实已经在召唤未来的事故。</p>
+<p>这些东西很难完全写进流程。它们长在人身上，长在 review 习惯里，长在团队的组织记忆里。</p>
+<p>这就是 software craftsmanship 里最硬的一部分：不是姿态，而是纪律。</p>
+<p>AI agent 进来以后，这些纪律没有自动继承。它不会因为 commit 挂名而睡不好，不会因为半夜 on-call 记住某个设计债，也不会因为看见 800 行函数而本能地皱眉。</p>
+<p>所以纪律要搬家。</p>
+<p>从人的隐性判断，搬到模型外面的结构里。</p>
+<p>这就是我理解的 harness engineering。</p>
+<h2 id="纪律搬到哪里去了？"><a href="#纪律搬到哪里去了？" class="headerlink" title="纪律搬到哪里去了？"></a>纪律搬到哪里去了？</h2><p><a target="_blank" rel="noopener" href="https://martinfowler.com/articles/harness-engineering.html">Birgitta Böckeler 在 Martin Fowler 网站那篇 <em>Harness engineering for coding agent users</em></a> 里，给了一个能直接拿来拆问题的模型：</p>
+<blockquote>
+<p>Agent &#x3D; Model + Harness</p>
+</blockquote>
+<p>这里的 harness 不是某个神奇配置，也不是某个工具的高级功能。它是套在模型外面的外壳：guides、sensors、feedback loops。</p>
+<p>先别急着翻译。我们把它拆开看。</p>
+<p><strong>Guide</strong> 是行动前的东西：项目约束、代码风格、架构规则、写作风格、任务模板、分层规程。它告诉 agent：这个项目里什么叫“对”。</p>
+<p><strong>Sensor</strong> 是行动后的东西：lint、typecheck、test、架构规则、契约测试、视觉回归、AI review。它告诉 agent：你刚才做的事有没有偏。</p>
+<p><strong>Feedback loop</strong> 是把两者接起来的回路：发现一类错误反复出现，就把它变成新的 guide 或 sensor，让下一次不再靠人肉提醒。</p>
+<p>这不是抽象口号。我们看一些 agent 工具的高级用户配置，会发现它们最后都在拼同一套零件：项目指令、分层规程、行动前 gate、行动后 sensor、权限边界、专门角色 agent、持久状态。叫法各异——有的叫 rules &#x2F; instructions，有的把关键逻辑放进 plugin——但做的是同一件事。</p>
+<p>每一件具体做什么、在不同工具里落到哪儿，文末会给一张映射表，这里先按下不表。</p>
+<p>重点是：纪律被拆成了可执行的结构。</p>
+<p>这件事听起来像新词，其实不是新问题。</p>
+<p>以前 craftsmanship 要求人把纪律带进代码库。现在 agent 没有那套隐性纪律，我们就要把可显式化的部分挤出来，变成模型外面的 harness。</p>
+<p>纪律没有消失。</p>
+<p>它只是换了位置。</p>
+<h2 id="能计算的，先交给计算机"><a href="#能计算的，先交给计算机" class="headerlink" title="能计算的，先交给计算机"></a>能计算的，先交给计算机</h2><p>到这里容易走偏。一听 harness，很多人会下意识开始堆 prompt、堆 rules、堆「请你务必认真」。</p>
+<p>我们顺手把这条岔路先封掉。</p>
+<p>Harness 里有一个很关键的区分：computational 和 inferential。</p>
+<p><strong>Computational sensor</strong> 是确定性的。比如 formatter、linter、type checker、unit test、contract test、架构依赖检查。它便宜、快、可重复，不会今天心情好就放过你一次。</p>
+<p><strong>Inferential sensor</strong> 是判断性的。比如 LLM-as-judge、AI code reviewer、语义重复检测、设计合理性点评。它有用，但慢、贵、不稳定，还需要被校准。</p>
+<p>所以顺序应该是：能用 computational 的，就别急着用 inferential。</p>
+<p>但「拿什么工具」只是问题的一半，另一半是「在 agent 工作流的哪一刻让它跑」。</p>
+<p>大部分 agent 工具都给了一组生命周期事件——有的叫 hook，有的叫 lifecycle event，有的叫 plugin point。名字不重要，含义都差不多：会话开始、用户输入提交、工具调用之前、工具调用之后、上下文压缩之前、会话结束。这一排时间点，就是 sensor 真正能落地的地方。</p>
+<p>所以一张更有用的表是这样的——左边是想防的事，中间是工具，右边是这工具该挂在哪个生命周期点上：</p>
+<table>
+<thead>
+<tr>
+<th>想防什么</th>
+<th>用什么</th>
+<th>挂在哪个生命周期点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>写命令前手滑</td>
+<td>bash 前缀白名单 &#x2F; 危险命令黑名单</td>
+<td>行动前 gate（工具调用之前）</td>
+</tr>
+<tr>
+<td>改完代码留下 lint &#x2F; type 错</td>
+<td>formatter、linter、type checker</td>
+<td>行动后 sensor（工具调用之后）</td>
+</tr>
+<tr>
+<td>架构层乱穿</td>
+<td>ArchUnit、dependency-cruiser、import-linter、ts-arch</td>
+<td>行动后 sensor + CI 门禁</td>
+</tr>
+<tr>
+<td>测试只是绿但没用</td>
+<td>mutation testing（PIT、Stryker）</td>
+<td>CI 门禁（成本高，不适合每次工具调用都跑）</td>
+</tr>
+<tr>
+<td>服务契约漂移</td>
+<td>Pact、Spring Cloud Contract</td>
+<td>CI 门禁 &#x2F; 发布前</td>
+</tr>
+<tr>
+<td>UI 悄悄变形</td>
+<td>visual regression（Playwright snapshot、Percy、Chromatic）</td>
+<td>CI 门禁 &#x2F; 发布前</td>
+</tr>
+<tr>
+<td>已知迁移 &#x2F; 禁用 API</td>
+<td>OpenRewrite 这类 recipe &#x2F; codemod</td>
+<td>行动后 sensor（自动修） + CI 门禁（兜底报）</td>
+</tr>
+<tr>
+<td>skill &#x2F; 规则没被自动加载</td>
+<td>项目指令注入</td>
+<td>用户输入提交时（prompt 进入模型之前）</td>
+</tr>
+<tr>
+<td>一次 compact 把教训洗掉</td>
+<td>把当前计划、决定、blocker 写到外部文件</td>
+<td>上下文压缩之前</td>
+</tr>
+</tbody></table>
+<p>同一个工具可以挂在不同生命周期点，效果完全不同。formatter 挂在「工具调用之后」，是给 agent 即时反馈；挂在 CI，是给团队兜底。mutation testing 跑得慢，硬塞进每次工具调用之后会把 agent 卡死，更适合放在 CI 门禁。生命周期点选错，再好的 sensor 也会被嫌弃然后被关掉。</p>
+<p>这些工具不是为了显得工具箱很豪华。它们是在把 craftsmanship 里的隐性判断拆出来。</p>
+<p>以前 reviewer 看到跨层 import 会说：「这不该依赖这里。」现在可以把这句话写成 dependency rule。这类把架构性质翻译成可执行测试的做法，业内有个统称叫 <strong>architecture fitness functions</strong>，<em>Building Evolutionary Architectures</em> 那本书把它系统化了。ArchUnit、dependency-cruiser 这些工具只是它的具体载体。</p>
+<p>以前 senior 看到测试只覆盖 happy path 会说：“这个测试没测出什么。”现在可以用 mutation testing 压一下，看测试能不能杀死故意植入的错误。</p>
+<p>以前团队靠经验知道某个服务契约不能乱改。现在可以把契约放进发布门禁。</p>
+<p>这就是 technical harness 的价值：把“好工程师会皱眉”的地方，尽量变成机器会报警的地方。</p>
+<p>这不是说 AI review 没价值。它能补 computational sensor 看不到的语义判断。</p>
+<p>只是别让一个会飘的判断，替代一个本来可以确定执行的检查。</p>
+<p>这句话很土，但很好用：</p>
+<p>能跑的，就不要靠猜。</p>
+<h2 id="顺手补一刀：harnessability"><a href="#顺手补一刀：harnessability" class="headerlink" title="顺手补一刀：harnessability"></a>顺手补一刀：harnessability</h2><p>讲到这里要插一个边界澄清。</p>
+<p>不是所有代码库都同样好治。有的项目你刚把 harness 接上去，sensor 立刻就能咬住代码；有的项目你装一圈下来，规则跑不动、报警全是噪音、agent 改两行就触发连锁反应。</p>
+<p>这件事其实有个名字：<strong>harnessability</strong>——一个代码库被 harness 工程驯服的难易程度。它是 testability 的孪生兄弟。</p>
+<p>提升 harnessability 的因素，和提升 testability 的因素高度重合：强类型、清晰模块边界、有约束的框架、规范化目录结构、声明式配置。</p>
+<p>这里有一条让人不太舒服的推论：<strong>最该上 agent 的烂摊子，harnessability 往往最低</strong>。遗留代码、隐式耦合、跨层乱穿、配置散落各处的项目，恰恰是最想让 agent 帮忙啃的，也是最难给它套 harness 的。</p>
+<p>所以 harness engineering 不止是「给现在的项目加护栏」。它还反过来要求我们写新代码时，留出能被治理的形状。</p>
+<p>不然 harness 装得再多，也只是装在沙地上。</p>
+<h2 id="从真实配置里能看出的几件事"><a href="#从真实配置里能看出的几件事" class="headerlink" title="从真实配置里能看出的几件事"></a>从真实配置里能看出的几件事</h2><p>前面讲的都是机制。我们落地一下——把 Claude Code、Codex、OpenCode 这些工具的 power-user 配置摊开来看，会反复看到几个共同模式。这些模式跟具体工具关系不大，可以直接拿来做工程纪律。</p>
+<p><strong>第一，项目指令越长越没人看，于是被拆成「短入口 + 按需加载」。</strong></p>
+<p>根目录那份指令文件（叫 <code>CLAUDE.md</code> 也好，叫 <code>AGENTS.md</code> 也好）只放快事实、硬规则、和一张「什么时候去翻哪份详细规程」的路由表。详细规程下沉到一个 skills &#x2F; commands &#x2F; prompts 目录里，按 keyword、路径、文件内容自动激活。一份大而全的指令文件没人维护得动，三个月就开始撒谎；短入口加分层规程才扛得住时间。</p>
+<p><strong>第二，「靠模型自觉调用规则」是不可靠的，于是用生命周期事件硬激活。</strong></p>
+<p>你写在指令文件里的「请你写代码前先看一下 X」，模型有时候看，有时候忘。靠谱的做法是在用户输入提交那一刻，由代码（不是模型）判断这次请求是不是命中某条规则，命中就把对应内容硬塞进上下文。这一步从「请模型帮忙」变成了「不允许模型不看」。</p>
+<p><strong>第三，权限不是劝告，是声明。</strong></p>
+<p>「请小心不要 rm -rf」是没用的。可用的是一份白名单：bash 只允许这几个前缀、写文件只允许这几个目录、<code>.env</code> 一律 deny、main 分支禁止 commit。这份白名单越具体越好，模糊的「请你判断一下安不安全」基本等于没设。</p>
+<p><strong>第四，行动后 sensor 的失败信号，必须能回灌到 agent。</strong></p>
+<p>只是把 lint 报错打印到终端没用——agent 看不到，也就不会自己修。可用的做法是，在工具调用之后跑 formatter &#x2F; typecheck &#x2F; 相关测试，把 stderr 喂回给 agent，让它自己看到、自己修。这一步把「人去 review agent 的输出」转成了「agent 自己被自己刚刚搞坏的东西打脸」。</p>
+<p><strong>第五，上下文压缩之前要主动存盘。</strong></p>
+<p>长会话总会撞上 context limit。如果不在压缩之前把当前计划、已经做的决定、还没解决的 blocker 写到外部文件里，下一轮 agent 醒来就只剩一份它自己生成的、可能已经失真的总结。可用的做法是：压缩前 hook 触发一次「快照写盘」，下一轮启动时再把它读回来。</p>
+<p><strong>第六，一个 agent 不该什么都干。</strong></p>
+<p>让同一个上下文同时负责探索代码、修改代码、review 自己的修改、再 debug 自己的 bug，会出现一种很微妙的失败：它会下意识维护「我刚才那个判断是对的」。把这些角色拆给不同的 subagent &#x2F; role，每个角色拿到干净上下文，互相不背包袱，重复错误明显减少。</p>
+<p>这六件事，没有一件是某个工具独有的。Claude 的 hook、Codex 的 lifecycle dispatcher、OpenCode 的 plugin point，名字不同，做的就是这几件事。</p>
+<p>换句话说：你换工具，但你不换纪律。</p>
+<h2 id="为什么单一规则治不住-agent？"><a href="#为什么单一规则治不住-agent？" class="headerlink" title="为什么单一规则治不住 agent？"></a>为什么单一规则治不住 agent？</h2><p>这里可以借一下 Ashby 的必要多样性定律。</p>
+<p>W. Ross Ashby 在 <em>An Introduction to Cybernetics</em> 里那句常被引用的话是：</p>
+<blockquote>
+<p>Only variety can destroy variety.</p>
+</blockquote>
+<p>直觉版本是：对手有多少种变化，你的应对也得有足够多的变化。否则你不是在控制系统，你是在许愿。</p>
+<p>Agent 的输出空间很大。它可以从十种路径读文件，用十种方式改代码，用十种理由解释自己为什么这么做。你只写一条“请保持代码质量”，基本没什么用。</p>
+<p>那怎么办？两条路。</p>
+<p>第一，增加治理器的多样性。也就是把 harness 做成组合：项目指令、分层规程、行动前 gate、行动后 sensor、权限边界、专门角色 agent、外部验证器。</p>
+<p>第二，减少被治理对象的多样性。也就是不要让 agent 每次都从无限可能里自由发挥，而是给它 topology：这个项目是 CRUD service、data dashboard、event processor，还是 internal admin tool？每种拓扑有自己的 guides 和 sensors。</p>
+<p>这也是 harness template 值得单独拎出来的地方。它不是模板代码那么简单，而是在收窄 agent 的输出形态。</p>
+<p>不是让模型更聪明。</p>
+<p>是让战场更可控。</p>
+<h2 id="不过再想一下：harness-本身谁来测？"><a href="#不过再想一下：harness-本身谁来测？" class="headerlink" title="不过再想一下：harness 本身谁来测？"></a>不过再想一下：harness 本身谁来测？</h2><p>到这里，很多团队会自然走向一个方案：那就多加规则吧。</p>
+<p>多写几个项目指令，多配几个 hooks，多跑几个检查，多接一个 AI reviewer。</p>
+<p>这有用，但它会带来一个新问题：harness 自己也会腐烂。</p>
+<p>50 条规则里，有多少真的拦过错？</p>
+<p>20 个 sensor 里，哪些在漏报？哪些在误报？</p>
+<p>两个 guide 互相打架的时候，agent 听谁的？</p>
+<p>一个 hook 一年没触发，是因为团队做得好，还是因为规则已经过时？</p>
+<p>这才是 harness engineering 最容易被忽略、但最值钱的一层：它不只是“给 agent 加更多护栏”，而是要继续往上一层问：</p>
+<p>我们怎么知道这些护栏有用？</p>
+<p>这很像测试的测试。</p>
+<p>代码测试有 coverage，有 mutation testing。那 harness 能不能也有类似的东西？</p>
+<ul>
+<li><strong>规则覆盖率</strong>：每条规则有没有一个反例 fixture，证明它真的能拦下违规？</li>
+<li><strong>sensor 召回率 &#x2F; 精确率</strong>：故意植入已知问题，看哪些 sensor 抓到了，哪些漏了，哪些乱报。</li>
+<li><strong>触发频率分布</strong>：一年没响过的规则，要么项目完美，要么规则已经死了。通常不是前者。</li>
+<li><strong>冲突检测</strong>：guides 之间有没有互相矛盾？</li>
+<li><strong>修复有效性</strong>：sensor 报错以后，agent 自我修正成功率是多少？</li>
+</ul>
+<p>这一步很 meta。</p>
+<p>但工程里最容易坏掉的，往往就是那些“大家以为它还在工作”的东西。</p>
+<h2 id="工具只是映射，不是主语"><a href="#工具只是映射，不是主语" class="headerlink" title="工具只是映射，不是主语"></a>工具只是映射，不是主语</h2><p>最后落到工具。</p>
+<p>我不太想把这篇写成具体工具对比。那会很快过期，也会把问题讲窄。</p>
+<p>更稳的方式是先用通用机制，再在括号里映射到具体工具。</p>
+<table>
+<thead>
+<tr>
+<th>通用机制</th>
+<th>它做什么</th>
+<th>典型生命周期点</th>
+<th>常见落点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>项目指令</td>
+<td>给 agent 前馈约束、项目事实、风格边界</td>
+<td>会话开始 &#x2F; 用户输入提交</td>
+<td><code>CLAUDE.md</code>、<code>AGENTS.md</code>、rules &#x2F; instructions</td>
+</tr>
+<tr>
+<td>分层规程</td>
+<td>把长规则拆成按需加载的领域规程</td>
+<td>用户输入提交（按 keyword &#x2F; 路径触发）</td>
+<td>skills、commands、prompt files</td>
+</tr>
+<tr>
+<td>行动前 gate</td>
+<td>在写文件、跑命令、访问敏感路径前阻断或询问</td>
+<td>工具调用之前</td>
+<td>hooks、permissions、approval rules</td>
+</tr>
+<tr>
+<td>行动后 sensor</td>
+<td>工具调用后跑格式化、typecheck、test、审计</td>
+<td>工具调用之后</td>
+<td>hooks、CI、local scripts</td>
+</tr>
+<tr>
+<td>权限边界</td>
+<td>限制工具、目录、命令、外部访问</td>
+<td>工具调用之前（声明式静态约束）</td>
+<td>sandbox、permissions、allow &#x2F; deny rules</td>
+</tr>
+<tr>
+<td>专门角色 agent</td>
+<td>把探索、review、debug、执行拆给不同角色</td>
+<td>任务分发时</td>
+<td>subagents、agents、orchestrators</td>
+</tr>
+<tr>
+<td>持久状态</td>
+<td>保存计划、决策、blocker、跨 session 教训</td>
+<td>上下文压缩之前 &#x2F; 会话结束</td>
+<td>progress files、memory、compaction preservation</td>
+</tr>
+<tr>
+<td>外部验证器</td>
+<td>用确定性工程工具治理输出</td>
+<td>工具调用之后 + CI 门禁</td>
+<td>lint、typecheck、test、contract test、mutation test</td>
+</tr>
+</tbody></table>
+<p>真实的 power-user 用法里，重点也不是“某工具支持某功能”，而是这些机制怎么组合：短项目指令负责定边界，分层规程负责装经验，行动前 gate 负责硬阻断，行动后 sensor 负责把失败信号回灌，持久状态负责保存已经踩过的坑。</p>
+<p>这些都是 harness。</p>
+<p>不是因为它们叫同一个名字，而是因为它们在做同一件事：把重复出现的工程判断，变成下一次自动生效的结构。</p>
+<p>所以 hooks 是什么？</p>
+<p>它不是 harness 本身。它更像 harness 的行动现场：agent 真要动手时，在那里拦一下；动完手后，在那里查一下；上下文要丢之前，在那里存一下。</p>
+<p>我们要抽象的是共性：行动前 gate、行动后 sensor、上下文 preservation。</p>
+<p>但“什么是好代码”“这个项目边界在哪里”“这次该走哪条 workflow”，这些不该都塞进 hook 里。</p>
+<p>那会把 hook 变成新的泥球。</p>
+<h2 id="回到-craftsmanship"><a href="#回到-craftsmanship" class="headerlink" title="回到 craftsmanship"></a>回到 craftsmanship</h2><p><a target="_blank" rel="noopener" href="https://manifesto.softwarecraftsmanship.org/">Software Craftsmanship Manifesto</a> 里有一个很朴素的表达：不只是能工作的软件，还要 well-crafted software；不只是响应变化，还要 steadily adding value。</p>
+<p>AI agent 没有让这件事过时。</p>
+<p>它只是把问题重新摆到我们面前：当代码生成变得廉价，判断就必须变得更严格；当执行可以交给 agent，纪律就必须被外化、被验证、被维护。</p>
+<p>所以 harness engineering 不是给 AI coding 镀一层新名词。</p>
+<p>它更像 software craftsmanship 在 AI 时代的一次搬家。</p>
+<p>以前纪律住在人身上。</p>
+<p>现在，它也得住在系统里。</p>
+<p>而且这套系统不能只被信任。</p>
+<p>它也要被测试。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>Birgitta Böckeler, <a target="_blank" rel="noopener" href="https://martinfowler.com/articles/harness-engineering.html">Harness engineering for coding agent users</a></li>
+<li>Chad Fowler, <a target="_blank" rel="noopener" href="https://aicoding.leaflet.pub/3mbrvhyye4k2e">Relocating Rigor</a></li>
+<li>W. Ross Ashby, <a target="_blank" rel="noopener" href="http://pespmc1.vub.ac.be/books/IntroCyb.pdf">An Introduction to Cybernetics</a></li>
+<li><a target="_blank" rel="noopener" href="https://manifesto.softwarecraftsmanship.org/">Manifesto for Software Craftsmanship</a></li>
+</ul>
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10/dist/style.css"><script src="https://fastly.jsdelivr.net/npm/d3@7"></script><script src="https://fastly.jsdelivr.net/npm/markmap-view@0.18.10"></script><script src="https://fastly.jsdelivr.net/npm/markmap-toolbar@0.18.10"></script>
+<link rel="stylesheet" href="/css/markmap.css">
+
+<script src="/js/markmap.js"></script>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>崔鹏飞
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://cuipengfei.is-a.dev/blog/2026/05/05/harness-engineering-craftsmanship/" title="Harness Engineering：把纪律搬到模型外面">https://cuipengfei.is-a.dev/blog/2026/05/05/harness-engineering-craftsmanship/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/testing/" rel="tag"><i class="fa fa-tag"></i> testing</a>
+              <a href="/tags/ai-agents/" rel="tag"><i class="fa fa-tag"></i> ai-agents</a>
+              <a href="/tags/harness-engineering/" rel="tag"><i class="fa fa-tag"></i> harness-engineering</a>
+              <a href="/tags/software-craftsmanship/" rel="tag"><i class="fa fa-tag"></i> software-craftsmanship</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2026/04/21/copilot-session-weekly-rate-limit-headers/" rel="prev" title="GitHub Copilot 的 session &#x2F; weekly rate limit header">
+                  <i class="fa fa-angle-left"></i> GitHub Copilot 的 session / weekly rate limit header
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">崔鹏飞</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">427k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">6:28</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/cuipengfei" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"cuipengfeioctopressblog","count":true,"lazyload":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js" defer></script>
+
+</body>
+</html>

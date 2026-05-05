@@ -180,7 +180,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-count">188</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -190,7 +190,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">108</span>
+        <span class="site-state-item-count">111</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -227,6 +227,115 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://cuipengfei.is-a.dev/blog/2011/08/23/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects5%20-%20Empty/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/favicon-32x32-next.png">
+      <meta itemprop="name" content="崔鹏飞">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="崔鹏飞的Blog">
+      <meta itemprop="description" content="专注分布式系统、函数式编程、测试与架构实践的技术博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | 崔鹏飞的Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/blog/2011/08/23/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects5%20-%20Empty/" class="post-title-link" itemprop="url">自己动手重新实现LINQ to Objects 5 - Empty</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2011-08-23 23:41:53" itemprop="dateCreated datePublished" datetime="2011-08-23T23:41:53+08:00">2011-08-23</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2011/08/23/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects5%20-%20Empty/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2011/08/23/自己动手重新实现LINQ to Objects5 - Empty/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>本文翻译自  <a target="_blank" rel="noopener" href="http://stackoverflow.com/users/22656/jon-skeet"> Jon Skeet  </a> 的系列博文”Edulinq”。</p>
+<p>本篇原文地址：</p>
+<p><a target="_blank" rel="noopener" href="http://msmvps.com/blogs/jon_skeet/archive/2010/12/24/reimplementing-linq-to-objects-part-5-empty.aspx">http://msmvps.com/blogs/jon_skeet&#x2F;archive&#x2F;2010&#x2F;12&#x2F;24&#x2F;reimplementing-linq-to-objects-part-5-empty.aspx</a>这一篇继续讲非扩展方法。这次我们要讲的是  Empty  ，它有可能是最简单的  LINQ  操作符了。</p>
+<h1 id="Empty-是什么？"><a href="#Empty-是什么？" class="headerlink" title="Empty  是什么？"></a>Empty  是什么？</h1><p><a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/bb341042.aspx"> Empty  </a><br>是一个泛型的，静态的方法，它只有一个签名形式，不接受任何参数：  </p>
+<p>public  static  IEnumerable<tresult> Empty<tresult>()  </tresult></tresult></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2011/08/23/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E9%87%8D%E6%96%B0%E5%AE%9E%E7%8E%B0LINQ%20to%20Objects5%20-%20Empty/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -2904,120 +3013,6 @@ public static void TestMethod(int parameter = 5)
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://cuipengfei.is-a.dev/blog/2009/09/10/Words%20Via%20Subtitle%E7%9A%84%E4%B8%A4%E7%82%B9%E6%94%B9%E8%BF%9B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/favicon-32x32-next.png">
-      <meta itemprop="name" content="崔鹏飞">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="崔鹏飞的Blog">
-      <meta itemprop="description" content="专注分布式系统、函数式编程、测试与架构实践的技术博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | 崔鹏飞的Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/blog/2009/09/10/Words%20Via%20Subtitle%E7%9A%84%E4%B8%A4%E7%82%B9%E6%94%B9%E8%BF%9B/" class="post-title-link" itemprop="url">Words Via Subtitle的两点改进</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2009-09-10 15:12:00" itemprop="dateCreated datePublished" datetime="2009-09-10T15:12:00+08:00">2009-09-10</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/2009/09/10/Words%20Via%20Subtitle%E7%9A%84%E4%B8%A4%E7%82%B9%E6%94%B9%E8%BF%9B/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="blog/2009/09/10/Words Via Subtitle的两点改进/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>534</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>上周写了一个<br><a target="_blank" rel="noopener" href="http://blog.csdn.net/cuipengfei1/archive/2009/09/03/4516588.aspx"> 通过英文剧集、电影学单词的小工具</a><br>，这几天又做了一点小的改进。主要是下面这两点：</p>
-<ol>
-<li>显示单词解释的同时显示其在剧中出现的语境，关键单词红色显示。效果如下：</li>
-</ol>
-<p><img data-src="/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090910/jietu01.jpg"></p>
-<ol start="2">
-<li>导出文档。可以把列表中的单词，其简明解释和在剧中出现的语境保存到文档中。关键词开头绿色显示，例句中红色显示。效果如下：</li>
-</ol>
-<p><img data-src="/images/images/p_blog_csdn_net/cuipengfei1/EntryImages/20090910/jietu02.jpg"></p>
-<p>为什么要写这个功能呢？因为九月中下旬有很多美剧要回归，包括  TBBT  ，  Lie to me  ，  Heroes  ，  Fringe  。到时候每<br>一集出来之后可以用这个程序迅速的把一集中出现的生词，其音标及解释还有语境总结出来。可以把它发到博客里，或者发到美剧对应的社区或者贴吧里去，会比一般的影迷手工<br>总结的快很多。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/2009/09/10/Words%20Via%20Subtitle%E7%9A%84%E4%B8%A4%E7%82%B9%E6%94%B9%E8%BF%9B/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
@@ -3042,14 +3037,14 @@ public static void TestMethod(int parameter = 5)
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">420k</span>
+    <span title="站点总字数">427k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:22</span>
+    <span title="站点阅读时长">6:28</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

@@ -1,3 +1,4 @@
+https://cuipengfei.is-a.dev/blog/2026/05/05/harness-engineering-craftsmanship/
 https://cuipengfei.is-a.dev/blog/2026/04/21/copilot-session-weekly-rate-limit-headers/
 https://cuipengfei.is-a.dev/blog/2026/03/30/kanban-worktree-future-of-ide/
 https://cuipengfei.is-a.dev/blog/2026/03/01/everything-is-context/
@@ -296,6 +297,9 @@ https://cuipengfei.is-a.dev/tags/kanban/
 https://cuipengfei.is-a.dev/tags/worktree/
 https://cuipengfei.is-a.dev/tags/agentic-coding/
 https://cuipengfei.is-a.dev/tags/vibe-coding/
+https://cuipengfei.is-a.dev/tags/ai-agents/
+https://cuipengfei.is-a.dev/tags/harness-engineering/
+https://cuipengfei.is-a.dev/tags/software-craftsmanship/
 https://cuipengfei.is-a.dev/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/
 https://cuipengfei.is-a.dev/categories/AI/
 https://cuipengfei.is-a.dev/categories/%E6%8A%80%E6%9C%AF%E6%80%9D%E8%80%83/AI/
