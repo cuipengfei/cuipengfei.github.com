@@ -22,8 +22,9 @@ Keep this managed block so 'openspec update' can refresh the instructions.
 本仓库当前采用 Hexo + NexT（legacy Octopress/Jekyll 仅保留参考，不再主动维护）。目标：最小变更、可重复构建、内容与写作风格一致。修改前请先阅读；字数控制以便快速记忆。
 
 ## Project Structure
-- Core: `_config.yml` (站点)，`_config.next.yml` / `themes/next-old/_config.yml` (主题)。
-- Optional override: `source/_data/next.yml` / `source/_data/*.swig|*.styl`。
+- Core: `_config.yml` (站点)，`_config.next.yml`（NexT 主题用户配置，merge 模式覆盖默认值）。
+- 当前 `_config.yml` 中 `theme: next`，实际加载的是 npm 包 `hexo-theme-next`（位于 `node_modules/hexo-theme-next/`）。仓库根的 `themes/next-old/` 是历史副本，目前**未被构建使用**，仅作参考。
+- Optional override: `source/_data/*.swig|*.styl`（通过 NexT `custom_file_path` 注入；如需覆盖更多主题变量可再新增 `source/_data/next.yml`）。
 - Content: `source/_posts/`, `source/_drafts/`(草稿), `source/images/`, `source/javascripts/`, `source/assets/`。
 - Slides: 文章 front matter `slidehtml: true` 生成 Reveal.js 页面 `.../slide.html`。
 - Output (只读): `public/` (生成)，`.deploy_git/` (部署缓存)。
@@ -35,14 +36,10 @@ bun run clean        # hexo clean
 bun run build        # hexo generate
 bun run server       # 预览 (http://localhost:4000)
 bun run deploy       # 构建+部署 (hexo-deployer-git)
+bun run new:post "Title"   # 新建文章
+bun run new:page "Name"    # 新建页面
 ```
-推荐在 package.json 添加脚本:
-```json
-"scripts": {
-  "new:post": "hexo new post"
-}
-```
-然后统一使用 `bun run new:post "Title"` 创建文章。禁止使用 `npm` / `yarn` / `pnpm` / `npx` / 直接调用 `hexo` 二进制（保持环境一致）。变更主题/配置后先 `bun run clean` 再 build。
+`new:post` / `new:page` 脚本已存在于 `package.json`。禁止使用 `npm` / `yarn` / `pnpm` / `npx` / 直接调用 `hexo` 二进制（保持环境一致）。变更主题/配置后先 `bun run clean` 再 build。
 
 ## Coding & Naming
 - Post 文件: `YYYY-MM-DD-slug.md`（slug 小写短横线）。
@@ -63,7 +60,7 @@ bun run deploy       # 构建+部署 (hexo-deployer-git)
 - 关联 Issue: `Closes #id`；保持单一主题。
 
 ## Configuration & Theme
-- 主题改动优先通过 `source/_data/next.yml` 与 custom_file_path；仅在无法覆盖时再改主题文件。
+- 主题改动优先通过 `_config.next.yml`（merge 模式）与 `source/_data/*.swig|*.styl` + NexT `custom_file_path`；仅在无法覆盖时再考虑改主题源文件。
 - 性能：保持 `cache.enable=true`；配置大改后执行 clean。
 - 部署前检查 `deploy` 配置与站点 URL。
 
@@ -268,14 +265,15 @@ For more details, see README.md and QUICKSTART.md.
 
 ## Project Overview
 
-这是一个个人中文技术博客（cuipengfei.me），从 Octopress/Jekyll 演进到 Hexo。内容覆盖 Scala、函数式编程、测试方法学、架构模式等软件开发主题。
+这是一个个人中文技术博客，从 Octopress/Jekyll 演进到 Hexo。内容覆盖 Scala、函数式编程、测试方法学、架构模式等软件开发主题。
 
-- **Primary System**: Hexo (Node.js, v8.0.0)，从 `source/` 生成到 `public/`
+- **Primary System**: Hexo (Node.js, `^8.1.1`，详见 `package.json`)，从 `source/` 生成到 `public/`
 - **Legacy System**: Octopress/Jekyll（Ruby）保留作参考，不再维护
-- **Theme**: NexT for Hexo (`themes/next-old/`，v8.25.0，Gemini scheme + dark mode)
+- **Theme**: NexT for Hexo（npm 包 `hexo-theme-next` `^8.27.0`，由 `_config.yml` 中 `theme: next` 指定加载）。`themes/next-old/` 是仓库内历史副本，未被当前构建使用。
 - **Package Manager**: Bun（强制、独占）
 - **Deployment**: GitHub Pages via `hexo-deployer-git`，目标 `master` 分支
-- **Site URL**: `https://cuipengfei.me`，`language: zh-CN`，permalink `blog/:year/:month/:day/:title/`，每页 25 篇
+- **Site URL**: `https://cuipengfei.is-a.dev`（见 `_config.yml`），`language: zh-CN`，permalink `blog/:year/:month/:day/:title/`，每页 25 篇
+- **部署仓库**: `https://github.com/cuipengfei/cuipengfei.github.com.git`，分支 `master`
 
 ### Legacy & Reference Files
 - `themes/`：Hexo 主题（含 NexT）
@@ -288,20 +286,23 @@ For more details, see README.md and QUICKSTART.md.
 ## Key Plugins & Dependencies
 
 - `hexo-deployer-git`：GitHub Pages 部署
-- `hexo-generator-*`：archive / category / tag / feed / sitemap / searchdb
+- `hexo-generator-*`：index / archive / category / tag / feed / sitemap / baidu-sitemap / searchdb
+- `hexo-renderer-*`：marked / stylus / ejs
 - `hexo-generator-slidehtml` (v0.0.65)：Reveal.js 幻灯片
 - `hexo-markmap`：思维导图
 - `hexo-graphviz`：Graphviz 图表
 - `hexo-excerpt`：自动摘要
-- `hexo-related-popular-posts`：相关文章推荐
+- `hexo-related-posts`：相关文章推荐
 - `hexo-symbols-count-time`：阅读时长 / 字数
-- 其他依赖：Axios v1.12.2
+- 其他依赖：`axios` `^1.16.0`、`markdown-link-extractor` `^4.0.3`
+
+权威清单以 `package.json` 为准，本节为概览，可能滞后。
 
 ## SEO & Social Integration
 
-- 自动生成 `sitemap.xml`、`atom.xml`
+- 自动生成 `sitemap.xml`（`hexo-generator-sitemap`）、百度 sitemap（`hexo-generator-baidu-sitemap`）、`atom.xml`（`hexo-generator-feed`）
 - 百度推送优化、Google Analytics（UA-46270419-1）
-- Disqus 评论
+- Disqus 评论：`_config.next.yml` 中存在配置块但 `shortname` 当前为空，是否启用以站点实际行为为准（**未验证**）
 - GitHub 作者信息与社交分享内置
 
 ## Content Guidelines & Writing Style
@@ -353,13 +354,13 @@ For more details, see README.md and QUICKSTART.md.
 
 ## Theme Customization Strategy
 
-主题改动优先通过 `source/_data/next.yml` 与 `custom_file_path` 完成；仅在无法覆盖时才动 `themes/next-old/_config.yml`。这样能：
+主题改动优先通过 `_config.next.yml`（NexT 用户配置，merge 模式）与 `source/_data/*.swig|*.styl` 配合 NexT `custom_file_path` 完成；仅在无法覆盖时才考虑修改 `node_modules/hexo-theme-next/` 内的主题源文件（不推荐，会被重装覆盖）。这样能：
 - 保留升级兼容性
 - 把自定义与主题核心解耦
 - 仅对自定义部分做版本控制
 
 自定义模板与样式：
-- `source/_data/head.swig`、`source/_data/footer.swig`：自定义模板片段
+- `source/_data/head.swig`、`source/_data/footer.swig`：当前已注入（见 `_config.next.yml` 的 `custom_file_path`）
 - `source/_data/*.swig`：模板扩展
 - `source/_data/*.styl`：自定义样式
 
