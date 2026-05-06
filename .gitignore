@@ -11,3 +11,5 @@ public/
 tmp/jvm-languages-demo/target/classes/com/example/bridges/
 *.class
 tmp/jvm-languages-demo/target/
+.opencode/package-lock.json
+.sisyphus/run-continuation/ses_2029019b8ffeupvAOiUvqW3T0B.json
